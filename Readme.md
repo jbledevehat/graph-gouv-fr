@@ -2,7 +2,7 @@
 
 Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère.
 
-![Logo](./SitesWebGouvFr/SitesWebGouvFr.jpeg)
+![Logo](./SitesWebGouvFr/SitesWebGouvFr2.jpeg)
 
 ## Représentations 
 
@@ -12,6 +12,7 @@ Les objets réprésentés sont :
 - Les services en ligne (en rouge)
 - Les ministères ou directions administratives (en jaune)
 - Le Président de la République française et le Premier ministre sont qualifé sous le type "Person" (en bleu)
+- **Autour du graph (en rose) nous avons les sites et services en ligne qui sont des noms de domaine en `.gouv.fr` encore non-identifié**
 
 ## Publications web
 
