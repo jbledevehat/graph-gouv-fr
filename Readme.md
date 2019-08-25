@@ -2,7 +2,7 @@
 
 Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère.
 
-![Logo](./SiteWebGouvFr/SiteWebGouvFr.jpeg)
+![Logo](./SitesWebGouvFr/SitesWebGouvFr.jpeg)
 
 ## Représentations 
 
@@ -19,7 +19,7 @@ Cette représentation est accessible sur KUMU à l'adresse suivante :
 
 **[https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)**
 
-Les données ont été retraité et sont accessible dans **[ce fichier d'import KUMU](Import-KUMU-SitesWeb-AdministrationsPubliques.xlsx)**
+Les données ont été retraité et sont accessible dans **[ce fichier d'import KUMU](/Data/Import-KUMU-SitesWeb-AdministrationsPubliques.xlsx)**
 
 ## Contributions sur ce dépôt
 
