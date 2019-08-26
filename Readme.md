@@ -6,13 +6,14 @@ Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub g
 
 ## Représentations 
 
-Les objets réprésentés sont :
+Les objets représentés sont :
 - Les sites web (en vert)
 - Les sous-domaines de ces sites-web (en orange)
 - Les services en ligne (en rouge)
 - Les ministères ou directions administratives (en jaune)
-- Le Président de la République française et le Premier ministre sont qualifé sous le type "Person" (en bleu)
-- **Autour du graph (en rose) nous avons les sites et services en ligne qui sont des noms de domaine en `.gouv.fr` encore non-identifié**
+- Le Président de la République française et le Premier ministre sont qualifiés sous le type "Person" (en bleu)
+- **Autour du graph (en noir) nous avons les sites et services en ligne qui sont des noms de domaine en `.gouv.fr` encore non-identifié**
+- Les sites web off ou archivés (en rose)
 
 ## Publications web
 
