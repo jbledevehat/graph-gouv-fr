@@ -1,6 +1,6 @@
-# Représentation des sites web en .gouv.fr
+# Représentation en *graph* des sites web en .gouv.fr
 
-Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère.
+Suite à la liste des sites web en `.gouv.fr` générée sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère et autres administrations (déconcentrées).
 
 ![Logo](./SitesWebGouvFr/SitesWebGouvFr.jpeg)
 
@@ -12,12 +12,12 @@ Les objets représentés sont :
 - Les services en ligne (en rouge)
 - Les ministères ou directions administratives (en jaune)
 - Le Président de la République française et le Premier ministre sont qualifiés sous le type "Person" (en bleu)
-- **Autour du graph (en noir) nous avons les sites et services en ligne qui sont des noms de domaine en `.gouv.fr` encore non-identifié**
+- **Autour du graph (en noir) nous avons les sites et services en ligne qui sont des noms de domaine en `.gouv.fr` encore non-identifié** (travail en cours)
 - Les sites web off ou archivés (en rose)
 
 ## Publications web
 
-Cette représentation est accessible sur KUMU à l'adresse suivante : 
+Cette représentation est accessible sur l'application *KUMU* à l'adresse suivante : 
 
 **[https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)**
 
