@@ -2,7 +2,7 @@
 
 Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère.
 
-![Logo](./SitesWebGouvFr/SitesWebGouvFr2.jpeg)
+![Logo](./SitesWebGouvFr/SitesWebGouvFr.jpeg)
 
 ## Représentations 
 
