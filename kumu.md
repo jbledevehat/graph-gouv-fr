@@ -1,6 +1,6 @@
 # Représentation des sites web en `.gouv.fr`
 
-Suite à la liste des sites web en `.gouv.fr` généré sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère. Nous nous sommes également appuyé sur la liste du [**top 250** des démarches administratives](https://www.numerique.gouv.fr/actualites/qualite-des-services-numeriques-deux-nouveaux-outils-pour-suivre-lavancee-de-la-dematerialisation-et-recueillir-lavis-des-usagers/) et la [liste des sites en .gouv.fr datant de 2014](https://www.data.gouv.fr/fr/datasets/listes-des-sites-gouv-fr/).
+Suite à la liste des sites web en `.gouv.fr` générée sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère et administrations (déconcentrées). Nous nous sommes également appuyé sur la liste du [**top 250** des démarches administratives](https://www.numerique.gouv.fr/actualites/qualite-des-services-numeriques-deux-nouveaux-outils-pour-suivre-lavancee-de-la-dematerialisation-et-recueillir-lavis-des-usagers/) et la [liste des sites en .gouv.fr datant de 2014](https://www.data.gouv.fr/fr/datasets/listes-des-sites-gouv-fr/).
 
 ## Dépôt GitHub
 
