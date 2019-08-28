@@ -22,9 +22,9 @@ Cette représentation est accessible sur l'application *KUMU* à l'adresse suiva
 
 **[https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)**
 
-Les données ont été retraitées et sont accessible dans **[ce fichier d'import KUMU](/Data/Import-KUMU-SitesWeb-AdministrationsPubliques.xlsx)** et sont publiées sur un [jeu de donné sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/listes-des-sites-et-services-web-en-gouv-fr/)
+Les données ont été retraitées et sont accessible dans **[ce fichier d'import KUMU](/Data/Import-KUMU-SitesWeb-AdministrationsPubliques.xlsx)** et sont publiées sur un [jeu de données sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/listes-des-sites-et-services-web-en-gouv-fr/)
 
-Les [noms de domaines considérés comme (possiblement) inutile (Off) sont listés dans le fichier contenant les noms de domaines en `gouv.fr` de l'AFNIC de Juillet 2019](/Data/AFNIC-gouvfr-201907.xlsx).
+Les [noms de domaines considérés comme (possiblement) inutile/inutilisé sont listés dans le fichier contenant les noms de domaines en `gouv.fr` de l'AFNIC de Juillet 2019](/Data/AFNIC-gouvfr-201907.xlsx).
 
 ## Contributions sur ce dépôt
 
