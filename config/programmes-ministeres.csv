@@ -1,0 +1,59 @@
+programme,ministere
+# Programme budgétaire (LOLF) chef de file d'un opérateur -> ministère de tutelle (intitulé actuel
+# de l'Annuaire de l'administration). Sert à relier les opérateurs de l'État à leur ministère.
+# À mettre à jour après chaque remaniement ou à chaque nouveau PLF.
+102,Ministère du Travail et des Solidarités
+103,Ministère du Travail et des Solidarités
+104,Ministère de l'Intérieur
+107,Ministère de la Justice
+111,Ministère du Travail et des Solidarités
+112,Ministère de l’Aménagement du Territoire et de la Décentralisation
+113,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+124,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+129,Premier ministre
+131,Ministère de la Culture
+134,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+135,Ministère de la Ville et du Logement
+138,Ministère des Outre-mer
+142,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+144,Ministère des Armées et des Anciens combattants
+148,Ministère de l'Action et des Comptes publics
+149,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+150,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+155,Ministère du Travail et des Solidarités
+159,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+161,Ministère de l'Intérieur
+163,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+166,Ministère de la Justice
+169,Ministère des Armées et des Anciens combattants
+172,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+174,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+175,Ministère de la Culture
+176,Ministère de l'Intérieur
+178,Ministère des Armées et des Anciens combattants
+181,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+185,Ministère de l'Europe et des Affaires étrangères
+190,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+192,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+193,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+197,Ministère des Transports
+203,Ministère des Transports
+204,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+205,Ministère des Transports
+206,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+212,Ministère des Armées et des Anciens combattants
+214,Ministère de l'Éducation nationale
+215,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+216,Ministère de l'Intérieur
+217,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+219,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+224,Ministère de la Culture
+231,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+303,Ministère de l'Intérieur
+310,Ministère de la Justice
+334,Ministère de la Culture
+354,Ministère de l'Intérieur
+361,Ministère de la Culture
+385,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+613,Ministère des Transports
+753,Ministère de l'Intérieur

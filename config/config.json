@@ -1,0 +1,40 @@
+{
+  "kumu": {
+    "project": "jbledevehat/sites-web-gouvfr",
+    "map": "liste-des-sites-web-en-gouvfr-v1"
+  },
+  "sources": {
+    "dinum": "https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public/-/raw/master/domains.csv",
+    "annuaire": {
+      "url": "https://api-lannuaire.service-public.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration",
+      "excludeTypes": [
+        "Ordre professionnel",
+        "Association d'utilité publique",
+        "Ambassade ou mission diplomatique",
+        "Collectivité locale",
+        "Syndicat mixte",
+        "Établissement d'enseignement",
+        "Institution européenne"
+      ]
+    },
+    "operateurs": "https://static.data.gouv.fr/resources/projet-de-loi-de-finances-pour-2026-plf-2026-jaune-operateurs-de-letat-liste-des-operateurs-et-categories/20260113-145343/plf2026-jauneoperateurs.csv"
+  },
+  "check": {
+    "concurrency": 12,
+    "timeoutMs": 15000,
+    "userAgent": "Mozilla/5.0 (compatible; sites-gouv-fr/0.1; +https://kumu.io/jbledevehat/sites-web-gouvfr)",
+    "perIp": 1,
+    "perIpGapMs": 2000
+  },
+  "candidates": {
+    "suffix": "gouv.fr",
+    "includeSubdomains": false,
+    "excludePatterns": [
+      "^(api|mail|smtp|imap|pop|mx|autodiscover|autoconfig|webmail|vpn|ftp|sftp|ns\\d*|dns|ldap|sso|auth|cas|proxy|relay|lyncdiscover|sip|owa|exchange|cdn|static|assets|img|media)[.-]",
+      "(^|[.-])(test|tests|recette|rec|preprod|pre-prod|preproduction|staging|stg|dev|develop|demo|int|integration|qualif|qualification|formation|sandbox|uat|bac-a-sable)([.-]|\\d)"
+    ]
+  },
+  "site": {
+    "domain": "gouvfr.jbledevehat.fr"
+  }
+}

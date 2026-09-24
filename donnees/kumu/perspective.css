@@ -1,0 +1,18 @@
+@controls {
+  bottom {
+    filter {
+      target: element;
+      by: "element type";
+      as: dropdown;
+      multiple: true;
+      default: show-all;
+    }
+  }
+}
+
+@settings {
+  template: stakeholder;
+  element-color: categorize("Element Type", neon2);
+  element-scale: scale("Nb liens", 0.5, 6);
+}
+

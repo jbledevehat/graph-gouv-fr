@@ -1,1 +1,6 @@
+node_modules/
+donnees/sources/
+out/
+.DS_Store
+.claude/
 *.DS_Store
