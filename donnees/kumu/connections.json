@@ -1,0 +1,4811 @@
+[
+  {
+    "id": "conn-00Wae7V1",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-eIXUszd4",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-06XpibI7",
+    "from": "elem-FdndhbYP",
+    "to": "elem-TqoEGWZx",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-08ryfHug",
+    "from": "elem-YOZAQqd2",
+    "to": "elem-hZ6wvnMI",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-0B25Bnec",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-MgDRqvuc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-0LcFkow4",
+    "from": "elem-sn7S996O",
+    "to": "elem-YiWYxg1k",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-0PG5yuuu",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-IKKFED4i",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-0VUk6XT3",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-FdndhbYP",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-0zoFqXUl",
+    "from": "elem-sn7S996O",
+    "to": "elem-8z0kVrTK",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-1agtsquv",
+    "from": "elem-pyyim2hT",
+    "to": "elem-8N850t44",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-1eKQ6n61",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ap4kq5Oq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-1gacsaNG",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Tdsrir0d",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-1H6LQDyG",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-aBpIPPey",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-1qLkDse1",
+    "from": "elem-kIs2eFad",
+    "to": "elem-WBWfaIBJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-24alAuNL",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-Eq6QUnkT",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-2bg4Al5X",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-xMy1neNk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2CiJpOYe",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-KojHpRmY",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-2I4yHPCC",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-FKsztbE2",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-2l4dfH96",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-vvGPU3Qh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2LNyfKzz",
+    "from": "elem-dC2JKNu2",
+    "to": "elem-6xTJBENk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-2nKQTSrT",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-xDgUlEkO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2nM2K8ad",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-pxZuv3H1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2sKpHEhL",
+    "from": "elem-uByu0e98",
+    "to": "elem-GGt52qH8",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2svp5ymb",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-wU5eehvl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2uqGjFfL",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-riTYqbJF",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2VbrATQs",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-r2A24eVT",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2vjJkkVI",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-AU4QXg8S",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-2y9Jj096",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-c0GmolaK",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-31MY7Y8g",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-aWsCRsoG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-3271VkKi",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-JzUG17BV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-33QGOXST",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-IfMaTi4v",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-36V8yj06",
+    "from": "elem-pyyim2hT",
+    "to": "elem-NaqF3wH1",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-37gDGqb7",
+    "from": "elem-Th0WrKrW",
+    "to": "elem-RoHOlPPh",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-37IKMdQW",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-8xrkTifb",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-3a7mrlJr",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-gBUDvAfc",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-3EIgvRGF",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-9SvEk9sn",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-3J8IvSnP",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-gLpg04hk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-3l3995uG",
+    "from": "elem-FdndhbYP",
+    "to": "elem-Fm1DEsMP",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-3moO8Nfr",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-CDXpLWUq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-3sYCKSJm",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-Bx568sGO",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-3T0buJrW",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-JPtK6rPv",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-3V7oZbor",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-x4SsoM8s",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-3vnqgVfK",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-vrh0WBnu",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-44HiLimn",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-Ag4M986d",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-45C7oi8W",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-6IsmRjZ0",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-46EK8chR",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-9PKGHSmO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-4BlxVsCp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-wWoT00qB",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-4gNigKOB",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-5VYdRjfk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-4lCorPYu",
+    "from": "elem-n8YjxGww",
+    "to": "elem-2ftjuXxo",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-4NQ1iund",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-09UknaX4",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-4XcxZ6WK",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-p1I1GHno",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-4yyfxPxb",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-kSvHRTXT",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-4zWrlSE5",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-rCfqBDbq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-4ZznBqIz",
+    "from": "elem-I54SI2zP",
+    "to": "elem-gfXTz5J2",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-51pe3oJH",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-DcTMPlHY",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-52e8zZiL",
+    "from": "elem-8xrkTifb",
+    "to": "elem-d2SVbOf1",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-54ggoc7L",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-5zRtGwz5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-5BOvMoWx",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-3CjUAkzv",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-5K4wF6EK",
+    "from": "elem-txVmCRoU",
+    "to": "elem-wcp24hqJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-5sgkmXpY",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-DcdGwLMZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-5whrWHc0",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-d0ExupSg",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-5YDM8i4G",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-mGgZO1TY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-5Ypqp0Wx",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-LuQhIB8h",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-6CeW23zb",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-6IItOGQU",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-6gTXed6u",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-3eX3P1Ax",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-6Hh1SLWp",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ML7XJxlV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-6LRHlB8m",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-1C0sJJDz",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-6pgPYp7c",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-sa0YfZjE",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-6REQKQUO",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-FJEviGV7",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-6SnVG48b",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-mXWpeiGi",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-6VroMzzN",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-I54SI2zP",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-73ntB3UF",
+    "from": "elem-I54SI2zP",
+    "to": "elem-zkD9UlD9",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-7DGxP1G7",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-agHri5hp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-7dTbkX3M",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-LCFq3LeN",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-7hFI0C9c",
+    "from": "elem-pyyim2hT",
+    "to": "elem-TcsstG9l",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-7KosnO2a",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-a0YN6Qcy",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-7nfc8tdC",
+    "from": "elem-PbdizQw3",
+    "to": "elem-Nxtg4Tqw",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-7QDi6Ejo",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-oKQHzIch",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-7S21QYeK",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-qo4CXt5x",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-7tc1kQ4g",
+    "from": "elem-rEMCZcWs",
+    "to": "elem-8Z7Byl6u",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-7tM2Fbho",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-CzvYQpO1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-85KWRhQ2",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-TXWcXOyv",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-8byodx7u",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-W3hXlBIx",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-8fn3Pyzh",
+    "from": "elem-5JMPxJ44",
+    "to": "elem-X9lq3A7N",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-8hcrex57",
+    "from": "elem-kIs2eFad",
+    "to": "elem-6i7bP6E3",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-8tJBa6eK",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-e6d5tGK6",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-8uIu6vGi",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-6d7Egx1L",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-8xuhzlPb",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-cQNbpENg",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-9GAF8t6R",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-eVbN1sHK",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-9gUowAXl",
+    "from": "elem-I54SI2zP",
+    "to": "elem-2zLKb09b",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-9OdFbCVT",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-UGLwW7ce",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-9Vlvu3wU",
+    "from": "elem-TI54YkSD",
+    "to": "elem-WDB7phRj",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-9YpJ0obe",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-lG9VHBmV",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-a0dHzFPW",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-0PgsJeNZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-A2qqNJ0N",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-3MCjZdtx",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-A3kX52GN",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-pdLN50WN",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-abHPZmQG",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7N9NSCDe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ACgd8PCQ",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-JqnL1gqz",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ad52xCl8",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-WVEvbIpe",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-aDyv7uIP",
+    "from": "elem-sn7S996O",
+    "to": "elem-gNKDfyPn",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-aeFU1jZs",
+    "from": "elem-LCFq3LeN",
+    "to": "elem-tLFL2HKh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-AfVX562O",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-k9GjxBVO",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-aG1eG0KC",
+    "from": "elem-sn7S996O",
+    "to": "elem-5pse0IQQ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-AG2E3SrL",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-7s6XwzBZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ahyhvAf4",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-DnNvBixm",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-aIP8Lsfe",
+    "from": "elem-WDB7phRj",
+    "to": "elem-jMC5DKEE",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-AJk3r059",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-WyaHsVzf",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-aJYeNJU5",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-HobghVWs",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ajZ3VFP1",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-4VxsiXSD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-al2vb7To",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-7ektofpE",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-APhUPhjH",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-PYn7gdmX",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-APy5xGkK",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-7GucedHL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-aQ5cw7uM",
+    "from": "elem-GjwfnpOW",
+    "to": "elem-7bkDc5CO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-aSe10o4m",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-6vcaeHkM",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-AsObhxo5",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-JnQdIgxr",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-At2hUVxs",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-ErJTdOFR",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-ATag0chd",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-NtzBuJOx",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-aUHak058",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-wrp1QLcy",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-AuhBznGp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-YrFjCC8d",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-AvJmbE3x",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-Yx5jGO6y",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-avOv1jNW",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-xhCt7FBb",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-aW9EILmf",
+    "from": "elem-TI54YkSD",
+    "to": "elem-lX4rCucD",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-AxORjTSU",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-mlXVkA5U",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-b0mHSmSy",
+    "from": "elem-wGDMzNK5",
+    "to": "elem-6tJ4w5M6",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-B1oSlwLf",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-48r23sxI",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-B1t68NEM",
+    "from": "elem-X0fwc7Nd",
+    "to": "elem-baHT983o",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-B5TRNho9",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-EZFlTQZV",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-b6qfib1u",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-BM1fgR3n",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-b7Ztf9jH",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-f3LJcTdM",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-b821cAUH",
+    "from": "elem-FdndhbYP",
+    "to": "elem-56ChGRRZ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-bDAU5Cc5",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-RoHOlPPh",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-bdTTe10T",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-AeC9Jd2E",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Bh5O02Ck",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-YeuWSZCr",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-BH7yExqe",
+    "from": "elem-LKuaYmpO",
+    "to": "elem-7BNLjDnU",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-bjyDcT2Q",
+    "from": "elem-WUS9s09B",
+    "to": "elem-xiPefBmq",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-BKIhOv0N",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-fTivWqCF",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-bliAZMEs",
+    "from": "elem-kIs2eFad",
+    "to": "elem-Ki7UmNOF",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-bmlFEif7",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-QQkBUiZz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Bmor2MdF",
+    "from": "elem-8xrkTifb",
+    "to": "elem-tiLBQin0",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-BngPyjv8",
+    "from": "elem-I54SI2zP",
+    "to": "elem-1r86Tx5n",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-BnhEIFQ0",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-6wtS7mZC",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-bNn1NdmG",
+    "from": "elem-8xrkTifb",
+    "to": "elem-uByu0e98",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-BorxkUdB",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-7oVLlPfJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-bri3xUxh",
+    "from": "elem-txVmCRoU",
+    "to": "elem-LKuaYmpO",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-bRlpH2HE",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-jWu75Elf",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-BthkbPCd",
+    "from": "elem-hY2Xf3e6",
+    "to": "elem-TQxyL8B3",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-BWjw62qX",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-HnssiliQ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-bxwFkqvZ",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-YPUV9XqJ",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-bZQf8F0D",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-3E0P1g92",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-BzXsmvWO",
+    "from": "elem-kIs2eFad",
+    "to": "elem-pm5RXD1p",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-cbNV85Ma",
+    "from": "elem-WDB7phRj",
+    "to": "elem-10q43bWW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-cE5jq4tH",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-TTdfHjMk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Ce6IPk0C",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-2ftjuXxo",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-CEfx93Zk",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-3j3GulbR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-CFHnZkBw",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-qkPP7Cb9",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-CfPUdRqk",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-1kCoRbuq",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-cFy2INji",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-rUccbApp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ch9ahabT",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-XkUwIjQA",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-cIACbnIA",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-PMiklSkO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ciIxrjf2",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-nAsVjBKX",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-CiuFkw5b",
+    "from": "elem-wnSrWhkK",
+    "to": "elem-qS3KIGRj",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Cj6CSqp3",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-YPuvvfMd",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-cJc8ASlY",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-hmFirebB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-CMRcVzdf",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-eNOE9gQb",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-cpbyvSTN",
+    "from": "elem-WUS9s09B",
+    "to": "elem-kIs2eFad",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-cpqrf6Ae",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-h5VpoZ5s",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Cq3tVLAQ",
+    "from": "elem-I54SI2zP",
+    "to": "elem-jPPzRtj0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-CRRcfFEX",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-8pbTmjLU",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-cTtLpTtB",
+    "from": "elem-8xrkTifb",
+    "to": "elem-GudoTV3u",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-cvJpSx2v",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-7W0RfRoG",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-cw9LrLHf",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-teAzBVHg",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-CysZJWoI",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7N9NSCDe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-czh2d716",
+    "from": "elem-YOZAQqd2",
+    "to": "elem-bUrS78G8",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-d0zv2XbC",
+    "from": "elem-pyyim2hT",
+    "to": "elem-JNopp203",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-d47yaTAN",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-iakdHhez",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-D5bU1JpB",
+    "from": "elem-Th0WrKrW",
+    "to": "elem-xiPefBmq",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-d6UX0q98",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-a0Qbwp1v",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-D7UfoKpj",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-5JMPxJ44",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-DAhT3GST",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-i9GEIqPh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-dbCg9iW2",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-ia9YEWbg",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-DbTPV5VA",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-O3KLdRXS",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-DDdwacyX",
+    "from": "elem-FdndhbYP",
+    "to": "elem-xh9hTFox",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Df1BHaNp",
+    "from": "elem-txVmCRoU",
+    "to": "elem-70zDXiDd",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-DG05T238",
+    "from": "elem-tB7eZtuy",
+    "to": "elem-58IZ03Ol",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-dGM5XK64",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-AsDKYgzV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Dk4CdhT1",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-swxCWqwZ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-DlTJdl62",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-lUyX0svh",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-DlZt5RoE",
+    "from": "elem-YOZAQqd2",
+    "to": "elem-0ekFGJqL",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-dMXrqp49",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-kIs2eFad",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-DtihPaD6",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-DiLXaPGh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-DUqd8lpg",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-YuT6hqDx",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-dyKF8QaK",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-lkFBet2T",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-E0seNV6d",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-nsnDLxLQ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-E0sRcO1W",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-oEnTgo69",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-e2bjf1WO",
+    "from": "elem-WUS9s09B",
+    "to": "elem-6IvRikjB",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-e3JJzTWK",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-xCPIvbSy",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-e78tc8Yu",
+    "from": "elem-lZpUaOgz",
+    "to": "elem-g7a2NLeL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-EcXSm929",
+    "from": "elem-sn7S996O",
+    "to": "elem-8ZoRr3iN",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-edDsZm8c",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-rB8odfNC",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-EfHf5LlW",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-ac7su0lQ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-eFpg7ikk",
+    "from": "elem-JarTayiE",
+    "to": "elem-JTY5Fq5X",
+    "direction": "undirected",
+    "connection type": "Dépendance"
+  },
+  {
+    "id": "conn-eFrEHkFK",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-iMHd8JAd",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-ehBNRB2Z",
+    "from": "elem-pyyim2hT",
+    "to": "elem-J98EI4wR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-EjpUmVGX",
+    "from": "elem-wGDMzNK5",
+    "to": "elem-6ujA4O7d",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-eKWzwTiL",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-X0fwc7Nd",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-emcNK4V6",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-V0VGtLjD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-eMyk7EMc",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-4eG2oWXx",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-EnqCg7bb",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-dclfwiGl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-eNUJa2Xr",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-lZpUaOgz",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-eofikeZg",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-tZmlQyDA",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-EqIbEmaB",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-GPYeXNRv",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-esMwMnYq",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-nqce24Is",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ev3Jx4lw",
+    "from": "elem-FdndhbYP",
+    "to": "elem-PBJ1F9gf",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ey1nQLrj",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-inP1G3ac",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-eYcNpHqo",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-SN9Tcnql",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-F3uOkNjD",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-amrsd5hA",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-f4rWHUN9",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-kr4CHwJz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-F7KMQBYS",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-fHcWOry0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-F9RQYR4i",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-XZkZZ2Ht",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FCfiZDcM",
+    "from": "elem-FdndhbYP",
+    "to": "elem-r8oVROT2",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fcHcrM82",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-m8dgfCb8",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fcIzOkdL",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-lwHPsvSh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fcTshoyf",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-5AhDor2e",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fFlUdTOF",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-kgPD3tqF",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fHiJnZqE",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-wkX0qcfl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Fhx672C9",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-GQlvgW5X",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-FIlZ6iDn",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-yAQLXykm",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fJkC6vND",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-VqxxSeKt",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-fM7BH5Nt",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-RIQtVQGK",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FOrd2RXf",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-uByu0e98",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-fpbwPvn3",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-2GetdKJG",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-FpnRGFoq",
+    "from": "elem-uByu0e98",
+    "to": "elem-yO4MW0kw",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FQOslLw1",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-jE8pFCOL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FTKdf82e",
+    "from": "elem-n8YjxGww",
+    "to": "elem-IoIiq9nG",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Fu3ZvDiW",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-WKi4P90E",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-FU7PWIi9",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-VggxLGVf",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FUGzRXfH",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-mMvnMhrz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-fv0HeM2I",
+    "from": "elem-n8YjxGww",
+    "to": "elem-l5C1wpwN",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-fvSdcr6s",
+    "from": "elem-8xrkTifb",
+    "to": "elem-TI54YkSD",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-fW5Bo00l",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-Q0axf3Mt",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-FwunpQIJ",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-1C0sJJDz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-G1dqW9Jv",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-UpttpYHJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-g1YRXJqb",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-uJttncIx",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-G2tmyuAM",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-STjPWqKn",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-G36K9NAO",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-hRdgJQJk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-G4BiPtDD",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-iFwG8eZ1",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-G4YG7CVV",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-rJdZpwke",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-G8DgmSN6",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-D3YL8DI7",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-g8xfFirO",
+    "from": "elem-sn7S996O",
+    "to": "elem-dM2KQGE1",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-gcSIC9W9",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-jmfIrcUZ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-gDEdaG1O",
+    "from": "elem-8Z7Byl6u",
+    "to": "elem-WTIJZgPA",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Gfo53dLo",
+    "from": "elem-PbdizQw3",
+    "to": "elem-YjLsz8px",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-giIjwU3H",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-sIMWF85w",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-gJf6TbRA",
+    "from": "elem-I54SI2zP",
+    "to": "elem-fTExn6Em",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-GjhYb5GR",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-KdtUYdcm",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-GmUsluWI",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-EQ7Jh30h",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-gpiCw6ev",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-XCyIYKZY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-GPpvLCdu",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-ZiWjQUxd",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-guwr7MP5",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-GW0b7BAG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-GuyzINea",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-kdwJezLN",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-gvCd924D",
+    "from": "elem-8Z7Byl6u",
+    "to": "elem-ACVjLGhk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-GwYqNuKc",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-GmnYy23A",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Gys0Db0t",
+    "from": "elem-GjwfnpOW",
+    "to": "elem-FJTr5YEF",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-gyTgbd3Z",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-yCWcOsAV",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-GzueuMpF",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-qidsLYGy",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-H5ihyKJI",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-VlpBQrev",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-H6ECJToO",
+    "from": "elem-TI54YkSD",
+    "to": "elem-ERbHUwmJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-h8Uuv1G5",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-70zDXiDd",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-hbaBAp79",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-rlYosgDr",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-HEi2FgHu",
+    "from": "elem-TI54YkSD",
+    "to": "elem-rEMCZcWs",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-hfA4tkSD",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-8EskRJ8r",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-hIGgMtb1",
+    "from": "elem-Y9Da5jlA",
+    "to": "elem-6AnpI6pc",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-HiiNX71O",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-TYVS4xLB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-hJdXKot1",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-DsNHL7NS",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-hJu4XYsS",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-rzECxZnb",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-HkF3YriM",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-cyulB4ng",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-hM4vHkFE",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-FJzabumz",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-HozfrARq",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ybwugckn",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-hQYGakZV",
+    "from": "elem-kIs2eFad",
+    "to": "elem-AOi34cqD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-hSj4C73y",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-0JUSsA2Y",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-hTihX7Gp",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-4Snsgl3L",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-hURbglM3",
+    "from": "elem-H92WSO3D",
+    "to": "elem-jcqy9alH",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-HYNE4tf6",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-XPflNkWk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Hz5ijw0M",
+    "from": "elem-WUS9s09B",
+    "to": "elem-tRaIjrQI",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-I0jcUfVP",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-hKB7oS8x",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-I3CYjmKz",
+    "from": "elem-dC2JKNu2",
+    "to": "elem-dqLMBJUS",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-I4ncaglI",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-vHDxIBUN",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-I7Rg49pi",
+    "from": "elem-kIs2eFad",
+    "to": "elem-8E6MknKe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IABffUZo",
+    "from": "elem-pyyim2hT",
+    "to": "elem-Pe6YRKid",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ibiXUhEq",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-38OqmLIA",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IDcv6qzL",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-1syM42pl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IgKErbi8",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-uOIOqk7P",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-IIaYnQFE",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-nrK4dVDE",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IiQfqMln",
+    "from": "elem-8xrkTifb",
+    "to": "elem-TDYFRAyJ",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-IlvKd0J9",
+    "from": "elem-rEMCZcWs",
+    "to": "elem-O0GrwuMH",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ILz54IDa",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-TXCSdaDM",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-iMTm4md7",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-UO8SGUOq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IOl8Ocwb",
+    "from": "elem-sn7S996O",
+    "to": "elem-UkaAdoBO",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-IWfpu8uI",
+    "from": "elem-kIs2eFad",
+    "to": "elem-MvJ53sGQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-IXWlL1vX",
+    "from": "elem-TI54YkSD",
+    "to": "elem-gna8CSg2",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Iy59AhLU",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-rSGg47V1",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-iyq4X18R",
+    "from": "elem-I54SI2zP",
+    "to": "elem-7TenGcju",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-iYtXLQf7",
+    "from": "elem-UkaAdoBO",
+    "to": "elem-ouaOSk7Z",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-j1Q0kLdu",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-TY3zKa6h",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-J1WbhVNm",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-Q6aFn9pg",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-J2e1L4m9",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-FbbRGD7h",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-j3gE4Wmy",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-IGn03Ofw",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-j46DaftB",
+    "from": "elem-58IZ03Ol",
+    "to": "elem-wHBv9cE9",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-j5AcIQE5",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-Vcnbegjj",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-J5c61Paw",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-HimxTEsS",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-jAJZM4an",
+    "from": "elem-WUS9s09B",
+    "to": "elem-ILJDi0YR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-JBhBKQaP",
+    "from": "elem-WUS9s09B",
+    "to": "elem-hY2Xf3e6",
+    "direction": "undirected",
+    "connection type": "Dépendance"
+  },
+  {
+    "id": "conn-JbuOoCb4",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Vndapq7S",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-jDECXSFi",
+    "from": "elem-I54SI2zP",
+    "to": "elem-8VxWV5SH",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JDQv4Tg5",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-Py3ErpVJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JeLyGyVd",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-ZQtIPw5p",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-jGJolesQ",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-PlMj9hMW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JGxhA9Au",
+    "from": "elem-8xrkTifb",
+    "to": "elem-tB7eZtuy",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-jgZuCCx2",
+    "from": "elem-LCFq3LeN",
+    "to": "elem-0VEJTM1G",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JhLB4xNf",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-fXljX08a",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-JjUfEBr4",
+    "from": "elem-lZpUaOgz",
+    "to": "elem-7rsvES18",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JkMO0k1Z",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-Gi16FG7x",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-jllKQf9f",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-MJgKJkm0",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-JO6fP15f",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-cHcS27uG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JouefOrZ",
+    "from": "elem-sn7S996O",
+    "to": "elem-9uir43xf",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-JqCi3PdP",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-ZiLx7h2D",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-jr1SDqS1",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-GFR5TYrm",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-JsaeYytn",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-40l9egtK",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Jtz6xHDm",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-JNku4PzL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-jUnkjRqf",
+    "from": "elem-WUS9s09B",
+    "to": "elem-gkuJrvTI",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-JUygrYs8",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-eJbJfJLl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-JvMUOC5Y",
+    "from": "elem-uByu0e98",
+    "to": "elem-3OeI3G7i",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-k1Hk6gTq",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-n6ecuHt6",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-K1k83m1w",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-uka8528q",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-k7562B97",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-pjKvoezk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-kA0As7at",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-VmXoA60m",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kb2NKHDR",
+    "from": "elem-sn7S996O",
+    "to": "elem-mLKQaa5t",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-kbrIBcje",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-JOyQwzoE",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-KcoQUgcV",
+    "from": "elem-pyyim2hT",
+    "to": "elem-9ADJC98u",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-KE4lDTRh",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-wr2vX1C4",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kGJ3ekhl",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-NP7Sjmts",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kiTfdm3t",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-dxTTlzvp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-KkevBgw8",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-I54SI2zP",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-kkieYPsb",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-z0sp9KPr",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-kO0VxYpf",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-rE21b7ja",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kOssprFU",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-OgsUZKWq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kPsm7CXv",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-wcp24hqJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-KqNCDZMo",
+    "from": "elem-I54SI2zP",
+    "to": "elem-NDza3w6q",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kverLkI4",
+    "from": "elem-wnSrWhkK",
+    "to": "elem-krPEDTMj",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-kwu1LJIN",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-NXlCfNOU",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-L0HJrVQo",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-yEGaF2mf",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-L1Eid5AG",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-heFK5bFP",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-L1LCnas6",
+    "from": "elem-X0fwc7Nd",
+    "to": "elem-VV8X2d1Y",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-L3sm8gBo",
+    "from": "elem-8xrkTifb",
+    "to": "elem-1KErO2CR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-l6WbvzIR",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-14zypyWn",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-lAfmfqxt",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-irplC21U",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-LatvPt0G",
+    "from": "elem-WUS9s09B",
+    "to": "elem-PbdizQw3",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-lC2C9aM5",
+    "from": "elem-58IZ03Ol",
+    "to": "elem-yZVYH6bs",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-LCRBzBW0",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-P4M9Wn5a",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ldFQT58l",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-wbtwkAqy",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-LfBC6eym",
+    "from": "elem-chb1ZpI7",
+    "to": "elem-Op4LBRpy",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Lim100vf",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-nwku1q4F",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-lkOTvNWp",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-r5S1yyzJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-lSLkG1jz",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-RYFMsXqV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-LTdiPjms",
+    "from": "elem-I54SI2zP",
+    "to": "elem-5tyZ9L8W",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-lUUvzXax",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-mx7qXKMD",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-lV0V8DOf",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-H25CiEA1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-LXMIQyEQ",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-HxsPEFdY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-LYh90AF3",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-orw2F4wY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-m2RK5noe",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-NEtXZcPD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-m6PgONUE",
+    "from": "elem-kIs2eFad",
+    "to": "elem-lPirKq9Y",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-m7Q5IknW",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-1K2cOh1v",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-M85WI7SE",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-4bUx9cS0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-mcC6tORJ",
+    "from": "elem-kIs2eFad",
+    "to": "elem-kjdqcozg",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Mec07b1T",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-MgDRqvuc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-MFrxaxRU",
+    "from": "elem-FdndhbYP",
+    "to": "elem-Y7oaIvQy",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-MgejFFzM",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-leAsZaC4",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-mGoCYo2f",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-cFJxHNFY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-mkJ1VLlE",
+    "from": "elem-kIs2eFad",
+    "to": "elem-fTXpTAbW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-mlybUXsr",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-bn3iSknm",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-mOUgG0yD",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-dC2JKNu2",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-MqzkkPYU",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-ZUawXg5T",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-MREpXuKz",
+    "from": "elem-sn7S996O",
+    "to": "elem-lozRUZOt",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-mryYOTju",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-CDzq3Avt",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Ms4lnhuZ",
+    "from": "elem-FdndhbYP",
+    "to": "elem-afrg68gM",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-muMNa4OB",
+    "from": "elem-kIs2eFad",
+    "to": "elem-kIs2eFad",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-mvAVzAIA",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-IzBSOxkV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-mwMexQeD",
+    "from": "elem-kIs2eFad",
+    "to": "elem-6IvRikjB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-myj5IlLT",
+    "from": "elem-pyyim2hT",
+    "to": "elem-DYQijKE9",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-MyyENTmL",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-a4TMpNkr",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-n3zZjlwv",
+    "from": "elem-WUS9s09B",
+    "to": "elem-f90FSnZJ",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-N4ORN4A7",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-MvJ53sGQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-N9xBWYtR",
+    "from": "elem-I54SI2zP",
+    "to": "elem-9Ss5frK8",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-nak5Tvhl",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-qkPP7Cb9",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-NBy4C0WP",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-gTTCmU5T",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-NCjWczxz",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-O4GMx0dQ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-nFmGz3vr",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-Af6Esql3",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ng3jpkVf",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-7nOmXKF4",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ngJyE0cJ",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-eVM6YU3X",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-njG5dYcm",
+    "from": "elem-5JMPxJ44",
+    "to": "elem-KD3oDVzV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-NjhGw8Xt",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-VZsBdZxZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-nkILdWOv",
+    "from": "elem-8Z7Byl6u",
+    "to": "elem-P7ycQIxj",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Nkj8ztc2",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-NDev7ASJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-NmQJfEWG",
+    "from": "elem-5JMPxJ44",
+    "to": "elem-QuGBR6EY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-NoWxoMZu",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-RV0hOnrj",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-nplKkymE",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-JQwi4nAg",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Nrh9eXWt",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-19zZfVgn",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-NtImLbnu",
+    "from": "elem-pyyim2hT",
+    "to": "elem-D6vVPN1u",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-NvIXgI0r",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-PwJHkLuv",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-NVzoUnwv",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-8RxEKeH0",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-nYxNuVdK",
+    "from": "elem-FdndhbYP",
+    "to": "elem-pYMiM1vI",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-O0z5kB7A",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-450PpV73",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-oiGGbSXm",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-3SjWsaX9",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-OIwo4RnV",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-R7kUHrgc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-OjJYJcmE",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-VUFqxcyT",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-OLvBWAlb",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-5vnaSTUQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-On2JYIti",
+    "from": "elem-txVmCRoU",
+    "to": "elem-6AnpI6pc",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-oO66jHW4",
+    "from": "elem-8Z7Byl6u",
+    "to": "elem-JMesPMCz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-OSaiO9i9",
+    "from": "elem-sn7S996O",
+    "to": "elem-Jdv7MwaL",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-oTBCHQdv",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-Cyj9Gs8O",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-OTeXg9X6",
+    "from": "elem-WUS9s09B",
+    "to": "elem-4rERU8Rp",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-OtsVXAzF",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-teAzBVHg",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-oUcnPbat",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-SgUyVHld",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-oVn7k3k2",
+    "from": "elem-FdndhbYP",
+    "to": "elem-6rtRPz4J",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-OVs8jEE5",
+    "from": "elem-hY2Xf3e6",
+    "to": "elem-n0awF0Oo",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-oy7HjXvV",
+    "from": "elem-X0fwc7Nd",
+    "to": "elem-IaQczH8a",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-oyMwW7nc",
+    "from": "elem-8xrkTifb",
+    "to": "elem-0WVQJbLD",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-oYq4B2Gf",
+    "from": "elem-8xrkTifb",
+    "to": "elem-DQuPvM3F",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-OYZ2ijY9",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-P1s6bo0X",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Oz2ce5gF",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-chb1ZpI7",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-p0xGd9fo",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-X0D4vGt5",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-PaQfCZe3",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-AOi34cqD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-pBeX86w2",
+    "from": "elem-WUS9s09B",
+    "to": "elem-H92WSO3D",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-pBHOq8Bj",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-Fd6jVK43",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-pfcTYOAN",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-OXIJvDN4",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-PhV8zvdg",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-VNA2WIat",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-pjAaUgg1",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-XjyBzpPS",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-PKzm6zr6",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Bw7ZjsaW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-PLfXRIer",
+    "from": "elem-Th0WrKrW",
+    "to": "elem-9ADJC98u",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-pmFCcm4T",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-F2OU0jBJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-PofuJSWD",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-y00mg9Ki",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-PPj4P5Ua",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-f4r6chyM",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-PpxL9NjM",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-cMu02X1w",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-PQ9nMb6J",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ilqU30aA",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-PWgisqk6",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-odlLFJUN",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-pz3Y5nIU",
+    "from": "elem-I54SI2zP",
+    "to": "elem-VI4qx8mh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-pzY83d4A",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-UNnDwvMB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Q4vqhcfW",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-XU98gXqq",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-Q7ktv1hS",
+    "from": "elem-sn7S996O",
+    "to": "elem-vcdTOy2x",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-q9NGfeUH",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-NwRCyiIG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qAdX8xnc",
+    "from": "elem-sn7S996O",
+    "to": "elem-hObevJhY",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-qafuzi9Q",
+    "from": "elem-pyyim2hT",
+    "to": "elem-dR5SjUkD",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Qcgib5mf",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-mJjg3Ztj",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Qd9oDHkP",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-rL0vCdvZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-qf3Zs9Zf",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-A9tqvAXb",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qFZQ0vPI",
+    "from": "elem-PbdizQw3",
+    "to": "elem-D0B8mL2B",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qhLfLv5R",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-O7mrqbqq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qjTUwJEF",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-RFzou73G",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qL9Bws5F",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-XnrA4iQ7",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-qlbmiWQ5",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-nLzH6QSa",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-QLiALafF",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-QbnhTKhV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qM0JkCc0",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-cnKLPVfI",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-QmbzeFq3",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-8K2lmJfD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-QMGUfjWM",
+    "from": "elem-FdndhbYP",
+    "to": "elem-iTAnNln1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qndTmQ7V",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-4rNymCK5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-QngmGepN",
+    "from": "elem-5JMPxJ44",
+    "to": "elem-WwpanNOa",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qOL1EdBT",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-mLKQaa5t",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-qPgc9UYg",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-mShcxhhS",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qqaDO6ad",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-F21G7Jdt",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-QQD98LVA",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-pD1evauw",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-qqUoI9Dq",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-uByu0e98",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-QRCQ60hx",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-9KYaAXi5",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-QujIk2ZS",
+    "from": "elem-FdndhbYP",
+    "to": "elem-7eNchhUL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-QYHBmxJr",
+    "from": "elem-txVmCRoU",
+    "to": "elem-VUAAme7e",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-qYLBuTZs",
+    "from": "elem-8xrkTifb",
+    "to": "elem-iDrf7aqx",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-qZACdzq5",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-Q9hLbQ0l",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-qznK3B8T",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-F1TZ1CNH",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-qzPZ9jw5",
+    "from": "elem-8xrkTifb",
+    "to": "elem-GjwfnpOW",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-R5ZL3Mhq",
+    "from": "elem-JarTayiE",
+    "to": "elem-0N1VI73Q",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-r7HUjedU",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-T6MptjIW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-R7nd9AHW",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-1XHV8JFi",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-R96uRMDQ",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-eWqI4ejh",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-R9FO2gzM",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-SeCwn818",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-rAB8O423",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Uc1UDeur",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-RAEgbgSX",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-nhvSr1L0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-RB6eTBTG",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-Yr6Hw86u",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-rc5DJ4SV",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-OlJDz5jI",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-REcchh8X",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-0ekFGJqL",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-rF48aWq7",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-nzPT8EFX",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-riGm5JAI",
+    "from": "elem-kIs2eFad",
+    "to": "elem-WZs9tQKx",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-RKxbctIX",
+    "from": "elem-wGDMzNK5",
+    "to": "elem-FdndhbYP",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-rLc78upO",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-odrOqZ2N",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-rlwjcpwp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-jzZwxp2P",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-rNW5M4E4",
+    "from": "elem-X0fwc7Nd",
+    "to": "elem-0RrRwK2f",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-RonNa870",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-0UjaBTmQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-rQH8QZBV",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-XaJfdoRf",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-rRZPQMDl",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7N9NSCDe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-rtLQxZ6V",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-ddKIOcjn",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-rv1NSpid",
+    "from": "elem-sn7S996O",
+    "to": "elem-AXkCLEHZ",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-rXKEmXEs",
+    "from": "elem-pyyim2hT",
+    "to": "elem-u8X8z1iY",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-RYO9QJUi",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-yEJ8QCF1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-RzM5YHyn",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-9SVAh976",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-S1o01mVq",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-3adTvwuT",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-s5DvMdVJ",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-RFdaSUIF",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-s9ORBE0Y",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-wzddFpbQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-saQg5Z67",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-Vt7KwkWF",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Sbc2M2Qr",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-9dqaIPwd",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-sCHgDJ8B",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-Egp43IbV",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ScnHMKut",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-kK7lJHFH",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sdUeXsid",
+    "from": "elem-sn7S996O",
+    "to": "elem-TXCSdaDM",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-SebbGCCh",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-DZaQkLva",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sErWkfjW",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-ZzJuKiOO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-SF5xB82i",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ia9YEWbg",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-SFYH4RFh",
+    "from": "elem-5JMPxJ44",
+    "to": "elem-rZpLxIQp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-siwziPBI",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-thOHZoXb",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-sJNKdx92",
+    "from": "elem-kIs2eFad",
+    "to": "elem-R8drNzrs",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-SJPSANLg",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-kjdqcozg",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-skHq8rUI",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-zxh8qDbB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-SlrIdyx8",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-LCFq3LeN",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-SLzH9qfH",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-bYNZybK0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sMuXd0Kb",
+    "from": "elem-hY2Xf3e6",
+    "to": "elem-jE8pFCOL",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-sNVvWEf9",
+    "from": "elem-8xrkTifb",
+    "to": "elem-vfAbNTRk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-SOEzoc76",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-Z2S2yFmU",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-Sonafav1",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-oJHrEEH9",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sOTnxTWb",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-KLGR8FD9",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-spoyh5Z9",
+    "from": "elem-I54SI2zP",
+    "to": "elem-SCrjK0cd",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sps2bcoV",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-GXfnLMeq",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sQsuGhor",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-G0ATfhmn",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-sU528yqH",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7mpPhque",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sVkXzz5e",
+    "from": "elem-T996Q1ST",
+    "to": "elem-pE0dKzHh",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-sWa8X9Uz",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-HbzLvoCo",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sWT7Xat4",
+    "from": "elem-LKuaYmpO",
+    "to": "elem-kPXG6III",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sX8XNwMs",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-iJdLmtNN",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sXqgZ9Tw",
+    "from": "elem-kIs2eFad",
+    "to": "elem-uc8823Lc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-sYmgvmjp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-972mB6Pq",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-SZuNKTz5",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7N9NSCDe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-T08QYO5U",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-jSkUEUjW",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-T162UsYN",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-3JN4l11G",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-T6nv39J3",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-3ooNWIxU",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-T7s1U8Nm",
+    "from": "elem-pyyim2hT",
+    "to": "elem-lZpUaOgz",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-T9SdKVbA",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-v9Y3f0AN",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-TARjzwjg",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-lpawucxl",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-TBpdcwmk",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-fGwcLDc2",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-tC4bhG2h",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-MwQIe0Nv",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-tCj1NHE9",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-Zq1eRIQW",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-TcrxZRDA",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-MgDRqvuc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-TgN3IsKQ",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-5XMpwiaw",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-THKhyQKO",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-PMyZWvHL",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ThVk4wsm",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-GzxQg7A7",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-tIq91d2M",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-2jYqC3bT",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-TjJkWfxX",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Lgc9R0Ef",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Tjpfo767",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-OoPaZCni",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-TKvCBwqt",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-27NoSLzo",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-tN2cmHrM",
+    "from": "elem-WUS9s09B",
+    "to": "elem-xb2DbVa0",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-tnNsWqJX",
+    "from": "elem-wGDMzNK5",
+    "to": "elem-HwhnLs7q",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-tQ70NlqA",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ChIyO1Tm",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-TrqB6VlS",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-a4TMpNkr",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-trUwwrXD",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-SVEqiwht",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-tw7i2Qb1",
+    "from": "elem-sn7S996O",
+    "to": "elem-v9aRcaJe",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-udreieED",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-bPASflXk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-udwf4RtU",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-TAgLeBj5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-uej9oUY9",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ryBLBFx2",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-UHdEpQRv",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-MgDRqvuc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ULyAE4py",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-8YvCHALI",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-UNdBMu6E",
+    "from": "elem-58IZ03Ol",
+    "to": "elem-0vwtLuLQ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-uU6Hwft2",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-1s5pJ3s0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-UuMPzCwh",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-j7OTTsdz",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-UvsyUQnY",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-sWBJP5BG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-UWhjSRfm",
+    "from": "elem-LCFq3LeN",
+    "to": "elem-EoYllNx5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-UWTAwNQS",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-721yuAib",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-uYvYRVHe",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-N2JBXYl5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-uZD6c1sd",
+    "from": "elem-txVmCRoU",
+    "to": "elem-BrEuYtyg",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-V0Ip01kv",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Myag3H1e",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-V38JqCfG",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-UHtLZxM0",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-v5SyX3cl",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-QMeJIHYe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-v6ORNCMk",
+    "from": "elem-1hIxqsTi",
+    "to": "elem-TXWcXOyv",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-vaGAL6Y0",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-J4n2N2A0",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-vdADXmfl",
+    "from": "elem-gkuJrvTI",
+    "to": "elem-dqKwsz3C",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VEl3Pyf9",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-6Xv5pEAl",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Vh97nyZx",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-HpB6dh57",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vIQ1Ihc6",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-f9DyROTU",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-viS6lrSn",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-zadaMDpc",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-VJm7tf4q",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-7BNoxoaY",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vJW6MIY0",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-vDnqBkMG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vkFVtF6a",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-YTvAgCM1",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vMDpjBSa",
+    "from": "elem-I54SI2zP",
+    "to": "elem-6IsmRjZ0",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VPr5zegq",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-NVnwvj6s",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VqGkgswy",
+    "from": "elem-txVmCRoU",
+    "to": "elem-8YvCHALI",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-vqmWmBA6",
+    "from": "elem-tB7eZtuy",
+    "to": "elem-h9ta9zNy",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-vQnIHAdN",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-PCD4NJYR",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VRiy5sP3",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-raVgdl1r",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VsXpMS1I",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-f5MBZY3p",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-VSZVhojl",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-u9Idxa94",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Vv1nLCHc",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-UhnjhhLd",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VV7wJOVH",
+    "from": "elem-2ftjuXxo",
+    "to": "elem-NBFZSf7U",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-VW4o64A6",
+    "from": "elem-kIs2eFad",
+    "to": "elem-6YooMxwO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vx0zqJcG",
+    "from": "elem-8xrkTifb",
+    "to": "elem-ClmxqMyS",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-VXAx3vZ4",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-UaPTlv06",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-vXLYgQ7l",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-Alt7lwM2",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-vzgjQDTn",
+    "from": "elem-dC2JKNu2",
+    "to": "elem-Z0EPnDky",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-w2CEKYZf",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-JRsazywa",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-W2w7ip9a",
+    "from": "elem-pyyim2hT",
+    "to": "elem-T996Q1ST",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-WAPdVHck",
+    "from": "elem-RoHOlPPh",
+    "to": "elem-Jvm7D434",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-wF5OVzcj",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-27czKYQS",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-wLBwE1g0",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ZuUgWpt9",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-WlNL2ubH",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-9uir43xf",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-woifztYs",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-A3AGZYvG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-WRu6uaH0",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-pOlz8SCr",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-WRUKIKvd",
+    "from": "elem-kIs2eFad",
+    "to": "elem-jE8pFCOL",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-WsNPQXE3",
+    "from": "elem-c35nJNrv",
+    "to": "elem-xhCt7FBb",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-wUbV9MrS",
+    "from": "elem-8xrkTifb",
+    "to": "elem-f274udN6",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-wVwntugV",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-258800GG",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-wZbawSVa",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-hQZXu8Kz",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-wZOlSigk",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-eppSh0BG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-x28MqR2t",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-bcTYC1eC",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-X5R154F1",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-hwJaYf9E",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-x5XpAhOn",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-osv2Fq7g",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-X854rmbP",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-qhTvSp1r",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-X8k0QimW",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-Y8GsAm17",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-x9Bs0CCY",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-zfA7QiSB",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-X9zyV4il",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-UfSU61gp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-xAAyzQ21",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-jeOE52pv",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-xcOxoz0m",
+    "from": "elem-Th0WrKrW",
+    "to": "elem-PuPkWyy6",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-XeoA76R7",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-3r1YZVs2",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-xfSfihsW",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-HswfuU1f",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-XFtm5vMG",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-XvUvriA7",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-XgV1xRYs",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-F2B5X7w5",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-XHJwPG24",
+    "from": "elem-I54SI2zP",
+    "to": "elem-rh3P1d9k",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Xihsd2Yz",
+    "from": "elem-sn7S996O",
+    "to": "elem-QgYyuyyt",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-xlWOxe2j",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-swBlDQfD",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-xMhj60j8",
+    "from": "elem-pyyim2hT",
+    "to": "elem-VWS2QOu7",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-XpossKBp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-fG29ytHc",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-xREB4Xqv",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-MgDRqvuc",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-xRuI7YLv",
+    "from": "elem-0ekFGJqL",
+    "to": "elem-gvyJUWtG",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-XuHCNBkt",
+    "from": "elem-Y9Da5jlA",
+    "to": "elem-ErJTdOFR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-XvKREeiH",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-kbBoyGUY",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-xYDqOxcR",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-g4vVA9Cr",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-xygvwTu0",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-urQTUgPV",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Xz34XEVP",
+    "from": "elem-I54SI2zP",
+    "to": "elem-3JTRm7FR",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-XZppJcEO",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-qHkki7N0",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-y0hdhUz7",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-0m0wXVGy",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-y2YJlkUR",
+    "from": "elem-58IZ03Ol",
+    "to": "elem-mzazVmKW",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-y69ywYqi",
+    "from": "elem-jE8pFCOL",
+    "to": "elem-6YooMxwO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Y6q7BA6N",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-7N9NSCDe",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-yB7Nc6RD",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-ndticjA8",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-yBl50q8C",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-2ftjuXxo",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-yDL1YHvG",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-RnSHUQGp",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ye5MiPgp",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-dvSsrFCH",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Yed1mDzf",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-LElbAj6Z",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-YfLWzVhh",
+    "from": "elem-Th0WrKrW",
+    "to": "elem-6AnpI6pc",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-Yfnu2DWa",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-OdmwpYRD",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-YfvwfQDi",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-Umk2kyIR",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-yIia1VaD",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-VL5zT77m",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-yJaDtXPl",
+    "from": "elem-ErJTdOFR",
+    "to": "elem-6Sf66n07",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-yJivHeJ4",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-LeydIc60",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-yNoC4FSu",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-A65Jr5bq",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-yPZnldd5",
+    "from": "elem-bpcGuL2c",
+    "to": "elem-lvFJfUbk",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-yQ4vySdF",
+    "from": "elem-SQi4Krsx",
+    "to": "elem-jTM1QlOZ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-YQWJLA8j",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-KP4jJvAZ",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-YRGSAUlC",
+    "from": "elem-CDzq3Avt",
+    "to": "elem-5JMPxJ44",
+    "direction": "undirected",
+    "connection type": "Site web/Site web"
+  },
+  {
+    "id": "conn-ySmGhJdD",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-RU0loui6",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ytzFMd4l",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-U6ZlPCVr",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-YW5DSTxb",
+    "from": "elem-pyyim2hT",
+    "to": "elem-LKSOahOT",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-yX5DVN10",
+    "from": "elem-TsgFkh6Q",
+    "to": "elem-3rASBlhz",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-YzRUTX9I",
+    "from": "elem-I54SI2zP",
+    "to": "elem-2cRM65Zd",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-z0hvWxig",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-Apq9aOAR",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-Z56EFTWN",
+    "from": "elem-mpxn1Bya",
+    "to": "elem-9wqPbCxJ",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Z72yktUQ",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-kdX4Glzo",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-z8cclJCq",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-1vXz9TQR",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-Z9CaePvl",
+    "from": "elem-kIs2eFad",
+    "to": "elem-YT3jnkQZ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-zACSE4Fn",
+    "from": "elem-kIs2eFad",
+    "to": "elem-QEmgRkDX",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZAnpjfzW",
+    "from": "elem-ERbHUwmJ",
+    "to": "elem-o6Hj0GRf",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZbWafgQt",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-M2u7LMnJ",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZBXpd0XQ",
+    "from": "elem-FdndhbYP",
+    "to": "elem-uEktIUQ4",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-zcSsSxFa",
+    "from": "elem-jTM1QlOZ",
+    "to": "elem-Tqx9JSEk",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZegM69Zu",
+    "from": "elem-a4TMpNkr",
+    "to": "elem-OvoG3KIS",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZeUCZv5a",
+    "from": "elem-pyyim2hT",
+    "to": "elem-no16bb6z",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ZgR6LrPG",
+    "from": "elem-kIs2eFad",
+    "to": "elem-lwHPsvSh",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZJAt3eYD",
+    "from": "elem-wnSrWhkK",
+    "to": "elem-b3rsehWO",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-zjWcbjDU",
+    "from": "elem-NtzBuJOx",
+    "to": "elem-QAozwCJw",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZkdgKnVp",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-hfQ8vQp2",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ZLyN2WfU",
+    "from": "elem-O0GrwuMH",
+    "to": "elem-nCzurVU5",
+    "direction": "undirected",
+    "connection type": "Site web/Sous-domaine"
+  },
+  {
+    "id": "conn-ZOQ617WR",
+    "from": "elem-8xrkTifb",
+    "to": "elem-lTfrLktG",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-zshzetSw",
+    "from": "elem-jLYpXMyi",
+    "to": "elem-VUAAme7e",
+    "direction": "undirected",
+    "connection type": "Service web/Administration"
+  },
+  {
+    "id": "conn-ZUU2v2Qp",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-tCGY3vw3",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ZUUI4ole",
+    "from": "elem-g4vVA9Cr",
+    "to": "elem-rS98KsX5",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  },
+  {
+    "id": "conn-ZWjSsMwH",
+    "from": "elem-JTY5Fq5X",
+    "to": "elem-TI54YkSD",
+    "direction": "undirected",
+    "connection type": "Administration/Administration"
+  },
+  {
+    "id": "conn-zZ5WY0YK",
+    "from": "elem-rEMCZcWs",
+    "to": "elem-wnSrWhkK",
+    "direction": "undirected",
+    "connection type": "Site web/Administration"
+  }
+]

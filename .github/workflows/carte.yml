@@ -1,0 +1,71 @@
+# Construit la carte V2 et la publie sur GitHub Pages (gouvfr.jbledevehat.fr).
+#
+# - À chaque push sur master : reconstruit la carte à partir des vérifications HTTP versionnées
+#   (donnees/checks/latest.json), après avoir retéléchargé les sources (annuaire, opérateurs, DINUM).
+# - Le 1er de chaque mois, ou à la demande avec « complet » : relance toutes les vérifications
+#   HTTP, versionne les nouveaux résultats, puis publie.
+name: Carte V2
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: '0 4 1 * *'
+  workflow_dispatch:
+    inputs:
+      complet:
+        description: Relancer toutes les vérifications HTTP (environ une heure)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: carte
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Mise à jour complète (sources, vérifications HTTP, carte)
+        if: github.event_name == 'schedule' || inputs.complet
+        run: npm run update
+
+      - name: Versionne les nouvelles vérifications
+        if: github.event_name == 'schedule' || inputs.complet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add donnees/kumu donnees/checks
+          git diff --cached --quiet || git commit -m "Vérifications HTTP du $(date +%F)"
+          git push
+
+      - name: Reconstruction de la carte
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.complet)
+        run: npm run fetch:sources && npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

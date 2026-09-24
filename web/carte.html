@@ -1,0 +1,720 @@
+<title>Sites web publics V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --ok: #1E8A4C;
+    --warn: #B7700A;
+    --bad: #C2362F;
+    --neutral: #6B7483;
+    --edge: rgba(22,32,51,0.13);
+    --label: #162033;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119;
+      --panel: #141B26;
+      --panel-2: #1A2331;
+      --ink: #E4E9F1;
+      --muted: #97A2B5;
+      --line: #273142;
+      --accent: #8EA6FF;
+      --accent-soft: #1E2A4A;
+      --ok: #4CC47E;
+      --warn: #E6A43A;
+      --bad: #F0706A;
+      --neutral: #9099A8;
+      --edge: rgba(228,233,241,0.10);
+      --label: #E4E9F1;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119;
+    --panel: #141B26;
+    --panel-2: #1A2331;
+    --ink: #E4E9F1;
+    --muted: #97A2B5;
+    --line: #273142;
+    --accent: #8EA6FF;
+    --accent-soft: #1E2A4A;
+    --ok: #4CC47E;
+    --warn: #E6A43A;
+    --bad: #F0706A;
+    --neutral: #9099A8;
+    --edge: rgba(228,233,241,0.10);
+    --label: #E4E9F1;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 14px/1.45 var(--sans);
+    overflow: hidden;
+  }
+  #graph { position: fixed; inset: 0; }
+  #graph canvas { outline: none; }
+
+  .panel {
+    position: fixed;
+    z-index: 2;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+  }
+
+  /* --- Panneau principal : titre, recherche, légende --- */
+  #side {
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    left: 16px;
+    width: 320px;
+    max-height: calc(100% - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .head { padding: 16px 16px 12px; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font: 500 11px/1 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    margin: 6px 0 4px;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  .sub { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .figures {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .figures div { display: flex; flex-direction: column; }
+  .figures b { font-size: 16px; font-weight: 600; }
+  .figures span { font-size: 11.5px; color: var(--muted); }
+
+  .search { position: relative; padding: 12px 16px; }
+  .search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font: inherit;
+  }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #results {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  #results button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+  }
+  #results button:hover, #results button:focus-visible { background: var(--accent-soft); outline: none; }
+  #results .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .legend { padding: 10px 16px 14px; overflow-y: auto; }
+  .legend-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    font: 500 11px/1 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .legend-title button {
+    border: 0; background: none; padding: 0; cursor: pointer;
+    font: inherit; letter-spacing: inherit; color: var(--accent);
+  }
+  .legend label {
+    display: grid;
+    grid-template-columns: 16px 10px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .legend input { margin: 0; accent-color: var(--accent); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .count { font: 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .toggle input { margin: 0; accent-color: var(--accent); }
+  .ring {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid var(--accent); box-sizing: border-box;
+  }
+
+  /* --- Fiche d'un élément --- */
+  #detail {
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    right: 16px;
+    width: 360px;
+    max-height: calc(100% - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+  }
+  .detail-head {
+    position: sticky;
+    top: 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 14px 14px 12px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-head > div { flex: 1; min-width: 0; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: 500 11px/1 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  #d-title {
+    margin: 6px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  #d-title a { color: var(--accent); text-decoration: none; }
+  #d-title a:hover { text-decoration: underline; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .badge {
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 500;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .badge.new { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .badge.ok { color: var(--ok); border-color: currentColor; }
+  .badge.warn { color: var(--warn); border-color: currentColor; }
+  .badge.bad { color: var(--bad); border-color: currentColor; }
+  .close {
+    flex: none;
+    width: 30px; height: 30px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .close:focus-visible, .zoom button:focus-visible { outline: 2px solid var(--accent); }
+  dl {
+    display: grid;
+    grid-template-columns: minmax(96px, 38%) 1fr;
+    gap: 6px 12px;
+    margin: 0;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  dt { color: var(--muted); }
+  dd { margin: 0; overflow-wrap: anywhere; }
+  dd.mono { font-family: var(--mono); font-size: 12px; }
+  dd a { color: var(--accent); }
+  .neighbours { padding: 4px 16px 16px; }
+  .neighbours h3 {
+    margin: 10px 0 4px;
+    font: 500 11px/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .neighbours ul { list-style: none; margin: 0; padding: 0; }
+  .neighbours button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 6px;
+    margin-left: -6px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .neighbours button:hover, .neighbours button:focus-visible { background: var(--accent-soft); outline: none; }
+  .neighbours .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* --- Noms des pôles sur la carte --- */
+  #poles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  #poles span {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    max-width: 220px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font: 600 11px/1.25 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--muted);
+    background: color-mix(in srgb, var(--ground) 78%, transparent);
+    white-space: normal;
+    text-wrap: balance;
+  }
+  #poles.dim span { opacity: .25; }
+
+  .goto { padding: 0 16px 12px; border-bottom: 1px solid var(--line); }
+  .goto select {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+  }
+  .goto select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+  /* --- Zoom --- */
+  .zoom {
+    position: fixed;
+    z-index: 2;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .zoom button {
+    width: 36px; height: 36px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .zoom button:last-child { border-bottom: 0; font-size: 13px; }
+  .zoom button:hover { background: var(--panel-2); }
+
+  #status {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  @media (max-width: 760px) {
+    #side { left: 16px; right: 16px; width: auto; max-height: 48%; }
+    .figures { display: none; }
+    .legend { max-height: 30vh; }
+    #detail {
+      top: auto;
+      left: 16px;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      width: auto;
+      max-height: 55%;
+      z-index: 3;
+    }
+    .zoom { bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  }
+  @media (max-width: 760px) and (max-height: 700px) {
+    .legend { max-height: 18vh; }
+  }
+</style>
+
+<div id="graph" role="img" aria-label="Graphe des sites web publics et de leurs administrations"></div>
+<div id="poles" aria-hidden="true"></div>
+<p id="status">Chargement de la carte…</p>
+
+<aside id="side" class="panel" aria-label="Recherche et légende">
+  <div class="head">
+    <div class="eyebrow">Cartographie · V2</div>
+    <h1>Sites web publics de l'État</h1>
+    <p class="sub" id="sub">Sites en gouv.fr, opérateurs et administrations de rattachement.</p>
+    <div class="figures" id="figures"></div>
+  </div>
+  <div class="search">
+    <input id="q" type="search" placeholder="Rechercher un site ou une administration" autocomplete="off" aria-label="Rechercher" aria-controls="results">
+    <ul id="results"></ul>
+  </div>
+  <div class="goto">
+    <select id="pole" aria-label="Aller à un ministère">
+      <option value="">Aller à un ministère…</option>
+    </select>
+  </div>
+  <div class="legend">
+    <div class="legend-title"><span>Afficher</span><button type="button" id="all">Tout afficher</button></div>
+    <div id="cats"></div>
+    <label class="toggle" for="only-new">
+      <input type="checkbox" id="only-new">
+      <span class="ring" aria-hidden="true"></span>
+      <span>Mettre en avant les ajouts de la V2</span>
+    </label>
+  </div>
+</aside>
+
+<aside id="detail" class="panel" aria-label="Fiche de l'élément" hidden>
+  <div class="detail-head">
+    <div>
+      <span class="chip" id="d-cat"></span>
+      <h2 id="d-title"></h2>
+      <div class="badges" id="d-badges"></div>
+    </div>
+    <button type="button" class="close" id="d-close" aria-label="Fermer la fiche">×</button>
+  </div>
+  <dl id="d-attrs"></dl>
+  <div class="neighbours" id="d-links"></div>
+</aside>
+
+<div class="zoom panel" role="group" aria-label="Zoom">
+  <button type="button" id="z-in" aria-label="Zoomer">+</button>
+  <button type="button" id="z-out" aria-label="Dézoomer">−</button>
+  <button type="button" id="z-reset" aria-label="Recentrer la carte">⟲</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/graphology@0.26.0/dist/graphology.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sigma@3.0.3/dist/sigma.min.js"></script>
+<script>
+(async function () {
+  const status = document.getElementById('status');
+  let data;
+  try {
+    const res = await fetch('graph.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    status.textContent = 'Impossible de charger les données de la carte (graph.json) : ' + e.message;
+    return;
+  }
+
+  const SigmaCtor = window.Sigma.Sigma || window.Sigma.default || window.Sigma;
+  const cats = new Map(data.categories.map(c => [c.id, c]));
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const isDark = () => css('--ground').toLowerCase() === '#0c1119';
+  // Le gris des sites archivés est trop sombre sur fond sombre.
+  const catColor = id => (id === 'archive' && isDark()) ? '#8A919C' : cats.get(id).color;
+
+  // Libellé court sur la carte, libellé complet dans la fiche.
+  const short = key => key.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
+
+  const graph = new graphology.UndirectedGraph();
+  for (const [key, x, y, size, categorie, nouveau, attrs, pole] of data.nodes) {
+    graph.addNode(key, { x, y, size, categorie, nouveau: !!nouveau, attrs, pole, label: short(key), color: cats.get(categorie).color });
+  }
+  // « kind » et non « type » : sigma réserve l'attribut « type » au programme de rendu.
+  for (const [s, t, kind] of data.edges) {
+    const a = data.nodes[s][0], b = data.nodes[t][0];
+    if (!graph.hasEdge(a, b)) graph.addEdge(a, b, { kind });
+  }
+
+  // --- En-tête ---
+  const m = data.meta;
+  const fmt = n => n.toLocaleString('fr-FR');
+  const dateFr = d => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  document.getElementById('sub').textContent = `Mise à jour du ${dateFr(m.date)} · vérifications HTTP du ${dateFr(m.verifie)}.`;
+  document.getElementById('figures').innerHTML =
+    `<div><b>${fmt(m.elements)}</b><span>éléments</span></div>` +
+    `<div><b>${fmt(m.connexions)}</b><span>liens</span></div>` +
+    `<div><b>${fmt(m.nouveaux)}</b><span>ajouts V2</span></div>`;
+
+  // --- État de l'interface ---
+  const state = { hidden: new Set(), onlyNew: false, hovered: null, selected: null, neighbours: new Set() };
+  try {
+    const saved = JSON.parse(localStorage.getItem('carte-v2-filtres') || '{}');
+    (saved.hidden || []).forEach(c => cats.has(c) && state.hidden.add(c));
+    state.onlyNew = !!saved.onlyNew;
+  } catch (e) {}
+  const save = () => {
+    try { localStorage.setItem('carte-v2-filtres', JSON.stringify({ hidden: [...state.hidden], onlyNew: state.onlyNew })); } catch (e) {}
+  };
+
+  // --- Légende ---
+  const counts = {};
+  graph.forEachNode((n, a) => { counts[a.categorie] = (counts[a.categorie] || 0) + 1; });
+  const catsEl = document.getElementById('cats');
+  for (const c of data.categories) {
+    if (!counts[c.id]) continue;
+    const label = document.createElement('label');
+    label.htmlFor = 'cat-' + c.id;
+    label.innerHTML = `<input type="checkbox" id="cat-${c.id}" ${state.hidden.has(c.id) ? '' : 'checked'}>` +
+      `<span class="dot" style="background:${catColor(c.id)}"></span><span>${c.label}</span><span class="count">${fmt(counts[c.id])}</span>`;
+    label.querySelector('input').addEventListener('change', e => {
+      e.target.checked ? state.hidden.delete(c.id) : state.hidden.add(c.id);
+      save(); renderer.refresh();
+    });
+    catsEl.appendChild(label);
+  }
+  document.getElementById('all').addEventListener('click', () => {
+    state.hidden.clear();
+    catsEl.querySelectorAll('input').forEach(i => { i.checked = true; });
+    save(); renderer.refresh();
+  });
+  const onlyNew = document.getElementById('only-new');
+  onlyNew.checked = state.onlyNew;
+  onlyNew.addEventListener('change', () => { state.onlyNew = onlyNew.checked; save(); renderer.refresh(); });
+
+  // --- Rendu ---
+  const faded = () => isDark() ? '#2A3342' : '#D3D9E2';
+  const focus = () => state.hovered || state.selected;
+  const renderer = new SigmaCtor(graph, document.getElementById('graph'), {
+    labelFont: '"IBM Plex Sans", system-ui, sans-serif',
+    labelSize: 12,
+    labelWeight: '500',
+    labelColor: { color: css('--label') },
+    labelRenderedSizeThreshold: 9,
+    defaultEdgeColor: css('--edge'),
+    zIndex: true,
+    allowInvalidContainer: true,
+    minCameraRatio: 0.03,
+    maxCameraRatio: 3,
+    nodeReducer(node, a) {
+      const r = { ...a, color: catColor(a.categorie) };
+      if (state.hidden.has(a.categorie)) { r.hidden = true; return r; }
+      // Le nom du ministère est déjà affiché comme nom de pôle.
+      if (data.poles[a.pole] && data.poles[a.pole].id === node) r.label = '';
+      const f = focus();
+      if (f) {
+        if (node === f) { r.highlighted = true; r.zIndex = 2; r.forceLabel = true; r.label = a.label; }
+        else if (state.neighbours.has(node)) { r.zIndex = 1; r.forceLabel = true; }
+        else { r.color = faded(); r.label = ''; r.zIndex = 0; }
+      } else if (state.onlyNew && !a.nouveau) {
+        r.color = faded(); r.label = '';
+      } else if (state.onlyNew) {
+        r.zIndex = 1;
+      }
+      return r;
+    },
+    edgeReducer(edge, a) {
+      const r = { ...a };
+      const [s, t] = graph.extremities(edge);
+      if (state.hidden.has(graph.getNodeAttribute(s, 'categorie')) || state.hidden.has(graph.getNodeAttribute(t, 'categorie'))) {
+        r.hidden = true; return r;
+      }
+      const f = focus();
+      if (f) {
+        if (s === f || t === f) { r.color = isDark() ? 'rgba(142,166,255,.7)' : 'rgba(31,63,181,.55)'; r.size = 1.5; }
+        else r.hidden = true;
+      }
+      return r;
+    },
+  });
+  status.hidden = true;
+
+  const setFocusNeighbours = () => {
+    const f = focus();
+    state.neighbours = f ? new Set(graph.neighbors(f)) : new Set();
+  };
+  renderer.on('enterNode', ({ node }) => { state.hovered = node; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
+  renderer.on('leaveNode', () => { state.hovered = null; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
+  renderer.on('clickNode', ({ node }) => select(node));
+  renderer.on('clickStage', () => select(null));
+
+  // Suivi du thème (système ou choix explicite).
+  const applyTheme = () => {
+    renderer.setSetting('labelColor', { color: css('--label') });
+    renderer.setSetting('defaultEdgeColor', css('--edge'));
+    catsEl.querySelectorAll('.dot').forEach((d, i) => {
+      const id = data.categories.filter(c => counts[c.id])[i].id;
+      d.style.background = catColor(id);
+    });
+    renderer.refresh();
+  };
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // --- Fiche ---
+  const detail = document.getElementById('detail');
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const link = url => `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>`;
+  const FIELDS = [
+    ['Organisme', 'Organisme'], ['Tutelle', 'Tutelle'], ['Type d\'organisme', 'Type d\'organisme'],
+    ['Opérateur de l\'État', 'Opérateur (PLF)'], ['Statut juridique', 'Statut juridique'],
+    ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
+    ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
+    ['Type précédent', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
+    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'],
+  ];
+  const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };
+
+  function select(node) {
+    state.selected = node;
+    setFocusNeighbours();
+    renderer.refresh({ skipIndexation: true });
+    if (!node) { detail.hidden = true; return; }
+    const a = graph.getNodeAttributes(node);
+    const cat = cats.get(a.categorie);
+    document.getElementById('d-cat').innerHTML = `<span class="dot" style="background:${catColor(a.categorie)}"></span>${esc(cat.label)}`;
+    document.getElementById('d-title').innerHTML = /^https?:\/\//.test(node) ? link(node) : esc(node);
+    const badges = [];
+    if (a.nouveau) badges.push('<span class="badge new">Ajout V2</span>');
+    if (a.attrs.Statut) badges.push(`<span class="badge ${statusClass[a.attrs.Statut] ?? ''}">${esc(a.attrs.Statut)}</span>`);
+    for (const t of (a.attrs.tags || '').split('|')) {
+      if (['À rattacher', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
+    }
+    document.getElementById('d-badges').innerHTML = badges.join('');
+    const pole = data.poles[a.pole];
+    document.getElementById('d-attrs').innerHTML = (pole && pole.id !== node ? `<dt>Pôle</dt><dd>${esc(pole.id)}</dd>` : '') + FIELDS
+      .filter(([k]) => a.attrs[k])
+      .map(([k, label, kind]) => `<dt>${esc(label)}</dt><dd class="${kind === 'mono' ? 'mono' : ''}">${kind === 'url' ? link(a.attrs[k]) : esc(a.attrs[k])}</dd>`)
+      .join('');
+    // Voisins groupés par catégorie, dans l'ordre de la légende.
+    const groups = new Map();
+    graph.forEachNeighbor(node, (n, na) => {
+      if (!groups.has(na.categorie)) groups.set(na.categorie, []);
+      groups.get(na.categorie).push(n);
+    });
+    const html = data.categories.filter(c => groups.has(c.id)).map(c => {
+      const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
+      return `<h3>${esc(c.label)} · ${items.length}</h3><ul>` + items.map(n =>
+        `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}"></span><span class="txt">${esc(short(n))}</span></button></li>`).join('') + '</ul>';
+    }).join('');
+    document.getElementById('d-links').innerHTML = html || '<h3>Aucun lien</h3>';
+    detail.hidden = false;
+    detail.scrollTop = 0;
+    const pos = renderer.getNodeDisplayData(node);
+    if (pos) renderer.getCamera().animate({ x: pos.x, y: pos.y, ratio: Math.min(renderer.getCamera().ratio, 0.35) }, { duration: 500 });
+  }
+  document.getElementById('d-links').addEventListener('click', e => {
+    const b = e.target.closest('button[data-node]');
+    if (b) select(b.dataset.node);
+  });
+  document.getElementById('d-close').addEventListener('click', () => select(null));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.selected) select(null); });
+
+  // --- Recherche ---
+  const q = document.getElementById('q');
+  const results = document.getElementById('results');
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const index = graph.mapNodes((n, a) => [n, norm(n + ' ' + (a.attrs.Organisme || '') + ' ' + (a.attrs['Intitulé 2019'] || ''))]);
+  let matches = [];
+  q.addEventListener('input', () => {
+    const words = norm(q.value.trim()).split(/\s+/).filter(Boolean);
+    matches = words.length ? index.filter(([, t]) => words.every(w => t.includes(w))).map(([n]) => n).slice(0, 30) : [];
+    results.innerHTML = matches.map(n => {
+      const c = graph.getNodeAttribute(n, 'categorie');
+      return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c)}"></span><span class="txt">${esc(short(n))}</span></button></li>`;
+    }).join('') + (words.length && !matches.length ? '<li class="sub" style="padding:6px 8px">Aucun résultat.</li>' : '');
+  });
+  q.addEventListener('keydown', e => { if (e.key === 'Enter' && matches[0]) select(matches[0]); });
+  results.addEventListener('click', e => {
+    const b = e.target.closest('button[data-node]');
+    if (b) select(b.dataset.node);
+  });
+
+  // --- Pôles : noms sur la carte et « Aller à » ---
+  const polesEl = document.getElementById('poles');
+  const poleLabels = data.poles.map(p => {
+    const span = document.createElement('span');
+    span.textContent = p.label;
+    polesEl.appendChild(span);
+    return span;
+  });
+  const bubble = p => {
+    const c = renderer.graphToViewport({ x: p.x, y: p.y });
+    const e = renderer.graphToViewport({ x: p.x + p.r, y: p.y });
+    return { x: c.x, y: c.y, r: Math.abs(e.x - c.x) };
+  };
+  renderer.on('afterRender', () => {
+    polesEl.classList.toggle('dim', !!focus());
+    data.poles.forEach((p, i) => {
+      const b = bubble(p), el = poleLabels[i];
+      // Nom masqué quand la bulle est trop petite ou quand on est très près.
+      const show = b.r > 28 && b.r < 900;
+      el.hidden = !show;
+      if (show) { el.style.left = b.x + 'px'; el.style.top = (b.y - b.r - 4) + 'px'; }
+    });
+  });
+  const poleSelect = document.getElementById('pole');
+  data.poles
+    .map((p, i) => [p, i])
+    .sort(([a], [b]) => a.label.localeCompare(b.label, 'fr'))
+    .forEach(([p, i]) => poleSelect.add(new Option(`${p.label} (${fmt(p.size)})`, i)));
+  poleSelect.addEventListener('change', () => {
+    const p = data.poles[poleSelect.value];
+    if (!p) return;
+    select(null);
+    const cam = renderer.getCamera();
+    const b = bubble(p);
+    const { width, height } = renderer.getDimensions();
+    const target = renderer.viewportToFramedGraph({ x: b.x, y: b.y });
+    cam.animate({ x: target.x, y: target.y, ratio: cam.ratio * (b.r * 2.4) / Math.min(width, height) }, { duration: 500 });
+  });
+  renderer.refresh();
+
+  // --- Zoom ---
+  const cam = renderer.getCamera();
+  document.getElementById('z-in').addEventListener('click', () => cam.animatedZoom({ duration: 250 }));
+  document.getElementById('z-out').addEventListener('click', () => cam.animatedUnzoom({ duration: 250 }));
+  document.getElementById('z-reset').addEventListener('click', () => cam.animatedReset({ duration: 350 }));
+
+  // Lien direct vers un élément : #domaine (ex. #ademe.fr).
+  const target = decodeURIComponent(location.hash.slice(1));
+  if (target) {
+    const hit = graph.findNode(n => short(n) === target || n === target);
+    if (hit) select(hit);
+  }
+})();
+</script>

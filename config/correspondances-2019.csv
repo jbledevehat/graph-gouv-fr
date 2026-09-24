@@ -1,0 +1,17 @@
+ancien,actuel
+# Administrations de la carte V1 (intitulés 2019) -> intitulé actuel dans l'Annuaire de l'administration.
+# Dans la V2, l'élément prend l'intitulé actuel (l'ancien est conservé dans « Intitulé 2019 »)
+# et ses connexions suivent. À mettre à jour après chaque remaniement.
+Ministère de l’Agriculture et de l’Alimentation,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+Ministère de la Transition écologique et solidaire,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+Ministère de l'Éducation nationale et de la Jeunesse,Ministère de l'Éducation nationale
+Ministère de l'Économie et des Finances,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+Ministère des Sports,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+Ministère des Solidarités et de la Santé,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales,Ministère de l’Aménagement du Territoire et de la Décentralisation
+Ministère du Travail,Ministère du Travail et des Solidarités
+"Ministère de l’Enseignement supérieur, de la Recherche et de l’Innovation","Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+Ministère de l’Intérieur,Ministère de l'Intérieur
+Ministère des Armées,Ministère des Armées et des Anciens combattants
+Direction interministérielle du numérique et du système d'information et de communication de l’État (DINSIC),Direction interministérielle du numérique (DINUM)
+Etalab,Direction interministérielle du numérique (DINUM)

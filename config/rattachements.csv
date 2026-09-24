@@ -1,0 +1,5 @@
+domaine,administration
+# Rattache un domaine (sans www.) à une administration existante de la carte (libellé Kumu exact).
+# Les nouveaux sites sans rattachement reçoivent le tag « À rattacher ».
+# Exemple :
+# nouveau-site.gouv.fr,Ministère du Travail

@@ -1,0 +1,23 @@
+{
+  "name": "sites-gouv-fr",
+  "version": "0.1.0",
+  "description": "Mise à jour de la cartographie Kumu des sites web en gouv.fr",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "fetch:kumu": "node src/cli.mjs fetch-kumu",
+    "fetch:sources": "node src/cli.mjs fetch-sources",
+    "check": "node src/cli.mjs check",
+    "build": "node src/cli.mjs build",
+    "update": "node src/cli.mjs all"
+  },
+  "license": "etalab-2.0",
+  "dependencies": {
+    "graphology": "^0.26.0",
+    "graphology-gexf": "^0.13.2",
+    "graphology-layout-forceatlas2": "^0.10.1"
+  }
+}
