@@ -918,21 +918,6 @@
     "checkedAt": "2026-09-24T10:20:46.506Z"
   },
   {
-    "key": "ansc.interieur.gouv.fr",
-    "url": "https://ansc.interieur.gouv.fr",
-    "organisme": "Agence du numérique de la sécurité civile",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "Ministère de l'Intérieur",
-    "siren": "130024417",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "TimeoutError / TimeoutError / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T10:24:23.017Z"
-  },
-  {
     "key": "anses.fr",
     "url": "https://www.anses.fr",
     "organisme": "Pôle Produits réglementés de l'ANSES",
@@ -1039,18 +1024,6 @@
     "finalUrl": "https://www.aquarium-tropical.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:20:46.822Z"
-  },
-  {
-    "key": "aquitaine-limousin-poitou-charentes.gouv.fr",
-    "url": "http://aquitaine-limousin-poitou-charentes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:29.661Z"
   },
   {
     "key": "aquoiserventmesimpots.gouv.fr",
@@ -1242,30 +1215,6 @@
     "checkedAt": "2026-09-24T10:20:47.816Z"
   },
   {
-    "key": "assises-tourisme.gouv.fr",
-    "url": "http://www.assises-tourisme.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Palard)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ECONNRESET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:24.081Z"
-  },
-  {
-    "key": "assisesdelamobilité.gouv.fr",
-    "url": "http://assisesdelamobilité.gouv.fr",
-    "siren": "",
-    "source": "DINUM (ADULLACT)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 404,
-    "finalUrl": null,
-    "error": "404 / 502 / 404 / 502",
-    "checkedAt": "2026-09-24T10:23:25.684Z"
-  },
-  {
     "key": "atigip-justice.fr",
     "url": "https://www.atigip-justice.fr",
     "organisme": "Agence du travail d’intérêt général et de l’insertion professionnelle (ATIGIP)",
@@ -1404,18 +1353,6 @@
     "checkedAt": "2026-09-24T10:20:48.726Z"
   },
   {
-    "key": "auvergne-rhone-alpes.gouv.fr",
-    "url": "http://auvergne-rhone-alpes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:31.663Z"
-  },
-  {
     "key": "auvergnerhonealpes.cnpf.fr",
     "url": "https://auvergnerhonealpes.cnpf.fr",
     "organisme": "Centre régional de la propriété forestière - Auvergne-Rhône-Alpes",
@@ -1527,18 +1464,6 @@
     "checkedAt": "2026-09-24T10:20:49.786Z"
   },
   {
-    "key": "basse-normandie.gouv.fr",
-    "url": "http://basse-normandie.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:32.163Z"
-  },
-  {
     "key": "bea-mer.developpement-durable.gouv.fr",
     "url": "https://www.bea-mer.developpement-durable.gouv.fr",
     "organisme": "Bureau d'enquêtes sur les événements de mer",
@@ -1596,30 +1521,6 @@
     "checkedAt": "2026-09-24T10:20:50.204Z"
   },
   {
-    "key": "biodechet.gouv.fr",
-    "url": "https://biodechet.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=19833360504)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:29.262Z"
-  },
-  {
-    "key": "biodechets.gouv.fr",
-    "url": "https://biodechets.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=19814561096)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:31.260Z"
-  },
-  {
     "key": "biodiversite-en-action.gouv.fr",
     "url": "http://biodiversite-en-action.gouv.fr",
     "siren": "",
@@ -1630,21 +1531,6 @@
     "finalUrl": "http://biodiversite-en-action.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:20:50.263Z"
-  },
-  {
-    "key": "biodiversite.gouv.fr",
-    "url": "https://biodiversite.gouv.fr",
-    "organisme": "Comité national de la biodiversité",
-    "typeOrganisme": "Conseil, comité, commission (organisme consultatif)",
-    "tutelle": "",
-    "siren": "",
-    "source": "Annuaire de l'administration + DINUM",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:31.243Z"
   },
   {
     "key": "bnf.fr",
@@ -1707,30 +1593,6 @@
     "checkedAt": "2026-09-24T10:20:51.458Z"
   },
   {
-    "key": "bourgogne-franche-comte.gouv.fr",
-    "url": "http://bourgogne-franche-comte.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:38.726Z"
-  },
-  {
-    "key": "bourgogne.gouv.fr",
-    "url": "http://bourgogne.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:39.222Z"
-  },
-  {
     "key": "bourgognefranchecomte.cnpf.fr",
     "url": "https://bourgognefranchecomte.cnpf.fr",
     "organisme": "Centre régional de la propriété forestière - Bourgogne-Franche-Comté",
@@ -1774,18 +1636,6 @@
     "finalUrl": "https://bretagne-paysdelaloire.cnpf.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:20:52.435Z"
-  },
-  {
-    "key": "bretagne.gouv.fr",
-    "url": "http://bretagne.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:39.691Z"
   },
   {
     "key": "brgm.fr",
@@ -2343,18 +2193,6 @@
     "checkedAt": "2026-09-24T10:20:57.280Z"
   },
   {
-    "key": "centre.gouv.fr",
-    "url": "http://centre.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:40.149Z"
-  },
-  {
     "key": "centrenationaldulivre.fr",
     "url": "https://centrenationaldulivre.fr",
     "organisme": "Centre national du livre",
@@ -2644,30 +2482,6 @@
     "finalUrl": "https://chambres-agriculture.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:00.287Z"
-  },
-  {
-    "key": "champagne-ardenne.gouv.fr",
-    "url": "http://champagne-ardenne.gouv.fr",
-    "siren": "",
-    "source": "DINUM (DNS)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:42.158Z"
-  },
-  {
-    "key": "chaquegestecompte.gouv.fr",
-    "url": "https://chaquegestecompte.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:41.263Z"
   },
   {
     "key": "chartes.psl.eu",
@@ -3696,18 +3510,6 @@
     "checkedAt": "2026-09-24T10:21:05.383Z"
   },
   {
-    "key": "commission-nationale-services.gouv.fr",
-    "url": "http://commission-nationale-services.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / 404 / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:23:51.527Z"
-  },
-  {
     "key": "commission-participations-transferts.gouv.fr",
     "url": "http://commission-participations-transferts.gouv.fr",
     "siren": "",
@@ -3936,30 +3738,6 @@
     "checkedAt": "2026-09-24T10:21:06.927Z"
   },
   {
-    "key": "consultation-economie-circulaire.gouv.fr",
-    "url": "https://consultation-economie-circulaire.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:43.277Z"
-  },
-  {
-    "key": "consultationretraite.gouv.fr",
-    "url": "http://consultationretraite.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "EPROTO / ECONNREFUSED / EPROTO / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:23:43.765Z"
-  },
-  {
     "key": "contrat-génération.gouv.fr",
     "url": "http://contrat-génération.gouv.fr",
     "siren": "",
@@ -4026,18 +3804,6 @@
     "checkedAt": "2026-09-24T10:21:07.159Z"
   },
   {
-    "key": "corse.gouv.fr",
-    "url": "http://corse.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:23:44.448Z"
-  },
-  {
     "key": "courdecassation.fr",
     "url": "https://www.courdecassation.fr",
     "organisme": "Cour de cassation",
@@ -4096,21 +3862,6 @@
     "finalUrl": "https://www.csa.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:07.819Z"
-  },
-  {
-    "key": "csa.fr (http:",
-    "url": "https://www.csa.fr (http:",
-    "organisme": "Arcom - Antilles et de la Guyane",
-    "typeOrganisme": "Autorité administrative indépendante",
-    "tutelle": "",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_INVALID_URL / ERR_INVALID_URL",
-    "checkedAt": "2026-09-24T10:23:43.278Z"
   },
   {
     "key": "csmm.developpement-durable.gouv.fr",
@@ -4254,21 +4005,6 @@
     "checkedAt": "2026-09-24T10:21:09.657Z"
   },
   {
-    "key": "debatpublic.fr",
-    "url": "https://www.debatpublic.fr",
-    "organisme": "Commission nationale du débat public (CNDP)",
-    "typeOrganisme": "Autorité administrative indépendante",
-    "tutelle": "",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T10:23:45.023Z"
-  },
-  {
     "key": "dechets-radioactifs.gouv.fr",
     "url": "https://dechets-radioactifs.gouv.fr",
     "siren": "",
@@ -4398,30 +4134,6 @@
     "checkedAt": "2026-09-24T10:21:09.704Z"
   },
   {
-    "key": "deux-sevres.gouv.fr",
-    "url": "https://deux-sevres.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:23:50.465Z"
-  },
-  {
-    "key": "developpement-durable.gouv.fr",
-    "url": "https://developpement-durable.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:47.098Z"
-  },
-  {
     "key": "devenir-aviateur.gouv.fr",
     "url": "https://devenir-aviateur.gouv.fr",
     "siren": "",
@@ -4536,18 +4248,6 @@
     "checkedAt": "2026-09-24T10:21:10.232Z"
   },
   {
-    "key": "dimed.gouv.fr",
-    "url": "http://dimed.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / ENOTFOUND / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:23:58.565Z"
-  },
-  {
     "key": "diplomes.gouv.fr",
     "url": "https://diplomes.gouv.fr",
     "siren": "",
@@ -4584,30 +4284,6 @@
     "checkedAt": "2026-09-24T10:21:10.498Z"
   },
   {
-    "key": "documentationadministrative.gouv.fr",
-    "url": "http://documentationadministrative.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:21:36.542Z"
-  },
-  {
-    "key": "donation-immobilier.gouv.fr",
-    "url": "https://donation-immobilier.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=18787564827)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:52.047Z"
-  },
-  {
     "key": "dondesang.efs.sante.fr",
     "url": "https://dondesang.efs.sante.fr",
     "organisme": "Établissement français du sang",
@@ -4636,18 +4312,6 @@
     "finalUrl": "https://www.dondorganes.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:10.753Z"
-  },
-  {
-    "key": "doubs.gouv.fr",
-    "url": "https://doubs.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:23:53.084Z"
   },
   {
     "key": "drees.sante.gouv.fr",
@@ -4944,18 +4608,6 @@
     "checkedAt": "2026-09-24T10:21:12.957Z"
   },
   {
-    "key": "ecologie-solidaire.gouv.fr",
-    "url": "https://ecologie-solidaire.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:54.534Z"
-  },
-  {
     "key": "ecpad.fr",
     "url": "https://www.ecpad.fr",
     "organisme": "Établissement de communication et de production audiovisuelle de la défense",
@@ -5115,18 +4767,6 @@
     "checkedAt": "2026-09-24T10:21:15.131Z"
   },
   {
-    "key": "egalitedeschances.gouv.fr",
-    "url": "http://egalitedeschances.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:21:27.075Z"
-  },
-  {
     "key": "ehesp.fr",
     "url": "https://www.ehesp.fr",
     "organisme": "École des hautes études en santé publique",
@@ -5157,18 +4797,6 @@
     "checkedAt": "2026-09-24T10:21:14.356Z"
   },
   {
-    "key": "electionsrepresentantshlm.gouv.fr",
-    "url": "https://electionsrepresentantshlm.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:56.035Z"
-  },
-  {
     "key": "electrifions-la-france.gouv.fr",
     "url": "https://electrifions-la-france.gouv.fr",
     "siren": "",
@@ -5179,18 +4807,6 @@
     "finalUrl": "https://www.electrifions-la-france.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:14.750Z"
-  },
-  {
-    "key": "embauche-pme.gouv.fr",
-    "url": "http://embauche-pme.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:21:53.044Z"
   },
   {
     "key": "embauchepme.gouv.fr",
@@ -5338,18 +4954,6 @@
     "finalUrl": "https://www.energie-mediateur.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:17.918Z"
-  },
-  {
-    "key": "energies-citoyennes.gouv.fr",
-    "url": "https://energies-citoyennes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:23:58.133Z"
   },
   {
     "key": "enfance.gouv.fr",
@@ -5530,21 +5134,6 @@
     "finalUrl": "https://ensa-bourges.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:19.861Z"
-  },
-  {
-    "key": "ensa-dijon.fr",
-    "url": "https://ensa-dijon.fr",
-    "organisme": "École nationale supérieure d'art de Dijon",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "",
-    "siren": "180092413",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:24:39.454Z"
   },
   {
     "key": "ensa-limoges.fr",
@@ -5782,21 +5371,6 @@
     "finalUrl": "https://www.ensp-arles.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:20.971Z"
-  },
-  {
-    "key": "ensp.interieur.gouv.fr",
-    "url": "https://www.ensp.interieur.gouv.fr",
-    "organisme": "École nationale supérieure de la police",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "Ministère de l'Intérieur",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:23:58.674Z"
   },
   {
     "key": "enssib.fr",
@@ -6090,18 +5664,6 @@
     "checkedAt": "2026-09-24T10:21:23.289Z"
   },
   {
-    "key": "famille-enfance.gouv.fr",
-    "url": "http://www.famille-enfance.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Palard)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:24:09.020Z"
-  },
-  {
     "key": "famille.gouv.fr",
     "url": "https://famille.gouv.fr",
     "siren": "",
@@ -6139,18 +5701,6 @@
     "finalUrl": "https://www.egalite-femmes-hommes.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:23.873Z"
-  },
-  {
-    "key": "feux-foret.gouv.fr",
-    "url": "http://feux-foret.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:00.789Z"
   },
   {
     "key": "fiva.fr",
@@ -6289,18 +5839,6 @@
     "finalUrl": "https://fps.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:25.417Z"
-  },
-  {
-    "key": "francaisdeletranger.gouv.fr",
-    "url": "http://francaisdeletranger.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:24:41.451Z"
   },
   {
     "key": "france-education-international.fr",
@@ -6516,18 +6054,6 @@
     "checkedAt": "2026-09-24T10:21:27.853Z"
   },
   {
-    "key": "francethd.gouv.fr",
-    "url": "http://francethd.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / ENOTFOUND / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:24:11.507Z"
-  },
-  {
     "key": "francetourismedurable.gouv.fr",
     "url": "https://francetourismedurable.gouv.fr",
     "siren": "",
@@ -6568,18 +6094,6 @@
     "finalUrl": "https://www.francetravail.org/accueil/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:28.323Z"
-  },
-  {
-    "key": "franche-comte.gouv.fr",
-    "url": "http://franche-comte.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:10.227Z"
   },
   {
     "key": "francophonie2024.gouv.fr",
@@ -6624,18 +6138,6 @@
     "checkedAt": "2026-09-24T10:21:28.839Z"
   },
   {
-    "key": "gard.gouv.fr",
-    "url": "https://gard.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:24:13.110Z"
-  },
-  {
     "key": "garde-nationale.gouv.fr",
     "url": "https://garde-nationale.gouv.fr",
     "organisme": "Conseil supérieur de la réserve militaire",
@@ -6649,18 +6151,6 @@
     "finalUrl": "https://www.defense.gouv.fr/garde-nationale",
     "error": null,
     "checkedAt": "2026-09-24T10:21:29.161Z"
-  },
-  {
-    "key": "gironde.gouv.fr",
-    "url": "https://gironde.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:24:14.610Z"
   },
   {
     "key": "gisp.gouv.fr",
@@ -6685,18 +6175,6 @@
     "finalUrl": "https://www.info.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:29.409Z"
-  },
-  {
-    "key": "grand-est.gouv.fr",
-    "url": "http://grand-est.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:16.255Z"
   },
   {
     "key": "grandest.cnpf.fr",
@@ -6925,18 +6403,6 @@
     "finalUrl": "https://www.hautconseilclimat.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:34.770Z"
-  },
-  {
-    "key": "hauts-de-france.gouv.fr",
-    "url": "http://hauts-de-france.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:19.237Z"
   },
   {
     "key": "hautsdefrance-normandie.cnpf.fr",
@@ -7365,18 +6831,6 @@
     "checkedAt": "2026-09-24T10:21:38.920Z"
   },
   {
-    "key": "ile-de-france.gouv.fr",
-    "url": "http://ile-de-france.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:19.744Z"
-  },
-  {
     "key": "ilo.org",
     "url": "https://www.ilo.org",
     "organisme": "Délégation du Gouvernement auprès de l'Organisation internationale du travail et des G7/G20 travail-emploi",
@@ -7594,18 +7048,6 @@
     "finalUrl": "https://www.inc-conso.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:40.195Z"
-  },
-  {
-    "key": "industrielles.gouv.fr",
-    "url": "https://industrielles.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 403,
-    "finalUrl": null,
-    "error": "403 / 403 / 403 / 403",
-    "checkedAt": "2026-09-24T10:24:18.088Z"
   },
   {
     "key": "ined.fr",
@@ -8421,18 +7863,6 @@
     "checkedAt": "2026-09-24T10:21:48.307Z"
   },
   {
-    "key": "jedebroussaille.gouv.fr",
-    "url": "https://jedebroussaille.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=14982471675)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:20.679Z"
-  },
-  {
     "key": "jeprotegemonenfant.gouv.fr",
     "url": "https://jeprotegemonenfant.gouv.fr",
     "siren": "",
@@ -8523,18 +7953,6 @@
     "checkedAt": "2026-09-24T10:21:49.218Z"
   },
   {
-    "key": "ladocfrancaise.gouv.fr",
-    "url": "http://www.ladocfrancaise.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Palard)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:24:39.953Z"
-  },
-  {
     "key": "ladom.fr",
     "url": "https://ladom.fr",
     "organisme": "L'Agence de l'Outre-mer pour la mobilité",
@@ -8584,30 +8002,6 @@
     "finalUrl": "https://lamarinerecrute.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:51.097Z"
-  },
-  {
-    "key": "languedoc-roussillon-midi-pyrenees.gouv.fr",
-    "url": "http://languedoc-roussillon-midi-pyrenees.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:22.718Z"
-  },
-  {
-    "key": "languedoc-roussillon.gouv.fr",
-    "url": "http://languedoc-roussillon.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:24.223Z"
   },
   {
     "key": "lareunion-archi.fr",
@@ -8787,18 +8181,6 @@
     "checkedAt": "2026-09-24T10:21:54.014Z"
   },
   {
-    "key": "lesbonneshabitudes.gouv.fr",
-    "url": "https://lesbonneshabitudes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:24.302Z"
-  },
-  {
     "key": "lescrous.fr",
     "url": "https://www.lescrous.fr",
     "organisme": "Centre national des œuvres universitaires et scolaires",
@@ -8889,18 +8271,6 @@
     "checkedAt": "2026-09-24T10:21:55.543Z"
   },
   {
-    "key": "limousin.gouv.fr",
-    "url": "http://limousin.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:25.756Z"
-  },
-  {
     "key": "lne.fr",
     "url": "https://www.lne.fr",
     "organisme": "Laboratoire national de métrologie et d'essais",
@@ -8931,18 +8301,6 @@
     "checkedAt": "2026-09-24T10:21:56.131Z"
   },
   {
-    "key": "logement.gouv.fr",
-    "url": "https://logement.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:26.327Z"
-  },
-  {
     "key": "logement.intradef.gouv.fr",
     "url": "https://logement.intradef.gouv.fr",
     "organisme": "Établissement territorial du logement de Metz",
@@ -8968,18 +8326,6 @@
     "finalUrl": "https://epargnonsnosressources.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:21:58.422Z"
-  },
-  {
-    "key": "lorraine.gouv.fr",
-    "url": "http://www.lorraine.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://github.com/tb0hdan/domains/blob/master/data/france)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:26.712Z"
   },
   {
     "key": "louer-abordable.gouv.fr",
@@ -9201,21 +8547,6 @@
     "checkedAt": "2026-09-24T10:22:00.781Z"
   },
   {
-    "key": "mer.gouv.fr",
-    "url": "https://www.mer.gouv.fr",
-    "organisme": "Bureau de la transition écologique des navires",
-    "typeOrganisme": "Administration centrale (ou Ministère)",
-    "tutelle": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
-    "siren": "",
-    "source": "Annuaire de l'administration + DINUM",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T10:24:26.325Z"
-  },
-  {
     "key": "mercantour-parcnational.fr",
     "url": "https://www.mercantour-parcnational.fr",
     "organisme": "Parc national du Mercantour",
@@ -9300,18 +8631,6 @@
     "checkedAt": "2026-09-24T10:22:01.201Z"
   },
   {
-    "key": "midi-pyrenees.gouv.fr",
-    "url": "http://midi-pyrenees.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:28.731Z"
-  },
-  {
     "key": "mieuxrespirerenville.gouv.fr",
     "url": "https://mieuxrespirerenville.gouv.fr",
     "siren": "",
@@ -9382,18 +8701,6 @@
     "finalUrl": "https://www.miqcp.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:02.285Z"
-  },
-  {
-    "key": "miviludes.gouv.fr",
-    "url": "http://miviludes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T10:24:37.476Z"
   },
   {
     "key": "miviludes.interieur.gouv.fr",
@@ -9505,18 +8812,6 @@
     "finalUrl": "https://www.monparcourshandicap.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:03.309Z"
-  },
-  {
-    "key": "monprojetpourlaplanete.gouv.fr",
-    "url": "https://monprojetpourlaplanete.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:28.912Z"
   },
   {
     "key": "mont-saint-michel.gouv.fr",
@@ -9876,42 +9171,6 @@
     "checkedAt": "2026-09-24T10:22:05.107Z"
   },
   {
-    "key": "nord-pas-de-calais-picardie.gouv.fr",
-    "url": "http://nord-pas-de-calais-picardie.gouv.fr",
-    "siren": "",
-    "source": "DINUM (DNS)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:32.206Z"
-  },
-  {
-    "key": "nord-pas-de-calais.gouv.fr",
-    "url": "http://nord-pas-de-calais.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:32.693Z"
-  },
-  {
-    "key": "normandie.gouv.fr",
-    "url": "http://normandie.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:36.258Z"
-  },
-  {
     "key": "notre-dame-de-paris.culture.gouv.fr",
     "url": "https://notre-dame-de-paris.culture.gouv.fr",
     "organisme": "Établissement public chargé de la conservation et de la restauration de la cathédrale Notre-Dame de Paris",
@@ -9964,18 +9223,6 @@
     "finalUrl": "https://nouvelle-aquitaine.cnpf.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:05.386Z"
-  },
-  {
-    "key": "nouvelle-aquitaine.gouv.fr",
-    "url": "http://nouvelle-aquitaine.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:36.709Z"
   },
   {
     "key": "nouvelles-chances.gouv.fr",
@@ -10063,18 +9310,6 @@
     "finalUrl": "https://occitanie.cnpf.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:05.972Z"
-  },
-  {
-    "key": "occitanie.gouv.fr",
-    "url": "http://occitanie.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:38.705Z"
   },
   {
     "key": "ocde.delegfrance.org",
@@ -10311,21 +9546,6 @@
     "checkedAt": "2026-09-24T10:22:07.838Z"
   },
   {
-    "key": "onpv.fr",
-    "url": "https://www.onpv.fr",
-    "organisme": "Observatoire national de la politique de la ville (ONPV)",
-    "typeOrganisme": "Conseil, comité, commission (organisme consultatif)",
-    "tutelle": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:24:57.944Z"
-  },
-  {
     "key": "onu-geneve.delegfrance.org",
     "url": "https://onu-geneve.delegfrance.org",
     "organisme": "Représentation permanente de la France auprès de l'Office des Nations unies - Genève",
@@ -10461,21 +9681,6 @@
     "checkedAt": "2026-09-24T10:22:09.684Z"
   },
   {
-    "key": "orientation-pour-tous.fr",
-    "url": "https://www.orientation-pour-tous.fr",
-    "organisme": "Délégué à l'information et à l'orientation",
-    "typeOrganisme": "Administration centrale (ou Ministère)",
-    "tutelle": "",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:24:58.443Z"
-  },
-  {
     "key": "osce.delegfrance.org",
     "url": "https://osce.delegfrance.org",
     "organisme": "Représentation permanente de la France auprès de l'Organisation pour la sécurité et la coopération en Europe - Vienne",
@@ -10506,45 +9711,6 @@
     "checkedAt": "2026-09-24T10:22:10.531Z"
   },
   {
-    "key": "outremersolidaire.gouv.fr",
-    "url": "http://outremersolidaire.gouv.fr",
-    "siren": "",
-    "source": "DINUM (AFNIC open data)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ECONNRESET / ECONNREFUSED / ECONNRESET / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:24:39.743Z"
-  },
-  {
-    "key": "outremersolidaires.gouv.fr",
-    "url": "http://www.outremersolidaires.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://github.com/tb0hdan/domains/blob/master/data/france)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ECONNRESET / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:24:40.742Z"
-  },
-  {
-    "key": "ove-national.education.fr",
-    "url": "https://www.ove-national.education.fr",
-    "organisme": "Observatoire de la vie étudiante (OVE)",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "TimeoutError / TimeoutError",
-    "checkedAt": "2026-09-24T10:25:39.747Z"
-  },
-  {
     "key": "paca.cnpf.fr",
     "url": "https://paca.cnpf.fr",
     "organisme": "Centre régional de la propriété forestière - Provence-Alpes-Côte d'Azur",
@@ -10558,18 +9724,6 @@
     "finalUrl": "https://paca.cnpf.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:11.269Z"
-  },
-  {
-    "key": "paca.gouv.fr",
-    "url": "http://paca.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:41.598Z"
   },
   {
     "key": "palais-portedoree.fr",
@@ -10920,18 +10074,6 @@
     "checkedAt": "2026-09-24T10:22:17.286Z"
   },
   {
-    "key": "passrail.gouv.fr",
-    "url": "https://passrail.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=13222366073)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:42.297Z"
-  },
-  {
     "key": "payfip.gouv.fr",
     "url": "https://payfip.gouv.fr",
     "siren": "",
@@ -10942,30 +10084,6 @@
     "finalUrl": "https://payfip.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:17.347Z"
-  },
-  {
-    "key": "pays-de-la-loire.gouv.fr",
-    "url": "http://pays-de-la-loire.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:43.588Z"
-  },
-  {
-    "key": "peage-flux-libre.gouv.fr",
-    "url": "https://peage-flux-libre.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=13498185927)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:24:43.182Z"
   },
   {
     "key": "pension-alimentaire.caf.fr",
@@ -11088,42 +10206,6 @@
     "checkedAt": "2026-09-24T10:22:18.552Z"
   },
   {
-    "key": "pluie-inondation.gouv.fr",
-    "url": "https://www.pluie-inondation.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T10:24:43.295Z"
-  },
-  {
-    "key": "pme.gouv.fr",
-    "url": "http://pme.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:25:24.927Z"
-  },
-  {
-    "key": "poitou-charentes.gouv.fr",
-    "url": "http://poitou-charentes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:24:45.623Z"
-  },
-  {
     "key": "pole-emploi.fr",
     "url": "https://www.pole-emploi.fr",
     "organisme": "France Travail",
@@ -11167,30 +10249,6 @@
     "finalUrl": "https://www.police-nationale.net/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:19.580Z"
-  },
-  {
-    "key": "politique-eau.gouv.fr",
-    "url": "http://www.politique-eau.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Palard)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:25:04.942Z"
-  },
-  {
-    "key": "polynesie-francaise.gouv.fr",
-    "url": "https://polynesie-francaise.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / ERR_HTTP2_STREAM_ERROR / ERR_HTTP2_SESSION_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:24:46.909Z"
   },
   {
     "key": "polytechnique.edu",
@@ -11350,18 +10408,6 @@
     "finalUrl": "https://pret-a-taux-zero-plus.gouv.fr/",
     "error": "Certificat TLS : CERT_HAS_EXPIRED",
     "checkedAt": "2026-09-24T10:22:22.027Z"
-  },
-  {
-    "key": "pret-taux-zero.gouv.fr",
-    "url": "https://pret-taux-zero.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=18787543602)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:01.517Z"
   },
   {
     "key": "prime-chaudieres.gouv.fr",
@@ -11544,18 +10590,6 @@
     "checkedAt": "2026-09-24T10:22:24.207Z"
   },
   {
-    "key": "quefairedemesdechets.gouv.fr",
-    "url": "https://quefairedemesdechets.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:02.011Z"
-  },
-  {
     "key": "rafp.fr",
     "url": "https://www.rafp.fr",
     "organisme": "Établissement de retraite additionnelle de la fonction publique",
@@ -11667,18 +10701,6 @@
     "checkedAt": "2026-09-24T10:22:25.461Z"
   },
   {
-    "key": "relance-logement.gouv.fr",
-    "url": "https://relance-logement.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=23936500288)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:02.176Z"
-  },
-  {
     "key": "relancelogement.gouv.fr",
     "url": "https://relancelogement.gouv.fr",
     "siren": "",
@@ -11718,21 +10740,6 @@
     "checkedAt": "2026-09-24T10:22:42.397Z"
   },
   {
-    "key": "reseau-canope.fr",
-    "url": "https://www.reseau-canope.fr",
-    "organisme": "Réseau Canopé",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "",
-    "siren": "180043010",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "redirect count exceeded / redirect count exceeded",
-    "checkedAt": "2026-09-24T10:25:03.186Z"
-  },
-  {
     "key": "respirez-mieux.gouv.fr",
     "url": "http://www.respirez-mieux.gouv.fr",
     "siren": "",
@@ -11743,21 +10750,6 @@
     "finalUrl": "http://www.respirez-mieux.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:27.050Z"
-  },
-  {
-    "key": "retourvolontaire.fr",
-    "url": "https://www.retourvolontaire.fr",
-    "organisme": "Office français de l'immigration et de l'intégration",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "",
-    "siren": "180034027",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ECONNRESET / 503",
-    "checkedAt": "2026-09-24T10:25:02.569Z"
   },
   {
     "key": "reunion-parcnational.fr",
@@ -11851,30 +10843,6 @@
     "finalUrl": "https://ruralite.gouv.fr/",
     "error": "Certificat TLS : CERT_HAS_EXPIRED",
     "checkedAt": "2026-09-24T10:22:28.394Z"
-  },
-  {
-    "key": "saintpierre-et-miquelon.gouv.fr",
-    "url": "http://saintpierre-et-miquelon.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:25:04.834Z"
-  },
-  {
-    "key": "saintpierreetmiquelon.gouv.fr",
-    "url": "http://saintpierreetmiquelon.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:25:05.859Z"
   },
   {
     "key": "sanctuaire-agoa.fr",
@@ -12019,18 +10987,6 @@
     "finalUrl": "https://www.securite-sociale.fr/accueil",
     "error": null,
     "checkedAt": "2026-09-24T10:22:29.154Z"
-  },
-  {
-    "key": "securitedesagentsdesroutes.gouv.fr",
-    "url": "https://securitedesagentsdesroutes.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:05.772Z"
   },
   {
     "key": "semaine-innovation-publique.gouv.fr",
@@ -12390,18 +11346,6 @@
     "checkedAt": "2026-09-24T10:22:31.337Z"
   },
   {
-    "key": "spm.gouv.fr",
-    "url": "http://spm.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
-    "checkedAt": "2026-09-24T10:22:43.086Z"
-  },
-  {
     "key": "spote.developpement-durable.gouv.fr",
     "url": "https://spote.developpement-durable.gouv.fr",
     "organisme": "Pôle réseau interministériel de l'Etat - SOI",
@@ -12445,21 +11389,6 @@
     "finalUrl": "https://www.st-etienne.archi.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:31.641Z"
-  },
-  {
-    "key": "stac.aviation-civile.gouv.fr",
-    "url": "https://www.stac.aviation-civile.gouv.fr",
-    "organisme": "Département Administration, système d'information et diffusion",
-    "typeOrganisme": "Service à compétence nationale",
-    "tutelle": "Service technique de l'aviation civile",
-    "siren": "",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:25:26.426Z"
   },
   {
     "key": "stop-punaises.gouv.fr",
@@ -12703,18 +11632,6 @@
     "finalUrl": "https://www.terre.defense.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:33.553Z"
-  },
-  {
-    "key": "territoires.gouv.fr",
-    "url": "https://territoires.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:07.445Z"
   },
   {
     "key": "th.ambafrance.org",
@@ -13188,21 +12105,6 @@
     "checkedAt": "2026-09-24T10:22:40.036Z"
   },
   {
-    "key": "urssaf.org",
-    "url": "https://www.urssaf.org",
-    "organisme": "Agence centrale des organismes de sécurité sociale",
-    "typeOrganisme": "Établissement public",
-    "tutelle": "",
-    "siren": "180035016",
-    "source": "Annuaire de l'administration",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ECONNRESET / ECONNRESET",
-    "checkedAt": "2026-09-24T10:25:06.478Z"
-  },
-  {
     "key": "vacancesapprenantes.gouv.fr",
     "url": "https://vacancesapprenantes.gouv.fr",
     "siren": "",
@@ -13371,18 +12273,6 @@
     "checkedAt": "2026-09-24T10:22:41.233Z"
   },
   {
-    "key": "ville.gouv.fr",
-    "url": "http://ville.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T10:25:48.419Z"
-  },
-  {
     "key": "vnf.fr",
     "url": "https://www.vnf.fr",
     "organisme": "Voies navigables de France",
@@ -13470,30 +12360,6 @@
     "checkedAt": "2026-09-24T10:22:45.108Z"
   },
   {
-    "key": "voie-reservee.gouv.fr",
-    "url": "https://voie-reservee.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=11024671102)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:10.118Z"
-  },
-  {
-    "key": "voies-reservees.gouv.fr",
-    "url": "https://voies-reservees.gouv.fr",
-    "siren": "",
-    "source": "DINUM (https://crt.sh/?id=11334016097)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T10:25:11.620Z"
-  },
-  {
     "key": "votezaletranger.gouv.fr",
     "url": "https://votezaletranger.gouv.fr",
     "siren": "",
@@ -13519,18 +12385,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T10:22:43.589Z"
-  },
-  {
-    "key": "wallis-et-futuna.gouv.fr",
-    "url": "https://wallis-et-futuna.gouv.fr",
-    "siren": "",
-    "source": "DINUM (CT logs)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:25:14.174Z"
   },
   {
     "key": "xn--accessibilit-meb.gouv.fr",
@@ -13627,18 +12481,6 @@
     "finalUrl": "https://www.systeme-de-design.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T10:22:53.293Z"
-  },
-  {
-    "key": "yonne.gouv.fr",
-    "url": "https://yonne.gouv.fr",
-    "siren": "",
-    "source": "DINUM (Ajout manuel de Bastien Guerry)",
-    "kind": "candidate",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET",
-    "checkedAt": "2026-09-24T10:25:15.169Z"
   },
   {
     "url": "http://www.expo14-18.developpement-durable.gouv.fr",
@@ -14001,15 +12843,6 @@
     "checkedAt": "2026-09-24T11:30:59.444Z"
   },
   {
-    "url": "http://heracles.economie.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENETUNREACH / ENETUNREACH / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:15.121Z"
-  },
-  {
     "url": "https://traitdunion.beta.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -14143,15 +12976,6 @@
     "finalUrl": "https://www.modernisation.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:30:58.500Z"
-  },
-  {
-    "url": "http://livrevert-rsa.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:34:41.150Z"
   },
   {
     "url": "http://www.sdap-poitou-charentes.culture.gouv.fr",
@@ -14289,15 +13113,6 @@
     "checkedAt": "2026-09-24T11:31:00.044Z"
   },
   {
-    "url": "http://leportailetudiant.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 200,
-    "finalUrl": null,
-    "error": "Page de parking (200) / 403 / Page de parking (200) / 403",
-    "checkedAt": "2026-09-24T11:34:01.795Z"
-  },
-  {
     "url": "http://www.ado.justice.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -14323,15 +13138,6 @@
     "finalUrl": "https://www.alerte-enlevement.justice.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:00.207Z"
-  },
-  {
-    "url": "https://teleservices.justice.gouv.fr/aej-portail-fo-web/portail/Accueil/Accueil",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:22.160Z"
   },
   {
     "url": "http://www.hclpd.gouv.fr",
@@ -14451,15 +13257,6 @@
     "checkedAt": "2026-09-24T11:31:02.152Z"
   },
   {
-    "url": "http://clcf.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENOTFOUND / ENOTFOUND / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:34:23.157Z"
-  },
-  {
     "url": "http://www.archeologie-aerienne.culture.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -14541,15 +13338,6 @@
     "checkedAt": "2026-09-24T11:31:02.283Z"
   },
   {
-    "url": "https://www.pacte-entreprises.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "EPROTO / 409",
-    "checkedAt": "2026-09-24T11:34:03.278Z"
-  },
-  {
     "url": "http://www.coutglobal.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -14584,15 +13372,6 @@
     "finalUrl": "https://www.reunion.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:03.791Z"
-  },
-  {
-    "url": "http://e-phy.agriculture.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 403,
-    "finalUrl": null,
-    "error": "403 / 403 / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:06.879Z"
   },
   {
     "url": "http://www.enseignementsup-recherche.gouv.fr",
@@ -14748,24 +13527,6 @@
     "checkedAt": "2026-09-24T11:31:05.160Z"
   },
   {
-    "url": "https://www.ecologique-solidaire.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T11:34:05.868Z"
-  },
-  {
-    "url": "https://www.derives-sectes.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:34:26.655Z"
-  },
-  {
     "url": "http://webdocs.diplomatie.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -14901,15 +13662,6 @@
     "checkedAt": "2026-09-24T11:31:09.451Z"
   },
   {
-    "url": "https://signalconso.beta.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ETIMEDOUT / ETIMEDOUT / ETIMEDOUT / ETIMEDOUT",
-    "checkedAt": "2026-09-24T11:34:32.328Z"
-  },
-  {
     "url": "http://destinations.diplomatie.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -14989,15 +13741,6 @@
     "finalUrl": "https://www.anlci.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:10.462Z"
-  },
-  {
-    "url": "https://peps.beta.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:39.653Z"
   },
   {
     "url": "http://www.horizon2020.gouv.fr",
@@ -15315,15 +14058,6 @@
     "checkedAt": "2026-09-24T11:31:17.445Z"
   },
   {
-    "url": "https://www.giped.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENETUNREACH / 504",
-    "checkedAt": "2026-09-24T11:34:42.785Z"
-  },
-  {
     "url": "http://loiret.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -15367,15 +14101,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:31:18.894Z"
-  },
-  {
-    "url": "http://www3.centre.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:48.647Z"
   },
   {
     "url": "https://rendezvousauxjardins.culture.gouv.fr",
@@ -15693,15 +14418,6 @@
     "checkedAt": "2026-09-24T11:31:23.787Z"
   },
   {
-    "url": "https://www.ephoto.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENETUNREACH / ENETUNREACH",
-    "checkedAt": "2026-09-24T11:34:44.958Z"
-  },
-  {
     "url": "http://extranet.collaboratif.loire-atlantique.equipement-agriculture.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -15754,15 +14470,6 @@
     "finalUrl": "https://healthdatahub.solidarites-sante.gouv.fr/",
     "error": "Certificat TLS : ERR_TLS_CERT_ALTNAME_INVALID",
     "checkedAt": "2026-09-24T11:31:24.486Z"
-  },
-  {
-    "url": "http://ecologie.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503 / 503 / 503",
-    "checkedAt": "2026-09-24T11:34:33.866Z"
   },
   {
     "url": "http://martinique.gouv.fr",
@@ -15909,15 +14616,6 @@
     "checkedAt": "2026-09-24T11:31:28.365Z"
   },
   {
-    "url": "https://melanie2web.din.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:34:59.642Z"
-  },
-  {
     "url": "http://www.donnees.aquitaine.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -15990,15 +14688,6 @@
     "checkedAt": "2026-09-24T11:31:33.738Z"
   },
   {
-    "url": "http://www.cnefop.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:02.639Z"
-  },
-  {
     "url": "https://secnumacademie.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16044,15 +14733,6 @@
     "checkedAt": "2026-09-24T11:31:32.006Z"
   },
   {
-    "url": "https://www.conference-territoires.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 502,
-    "finalUrl": null,
-    "error": "502 / 404",
-    "checkedAt": "2026-09-24T11:34:44.328Z"
-  },
-  {
     "url": "https://www.amendes.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16078,15 +14758,6 @@
     "finalUrl": "https://www.dir.sud-ouest.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:33.369Z"
-  },
-  {
-    "url": "http://seine-et-marne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:45.770Z"
   },
   {
     "url": "http://corse.direccte.gouv.fr",
@@ -16123,15 +14794,6 @@
     "finalUrl": "https://drdjscs.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:33.259Z"
-  },
-  {
-    "url": "https://www.legion-etrangere.terre.defense.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:06.137Z"
   },
   {
     "url": "http://www.livreblancdefenseetsecurite.gouv.fr",
@@ -16213,15 +14875,6 @@
     "finalUrl": "https://limitesmaritimes.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:34.046Z"
-  },
-  {
-    "url": "http://jura.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:47.767Z"
   },
   {
     "url": "http://www.mobiliernational.culture.gouv.fr",
@@ -16341,15 +14994,6 @@
     "checkedAt": "2026-09-24T11:31:36.628Z"
   },
   {
-    "url": "http://essonne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:51.389Z"
-  },
-  {
     "url": "https://activitepartielle.emploi.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16404,15 +15048,6 @@
     "checkedAt": "2026-09-24T11:31:36.427Z"
   },
   {
-    "url": "http://info-ebola.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 200,
-    "finalUrl": null,
-    "error": "Page de parking (200) / ECONNREFUSED / TimeoutError / ECONNREFUSED",
-    "checkedAt": "2026-09-24T11:32:02.065Z"
-  },
-  {
     "url": "http://redressementproductif.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -16449,15 +15084,6 @@
     "checkedAt": "2026-09-24T11:31:37.000Z"
   },
   {
-    "url": "https://melanissimo-ng.din.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:35:12.637Z"
-  },
-  {
     "url": "https://oned.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -16465,15 +15091,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:31:38.063Z"
-  },
-  {
-    "url": "http://alpes-de-haute-provence.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:53.997Z"
   },
   {
     "url": "http://bretagne.direccte.gouv.fr",
@@ -16512,24 +15129,6 @@
     "checkedAt": "2026-09-24T11:31:37.980Z"
   },
   {
-    "url": "https://www.assisesdutransportaerien.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 502,
-    "finalUrl": null,
-    "error": "502 / 404",
-    "checkedAt": "2026-09-24T11:34:54.227Z"
-  },
-  {
-    "url": "http://www.hautes-alpes.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:54.997Z"
-  },
-  {
     "url": "https://www.alim-confiance.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -16557,24 +15156,6 @@
     "checkedAt": "2026-09-24T11:31:39.747Z"
   },
   {
-    "url": "http://www.landes.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:55.987Z"
-  },
-  {
-    "url": "http://etatplateforme.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:56.105Z"
-  },
-  {
     "url": "http://www.dirm.sud-atlantique.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16582,33 +15163,6 @@
     "finalUrl": "https://www.dirm.sud-atlantique.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:40.437Z"
-  },
-  {
-    "url": "http://haute-savoie.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:34:58.587Z"
-  },
-  {
-    "url": "http://loire-atlantique.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:01.062Z"
-  },
-  {
-    "url": "http://www.allier.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:01.605Z"
   },
   {
     "url": "https://www.sipsi.travail.gouv.fr",
@@ -16638,15 +15192,6 @@
     "checkedAt": "2026-09-24T11:31:42.651Z"
   },
   {
-    "url": "http://saint-barth-saint-martin.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:03.581Z"
-  },
-  {
     "url": "http://www.bretagne.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16654,15 +15199,6 @@
     "finalUrl": "https://www.bretagne.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:31:43.186Z"
-  },
-  {
-    "url": "http://www.avisderecherches.interieur.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENETUNREACH / ENETUNREACH",
-    "checkedAt": "2026-09-24T11:35:14.671Z"
   },
   {
     "url": "https://www.interieur.gouv.fr",
@@ -16690,33 +15226,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:02.661Z"
-  },
-  {
-    "url": "http://indre-et-loire.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:05.554Z"
-  },
-  {
-    "url": "https://www.assisesdelamobilite.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 502,
-    "finalUrl": null,
-    "error": "502 / 404",
-    "checkedAt": "2026-09-24T11:35:04.117Z"
-  },
-  {
-    "url": "http://apiagent.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:58.104Z"
   },
   {
     "url": "http://lheo.gouv.fr",
@@ -16764,15 +15273,6 @@
     "checkedAt": "2026-09-24T11:32:03.693Z"
   },
   {
-    "url": "http://apientreprise.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:06.596Z"
-  },
-  {
     "url": "http://www.sportsdenature.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -16791,24 +15291,6 @@
     "checkedAt": "2026-09-24T11:32:03.894Z"
   },
   {
-    "url": "http://moselle.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:07.727Z"
-  },
-  {
-    "url": "http://pas-de-calais.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:09.725Z"
-  },
-  {
     "url": "http://diagnostiqueurs.application.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -16816,15 +15298,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:05.596Z"
-  },
-  {
-    "url": "http://www.hautes-pyrenees.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:11.316Z"
   },
   {
     "url": "http://webissimo-ide.developpement-durable.gouv.fr",
@@ -16908,24 +15381,6 @@
     "checkedAt": "2026-09-24T11:32:06.595Z"
   },
   {
-    "url": "http://lesecransdusocial.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:53.108Z"
-  },
-  {
-    "url": "http://eure.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:14.235Z"
-  },
-  {
     "url": "http://www.declaration-environnementale.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -16933,15 +15388,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:07.128Z"
-  },
-  {
-    "url": "https://www-org.gendarmerie.interieur.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:35:36.121Z"
   },
   {
     "url": "https://franceconnect.gouv.fr",
@@ -17007,15 +15453,6 @@
     "checkedAt": "2026-09-24T11:32:10.499Z"
   },
   {
-    "url": "http://ariege.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:18.379Z"
-  },
-  {
     "url": "http://www.cvrh-paris.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17023,24 +15460,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:11.029Z"
-  },
-  {
-    "url": "https://www.cohesion-territoires.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T11:35:19.471Z"
-  },
-  {
-    "url": "https://www.moncompteactivite.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:35:40.114Z"
   },
   {
     "url": "https://terra.developpement-durable.gouv.fr",
@@ -17070,24 +15489,6 @@
     "checkedAt": "2026-09-24T11:32:13.199Z"
   },
   {
-    "url": "http://www.donnees.martinique.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T11:35:37.739Z"
-  },
-  {
-    "url": "http://eure-et-loir.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:39.328Z"
-  },
-  {
     "url": "http://redevancephyto.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -17106,15 +15507,6 @@
     "checkedAt": "2026-09-24T11:32:17.239Z"
   },
   {
-    "url": "http://references.modernisation.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 404,
-    "finalUrl": null,
-    "error": "404 / EPROTO / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:35:40.393Z"
-  },
-  {
     "url": "https://www.gendinfo.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17131,15 +15523,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:14.873Z"
-  },
-  {
-    "url": "http://somme.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:42.228Z"
   },
   {
     "url": "https://ivg.gouv.fr",
@@ -17178,15 +15561,6 @@
     "checkedAt": "2026-09-24T11:32:16.682Z"
   },
   {
-    "url": "http://val-de-marne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:44.719Z"
-  },
-  {
     "url": "http://ogc.geo-ide.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -17221,15 +15595,6 @@
     "finalUrl": "https://mon-entreprise.urssaf.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:18.225Z"
-  },
-  {
-    "url": "http://charente.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:46.203Z"
   },
   {
     "url": "http://www.igas.gouv.fr",
@@ -17268,15 +15633,6 @@
     "checkedAt": "2026-09-24T11:32:20.672Z"
   },
   {
-    "url": "http://manche.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:48.223Z"
-  },
-  {
     "url": "http://direccte.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17311,15 +15667,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:22.904Z"
-  },
-  {
-    "url": "http://rhone.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:51.719Z"
   },
   {
     "url": "https://passeport.ants.gouv.fr",
@@ -17358,15 +15705,6 @@
     "checkedAt": "2026-09-24T11:32:24.927Z"
   },
   {
-    "url": "http://loir-et-cher.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:52.200Z"
-  },
-  {
     "url": "https://work-in-france.beta.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17374,24 +15712,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:26.218Z"
-  },
-  {
-    "url": "http://www.cdu.urbanisme.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 503,
-    "finalUrl": null,
-    "error": "503 / 503",
-    "checkedAt": "2026-09-24T11:35:52.771Z"
-  },
-  {
-    "url": "https://www.memoiredeshommes.sga.defense.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 403,
-    "finalUrl": null,
-    "error": "403 / 403",
-    "checkedAt": "2026-09-24T11:35:53.505Z"
   },
   {
     "url": "https://www.cigeo.gouv.fr",
@@ -17430,15 +15750,6 @@
     "checkedAt": "2026-09-24T11:32:28.467Z"
   },
   {
-    "url": "http://apiparticulier.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:40.081Z"
-  },
-  {
     "url": "http://inclusion.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -17475,15 +15786,6 @@
     "checkedAt": "2026-09-24T11:32:30.062Z"
   },
   {
-    "url": "http://pyrenees-atlantiques.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:56.117Z"
-  },
-  {
     "url": "https://pro.douane.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17511,15 +15813,6 @@
     "checkedAt": "2026-09-24T11:32:29.913Z"
   },
   {
-    "url": "https://cartotheque.cget.gouv.fr/",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:36:17.591Z"
-  },
-  {
     "url": "http://enqueteur.dgac.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -17538,15 +15831,6 @@
     "checkedAt": "2026-09-24T11:32:30.614Z"
   },
   {
-    "url": "http://www.lot-et-garonne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:35:57.193Z"
-  },
-  {
     "url": "https://www.concours.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -17554,15 +15838,6 @@
     "finalUrl": "https://recrutement.ecologie.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:30.967Z"
-  },
-  {
-    "url": "http://vienne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:00.703Z"
   },
   {
     "url": "http://bougezautrement.gouv.fr",
@@ -17619,15 +15894,6 @@
     "checkedAt": "2026-09-24T11:32:32.128Z"
   },
   {
-    "url": "http://indre.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:02.712Z"
-  },
-  {
     "url": "http://mondmp.dmp.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17644,15 +15910,6 @@
     "finalUrl": "https://solidarites.gouv.fr/cnle",
     "error": null,
     "checkedAt": "2026-09-24T11:32:32.338Z"
-  },
-  {
-    "url": "http://isere.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:04.182Z"
   },
   {
     "url": "https://aidantsconnect.beta.gouv.fr",
@@ -17680,15 +15937,6 @@
     "finalUrl": "http://documents.installationsclassees.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:32.712Z"
-  },
-  {
-    "url": "http://finistere.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:05.706Z"
   },
   {
     "url": "http://sgae.gouv.fr",
@@ -17799,15 +16047,6 @@
     "checkedAt": "2026-09-24T11:32:37.425Z"
   },
   {
-    "url": "http://cher.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:08.212Z"
-  },
-  {
     "url": "http://occitanie.direccte.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17853,15 +16092,6 @@
     "checkedAt": "2026-09-24T11:32:39.278Z"
   },
   {
-    "url": "http://www.tarn.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:07.697Z"
-  },
-  {
     "url": "https://ira-bastia.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -17898,15 +16128,6 @@
     "checkedAt": "2026-09-24T11:32:40.454Z"
   },
   {
-    "url": "http://ecoquartier2011.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:36:27.586Z"
-  },
-  {
     "url": "http://enqueteur.fnasce.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -17923,15 +16144,6 @@
     "finalUrl": "https://particulier.api.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:41.562Z"
-  },
-  {
-    "url": "http://www.intefp-sstfp.travail.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:28.583Z"
   },
   {
     "url": "https://assec.beta.gouv.fr",
@@ -18015,15 +16227,6 @@
     "checkedAt": "2026-09-24T11:32:43.650Z"
   },
   {
-    "url": "http://www.aveyron.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:09.300Z"
-  },
-  {
     "url": "http://www.pays-de-la-loire.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -18049,15 +16252,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:44.864Z"
-  },
-  {
-    "url": "http://www.sn-nord-est.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:30.082Z"
   },
   {
     "url": "https://grande-cause-quinquennat.gouv.fr",
@@ -18087,15 +16281,6 @@
     "checkedAt": "2026-09-24T11:32:45.417Z"
   },
   {
-    "url": "http://pac2015.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:51.576Z"
-  },
-  {
     "url": "http://www.dir.centre-est.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -18112,15 +16297,6 @@
     "finalUrl": null,
     "error": "ECONNREFUSED / ECONNREFUSED",
     "checkedAt": "2026-09-24T11:32:46.753Z"
-  },
-  {
-    "url": "http://www.ardennes.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:18.732Z"
   },
   {
     "url": "http://www.evaluation.gouv.fr",
@@ -18148,15 +16324,6 @@
     "finalUrl": "https://www.auvergne-rhone-alpes.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:48.814Z"
-  },
-  {
-    "url": "http://www.corse-du-sud.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:19.837Z"
   },
   {
     "url": "https://valise-permanence.din.developpement-durable.gouv.fr",
@@ -18195,15 +16362,6 @@
     "checkedAt": "2026-09-24T11:32:50.207Z"
   },
   {
-    "url": "https://valce.travail.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:36:44.082Z"
-  },
-  {
     "url": "http://contrats-alternance.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -18211,15 +16369,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:32:50.634Z"
-  },
-  {
-    "url": "http://hauts-de-seine.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:30.170Z"
   },
   {
     "url": "http://infoma.agriculture.gouv.fr",
@@ -18231,15 +16380,6 @@
     "checkedAt": "2026-09-24T11:33:00.916Z"
   },
   {
-    "url": "http://mobilite.application.developpement-durable.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 500,
-    "finalUrl": null,
-    "error": "500 / 403 / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:36:29.838Z"
-  },
-  {
     "url": "https://encheres-domaine.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -18247,24 +16387,6 @@
     "finalUrl": "https://encheres-domaine.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:32:51.915Z"
-  },
-  {
-    "url": "https://www.portail-pse-rcc.emploi.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:36:50.576Z"
-  },
-  {
-    "url": "http://savoie.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:32.162Z"
   },
   {
     "url": "http://cnle.gouv.fr",
@@ -18339,15 +16461,6 @@
     "checkedAt": "2026-09-24T11:32:57.939Z"
   },
   {
-    "url": "http://tarn-et-garonne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:34.260Z"
-  },
-  {
     "url": "http://cnaop.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -18375,24 +16488,6 @@
     "checkedAt": "2026-09-24T11:32:58.924Z"
   },
   {
-    "url": "https://glyphosate.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:37:15.559Z"
-  },
-  {
-    "url": "http://cotes-darmor.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:36.248Z"
-  },
-  {
     "url": "https://stationnement.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -18400,15 +16495,6 @@
     "finalUrl": "https://stationnement.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:00.862Z"
-  },
-  {
-    "url": "http://www.internat.education.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 403,
-    "finalUrl": null,
-    "error": "403 / 403",
-    "checkedAt": "2026-09-24T11:36:36.863Z"
   },
   {
     "url": "http://www.mediatheque.justice.gouv.fr",
@@ -18501,24 +16587,6 @@
     "checkedAt": "2026-09-24T11:33:02.585Z"
   },
   {
-    "url": "http://creuse.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:40.484Z"
-  },
-  {
-    "url": "http://bas-rhin.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:42.465Z"
-  },
-  {
     "url": "https://cyberveille-sante.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -18535,15 +16603,6 @@
     "finalUrl": "https://maritimelimits.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:03.430Z"
-  },
-  {
-    "url": "https://www.merlittoral2030.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 502,
-    "finalUrl": null,
-    "error": "502 / 404",
-    "checkedAt": "2026-09-24T11:36:42.029Z"
   },
   {
     "url": "https://www.economie.gouv.fr",
@@ -18609,15 +16668,6 @@
     "checkedAt": "2026-09-24T11:33:05.452Z"
   },
   {
-    "url": "http://ille-et-vilaine.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:45.649Z"
-  },
-  {
     "url": "http://www.dm.sud-ocean-indien.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -18634,15 +16684,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:33:06.189Z"
-  },
-  {
-    "url": "https://cget.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ECONNRESET / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:37:25.054Z"
   },
   {
     "url": "http://cada.data.gouv.fr",
@@ -18670,15 +16711,6 @@
     "finalUrl": "https://enqueteur.cgdd.developpement-durable.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:07.404Z"
-  },
-  {
-    "url": "http://charente-maritime.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:47.126Z"
   },
   {
     "url": "https://mesdemarches.culture.gouv.fr",
@@ -18724,15 +16756,6 @@
     "finalUrl": "https://facilhabitat.gouv.fr/",
     "error": "Certificat TLS : DEPTH_ZERO_SELF_SIGNED_CERT",
     "checkedAt": "2026-09-24T11:33:07.895Z"
-  },
-  {
-    "url": "http://seine-maritime.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:49.302Z"
   },
   {
     "url": "https://www.geoportail-urbanisme.gouv.fr",
@@ -18796,24 +16819,6 @@
     "finalUrl": "https://draaf.paca.agriculture.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:21.385Z"
-  },
-  {
-    "url": "http://cncp.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:37:31.053Z"
-  },
-  {
-    "url": "http://correze.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:51.730Z"
   },
   {
     "url": "http://datacollecte.equipements.sports.gouv.fr",
@@ -18924,33 +16929,6 @@
     "checkedAt": "2026-09-24T11:33:13.022Z"
   },
   {
-    "url": "http://www.cote-dor.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:52.745Z"
-  },
-  {
-    "url": "http://www.vendee.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:53.725Z"
-  },
-  {
-    "url": "http://consultation-ecophyto2plus.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:37:14.063Z"
-  },
-  {
     "url": "http://www.emb.terre.defense.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -19041,15 +17019,6 @@
     "checkedAt": "2026-09-24T11:33:15.930Z"
   },
   {
-    "url": "http://dordogne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:55.742Z"
-  },
-  {
     "url": "https://consultation.etalab.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -19066,33 +17035,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:33:16.705Z"
-  },
-  {
-    "url": "http://www.nievre.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:57.243Z"
-  },
-  {
-    "url": "http://haute-garonne.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:36:58.721Z"
-  },
-  {
-    "url": "http://vote-election-tpe.travail.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:37:39.054Z"
   },
   {
     "url": "https://aplus.beta.gouv.fr",
@@ -19113,15 +17055,6 @@
     "checkedAt": "2026-09-24T11:33:17.372Z"
   },
   {
-    "url": "http://invite.contacts-demarches.interieur.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:37:00.240Z"
-  },
-  {
     "url": "http://www.stop-djihadisme.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -19129,15 +17062,6 @@
     "finalUrl": "https://www.dgsi.interieur.gouv.fr/dgsi-a-vos-cotes/lutte-contre-terrorisme",
     "error": null,
     "checkedAt": "2026-09-24T11:33:18.853Z"
-  },
-  {
-    "url": "http://haut-rhin.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:01.828Z"
   },
   {
     "url": "https://www.teledoeth.travail.gouv.fr",
@@ -19156,24 +17080,6 @@
     "finalUrl": "https://www.geoportail.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:21.604Z"
-  },
-  {
-    "url": "http://accueil-etrangers.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "ENETUNREACH / ENETUNREACH / ENETUNREACH / ENETUNREACH",
-    "checkedAt": "2026-09-24T11:37:32.961Z"
-  },
-  {
-    "url": "http://pyrenees-orientales.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:15.661Z"
   },
   {
     "url": "http://auvergne-rhone-alpes.drdjscs.gouv.fr",
@@ -19248,15 +17154,6 @@
     "checkedAt": "2026-09-24T11:33:28.105Z"
   },
   {
-    "url": "http://morbihan.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:17.647Z"
-  },
-  {
     "url": "http://www.grand-est.developpement-durable.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -19275,15 +17172,6 @@
     "checkedAt": "2026-09-24T11:33:26.154Z"
   },
   {
-    "url": "http://www.emd.terre.defense.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
-    "checkedAt": "2026-09-24T11:37:37.555Z"
-  },
-  {
     "url": "https://nuitdelalecture.culture.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -19291,15 +17179,6 @@
     "finalUrl": "https://www.nuitsdelalecture.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:26.596Z"
-  },
-  {
-    "url": "http://territoire-de-belfort.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:19.648Z"
   },
   {
     "url": "https://casier-judiciaire.justice.gouv.fr",
@@ -19336,24 +17215,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:33:28.208Z"
-  },
-  {
-    "url": "http://gers.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:22.247Z"
-  },
-  {
-    "url": "http://seine-saint-denis.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:24.783Z"
   },
   {
     "url": "http://www.dir.massif-central.developpement-durable.gouv.fr",
@@ -19410,15 +17271,6 @@
     "checkedAt": "2026-09-24T11:33:30.013Z"
   },
   {
-    "url": "http://lozere.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:27.807Z"
-  },
-  {
     "url": "http://www.academie-renseignement.gouv.fr",
     "kind": "map",
     "statut": "En ligne",
@@ -19426,15 +17278,6 @@
     "finalUrl": "https://www.academie-renseignement.gouv.fr/",
     "error": null,
     "checkedAt": "2026-09-24T11:33:30.775Z"
-  },
-  {
-    "url": "http://www.ardeche.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:26.774Z"
   },
   {
     "url": "https://mobile.interieur.gouv.fr",
@@ -19453,15 +17296,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:33:33.883Z"
-  },
-  {
-    "url": "http://www.vaucluse.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:28.802Z"
   },
   {
     "url": "https://agencedunumerique.gouv.fr",
@@ -19491,15 +17325,6 @@
     "checkedAt": "2026-09-24T11:33:36.601Z"
   },
   {
-    "url": "http://yvelines.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:31.296Z"
-  },
-  {
     "url": "https://jechangemavoiture.gouv.fr",
     "kind": "map",
     "statut": "Redirigé",
@@ -19507,15 +17332,6 @@
     "finalUrl": "https://www.electrifions-la-france.gouv.fr/simulateur-daide-au-choix-dun-vehicule-electrique",
     "error": null,
     "checkedAt": "2026-09-24T11:33:36.421Z"
-  },
-  {
-    "url": "http://www.loire.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:31.777Z"
   },
   {
     "url": "http://agence-francaise-anticorruption.gouv.fr",
@@ -19572,15 +17388,6 @@
     "checkedAt": "2026-09-24T11:33:39.330Z"
   },
   {
-    "url": "http://www.haute-loire.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": null,
-    "finalUrl": null,
-    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
-    "checkedAt": "2026-09-24T11:37:32.797Z"
-  },
-  {
     "url": "https://compta.beta.gouv.fr",
     "kind": "map",
     "statut": "Hors ligne",
@@ -19588,15 +17395,6 @@
     "finalUrl": null,
     "error": "ENOTFOUND / ENOTFOUND / ENOTFOUND / ENOTFOUND",
     "checkedAt": "2026-09-24T11:33:40.207Z"
-  },
-  {
-    "url": "http://www.cdef.terre.defense.gouv.fr",
-    "kind": "map",
-    "statut": "Indéterminé",
-    "code": 403,
-    "finalUrl": null,
-    "error": "403 / 403",
-    "checkedAt": "2026-09-24T11:37:33.454Z"
   },
   {
     "url": "http://www.hauts-de-france.developpement-durable.gouv.fr",
@@ -19626,6 +17424,2208 @@
     "checkedAt": "2026-09-24T11:33:40.531Z"
   },
   {
+    "key": "ansc.interieur.gouv.fr",
+    "url": "https://ansc.interieur.gouv.fr",
+    "organisme": "Agence du numérique de la sécurité civile",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "Ministère de l'Intérieur",
+    "siren": "130024417",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "TimeoutError / TimeoutError / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T12:59:23.146Z"
+  },
+  {
+    "key": "aquitaine-limousin-poitou-charentes.gouv.fr",
+    "url": "http://aquitaine-limousin-poitou-charentes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/aquitaine-limousin-poitou-charentes/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:16.649Z"
+  },
+  {
+    "key": "assises-tourisme.gouv.fr",
+    "url": "http://www.assises-tourisme.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Palard)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ECONNRESET / ECONNRESET",
+    "checkedAt": "2026-09-24T12:58:23.193Z"
+  },
+  {
+    "key": "assisesdelamobilité.gouv.fr",
+    "url": "http://assisesdelamobilité.gouv.fr",
+    "siren": "",
+    "source": "DINUM (ADULLACT)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 404,
+    "finalUrl": null,
+    "error": "404 / 502 / 404 / 502",
+    "checkedAt": "2026-09-24T12:58:27.237Z"
+  },
+  {
+    "key": "auvergne-rhone-alpes.gouv.fr",
+    "url": "http://auvergne-rhone-alpes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/auvergne-rhone-alpes/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:18.440Z"
+  },
+  {
+    "key": "basse-normandie.gouv.fr",
+    "url": "http://basse-normandie.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/normandie/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:20.443Z"
+  },
+  {
+    "key": "biodechet.gouv.fr",
+    "url": "https://biodechet.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=19833360504)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:33.253Z"
+  },
+  {
+    "key": "biodechets.gouv.fr",
+    "url": "https://biodechets.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=19814561096)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:35.246Z"
+  },
+  {
+    "key": "biodiversite.gouv.fr",
+    "url": "https://biodiversite.gouv.fr",
+    "organisme": "Comité national de la biodiversité",
+    "typeOrganisme": "Conseil, comité, commission (organisme consultatif)",
+    "tutelle": "",
+    "siren": "",
+    "source": "Annuaire de l'administration + DINUM",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:27.233Z"
+  },
+  {
+    "key": "bourgogne-franche-comte.gouv.fr",
+    "url": "http://bourgogne-franche-comte.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/bourgogne-franche-comte/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:22.462Z"
+  },
+  {
+    "key": "bourgogne.gouv.fr",
+    "url": "http://bourgogne.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/bourgogne-franche-comte/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:24.446Z"
+  },
+  {
+    "key": "bretagne.gouv.fr",
+    "url": "http://bretagne.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/bretagne",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:26.436Z"
+  },
+  {
+    "key": "centre.gouv.fr",
+    "url": "http://centre.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/centre-val-de-loire",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:28.432Z"
+  },
+  {
+    "key": "champagne-ardenne.gouv.fr",
+    "url": "http://champagne-ardenne.gouv.fr",
+    "siren": "",
+    "source": "DINUM (DNS)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/grand-est",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:30.454Z"
+  },
+  {
+    "key": "chaquegestecompte.gouv.fr",
+    "url": "https://chaquegestecompte.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:31.259Z"
+  },
+  {
+    "key": "commission-nationale-services.gouv.fr",
+    "url": "http://commission-nationale-services.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": 404,
+    "finalUrl": null,
+    "error": "404 / ECONNREFUSED / 404 / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:49:24.512Z"
+  },
+  {
+    "key": "consultation-economie-circulaire.gouv.fr",
+    "url": "https://consultation-economie-circulaire.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:41.286Z"
+  },
+  {
+    "key": "consultationretraite.gouv.fr",
+    "url": "http://consultationretraite.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "EPROTO / ECONNREFUSED / EPROTO / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:58:35.295Z"
+  },
+  {
+    "key": "corse.gouv.fr",
+    "url": "http://corse.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/corse/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:32.437Z"
+  },
+  {
+    "key": "csa.fr (http:",
+    "url": "https://www.csa.fr (http:",
+    "organisme": "Arcom - Antilles et de la Guyane",
+    "typeOrganisme": "Autorité administrative indépendante",
+    "tutelle": "",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ERR_INVALID_URL / ERR_INVALID_URL",
+    "checkedAt": "2026-09-24T12:58:31.271Z"
+  },
+  {
+    "key": "debatpublic.fr",
+    "url": "https://www.debatpublic.fr",
+    "organisme": "Commission nationale du débat public (CNDP)",
+    "typeOrganisme": "Autorité administrative indépendante",
+    "tutelle": "",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T12:58:39.220Z"
+  },
+  {
+    "key": "deux-sevres.gouv.fr",
+    "url": "https://deux-sevres.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.deux-sevres.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:35.108Z"
+  },
+  {
+    "key": "developpement-durable.gouv.fr",
+    "url": "https://developpement-durable.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:58:53.268Z"
+  },
+  {
+    "key": "dimed.gouv.fr",
+    "url": "http://dimed.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENOTFOUND / ECONNREFUSED / ENOTFOUND / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:49:46.895Z"
+  },
+  {
+    "key": "documentationadministrative.gouv.fr",
+    "url": "http://documentationadministrative.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:49:52.896Z"
+  },
+  {
+    "key": "donation-immobilier.gouv.fr",
+    "url": "https://donation-immobilier.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=18787564827)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:05.285Z"
+  },
+  {
+    "key": "doubs.gouv.fr",
+    "url": "https://doubs.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.doubs.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:36.867Z"
+  },
+  {
+    "key": "ecologie-solidaire.gouv.fr",
+    "url": "https://ecologie-solidaire.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:11.265Z"
+  },
+  {
+    "key": "egalitedeschances.gouv.fr",
+    "url": "http://egalitedeschances.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:49:56.902Z"
+  },
+  {
+    "key": "electionsrepresentantshlm.gouv.fr",
+    "url": "https://electionsrepresentantshlm.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:13.263Z"
+  },
+  {
+    "key": "embauche-pme.gouv.fr",
+    "url": "http://embauche-pme.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:50:00.898Z"
+  },
+  {
+    "key": "energies-citoyennes.gouv.fr",
+    "url": "https://energies-citoyennes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:19.261Z"
+  },
+  {
+    "key": "ensa-dijon.fr",
+    "url": "https://ensa-dijon.fr",
+    "organisme": "École nationale supérieure d'art de Dijon",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "",
+    "siren": "180092413",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T12:59:35.171Z"
+  },
+  {
+    "key": "ensp.interieur.gouv.fr",
+    "url": "https://www.ensp.interieur.gouv.fr",
+    "organisme": "École nationale supérieure de la police",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "Ministère de l'Intérieur",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.ensp.interieur.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:43.040Z"
+  },
+  {
+    "key": "famille-enfance.gouv.fr",
+    "url": "http://www.famille-enfance.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Palard)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:59:15.734Z"
+  },
+  {
+    "key": "feux-foret.gouv.fr",
+    "url": "http://feux-foret.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:29.355Z"
+  },
+  {
+    "key": "francaisdeletranger.gouv.fr",
+    "url": "http://francaisdeletranger.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T12:59:55.156Z"
+  },
+  {
+    "key": "francethd.gouv.fr",
+    "url": "http://francethd.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENOTFOUND / ECONNREFUSED / ENOTFOUND / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:50:02.895Z"
+  },
+  {
+    "key": "franche-comte.gouv.fr",
+    "url": "http://franche-comte.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/bourgogne-franche-comte",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:53.697Z"
+  },
+  {
+    "key": "gard.gouv.fr",
+    "url": "https://gard.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.gard.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:56.220Z"
+  },
+  {
+    "key": "gironde.gouv.fr",
+    "url": "https://gironde.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.gironde.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:58.896Z"
+  },
+  {
+    "key": "grand-est.gouv.fr",
+    "url": "http://grand-est.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/grand-est/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:49:59.700Z"
+  },
+  {
+    "key": "hauts-de-france.gouv.fr",
+    "url": "http://hauts-de-france.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/hauts-de-france/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:01.620Z"
+  },
+  {
+    "key": "ile-de-france.gouv.fr",
+    "url": "http://ile-de-france.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/ile-de-france",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:03.609Z"
+  },
+  {
+    "key": "industrielles.gouv.fr",
+    "url": "https://industrielles.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 403,
+    "finalUrl": null,
+    "error": "403 / 403 / 403 / 403",
+    "checkedAt": "2026-09-24T12:59:25.601Z"
+  },
+  {
+    "key": "jedebroussaille.gouv.fr",
+    "url": "https://jedebroussaille.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=14982471675)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:39.280Z"
+  },
+  {
+    "key": "ladocfrancaise.gouv.fr",
+    "url": "http://www.ladocfrancaise.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Palard)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T12:59:43.665Z"
+  },
+  {
+    "key": "languedoc-roussillon-midi-pyrenees.gouv.fr",
+    "url": "http://languedoc-roussillon-midi-pyrenees.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/occitanie/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:05.615Z"
+  },
+  {
+    "key": "languedoc-roussillon.gouv.fr",
+    "url": "http://languedoc-roussillon.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/occitanie",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:07.605Z"
+  },
+  {
+    "key": "lesbonneshabitudes.gouv.fr",
+    "url": "https://lesbonneshabitudes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:49.290Z"
+  },
+  {
+    "key": "limousin.gouv.fr",
+    "url": "http://limousin.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/nouvelle-aquitaine",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:09.844Z"
+  },
+  {
+    "key": "logement.gouv.fr",
+    "url": "https://logement.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:53.314Z"
+  },
+  {
+    "key": "lorraine.gouv.fr",
+    "url": "http://www.lorraine.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://github.com/tb0hdan/domains/blob/master/data/france)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/grand-est/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:11.612Z"
+  },
+  {
+    "key": "mer.gouv.fr",
+    "url": "https://www.mer.gouv.fr",
+    "organisme": "Bureau de la transition écologique des navires",
+    "typeOrganisme": "Administration centrale (ou Ministère)",
+    "tutelle": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
+    "siren": "",
+    "source": "Annuaire de l'administration + DINUM",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T12:59:37.248Z"
+  },
+  {
+    "key": "midi-pyrenees.gouv.fr",
+    "url": "http://midi-pyrenees.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/occitanie/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:13.622Z"
+  },
+  {
+    "key": "miviludes.gouv.fr",
+    "url": "http://miviludes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / ECONNREFUSED / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T12:59:49.682Z"
+  },
+  {
+    "key": "monprojetpourlaplanete.gouv.fr",
+    "url": "https://monprojetpourlaplanete.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T12:59:59.284Z"
+  },
+  {
+    "key": "nord-pas-de-calais-picardie.gouv.fr",
+    "url": "http://nord-pas-de-calais-picardie.gouv.fr",
+    "siren": "",
+    "source": "DINUM (DNS)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/hauts-de-france/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:15.620Z"
+  },
+  {
+    "key": "nord-pas-de-calais.gouv.fr",
+    "url": "http://nord-pas-de-calais.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/hauts-de-france",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:17.618Z"
+  },
+  {
+    "key": "normandie.gouv.fr",
+    "url": "http://normandie.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/normandie/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:19.608Z"
+  },
+  {
+    "key": "nouvelle-aquitaine.gouv.fr",
+    "url": "http://nouvelle-aquitaine.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/nouvelle-aquitaine/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:21.617Z"
+  },
+  {
+    "key": "occitanie.gouv.fr",
+    "url": "http://occitanie.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/occitanie/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:23.609Z"
+  },
+  {
+    "key": "onpv.fr",
+    "url": "https://www.onpv.fr",
+    "organisme": "Observatoire national de la politique de la ville (ONPV)",
+    "typeOrganisme": "Conseil, comité, commission (organisme consultatif)",
+    "tutelle": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.onpv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:21.897Z"
+  },
+  {
+    "key": "orientation-pour-tous.fr",
+    "url": "https://www.orientation-pour-tous.fr",
+    "organisme": "Délégué à l'information et à l'orientation",
+    "typeOrganisme": "Administration centrale (ou Ministère)",
+    "tutelle": "",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:00:04.650Z"
+  },
+  {
+    "key": "outremersolidaire.gouv.fr",
+    "url": "http://outremersolidaire.gouv.fr",
+    "siren": "",
+    "source": "DINUM (AFNIC open data)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ECONNRESET / ECONNREFUSED / ECONNRESET / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:59:55.707Z"
+  },
+  {
+    "key": "outremersolidaires.gouv.fr",
+    "url": "http://www.outremersolidaires.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://github.com/tb0hdan/domains/blob/master/data/france)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ECONNRESET / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:59:51.699Z"
+  },
+  {
+    "key": "ove-national.education.fr",
+    "url": "https://www.ove-national.education.fr",
+    "organisme": "Observatoire de la vie étudiante (OVE)",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "TimeoutError / TimeoutError",
+    "checkedAt": "2026-09-24T13:00:51.702Z"
+  },
+  {
+    "key": "paca.gouv.fr",
+    "url": "http://paca.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/provence-alpes-cote-dazur/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:26.444Z"
+  },
+  {
+    "key": "passrail.gouv.fr",
+    "url": "https://passrail.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=13222366073)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:13.267Z"
+  },
+  {
+    "key": "pays-de-la-loire.gouv.fr",
+    "url": "http://pays-de-la-loire.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/pays-de-la-loire",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:27.604Z"
+  },
+  {
+    "key": "peage-flux-libre.gouv.fr",
+    "url": "https://peage-flux-libre.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=13498185927)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:01.265Z"
+  },
+  {
+    "key": "pluie-inondation.gouv.fr",
+    "url": "https://www.pluie-inondation.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T13:00:05.274Z"
+  },
+  {
+    "key": "pme.gouv.fr",
+    "url": "http://pme.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / ENETUNREACH / ENETUNREACH / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:00:36.135Z"
+  },
+  {
+    "key": "poitou-charentes.gouv.fr",
+    "url": "http://poitou-charentes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Redirigé",
+    "code": 403,
+    "finalUrl": "https://www.prefectures-regions.gouv.fr/nouvelle-aquitaine/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:32.763Z"
+  },
+  {
+    "key": "politique-eau.gouv.fr",
+    "url": "http://www.politique-eau.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Palard)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:00:22.143Z"
+  },
+  {
+    "key": "polynesie-francaise.gouv.fr",
+    "url": "https://polynesie-francaise.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.polynesie-francaise.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:35.367Z"
+  },
+  {
+    "key": "pret-taux-zero.gouv.fr",
+    "url": "https://pret-taux-zero.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=18787543602)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:23.285Z"
+  },
+  {
+    "key": "quefairedemesdechets.gouv.fr",
+    "url": "https://quefairedemesdechets.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:25.284Z"
+  },
+  {
+    "key": "relance-logement.gouv.fr",
+    "url": "https://relance-logement.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=23936500288)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:17.365Z"
+  },
+  {
+    "key": "reseau-canope.fr",
+    "url": "https://www.reseau-canope.fr",
+    "organisme": "Réseau Canopé",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "",
+    "siren": "180043010",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "redirect count exceeded / redirect count exceeded",
+    "checkedAt": "2026-09-24T13:00:20.157Z"
+  },
+  {
+    "key": "retourvolontaire.fr",
+    "url": "https://www.retourvolontaire.fr",
+    "organisme": "Office français de l'immigration et de l'intégration",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "",
+    "siren": "180034027",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ECONNRESET / 503",
+    "checkedAt": "2026-09-24T13:00:22.229Z"
+  },
+  {
+    "key": "saintpierre-et-miquelon.gouv.fr",
+    "url": "http://saintpierre-et-miquelon.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 403,
+    "finalUrl": "http://saintpierre-et-miquelon.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:51.610Z"
+  },
+  {
+    "key": "saintpierreetmiquelon.gouv.fr",
+    "url": "http://saintpierreetmiquelon.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 403,
+    "finalUrl": "http://saintpierreetmiquelon.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:50:53.613Z"
+  },
+  {
+    "key": "securitedesagentsdesroutes.gouv.fr",
+    "url": "https://securitedesagentsdesroutes.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Julien Bouquillon)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:33.275Z"
+  },
+  {
+    "key": "spm.gouv.fr",
+    "url": "http://spm.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Hors ligne",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:50:57.689Z"
+  },
+  {
+    "key": "stac.aviation-civile.gouv.fr",
+    "url": "https://www.stac.aviation-civile.gouv.fr",
+    "organisme": "Département Administration, système d'information et diffusion",
+    "typeOrganisme": "Service à compétence nationale",
+    "tutelle": "Service technique de l'aviation civile",
+    "siren": "",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:00:44.206Z"
+  },
+  {
+    "key": "territoires.gouv.fr",
+    "url": "https://territoires.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:31.354Z"
+  },
+  {
+    "key": "urssaf.org",
+    "url": "https://www.urssaf.org",
+    "organisme": "Agence centrale des organismes de sécurité sociale",
+    "typeOrganisme": "Établissement public",
+    "tutelle": "",
+    "siren": "180035016",
+    "source": "Annuaire de l'administration",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ECONNRESET / ECONNRESET",
+    "checkedAt": "2026-09-24T13:00:28.387Z"
+  },
+  {
+    "key": "ville.gouv.fr",
+    "url": "http://ville.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 403 / 503 / 403",
+    "checkedAt": "2026-09-24T13:00:34.493Z"
+  },
+  {
+    "key": "voie-reservee.gouv.fr",
+    "url": "https://voie-reservee.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=11024671102)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:47.278Z"
+  },
+  {
+    "key": "voies-reservees.gouv.fr",
+    "url": "https://voies-reservees.gouv.fr",
+    "siren": "",
+    "source": "DINUM (https://crt.sh/?id=11334016097)",
+    "kind": "candidate",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:00:49.280Z"
+  },
+  {
+    "key": "wallis-et-futuna.gouv.fr",
+    "url": "https://wallis-et-futuna.gouv.fr",
+    "siren": "",
+    "source": "DINUM (CT logs)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.wallis-et-futuna.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:02.669Z"
+  },
+  {
+    "key": "yonne.gouv.fr",
+    "url": "https://yonne.gouv.fr",
+    "siren": "",
+    "source": "DINUM (Ajout manuel de Bastien Guerry)",
+    "kind": "candidate",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.yonne.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:03.289Z"
+  },
+  {
+    "url": "http://heracles.economie.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENETUNREACH / ENETUNREACH / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:00:51.724Z"
+  },
+  {
+    "url": "http://livrevert-rsa.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:01:18.166Z"
+  },
+  {
+    "url": "http://leportailetudiant.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / 403 / Page de parking (200) / 403",
+    "checkedAt": "2026-09-24T13:00:50.317Z"
+  },
+  {
+    "url": "https://teleservices.justice.gouv.fr/aej-portail-fo-web/portail/Accueil/Accueil",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:01:10.189Z"
+  },
+  {
+    "url": "http://clcf.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENOTFOUND / ENOTFOUND / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:01:12.179Z"
+  },
+  {
+    "url": "https://www.pacte-entreprises.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "EPROTO / 409",
+    "checkedAt": "2026-09-24T13:00:52.363Z"
+  },
+  {
+    "url": "http://e-phy.agriculture.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 403,
+    "finalUrl": null,
+    "error": "403 / 403 / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:00:56.004Z"
+  },
+  {
+    "url": "https://www.ecologique-solidaire.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T13:00:53.796Z"
+  },
+  {
+    "url": "https://www.derives-sectes.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:01:13.176Z"
+  },
+  {
+    "url": "https://signalconso.beta.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ETIMEDOUT / ETIMEDOUT / ETIMEDOUT / ETIMEDOUT",
+    "checkedAt": "2026-09-24T13:01:18.532Z"
+  },
+  {
+    "url": "https://peps.beta.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:01:18.668Z"
+  },
+  {
+    "url": "https://www.giped.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENETUNREACH / 504",
+    "checkedAt": "2026-09-24T13:01:26.294Z"
+  },
+  {
+    "url": "http://www3.centre.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:01:35.154Z"
+  },
+  {
+    "url": "https://www.ephoto.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENETUNREACH / ENETUNREACH",
+    "checkedAt": "2026-09-24T13:01:23.213Z"
+  },
+  {
+    "url": "http://ecologie.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503 / 503 / 503",
+    "checkedAt": "2026-09-24T13:01:24.206Z"
+  },
+  {
+    "url": "https://melanie2web.din.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:01:41.158Z"
+  },
+  {
+    "url": "http://www.cnefop.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:01:39.649Z"
+  },
+  {
+    "url": "https://www.conference-territoires.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 502,
+    "finalUrl": null,
+    "error": "502 / 404",
+    "checkedAt": "2026-09-24T13:01:25.248Z"
+  },
+  {
+    "url": "http://seine-et-marne.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.seine-et-marne.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:43.258Z"
+  },
+  {
+    "url": "https://www.legion-etrangere.terre.defense.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:01:45.143Z"
+  },
+  {
+    "url": "http://jura.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.jura.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:45.875Z"
+  },
+  {
+    "url": "http://essonne.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.essonne.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:49.133Z"
+  },
+  {
+    "url": "http://info-ebola.gouv.fr",
+    "kind": "map",
+    "statut": "Hors ligne",
+    "code": 200,
+    "finalUrl": null,
+    "error": "Page de parking (200) / ECONNREFUSED / Page de parking (200) / ECONNREFUSED",
+    "checkedAt": "2026-09-24T12:51:50.414Z"
+  },
+  {
+    "url": "https://melanissimo-ng.din.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:01:49.142Z"
+  },
+  {
+    "url": "http://alpes-de-haute-provence.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.alpes-de-haute-provence.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:50.611Z"
+  },
+  {
+    "url": "https://www.assisesdutransportaerien.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 502,
+    "finalUrl": null,
+    "error": "502 / 404",
+    "checkedAt": "2026-09-24T13:01:33.332Z"
+  },
+  {
+    "url": "http://www.hautes-alpes.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.hautes-alpes.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:51.633Z"
+  },
+  {
+    "url": "http://www.landes.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.landes.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:58.151Z"
+  },
+  {
+    "url": "http://etatplateforme.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:03:07.588Z"
+  },
+  {
+    "url": "http://haute-savoie.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.haute-savoie.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:51:58.699Z"
+  },
+  {
+    "url": "http://loire-atlantique.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.loire-atlantique.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:52:01.727Z"
+  },
+  {
+    "url": "http://www.allier.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.allier.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:52:04.844Z"
+  },
+  {
+    "url": "http://saint-barth-saint-martin.gouv.fr",
+    "kind": "map",
+    "statut": "En ligne",
+    "code": 200,
+    "finalUrl": "https://www.saint-barth-saint-martin.gouv.fr/",
+    "error": null,
+    "checkedAt": "2026-09-24T12:52:05.407Z"
+  },
+  {
+    "url": "http://www.avisderecherches.interieur.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENETUNREACH / ENETUNREACH",
+    "checkedAt": "2026-09-24T13:01:47.203Z"
+  },
+  {
+    "url": "http://indre-et-loire.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:01:45.728Z"
+  },
+  {
+    "url": "https://www.assisesdelamobilite.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 502,
+    "finalUrl": null,
+    "error": "502 / 404",
+    "checkedAt": "2026-09-24T13:01:43.195Z"
+  },
+  {
+    "url": "http://apiagent.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:03:28.581Z"
+  },
+  {
+    "url": "http://apientreprise.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:03:49.568Z"
+  },
+  {
+    "url": "http://moselle.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:02:03.780Z"
+  },
+  {
+    "url": "http://pas-de-calais.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:02:05.739Z"
+  },
+  {
+    "url": "http://www.hautes-pyrenees.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:01:59.719Z"
+  },
+  {
+    "url": "http://lesecransdusocial.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:02:41.602Z"
+  },
+  {
+    "url": "http://eure.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ECONNRESET",
+    "checkedAt": "2026-09-24T13:02:13.771Z"
+  },
+  {
+    "url": "https://www-org.gendarmerie.interieur.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:02:28.616Z"
+  },
+  {
+    "url": "http://ariege.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:02:21.740Z"
+  },
+  {
+    "url": "https://www.cohesion-territoires.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T13:02:23.827Z"
+  },
+  {
+    "url": "https://www.moncompteactivite.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:02:44.600Z"
+  },
+  {
+    "url": "http://www.donnees.martinique.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T13:02:30.720Z"
+  },
+  {
+    "url": "http://eure-et-loir.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:02:36.835Z"
+  },
+  {
+    "url": "http://references.modernisation.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 404,
+    "finalUrl": null,
+    "error": "404 / EPROTO / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:02:40.898Z"
+  },
+  {
+    "url": "http://somme.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:02:52.996Z"
+  },
+  {
+    "url": "http://val-de-marne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:02.989Z"
+  },
+  {
+    "url": "http://charente.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:07.047Z"
+  },
+  {
+    "url": "http://manche.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:16.990Z"
+  },
+  {
+    "url": "http://rhone.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:26.979Z"
+  },
+  {
+    "url": "http://loir-et-cher.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:30.983Z"
+  },
+  {
+    "url": "http://www.cdu.urbanisme.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 503,
+    "finalUrl": null,
+    "error": "503 / 503",
+    "checkedAt": "2026-09-24T13:03:09.669Z"
+  },
+  {
+    "url": "https://www.memoiredeshommes.sga.defense.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 403,
+    "finalUrl": null,
+    "error": "403 / 403",
+    "checkedAt": "2026-09-24T13:03:11.964Z"
+  },
+  {
+    "url": "http://apiparticulier.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:04:21.050Z"
+  },
+  {
+    "url": "http://pyrenees-atlantiques.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:44.995Z"
+  },
+  {
+    "url": "https://cartotheque.cget.gouv.fr/",
+    "kind": "map",
+    "statut": "Redirigé",
+    "code": 200,
+    "finalUrl": "https://anct.gouv.fr/ressources/cartotheque",
+    "error": null,
+    "checkedAt": "2026-09-24T12:53:25.082Z"
+  },
+  {
+    "url": "http://www.lot-et-garonne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:03:40.979Z"
+  },
+  {
+    "url": "http://vienne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:00.994Z"
+  },
+  {
+    "url": "http://indre.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:04.988Z"
+  },
+  {
+    "url": "http://isere.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:14.983Z"
+  },
+  {
+    "url": "http://finistere.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:21.011Z"
+  },
+  {
+    "url": "http://cher.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:22.992Z"
+  },
+  {
+    "url": "http://www.tarn.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:18.991Z"
+  },
+  {
+    "url": "http://ecoquartier2011.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:04:27.551Z"
+  },
+  {
+    "url": "http://www.intefp-sstfp.travail.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:04:35.541Z"
+  },
+  {
+    "url": "http://www.aveyron.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:28.996Z"
+  },
+  {
+    "url": "http://www.sn-nord-est.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:04:41.542Z"
+  },
+  {
+    "url": "http://pac2015.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:05:03.029Z"
+  },
+  {
+    "url": "http://www.ardennes.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:30.992Z"
+  },
+  {
+    "url": "http://www.corse-du-sud.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:36.976Z"
+  },
+  {
+    "url": "https://valce.travail.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:04:51.542Z"
+  },
+  {
+    "url": "http://hauts-de-seine.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:44.975Z"
+  },
+  {
+    "url": "http://mobilite.application.developpement-durable.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 500,
+    "finalUrl": null,
+    "error": "500 / 403 / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:04:39.774Z"
+  },
+  {
+    "url": "https://www.portail-pse-rcc.emploi.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:04:57.531Z"
+  },
+  {
+    "url": "http://savoie.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:04:58.976Z"
+  },
+  {
+    "url": "http://tarn-et-garonne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:00.995Z"
+  },
+  {
+    "url": "https://glyphosate.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:05:26.517Z"
+  },
+  {
+    "url": "http://cotes-darmor.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:17.021Z"
+  },
+  {
+    "url": "http://www.internat.education.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 403,
+    "finalUrl": null,
+    "error": "403 / 403",
+    "checkedAt": "2026-09-24T13:04:59.665Z"
+  },
+  {
+    "url": "http://creuse.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:28.983Z"
+  },
+  {
+    "url": "http://bas-rhin.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:30.991Z"
+  },
+  {
+    "url": "https://www.merlittoral2030.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 502,
+    "finalUrl": null,
+    "error": "502 / 404",
+    "checkedAt": "2026-09-24T13:05:03.036Z"
+  },
+  {
+    "url": "http://ille-et-vilaine.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:36.981Z"
+  },
+  {
+    "url": "https://cget.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ECONNRESET / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:05:44.010Z"
+  },
+  {
+    "url": "http://charente-maritime.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:48.976Z"
+  },
+  {
+    "url": "http://seine-maritime.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:59.003Z"
+  },
+  {
+    "url": "http://cncp.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:06:10.496Z"
+  },
+  {
+    "url": "http://correze.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:05.001Z"
+  },
+  {
+    "url": "http://www.cote-dor.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:05:54.993Z"
+  },
+  {
+    "url": "http://www.vendee.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:00.980Z"
+  },
+  {
+    "url": "http://consultation-ecophyto2plus.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:06:11.499Z"
+  },
+  {
+    "url": "http://dordogne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:26.979Z"
+  },
+  {
+    "url": "http://www.nievre.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:12.983Z"
+  },
+  {
+    "url": "http://haute-garonne.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:30.976Z"
+  },
+  {
+    "url": "http://vote-election-tpe.travail.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:06:47.034Z"
+  },
+  {
+    "url": "http://invite.contacts-demarches.interieur.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / ENOTFOUND / ENOTFOUND",
+    "checkedAt": "2026-09-24T13:06:26.972Z"
+  },
+  {
+    "url": "http://haut-rhin.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:42.978Z"
+  },
+  {
+    "url": "http://accueil-etrangers.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "ENETUNREACH / ENETUNREACH / ENETUNREACH / ENETUNREACH",
+    "checkedAt": "2026-09-24T13:06:43.192Z"
+  },
+  {
+    "url": "http://pyrenees-orientales.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:52.974Z"
+  },
+  {
+    "url": "http://morbihan.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:06:54.991Z"
+  },
+  {
+    "url": "http://www.emd.terre.defense.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT",
+    "checkedAt": "2026-09-24T13:06:51.532Z"
+  },
+  {
+    "url": "http://territoire-de-belfort.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:22.985Z"
+  },
+  {
+    "url": "http://gers.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:25.195Z"
+  },
+  {
+    "url": "http://seine-saint-denis.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:32.998Z"
+  },
+  {
+    "url": "http://lozere.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:36.996Z"
+  },
+  {
+    "url": "http://www.ardeche.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:16.995Z"
+  },
+  {
+    "url": "http://www.vaucluse.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:18.986Z"
+  },
+  {
+    "url": "http://yvelines.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR / UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:55.004Z"
+  },
+  {
+    "url": "http://www.loire.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:40.985Z"
+  },
+  {
+    "url": "http://www.haute-loire.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": null,
+    "finalUrl": null,
+    "error": "UND_ERR_SOCKET / ERR_HTTP2_STREAM_ERROR",
+    "checkedAt": "2026-09-24T13:07:44.989Z"
+  },
+  {
+    "url": "http://www.cdef.terre.defense.gouv.fr",
+    "kind": "map",
+    "statut": "Indéterminé",
+    "code": 403,
+    "finalUrl": null,
+    "error": "403 / 403",
+    "checkedAt": "2026-09-24T13:07:27.338Z"
+  },
+  {
     "key": "air.defense.gouv.fr",
     "url": "https://air.defense.gouv.fr",
     "organisme": "Service d'information et de relations publiques de l'armée de l'air et de l'espace - SIRPA Air et Espace",
@@ -19638,7 +19638,7 @@
     "code": null,
     "finalUrl": null,
     "error": "UND_ERR_CONNECT_TIMEOUT / UND_ERR_CONNECT_TIMEOUT / ENOTFOUND / ENOTFOUND",
-    "checkedAt": "2026-09-24T11:39:08.290Z"
+    "checkedAt": "2026-09-24T13:07:57.912Z"
   },
   {
     "key": "alsace-champagne-ardenne-lorraine.gouv.fr",
@@ -19650,7 +19650,7 @@
     "code": null,
     "finalUrl": null,
     "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T11:38:57.447Z"
+    "checkedAt": "2026-09-24T13:08:01.061Z"
   },
   {
     "key": "alsace.gouv.fr",
@@ -19662,6 +19662,6 @@
     "code": null,
     "finalUrl": null,
     "error": "UND_ERR_SOCKET / ECONNRESET / UND_ERR_SOCKET / ECONNRESET",
-    "checkedAt": "2026-09-24T11:38:59.440Z"
+    "checkedAt": "2026-09-24T13:08:03.053Z"
   }
 ]
