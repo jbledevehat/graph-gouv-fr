@@ -12,8 +12,8 @@
     --line: #D6DCE6;
     --accent: #1F3FB5;
     --accent-soft: #E3E8FA;
-    --ok: #1E8A4C;
-    --warn: #B7700A;
+    --ok: #17703D;
+    --warn: #8A5300;
     --bad: #C2362F;
     --neutral: #6B7483;
     --edge: rgba(22,32,51,0.13);
@@ -62,6 +62,21 @@
   }
 
   [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip {
+    position: fixed; z-index: 10; top: 8px; left: 8px;
+    padding: 8px 12px; border-radius: 6px;
+    background: var(--panel); color: var(--ink); border: 2px solid var(--accent);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
   html, body { height: 100%; }
   body {
     margin: 0;
@@ -94,7 +109,7 @@
   }
   .head { padding: 16px 16px 12px; border-bottom: 1px solid var(--line); }
   .eyebrow {
-    font: 500 11px/1 var(--mono);
+    font: 500 12px/1.2 var(--mono);
     letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--accent);
@@ -116,7 +131,7 @@
   }
   .figures div { display: flex; flex-direction: column; }
   .figures b { font-size: 16px; font-weight: 600; }
-  .figures span { font-size: 11.5px; color: var(--muted); }
+  .figures span { font-size: 12px; color: var(--muted); }
 
   .search { position: relative; padding: 12px 16px; }
   .search input {
@@ -152,7 +167,8 @@
     text-align: left;
     cursor: pointer;
   }
-  #results button:hover, #results button:focus-visible { background: var(--accent-soft); outline: none; }
+  #results button:hover { background: var(--accent-soft); }
+  #results button:focus-visible { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; }
   #results .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .legend { padding: 10px 16px 14px; overflow-y: auto; }
@@ -161,13 +177,13 @@
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 6px;
-    font: 500 11px/1 var(--mono);
+    font: 500 12px/1.2 var(--mono);
     letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--muted);
   }
   .legend-title button {
-    border: 0; background: none; padding: 0; cursor: pointer;
+    border: 0; background: none; padding: 4px 0; cursor: pointer; text-decoration: underline;
     font: inherit; letter-spacing: inherit; color: var(--accent);
   }
   .legend label {
@@ -175,7 +191,8 @@
     grid-template-columns: 16px 10px 1fr auto;
     align-items: center;
     gap: 8px;
-    padding: 4px 0;
+    min-height: 28px;
+    padding: 2px 0;
     cursor: pointer;
     font-size: 13px;
   }
@@ -221,11 +238,12 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font: 500 11px/1 var(--mono);
+    font: 500 12px/1.2 var(--mono);
     letter-spacing: .06em;
     text-transform: uppercase;
     color: var(--muted);
   }
+  #d-title:focus { outline: none; }
   #d-title {
     margin: 6px 0 0;
     font-size: 16px;
@@ -239,7 +257,7 @@
   .badge {
     padding: 2px 7px;
     border-radius: 999px;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 500;
     background: var(--panel-2);
     border: 1px solid var(--line);
@@ -251,7 +269,7 @@
   .badge.bad { color: var(--bad); border-color: currentColor; }
   .close {
     flex: none;
-    width: 30px; height: 30px;
+    width: 36px; height: 36px;
     border: 1px solid var(--line);
     border-radius: 7px;
     background: var(--panel-2);
@@ -276,7 +294,7 @@
   .neighbours { padding: 4px 16px 16px; }
   .neighbours h3 {
     margin: 10px 0 4px;
-    font: 500 11px/1.2 var(--mono);
+    font: 500 12px/1.2 var(--mono);
     letter-spacing: .08em;
     text-transform: uppercase;
     color: var(--muted);
@@ -287,6 +305,7 @@
     align-items: center;
     gap: 8px;
     width: 100%;
+    min-height: 32px;
     padding: 4px 6px;
     margin-left: -6px;
     border: 0;
@@ -298,7 +317,8 @@
     text-align: left;
     cursor: pointer;
   }
-  .neighbours button:hover, .neighbours button:focus-visible { background: var(--accent-soft); outline: none; }
+  .neighbours button:hover { background: var(--accent-soft); }
+  .neighbours button:focus-visible { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; }
   .neighbours .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* --- Noms des pôles sur la carte --- */
@@ -309,7 +329,7 @@
     max-width: 220px;
     padding: 2px 6px;
     border-radius: 4px;
-    font: 600 11px/1.25 var(--mono);
+    font: 600 12px/1.25 var(--mono);
     letter-spacing: .06em;
     text-transform: uppercase;
     text-align: center;
@@ -344,7 +364,7 @@
     overflow: hidden;
   }
   .zoom button {
-    width: 36px; height: 36px;
+    width: 44px; height: 44px;
     border: 0;
     border-bottom: 1px solid var(--line);
     background: var(--panel);
@@ -385,7 +405,9 @@
   }
 </style>
 
-<div id="graph" role="img" aria-label="Graphe des sites web publics et de leurs administrations"></div>
+<a class="skip" href="#q">Aller à la recherche</a>
+<div id="graph" role="img" aria-label="Carte en réseau des sites web publics et de leurs administrations. Utilisez la recherche, le menu des ministères et la fiche de chaque élément pour la parcourir au clavier."></div>
+<p id="announce" class="sr-only" aria-live="polite"></p>
 <div id="poles" aria-hidden="true"></div>
 <p id="status">Chargement de la carte…</p>
 
@@ -397,11 +419,14 @@
     <div class="figures" id="figures"></div>
   </div>
   <div class="search">
-    <input id="q" type="search" placeholder="Rechercher un site ou une administration" autocomplete="off" aria-label="Rechercher" aria-controls="results">
-    <ul id="results"></ul>
+    <label for="q" class="sr-only">Rechercher un site ou une administration</label>
+    <input id="q" type="search" placeholder="Rechercher un site ou une administration" autocomplete="off" aria-controls="results" aria-describedby="q-count">
+    <p id="q-count" class="sr-only" aria-live="polite"></p>
+    <ul id="results" aria-label="Résultats de la recherche"></ul>
   </div>
   <div class="goto">
-    <select id="pole" aria-label="Aller à un ministère">
+    <label for="pole" class="sr-only">Aller à un ministère</label>
+    <select id="pole">
       <option value="">Aller à un ministère…</option>
     </select>
   </div>
@@ -416,23 +441,23 @@
   </div>
 </aside>
 
-<aside id="detail" class="panel" aria-label="Fiche de l'élément" hidden>
+<aside id="detail" class="panel" aria-labelledby="d-title" hidden>
   <div class="detail-head">
     <div>
       <span class="chip" id="d-cat"></span>
-      <h2 id="d-title"></h2>
+      <h2 id="d-title" tabindex="-1"></h2>
       <div class="badges" id="d-badges"></div>
     </div>
-    <button type="button" class="close" id="d-close" aria-label="Fermer la fiche">×</button>
+    <button type="button" class="close" id="d-close" aria-label="Fermer la fiche" title="Fermer la fiche"><span aria-hidden="true">×</span></button>
   </div>
   <dl id="d-attrs"></dl>
   <div class="neighbours" id="d-links"></div>
 </aside>
 
 <div class="zoom panel" role="group" aria-label="Zoom">
-  <button type="button" id="z-in" aria-label="Zoomer">+</button>
-  <button type="button" id="z-out" aria-label="Dézoomer">−</button>
-  <button type="button" id="z-reset" aria-label="Recentrer la carte">⟲</button>
+  <button type="button" id="z-in" aria-label="Zoomer" title="Zoomer"><span aria-hidden="true">+</span></button>
+  <button type="button" id="z-out" aria-label="Dézoomer" title="Dézoomer"><span aria-hidden="true">−</span></button>
+  <button type="button" id="z-reset" aria-label="Recentrer la carte" title="Recentrer la carte"><span aria-hidden="true">⟲</span></button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/graphology@0.26.0/dist/graphology.umd.min.js"></script>
@@ -450,7 +475,10 @@
     return;
   }
 
+  document.documentElement.lang = 'fr';
   const SigmaCtor = window.Sigma.Sigma || window.Sigma.default || window.Sigma;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const dur = ms => reduceMotion.matches ? 0 : ms;
   const cats = new Map(data.categories.map(c => [c.id, c]));
   const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const isDark = () => css('--ground').toLowerCase() === '#0c1119';
@@ -516,6 +544,51 @@
   onlyNew.checked = state.onlyNew;
   onlyNew.addEventListener('change', () => { state.onlyNew = onlyNew.checked; save(); renderer.refresh(); });
 
+  // --- Étiquettes : couleurs du thème, fond contrasté ---
+  const theme = {};
+  const readTheme = () => ['ground', 'label', 'panel', 'ink', 'accent'].forEach(k => { theme[k] = css('--' + k); });
+  readTheme();
+  function drawLabel(ctx, d, settings) {
+    if (!d.label) return;
+    ctx.font = `${settings.labelWeight} ${settings.labelSize}px ${settings.labelFont}`;
+    const x = d.x + d.size + 4, y = d.y + settings.labelSize / 3;
+    // Liseré couleur du fond pour détacher le texte des nœuds et des liens.
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = theme.ground;
+    ctx.strokeText(d.label, x, y);
+    ctx.fillStyle = theme.label;
+    ctx.fillText(d.label, x, y);
+  }
+  function drawHover(ctx, d, settings) {
+    const size = settings.labelSize;
+    ctx.font = `600 ${size}px ${settings.labelFont}`;
+    const pad = 5, h = size + pad * 2;
+    const w = d.label ? ctx.measureText(d.label).width + d.size + pad * 3 : 0;
+    ctx.save();
+    ctx.fillStyle = theme.panel;
+    ctx.strokeStyle = theme.accent;
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = 'rgba(0,0,0,.25)';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.size + pad, 0, Math.PI * 2);
+    if (w) ctx.roundRect ? ctx.roundRect(d.x, d.y - h / 2, w + d.size, h, 4) : ctx.rect(d.x, d.y - h / 2, w + d.size, h);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.stroke();
+    ctx.restore();
+    // Nœud redessiné par-dessus le cadre.
+    ctx.fillStyle = d.color;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+    ctx.fill();
+    if (d.label) {
+      ctx.fillStyle = theme.ink;
+      ctx.fillText(d.label, d.x + d.size + pad + 2, d.y + size / 3);
+    }
+  }
+
   // --- Rendu ---
   const faded = () => isDark() ? '#2A3342' : '#D3D9E2';
   const focus = () => state.hovered || state.selected;
@@ -528,6 +601,8 @@
     defaultEdgeColor: css('--edge'),
     zIndex: true,
     allowInvalidContainer: true,
+    defaultDrawNodeLabel: drawLabel,
+    defaultDrawNodeHover: drawHover,
     minCameraRatio: 0.03,
     maxCameraRatio: 3,
     nodeReducer(node, a) {
@@ -569,11 +644,12 @@
   };
   renderer.on('enterNode', ({ node }) => { state.hovered = node; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
   renderer.on('leaveNode', () => { state.hovered = null; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
-  renderer.on('clickNode', ({ node }) => select(node));
+  renderer.on('clickNode', ({ node }) => select(node, { focus: false }));
   renderer.on('clickStage', () => select(null));
 
   // Suivi du thème (système ou choix explicite).
   const applyTheme = () => {
+    readTheme();
     renderer.setSetting('labelColor', { color: css('--label') });
     renderer.setSetting('defaultEdgeColor', css('--edge'));
     catsEl.querySelectorAll('.dot').forEach((d, i) => {
@@ -590,7 +666,7 @@
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const link = url => `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>`;
   const FIELDS = [
-    ['Organisme', 'Organisme'], ['Tutelle', 'Tutelle'], ['Type d\'organisme', 'Type d\'organisme'],
+    ['Site parent', 'Site parent'], ['Organisme', 'Organisme'], ['Tutelle', 'Tutelle'], ['Type d\'organisme', 'Type d\'organisme'],
     ['Opérateur de l\'État', 'Opérateur (PLF)'], ['Statut juridique', 'Statut juridique'],
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
@@ -599,11 +675,20 @@
   ];
   const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };
 
-  function select(node) {
+  const announce = document.getElementById('announce');
+  let returnFocus = null;
+  function select(node, { focus = true } = {}) {
+    if (node && !state.selected && document.activeElement && document.activeElement !== document.body) returnFocus = document.activeElement;
     state.selected = node;
     setFocusNeighbours();
     renderer.refresh({ skipIndexation: true });
-    if (!node) { detail.hidden = true; return; }
+    if (!node) {
+      const wasOpen = !detail.hidden;
+      detail.hidden = true;
+      if (wasOpen && returnFocus && document.contains(returnFocus)) returnFocus.focus();
+      returnFocus = null;
+      return;
+    }
     const a = graph.getNodeAttributes(node);
     const cat = cats.get(a.categorie);
     document.getElementById('d-cat').innerHTML = `<span class="dot" style="background:${catColor(a.categorie)}"></span>${esc(cat.label)}`;
@@ -634,8 +719,11 @@
     document.getElementById('d-links').innerHTML = html || '<h3>Aucun lien</h3>';
     detail.hidden = false;
     detail.scrollTop = 0;
+    const n = graph.degree(node);
+    announce.textContent = `${short(node)}, ${cat.label.toLowerCase()}, ${n} lien${n > 1 ? 's' : ''}. Fiche ouverte.`;
+    if (focus) document.getElementById('d-title').focus({ preventScroll: true });
     const pos = renderer.getNodeDisplayData(node);
-    if (pos) renderer.getCamera().animate({ x: pos.x, y: pos.y, ratio: Math.min(renderer.getCamera().ratio, 0.35) }, { duration: 500 });
+    if (pos) renderer.getCamera().animate({ x: pos.x, y: pos.y, ratio: Math.min(renderer.getCamera().ratio, 0.35) }, { duration: dur(500) });
   }
   document.getElementById('d-links').addEventListener('click', e => {
     const b = e.target.closest('button[data-node]');
@@ -657,8 +745,20 @@
       const c = graph.getNodeAttribute(n, 'categorie');
       return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c)}"></span><span class="txt">${esc(short(n))}</span></button></li>`;
     }).join('') + (words.length && !matches.length ? '<li class="sub" style="padding:6px 8px">Aucun résultat.</li>' : '');
+    document.getElementById('q-count').textContent = words.length
+      ? (matches.length ? `${matches.length}${matches.length === 30 ? ' premiers' : ''} résultat${matches.length > 1 ? 's' : ''}, flèche bas pour les parcourir.` : 'Aucun résultat.')
+      : '';
   });
-  q.addEventListener('keydown', e => { if (e.key === 'Enter' && matches[0]) select(matches[0]); });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && matches[0]) select(matches[0]);
+    if (e.key === 'ArrowDown') { e.preventDefault(); results.querySelector('button')?.focus(); }
+  });
+  results.addEventListener('keydown', e => {
+    const items = [...results.querySelectorAll('button')];
+    const i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown' && i < items.length - 1) { e.preventDefault(); items[i + 1].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); (i > 0 ? items[i - 1] : q).focus(); }
+  });
   results.addEventListener('click', e => {
     const b = e.target.closest('button[data-node]');
     if (b) select(b.dataset.node);
@@ -700,15 +800,16 @@
     const b = bubble(p);
     const { width, height } = renderer.getDimensions();
     const target = renderer.viewportToFramedGraph({ x: b.x, y: b.y });
-    cam.animate({ x: target.x, y: target.y, ratio: cam.ratio * (b.r * 2.4) / Math.min(width, height) }, { duration: 500 });
+    cam.animate({ x: target.x, y: target.y, ratio: cam.ratio * (b.r * 2.4) / Math.min(width, height) }, { duration: dur(500) });
+    announce.textContent = `Carte centrée sur le pôle ${p.label}, ${p.size} éléments.`;
   });
   renderer.refresh();
 
   // --- Zoom ---
   const cam = renderer.getCamera();
-  document.getElementById('z-in').addEventListener('click', () => cam.animatedZoom({ duration: 250 }));
-  document.getElementById('z-out').addEventListener('click', () => cam.animatedUnzoom({ duration: 250 }));
-  document.getElementById('z-reset').addEventListener('click', () => cam.animatedReset({ duration: 350 }));
+  document.getElementById('z-in').addEventListener('click', () => cam.animatedZoom({ duration: dur(250) }));
+  document.getElementById('z-out').addEventListener('click', () => cam.animatedUnzoom({ duration: dur(250) }));
+  document.getElementById('z-reset').addEventListener('click', () => cam.animatedReset({ duration: dur(350) }));
 
   // Lien direct vers un élément : #domaine (ex. #ademe.fr).
   const target = decodeURIComponent(location.hash.slice(1));
