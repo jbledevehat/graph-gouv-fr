@@ -61,10 +61,25 @@ async function fetchKumu() {
 
 // ------------------------------------------------------------- fetch-sources
 
+// Téléchargement avec trois essais (les serveurs sources sont parfois lents à répondre).
+async function download(url, label) {
+  let last;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(120000) });
+      if (res.ok) return res;
+      last = new Error(`${label}: HTTP ${res.status}`);
+    } catch (e) {
+      last = new Error(`${label}: ${e.cause?.code || e.cause?.message || e.message}`);
+    }
+    if (attempt < 3) await new Promise(r => setTimeout(r, 5000 * attempt));
+  }
+  throw last;
+}
+
 async function fetchDinum() {
   console.log('Téléchargement de la liste DINUM des noms de domaine publics…');
-  const res = await fetch(config.sources.dinum);
-  if (!res.ok) throw new Error(`DINUM: HTTP ${res.status}`);
+  const res = await download(config.sources.dinum, 'DINUM');
   const text = await res.text();
   await writeOut(p('donnees/sources/dinum-domains.csv'), text);
   const suffix = '.' + config.candidates.suffix;
@@ -81,8 +96,7 @@ async function fetchAnnuaire() {
   const where = `categorie="SI" and site_internet is not null`
     + (excludeTypes.length ? ` and not type_organisme in (${excludeTypes.map(quote).join(',')})` : '');
   const qs = new URLSearchParams({ select: 'id,nom,sigle,type_organisme,site_internet,hierarchie,siren,url_service_public', where });
-  const res = await fetch(`${url}/exports/json?${qs}`);
-  if (!res.ok) throw new Error(`Annuaire: HTTP ${res.status}`);
+  const res = await download(`${url}/exports/json?${qs}`, 'Annuaire');
   const rows = (await res.json()).map(({ hierarchie, ...r }) => ({
     ...r,
     site_internet: JSON.parse(r.site_internet || '[]').map(s => s.valeur?.trim()).filter(Boolean),
@@ -95,8 +109,7 @@ async function fetchAnnuaire() {
 // Liste des opérateurs de l'État (annexe « jaune » du PLF) : statut et programme chef de file.
 async function fetchOperateurs() {
   console.log('Téléchargement de la liste des opérateurs de l\'État (PLF)…');
-  const res = await fetch(config.sources.operateurs);
-  if (!res.ok) throw new Error(`Opérateurs: HTTP ${res.status}`);
+  const res = await download(config.sources.operateurs, 'Opérateurs');
   const text = new TextDecoder('windows-1252').decode(await res.arrayBuffer());
   const [nameCol, subCol, statusCol, progCol] = Object.keys(parseCsv(text, ';')[0]);
   const rows = parseCsv(text, ';').map(r => ({
@@ -111,7 +124,8 @@ async function fetchOperateurs() {
 }
 
 async function fetchSources() {
-  await fetchDinum();
+  // La liste DINUM ne sert qu'à trouver de nouveaux candidats : son absence n'empêche pas la carte.
+  try { await fetchDinum(); } catch (e) { console.warn(`  Avertissement : ${e.message} (liste DINUM ignorée)`); }
   await fetchAnnuaire();
   await fetchOperateurs();
 }
@@ -244,7 +258,9 @@ async function check() {
     targets.push(...urls.map(url => ({ url, kind: 'map' })));
   }
   if (only !== 'map' && only !== 'unknown') {
-    const dinum = await readJson(p('donnees/sources/dinum-gouvfr.json'));
+    const dinumFile = p('donnees/sources/dinum-gouvfr.json');
+    if (!existsSync(dinumFile)) console.warn('  Avertissement : liste DINUM absente, seuls les candidats de l\'annuaire sont vérifiés.');
+    const dinum = existsSync(dinumFile) ? await readJson(dinumFile) : [];
     const annuaire = await readJson(p('donnees/sources/annuaire.json'));
     targets.push(...selectCandidates(elements, dinum, annuaire).map(c => ({ ...c, kind: 'candidate' })));
   }
