@@ -25,6 +25,7 @@ enchaîne les quatre étapes, qui peuvent aussi être lancées séparément :
 |---|---|---|
 | `npm run fetch:kumu` | Instantané de la carte publique (éléments, connexions, description) via l'API CouchDB de Kumu | `donnees/kumu/` |
 | `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (filtrée sur `gouv.fr`), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)) et liste des opérateurs de l'État du PLF | `donnees/sources/` (non versionné) |
+| `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), avec un cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
 | `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/AAAA-MM-JJ.json` |
 | `npm run build` | Calcule les changements, génère le jeu de données V2, le graphe et le rapport | `out/` |
 
@@ -61,8 +62,13 @@ puis `npm run build`.
   quel que soit le domaine (`ademe.fr`, `insee.fr`…). Les ordres professionnels, associations,
   ambassades, collectivités, etc. sont exclus (`sources.annuaire.excludeTypes`). L'organisme,
   son type et sa tutelle (la racine de sa hiérarchie dans l'annuaire) sont repris en attributs ;
-- domaines `*.gouv.fr` de la liste DINUM. Les sous-domaines ne sont pas proposés par défaut
-  (`includeSubdomains`).
+- domaines `*.gouv.fr` de la liste DINUM ;
+- **sous-domaines** d'un site de la carte (ou d'un nouveau site) : ceux de la liste DINUM, tous
+  domaines confondus (pour gouv.fr, elle intègre déjà les journaux de certificats via le script
+  `import-from-ct-logs.py` de la DINUM), et, pour les domaines hors gouv.fr que la DINUM ne
+  couvre pas, ceux des journaux de certificats (crt.sh), d'abord filtrés par le DNS. Chaque
+  sous-domaine est relié à son site parent. Ceux qui redirigent vers un autre site, parent
+  compris, sont écartés (`includeSubdomains` pour désactiver).
 
 Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 
@@ -80,6 +86,17 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 - les administrations de la V1 prennent leur intitulé actuel selon
   `config/correspondances-2019.csv` (l'ancien est conservé dans `Intitulé 2019`), et leurs
   connexions suivent. À mettre à jour après chaque remaniement ;
+- à défaut de hiérarchie, la tutelle d'un service est déduite de son **adresse** (ministère
+  majoritaire, à 60 % au moins, parmi les services installés au même endroit) ;
+- un site déclaré par plusieurs services d'un même ministère (ex. `info.gouv.fr`, déclaré par
+  120 services du Premier ministre) est rattaché directement à ce ministère ;
+- `config/tutelles.csv` (`motif,ministere`) donne la tutelle d'organismes qui ne sont ni
+  rattachés dans l'annuaire ni opérateurs de l'État (caisses nationales, chambres consulaires…) ;
+- les sites `<département ou région>.gouv.fr` sont reliés au nœud « Préfecture » ;
+- pour les sites restés sans ministère, `npm run fetch:marques` lit la page d'accueil : le
+  **bloc-marque** du DSFR (nom du ministère sous la Marianne) ou, à défaut, un ministère cité
+  au moins deux fois dans la page. Résultats en cache dans `donnees/checks/marques.json` ;
+- le champ `Rattachement déduit de` indique la méthode utilisée quand ce n'est pas la hiérarchie ;
 - `config/rattachements.csv` (`domaine,administration`) force le rattachement d'un site ;
 - les sites restés sans rattachement ont le tag `À rattacher` et sont listés dans
   `out/a-rattacher.csv`.
@@ -88,8 +105,9 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 
 Kumu n'étant utilisable qu'avec un abonnement, `build` produit aussi :
 
-- `out/web/` : une page autonome (sigma.js) avec recherche, légende filtrante, mise en avant
-  des ajouts de la V2 et fiche de chaque élément. Elle se publie telle quelle, par exemple sur
+- `out/web/` : une page autonome (sigma.js) avec recherche, légende filtrante (sites off ou
+  archivés masqués par défaut), mise en avant des ajouts de la V2, fiche de chaque élément et
+  **vue en liste par pôle**, accessible au clavier et aux lecteurs d'écran. Elle se publie telle quelle, par exemple sur
   GitHub Pages. Lien direct vers un élément : `index.html#ademe.fr`. Source : `web/carte.html`.
   Pour la voir en local : `python3 -m http.server 8765 --directory out/web`.
 - `out/sites-gouv-fr-v2.gexf` : le graphe (positions, couleurs, attributs), à ouvrir dans

@@ -60,7 +60,7 @@ const isTlsError = err => /CERT|LEAF|SELF_SIGNED|SSL|TLS|ERR_INVALID_URL/i.test(
 
 // Requête sans vérification du certificat, redirections suivies à la main.
 // Sert uniquement à savoir si un serveur mal configuré (chaîne TLS incomplète…) répond.
-function lenientProbe(url, { timeoutMs, userAgent }, hops = 0) {
+function lenientProbe(url, { timeoutMs, userAgent, maxBytes = 32768 }, hops = 0) {
   return new Promise(resolve => {
     let target;
     try { target = new URL(url); } catch { return resolve({ url, code: null, error: 'ERR_INVALID_URL' }); }
@@ -72,12 +72,12 @@ function lenientProbe(url, { timeoutMs, userAgent }, hops = 0) {
       if (isRedirect) {
         let next;
         try { next = new URL(loc, target).href; } catch { return resolve({ url, code: null, error: `Redirection invalide (${loc})` }); }
-        lenientProbe(next, { timeoutMs, userAgent }, hops + 1).then(r => resolve({ ...r, url }));
+        lenientProbe(next, { timeoutMs, userAgent, maxBytes }, hops + 1).then(r => resolve({ ...r, url }));
       } else {
         let html = '';
         res.setEncoding('utf8');
-        res.on('data', d => { html += d; if (html.length > 32768) res.destroy(); });
-        const done = () => resolve({ url, code: res.statusCode, finalUrl: target.href, lenient: true,
+        res.on('data', d => { html += d; if (html.length > maxBytes) res.destroy(); });
+        const done = () => resolve({ url, code: res.statusCode, finalUrl: target.href, lenient: true, html,
           parked: res.statusCode < 300 && isParked(html, target.href) });
         res.on('end', done); res.on('close', done);
       }
@@ -103,7 +103,9 @@ async function rawProbe(url, { timeoutMs, userAgent }) {
   } catch (e) {
     const cause = e.cause?.code || e.cause?.message || e.name || e.message;
     const error = String(cause);
-    return isTlsError(error) ? { ...(await lenientProbe(url, { timeoutMs, userAgent })), tlsError: error } : { url, code: null, error };
+    if (!isTlsError(error)) return { url, code: null, error };
+    const { html, ...r } = await lenientProbe(url, { timeoutMs, userAgent });
+    return { ...r, tlsError: error };
   }
 }
 
@@ -160,4 +162,55 @@ export async function pool(items, concurrency, fn, onProgress) {
     }
   }));
   return out;
+}
+
+// Bloc-marque du Système de design de l'État (DSFR) : nom du ministère ou de l'institution
+// affiché sous la Marianne dans l'en-tête (<p class="fr-logo">Ministère<br>de la Culture</p>).
+export function extractMarque(html) {
+  const m = html.match(/<(p|span|div|a)\b[^>]*class="[^"]*\bfr-logo\b[^"]*"[^>]*>([\s\S]*?)<\/\1>/i);
+  if (!m) return null;
+  const text = m[2]
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#0?39;|&rsquo;|&apos;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text || null;
+}
+
+// « Ministère de … » cités dans le texte de la page (hors scripts et styles), 20 au plus.
+export function extractMentions(html) {
+  const text = html
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(/<[^>]+>/g, '\n')
+    .replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&#0?39;|&rsquo;|&apos;/g, "'")
+    .replace(/[ \t]+/g, ' ');
+  return [...text.matchAll(/Minist[eè]re (?:de la |de l'|des |du |de |chargé )[^\n.;|()«»"]{3,140}/gi)]
+    .map(m => m[0].trim()).slice(0, 20);
+}
+
+// Page d'accueil (300 Ko au plus) pour en lire le bloc-marque.
+export async function fetchMarque(url, { timeoutMs, userAgent, perIp, perIpGapMs }) {
+  return throttled(url, { perIp, perIpGapMs }, async () => {
+    try {
+      const res = await fetch(url, {
+        redirect: 'follow',
+        signal: AbortSignal.timeout(timeoutMs),
+        headers: { 'user-agent': userAgent, accept: 'text/html' },
+      });
+      const html = /html/i.test(res.headers.get('content-type') || '') ? await readHead(res, 300000) : '';
+      return { marque: extractMarque(html), mentions: extractMentions(html), finalUrl: res.url, code: res.status };
+    } catch (e) {
+      const error = String(e.cause?.code || e.cause?.message || e.name || e.message);
+      // Certificat invalide : lecture de la page sans vérification (lecture publique seulement).
+      if (isTlsError(error)) {
+        const r = await lenientProbe(url, { timeoutMs, userAgent, maxBytes: 300000 });
+        if (r.html) return { marque: extractMarque(r.html), mentions: extractMentions(r.html), finalUrl: r.finalUrl, code: r.code };
+      }
+      return { marque: null, mentions: [], error };
+    }
+  });
 }

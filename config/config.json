@@ -28,13 +28,24 @@
   },
   "candidates": {
     "suffix": "gouv.fr",
-    "includeSubdomains": false,
+    "includeSubdomains": true,
     "excludePatterns": [
       "^(api|mail|smtp|imap|pop|mx|autodiscover|autoconfig|webmail|vpn|ftp|sftp|ns\\d*|dns|ldap|sso|auth|cas|proxy|relay|lyncdiscover|sip|owa|exchange|cdn|static|assets|img|media)[.-]",
-      "(^|[.-])(test|tests|recette|rec|preprod|pre-prod|preproduction|staging|stg|dev|develop|demo|int|integration|qualif|qualification|formation|sandbox|uat|bac-a-sable)([.-]|\\d)"
+      "(^|[.-])(test|tests|recette|rec|preprod|pre-prod|preproduction|staging|stg|dev|develop|demo|int|integration|qualif|qualification|formation|sandbox|uat|bac-a-sable)([.-]|\\d)",
+      "^(adm|admin|administration|backoffice|bo|back|gestion|intranet|extranet|webadmin|cms|matomo|piwik|stats|analytics|grafana|kibana|prometheus|sentry|metabase|gitlab|git|jenkins|ci|argocd|rancher|k8s|kube|monitoring|status|keycloak|login|idp|oauth|s3|minio|storage|files|upload|backup|vault|db|pma|phpmyadmin|redis|elastic|es|solr|rabbitmq|remote|citrix|rdp|portainer|traefik|nexus|sonar|jira|confluence|wiki-interne)([.-]|\\d)",
+      "(^|[.-])api([.-]|\\d)",
+      "^(www\\d|ww\\d|wwwd|origin|lb|node|srv|server|host|vm|preview|beta\\d)[.-]"
     ]
   },
   "site": {
     "domain": "gouvfr.jbledevehat.fr"
+  },
+  "subdomains": {
+    "crtsh": {
+      "host": "crt.sh",
+      "database": "certwatch",
+      "user": "guest"
+    },
+    "maxAgeDays": 30
   }
 }

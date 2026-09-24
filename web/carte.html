@@ -217,6 +217,7 @@
 
   /* --- Fiche d'un élément --- */
   #detail {
+    z-index: 4;
     top: calc(16px + env(safe-area-inset-top, 0px));
     right: 16px;
     width: 360px;
@@ -353,6 +354,112 @@
   }
   .goto select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 
+  /* --- Bascule carte / liste --- */
+  .views { display: flex; gap: 6px; margin-top: 12px; }
+  .views button {
+    flex: 1;
+    min-height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font: 500 13px var(--sans);
+    cursor: pointer;
+  }
+  .views button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+
+  /* --- Vue liste par pôle --- */
+  #list {
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    left: 352px;
+    right: 16px;
+    overflow-y: auto;
+    padding: 0 20px 20px;
+  }
+  .list-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 18px 0 12px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .list-head h2 { margin: 0; font-size: 18px; }
+  .list-head p { margin: 0; color: var(--muted); font-size: 13px; }
+  .list-back {
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font: 500 13px var(--sans);
+    cursor: pointer;
+  }
+  #list details { border-bottom: 1px solid var(--line); }
+  #list summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  #list summary .count { font-weight: 400; }
+  #list summary { list-style: none; }
+  #list summary::-webkit-details-marker { display: none; }
+  #list summary > span:first-child::before {
+    content: "▸";
+    display: inline-block;
+    width: 1.2em;
+    color: var(--muted);
+  }
+  #list details[open] > summary > span:first-child::before { content: "▾"; }
+  #list h3 {
+    margin: 8px 0 4px;
+    font: 500 12px/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  #list ul {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    columns: 2 300px;
+    column-gap: 24px;
+  }
+  #list li { break-inside: avoid; }
+  #list li button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 30px;
+    padding: 3px 6px;
+    margin-left: -6px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+  }
+  #list li button:hover { background: var(--accent-soft); }
+  #list li button:focus-visible { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; }
+  #list .txt { overflow-wrap: anywhere; }
+  #list .new { margin-left: auto; font-size: 11.5px; color: var(--accent); white-space: nowrap; }
+  body.list-mode .zoom, body.list-mode #poles { display: none; }
+
   /* --- Zoom --- */
   .zoom {
     position: fixed;
@@ -386,6 +493,7 @@
   }
 
   @media (max-width: 760px) {
+    #list { left: 16px; z-index: 3; padding: 0 16px 16px; }
     #side { left: 16px; right: 16px; width: auto; max-height: 48%; }
     .figures { display: none; }
     .legend { max-height: 30vh; }
@@ -396,7 +504,7 @@
       bottom: calc(16px + env(safe-area-inset-bottom, 0px));
       width: auto;
       max-height: 55%;
-      z-index: 3;
+      z-index: 4;
     }
     .zoom { bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
   }
@@ -417,6 +525,10 @@
     <h1>Sites web publics de l'État</h1>
     <p class="sub" id="sub">Sites en gouv.fr, opérateurs et administrations de rattachement.</p>
     <div class="figures" id="figures"></div>
+    <div class="views" role="group" aria-label="Affichage">
+      <button type="button" id="v-map" aria-pressed="true">Carte</button>
+      <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
+    </div>
   </div>
   <div class="search">
     <label for="q" class="sr-only">Rechercher un site ou une administration</label>
@@ -453,6 +565,17 @@
   <dl id="d-attrs"></dl>
   <div class="neighbours" id="d-links"></div>
 </aside>
+
+<section id="list" class="panel" aria-labelledby="list-title" hidden>
+  <div class="list-head">
+    <div>
+      <h2 id="list-title" tabindex="-1">Liste par pôle</h2>
+      <p id="list-count"></p>
+    </div>
+    <button type="button" class="list-back" id="list-back">Revenir à la carte</button>
+  </div>
+  <div id="list-body"></div>
+</section>
 
 <div class="zoom panel" role="group" aria-label="Zoom">
   <button type="button" id="z-in" aria-label="Zoomer" title="Zoomer"><span aria-hidden="true">+</span></button>
@@ -509,15 +632,21 @@
     `<div><b>${fmt(m.nouveaux)}</b><span>ajouts V2</span></div>`;
 
   // --- État de l'interface ---
-  const state = { hidden: new Set(), onlyNew: false, hovered: null, selected: null, neighbours: new Set() };
+  // Par défaut, les sites off ou archivés sont masqués.
+  const STORE = 'carte-v2-filtres-2';
+  const state = { hidden: new Set(['archive']), onlyNew: false, hovered: null, selected: null, neighbours: new Set() };
   try {
-    const saved = JSON.parse(localStorage.getItem('carte-v2-filtres') || '{}');
-    (saved.hidden || []).forEach(c => cats.has(c) && state.hidden.add(c));
-    state.onlyNew = !!saved.onlyNew;
+    const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+    if (saved) {
+      state.hidden = new Set((saved.hidden || []).filter(c => cats.has(c)));
+      state.onlyNew = !!saved.onlyNew;
+    }
   } catch (e) {}
   const save = () => {
-    try { localStorage.setItem('carte-v2-filtres', JSON.stringify({ hidden: [...state.hidden], onlyNew: state.onlyNew })); } catch (e) {}
+    try { localStorage.setItem(STORE, JSON.stringify({ hidden: [...state.hidden], onlyNew: state.onlyNew })); } catch (e) {}
   };
+  // Toute modification des filtres redessine la carte et, si elle est ouverte, la liste.
+  const filtersChanged = () => { save(); renderer.refresh(); if (!listEl.hidden) renderList(); };
 
   // --- Légende ---
   const counts = {};
@@ -531,18 +660,18 @@
       `<span class="dot" style="background:${catColor(c.id)}"></span><span>${c.label}</span><span class="count">${fmt(counts[c.id])}</span>`;
     label.querySelector('input').addEventListener('change', e => {
       e.target.checked ? state.hidden.delete(c.id) : state.hidden.add(c.id);
-      save(); renderer.refresh();
+      filtersChanged();
     });
     catsEl.appendChild(label);
   }
   document.getElementById('all').addEventListener('click', () => {
     state.hidden.clear();
     catsEl.querySelectorAll('input').forEach(i => { i.checked = true; });
-    save(); renderer.refresh();
+    filtersChanged();
   });
   const onlyNew = document.getElementById('only-new');
   onlyNew.checked = state.onlyNew;
-  onlyNew.addEventListener('change', () => { state.onlyNew = onlyNew.checked; save(); renderer.refresh(); });
+  onlyNew.addEventListener('change', () => { state.onlyNew = onlyNew.checked; filtersChanged(); });
 
   // --- Étiquettes : couleurs du thème, fond contrasté ---
   const theme = {};
@@ -666,7 +795,7 @@
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const link = url => `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a>`;
   const FIELDS = [
-    ['Site parent', 'Site parent'], ['Organisme', 'Organisme'], ['Tutelle', 'Tutelle'], ['Type d\'organisme', 'Type d\'organisme'],
+    ['Site parent', 'Site parent'], ['Organisme', 'Organisme'], ['Tutelle', 'Tutelle'], ['Rattachement déduit de', 'Rattachement déduit de'], ['Bloc-marque', 'Bloc-marque DSFR'], ['Type d\'organisme', 'Type d\'organisme'],
     ['Opérateur de l\'État', 'Opérateur (PLF)'], ['Statut juridique', 'Statut juridique'],
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
@@ -697,7 +826,7 @@
     if (a.nouveau) badges.push('<span class="badge new">Ajout V2</span>');
     if (a.attrs.Statut) badges.push(`<span class="badge ${statusClass[a.attrs.Statut] ?? ''}">${esc(a.attrs.Statut)}</span>`);
     for (const t of (a.attrs.tags || '').split('|')) {
-      if (['À rattacher', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
+      if (['À rattacher', 'À revérifier', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
     }
     document.getElementById('d-badges').innerHTML = badges.join('');
     const pole = data.poles[a.pole];
@@ -804,6 +933,52 @@
     announce.textContent = `Carte centrée sur le pôle ${p.label}, ${p.size} éléments.`;
   });
   renderer.refresh();
+
+  // --- Vue liste par pôle (mêmes filtres que la carte) ---
+  function renderList() {
+    const visible = (n, a) => !state.hidden.has(a.categorie) && (!state.onlyNew || a.nouveau);
+    const byPole = data.poles.map(() => new Map());
+    let total = 0;
+    graph.forEachNode((n, a) => {
+      if (!visible(n, a)) return;
+      const groups = byPole[a.pole];
+      if (!groups.has(a.categorie)) groups.set(a.categorie, []);
+      groups.get(a.categorie).push(n);
+      total++;
+    });
+    document.getElementById('list-count').textContent =
+      `${fmt(total)} éléments affichés selon les filtres de la légende${state.onlyNew ? ' (ajouts de la V2 seulement)' : ''}.`;
+    const order = data.poles.map((p, i) => [p, i]).filter(([, i]) => byPole[i].size)
+      .sort(([a], [b]) => (a.id === 'Sans ministère identifié') - (b.id === 'Sans ministère identifié') || a.label.localeCompare(b.label, 'fr'));
+    document.getElementById('list-body').innerHTML = order.map(([p, i]) => {
+      const groups = byPole[i];
+      const count = [...groups.values()].reduce((s, l) => s + l.length, 0);
+      const inner = data.categories.filter(c => groups.has(c.id)).map(c => {
+        const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
+        return `<h3>${esc(c.label)} · ${fmt(items.length)}</h3><ul>` + items.map(n =>
+          `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}" aria-hidden="true"></span>` +
+          `<span class="txt">${esc(short(n))}</span>${graph.getNodeAttribute(n, 'nouveau') ? '<span class="new">Ajout V2</span>' : ''}</button></li>`).join('') + '</ul>';
+      }).join('');
+      return `<details><summary><span>${esc(p.id === 'Sans ministère identifié' ? p.id : p.label)}</span><span class="count">${fmt(count)}</span></summary>${inner}</details>`;
+    }).join('');
+  }
+  const listEl = document.getElementById('list');
+  const vMap = document.getElementById('v-map'), vList = document.getElementById('v-list');
+  function showList(on) {
+    listEl.hidden = !on;
+    document.body.classList.toggle('list-mode', on);
+    vMap.setAttribute('aria-pressed', String(!on));
+    vList.setAttribute('aria-pressed', String(on));
+    if (on) { renderList(); document.getElementById('list-title').focus(); }
+    else vList.focus();
+  }
+  vList.addEventListener('click', () => showList(true));
+  vMap.addEventListener('click', () => showList(false));
+  document.getElementById('list-back').addEventListener('click', () => showList(false));
+  document.getElementById('list-body').addEventListener('click', e => {
+    const b = e.target.closest('button[data-node]');
+    if (b) select(b.dataset.node);
+  });
 
   // --- Zoom ---
   const cam = renderer.getCamera();

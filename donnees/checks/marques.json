@@ -1,0 +1,2300 @@
+{
+  "http://biodiversite-en-action.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.797Z",
+    "v": 2
+  },
+  "http://feux-foret.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.727Z",
+    "v": 2
+  },
+  "http://mont-saint-michel.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.564Z",
+    "v": 2
+  },
+  "http://saintpierre-et-miquelon.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:20.331Z",
+    "v": 2
+  },
+  "http://saintpierreetmiquelon.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:22.341Z",
+    "v": 2
+  },
+  "http://ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:24.456Z",
+    "v": 2
+  },
+  "http://www.aide-developpement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.518Z",
+    "v": 2
+  },
+  "http://www.cetu.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.817Z",
+    "v": 2
+  },
+  "http://www.environnement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.824Z",
+    "v": 2
+  },
+  "http://www.forages-domestiques.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:03.825Z",
+    "v": 2
+  },
+  "http://www.gisp.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.589Z",
+    "v": 2
+  },
+  "http://www.ira.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.420Z",
+    "v": 2
+  },
+  "http://www.japprendslamer.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.463Z",
+    "v": 2
+  },
+  "http://www.jardiner-autrement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:08.464Z",
+    "v": 2
+  },
+  "http://www.ombel.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.606Z",
+    "v": 2
+  },
+  "http://www.prix-controle-technique.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:16.827Z",
+    "v": 2
+  },
+  "http://www.respirez-mieux.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:21.215Z",
+    "v": 2
+  },
+  "http://www.semainedudeveloppementdurable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.208Z",
+    "v": 2
+  },
+  "http://www.tribunal-conflits.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.091Z",
+    "v": 2
+  },
+  "https://17cyber.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:55.887Z",
+    "v": 2
+  },
+  "https://academiesciencesmoralesetpolitiques.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:45.926Z",
+    "v": 2
+  },
+  "https://achats-durables.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.190Z",
+    "v": 2
+  },
+  "https://acpr.banque-france.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.450Z",
+    "v": 2
+  },
+  "https://adaptation-douche.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.361Z",
+    "v": 2
+  },
+  "https://agrasc.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "ministère de la Justice et",
+      "ministère des Comptes publics",
+      "ministère de la Justice et du ministère des Comptes publics"
+    ],
+    "checkedAt": "2026-09-24T14:08:56.637Z",
+    "v": 2
+  },
+  "https://aibl.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.207Z",
+    "v": 2
+  },
+  "https://anct.gouv.fr": {
+    "marque": "R&eacute;publique Fran&ccedil;aise",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.594Z",
+    "v": 2
+  },
+  "https://ansm.sante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.634Z",
+    "v": 2
+  },
+  "https://arretonslesviolences.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.730Z",
+    "v": 2
+  },
+  "https://attention-feu-foret.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.755Z",
+    "v": 2
+  },
+  "https://attention-feux-foret.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.756Z",
+    "v": 2
+  },
+  "https://auvergnerhonealpes.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.815Z",
+    "v": 2
+  },
+  "https://bail-mobilite.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.360Z",
+    "v": 2
+  },
+  "https://bea.aero": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.663Z",
+    "v": 2
+  },
+  "https://beauxartsparis.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.874Z"
+  },
+  "https://biodechet.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:57.077Z",
+    "v": 2
+  },
+  "https://biodechets.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.968Z",
+    "v": 2
+  },
+  "https://bretagne-paysdelaloire.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.812Z",
+    "v": 2
+  },
+  "https://c2rmf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.454Z",
+    "v": 2
+  },
+  "https://cae-eco.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.882Z",
+    "v": 2
+  },
+  "https://cartes.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.771Z",
+    "v": 2
+  },
+  "https://cbn-alpin.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.107Z"
+  },
+  "https://cbn-martinique.org": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.183Z"
+  },
+  "https://cbnbp.mnhn.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:54.316Z"
+  },
+  "https://cbnc.oec.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:55.313Z"
+  },
+  "https://cbnpmp.blogspot.com": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:55.106Z"
+  },
+  "https://cbnsa.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.726Z"
+  },
+  "https://centre-documentation-spm.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.820Z",
+    "v": 2
+  },
+  "https://chambres-agriculture.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.327Z"
+  },
+  "https://chaquegestecompte.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.748Z",
+    "v": 2
+  },
+  "https://choisirleservicepublic.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.182Z",
+    "v": 2
+  },
+  "https://chorus-dt.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.015Z",
+    "v": 2
+  },
+  "https://code.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.086Z",
+    "v": 2
+  },
+  "https://concertation-strategie-energie-climat.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.207Z",
+    "v": 2
+  },
+  "https://conseiller-numerique.gouv.fr": {
+    "marque": "RÉPUBLIQUE FRANÇAISE",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.193Z",
+    "v": 2
+  },
+  "https://consulat.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.008Z",
+    "v": 2
+  },
+  "https://consultation-economie-circulaire.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.823Z",
+    "v": 2
+  },
+  "https://corse.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.815Z",
+    "v": 2
+  },
+  "https://declaration-manifestations.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [
+      "ministère des Sports, de la Jeunesse et de la Vie associative"
+    ],
+    "checkedAt": "2026-09-24T14:08:59.459Z",
+    "v": 2
+  },
+  "https://demission-reconversion.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.581Z",
+    "v": 2
+  },
+  "https://developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.752Z",
+    "v": 2
+  },
+  "https://devenir-aviateur.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.720Z",
+    "v": 2
+  },
+  "https://doctorat.gouv.fr": {
+    "marque": "RÉPUBLIQUE FRANÇAISE",
+    "mentions": [
+      "ministère de l'Enseignement supérieur et de la Recherche, qui, chaque année , pour la Fête de la Science, édite un petit livre illustrant en bande dessinée",
+      "Ministère de l&#x27",
+      "MINISTÈRE DE L’ENSEIGNEMENT SUPÉRIEUR, DE LA RECHERCHE ET DE L’ESPACE"
+    ],
+    "checkedAt": "2026-09-24T14:09:01.319Z",
+    "v": 2
+  },
+  "https://documentation-administrative.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.362Z",
+    "v": 2
+  },
+  "https://donation-immobilier.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.768Z",
+    "v": 2
+  },
+  "https://dondesang.efs.sante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:26.966Z",
+    "v": 2
+  },
+  "https://dreets.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.476Z",
+    "v": 2
+  },
+  "https://ecoledespupillesdelair.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.462Z",
+    "v": 2
+  },
+  "https://ecologie-solidaire.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:08.768Z",
+    "v": 2
+  },
+  "https://eetaa722.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.912Z"
+  },
+  "https://electionsrepresentantshlm.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.748Z",
+    "v": 2
+  },
+  "https://en3s.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.581Z"
+  },
+  "https://encadrementdesloyers.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.498Z",
+    "v": 2
+  },
+  "https://energies-citoyennes.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.756Z",
+    "v": 2
+  },
+  "https://ens.syracuse.cloud": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.921Z",
+    "v": 2
+  },
+  "https://ensad-nancy.eu": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.019Z"
+  },
+  "https://epargnonsnosressources.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Transition écologique font la lumière sur les impacts de l’ultra fast-fashion et les alternatives pour consommer plus responsable"
+    ],
+    "checkedAt": "2026-09-24T14:09:01.898Z",
+    "v": 2
+  },
+  "https://fondation-cnrs.org": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:45.557Z"
+  },
+  "https://fps.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.150Z",
+    "v": 2
+  },
+  "https://france-identite.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "Ministère chargé de la Transition numérique et des télécommunications",
+      "Ministère de l'Intérieur",
+      "Ministère de la Justice",
+      "Ministère de la Transformation publique et de la Réforme de l’État",
+      "Ministère de l’Économie, des Finances et de la Souveraineté industrielle et numérique et du Ministère chargé de la Transition numérique et des télécommun"
+    ],
+    "checkedAt": "2026-09-24T14:09:02.271Z",
+    "v": 2
+  },
+  "https://france-renov.gouv.fr": {
+    "marque": "République Française Liberté, Égalité, Fraternité.",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.447Z",
+    "v": 2
+  },
+  "https://france-sesame.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.413Z",
+    "v": 2
+  },
+  "https://francophonie2024.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.530Z",
+    "v": 2
+  },
+  "https://grandest.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.812Z",
+    "v": 2
+  },
+  "https://h2a-france.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.351Z",
+    "v": 2
+  },
+  "https://hautsdefrance-normandie.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.815Z",
+    "v": 2
+  },
+  "https://hcfea.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.901Z",
+    "v": 2
+  },
+  "https://ifc.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.813Z",
+    "v": 2
+  },
+  "https://ife.ens-lyon.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:03.845Z",
+    "v": 2
+  },
+  "https://info-financiere.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.128Z",
+    "v": 2
+  },
+  "https://institut-agro-dijon.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:45.368Z"
+  },
+  "https://institutrobertbadinter.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.682Z",
+    "v": 2
+  },
+  "https://instn.cea.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.381Z",
+    "v": 2
+  },
+  "https://internet-signalement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.376Z",
+    "v": 2
+  },
+  "https://jalerte.arcep.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.467Z",
+    "v": 2
+  },
+  "https://jedebroussaille.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:16.753Z",
+    "v": 2
+  },
+  "https://jeprotegemonenfant.gouv.fr": {
+    "marque": "République Française Liberté, Égalité, Fraternité",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.827Z",
+    "v": 2
+  },
+  "https://lafrenchtech.gouv.fr": {
+    "marque": "République Française Liberté Égalité Fraternité",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:08.444Z",
+    "v": 2
+  },
+  "https://lamarinerecrute.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:07.152Z",
+    "v": 2
+  },
+  "https://leblob.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:45.577Z"
+  },
+  "https://lesbonneshabitudes.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:18.772Z",
+    "v": 2
+  },
+  "https://lesentreprises-sengagent.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère du Travail, de l’Emploi et de l’insertion\\",
+      "Ministère du Travail, de l’Emploi et de l’insertion\\",
+      "Ministère du Travail, de l’Emploi et de l’insertion\\",
+      "Ministère du Travail, de l’Emploi et de l’insertion\\"
+    ],
+    "checkedAt": "2026-09-24T14:09:08.442Z",
+    "v": 2
+  },
+  "https://logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:20.784Z",
+    "v": 2
+  },
+  "https://maisondelautisme.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.138Z",
+    "v": 2
+  },
+  "https://mentor.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.685Z",
+    "v": 2
+  },
+  "https://mieuxrespirerenville.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "ministère de la transition écologique et de la cohésion des territoires, France Urbaine, l’Association des maires de France et le Cerema, proposent des feui"
+    ],
+    "checkedAt": "2026-09-24T14:09:09.860Z",
+    "v": 2
+  },
+  "https://mines-nancy.univ-lorraine.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.362Z",
+    "v": 2
+  },
+  "https://mobilisation-expertise.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de l’Europe et des Affaires étrangères, de la Direction générale du Trésor et de l’AFD, Expertise France a contribué à la mobilisation de 480 e",
+      "ministère de l’Éducation et de la Formation du Vanuatu, sur sa mission pour accompagner le développement de l’enseignement supérieur et renforcer la fran"
+    ],
+    "checkedAt": "2026-09-24T14:08:49.304Z",
+    "v": 2
+  },
+  "https://mon-vie-via.businessfrance.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.454Z",
+    "v": 2
+  },
+  "https://monmaster.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.526Z",
+    "v": 2
+  },
+  "https://monprojetpourlaplanete.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:24.830Z",
+    "v": 2
+  },
+  "https://mucem.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.531Z",
+    "v": 2
+  },
+  "https://musee-archeologienationale.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.698Z",
+    "v": 2
+  },
+  "https://musee-henner.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:48.204Z"
+  },
+  "https://musee-moreau.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:50.312Z"
+  },
+  "https://museedesplansreliefs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.988Z",
+    "v": 2
+  },
+  "https://mycs.centralesupelec.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.653Z",
+    "v": 2
+  },
+  "https://nouvelle-aquitaine.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.749Z",
+    "v": 2
+  },
+  "https://nouvelles-chances.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.749Z",
+    "v": 2
+  },
+  "https://occitanie.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.732Z",
+    "v": 2
+  },
+  "https://onpe.france-enfance-protegee.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.065Z",
+    "v": 2
+  },
+  "https://paca.cnpf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.722Z",
+    "v": 2
+  },
+  "https://parc-marin-bassin-arcachon.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.248Z",
+    "v": 2
+  },
+  "https://parc-marin-cap-corse-agriate.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.247Z",
+    "v": 2
+  },
+  "https://parc-marin-epmo.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.250Z",
+    "v": 2
+  },
+  "https://parc-marin-gironde-pertuis.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.259Z",
+    "v": 2
+  },
+  "https://parc-marin-golfe-lion.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.252Z",
+    "v": 2
+  },
+  "https://parc-marin-iroise.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:00.235Z",
+    "v": 2
+  },
+  "https://parc-marin-martinique.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.240Z",
+    "v": 2
+  },
+  "https://parc-marin-mayotte.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.240Z",
+    "v": 2
+  },
+  "https://paris-est.archi.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:18.174Z",
+    "v": 2
+  },
+  "https://pass-g7.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.942Z",
+    "v": 2
+  },
+  "https://passrail.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:28.748Z",
+    "v": 2
+  },
+  "https://payfip.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:13.002Z",
+    "v": 2
+  },
+  "https://peage-flux-libre.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:13.116Z",
+    "v": 2
+  },
+  "https://piste.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de l'économie, des finances et de la relance est responsable de traitement du site piste"
+    ],
+    "checkedAt": "2026-09-24T14:09:13.685Z",
+    "v": 2
+  },
+  "https://portailpro.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.550Z",
+    "v": 2
+  },
+  "https://pret-a-taux-zero-plus.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.645Z",
+    "v": 2
+  },
+  "https://pret-taux-zero.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:32.763Z",
+    "v": 2
+  },
+  "https://prime-chaudieres.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:34.761Z",
+    "v": 2
+  },
+  "https://primealaconversion-chaudieres.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:36.748Z",
+    "v": 2
+  },
+  "https://psl.eu": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:49.078Z"
+  },
+  "https://ptz-plus.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:17.262Z",
+    "v": 2
+  },
+  "https://ptz.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:19.265Z",
+    "v": 2
+  },
+  "https://quartiers-ete.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:18.269Z",
+    "v": 2
+  },
+  "https://quefairedemesdechets.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:38.747Z",
+    "v": 2
+  },
+  "https://relance-logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:18.977Z",
+    "v": 2
+  },
+  "https://ruralite.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:20.271Z",
+    "v": 2
+  },
+  "https://sanctuaire-agoa.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.283Z",
+    "v": 2
+  },
+  "https://securitedesagentsdesroutes.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:40.749Z",
+    "v": 2
+  },
+  "https://sirene.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.145Z",
+    "v": 2
+  },
+  "https://site.bdlg.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.652Z",
+    "v": 2
+  },
+  "https://snds.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.375Z",
+    "v": 2
+  },
+  "https://social-sante.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.445Z",
+    "v": 2
+  },
+  "https://stop-punaises.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "Ministère de la Transition Écologique et de la Cohésion des Territoires",
+      "Ministère de la Transition Ecologique"
+    ],
+    "checkedAt": "2026-09-24T14:09:23.498Z",
+    "v": 2
+  },
+  "https://stopcovid.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:25.502Z",
+    "v": 2
+  },
+  "https://territoires.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.791Z",
+    "v": 2
+  },
+  "https://tribunal-stationnement-payant.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.254Z",
+    "v": 2
+  },
+  "https://vigieau.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.847Z",
+    "v": 2
+  },
+  "https://vigipallia.parlons-fin-de-vie.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la santé en février 2026 dans le cadre des débats parlementaires relatifs à la proposition de loi sur l’aide à mourir, la Haute Autorité de San"
+    ],
+    "checkedAt": "2026-09-24T14:09:24.165Z",
+    "v": 2
+  },
+  "https://vigipirate.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:24.292Z",
+    "v": 2
+  },
+  "https://villa-arson.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:51.035Z"
+  },
+  "https://voie-reservee.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:44.752Z",
+    "v": 2
+  },
+  "https://voies-reservees.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:46.748Z",
+    "v": 2
+  },
+  "https://www.1000-premiers-jours.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.147Z",
+    "v": 2
+  },
+  "https://www.1jeune1solution.gouv.fr": {
+    "marque": "Ministère du Travail et des solidarités",
+    "mentions": [
+      "Ministère du Travail et des solidarités"
+    ],
+    "checkedAt": "2026-09-24T14:08:56.014Z",
+    "v": 2
+  },
+  "https://www.academie-francaise.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:45.939Z",
+    "v": 2
+  },
+  "https://www.academie-sciences.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.973Z",
+    "v": 2
+  },
+  "https://www.academiedesbeauxarts.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:45.960Z",
+    "v": 2
+  },
+  "https://www.acnusa.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.075Z",
+    "v": 2
+  },
+  "https://www.adaptation-changement-climatique.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.474Z",
+    "v": 2
+  },
+  "https://www.afd.fr": {
+    "marque": "République Française",
+    "checkedAt": "2026-09-24T14:04:40.251Z"
+  },
+  "https://www.afld.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.213Z",
+    "v": 2
+  },
+  "https://www.agence-adoption.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.202Z",
+    "v": 2
+  },
+  "https://www.agence-biomedecine.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.413Z",
+    "v": 2
+  },
+  "https://www.agora.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.469Z",
+    "v": 2
+  },
+  "https://www.agreenium.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.073Z"
+  },
+  "https://www.agro-bordeaux.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.203Z"
+  },
+  "https://www.agroparistech.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.197Z"
+  },
+  "https://www.alcool-info-service.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère chargé de la Santé et de la prévention",
+      "ministère chargé de la Santé"
+    ],
+    "checkedAt": "2026-09-24T14:08:45.950Z",
+    "v": 2
+  },
+  "https://www.ameli.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.243Z"
+  },
+  "https://www.amf-france.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.062Z",
+    "v": 2
+  },
+  "https://www.anap.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.422Z",
+    "v": 2
+  },
+  "https://www.ancv.com": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.353Z"
+  },
+  "https://www.andv.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "ministère de l’Intérieur et des Outre-mer"
+    ],
+    "checkedAt": "2026-09-24T14:08:56.654Z",
+    "v": 2
+  },
+  "https://www.anj.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.040Z",
+    "v": 2
+  },
+  "https://www.anses.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.081Z",
+    "v": 2
+  },
+  "https://www.aquarium-tropical.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.451Z"
+  },
+  "https://www.arcep.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.041Z",
+    "v": 2
+  },
+  "https://www.arcom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.119Z",
+    "v": 2
+  },
+  "https://www.arpe.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "Ministère du Travail et de l'Emploi",
+      "Ministère du Partenariat avec les territoires et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-24T14:08:57.117Z",
+    "v": 2
+  },
+  "https://www.artisanat.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:40.480Z"
+  },
+  "https://www.asnr.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.132Z",
+    "v": 2
+  },
+  "https://www.assemblee-nationale.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.210Z",
+    "v": 2
+  },
+  "https://www.atih.sante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.741Z",
+    "v": 2
+  },
+  "https://www.atout-france.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.547Z",
+    "v": 2
+  },
+  "https://www.autorite-statistique-publique.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.236Z",
+    "v": 2
+  },
+  "https://www.autorite-transports.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.203Z",
+    "v": 2
+  },
+  "https://www.autoritedelaconcurrence.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.257Z",
+    "v": 2
+  },
+  "https://www.aviation-civile.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.856Z",
+    "v": 2
+  },
+  "https://www.banque-france.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.452Z",
+    "v": 2
+  },
+  "https://www.banquedesterritoires.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.311Z",
+    "v": 2
+  },
+  "https://www.banquemondiale.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.374Z",
+    "v": 2
+  },
+  "https://www.brgm.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère des mines ou une institution chargée de développer le secteur minier ? Le BRGM vous accompagne pour créer un cadre attractif, sécurisé et transp"
+    ],
+    "checkedAt": "2026-09-24T14:08:46.597Z",
+    "v": 2
+  },
+  "https://www.cada.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.385Z",
+    "v": 2
+  },
+  "https://www.caf.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.057Z"
+  },
+  "https://www.caissedesdepots.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.557Z",
+    "v": 2
+  },
+  "https://www.carte-familles-nombreuses.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.542Z",
+    "v": 2
+  },
+  "https://www.casadevelazquez.org": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.157Z"
+  },
+  "https://www.cbnbrest.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.718Z"
+  },
+  "https://www.cbnmc.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.401Z"
+  },
+  "https://www.cbnmed.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.207Z"
+  },
+  "https://www.cci.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.295Z"
+  },
+  "https://www.ccne-ethique.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.477Z",
+    "v": 2
+  },
+  "https://www.ccomptes.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Culture : bilan d'étape et défis",
+      "ministère de l’intérieur"
+    ],
+    "checkedAt": "2026-09-24T14:08:46.610Z",
+    "v": 2
+  },
+  "https://www.centre-inffo.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.356Z"
+  },
+  "https://www.centrepompidou.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.486Z"
+  },
+  "https://www.cepii.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.558Z",
+    "v": 2
+  },
+  "https://www.cepremap.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.810Z",
+    "v": 2
+  },
+  "https://www.cerema.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.571Z"
+  },
+  "https://www.cesdip.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.661Z",
+    "v": 2
+  },
+  "https://www.cglpl.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.693Z",
+    "v": 2
+  },
+  "https://www.chambord.org": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.855Z"
+  },
+  "https://www.chateauversailles.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.715Z"
+  },
+  "https://www.cite-sciences.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.117Z"
+  },
+  "https://www.citeco.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.726Z",
+    "v": 2
+  },
+  "https://www.civen.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.388Z",
+    "v": 2
+  },
+  "https://www.clauses-abusives.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.936Z",
+    "v": 2
+  },
+  "https://www.cleiss.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:41.868Z"
+  },
+  "https://www.clemi.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.032Z"
+  },
+  "https://www.cncdh.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.409Z",
+    "v": 2
+  },
+  "https://www.cnda.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.005Z",
+    "v": 2
+  },
+  "https://www.cng.sante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:58.925Z",
+    "v": 2
+  },
+  "https://www.cnil.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.874Z",
+    "v": 2
+  },
+  "https://www.cnrm.meteo.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.252Z",
+    "v": 2
+  },
+  "https://www.cnrs.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.205Z"
+  },
+  "https://www.cnsa.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.208Z"
+  },
+  "https://www.comitehistoirepolville.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de toute la ville",
+      "ministère de la Ville par la nécessité d’incarner la politique de la ville"
+    ],
+    "checkedAt": "2026-09-24T14:08:46.911Z",
+    "v": 2
+  },
+  "https://www.commission-des-sondages.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:46.939Z",
+    "v": 2
+  },
+  "https://www.communication.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.106Z",
+    "v": 2
+  },
+  "https://www.complementaire-sante-solidaire.gouv.fr": {
+    "marque": "Ministère de la santé, des familles, de l'autonomie et des personnes handicapées",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.119Z",
+    "v": 2
+  },
+  "https://www.conseil-constitutionnel.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de l’éducation nationale"
+    ],
+    "checkedAt": "2026-09-24T14:08:46.950Z",
+    "v": 2
+  },
+  "https://www.conseil-etat.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.148Z",
+    "v": 2
+  },
+  "https://www.conseil-superieur-magistrature.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.966Z",
+    "v": 2
+  },
+  "https://www.conservatoire-du-littoral.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.464Z"
+  },
+  "https://www.conso.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.271Z",
+    "v": 2
+  },
+  "https://www.cor-retraites.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.406Z",
+    "v": 2
+  },
+  "https://www.courdecassation.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.047Z",
+    "v": 2
+  },
+  "https://www.cre.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.150Z",
+    "v": 2
+  },
+  "https://www.credoc.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.197Z",
+    "v": 2
+  },
+  "https://www.csa.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.098Z",
+    "v": 2
+  },
+  "https://www.cstb.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:42.851Z"
+  },
+  "https://www.cte.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.619Z",
+    "v": 2
+  },
+  "https://www.debatpublic.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.230Z",
+    "v": 2
+  },
+  "https://www.defenseurdesdroits.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.292Z",
+    "v": 2
+  },
+  "https://www.demarches-plaisance.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.536Z",
+    "v": 2
+  },
+  "https://www.deux-sevres.gouv.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:55.909Z"
+  },
+  "https://www.dgdr.cnrs.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:56.206Z"
+  },
+  "https://www.diese.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.699Z",
+    "v": 2
+  },
+  "https://www.dilcrah.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [
+      "Ministère de l'Intérieur"
+    ],
+    "checkedAt": "2026-09-24T14:09:01.700Z",
+    "v": 2
+  },
+  "https://www.dondorganes.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.873Z",
+    "v": 2
+  },
+  "https://www.doubs.gouv.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:57.917Z"
+  },
+  "https://www.drogues-info-service.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.925Z",
+    "v": 2
+  },
+  "https://www.ebrd.com": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.339Z",
+    "v": 2
+  },
+  "https://www.ecole-air-espace.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.406Z",
+    "v": 2
+  },
+  "https://www.efs.sante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.785Z",
+    "v": 2
+  },
+  "https://www.ehesp.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.001Z"
+  },
+  "https://www.electrifions-la-france.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:01.397Z",
+    "v": 2
+  },
+  "https://www.energie-info.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.345Z",
+    "v": 2
+  },
+  "https://www.energie-mediateur.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.868Z",
+    "v": 2
+  },
+  "https://www.ensad.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.264Z"
+  },
+  "https://www.ensapc.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.664Z"
+  },
+  "https://www.epide.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:43.470Z"
+  },
+  "https://www.eurecom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:47.915Z",
+    "v": 2
+  },
+  "https://www.europe-en-france.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.053Z",
+    "v": 2
+  },
+  "https://www.expertisefrance.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "Ministère de l'Europe et des Affaires étrangères, Ministère fédéral allemand de la Coopération économique et du Développement",
+      "Ministère des Affaires étrangères d'Estonie, Agence centrale de financement et de passation de marchés de Lettonie",
+      "Ministère de l'Europe et des Affaires étrangères"
+    ],
+    "checkedAt": "2026-09-24T14:08:48.175Z",
+    "v": 2
+  },
+  "https://www.fiva.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:45.015Z"
+  },
+  "https://www.fondation-alliancefr.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.303Z",
+    "v": 2
+  },
+  "https://www.fondsdegarantie.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.069Z",
+    "v": 2
+  },
+  "https://www.france-enfance-protegee.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.046Z",
+    "v": 2
+  },
+  "https://www.france-services.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.348Z",
+    "v": 2
+  },
+  "https://www.francetourismedurable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.576Z",
+    "v": 2
+  },
+  "https://www.francetravail.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.320Z",
+    "v": 2
+  },
+  "https://www.francetravail.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.276Z",
+    "v": 2
+  },
+  "https://www.fsv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.209Z",
+    "v": 2
+  },
+  "https://www.gard.gouv.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:59.942Z"
+  },
+  "https://www.gironde.gouv.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:05:01.914Z"
+  },
+  "https://www.guimet.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.310Z",
+    "v": 2
+  },
+  "https://www.harkis.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "Ministère des Armées",
+      "Ministère des Armées"
+    ],
+    "checkedAt": "2026-09-24T14:09:03.721Z",
+    "v": 2
+  },
+  "https://www.has-sante.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère chargé des Sports, la Haute Autorité de santé"
+    ],
+    "checkedAt": "2026-09-24T14:08:48.434Z",
+    "v": 2
+  },
+  "https://www.hatvp.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.379Z",
+    "v": 2
+  },
+  "https://www.hautconseilclimat.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.408Z",
+    "v": 2
+  },
+  "https://www.hceres.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.532Z",
+    "v": 2
+  },
+  "https://www.hcfp.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.512Z",
+    "v": 2
+  },
+  "https://www.histoire-immigration.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.517Z",
+    "v": 2
+  },
+  "https://www.horizon-europe.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:02.977Z",
+    "v": 2
+  },
+  "https://www.iedom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.493Z",
+    "v": 2
+  },
+  "https://www.if-algerie.com": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.636Z",
+    "v": 2
+  },
+  "https://www.ih2ef.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.983Z",
+    "v": 2
+  },
+  "https://www.imf.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.981Z",
+    "v": 2
+  },
+  "https://www.imt-bs.eu": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:44.557Z"
+  },
+  "https://www.imt.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:44.709Z"
+  },
+  "https://www.in2p3.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:04.000Z",
+    "v": 2
+  },
+  "https://www.ina.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.581Z",
+    "v": 2
+  },
+  "https://www.inc-conso.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.793Z",
+    "v": 2
+  },
+  "https://www.info-militaire.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère des armées"
+    ],
+    "checkedAt": "2026-09-24T14:08:48.709Z",
+    "v": 2
+  },
+  "https://www.injs-paris.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.638Z",
+    "v": 2
+  },
+  "https://www.inp.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:05.997Z",
+    "v": 2
+  },
+  "https://www.inrae.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.663Z",
+    "v": 2
+  },
+  "https://www.inrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.739Z",
+    "v": 2
+  },
+  "https://www.ins2i.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:08.001Z",
+    "v": 2
+  },
+  "https://www.insep.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:45.246Z"
+  },
+  "https://www.insis.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.997Z",
+    "v": 2
+  },
+  "https://www.insmi.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.001Z",
+    "v": 2
+  },
+  "https://www.insp.gouv.fr": {
+    "marque": "République française",
+    "checkedAt": "2026-09-24T14:05:02.241Z"
+  },
+  "https://www.institut-agro-montpellier.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.017Z",
+    "v": 2
+  },
+  "https://www.institutdefrance.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.120Z",
+    "v": 2
+  },
+  "https://www.insu.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:13.998Z",
+    "v": 2
+  },
+  "https://www.ircam.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Culture",
+      "Ministère de la Culture",
+      "Ministère de la Culture"
+    ],
+    "checkedAt": "2026-09-24T14:08:48.896Z",
+    "v": 2
+  },
+  "https://www.irena.org": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.910Z",
+    "v": 2
+  },
+  "https://www.jardindesplantesdeparis.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.144Z",
+    "v": 2
+  },
+  "https://www.jeveuxaider.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:06.984Z",
+    "v": 2
+  },
+  "https://www.joueurs-info-service.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.903Z",
+    "v": 2
+  },
+  "https://www.laicite.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:07.078Z",
+    "v": 2
+  },
+  "https://www.lareunion-archi.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:48.997Z",
+    "v": 2
+  },
+  "https://www.lassuranceretraite.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.239Z",
+    "v": 2
+  },
+  "https://www.le-smv.gouv.fr": {
+    "marque": "Ministère des armées et des anciens combattants",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:07.352Z",
+    "v": 2
+  },
+  "https://www.lecese.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.112Z",
+    "v": 2
+  },
+  "https://www.lescrous.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.216Z",
+    "v": 2
+  },
+  "https://www.lettre-services-de-l-etat.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:08.758Z",
+    "v": 2
+  },
+  "https://www.lille.archi.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.455Z",
+    "v": 2
+  },
+  "https://www.louer-abordable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:22.753Z",
+    "v": 2
+  },
+  "https://www.lrmh.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Culture",
+      "ministère de la Culture"
+    ],
+    "checkedAt": "2026-09-24T14:08:49.784Z",
+    "v": 2
+  },
+  "https://www.mangerbouger.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:53.487Z",
+    "v": 2
+  },
+  "https://www.manufacturesnationales.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:46.642Z"
+  },
+  "https://www.maprimerenov.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.322Z",
+    "v": 2
+  },
+  "https://www.maprocuration.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.436Z",
+    "v": 2
+  },
+  "https://www.minesparis.psl.eu": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:09.991Z",
+    "v": 2
+  },
+  "https://www.miqcp.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.088Z",
+    "v": 2
+  },
+  "https://www.moncompteformation.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.414Z",
+    "v": 2
+  },
+  "https://www.monnaiedeparis.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.343Z",
+    "v": 2
+  },
+  "https://www.monparcourshandicap.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.521Z",
+    "v": 2
+  },
+  "https://www.msa.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.571Z",
+    "v": 2
+  },
+  "https://www.musee-orangerie.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:49.769Z",
+    "v": 2
+  },
+  "https://www.musee-orsay.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:46.323Z"
+  },
+  "https://www.musee-rodin.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.005Z",
+    "v": 2
+  },
+  "https://www.museedelhomme.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:59.019Z",
+    "v": 2
+  },
+  "https://www.museepicassoparis.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.327Z",
+    "v": 2
+  },
+  "https://www.notre-environnement.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:10.681Z",
+    "v": 2
+  },
+  "https://www.onerc.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:26.751Z",
+    "v": 2
+  },
+  "https://www.oniam.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.345Z",
+    "v": 2
+  },
+  "https://www.opera-comique.com": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:50.181Z",
+    "v": 2
+  },
+  "https://www.operadeparis.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:46.757Z"
+  },
+  "https://www.parcoursup.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:12.708Z",
+    "v": 2
+  },
+  "https://www.parcsnationaux.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.422Z",
+    "v": 2
+  },
+  "https://www.parczoologiquedeparis.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.721Z",
+    "v": 2
+  },
+  "https://www.paris-est-sup.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.487Z",
+    "v": 2
+  },
+  "https://www.parlons-fin-de-vie.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:52.598Z",
+    "v": 2
+  },
+  "https://www.pension-alimentaire.caf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:13.430Z",
+    "v": 2
+  },
+  "https://www.pluie-inondation.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:30.752Z",
+    "v": 2
+  },
+  "https://www.polynesie-francaise.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.137Z",
+    "v": 2
+  },
+  "https://www.portail-immo.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:14.483Z",
+    "v": 2
+  },
+  "https://www.proconnect.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:16.885Z",
+    "v": 2
+  },
+  "https://www.projets-environnement.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-24T14:09:17.168Z",
+    "v": 2
+  },
+  "https://www.quaibranly.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Culture",
+      "ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation"
+    ],
+    "checkedAt": "2026-09-24T14:08:52.767Z",
+    "v": 2
+  },
+  "https://www.rafp.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:53.103Z",
+    "v": 2
+  },
+  "https://www.registre-coproprietes-secure.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:18.911Z",
+    "v": 2
+  },
+  "https://www.santepubliquefrance.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère chargé de la Santé"
+    ],
+    "checkedAt": "2026-09-24T14:08:53.919Z",
+    "v": 2
+  },
+  "https://www.science-ouverte.cnrs.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.181Z",
+    "v": 2
+  },
+  "https://www.sciencespo.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:04:49.830Z"
+  },
+  "https://www.senat.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:53.626Z",
+    "v": 2
+  },
+  "https://www.service-public.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:22.899Z",
+    "v": 2
+  },
+  "https://www.servicesalapersonne.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.071Z",
+    "v": 2
+  },
+  "https://www.snu.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère chargé des outre-mer, le Service militaire adapté",
+      "ministère de l’éducation nationale et de la jeunesse",
+      "ministère de l’intérieur pour le passage de l’ETG"
+    ],
+    "checkedAt": "2026-09-24T14:09:23.328Z",
+    "v": 2
+  },
+  "https://www.st-etienne.archi.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.434Z",
+    "v": 2
+  },
+  "https://www.strategie-plan.gouv.fr": {
+    "marque": "Haut-commissariat à la Stratégie et au Plan",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.575Z",
+    "v": 2
+  },
+  "https://www.systeme-de-design.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.659Z",
+    "v": 2
+  },
+  "https://www.tabac-info-service.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:56.435Z",
+    "v": 2
+  },
+  "https://www.tchap.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:23.715Z",
+    "v": 2
+  },
+  "https://www.telecom-sudparis.eu": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.008Z",
+    "v": 2
+  },
+  "https://www.transition-ecologique.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:42.750Z",
+    "v": 2
+  },
+  "https://www.ucanss.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.568Z",
+    "v": 2
+  },
+  "https://www.ugap.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Culture, la Région Île-de-France, la Métropole du Grand Paris et réalisé avec l'accompagnement de l'UGAP"
+    ],
+    "checkedAt": "2026-09-24T14:08:54.712Z",
+    "v": 2
+  },
+  "https://www.umr-cnrm.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:55.088Z",
+    "v": 2
+  },
+  "https://www.universite-paris-saclay.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:08:54.811Z",
+    "v": 2
+  },
+  "https://www.vaccination-info-service.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Santé et de la Prévention cette animation adaptée aux enfants et adolescents"
+    ],
+    "checkedAt": "2026-09-24T14:08:59.323Z",
+    "v": 2
+  },
+  "https://www.wallis-et-futuna.gouv.fr": {
+    "marque": "préfet des îles WALLIS et Futuna",
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:27.441Z",
+    "v": 2
+  },
+  "https://www.yonne.gouv.fr": {
+    "marque": null,
+    "checkedAt": "2026-09-24T14:05:23.152Z"
+  },
+  "https://xn--bail-mobilit-meb.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-24T14:09:26.845Z",
+    "v": 2
+  }
+}

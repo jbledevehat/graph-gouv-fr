@@ -1,0 +1,31 @@
+motif,ministere
+# Tutelle des organismes que l'annuaire et la liste des opérateurs ne rattachent pas.
+# motif : expression régulière (insensible à la casse) appliquée au nom de l'organisme.
+# ministere : intitulé actuel du ministère dans la carte.
+Caisse nationale de l'assurance maladie,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Caisse nationale des allocations familiales,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Caisse nationale de solidarité pour l'autonomie,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Centre des liaisons européennes et internationales de sécurité sociale,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+École nationale supérieure de sécurité sociale,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+École des hautes études en santé publique,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Fonds d'indemnisation des victimes de l'amiante,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+Agence française de développement,Ministère de l'Europe et des Affaires étrangères
+Casa de Velázquez,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+\bCNRS\b,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+Agence nationale pour les chèques-vacances,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+CCI France|Chambres? de commerce et d'industrie,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+CMA France|Chambres? des métiers,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+Chambres d'agriculture,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+Agreenium|Institut agronomique. vétérinaire et forestier|sciences agronomiques|AgroParisTech|Institut des sciences et industries du vivant,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+Conservatoire botanique national,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+Conservatoire du littoral,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+^Cerema,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+Centre scientifique et technique du bâtiment,Ministère de la Ville et du Logement
+Domaine national de Chambord,Ministère de la Culture
+Cité des sciences et de l'industrie,Ministère de la Culture
+Aquarium tropical de la Porte Dorée,Ministère de la Culture
+Beaux-arts de Paris|École nationale supérieure d'art|École nationale supérieure des arts décoratifs,Ministère de la Culture
+Département du développement culturel,Ministère de la Culture
+Centre pour l'éducation aux médias et à l'information,Ministère de l'Éducation nationale
+Centre pour le développement de l'information sur la formation permanente,Ministère du Travail et des Solidarités
+Établissement public pour l'insertion dans l'emploi,Ministère du Travail et des Solidarités

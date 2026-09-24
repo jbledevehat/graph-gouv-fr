@@ -3,9 +3,11 @@
 //
 //   node src/cli.mjs fetch-kumu      instantané de la carte Kumu publique (V1)   -> donnees/kumu/
 //   node src/cli.mjs fetch-sources   DINUM, Annuaire de l'administration, opérateurs -> donnees/sources/
+//   node src/cli.mjs fetch-subdomains sous-domaines hors gouv.fr (crt.sh)         -> donnees/sources/
 //   node src/cli.mjs check           vérifie les URLs (carte + candidats)         -> donnees/checks/
 //   node src/cli.mjs build           jeu de données complet V2 + rapport          -> out/
-//   node src/cli.mjs all             enchaîne les quatre étapes
+//   node src/cli.mjs fetch-marques   bloc-marque DSFR des sites sans ministère      -> donnees/checks/
+//   node src/cli.mjs all             enchaîne toutes les étapes (build, blocs-marques, build)
 //
 // Options : --limit=N (limite le nombre d'URLs vérifiées, pour tester)
 //           --only=map|candidates|unknown (ne vérifie qu'une partie, le reste est repris du dernier
@@ -15,7 +17,7 @@ import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseCsv, parseConfigCsv, toCsv } from './lib/csv.mjs';
-import { checkUrl, pool } from './lib/http.mjs';
+import { checkUrl, fetchMarque, pool } from './lib/http.mjs';
 import { hostOf, isUrl, registrable, siteKey } from './lib/url.mjs';
 import { buildGraph, toGexf, toWebData } from './graph.mjs';
 
@@ -82,10 +84,9 @@ async function fetchDinum() {
   const res = await download(config.sources.dinum, 'DINUM');
   const text = await res.text();
   await writeOut(p('donnees/sources/dinum-domains.csv'), text);
-  const suffix = '.' + config.candidates.suffix;
-  const rows = parseCsv(text).filter(r => r.name.endsWith(suffix));
-  await writeOut(p('donnees/sources/dinum-gouvfr.json'), rows);
-  console.log(`  ${rows.length} domaines en ${config.candidates.suffix}`);
+  const all = parseCsv(text);
+  await writeOut(p('donnees/sources/dinum.json'), all);
+  console.log(`  ${all.length} domaines, dont ${all.filter(r => r.name.endsWith('.' + config.candidates.suffix)).length} en ${config.candidates.suffix}`);
 }
 
 // Services nationaux (catégorie « SI ») de l'Annuaire de l'administration ayant un site internet.
@@ -95,13 +96,18 @@ async function fetchAnnuaire() {
   const quote = s => `"${s.replace(/"/g, '\\"')}"`;
   const where = `categorie="SI" and site_internet is not null`
     + (excludeTypes.length ? ` and not type_organisme in (${excludeTypes.map(quote).join(',')})` : '');
-  const qs = new URLSearchParams({ select: 'id,nom,sigle,type_organisme,site_internet,hierarchie,siren,url_service_public', where });
+  const qs = new URLSearchParams({ select: 'id,nom,sigle,type_organisme,site_internet,hierarchie,siren,url_service_public,adresse', where });
   const res = await download(`${url}/exports/json?${qs}`, 'Annuaire');
-  const rows = (await res.json()).map(({ hierarchie, ...r }) => ({
-    ...r,
-    site_internet: JSON.parse(r.site_internet || '[]').map(s => s.valeur?.trim()).filter(Boolean),
-    enfants: JSON.parse(hierarchie || '[]').map(h => h.service),
-  }));
+  const rows = (await res.json()).map(({ hierarchie, adresse, ...r }) => {
+    const a = JSON.parse(adresse || '[]').find(x => x.type_adresse === 'Adresse');
+    return {
+      ...r,
+      site_internet: JSON.parse(r.site_internet || '[]').map(s => s.valeur?.trim()).filter(Boolean),
+      // Seuls les liens « Service Fils » décrivent un rattachement hiérarchique.
+      enfants: JSON.parse(hierarchie || '[]').filter(h => h.type_hierarchie === 'Service Fils').map(h => h.service),
+      adresse: a ? [a.numero_voie, a.code_postal].map(v => (v || '').toLowerCase().replace(/\s+/g, ' ').trim()).join('|') : '',
+    };
+  });
   await writeOut(p('donnees/sources/annuaire.json'), rows);
   console.log(`  ${rows.length} services, ${new Set(rows.flatMap(r => r.site_internet)).size} sites déclarés`);
 }
@@ -123,11 +129,84 @@ async function fetchOperateurs() {
   console.log(`  ${rows.length} opérateurs`);
 }
 
+// Noms des départements et régions (geo.api.gouv.fr) : sites de préfecture <territoire>.gouv.fr.
+async function fetchTerritoires() {
+  console.log('Téléchargement des départements et régions (geo.api.gouv.fr)…');
+  const [d, r] = await Promise.all(['departements', 'regions'].map(async k => (await download(`https://geo.api.gouv.fr/${k}?fields=nom`, k)).json()));
+  const names = [...d, ...r].map(x => x.nom);
+  await writeOut(p('donnees/sources/territoires.json'), names);
+  console.log(`  ${names.length} territoires`);
+}
+
 async function fetchSources() {
   // La liste DINUM ne sert qu'à trouver de nouveaux candidats : son absence n'empêche pas la carte.
   try { await fetchDinum(); } catch (e) { console.warn(`  Avertissement : ${e.message} (liste DINUM ignorée)`); }
   await fetchAnnuaire();
   await fetchOperateurs();
+  try { await fetchTerritoires(); } catch (e) { console.warn(`  Avertissement : ${e.message} (règle des préfectures limitée à la V1)`); }
+}
+
+// --------------------------------------------------------- fetch-subdomains
+
+// Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats
+// (base PostgreSQL publique de crt.sh, comme le script import-from-ct-logs.py de la DINUM, qui
+// ne couvre que gouv.fr). Résultats mis en cache dans donnees/sources/crtsh.json.
+async function fetchSubdomains() {
+  const { default: pg } = await import('pg');
+  const elements = await readJson(p('donnees/kumu/elements.json'));
+  const annuaire = existsSync(p('donnees/sources/annuaire.json')) ? await readJson(p('donnees/sources/annuaire.json')) : [];
+  const suffix = '.' + config.candidates.suffix;
+  const keys = new Set([
+    ...elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))),
+    ...annuaireIndex(annuaire).sites.map(s => s.key),
+  ].filter(k => k && !k.endsWith(suffix)));
+  // Inutile d'interroger un domaine dont un parent est déjà interrogé.
+  const hasQueriedParent = k => k.split('.').some((_, i, parts) => i > 0 && i < parts.length - 1 && keys.has(parts.slice(i).join('.')));
+  const domains = [...keys].filter(k => !hasQueriedParent(k)).sort();
+
+  const cacheFile = p('donnees/sources/crtsh.json');
+  const cache = existsSync(cacheFile) ? await readJson(cacheFile) : {};
+  const fresh = d => cache[d] && Date.now() - Date.parse(cache[d].fetchedAt) < config.subdomains.maxAgeDays * 864e5;
+  const todo = domains.filter(d => !fresh(d));
+  console.log(`Journaux de certificats (crt.sh) : ${domains.length} domaines hors ${config.candidates.suffix}, ${todo.length} à interroger…`);
+
+  let client = null;
+  const connect = async () => {
+    client = new pg.Client({ ...config.subdomains.crtsh, port: 5432, query_timeout: 300000 });
+    client.on('error', () => {});
+    await client.connect();
+  };
+  const query = d => client.query(`SELECT DISTINCT lower(a.name) AS name
+      FROM certificate, LATERAL (SELECT * FROM x509_altnames(certificate)) a(name)
+     WHERE plainto_tsquery($1) @@ identities(certificate)
+       AND COALESCE(x509_notafter(certificate), 'infinity') > now() - interval '1 year'`, [d]);
+  let done = 0, failed = 0;
+  for (const d of todo) {
+    let rows = null;
+    for (let attempt = 1; attempt <= 2 && !rows; attempt++) {
+      try {
+        if (!client) await connect();
+        rows = (await query(d)).rows;
+      } catch (e) {
+        await client?.end().catch(() => {});
+        client = null;
+        if (attempt === 2) { failed++; console.warn(`\n  ${d} : ${e.message}`); }
+        else await new Promise(r => setTimeout(r, 10000));
+      }
+    }
+    if (rows) {
+      const names = [...new Set(rows.map(r => r.name.replace(/^\*\./, '')).filter(n => n.endsWith('.' + d)))].sort();
+      cache[d] = { fetchedAt: new Date().toISOString(), names };
+    }
+    if (++done % 10 === 0 || done === todo.length) {
+      process.stdout.write(`\r  ${done}/${todo.length}`);
+      await writeFile(cacheFile, JSON.stringify(cache));
+    }
+  }
+  await client?.end().catch(() => {});
+  await writeOut(cacheFile, cache);
+  const total = domains.reduce((n, d) => n + (cache[d]?.names.length || 0), 0);
+  console.log(`\n  ${total} sous-domaines connus${failed ? `, ${failed} domaines en échec (relancer plus tard)` : ''}`);
 }
 
 // ---------------------------------------------------------------- candidats
@@ -154,8 +233,12 @@ function nameKeys(name) {
 
 const isMinistry = name => /^(ministère|premier ministre)/i.test(name);
 
-// Index de l'annuaire : pour chaque site déclaré, le service qui le déclare (voir priorité
-// ci-dessous) et sa tutelle, c'est-à-dire le plus proche ancêtre qui est un ministère.
+// Index de l'annuaire. Pour chaque service, sa tutelle ministérielle :
+// 1. le plus proche ancêtre ministériel dans la hiérarchie de l'annuaire ;
+// 2. à défaut, le ministère majoritaire parmi les services installés à la même adresse.
+// Pour chaque site déclaré : le service retenu (voir priorité ci-dessous) et la tutelle
+// majoritaire parmi tous les services qui le déclarent. Un site déclaré par plusieurs services
+// d'un même ministère (ex. info.gouv.fr) est rattaché directement à ce ministère.
 function annuaireIndex(rows) {
   const byId = new Map(rows.map(r => [r.id, r]));
   const parent = new Map();
@@ -165,6 +248,31 @@ function annuaireIndex(rows) {
     while (parent.has(id) && chain.length < 20) chain.push(id = parent.get(id));
     return chain;
   };
+  const ministryByHierarchy = r => [r, ...ancestors(r.id).map(id => byId.get(id))].find(x => x && isMinistry(x.nom));
+
+  // Tutelle déduite de l'adresse : au moins 2 services rattachés, dont 60 % au même ministère.
+  const byAddress = new Map();
+  for (const r of rows) {
+    const m = ministryByHierarchy(r);
+    if (!m || !r.adresse || !/^\d/.test(r.adresse)) continue;
+    if (!byAddress.has(r.adresse)) byAddress.set(r.adresse, new Map());
+    const votes = byAddress.get(r.adresse);
+    votes.set(m.nom, (votes.get(m.nom) || 0) + 1);
+  }
+  const ministryByAddress = r => {
+    const votes = byAddress.get(r.adresse);
+    if (!votes) return null;
+    const total = [...votes.values()].reduce((a, b) => a + b, 0);
+    const [name, n] = [...votes].sort((a, b) => b[1] - a[1])[0];
+    return total >= 2 && n / total >= 0.6 ? name : null;
+  };
+  const tutelleOf = r => {
+    const m = ministryByHierarchy(r);
+    if (m) return { name: m.id === r.id ? '' : m.nom, via: 'hiérarchie' };
+    const a = ministryByAddress(r);
+    return a ? { name: a, via: 'adresse' } : { name: '', via: '' };
+  };
+
   // Intitulés portés par plusieurs services (« Secrétariat général »…) : on précise la tutelle.
   const homonyms = new Map();
   for (const r of rows) homonyms.set(norm(r.nom), (homonyms.get(norm(r.nom)) || 0) + 1);
@@ -174,71 +282,119 @@ function annuaireIndex(rows) {
   const better = (rank, prev) => !prev || rank.reduce((acc, v, i) => acc || Math.sign(v - prev.rank[i]), 0) < 0;
 
   const info = r => {
-    const tutelle = [r, ...ancestors(r.id).map(id => byId.get(id))].find(x => x && isMinistry(x.nom));
-    const t = tutelle && tutelle.id !== r.id ? tutelle.nom : '';
+    const t = tutelleOf(r);
     return {
-      organisme: homonyms.get(norm(r.nom)) > 1 && t ? `${r.nom} (${t})` : r.nom,
+      organisme: homonyms.get(norm(r.nom)) > 1 && t.name ? `${r.nom} (${t.name})` : r.nom,
       typeOrganisme: r.type_organisme || '',
-      tutelle: t,
+      tutelle: t.name,
+      tutelleVia: t.via,
       urlAnnuaire: r.url_service_public || '',
       siren: r.siren || '',
     };
   };
 
-  const sites = new Map(), bySiren = new Map();
+  const sites = new Map(), declarers = new Map(), bySiren = new Map();
   for (const r of rows) {
     for (const url of r.site_internet) {
       const host = hostOf(url);
       if (!host || !host.includes('.')) continue;
       const key = siteKey(host), rank = rankOf(r, url);
       if (better(rank, sites.get(key))) sites.set(key, { host, record: r, rank });
+      if (!declarers.has(key)) declarers.set(key, new Set());
+      declarers.get(key).add(r);
     }
     const rank = rankOf(r);
     if (r.siren && better(rank, bySiren.get(r.siren))) bySiren.set(r.siren, { record: r, rank });
   }
+  const siteInfo = key => {
+    const s = sites.get(key);
+    if (!s) return null;
+    const base = info(s.record);
+    const all = [...declarers.get(key)];
+    if (all.length < 2) return base;
+    // Tutelle majoritaire parmi les services qui déclarent ce site.
+    const votes = new Map();
+    for (const r of all) {
+      const t = tutelleOf(r).name || (isMinistry(r.nom) ? r.nom : '');
+      if (t) votes.set(t, (votes.get(t) || 0) + 1);
+    }
+    const [top, n] = [...votes].sort((a, b) => b[1] - a[1])[0] || [];
+    if (!top || n / all.length < 0.5) return base;
+    // Site commun à plusieurs services d'un ministère : rattaché au ministère lui-même.
+    if (n >= 3) return { ...base, organisme: top, typeOrganisme: 'Administration centrale (ou Ministère)', tutelle: '', tutelleVia: 'déclaré par ' + n + ' services', urlAnnuaire: '' };
+    return base.tutelle ? base : { ...base, tutelle: top, tutelleVia: 'services déclarants' };
+  };
   return {
-    sites: [...sites.entries()].map(([key, { host, record }]) => ({
-      key, url: `https://${host}`, ...info(record), source: 'Annuaire de l\'administration',
+    sites: [...sites.entries()].map(([key, { host }]) => ({
+      key, url: `https://${host}`, ...siteInfo(key), source: 'Annuaire de l\'administration',
     })),
-    site: key => { const s = sites.get(key); return s && info(s.record); },
+    site: siteInfo,
     siren: siren => { const s = bySiren.get(siren); return s && info(s.record); },
   };
 }
 
-// Domaines absents de la carte : sites des services nationaux de l'annuaire (tous domaines)
-// et *.gouv.fr de la liste DINUM qui répondent (d'après la DINUM).
-function selectCandidates(elements, dinumRows, annuaireRows) {
+// Domaines absents de la carte :
+// - sites des services nationaux de l'annuaire (tous domaines) ;
+// - domaines *.gouv.fr de la liste DINUM qui répondent (d'après la DINUM) ;
+// - sous-domaines d'un site de la carte ou d'un de ces nouveaux sites : liste DINUM (tous domaines,
+//   s'ils répondent d'après elle) et journaux de certificats (crt.sh, filtrés ensuite par le DNS).
+function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
   const { suffix, includeSubdomains, excludePatterns } = config.candidates;
   const excludes = excludePatterns.map(re => new RegExp(re, 'i'));
+  const excluded = key => excludes.some(re => re.test(key));
   const known = new Set(elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
   const answered = s => /^([23]\d\d|401|403)\b/.test(s || '');
   const candidates = new Map();
 
   for (const c of annuaireIndex(annuaireRows).sites) {
-    if (known.has(c.key) || excludes.some(re => re.test(c.key))) continue;
+    if (known.has(c.key) || excluded(c.key)) continue;
     candidates.set(c.key, c);
   }
 
+  // Une entrée par domaine ; on préfère l'entrée « www. » si elle répond en HTTPS.
   const dinum = new Map();
   for (const r of dinumRows) {
     const key = siteKey(r.name);
-    if (!key || known.has(key)) continue;
-    if (!includeSubdomains && key !== registrable(key, suffix)) continue;
-    if (excludes.some(re => re.test(key))) continue;
+    if (!key || known.has(key) || excluded(key)) continue;
     if (!answered(r.http_status) && !answered(r.https_status)) continue;
     const prev = dinum.get(key);
-    // On préfère l'entrée « www. » si elle répond en HTTPS.
     if (!prev || (answered(r.https_status) && !answered(prev.https_status))) dinum.set(key, r);
   }
+  const dinumCandidate = (key, r) => ({
+    key,
+    url: `${answered(r.https_status) ? 'https' : 'http'}://${r.name}`,
+    siren: r.SIREN || '',
+    source: `DINUM (${r.sources})`,
+  });
   for (const [key, r] of dinum) {
+    if (!key.endsWith('.' + suffix) || key !== registrable(key, suffix)) continue;
     const fromAnnuaire = candidates.get(key);
-    if (fromAnnuaire) { fromAnnuaire.source += ' + DINUM'; continue; }
-    candidates.set(key, {
-      key,
-      url: `${answered(r.https_status) ? 'https' : 'http'}://${r.name}`,
-      siren: r.SIREN || '',
-      source: `DINUM (${r.sources})`,
-    });
+    if (fromAnnuaire) fromAnnuaire.source += ' + DINUM';
+    else candidates.set(key, dinumCandidate(key, r));
+  }
+  if (!includeSubdomains) return [...candidates.values()].sort((a, b) => a.key.localeCompare(b.key));
+
+  // Sous-domaines : rattachés au site connu le plus proche en remontant les labels.
+  const parents = new Set([...known, ...candidates.keys()]);
+  const parentOf = key => {
+    const labels = key.split('.');
+    for (let i = 1; i < labels.length - 1; i++) {
+      const up = labels.slice(i).join('.');
+      if (parents.has(up)) return up;
+    }
+    return null;
+  };
+  const addSub = (key, make) => {
+    if (!key || known.has(key) || candidates.has(key) || excluded(key)) return;
+    const parentKey = parentOf(key);
+    if (parentKey) candidates.set(key, { ...make(), parentKey });
+  };
+  for (const [key, r] of dinum) addSub(key, () => dinumCandidate(key, r));
+  for (const [domain, { names }] of Object.entries(crtsh || {})) {
+    for (const name of names) {
+      const key = siteKey(name);
+      addSub(key, () => ({ key, url: `https://${name}`, source: `crt.sh (${domain})`, dnsCheck: true }));
+    }
   }
   return [...candidates.values()].sort((a, b) => a.key.localeCompare(b.key));
 }
@@ -258,11 +414,27 @@ async function check() {
     targets.push(...urls.map(url => ({ url, kind: 'map' })));
   }
   if (only !== 'map' && only !== 'unknown') {
-    const dinumFile = p('donnees/sources/dinum-gouvfr.json');
+    const dinumFile = p('donnees/sources/dinum.json'), crtFile = p('donnees/sources/crtsh.json');
     if (!existsSync(dinumFile)) console.warn('  Avertissement : liste DINUM absente, seuls les candidats de l\'annuaire sont vérifiés.');
     const dinum = existsSync(dinumFile) ? await readJson(dinumFile) : [];
+    const crtsh = existsSync(crtFile) ? await readJson(crtFile) : {};
     const annuaire = await readJson(p('donnees/sources/annuaire.json'));
-    targets.push(...selectCandidates(elements, dinum, annuaire).map(c => ({ ...c, kind: 'candidate' })));
+    let candidates = selectCandidates(elements, dinum, annuaire, crtsh);
+    // Les noms issus des certificats n'ont pas de statut connu : on écarte d'abord ceux absents du DNS.
+    const toResolve = candidates.filter(c => c.dnsCheck);
+    if (toResolve.length) {
+      console.log(`Résolution DNS de ${toResolve.length} sous-domaines issus des certificats…`);
+      const { lookup } = await import('node:dns/promises');
+      const alive = new Set();
+      await pool(toResolve, 64, async c => {
+        const host = new URL(c.url).hostname;
+        const ok = await Promise.race([lookup(host).then(() => true, () => false), new Promise(r => setTimeout(() => r(false), 10000))]);
+        if (ok) alive.add(c.key);
+      });
+      console.log(`  ${alive.size} existent dans le DNS`);
+      candidates = candidates.filter(c => !c.dnsCheck || alive.has(c.key));
+    }
+    targets.push(...candidates.map(({ dnsCheck, ...c }) => ({ ...c, kind: 'candidate' })));
   }
   if (args.limit) targets = targets.slice(0, Number(args.limit));
 
@@ -294,6 +466,55 @@ async function check() {
   }
   await writeOut(p(`donnees/checks/${today}.json`), all);
   await writeOut(p('donnees/checks/latest.json'), all);
+}
+
+// ------------------------------------------------------------ fetch-marques
+
+// Bloc-marque DSFR des sites restés sans ministère (liste écrite par build). Cache versionné
+// dans donnees/checks/marques.json, relu au bout de maxAgeDays.
+async function fetchMarques() {
+  const todoFile = p('out/marques-a-lire.json'), file = p('donnees/checks/marques.json');
+  const urls = existsSync(todoFile) ? await readJson(todoFile) : [];
+  const cache = existsSync(file) ? await readJson(file) : {};
+  const stale = u => !cache[u] || cache[u].v !== 2 || Date.now() - Date.parse(cache[u].checkedAt) > config.subdomains.maxAgeDays * 864e5;
+  const todo = urls.filter(stale);
+  console.log(`Bloc-marque : ${urls.length} sites sans ministère, ${todo.length} pages à lire…`);
+  const { timeoutMs, userAgent, perIp, perIpGapMs, concurrency } = config.check;
+  await pool(todo, concurrency, async u => {
+    const r = await fetchMarque(u, { timeoutMs, userAgent, perIp, perIpGapMs });
+    cache[u] = { marque: r.marque, mentions: r.mentions || [], checkedAt: new Date().toISOString(), v: 2 };
+  }, (d, n) => { if (d % 25 === 0 || d === n) process.stdout.write(`\r  ${d}/${n}`); });
+  if (todo.length) console.log();
+  await writeOut(file, Object.fromEntries(Object.entries(cache).sort()));
+  console.log(`  ${urls.filter(u => cache[u]?.marque).length} blocs-marques lus`);
+}
+
+// Ministère désigné par un bloc-marque : « Gouvernement » ou « Premier ministre » -> Premier
+// ministre ; sinon l'intitulé (actuel ou de 2019) dont les mots couvrent ceux du bloc-marque.
+const STOP = new Set(['de', 'la', 'le', 'les', 'des', 'du', 'et', 'l', 'd', 'a', 'au', 'aux', 'en', 'pour', 'ministere', 'ministre', 'charge', 'chargee']);
+const words = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w && !STOP.has(w));
+function ministryMatcher(names) {
+  const entries = names.map(([name, label]) => ({ label, w: new Set(words(name)) }));
+  const pm = names.find(([, label]) => norm(label) === 'premier ministre')?.[1];
+  return marque => {
+    if (!marque) return null;
+    if (/gouvernement|premier ministre/i.test(marque)) return pm || null;
+    if (!/minist/i.test(marque)) return null;
+    const t = words(marque);
+    if (!t.length) return null;
+    // Le bloc-marque est couvert par l'intitulé, ou l'intitulé entier figure dans le bloc-marque
+    // (anciens intitulés composés : « ministère de l'Intérieur et des Outre-mer »).
+    const tw = new Set(t);
+    let best = null;
+    for (const e of entries) {
+      if (!e.w.size) continue;
+      const inName = t.filter(w => e.w.has(w)).length / t.length;
+      const inMarque = [...e.w].filter(w => tw.has(w)).length / e.w.size;
+      const score = Math.max(inName, inMarque), tie = inName + inMarque;
+      if (score >= 0.75 && (!best || score > best.score || (score === best.score && tie > best.tie))) best = { label: e.label, score, tie };
+    }
+    return best?.label || null;
+  };
 }
 
 // --------------------------------------------------------------------- build
@@ -393,31 +614,39 @@ async function build() {
     .map(e => [siteKey(hostOf(e.label)), e.label]));
   const known = new Set(elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
   const additions = [], warnings = [], skippedRedirects = [];
-  for (const c of checks.filter(c => c.kind === 'candidate')) {
+  // Sites d'abord, sous-domaines ensuite (leur parent doit déjà être connu), du plus court au plus long.
+  const ordered = checks.filter(c => c.kind === 'candidate')
+    .sort((a, b) => (!!a.parentKey - !!b.parentKey) || a.key.split('.').length - b.key.split('.').length || a.key.localeCompare(b.key));
+  for (const c of ordered) {
     if (c.statut === 'Redirigé') { skippedRedirects.push(c); continue; }
-    if (c.statut !== 'En ligne') continue;
-    const finalHost = hostOf(c.finalUrl);
+    // Un serveur qui répond par une erreur 5xx existe : le site est ajouté, à revérifier.
+    const serverError = c.statut === 'Indéterminé' && c.code >= 500;
+    if (c.statut !== 'En ligne' && !serverError) continue;
+    const finalHost = hostOf(c.finalUrl || c.url);
     if (known.has(siteKey(finalHost))) continue;
     known.add(siteKey(finalHost));
-    const label = new URL(c.finalUrl).origin;
-    const isSub = c.key.endsWith('.gouv.fr') && c.key !== registrable(c.key);
-    const parent = isSub ? sites.get(registrable(c.key)) : null;
+    const label = new URL(c.finalUrl || c.url).origin;
+    const isSub = !!c.parentKey || (c.key.endsWith('.gouv.fr') && c.key !== registrable(c.key));
+    const parent = c.parentKey ? sites.get(c.parentKey) : isSub ? sites.get(registrable(c.key)) : null;
     // Organisme : déclaré dans l'annuaire pour ce site, sinon retrouvé par le SIREN de la DINUM.
     const info = ann.site(c.key) || (c.siren && ann.siren(c.siren));
     const admin = adminByDomain.get(c.key);
-    const tags = [isSub ? 'Sous-domaine' : 'Site web', 'Nouveau'];
+    const tags = [isSub ? 'Sous-domaine' : 'Site web', 'Nouveau', ...(serverError ? ['À revérifier'] : [])];
     if (admin) {
       if (!labelByNorm.has(norm(admin))) warnings.push(`Rattachement de ${c.key} : « ${admin} » absente de la carte, créée.`);
       connect(ensureOrg(admin), label, 'Site web/Administration');
-    } else if (info) attach(info, label);
-    else if (parent) connect(parent, label, 'Site web/Sous-domaine');
+    } else if (parent) connect(parent, label, 'Site web/Sous-domaine');
+    else if (info) attach(info, label);
     else tags.push('À rattacher');
+    sites.set(c.key, label);
     additions.push({
       label,
       type: isSub ? 'Sous-domaine' : 'Site web',
       tags,
+      ...(c.parentKey && { 'Site parent': c.parentKey }),
       'Organisme': info?.organisme || '',
       'Tutelle': info?.tutelle || '',
+      ...(info?.tutelleVia && info.tutelleVia !== 'hiérarchie' && { 'Rattachement déduit de': info.tutelleVia }),
       'SIREN': info?.siren || c.siren || '',
       'Source': c.source || '',
       'Ajouté le': today,
@@ -432,8 +661,22 @@ async function build() {
   const opByKey = new Map();
   for (const op of operateurs) for (const k of nameKeys(op.nom)) opByKey.set(k, op);
   const matchedOps = new Set(), tutelleByOrg = new Map();
+  // À défaut d'intitulé identique : tous les mots significatifs du nom le plus court (3 au moins)
+  // figurent dans le plus long.
+  const opWords = operateurs.map(op => ({ op, w: new Set(words(op.nom.replace(/^[A-Z0-9 ]{2,12} - /, ''))) }));
+  const fuzzyOp = name => {
+    const w = new Set(words(name.replace(/\s*\([^)]*\)\s*$/, '')));
+    let best = null;
+    for (const { op, w: ow } of opWords) {
+      const [small, big] = w.size <= ow.size ? [w, ow] : [ow, w];
+      if (small.size < 3) continue;
+      const covered = [...small].filter(x => big.has(x)).length / small.size;
+      if (covered === 1 && (!best || big.size - small.size < best.gap)) best = { op, gap: big.size - small.size };
+    }
+    return best?.op;
+  };
   for (const o of [...newOrgs]) {
-    const op = [...nameKeys(o.label)].map(k => opByKey.get(k)).find(Boolean);
+    const op = [...nameKeys(o.label)].map(k => opByKey.get(k)).find(Boolean) || fuzzyOp(o.label);
     if (!op) continue;
     matchedOps.add(op.nom);
     Object.assign(o, { 'Opérateur de l\'État': op.nom, 'Statut juridique': op.statut, 'Programme chef de file': op.mission });
@@ -446,6 +689,87 @@ async function build() {
     tutelleByOrg.set(o.label, ministry);
   }
   for (const a of additions) if (!a.Tutelle && tutelleByOrg.has(a.Organisme)) a.Tutelle = tutelleByOrg.get(a.Organisme);
+
+  // Tutelles déclarées à la main (config/tutelles.csv) pour les organismes encore sans ministère.
+  const manual = (await readConfigCsv('tutelles.csv')).map(r => ({ re: new RegExp(r.motif, 'i'), ministry: r.ministere.trim() }));
+  let viaManual = 0;
+  for (const o of newOrgs) {
+    if (withParent.has(o.label) || isMinistry(o.label)) continue;
+    const rule = manual.find(r => r.re.test(o.label));
+    if (!rule) continue;
+    connect(ensureOrg(rule.ministry, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), o.label, 'Administration/Administration');
+    withParent.add(o.label);
+    tutelleByOrg.set(o.label, rule.ministry);
+    o['Rattachement déduit de'] = 'config/tutelles.csv';
+    viaManual++;
+  }
+  for (const a of additions) if (!a.Tutelle && tutelleByOrg.has(a.Organisme)) a.Tutelle = tutelleByOrg.get(a.Organisme);
+
+  // Sites de préfecture : <département ou région>.gouv.fr, reliés au nœud « Préfecture » de la V1.
+  const slug = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const territoires = existsSync(p('donnees/sources/territoires.json')) ? await readJson(p('donnees/sources/territoires.json')) : [];
+  const prefecture = labelByNorm.get('prefecture') || labelByNorm.get('préfecture');
+  const prefectureKeys = new Set(territoires.map(t => `${slug(t)}.gouv.fr`));
+  if (prefecture) {
+    const prefId = elements.find(e => e.label === prefecture)?.id;
+    for (const c of connections) {
+      const other = c.from === prefId ? c.to : c.to === prefId ? c.from : null;
+      const label = other && labelById.get(other);
+      if (label && isUrl(label)) prefectureKeys.add(siteKey(hostOf(label)));
+    }
+  }
+  let viaPrefecture = 0;
+  for (const a of additions) {
+    if (!prefecture || !a.tags.includes('À rattacher') || !prefectureKeys.has(siteKey(hostOf(a.label)))) continue;
+    connect(prefecture, a.label, 'Site web/Administration');
+    a.tags = a.tags.filter(t => t !== 'À rattacher');
+    a['Rattachement déduit de'] = 'nom de département ou de région';
+    viaPrefecture++;
+  }
+
+  // Bloc-marque DSFR des sites encore sans ministère (lu par fetch-marques).
+  const marques = existsSync(p('donnees/checks/marques.json')) ? await readJson(p('donnees/checks/marques.json')) : {};
+  const ministryNames = [];
+  for (const e of [...v2Elements, ...newOrgs]) {
+    if (!isMinistry(e.label) && norm(e.label) !== 'premier ministre') continue;
+    ministryNames.push([e.label, e.label]);
+    for (const old of String(e['Intitulé 2019'] || '').split(' ; ').filter(Boolean)) ministryNames.push([old, e.label]);
+  }
+  for (const [old, current] of renames) ministryNames.push([old, current]);
+  const ministryOfMarque = ministryMatcher(ministryNames);
+  const orgLabels = new Set(newOrgs.map(o => o.label));
+  const needsMinistry = a => a.tags.includes('À rattacher') || (orgLabels.has(a.Organisme) && !withParent.has(a.Organisme) && !isMinistry(a.Organisme));
+  const toRead = [];
+  let viaMarque = 0;
+  for (const a of additions) {
+    if (!needsMinistry(a)) continue;
+    toRead.push(a.label);
+    const entry = marques[a.label] || {};
+    let marque = entry.marque, ministry = ministryOfMarque(marque);
+    // Sinon, ministère cité au moins deux fois dans la page (pied de page, mentions légales…).
+    if (!ministry && entry.mentions?.length) {
+      const votes = new Map();
+      for (const m of entry.mentions) {
+        const found = ministryOfMarque(m);
+        if (found) votes.set(found, (votes.get(found) || 0) + 1);
+      }
+      const [top, n] = [...votes].sort((x, y) => y[1] - x[1])[0] || [];
+      if (n >= 2) { ministry = top; marque = `${n} mentions dans la page`; }
+    }
+    if (!ministry) continue;
+    a['Bloc-marque'] = marque;
+    a['Rattachement déduit de'] = marque.endsWith('dans la page') ? 'mentions dans la page' : 'bloc-marque';
+    a.Tutelle = ministry;
+    viaMarque++;
+    if (orgLabels.has(a.Organisme) && !withParent.has(a.Organisme)) {
+      connect(ministry, a.Organisme, 'Administration/Administration');
+      withParent.add(a.Organisme);
+    } else {
+      connect(ministry, a.label, 'Site web/Administration');
+      a.tags = a.tags.filter(t => t !== 'À rattacher');
+    }
+  }
+  await writeOut(p('out/marques-a-lire.json'), toRead);
   for (const o of newOrgs) if (!isMinistry(o.label) && !withParent.has(o.label)) o.tags.push('Tutelle à préciser');
   v2Elements.push(...newOrgs, ...additions);
 
@@ -453,7 +777,7 @@ async function build() {
   console.log('Génération du jeu de données V2…');
   await writeOut(p('out/kumu-v2.json'), { elements: v2Elements, connections: v2Connections });
   const cols = ['Label', 'Type', 'Tags', 'Nb liens', 'Détails', 'Statut', 'Code HTTP', 'URL finale', 'Erreur', 'Vérifié le',
-    'Type précédent', 'Intitulé 2019', 'Organisme', 'Tutelle', 'Type d\'organisme', 'Opérateur de l\'État', 'Statut juridique',
+    'Type précédent', 'Intitulé 2019', 'Site parent', 'Bloc-marque', 'Rattachement déduit de', 'Organisme', 'Tutelle', 'Type d\'organisme', 'Opérateur de l\'État', 'Statut juridique',
     'Programme chef de file', 'URL annuaire', 'SIREN', 'Source', 'Ajouté le'];
   const header = r => Object.fromEntries(Object.entries(r).map(([k, v]) => [k[0].toUpperCase() + k.slice(1), v]));
   await writeOut(p('out/elements.csv'), toCsv(v2Elements.map(header), cols));
@@ -497,6 +821,7 @@ ${page}
     : `\n## ${title} (0)\n`;
   const count = s => checked.filter(u => u.Statut === s).length;
   const fromSource = s => additions.filter(a => a.Source.includes(s)).length;
+  const subCount = additions.filter(a => a.type === 'Sous-domaine').length;
   const ministries = newOrgs.filter(o => isMinistry(o.label));
   const addLine = a => `| ${a.label} | ${cell(a.Organisme)} | ${cell(a.Tutelle)} | ${a.Source.replace(/ \(.*\)/, '')} |`;
   const report = `# Carte Kumu des sites web publics — V2 (${today})
@@ -511,8 +836,9 @@ Vérifications HTTP du ${checkedOn}.
 - Passent en « ${OFF} » : **${changes.archived.length + changes.redirected.length}** (${changes.archived.length} inaccessibles, ${changes.redirected.length} redirigées vers un autre site)
 - Réactivés (« ${OFF} » → « Site web ») : **${changes.revived.length}**
 - Administrations de la V1 renommées selon l'intitulé actuel : **${renamed.length}**
-- Nouveaux sites : **${additions.length}** (annuaire ${fromSource('Annuaire')}, DINUM ${fromSource('DINUM')}), dont **${orphans.length}** sans rattachement
+- Nouveaux sites : **${additions.length}**, dont ${subCount} sous-domaines (annuaire ${fromSource('Annuaire')}, DINUM ${fromSource('DINUM')}, certificats ${fromSource('crt.sh')}) ; **${orphans.length}** sans rattachement
 - Nouvelles administrations (annuaire) : **${newOrgs.length}**, dont ${ministries.length} ministères et ${newOrgs.filter(o => o.tags.includes('Tutelle à préciser')).length} sans ministère de tutelle connu
+- Rattachements complémentaires : ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page
 - Opérateurs de l'État (PLF) reconnus : **${matchedOps.size}** sur ${operateurs.length} ; ${tutelleByOrg.size} administrations rattachées à leur ministère grâce au programme budgétaire
 - V2 : **${v2Elements.length}** éléments, **${v2Connections.length}** connexions (${v2Connections.length - v1ConnectionCount} nouvelles)
 ${warnings.length ? `\n### Avertissements\n\n${warnings.map(w => `- ${w}`).join('\n')}\n` : ''}
@@ -542,7 +868,7 @@ ${skippedRedirects.map(c => `- ${c.url} → ${c.finalUrl}`).join('\n')}
 
 // ---------------------------------------------------------------------- main
 
-const steps = { 'fetch-kumu': fetchKumu, 'fetch-sources': fetchSources, check, build };
+const steps = { 'fetch-kumu': fetchKumu, 'fetch-sources': fetchSources, 'fetch-subdomains': fetchSubdomains, check, build, 'fetch-marques': fetchMarques, rebuild: build };
 const cmd = process.argv[2];
 try {
   if (cmd === 'all') for (const step of Object.values(steps)) await step();
