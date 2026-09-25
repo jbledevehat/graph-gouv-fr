@@ -202,7 +202,8 @@
     font-size: 13px;
   }
   .legend input { margin: 0; accent-color: var(--accent); }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  /* Pastille toujours ronde : elle ne rétrécit jamais à côté d'un texte long. */
+  .dot { flex: none; width: 10px; height: 10px; min-width: 10px; border-radius: 50%; }
   .count { font: 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
   .toggle {
     display: flex;
@@ -216,7 +217,7 @@
   }
   .toggle input { margin: 0; accent-color: var(--accent); }
   .ring {
-    width: 10px; height: 10px; border-radius: 50%;
+    flex: none; width: 10px; height: 10px; border-radius: 50%;
     border: 2px solid var(--accent); box-sizing: border-box;
   }
 
