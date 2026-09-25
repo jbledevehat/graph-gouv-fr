@@ -130,6 +130,11 @@
     font-variant-numeric: tabular-nums;
   }
   .figures div { display: flex; flex-direction: column; }
+  .howto { margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .howto summary { cursor: pointer; color: var(--accent); }
+  .howto ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+  .howto strong { color: var(--ink); font-weight: 600; }
+  .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
   .figures b { font-size: 16px; font-weight: 600; }
   .figures span { font-size: 12px; color: var(--muted); }
 
@@ -538,8 +543,17 @@
   <div class="head">
     <div class="eyebrow">Cartographie · V2</div>
     <h1>Sites web publics de l'État</h1>
-    <p class="sub" id="sub">Sites en gouv.fr, opérateurs et administrations de rattachement.</p>
+    <p class="sub">Les sites de l'État, rangés par ministère selon l'Annuaire de l'administration.</p>
     <div class="figures" id="figures"></div>
+    <details class="howto">
+      <summary>Comment lire la carte</summary>
+      <ul>
+        <li>Chaque grand cercle est un <strong>ministère</strong> (ou les autorités indépendantes, les institutions et juridictions).</li>
+        <li>Chaque bulle est un <strong>site</strong> entouré de ses sous-domaines ; « +N » indique leur nombre.</li>
+        <li>Cliquez sur un point pour ouvrir sa fiche ; zoomez pour lire les noms.</li>
+      </ul>
+    </details>
+    <p class="updated" id="updated"></p>
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
@@ -656,12 +670,16 @@
   const m = data.meta;
   const fmt = n => n.toLocaleString('fr-FR');
   const dateFr = d => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-  document.getElementById('sub').textContent = `Mise à jour du ${dateFr(m.date)} · vérifications HTTP du ${dateFr(m.verifie)}.`;
+  const tally = {};
+  for (const n of data.nodes) tally[n[4]] = (tally[n[4]] || 0) + 1;
+  const sitesCount = (tally.site || 0) + (tally['sous-domaine'] || 0);
+  const adminCount = (tally.administration || 0) + (tally.ministere || 0);
+  const poleCount = data.poles.filter(p => p.id !== 'Sans ministère identifié').length;
   document.getElementById('figures').innerHTML =
-    `<div><b>${fmt(m.elements)}</b><span>éléments</span></div>` +
-    `<div><b>${fmt(m.connexions)}</b><span>liens</span></div>` +
-    `<div><b>${fmt(m.nouveaux)}</b><span>ajouts V2</span></div>`;
-  if (m.regroupes) document.getElementById('sub').textContent += ` ${fmt(m.regroupes)} sous-domaines forment ${fmt(m.bulles)} bulles autour de leur site (« +N ») : zoomez dans une bulle ou ouvrez la fiche du site.`;
+    `<div><b>${fmt(sitesCount)}</b><span>sites actifs</span></div>` +
+    `<div><b>${fmt(adminCount)}</b><span>administrations</span></div>` +
+    `<div><b>${fmt(poleCount)}</b><span>pôles</span></div>`;
+  document.getElementById('updated').textContent = `Mis à jour le ${dateFr(m.date)}`;
 
   // --- État de l'interface ---
   // Par défaut, les sites off ou archivés sont masqués.
