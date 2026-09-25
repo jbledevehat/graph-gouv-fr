@@ -1053,12 +1053,14 @@ async function build() {
     viaKeyword++;
   }
   for (const o of newOrgs) if (!isMinistry(o.label) && !withParent.has(o.label)) o.tags.push('Tutelle à préciser');
-  // Plus de « Service web » ni de « Consultation web » : sous-domaine s'ils dépendent d'un site de
-  // la carte, site web sinon (type d'origine gardé dans « Type V1 »).
+  // Plus de « Service web », de « Consultation web » ni de site sans type : sous-domaine s'ils
+  // dépendent d'un site de la carte, site web sinon (type d'origine gardé dans « Type V1 »).
   let retyped = 0;
+  const KNOWN_TYPES = new Set(['Site web', 'Sous-domaine', OFF, 'Organization', 'Person']);
   for (const e of v2Elements) {
-    if (e.type !== 'Service web' && e.type !== 'Consultation web') continue;
-    e['Type V1'] = e.type;
+    // Services, consultations et sites sans type (« Non défini ») de la V1.
+    if (!isUrl(e.label) || KNOWN_TYPES.has(e.type)) continue;
+    e['Type V1'] = e.type || 'non défini';
     e.type = hasParentSite(e.label) ? 'Sous-domaine' : 'Site web';
     e.tags = [...(e.tags || []).filter(t => !/^(Service web|Consultation web)$/i.test(t)), e.type];
     retyped++;

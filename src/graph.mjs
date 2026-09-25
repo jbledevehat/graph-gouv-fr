@@ -16,7 +16,6 @@ export const CATEGORIES = [
   { id: 'site', label: 'Sites web', color: '#2E9E5B' },
   { id: 'sous-domaine', label: 'Sous-domaines', color: '#E8772E' },
   { id: 'archive', label: 'Sites off ou archivés', color: '#4A4F57' },
-  { id: 'autre', label: 'Non classés', color: '#9AA3AE' },
 ];
 
 // Suffixes qui ne sont jamais des sites parents.
@@ -34,7 +33,7 @@ function categoryOf(el) {
     case 'Service web':
     case 'Consultation web': return tags.includes('Sous-domaine') ? 'sous-domaine' : 'site';
     case 'Site off/archivé': return 'archive';
-    default: return 'autre';
+    default: return isUrl(el.label) ? 'site' : 'administration';
   }
 }
 
