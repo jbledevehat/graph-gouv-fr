@@ -355,11 +355,20 @@ function annuaireIndex(rows, hier = {}) {
   // placé, puis au siège plutôt qu'à une antenne (« Arcom - Nouvelle-Calédonie »).
   // Affinité : le libellé du domaine (« inrae » pour inrae.fr) figure dans le sigle ou le nom du service.
   const flat = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  // Initiales des mots significatifs : « Office français de la biodiversité » -> « ofb ».
+  const initials = nom => nom.replace(/\([^)]*\)/g, ' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .split(/[^a-z0-9]+/).filter(w => w && !/^(de|la|le|les|des|du|d|l|et|en|pour|a|au|aux|sur)$/.test(w)).map(w => w[0]).join('');
   const affinity = (r, url) => {
     const label = flat((hostOf(url) || '').replace(/^www\./, '').split('.')[0]);
     if (label.length < 3) return 1;
     const sigle = flat(r.sigle || r.nom.match(/\(([^)]+)\)\s*$/)?.[1]);
-    return sigle === label || flat(r.nom).includes(label) ? 0 : 1;
+    return sigle === label || initials(r.nom) === label || flat(r.nom).includes(label) ? 0 : 1;
+  };
+  // Propriétaire manifeste : sigle ou initiales identiques au domaine (ofb.gouv.fr -> OFB).
+  const owns = (r, host) => {
+    const label = flat(host.replace(/^www\./, '').split('.')[0]);
+    const sigle = flat(r.sigle || r.nom.match(/\(([^)]+)\)\s*$/)?.[1]);
+    return label.length >= 3 && (sigle === label || initials(r.nom) === label);
   };
   const rankOf = (r, url = '') => [/^https?:\/\/[^/]+\/?$/i.test(url) ? 0 : 1, affinity(r, url), ancestors(r.id).length, / - /.test(r.nom) ? 1 : 0];
   const better = (rank, prev) => !prev || rank.reduce((acc, v, i) => acc || Math.sign(v - prev.rank[i]), 0) < 0;
@@ -401,7 +410,9 @@ function annuaireIndex(rows, hier = {}) {
     if (!s) return null;
     const base = info(s.record);
     const all = [...declarers.get(key)];
-    if (all.length < 2) return base;
+    // Le déclarant retenu est manifestement le propriétaire du site (sigle, initiales ou nom) :
+    // le site lui est rattaché, sans passer par le vote des autres services déclarants.
+    if (all.length < 2 || owns(s.record, s.host)) return base;
     // Tutelle majoritaire parmi les services qui déclarent ce site.
     const votes = new Map();
     for (const r of all) {
