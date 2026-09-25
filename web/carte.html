@@ -629,10 +629,17 @@
   const graph = new graphology.UndirectedGraph();
   // Bulles : chaque membre (index 8) est rangé autour du site racine de sa bulle.
   const membersOf = new Map();
-  for (const [key, x, y, size, categorie, nouveau, attrs, pole, bulle] of data.nodes) {
+  const childrenOf = new Map();
+  for (const [key, x, y, size, categorie, nouveau, attrs, pole, bulle, direct] of data.nodes) {
+    if (direct >= 0) {
+      const pk = data.nodes[direct][0];
+      if (!childrenOf.has(pk)) childrenOf.set(pk, []);
+      childrenOf.get(pk).push(key);
+    }
     const n = Number(attrs.sousDomaines || 0);
     const root = bulle >= 0 ? data.nodes[bulle][0] : null;
-    graph.addNode(key, { x, y, size, categorie, nouveau: !!nouveau, attrs, pole, bulle: root, color: cats.get(categorie).color,
+    graph.addNode(key, { x, y, size, categorie, nouveau: !!nouveau, attrs, pole, bulle: root,
+      parentDirect: direct >= 0 ? data.nodes[direct][0] : null, color: cats.get(categorie).color,
       label: n ? `${short(key)} +${n.toLocaleString('fr-FR')}` : short(key) });
     if (root) {
       if (!membersOf.has(root)) membersOf.set(root, []);
@@ -784,6 +791,16 @@
         r.hidden = true; return r;
       }
       const f = focus();
+      if (a.kind === 'bulle') {
+        const fb = f && (graph.getNodeAttribute(f, 'bulle') || f);
+        const eb = graph.getNodeAttribute(t, 'bulle');
+        if (!f || fb !== eb) { r.hidden = true; return r; }
+        // Chemin de l'élément sélectionné plus marqué que le reste de l'arborescence.
+        const onPath = state.neighbours.has(s) && state.neighbours.has(t) || s === f || t === f;
+        r.color = onPath ? (isDark() ? 'rgba(142,166,255,.8)' : 'rgba(31,63,181,.65)') : (isDark() ? 'rgba(142,166,255,.22)' : 'rgba(31,63,181,.18)');
+        r.size = onPath ? 1.4 : 0.6;
+        return r;
+      }
       if (f) {
         if (s === f || t === f) { r.color = isDark() ? 'rgba(142,166,255,.7)' : 'rgba(31,63,181,.55)'; r.size = 1.5; }
         else r.hidden = true;
@@ -798,8 +815,9 @@
     if (!f) { state.neighbours = new Set(); return; }
     const set = new Set(graph.neighbors(f));
     for (const m of membersOf.get(f) || []) set.add(m);
-    const root = graph.getNodeAttribute(f, 'bulle');
-    if (root) set.add(root);
+    for (let p = graph.getNodeAttribute(f, 'parentDirect'), i = 0; p && i < 20; p = graph.getNodeAttribute(p, 'parentDirect'), i++) set.add(p);
+    const walk = n => { for (const c of childrenOf.get(n) || []) { set.add(c); walk(c); } };
+    walk(f);
     state.neighbours = set;
   };
   renderer.on('enterNode', ({ node }) => { state.hovered = node; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
@@ -839,17 +857,26 @@
   let returnFocus = null;
   const statusClassOf = s => ({ 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad' }[s] || '');
   function subsHtml(node) {
+    const btn = k => `<button type="button" data-node="${esc(k)}">${esc(short(k))}</button>`;
     const root = graph.getNodeAttribute(node, 'bulle');
-    if (root) return `<p class="bubble-of">Dans la bulle de <button type="button" data-node="${esc(root)}">${esc(short(root))}</button></p>`;
-    const list = membersOf.get(node);
-    if (!list) return '';
-    const open = list.length <= 30 ? ' open' : '';
-    return `<details class="subs"${open}><summary>Sous-domaines de la bulle · ${fmt(list.length)}</summary><ul>` +
-      list.slice().sort((a, b) => short(a).localeCompare(short(b), 'fr')).map(k => {
+    const direct = graph.getNodeAttribute(node, 'parentDirect');
+    let html = '';
+    if (root) {
+      html += `<p class="bubble-of">Dans la bulle de ${btn(root)}` + (direct && direct !== root ? `, sous-domaine de ${btn(direct)}` : '') + '</p>';
+    }
+    const kids = childrenOf.get(node);
+    if (!kids) return html;
+    const total = root ? null : membersOf.get(node)?.length;
+    const open = kids.length <= 30 ? ' open' : '';
+    html += `<details class="subs"${open}><summary>Sous-domaines · ${fmt(kids.length)}${total && total > kids.length ? ` (${fmt(total)} dans la bulle)` : ''}</summary><ul>` +
+      kids.slice().sort((a, b) => short(a).localeCompare(short(b), 'fr')).map(k => {
         const a = graph.getNodeAttributes(k), st = a.attrs.Statut, code = a.attrs['Code HTTP'];
+        const sub = childrenOf.get(k)?.length;
         return `<li><button type="button" data-node="${esc(k)}"><span class="dot" style="background:${catColor(a.categorie)}" aria-hidden="true"></span>${esc(short(k))}</button>` +
+          `${sub ? ` <span class="via">+${fmt(sub)}</span>` : ''}` +
           `${st ? ` <span class="badge ${statusClassOf(st)}">${esc(st)}${code && st !== 'En ligne' ? ' ' + esc(code) : ''}</span>` : ''}</li>`;
       }).join('') + '</ul></details>';
+    return html;
   }
   function select(node, { focus = true } = {}) {
     if (node && !state.selected && document.activeElement && document.activeElement !== document.body) returnFocus = document.activeElement;
@@ -880,8 +907,11 @@
       .map(([k, label, kind]) => `<dt>${esc(label)}</dt><dd class="${kind === 'mono' ? 'mono' : ''}">${kind === 'url' ? link(a.attrs[k]) : esc(a.attrs[k])}</dd>`)
       .join('');
     // Voisins groupés par catégorie, dans l'ordre de la légende.
+    // Hors arborescence de la bulle (déjà présentée dans « Sous-domaines »).
     const groups = new Map();
-    graph.forEachNeighbor(node, (n, na) => {
+    graph.forEachEdge(node, (e, ea, src, tgt) => {
+      if (ea.kind === 'bulle') return;
+      const n = src === node ? tgt : src, na = graph.getNodeAttributes(n);
       if (!groups.has(na.categorie)) groups.set(na.categorie, []);
       groups.get(na.categorie).push(n);
     });
@@ -893,7 +923,7 @@
     document.getElementById('d-links').innerHTML = subsHtml(node) + (html || (graph.getNodeAttribute(node, 'bulle') ? '' : '<h3>Aucun lien</h3>'));
     detail.hidden = false;
     detail.scrollTop = 0;
-    const n = graph.degree(node);
+    const n = [...groups.values()].reduce((t, l) => t + l.length, 0);
     announce.textContent = `${short(node)}, ${cat.label.toLowerCase()}, ${n} lien${n > 1 ? 's' : ''}. Fiche ouverte.`;
     if (focus) document.getElementById('d-title').focus({ preventScroll: true });
     const pos = renderer.getNodeDisplayData(node);

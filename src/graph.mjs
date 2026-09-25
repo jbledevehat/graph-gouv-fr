@@ -98,6 +98,33 @@ export function buildGraph({ elements, connections }) {
     graph.mergeNodeAttributes(n, { bulle: root, 'Site parent': graph.getNodeAttribute(n, 'Site parent') || keyOf.get(parent.get(n)) });
   }
 
+  // Arborescence dans la bulle : chaque sous-domaine regroupe ses propres sous-domaines autour
+  // de lui (sous-bulle), récursivement.
+  const children = new Map();
+  for (const [n, p] of parent) {
+    if (!children.has(p)) children.set(p, []);
+    children.get(p).push(n);
+  }
+  const MEMBER_CORE = DOT * 0.5;
+  // Disposition d'un sous-arbre, relative à sa racine : tournesol pondéré par la surface des
+  // sous-bulles (les plus grosses au plus près), sans calcul de collision.
+  const offsets = new Map(), subtreeRadius = new Map();
+  const arrange = (n, core) => {
+    const kids = (children.get(n) || []).slice().sort();
+    if (!kids.length) { subtreeRadius.set(n, core); return core; }
+    const rs = kids.map(k => [k, arrange(k, MEMBER_CORE)]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    let area = 0, outer = core;
+    rs.forEach(([k, r], i) => {
+      area += (2 * r + DOT * 0.4) ** 2;
+      const dist = core + r + Math.sqrt(area / Math.PI);
+      const angle = i * 2.399963;
+      offsets.set(k, { x: dist * Math.cos(angle), y: dist * Math.sin(angle), of: n });
+      outer = Math.max(outer, dist + r);
+    });
+    subtreeRadius.set(n, outer);
+    return outer;
+  };
+
   // Placement calculé sur les sites « racines » ; chaque bulle occupe un disque de rayon connu.
   const view = graph.copy();
   for (const n of parent.keys()) view.dropNode(n);
@@ -106,20 +133,23 @@ export function buildGraph({ elements, connections }) {
     const count = members.get(n)?.length || 0;
     const size = 2.5 + 2.2 * Math.sqrt(view.degree(n)) + 1.4 * Math.log2(1 + count);
     view.mergeNodeAttributes(n, { size, sousDomaines: count });
-    radius.set(n, count ? size + DOT * 1.1 * Math.sqrt(count + 1) : size);
+    radius.set(n, count ? arrange(n, size) : size);
   });
   const poles = layoutByPole(view, radius);
 
-  // Report sur le graphe complet ; les membres d'une bulle en tournesol autour de leur racine.
+  // Report sur le graphe complet ; les membres placés récursivement autour de leur parent direct.
   view.forEachNode((n, a) => graph.mergeNodeAttributes(n, { x: a.x, y: a.y, size: a.size, pole: a.pole, sousDomaines: a.sousDomaines }));
-  for (const [root, list] of members) {
-    const r = view.getNodeAttributes(root);
-    list.sort().forEach((n, i) => {
-      const angle = i * 2.399963, dist = r.size + DOT * 1.1 * Math.sqrt(i + 1);
-      graph.mergeNodeAttributes(n, { x: r.x + dist * Math.cos(angle), y: r.y + dist * Math.sin(angle), size: 1.8, pole: r.pole });
-    });
-  }
-  return { graph, poles, members };
+  const positioned = new Set(view.nodes());
+  const placeOf = n => {
+    if (positioned.has(n)) return graph.getNodeAttributes(n);
+    const o = offsets.get(n), p = placeOf(o.of);
+    const count = (children.get(n) || []).length;
+    graph.mergeNodeAttributes(n, { x: p.x + o.x, y: p.y + o.y, size: count ? 1.8 + 0.8 * Math.log2(1 + count) : 1.8, pole: p.pole, sousDomaines: count });
+    positioned.add(n);
+    return graph.getNodeAttributes(n);
+  };
+  for (const n of parent.keys()) placeOf(n);
+  return { graph, poles, members, parent };
 }
 
 const NO_POLE = 'Sans ministère identifié';
@@ -252,9 +282,10 @@ export function toGexf({ graph }) {
 const MEMBER_ATTRS = ['Statut', 'Code HTTP', 'URL finale', 'Site parent', 'Source', 'Vérifié le', 'Ajouté le', 'Type précédent', 'Organisme', 'Tutelle'];
 
 // Données compactes pour la page web :
-// nœuds [clé, x, y, taille, catégorie, nouveau, attributs, pôle, index de la racine de bulle ou -1].
-// Les liens entre les membres d'une bulle et leur parent ne sont pas dessinés (la bulle les montre).
-export function toWebData({ graph, poles }, meta) {
+// nœuds [clé, x, y, taille, catégorie, nouveau, attributs, pôle, racine de bulle, parent direct]
+// (index, ou -1). Dans une bulle, seuls les liens de l'arborescence (parent direct -> enfant) sont
+// exportés, avec le type « bulle » : la page ne les dessine que pour la bulle sélectionnée.
+export function toWebData({ graph, poles, parent }, meta) {
   const index = new Map();
   const poleIndex = new Map(poles.map((p, i) => [p.id, i]));
   const keys = [];
@@ -263,7 +294,7 @@ export function toWebData({ graph, poles }, meta) {
     const { label, x, y, size, color, categorie, nouveau, type, tags, pole, bulle, ...attrs } = graph.getNodeAttributes(key);
     const kept = bulle ? Object.fromEntries(MEMBER_ATTRS.filter(k => attrs[k]).map(k => [k, attrs[k]])) : attrs;
     return [key, Math.round(x * 10) / 10, Math.round(y * 10) / 10, Math.round(size * 10) / 10, categorie, nouveau ? 1 : 0,
-      { type, tags, ...kept }, poleIndex.get(pole), bulle ? index.get(bulle) : -1];
+      { type, tags, ...kept }, poleIndex.get(pole), bulle ? index.get(bulle) : -1, parent.has(key) ? index.get(parent.get(key)) : -1];
   });
   const edges = [];
   graph.forEachEdge((e, a, s, t) => {
@@ -271,5 +302,6 @@ export function toWebData({ graph, poles }, meta) {
     if (a.type === 'Site web/Sous-domaine' && bs === bt) return;
     edges.push([index.get(s), index.get(t), a.type]);
   });
+  for (const [child, p] of parent) edges.push([index.get(p), index.get(child), 'bulle']);
   return { meta, categories: CATEGORIES, poles, nodes, edges };
 }

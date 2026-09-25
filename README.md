@@ -112,7 +112,9 @@ Kumu n'étant utilisable qu'avec un abonnement, `build` produit aussi :
   Pour la voir en local : `python3 -m http.server 8765 --directory out/web`.
   **Bulles de sous-domaines** : tout site dont un domaine parent est sur la carte (quel que soit
   son type, V1 comme V2) est dessiné en petit point dans la bulle de son ancêtre le plus haut
-  (« +N » sur la carte) ; `gouv.fr` n'est jamais un parent. Le placement réserve la place de
+  (« +N » sur la carte) ; `gouv.fr` n'est jamais un parent. Dans une bulle, chaque sous-domaine
+  regroupe ses propres sous-domaines en sous-bulle ; les liens parent → enfant s'affichent pour la
+  bulle de l'élément sélectionné, et les fiches permettent de remonter et descendre l'arborescence. Le placement réserve la place de
   chaque bulle. La fiche du site liste les membres de sa bulle, celle d'un membre renvoie à la
   bulle. Les sous-domaines en « Indéterminé » 500, 502 ou 503 ne sont pas ajoutés.
 - `out/sites-gouv-fr-v2.gexf` : le graphe complet, sous-domaines compris (positions, couleurs, attributs), à ouvrir dans
