@@ -45,7 +45,7 @@ function seeded(label) {
   return { x: (a - 0.5) * 1000, y: (b - 0.5) * 1000 };
 }
 
-export function buildGraph({ elements, connections }) {
+export function buildGraph({ elements, connections, aliases = new Map() }) {
   const colors = Object.fromEntries(CATEGORIES.map(c => [c.id, c.color]));
   const graph = new UndirectedGraph({ multi: false, allowSelfLoops: false });
   for (const el of elements) {
@@ -84,7 +84,8 @@ export function buildGraph({ elements, connections }) {
     for (let i = 1; i < labels.length - 1; i++) {
       const up = labels.slice(i).join('.');
       if (SUFFIXES.has(up)) break;
-      const p = nodeOfKey.get(up);
+      // Domaine parent absent mais qui redirige vers un site de la carte : bulle de ce site.
+      const p = nodeOfKey.get(up) || nodeOfKey.get(aliases.get(up));
       if (p && p !== n) return p;
     }
     return null;

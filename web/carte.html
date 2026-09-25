@@ -878,7 +878,7 @@
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
     ['Type précédent', 'Type en V1'], ['Type V1', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
-    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'],
+    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'], ['Sites déclarés', 'Site déclaré (annuaire)', 'urls'],
   ];
   const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };
 
@@ -933,7 +933,8 @@
     const pole = data.poles[a.pole];
     document.getElementById('d-attrs').innerHTML = (pole && pole.id !== node ? `<dt>Pôle</dt><dd>${esc(pole.id)}</dd>` : '') + FIELDS
       .filter(([k]) => a.attrs[k])
-      .map(([k, label, kind]) => `<dt>${esc(label)}</dt><dd class="${kind === 'mono' ? 'mono' : ''}">${kind === 'url' ? link(a.attrs[k]) : esc(a.attrs[k])}</dd>`)
+      .map(([k, label, kind]) => `<dt>${esc(label)}</dt><dd class="${kind === 'mono' ? 'mono' : ''}">${
+        kind === 'url' ? link(a.attrs[k]) : kind === 'urls' ? a.attrs[k].split(' ; ').map(link).join('<br>') : esc(a.attrs[k])}</dd>`)
       .join('');
     // Voisins groupés par catégorie, dans l'ordre de la légende.
     // Hors arborescence de la bulle (déjà présentée dans « Sous-domaines »).

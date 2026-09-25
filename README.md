@@ -81,6 +81,15 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
   (ministère > direction > … > service > site). Pour un site déclaré dans l'annuaire, V1 comprise,
   cette chaîne prime sur toutes les autres règles ; les liens de 2019 sont remplacés. Les règles
   ci-dessous ne servent qu'aux sites et organismes que l'annuaire ne rattache pas ;
+- un site déclaré par un organisme **et ses propres antennes** (délégations, directions
+  régionales…) appartient à cet organisme (ex. eau-grandsudouest.fr → Agence de l'eau
+  Adour-Garonne), sauf s'il est déclaré par un ministère ou par plus de 100 services (site de
+  ministère) ;
+- un site déclaré qui **redirige** ailleurs relie l'organisme au site d'arrivée (ajouté à la carte
+  si besoin), et les sous-domaines d'un ancien domaine qui redirige rejoignent la bulle du site
+  d'arrivée (surveillance.eau-adour-garonne.fr → bulle d'eau-grandsudouest.fr) ;
+- la fiche d'un organisme indique toujours ses **sites déclarés** dans l'annuaire, même quand il
+  s'agit du site partagé de son ministère ;
 - les **entités de premier niveau** de l'annuaire (directement sous un ministère ou à la racine
   d'une section : directions générales, établissements publics, services à compétence nationale,
   conseils…) figurent sur la carte même sans site propre, hors cabinets ministériels ; elles sont

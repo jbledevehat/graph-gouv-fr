@@ -390,6 +390,7 @@ function annuaireIndex(rows, hier = {}) {
       tutelleVia: t.via,
       urlAnnuaire: r.url_service_public || '',
       siren: r.siren || '',
+      sitesDeclares: (r.site_internet || []).join(' ; '),
     };
   };
 
@@ -406,6 +407,15 @@ function annuaireIndex(rows, hier = {}) {
     const rank = rankOf(r);
     if (r.siren && better(rank, bySiren.get(r.siren))) bySiren.set(r.siren, { record: r, rank });
   }
+  // Entité de premier niveau d'un service : lui-même s'il est directement sous un ministère (ou à
+  // la racine d'une section), sinon son ancêtre situé à ce niveau (agence > délégation…).
+  const entityOf = r => {
+    const chain = ancestors(r.id).reverse();
+    if (!chain.length) return r.id;
+    const start = isMinistry(nameOf.get(chain[0]) || '') ? 1 : 0;
+    return chain[start] || r.id;
+  };
+  const recordOf = id => byId.get(id) || { id, nom: nameOf.get(id) || '', type_organisme: '', url_service_public: '', siren: '', enfants: [] };
   const siteInfo = key => {
     const s = sites.get(key);
     if (!s) return null;
@@ -414,6 +424,19 @@ function annuaireIndex(rows, hier = {}) {
     // Le déclarant retenu est manifestement le propriétaire du site (sigle, initiales ou nom) :
     // le site lui est rattaché, sans passer par le vote des autres services déclarants.
     if (all.length < 2 || owns(s.record, s.host)) return base;
+    // Site déclaré par un organisme et ses propres antennes (délégations, directions régionales) :
+    // il appartient à cet organisme.
+    const byEntity = new Map();
+    for (const r of all) { const e = entityOf(r); byEntity.set(e, (byEntity.get(e) || 0) + 1); }
+    const [entity, m] = [...byEntity].sort((a, b) => b[1] - a[1])[0];
+    // Conditions : l'organisme déclare lui-même le site, et aucun ministère n'est déclarant
+    // (sinon c'est le site du ministère, ex. defense.gouv.fr).
+    const selfDeclares = all.some(r => r.id === entity);
+    const ministryDeclares = all.some(r => isMinistry(r.nom));
+    // Au-delà de 100 déclarants, c'est un site de ministère (defense.gouv.fr, info.gouv.fr).
+    if (all.length <= 100 && selfDeclares && !ministryDeclares && m / all.length >= 0.5 && !isMinistry(nameOf.get(entity) || byId.get(entity)?.nom || '')) {
+      return { ...info(recordOf(entity)), tutelleVia: `déclaré par l'organisme et ${m - 1} de ses services` };
+    }
     // Tutelle majoritaire parmi les services qui déclarent ce site.
     const votes = new Map();
     for (const r of all) {
@@ -723,10 +746,9 @@ async function build() {
     const direct = ann.site(key), red = viaRedirect.get(key);
     const label = flatTxt(key.split('.')[0]);
     const matches = i => i && label.length >= 3 && flatTxt(i.organisme).includes(label);
-    // Fiche du domaine redirigé retenue si elle correspond au domaine, ou si plusieurs services
-    // d'un même ministère la déclarent, face à un déclarant direct sans rapport avec le domaine.
-    const strong = i => matches(i) || /^déclaré par/.test(i?.tutelleVia || '');
-    if (red && strong(red) && !matches(direct)) return { ...red, tutelleVia: 'annuaire (domaine redirigé)' };
+    // Fiche du domaine redirigé retenue si son nom ou son sigle correspond au domaine d'arrivée,
+    // face à un déclarant direct sans rapport avec lui (ex. l'ANCT et anct.gouv.fr).
+    if (red && matches(red) && !matches(direct)) return { ...red, tutelleVia: 'annuaire (domaine redirigé)' };
     return direct || null;
   };
 
@@ -826,7 +848,8 @@ async function build() {
       if (above) connect(above, lbl, 'Administration/Administration');
       above = lbl;
     }
-    const org = ensureOrg(info.organisme, { 'Type d\'organisme': info.typeOrganisme, 'URL annuaire': info.urlAnnuaire, 'SIREN': info.siren, ...section });
+    const org = ensureOrg(info.organisme, { 'Type d\'organisme': info.typeOrganisme, 'URL annuaire': info.urlAnnuaire, 'SIREN': info.siren,
+      ...(info.sitesDeclares && { 'Sites déclarés': info.sitesDeclares }), ...section });
     if (above) connect(above, org, 'Administration/Administration');
     else if (info.tutelle) connect(ensureOrg(info.tutelle, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), org, 'Administration/Administration');
     return org;
@@ -888,6 +911,32 @@ async function build() {
       ...verif(c),
     });
   }
+  // Sites déclarés dans l'annuaire qui redirigent ailleurs (meteo.fr, cnnumerique.fr…) : l'organisme
+  // est relié au site d'arrivée, ajouté à la carte s'il n'y est pas déjà.
+  const excludedDomain = key => (config.candidates.excludeDomains || []).some(d => key === d || key.endsWith('.' + d));
+  let viaRedirectSites = 0;
+  for (const c of checks) {
+    if (c.kind !== 'candidate' || c.statut !== 'Redirigé' || !c.finalUrl || c.parentKey || !/Annuaire/.test(c.source || '')) continue;
+    const info = annSite(c.key);
+    if (!info) continue;
+    const finalKey = siteKey(hostOf(c.finalUrl));
+    let label = sites.get(finalKey);
+    if (!label) {
+      if (known.has(finalKey) || excludedDomain(finalKey)) continue;
+      label = new URL(c.finalUrl).origin;
+      known.add(finalKey);
+      sites.set(finalKey, label);
+      additions.push({
+        label, type: 'Site web', tags: ['Site web', 'Nouveau'],
+        'Organisme': info.organisme, 'Tutelle': info.tutelle || '',
+        'Source': `Annuaire de l'administration (${c.key} redirige ici)`, 'Ajouté le': today,
+        ...verif({ ...c, statut: 'En ligne' }),
+      });
+    }
+    attach(info, label);
+    viaRedirectSites++;
+  }
+
   // Sites sans aucun rattachement, V1 comprise : un site est rattaché s'il est relié à une
   // administration (directement ou via un site voisin) ou s'il appartient à la bulle d'un site parent.
   const allUrlKeys = new Set([...v2Elements, ...additions].filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
@@ -1125,7 +1174,16 @@ async function build() {
 
   // 4. Graphe : GEXF (Gephi, Gephi Lite, Retina) et page web sigma.js.
   console.log('Calcul du placement du graphe…');
-  const graph = buildGraph({ elements: v2Elements, connections: v2Connections });
+  // Anciens domaines qui redirigent vers un site de la carte (eau-adour-garonne.fr ->
+  // eau-grandsudouest.fr) : leurs sous-domaines rejoignent la bulle du site d'arrivée.
+  const aliases = new Map();
+  const onMap = new Set(v2Elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
+  for (const c of checks) {
+    if (c.statut !== 'Redirigé' || !c.finalUrl || !c.key) continue;
+    const to = siteKey(hostOf(c.finalUrl));
+    if (!onMap.has(c.key) && onMap.has(to) && to !== c.key) aliases.set(c.key, to);
+  }
+  const graph = buildGraph({ elements: v2Elements, connections: v2Connections, aliases });
   await writeOut(p('out/sites-gouv-fr-v2.gexf'), toGexf(graph));
   const meta = {
     date: today,
@@ -1179,6 +1237,7 @@ Vérifications HTTP du ${checkedOn}.
 - Nouvelles administrations (annuaire) : **${newOrgs.length}**, dont ${ministries.length} ministères et ${newOrgs.filter(o => o.tags.includes('Tutelle à préciser')).length} sans ministère de tutelle connu
 - Sites de la V1 réorganisés selon l'annuaire : ${reorganized} liens de 2019 remplacés
 - Entités de premier niveau de l'annuaire ajoutées (même sans site propre) : ${viaEntities}
+- Organismes reliés au site vers lequel redirige leur site déclaré : ${viaRedirectSites}
 - Services en ligne et consultations de la V1 reclassés en site ou sous-domaine : ${retyped}
 - Rattachements complémentaires : ${viaV1} sites de la V1 sans lien (annuaire, config/rattachements.csv), ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page, ${viaKeyword} sites par leur nom de domaine
 - Opérateurs de l'État (PLF) reconnus : **${matchedOps.size}** sur ${operateurs.length} ; ${tutelleByOrg.size} administrations rattachées à leur ministère grâce au programme budgétaire
