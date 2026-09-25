@@ -81,6 +81,13 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
   (ministère > direction > … > service > site). Pour un site déclaré dans l'annuaire, V1 comprise,
   cette chaîne prime sur toutes les autres règles ; les liens de 2019 sont remplacés. Les règles
   ci-dessous ne servent qu'aux sites et organismes que l'annuaire ne rattache pas ;
+- les **entités de premier niveau** de l'annuaire (directement sous un ministère ou à la racine
+  d'une section : directions générales, établissements publics, services à compétence nationale,
+  conseils…) figurent sur la carte même sans site propre, hors cabinets ministériels ; elles sont
+  reliées à leur propre site, pas à un site partagé par de nombreux services ;
+- le Premier ministre est relié à chaque ministère (liens « Gouvernement ») et le Président de la
+  République au Premier ministre ; la « Présidence de la République » de l'annuaire est le nœud
+  du Président (elysee.fr). Ces liens restent visibles sur la carte ;
 
 - chaque nouveau site est relié au service qui le déclare dans l'annuaire (ou, pour un domaine
   DINUM, au service de même SIREN), et ce service à son ministère de tutelle, c'est-à-dire le plus

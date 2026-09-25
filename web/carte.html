@@ -824,6 +824,10 @@
       if (f) {
         if (s === f || t === f) { r.color = isDark() ? 'rgba(142,166,255,.7)' : 'rgba(31,63,181,.55)'; r.size = 1.5; }
         else r.hidden = true;
+      } else if (a.kind === 'Gouvernement' || a.kind === 'Dépendance') {
+        // Président > Premier ministre > ministères : toujours visibles.
+        r.color = isDark() ? 'rgba(142,166,255,.35)' : 'rgba(31,63,181,.3)';
+        r.size = 1.2;
       } else if (graph.getNodeAttribute(s, 'pole') !== graph.getNodeAttribute(t, 'pole')) {
         // Liens entre pôles : affichés seulement à la sélection, pour garder la carte lisible.
         r.hidden = true;

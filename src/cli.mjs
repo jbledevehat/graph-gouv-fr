@@ -426,7 +426,20 @@ function annuaireIndex(rows, hier = {}) {
     if (n >= 3) return { ...base, organisme: top, chain: [], typeOrganisme: 'Administration centrale (ou Ministère)', tutelle: '', tutelleVia: 'déclaré par ' + n + ' services', urlAnnuaire: '' };
     return base.tutelle ? base : { ...base, tutelle: top, tutelleVia: 'services déclarants' };
   };
+  // Entités de premier niveau : directement sous un ministère, ou à la racine d'une section
+  // (autorités indépendantes, institutions et juridictions), avec les sites qu'elles déclarent.
+  const firstLevel = () => rows.filter(r => {
+    const h = hier[r.id];
+    if (!h || isMinistry(r.nom)) return false;
+    return h.parents.length === 0 ? !/^minist/i.test(h.section) : h.parents.length === 1 && isMinistry(h.parents[0].nom);
+  }).map(r => ({
+    info: info(r),
+    type: r.type_organisme || '',
+    hosts: [...new Set(r.site_internet.map(u => siteKey(hostOf(u) || '')).filter(Boolean))]
+      .map(key => ({ key, declarers: declarers.get(key)?.size || 0, owned: owns(r, key) })),
+  }));
   return {
+    firstLevel,
     sites: [...sites.entries()].map(([key, { host }]) => ({
       key, url: `https://${host}`, ...siteInfo(key), source: 'Annuaire de l\'administration',
     })),
@@ -783,8 +796,11 @@ async function build() {
   // Administrations : un intitulé déjà présent (V1 ou renommé) est réutilisé, sinon on le crée.
   const labelByNorm = new Map(v2Elements.filter(e => !isUrl(e.label)).map(e => [norm(e.label), e.label]));
   const newOrgs = [];
+  // Même entité sous deux noms : la « Présidence de la République » de l'annuaire est le nœud
+  // « Président de la République française » de la V1.
+  const ALIASES = new Map([['présidence de la république', 'président de la république française']]);
   const ensureOrg = (name, extra = {}) => {
-    const existing = labelByNorm.get(norm(name));
+    const existing = labelByNorm.get(ALIASES.get(norm(name)) || norm(name));
     if (existing) return existing;
     const el = {
       label: name,
@@ -801,7 +817,8 @@ async function build() {
   // Rattache un site à son organisme, et l'organisme à son ministère de tutelle.
   // Rattache un site à son organisme et crée la chaîne de l'annuaire au-dessus de lui
   // (ministère > direction > … > organisme) ; à défaut de chaîne, relie l'organisme à sa tutelle.
-  const attach = (info, siteLabel) => {
+  const attach = (info, siteLabel) => connect(ensureChain(info), siteLabel, 'Site web/Administration');
+  const ensureChain = info => {
     const section = info.section ? { 'Section annuaire': info.section } : {};
     let above = null;
     for (const name of info.chain || []) {
@@ -812,7 +829,7 @@ async function build() {
     const org = ensureOrg(info.organisme, { 'Type d\'organisme': info.typeOrganisme, 'URL annuaire': info.urlAnnuaire, 'SIREN': info.siren, ...section });
     if (above) connect(above, org, 'Administration/Administration');
     else if (info.tutelle) connect(ensureOrg(info.tutelle, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), org, 'Administration/Administration');
-    connect(org, siteLabel, 'Site web/Administration');
+    return org;
   };
 
   // 2. Nouveaux sites (Annuaire de l'administration et liste DINUM).
@@ -906,6 +923,21 @@ async function build() {
       });
     } else continue;
     viaV1++;
+  }
+
+  // Entités de premier niveau de l'annuaire, même sans site propre (hors cabinets) : placées sous
+  // leur ministère ou dans leur section, et reliées à leur propre site s'il est sur la carte (pas
+  // à un site partagé par de nombreux services, comme celui d'un ministère).
+  let viaEntities = 0;
+  for (const ent of ann.firstLevel()) {
+    if (/Cabinet ministériel|Secrétaire d'État/.test(ent.type)) continue;
+    const isNew = !labelByNorm.has(ALIASES.get(norm(ent.info.organisme)) || norm(ent.info.organisme));
+    const org = ensureChain(ent.info);
+    for (const h of ent.hosts) {
+      const site = sites.get(h.key);
+      if (site && (h.owned || h.declarers <= 2)) connect(org, site, 'Site web/Administration');
+    }
+    if (isNew) viaEntities++;
   }
 
   // L'annuaire ne relie pas les établissements publics à leur ministère : on passe par la liste
@@ -1060,6 +1092,10 @@ async function build() {
     viaKeyword++;
   }
   for (const o of newOrgs) if (!isMinistry(o.label) && !withParent.has(o.label)) o.tags.push('Tutelle à préciser');
+  // Gouvernement : le Premier ministre relié à chaque ministère.
+  const pm = labelByNorm.get('premier ministre');
+  if (pm) for (const e of [...v2Elements, ...newOrgs]) if (isMinistry(e.label) && e.label !== pm) connect(pm, e.label, 'Gouvernement');
+
   // Plus de « Service web », de « Consultation web » ni de site sans type : sous-domaine s'ils
   // dépendent d'un site de la carte, site web sinon (type d'origine gardé dans « Type V1 »).
   let retyped = 0;
@@ -1142,6 +1178,7 @@ Vérifications HTTP du ${checkedOn}.
 - Nouveaux sites : **${additions.length}**, dont ${subCount} sous-domaines (annuaire ${fromSource('Annuaire')}, DINUM ${fromSource('DINUM')}, certificats ${fromSource('crt.sh')}) ; **${orphans.length}** sans rattachement
 - Nouvelles administrations (annuaire) : **${newOrgs.length}**, dont ${ministries.length} ministères et ${newOrgs.filter(o => o.tags.includes('Tutelle à préciser')).length} sans ministère de tutelle connu
 - Sites de la V1 réorganisés selon l'annuaire : ${reorganized} liens de 2019 remplacés
+- Entités de premier niveau de l'annuaire ajoutées (même sans site propre) : ${viaEntities}
 - Services en ligne et consultations de la V1 reclassés en site ou sous-domaine : ${retyped}
 - Rattachements complémentaires : ${viaV1} sites de la V1 sans lien (annuaire, config/rattachements.csv), ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page, ${viaKeyword} sites par leur nom de domaine
 - Opérateurs de l'État (PLF) reconnus : **${matchedOps.size}** sur ${operateurs.length} ; ${tutelleByOrg.size} administrations rattachées à leur ministère grâce au programme budgétaire
