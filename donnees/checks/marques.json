@@ -831,6 +831,12 @@
     "checkedAt": "2026-09-25T01:43:28.337Z",
     "v": 2
   },
+  "https://cnccfp.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-25T09:42:18.553Z",
+    "v": 2
+  },
   "https://code.gouv.fr": {
     "marque": "République française",
     "mentions": [],
@@ -2034,6 +2040,12 @@
     "checkedAt": "2026-09-24T14:09:14.722Z",
     "v": 2
   },
+  "https://pad.odeadom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-25T09:42:18.475Z",
+    "v": 2
+  },
   "https://paiement.telecom-paristech.fr": {
     "marque": null,
     "mentions": [],
@@ -2408,6 +2420,12 @@
     "checkedAt": "2026-09-25T01:43:59.051Z",
     "v": 2
   },
+  "https://refiban-prod.odeadom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-25T09:42:18.343Z",
+    "v": 2
+  },
   "https://registre.label-bas-carbone.ecologie.gouv.fr": {
     "marque": "Ministère de la transition écologique",
     "mentions": [],
@@ -2705,6 +2723,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:39.514Z",
+    "v": 2
+  },
+  "https://up.odeadom.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-25T09:42:18.405Z",
     "v": 2
   },
   "https://urbanvitaliz.fr": {
@@ -3208,6 +3232,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:52.409Z",
+    "v": 2
+  },
+  "https://www.cnctr.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-25T09:42:18.484Z",
     "v": 2
   },
   "https://www.cnda.fr": {

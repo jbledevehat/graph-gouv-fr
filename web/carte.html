@@ -804,6 +804,9 @@
       if (f) {
         if (s === f || t === f) { r.color = isDark() ? 'rgba(142,166,255,.7)' : 'rgba(31,63,181,.55)'; r.size = 1.5; }
         else r.hidden = true;
+      } else if (graph.getNodeAttribute(s, 'pole') !== graph.getNodeAttribute(t, 'pole')) {
+        // Liens entre pôles : affichés seulement à la sélection, pour garder la carte lisible.
+        r.hidden = true;
       }
       return r;
     },
@@ -848,7 +851,7 @@
     ['Opérateur de l\'État', 'Opérateur (PLF)'], ['Statut juridique', 'Statut juridique'],
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
-    ['Type précédent', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
+    ['Type précédent', 'Type en V1'], ['Type V1', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
     ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'],
   ];
   const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };

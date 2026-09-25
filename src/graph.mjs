@@ -2,6 +2,8 @@
 import graphology from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 import gexf from 'graphology-gexf';
+import { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY } from 'd3-force';
+import { packEnclose, packSiblings } from 'd3-hierarchy';
 import { hostOf, isUrl, siteKey } from './lib/url.mjs';
 
 const { UndirectedGraph } = graphology;
@@ -13,8 +15,6 @@ export const CATEGORIES = [
   { id: 'administration', label: 'Administrations et opérateurs', color: '#B8860B' },
   { id: 'site', label: 'Sites web', color: '#2E9E5B' },
   { id: 'sous-domaine', label: 'Sous-domaines', color: '#E8772E' },
-  { id: 'service', label: 'Services en ligne', color: '#D6403A' },
-  { id: 'consultation', label: 'Consultations citoyennes', color: '#D35FA8' },
   { id: 'archive', label: 'Sites off ou archivés', color: '#4A4F57' },
   { id: 'autre', label: 'Non classés', color: '#9AA3AE' },
 ];
@@ -31,8 +31,8 @@ function categoryOf(el) {
     case 'Organization': return tags.includes('Ministère') ? 'ministere' : 'administration';
     case 'Site web': return 'site';
     case 'Sous-domaine': return 'sous-domaine';
-    case 'Service web': return 'service';
-    case 'Consultation web': return 'consultation';
+    case 'Service web':
+    case 'Consultation web': return tags.includes('Sous-domaine') ? 'sous-domaine' : 'site';
     case 'Site off/archivé': return 'archive';
     default: return 'autre';
   }
@@ -78,6 +78,9 @@ export function buildGraph({ elements, connections }) {
     if (!nodeOfKey.has(k)) nodeOfKey.set(k, n);
   });
   const parentOf = n => {
+    // Adresse avec un chemin (ex. teleservices.justice.gouv.fr/aej-portail) : bulle du site du même domaine.
+    const same = nodeOfKey.get(keyOf.get(n));
+    if (same && same !== n) return same;
     const labels = keyOf.get(n).split('.');
     for (let i = 1; i < labels.length - 1; i++) {
       const up = labels.slice(i).join('.');
@@ -106,21 +109,21 @@ export function buildGraph({ elements, connections }) {
     children.get(p).push(n);
   }
   const MEMBER_CORE = DOT * 0.5;
-  // Disposition d'un sous-arbre, relative à sa racine : tournesol pondéré par la surface des
-  // sous-bulles (les plus grosses au plus près), sans calcul de collision.
+  // Disposition d'un sous-arbre, relative à sa racine : le cœur du parent puis ses sous-bulles,
+  // empaquetés au plus serré (d3-hierarchy, les plus grosses d'abord).
   const offsets = new Map(), subtreeRadius = new Map();
   const arrange = (n, core) => {
     const kids = (children.get(n) || []).slice().sort();
     if (!kids.length) { subtreeRadius.set(n, core); return core; }
-    const rs = kids.map(k => [k, arrange(k, MEMBER_CORE)]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-    let area = 0, outer = core;
-    rs.forEach(([k, r], i) => {
-      area += (2 * r + DOT * 0.4) ** 2;
-      const dist = core + r + Math.sqrt(area / Math.PI);
-      const angle = i * 2.399963;
-      offsets.set(k, { x: dist * Math.cos(angle), y: dist * Math.sin(angle), of: n });
-      outer = Math.max(outer, dist + r);
-    });
+    const circles = [{ id: n, r: core + DOT * 0.3 },
+      ...kids.map(k => ({ id: k, r: arrange(k, MEMBER_CORE) + DOT * 0.3 })).sort((a, b) => b.r - a.r || a.id.localeCompare(b.id))];
+    packSiblings(circles);
+    // packSiblings place le premier cercle (le parent) à l'origine.
+    let outer = core;
+    for (const c of circles.slice(1)) {
+      offsets.set(c.id, { x: c.x, y: c.y, of: n });
+      outer = Math.max(outer, Math.hypot(c.x, c.y) + c.r);
+    }
     subtreeRadius.set(n, outer);
     return outer;
   };
@@ -155,9 +158,11 @@ export function buildGraph({ elements, connections }) {
 const NO_POLE = 'Sans ministère identifié';
 const AUTHORITIES = 'Autorités indépendantes';
 // Autorités indépendantes : regroupées dans leur propre pôle plutôt que sous un ministère.
-const isAuthority = a => /^Autorité (administrative|publique) indépendante$/.test(a['Type d\'organisme'] || '');
+const isAuthority = a => /^Autorité (administrative|publique) indépendante$/.test(a['Type d\'organisme'] || '')
+  || /autorit.s ind.pendantes/i.test(a['Section annuaire'] || '');
 const INSTITUTIONS = 'Institutions et juridictions';
-const isInstitution = a => /^(Institution|Juridiction)$/.test(a['Type d\'organisme'] || '');
+const isInstitution = a => /^(Institution|Juridiction)$/.test(a['Type d\'organisme'] || '')
+  || /institutions et juridictions/i.test(a['Section annuaire'] || '');
 
 // Nom court d'un pôle pour la carte : « Ministère de la Culture » -> « Culture ».
 function shortPole(name) {
@@ -227,40 +232,47 @@ function layoutByPole(graph, radius) {
     const sub = graph.copy();
     const keep = new Set(list);
     sub.forEachNode(n => { if (!keep.has(n)) sub.dropNode(n); });
+    // Point de départ : ForceAtlas2 (proximités du réseau), à l'échelle de la surface des bulles.
     if (sub.order > 1) {
       forceAtlas2.assign(sub, {
-        iterations: 400,
+        iterations: 200,
         settings: { ...forceAtlas2.inferSettings(sub), barnesHutOptimize: sub.order > 300, gravity: 1.5, strongGravityMode: true, scalingRatio: 4 },
       });
     }
-    // Recentrage, mise à l'échelle selon la surface totale des bulles, puis écartement.
     let cx = 0, cy = 0;
     sub.forEachNode((n, a) => { cx += a.x; cy += a.y; });
     cx /= sub.order; cy /= sub.order;
     let max = 1, area = 0;
-    sub.forEachNode((n, a) => { max = Math.max(max, Math.hypot(a.x - cx, a.y - cy)); area += (radius.get(n) + 2) ** 2; });
-    const target = 1.3 * Math.sqrt(area) + 10;
-    const pts = new Map();
-    sub.forEachNode((n, a) => pts.set(n, { x: (a.x - cx) * target / max, y: (a.y - cy) * target / max }));
-    separate(pts, radius);
-    let r = 10;
-    for (const [n, pt] of pts) r = Math.max(r, Math.hypot(pt.x, pt.y) + radius.get(n));
-    circles.push({ name, r, pts, size: sub.order });
+    sub.forEachNode((n, a) => { max = Math.max(max, Math.hypot(a.x - cx, a.y - cy)); area += radius.get(n) ** 2; });
+    const scale = Math.sqrt(area) / max;
+    const nodes = sub.mapNodes((n, a) => ({ id: n, r: radius.get(n), x: (a.x - cx) * scale, y: (a.y - cy) * scale }));
+    const links = sub.mapEdges((e, a, s, t) => ({ source: s, target: t }));
+    // Simulation de forces (d3-force) : chaque bulle occupe exactement sa place (collision), les
+    // liens rapprochent ce qui est relié, une attraction vers le centre évite les trous.
+    const pad = 2;
+    forceSimulation(nodes)
+      .force('collide', forceCollide(d => d.r + pad).strength(1).iterations(3))
+      .force('link', forceLink(links).id(d => d.id).distance(l => l.source.r + l.target.r + pad * 2).strength(0.2))
+      .force('charge', forceManyBody().strength(d => -2 * d.r).distanceMax(200))
+      .force('x', forceX(0).strength(0.06))
+      .force('y', forceY(0).strength(0.06))
+      .stop()
+      .tick(300);
+    // Chevauchements résiduels écartés, puis cercle englobant du pôle.
+    const pts = new Map(nodes.map(d => [d.id, { x: d.x, y: d.y }]));
+    separate(pts, radius, 30);
+    const enc = packEnclose([...pts].map(([n, pt]) => ({ x: pt.x, y: pt.y, r: radius.get(n) + pad })));
+    for (const pt of pts.values()) { pt.x -= enc.x; pt.y -= enc.y; }
+    circles.push({ name, r: enc.r, pts, size: sub.order });
   }
 
-  // Placement des disques, du plus grand au plus petit, en spirale sans chevauchement ;
-  // le pôle « sans ministère » vient en dernier, en périphérie.
+  // Pôles empaquetés au plus serré (d3-hierarchy), avec un écart constant ; le pôle « sans
+  // ministère » en dernier, donc en périphérie.
   circles.sort((a, b) => (a.name === NO_POLE) - (b.name === NO_POLE) || b.r - a.r || a.name.localeCompare(b.name));
-  const placed = [];
-  const gap = 30;
-  for (const c of circles) {
-    if (!placed.length) { c.x = 0; c.y = 0; placed.push(c); continue; }
-    for (let t = 0; ; t += 0.1) {
-      const d = 8 * t, x = d * Math.cos(t), y = d * Math.sin(t);
-      if (placed.every(o => Math.hypot(o.x - x, o.y - y) >= o.r + c.r + gap)) { c.x = x; c.y = y; break; }
-    }
-    placed.push(c);
-  }
+  const gap = 70;
+  const packed = circles.map(c => ({ c, r: c.r + gap / 2 }));
+  packSiblings(packed);
+  const placed = packed.map(({ c, x, y }) => Object.assign(c, { x, y }));
   for (const c of placed) {
     for (const [n, pt] of c.pts) graph.mergeNodeAttributes(n, { x: c.x + pt.x, y: c.y + pt.y });
   }
@@ -279,7 +291,7 @@ export function toGexf({ graph }) {
 }
 
 // Attributs gardés pour les membres d'une bulle (fichier plus léger).
-const MEMBER_ATTRS = ['Statut', 'Code HTTP', 'URL finale', 'Site parent', 'Source', 'Vérifié le', 'Ajouté le', 'Type précédent', 'Organisme', 'Tutelle'];
+const MEMBER_ATTRS = ['Statut', 'Code HTTP', 'URL finale', 'Site parent', 'Source', 'Vérifié le', 'Ajouté le', 'Type précédent', 'Type V1', 'Organisme', 'Tutelle'];
 
 // Données compactes pour la page web :
 // nœuds [clé, x, y, taille, catégorie, nouveau, attributs, pôle, racine de bulle, parent direct]

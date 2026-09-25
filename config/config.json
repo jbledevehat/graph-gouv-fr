@@ -22,7 +22,7 @@
   "check": {
     "concurrency": 12,
     "timeoutMs": 15000,
-    "userAgent": "Mozilla/5.0 (compatible; sites-gouv-fr/0.1; +https://kumu.io/jbledevehat/sites-web-gouvfr)",
+    "userAgent": "Mozilla/5.0 (compatible; sites-gouv-fr/0.1; +https://gouvfr.jbledevehat.fr)",
     "perIp": 1,
     "perIpGapMs": 2000
   },
@@ -60,7 +60,15 @@
       "iadb.org",
       "afdb.org",
       "adb.org",
-      "eib.org"
+      "eib.org",
+      "ilo.org",
+      "irena.org",
+      "unhcr.org",
+      "wfp.org",
+      "fao.org",
+      "iaea.org",
+      "ifad.org",
+      "unicef.org"
     ]
   },
   "site": {

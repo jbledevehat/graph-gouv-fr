@@ -25,6 +25,7 @@ enchaîne les quatre étapes, qui peuvent aussi être lancées séparément :
 |---|---|---|
 | `npm run fetch:kumu` | Instantané de la carte publique (éléments, connexions, description) via l'API CouchDB de Kumu | `donnees/kumu/` |
 | `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (filtrée sur `gouv.fr`), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)) et liste des opérateurs de l'État du PLF | `donnees/sources/` (non versionné) |
+| `npm run fetch:hierarchie` | Hiérarchie de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr/themes) telle que le site la présente : fil d'Ariane de chaque fiche nationale (Ministères > Ministère… > Direction… > service), une page par seconde, relue tous les 90 jours | `donnees/annuaire/hierarchie.json` (versionné) |
 | `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), avec un cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
 | `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/latest.json` (un résultat par ligne) |
 | `npm run build` | Calcule les changements, génère le jeu de données V2, le graphe et le rapport | `out/` |
@@ -73,6 +74,13 @@ puis `npm run build`.
 Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 
 **Administrations** (reprises de l'Annuaire de l'administration) :
+
+- **l'organisation suit celle de l'annuaire** : pour chaque service, le fil d'Ariane de sa fiche
+  (`npm run fetch:hierarchie`) donne sa section (Ministères, Autorités indépendantes,
+  Institutions et juridictions, Ambassades) et sa chaîne de rattachement, créée sur la carte
+  (ministère > direction > … > service > site). Pour un site déclaré dans l'annuaire, V1 comprise,
+  cette chaîne prime sur toutes les autres règles ; les liens de 2019 sont remplacés. Les règles
+  ci-dessous ne servent qu'aux sites et organismes que l'annuaire ne rattache pas ;
 
 - chaque nouveau site est relié au service qui le déclare dans l'annuaire (ou, pour un domaine
   DINUM, au service de même SIREN), et ce service à son ministère de tutelle, c'est-à-dire le plus
@@ -129,12 +137,14 @@ Kumu n'étant utilisable qu'avec un abonnement, `build` produit aussi :
   [Gephi](https://gephi.org), [Gephi Lite](https://gephi.org/gephi-lite/) ou à publier avec
   [Retina](https://ouestware.gitlab.io/retina/).
 
-Le placement est calculé pendant `build` : chaque élément rejoint le pôle du ministère (ou de la
-Présidence, du Premier ministre, ou les pôles « Autorités indépendantes » et « Institutions et
-juridictions » selon le type d'organisme de l'annuaire) le plus proche dans le graphe, chaque pôle est disposé avec
-ForceAtlas2, puis les pôles sont répartis en bulles. Les éléments sans lien vers un ministère
-forment le pôle « Sans ministère identifié », en périphérie. La page affiche le nom des pôles et
-permet d'aller directement à l'un d'eux.
+Le placement est calculé pendant `build`, à la manière de Kumu : chaque élément rejoint le pôle
+de son ministère (ou « Autorités indépendantes », « Institutions et juridictions ») ; dans une
+bulle, les sous-bulles sont empaquetées au plus serré autour de leur parent (d3-hierarchy) ; dans
+un pôle, une simulation de forces (d3-force) donne à chaque bulle exactement sa place (collision),
+rapproche ce qui est relié et évite les trous ; les pôles sont ensuite empaquetés avec un écart
+constant. Les liens entre pôles ne s'affichent qu'à la sélection d'un élément. Il n'y a plus de
+« services en ligne » ni de « consultations » : ces sites de la V1 sont reclassés en site ou
+sous-domaine (type d'origine dans « Type V1 »).
 
 ## Publication sur gouvfr.jbledevehat.fr
 
