@@ -10,8 +10,8 @@
 //   node src/cli.mjs all             enchaîne toutes les étapes (build, blocs-marques, build)
 //
 // Options : --limit=N (limite le nombre d'URLs vérifiées, pour tester)
-//           --only=map|candidates|unknown (ne vérifie qu'une partie, le reste est repris du dernier
-//           passage ; « unknown » = seulement les URLs restées indéterminées)
+//           --only=map|candidates|unknown|new (ne vérifie qu'une partie, le reste est repris du
+//           dernier passage ; « unknown » = URLs restées indéterminées, « new » = candidats jamais vérifiés)
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -33,6 +33,9 @@ async function readJson(file) {
   if (!existsSync(file)) throw new Error(`${file} introuvable : lancez d'abord l'étape précédente.`);
   return JSON.parse(await readFile(file, 'utf8'));
 }
+
+// Résultats de vérification : un objet par ligne (fichier compact, différences lisibles dans Git).
+const checksJson = rows => '[\n' + rows.map(r => JSON.stringify(r)).join(',\n') + '\n]\n';
 
 async function writeOut(file, content) {
   await mkdir(dirname(file), { recursive: true });
@@ -372,6 +375,12 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     if (fromAnnuaire) fromAnnuaire.source += ' + DINUM';
     else candidates.set(key, dinumCandidate(key, r));
   }
+  // Domaines de l'État typés par la DINUM (ambassades, académies, universités…), tous domaines.
+  const stateTypes = config.candidates.dinumTypes || {};
+  for (const [key, r] of dinum) {
+    if (!(r.type in stateTypes) || candidates.has(key)) continue;
+    candidates.set(key, { ...dinumCandidate(key, r), dinumType: r.type });
+  }
   if (!includeSubdomains) return [...candidates.values()].sort((a, b) => a.key.localeCompare(b.key));
 
   // Sous-domaines : rattachés au site connu le plus proche en remontant les labels.
@@ -380,6 +389,7 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     const labels = key.split('.');
     for (let i = 1; i < labels.length - 1; i++) {
       const up = labels.slice(i).join('.');
+      if (up === suffix) break; // « gouv.fr » est un suffixe, pas un site parent
       if (parents.has(up)) return up;
     }
     return null;
@@ -388,6 +398,9 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     if (!key || known.has(key) || candidates.has(key) || excluded(key)) return;
     const parentKey = parentOf(key);
     if (parentKey) candidates.set(key, { ...make(), parentKey });
+    // Sous-domaine gouv.fr dont aucun parent n'est sur la carte : ajouté seul (rattachement par
+    // config/rattachements.csv, l'annuaire ou le bloc-marque).
+    else if (key.endsWith('.' + suffix) && key !== registrable(key, suffix)) candidates.set(key, make());
   };
   for (const [key, r] of dinum) addSub(key, () => dinumCandidate(key, r));
   for (const [domain, { names }] of Object.entries(crtsh || {})) {
@@ -409,17 +422,20 @@ async function check() {
     // Revérifie seulement les URLs restées indéterminées au dernier passage.
     targets = (await readJson(p('donnees/checks/latest.json'))).filter(r => r.statut === 'Indéterminé')
       .map(({ statut, code, finalUrl, error, checkedAt, ...t }) => t);
-  } else if (only !== 'candidates') {
+  } else if (only !== 'candidates' && only !== 'new') {
     const urls = [...new Set(elements.filter(e => isUrl(e.label)).map(e => e.label.trim()))];
     targets.push(...urls.map(url => ({ url, kind: 'map' })));
   }
   if (only !== 'map' && only !== 'unknown') {
+    const previous = only === 'new' && existsSync(p('donnees/checks/latest.json'))
+      ? new Set((await readJson(p('donnees/checks/latest.json'))).filter(r => r.kind === 'candidate').map(r => r.key)) : null;
     const dinumFile = p('donnees/sources/dinum.json'), crtFile = p('donnees/sources/crtsh.json');
     if (!existsSync(dinumFile)) console.warn('  Avertissement : liste DINUM absente, seuls les candidats de l\'annuaire sont vérifiés.');
     const dinum = existsSync(dinumFile) ? await readJson(dinumFile) : [];
     const crtsh = existsSync(crtFile) ? await readJson(crtFile) : {};
     const annuaire = await readJson(p('donnees/sources/annuaire.json'));
     let candidates = selectCandidates(elements, dinum, annuaire, crtsh);
+    if (previous) candidates = candidates.filter(c => !previous.has(c.key));
     // Les noms issus des certificats n'ont pas de statut connu : on écarte d'abord ceux absents du DNS.
     const toResolve = candidates.filter(c => c.dnsCheck);
     if (toResolve.length) {
@@ -438,14 +454,47 @@ async function check() {
   }
   if (args.limit) targets = targets.slice(0, Number(args.limit));
 
+  // Ordre intercalé par domaine : les sous-domaines d'un même organisme (souvent sur un même
+  // serveur, limité à une requête toutes les 2 s) ne monopolisent pas toutes les vérifications.
+  const groups = new Map();
+  for (const t of targets) {
+    const g = t.parentKey || hostOf(t.url).split('.').slice(-2).join('.');
+    if (!groups.has(g)) groups.set(g, []);
+    groups.get(g).push(t);
+  }
+  const queues = [...groups.values()];
+  const longest = Math.max(0, ...queues.map(q => q.length));
+  targets = [];
+  for (let i = 0; i < longest; i++) for (const q of queues) if (i < q.length) targets.push(q[i]);
+
   const { concurrency, timeoutMs, userAgent, perIp, perIpGapMs } = config.check;
   const opts = { timeoutMs, userAgent, perIp, perIpGapMs };
   console.log(`Vérification de ${targets.length} URLs (${concurrency} en parallèle)…`);
-  const progress = (d, n) => { if (d % 50 === 0 || d === n) process.stdout.write(`\r  ${d}/${n}`); };
-  const results = await pool(targets, concurrency, async t => ({ ...t, ...(await checkUrl(t.url, opts)) }), progress);
+  // Avancement affiché et écrit dans out/progression.txt (lisible pendant une longue vérification).
+  const started = Date.now();
+  const progress = (d, n) => {
+    if (d % 50 !== 0 && d !== n) return;
+    process.stdout.write(`\r  ${d}/${n}`);
+    const left = d ? Math.round((Date.now() - started) / d * (n - d) / 60000) : '?';
+    writeFile(p('out/progression.txt'), `${new Date().toLocaleTimeString('fr-FR')} : ${d}/${n} URLs vérifiées, environ ${left} min restantes\n`).catch(() => {});
+  };
+  // Résultats enregistrés toutes les 500 URLs : une vérification interrompue reprend avec --only=new.
+  const previousAll = existsSync(p('donnees/checks/latest.json')) ? await readJson(p('donnees/checks/latest.json')) : [];
+  const partial = [];
+  const checkpoint = async () => {
+    const doneKeys = new Set(partial.map(r => `${r.kind} ${r.url}`));
+    await writeFile(p('donnees/checks/latest.json'), checksJson([...previousAll.filter(r => !doneKeys.has(`${r.kind} ${r.url}`)), ...partial]));
+  };
+  const results = await pool(targets, concurrency, async t => {
+    const r = { ...t, ...(await checkUrl(t.url, opts)) };
+    partial.push(r);
+    if (partial.length % 500 === 0) await checkpoint().catch(() => {});
+    return r;
+  }, progress);
 
-  // Second passage, plus lent, pour écarter les échecs transitoires.
-  const failed = results.map((r, i) => [r, i]).filter(([r]) => r.statut === 'Hors ligne' || r.statut === 'Indéterminé');
+  // Second passage, plus lent, pour écarter les échecs transitoires des sites déjà sur la carte
+  // (un nouveau candidat qui ne répond pas n'est simplement pas ajouté ; revérifié le mois suivant).
+  const failed = results.map((r, i) => [r, i]).filter(([r]) => r.kind === 'map' && (r.statut === 'Hors ligne' || r.statut === 'Indéterminé'));
   if (failed.length) {
     console.log(`\n  Nouvel essai pour ${failed.length} URLs en échec…`);
     await pool(failed, Math.max(1, Math.floor(concurrency / 2)), async ([r, i]) => {
@@ -461,11 +510,11 @@ async function check() {
   let all = results;
   if (only && existsSync(p('donnees/checks/latest.json'))) {
     const redone = new Set(results.map(r => `${r.kind} ${r.url}`));
-    const keep = r => only === 'unknown' ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
+    const keep = r => only === 'unknown' || only === 'new' ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
     all = [...(await readJson(p('donnees/checks/latest.json'))).filter(keep), ...results];
   }
-  await writeOut(p(`donnees/checks/${today}.json`), all);
-  await writeOut(p('donnees/checks/latest.json'), all);
+  // Pas de copie datée : l'historique Git conserve chaque version.
+  await writeOut(p('donnees/checks/latest.json'), checksJson(all));
 }
 
 // ------------------------------------------------------------ fetch-marques
@@ -620,22 +669,28 @@ async function build() {
   for (const c of ordered) {
     if (c.statut === 'Redirigé') { skippedRedirects.push(c); continue; }
     // Un serveur qui répond par une erreur 5xx existe : le site est ajouté, à revérifier.
+    // Exception : un sous-domaine en 500, 502 ou 503 n'est pas ajouté.
     const serverError = c.statut === 'Indéterminé' && c.code >= 500;
     if (c.statut !== 'En ligne' && !serverError) continue;
+    if (serverError && [500, 502, 503].includes(c.code) && (c.parentKey || c.key !== registrable(c.key))) continue;
     const finalHost = hostOf(c.finalUrl || c.url);
     if (known.has(siteKey(finalHost))) continue;
     known.add(siteKey(finalHost));
     const label = new URL(c.finalUrl || c.url).origin;
     const isSub = !!c.parentKey || (c.key.endsWith('.gouv.fr') && c.key !== registrable(c.key));
-    const parent = c.parentKey ? sites.get(c.parentKey) : isSub ? sites.get(registrable(c.key)) : null;
+    const parentKey = c.parentKey === config.candidates.suffix ? null : c.parentKey;
+    const parent = parentKey ? sites.get(parentKey) : isSub ? sites.get(registrable(c.key)) : null;
     // Organisme : déclaré dans l'annuaire pour ce site, sinon retrouvé par le SIREN de la DINUM.
     const info = ann.site(c.key) || (c.siren && ann.siren(c.siren));
-    const admin = adminByDomain.get(c.key);
+    // Rattachement déclaré pour ce domaine ou l'un de ses domaines parents.
+    const admin = !parent && c.key.split('.').map((_, i, parts) => adminByDomain.get(parts.slice(i).join('.'))).find(Boolean);
+    const typeMinistry = !admin && !parent && c.dinumType ? (config.candidates.dinumTypes || {})[c.dinumType] : '';
     const tags = [isSub ? 'Sous-domaine' : 'Site web', 'Nouveau', ...(serverError ? ['À revérifier'] : [])];
     if (admin) {
       if (!labelByNorm.has(norm(admin))) warnings.push(`Rattachement de ${c.key} : « ${admin} » absente de la carte, créée.`);
       connect(ensureOrg(admin), label, 'Site web/Administration');
     } else if (parent) connect(parent, label, 'Site web/Sous-domaine');
+    else if (typeMinistry) connect(ensureOrg(typeMinistry, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), label, 'Site web/Administration');
     else if (info) attach(info, label);
     else tags.push('À rattacher');
     sites.set(c.key, label);
@@ -643,7 +698,8 @@ async function build() {
       label,
       type: isSub ? 'Sous-domaine' : 'Site web',
       tags,
-      ...(c.parentKey && { 'Site parent': c.parentKey }),
+      ...(parentKey && { 'Site parent': parentKey }),
+      ...(c.dinumType && { 'Type DINUM': c.dinumType }),
       'Organisme': info?.organisme || '',
       'Tutelle': info?.tutelle || '',
       ...(info?.tutelleVia && info.tutelleVia !== 'hiérarchie' && { 'Rattachement déduit de': info.tutelleVia }),
@@ -796,6 +852,8 @@ async function build() {
     elements: v2Elements.length,
     connexions: v2Connections.length,
     nouveaux: additions.length + newOrgs.length,
+    regroupes: [...graph.members.values()].reduce((n, l) => n + l.length, 0),
+    bulles: graph.members.size,
   };
   await writeOut(p('out/web/graph.json'), JSON.stringify(toWebData(graph, meta)));
   // Domaine personnalisé de GitHub Pages.
@@ -874,7 +932,7 @@ try {
   if (cmd === 'all') for (const step of Object.values(steps)) await step();
   else if (steps[cmd]) await steps[cmd]();
   else {
-    console.log(`Usage : node src/cli.mjs <${[...Object.keys(steps), 'all'].join('|')}> [--limit=N] [--only=map|candidates|unknown]`);
+    console.log(`Usage : node src/cli.mjs <${[...Object.keys(steps), 'all'].join('|')}> [--limit=N] [--only=map|candidates|unknown|new]`);
     process.exitCode = 1;
   }
 } catch (e) {

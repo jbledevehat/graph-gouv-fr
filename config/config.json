@@ -35,7 +35,14 @@
       "^(adm|admin|administration|backoffice|bo|back|gestion|intranet|extranet|webadmin|cms|matomo|piwik|stats|analytics|grafana|kibana|prometheus|sentry|metabase|gitlab|git|jenkins|ci|argocd|rancher|k8s|kube|monitoring|status|keycloak|login|idp|oauth|s3|minio|storage|files|upload|backup|vault|db|pma|phpmyadmin|redis|elastic|es|solr|rabbitmq|remote|citrix|rdp|portainer|traefik|nexus|sonar|jira|confluence|wiki-interne)([.-]|\\d)",
       "(^|[.-])api([.-]|\\d)",
       "^(www\\d|ww\\d|wwwd|origin|lb|node|srv|server|host|vm|preview|beta\\d)[.-]"
-    ]
+    ],
+    "dinumTypes": {
+      "Ministère": "",
+      "Ambassade": "Ministère de l'Europe et des Affaires étrangères",
+      "Académie": "Ministère de l'Éducation nationale",
+      "Université": "Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace",
+      "Préfécture": "Préfecture"
+    }
   },
   "site": {
     "domain": "gouvfr.jbledevehat.fr"

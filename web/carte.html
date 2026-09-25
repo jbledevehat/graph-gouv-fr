@@ -460,6 +460,21 @@
   #list .new { margin-left: auto; font-size: 11.5px; color: var(--accent); white-space: nowrap; }
   body.list-mode .zoom, body.list-mode #poles { display: none; }
 
+  .via { color: var(--muted); font-size: 12px; }
+  .subs { margin: 8px 0 4px; border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; }
+  .subs summary { padding: 8px 0; cursor: pointer; font-weight: 600; font-size: 13px; }
+  .subs ul { list-style: none; margin: 0 0 8px; padding: 0; max-height: 320px; overflow-y: auto; }
+  .subs li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 3px 0; font-size: 13px; overflow-wrap: anywhere; }
+  .subs li.hit { background: var(--accent-soft); border-radius: 4px; padding-inline: 4px; }
+  .subs li button, .bubble-of button {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 28px; padding: 2px 4px; border: 0; border-radius: 4px;
+    background: none; color: var(--accent); font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+    text-decoration: underline;
+  }
+  .subs li button:hover, .bubble-of button:hover { background: var(--accent-soft); }
+  .bubble-of { margin: 8px 0; font-size: 13px; color: var(--muted); }
+
   /* --- Zoom --- */
   .zoom {
     position: fixed;
@@ -612,8 +627,17 @@
   const short = key => key.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
 
   const graph = new graphology.UndirectedGraph();
-  for (const [key, x, y, size, categorie, nouveau, attrs, pole] of data.nodes) {
-    graph.addNode(key, { x, y, size, categorie, nouveau: !!nouveau, attrs, pole, label: short(key), color: cats.get(categorie).color });
+  // Bulles : chaque membre (index 8) est rangé autour du site racine de sa bulle.
+  const membersOf = new Map();
+  for (const [key, x, y, size, categorie, nouveau, attrs, pole, bulle] of data.nodes) {
+    const n = Number(attrs.sousDomaines || 0);
+    const root = bulle >= 0 ? data.nodes[bulle][0] : null;
+    graph.addNode(key, { x, y, size, categorie, nouveau: !!nouveau, attrs, pole, bulle: root, color: cats.get(categorie).color,
+      label: n ? `${short(key)} +${n.toLocaleString('fr-FR')}` : short(key) });
+    if (root) {
+      if (!membersOf.has(root)) membersOf.set(root, []);
+      membersOf.get(root).push(key);
+    }
   }
   // « kind » et non « type » : sigma réserve l'attribut « type » au programme de rendu.
   for (const [s, t, kind] of data.edges) {
@@ -630,6 +654,7 @@
     `<div><b>${fmt(m.elements)}</b><span>éléments</span></div>` +
     `<div><b>${fmt(m.connexions)}</b><span>liens</span></div>` +
     `<div><b>${fmt(m.nouveaux)}</b><span>ajouts V2</span></div>`;
+  if (m.regroupes) document.getElementById('sub').textContent += ` ${fmt(m.regroupes)} sous-domaines forment ${fmt(m.bulles)} bulles autour de leur site (« +N ») : zoomez dans une bulle ou ouvrez la fiche du site.`;
 
   // --- État de l'interface ---
   // Par défaut, les sites off ou archivés sont masqués.
@@ -742,7 +767,8 @@
       const f = focus();
       if (f) {
         if (node === f) { r.highlighted = true; r.zIndex = 2; r.forceLabel = true; r.label = a.label; }
-        else if (state.neighbours.has(node)) { r.zIndex = 1; r.forceLabel = true; }
+        // Voisins mis en évidence ; les noms des membres d'une bulle n'apparaissent qu'en zoomant.
+        else if (state.neighbours.has(node)) { r.zIndex = 1; r.forceLabel = a.bulle !== f; }
         else { r.color = faded(); r.label = ''; r.zIndex = 0; }
       } else if (state.onlyNew && !a.nouveau) {
         r.color = faded(); r.label = '';
@@ -769,7 +795,12 @@
 
   const setFocusNeighbours = () => {
     const f = focus();
-    state.neighbours = f ? new Set(graph.neighbors(f)) : new Set();
+    if (!f) { state.neighbours = new Set(); return; }
+    const set = new Set(graph.neighbors(f));
+    for (const m of membersOf.get(f) || []) set.add(m);
+    const root = graph.getNodeAttribute(f, 'bulle');
+    if (root) set.add(root);
+    state.neighbours = set;
   };
   renderer.on('enterNode', ({ node }) => { state.hovered = node; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
   renderer.on('leaveNode', () => { state.hovered = null; setFocusNeighbours(); renderer.refresh({ skipIndexation: true }); });
@@ -806,6 +837,20 @@
 
   const announce = document.getElementById('announce');
   let returnFocus = null;
+  const statusClassOf = s => ({ 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad' }[s] || '');
+  function subsHtml(node) {
+    const root = graph.getNodeAttribute(node, 'bulle');
+    if (root) return `<p class="bubble-of">Dans la bulle de <button type="button" data-node="${esc(root)}">${esc(short(root))}</button></p>`;
+    const list = membersOf.get(node);
+    if (!list) return '';
+    const open = list.length <= 30 ? ' open' : '';
+    return `<details class="subs"${open}><summary>Sous-domaines de la bulle · ${fmt(list.length)}</summary><ul>` +
+      list.slice().sort((a, b) => short(a).localeCompare(short(b), 'fr')).map(k => {
+        const a = graph.getNodeAttributes(k), st = a.attrs.Statut, code = a.attrs['Code HTTP'];
+        return `<li><button type="button" data-node="${esc(k)}"><span class="dot" style="background:${catColor(a.categorie)}" aria-hidden="true"></span>${esc(short(k))}</button>` +
+          `${st ? ` <span class="badge ${statusClassOf(st)}">${esc(st)}${code && st !== 'En ligne' ? ' ' + esc(code) : ''}</span>` : ''}</li>`;
+      }).join('') + '</ul></details>';
+  }
   function select(node, { focus = true } = {}) {
     if (node && !state.selected && document.activeElement && document.activeElement !== document.body) returnFocus = document.activeElement;
     state.selected = node;
@@ -845,14 +890,15 @@
       return `<h3>${esc(c.label)} · ${items.length}</h3><ul>` + items.map(n =>
         `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}"></span><span class="txt">${esc(short(n))}</span></button></li>`).join('') + '</ul>';
     }).join('');
-    document.getElementById('d-links').innerHTML = html || '<h3>Aucun lien</h3>';
+    document.getElementById('d-links').innerHTML = subsHtml(node) + (html || (graph.getNodeAttribute(node, 'bulle') ? '' : '<h3>Aucun lien</h3>'));
     detail.hidden = false;
     detail.scrollTop = 0;
     const n = graph.degree(node);
     announce.textContent = `${short(node)}, ${cat.label.toLowerCase()}, ${n} lien${n > 1 ? 's' : ''}. Fiche ouverte.`;
     if (focus) document.getElementById('d-title').focus({ preventScroll: true });
     const pos = renderer.getNodeDisplayData(node);
-    if (pos) renderer.getCamera().animate({ x: pos.x, y: pos.y, ratio: Math.min(renderer.getCamera().ratio, 0.35) }, { duration: dur(500) });
+    const zoomTo = graph.getNodeAttribute(node, 'bulle') ? 0.04 : 0.35;
+    if (pos) renderer.getCamera().animate({ x: pos.x, y: pos.y, ratio: Math.min(renderer.getCamera().ratio, zoomTo) }, { duration: dur(500) });
   }
   document.getElementById('d-links').addEventListener('click', e => {
     const b = e.target.closest('button[data-node]');
@@ -871,15 +917,17 @@
     const words = norm(q.value.trim()).split(/\s+/).filter(Boolean);
     matches = words.length ? index.filter(([, t]) => words.every(w => t.includes(w))).map(([n]) => n).slice(0, 30) : [];
     results.innerHTML = matches.map(n => {
-      const c = graph.getNodeAttribute(n, 'categorie');
-      return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c)}"></span><span class="txt">${esc(short(n))}</span></button></li>`;
+      const a = graph.getNodeAttributes(n);
+      return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(a.categorie)}" aria-hidden="true"></span>` +
+        `<span class="txt">${esc(short(n))}${a.bulle ? ` <span class="via">bulle ${esc(short(a.bulle))}</span>` : ''}</span></button></li>`;
     }).join('') + (words.length && !matches.length ? '<li class="sub" style="padding:6px 8px">Aucun résultat.</li>' : '');
     document.getElementById('q-count').textContent = words.length
       ? (matches.length ? `${matches.length}${matches.length === 30 ? ' premiers' : ''} résultat${matches.length > 1 ? 's' : ''}, flèche bas pour les parcourir.` : 'Aucun résultat.')
       : '';
   });
+  const open = key => select(key);
   q.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && matches[0]) select(matches[0]);
+    if (e.key === 'Enter' && matches[0]) open(matches[0]);
     if (e.key === 'ArrowDown') { e.preventDefault(); results.querySelector('button')?.focus(); }
   });
   results.addEventListener('keydown', e => {
@@ -890,7 +938,7 @@
   });
   results.addEventListener('click', e => {
     const b = e.target.closest('button[data-node]');
-    if (b) select(b.dataset.node);
+    if (b) open(b.dataset.node);
   });
 
   // --- Pôles : noms sur la carte et « Aller à » ---
@@ -940,27 +988,34 @@
     const byPole = data.poles.map(() => new Map());
     let total = 0;
     graph.forEachNode((n, a) => {
-      if (!visible(n, a)) return;
+      if (!visible(n, a) || a.bulle) return;
       const groups = byPole[a.pole];
       if (!groups.has(a.categorie)) groups.set(a.categorie, []);
       groups.get(a.categorie).push(n);
       total++;
     });
     document.getElementById('list-count').textContent =
-      `${fmt(total)} éléments affichés selon les filtres de la légende${state.onlyNew ? ' (ajouts de la V2 seulement)' : ''}.`;
+      `${fmt(total)} sites et administrations affichés selon les filtres de la légende${state.onlyNew ? ' (ajouts de la V2 seulement)' : ''} ; les sous-domaines sont listés dans la fiche de leur site.`;
     const order = data.poles.map((p, i) => [p, i]).filter(([, i]) => byPole[i].size)
       .sort(([a], [b]) => (a.id === 'Sans ministère identifié') - (b.id === 'Sans ministère identifié') || a.label.localeCompare(b.label, 'fr'));
-    document.getElementById('list-body').innerHTML = order.map(([p, i]) => {
-      const groups = byPole[i];
-      const count = [...groups.values()].reduce((s, l) => s + l.length, 0);
-      const inner = data.categories.filter(c => groups.has(c.id)).map(c => {
-        const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
-        return `<h3>${esc(c.label)} · ${fmt(items.length)}</h3><ul>` + items.map(n =>
-          `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}" aria-hidden="true"></span>` +
-          `<span class="txt">${esc(short(n))}</span>${graph.getNodeAttribute(n, 'nouveau') ? '<span class="new">Ajout V2</span>' : ''}</button></li>`).join('') + '</ul>';
-      }).join('');
-      return `<details><summary><span>${esc(p.id === 'Sans ministère identifié' ? p.id : p.label)}</span><span class="count">${fmt(count)}</span></summary>${inner}</details>`;
+    // Contenu d'un pôle construit seulement quand on le déplie.
+    const inner = groups => data.categories.filter(c => groups.has(c.id)).map(c => {
+      const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
+      return `<h3>${esc(c.label)} · ${fmt(items.length)}</h3><ul>` + items.map(n => {
+        const subs = membersOf.get(n)?.length;
+        return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}" aria-hidden="true"></span>` +
+          `<span class="txt">${esc(short(n))}${subs ? ` <span class="via">+${fmt(subs)} sous-domaines</span>` : ''}</span>` +
+          `${graph.getNodeAttribute(n, 'nouveau') ? '<span class="new">Ajout V2</span>' : ''}</button></li>`;
+      }).join('') + '</ul>';
     }).join('');
+    const body = document.getElementById('list-body');
+    body.innerHTML = order.map(([p, i]) => {
+      const count = [...byPole[i].values()].reduce((s, l) => s + l.length, 0);
+      return `<details data-pole="${i}"><summary><span>${esc(p.id === 'Sans ministère identifié' ? p.id : p.label)}</span><span class="count">${fmt(count)}</span></summary></details>`;
+    }).join('');
+    body.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
+      if (d.open && !d.dataset.filled) { d.insertAdjacentHTML('beforeend', inner(byPole[d.dataset.pole])); d.dataset.filled = '1'; }
+    }));
   }
   const listEl = document.getElementById('list');
   const vMap = document.getElementById('v-map'), vList = document.getElementById('v-list');

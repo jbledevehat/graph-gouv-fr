@@ -26,7 +26,7 @@ enchaîne les quatre étapes, qui peuvent aussi être lancées séparément :
 | `npm run fetch:kumu` | Instantané de la carte publique (éléments, connexions, description) via l'API CouchDB de Kumu | `donnees/kumu/` |
 | `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (filtrée sur `gouv.fr`), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)) et liste des opérateurs de l'État du PLF | `donnees/sources/` (non versionné) |
 | `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), avec un cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
-| `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/AAAA-MM-JJ.json` |
+| `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/latest.json` (un résultat par ligne) |
 | `npm run build` | Calcule les changements, génère le jeu de données V2, le graphe et le rapport | `out/` |
 
 Options de `check` : `--limit=N` (tester sur N URLs), `--only=map`, `--only=candidates` ou
@@ -110,7 +110,12 @@ Kumu n'étant utilisable qu'avec un abonnement, `build` produit aussi :
   **vue en liste par pôle**, accessible au clavier et aux lecteurs d'écran. Elle se publie telle quelle, par exemple sur
   GitHub Pages. Lien direct vers un élément : `index.html#ademe.fr`. Source : `web/carte.html`.
   Pour la voir en local : `python3 -m http.server 8765 --directory out/web`.
-- `out/sites-gouv-fr-v2.gexf` : le graphe (positions, couleurs, attributs), à ouvrir dans
+  **Bulles de sous-domaines** : tout site dont un domaine parent est sur la carte (quel que soit
+  son type, V1 comme V2) est dessiné en petit point dans la bulle de son ancêtre le plus haut
+  (« +N » sur la carte) ; `gouv.fr` n'est jamais un parent. Le placement réserve la place de
+  chaque bulle. La fiche du site liste les membres de sa bulle, celle d'un membre renvoie à la
+  bulle. Les sous-domaines en « Indéterminé » 500, 502 ou 503 ne sont pas ajoutés.
+- `out/sites-gouv-fr-v2.gexf` : le graphe complet, sous-domaines compris (positions, couleurs, attributs), à ouvrir dans
   [Gephi](https://gephi.org), [Gephi Lite](https://gephi.org/gephi-lite/) ou à publier avec
   [Retina](https://ouestware.gitlab.io/retina/).
 

@@ -1,5 +1,41 @@
 domaine,administration
-# Rattache un domaine (sans www.) à une administration existante de la carte (libellé Kumu exact).
-# Les nouveaux sites sans rattachement reçoivent le tag « À rattacher ».
-# Exemple :
-# nouveau-site.gouv.fr,Ministère du Travail
+# Rattache un domaine ET tous ses sous-domaines à une administration de la carte (intitulé exact).
+# Sert quand ni l'annuaire, ni le site parent, ni le bloc-marque ne donnent de rattachement.
+# Les nouveaux sites sans rattachement reçoivent le tag « À rattacher » (voir out/a-rattacher.csv).
+social.gouv.fr,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+pref.gouv.fr,Préfecture
+finances.gouv.fr,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+bercy.gouv.fr,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+minefi.gouv.fr,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+dgtresor.gouv.fr,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+equipement-agriculture.gouv.fr,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+equipement.gouv.fr,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+ecologie-territoires.gouv.fr,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+emploi.gouv.fr,Ministère du Travail et des Solidarités
+travail.gouv.fr,Ministère du Travail et des Solidarités
+deets.gouv.fr,Ministère du Travail et des Solidarités
+jeunesse-sports.gouv.fr,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+reserve-civique.gouv.fr,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+permisdeconduire.gouv.fr,Ministère de l'Intérieur
+fr-alert.gouv.fr,Ministère de l'Intérieur
+dihal.gouv.fr,Ministère de la Ville et du Logement
+transports.gouv.fr,Ministère des Transports
+recherche.gouv.fr,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+science.gouv.fr,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+imagesdefense.gouv.fr,Ministère des Armées et des Anciens combattants
+medicaments.gouv.fr,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+tousanticovid.gouv.fr,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+culturecommunication.gouv.fr,Ministère de la Culture
+din.gouv.fr,Premier ministre
+sgpi.gouv.fr,Premier ministre
+france2030.gouv.fr,Premier ministre
+sig.gouv.fr,Premier ministre
+pm.gouv.fr,Premier ministre
+rie.gouv.fr,Premier ministre
+cfssi.gouv.fr,Premier ministre
+gic.gouv.fr,Premier ministre
+agentconnect.gouv.fr,Premier ministre
+ile-de-france.gouv.fr,Préfecture
+paca.gouv.fr,Préfecture
+paris.gouv.fr,Préfecture
+bretagne.gouv.fr,Préfecture
