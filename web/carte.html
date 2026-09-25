@@ -791,6 +791,8 @@
       if (state.hidden.has(a.categorie)) { r.hidden = true; return r; }
       // Le nom du ministère est déjà affiché comme nom de pôle.
       if (data.poles[a.pole] && data.poles[a.pole].id === node) r.label = '';
+      // Président et Premier ministre, au centre de la carte : nom toujours affiché, nœud agrandi.
+      if (a.categorie === 'personne') { r.label = a.label; r.forceLabel = true; r.size = 12; r.zIndex = 3; }
       const f = focus();
       if (f) {
         if (node === f) { r.highlighted = true; r.zIndex = 2; r.forceLabel = true; r.label = a.label; }
@@ -1011,14 +1013,19 @@
     const e = renderer.graphToViewport({ x: p.x + p.r, y: p.y });
     return { x: c.x, y: c.y, r: Math.abs(e.x - c.x) };
   };
+  // Président et Premier ministre : leur nom passe avant les étiquettes de pôle.
+  const people = graph.filterNodes((n, a) => a.categorie === 'personne');
   renderer.on('afterRender', () => {
     polesEl.classList.toggle('dim', !!focus());
+    const reserved = people.map(n => renderer.graphToViewport(renderer.getNodeDisplayData(n) || graph.getNodeAttributes(n)));
     data.poles.forEach((p, i) => {
       const b = bubble(p), el = poleLabels[i];
       // Nom masqué quand la bulle est trop petite ou quand on est très près.
-      const show = b.r > 28 && b.r < 900;
+      let show = b.r > 28 && b.r < 900;
+      const top = b.y - b.r - 4;
+      if (show && reserved.some(v => Math.abs(v.y - top) < 28 && b.x + 110 > v.x - 30 && b.x - 110 < v.x + 240)) show = false;
       el.hidden = !show;
-      if (show) { el.style.left = b.x + 'px'; el.style.top = (b.y - b.r - 4) + 'px'; }
+      if (show) { el.style.left = b.x + 'px'; el.style.top = top + 'px'; }
     });
   });
   const poleSelect = document.getElementById('pole');

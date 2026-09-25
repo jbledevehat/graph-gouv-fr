@@ -149,7 +149,7 @@ de son ministère (ou « Autorités indépendantes », « Institutions et juridi
 bulle, les sous-bulles sont empaquetées au plus serré autour de leur parent (d3-hierarchy) ; dans
 un pôle, une simulation de forces (d3-force) donne à chaque bulle exactement sa place (collision),
 rapproche ce qui est relié et évite les trous ; les pôles sont ensuite empaquetés avec un écart
-constant. Les liens entre pôles ne s'affichent qu'à la sélection d'un élément. Il n'y a plus de
+constant, autour du Président (au centre) et du Premier ministre (juste en dessous). Les liens entre pôles ne s'affichent qu'à la sélection d'un élément. Il n'y a plus de
 « services en ligne » ni de « consultations » : ces sites de la V1 sont reclassés en site ou
 sous-domaine (type d'origine dans « Type V1 »).
 

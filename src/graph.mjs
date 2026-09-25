@@ -267,13 +267,28 @@ function layoutByPole(graph, radius) {
 
   // Pôles empaquetés au plus serré (d3-hierarchy), avec un écart constant ; le pôle « sans
   // ministère » en dernier, donc en périphérie.
-  circles.sort((a, b) => (a.name === NO_POLE) - (b.name === NO_POLE) || b.r - a.r || a.name.localeCompare(b.name));
+  // Ordre d'empaquetage : le premier cercle est au centre, le deuxième à côté. D'abord le Président,
+  // puis le Premier ministre, puis les ministères et sections du plus grand au plus petit ; le pôle
+  // « sans ministère » en dernier, donc en périphérie.
+  const centre = name => /^président/i.test(name) ? 0 : /^premier ministre$/i.test(name) ? 1 : 2;
+  circles.sort((a, b) => centre(a.name) - centre(b.name) || (a.name === NO_POLE) - (b.name === NO_POLE) || b.r - a.r || a.name.localeCompare(b.name));
   const gap = 70;
   const packed = circles.map(c => ({ c, r: c.r + gap / 2 }));
   packSiblings(packed);
   const placed = packed.map(({ c, x, y }) => Object.assign(c, { x, y }));
+  // Carte centrée sur le Président (premier cercle placé).
+  const [ox, oy] = [placed[0].x, placed[0].y];
+  for (const c of placed) { c.x -= ox; c.y -= oy; }
   for (const c of placed) {
     for (const [n, pt] of c.pts) graph.mergeNodeAttributes(n, { x: c.x + pt.x, y: c.y + pt.y });
+  }
+  // Président exactement au centre, Premier ministre juste en dessous : leurs noms, affichés à
+  // droite du nœud, ne se chevauchent pas.
+  const president = graph.findNode((n, a) => a.categorie === 'personne' && /^président/i.test(n));
+  const pm = graph.findNode((n, a) => a.categorie === 'personne' && /^premier ministre$/i.test(n));
+  if (president && pm) {
+    graph.mergeNodeAttributes(president, { x: 0, y: 0 });
+    graph.mergeNodeAttributes(pm, { x: 0, y: -110 });
   }
   return placed.map(c => ({ id: c.name, label: shortPole(c.name), x: Math.round(c.x), y: Math.round(c.y), r: Math.round(c.r), size: c.size }));
 }
