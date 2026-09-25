@@ -11,8 +11,9 @@
 //   node src/cli.mjs all             enchaîne toutes les étapes (build, blocs-marques, build)
 //
 // Options : --limit=N (limite le nombre d'URLs vérifiées, pour tester)
-//           --only=map|candidates|unknown|new (ne vérifie qu'une partie, le reste est repris du
-//           dernier passage ; « unknown » = URLs restées indéterminées, « new » = candidats jamais vérifiés)
+//           --only=map|candidates|unknown|roots|new (ne vérifie qu'une partie, le reste est repris
+//           du dernier passage ; « unknown » = URLs restées indéterminées, « roots » = sites
+//           principaux indéterminés ou hors ligne, « new » = candidats jamais vérifiés)
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -517,15 +518,18 @@ async function check() {
   const elements = await readJson(p('donnees/kumu/elements.json'));
   const only = args.only;
   let targets = [];
-  if (only === 'unknown') {
-    // Revérifie seulement les URLs restées indéterminées au dernier passage.
-    targets = (await readJson(p('donnees/checks/latest.json'))).filter(r => r.statut === 'Indéterminé')
+  if (only === 'unknown' || only === 'roots') {
+    // « unknown » : URLs restées indéterminées au dernier passage ; « roots » : sites principaux
+    // (sans site parent) indéterminés ou hors ligne, souvent indisponibles le temps d'une vérification.
+    const retry = r => only === 'unknown' ? r.statut === 'Indéterminé'
+      : !r.parentKey && (r.statut === 'Indéterminé' || r.statut === 'Hors ligne');
+    targets = (await readJson(p('donnees/checks/latest.json'))).filter(retry)
       .map(({ statut, code, finalUrl, error, checkedAt, ...t }) => t);
-  } else if (only !== 'candidates' && only !== 'new') {
+  } else if (only !== 'candidates' && only !== 'new' && only !== 'roots') {
     const urls = [...new Set(elements.filter(e => isUrl(e.label)).map(e => e.label.trim()))];
     targets.push(...urls.map(url => ({ url, kind: 'map' })));
   }
-  if (only !== 'map' && only !== 'unknown') {
+  if (only !== 'map' && only !== 'unknown' && only !== 'roots') {
     const previous = only === 'new' && existsSync(p('donnees/checks/latest.json'))
       ? new Set((await readJson(p('donnees/checks/latest.json'))).filter(r => r.kind === 'candidate').map(r => r.key)) : null;
     const dinumFile = p('donnees/sources/dinum.json'), crtFile = p('donnees/sources/crtsh.json');
@@ -625,7 +629,7 @@ async function check() {
   let all = results;
   if (only && existsSync(p('donnees/checks/latest.json'))) {
     const redone = new Set(results.map(r => `${r.kind} ${r.url}`));
-    const keep = r => only === 'unknown' || only === 'new' ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
+    const keep = r => ['unknown', 'roots', 'new'].includes(only) ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
     all = [...(await readJson(p('donnees/checks/latest.json'))).filter(keep), ...results];
   }
   // Pas de copie datée : l'historique Git conserve chaque version.
@@ -826,7 +830,10 @@ async function build() {
     // Exception : un sous-domaine en 500, 502 ou 503 n'est pas ajouté.
     const serverError = c.statut === 'Indéterminé' && c.code >= 500;
     if (c.statut !== 'En ligne' && !serverError) continue;
-    if (serverError && [500, 502, 503].includes(c.code) && (c.parentKey || c.key !== registrable(c.key))) continue;
+    // Sous-domaine : parent connu, ou nom en *.gouv.fr sous un domaine gouv.fr (registrable() ne
+    // reconnaît que ce suffixe : un domaine principal hors gouv.fr n'est pas un sous-domaine).
+    const isSubdomain = !!c.parentKey || (c.key.endsWith('.' + config.candidates.suffix) && c.key !== registrable(c.key));
+    if (serverError && [500, 502, 503].includes(c.code) && isSubdomain) continue;
     const finalHost = hostOf(c.finalUrl || c.url);
     if (known.has(siteKey(finalHost))) continue;
     known.add(siteKey(finalHost));
@@ -1172,7 +1179,7 @@ try {
   if (cmd === 'all') for (const step of Object.values(steps)) await step();
   else if (steps[cmd]) await steps[cmd]();
   else {
-    console.log(`Usage : node src/cli.mjs <${[...Object.keys(steps), 'all'].join('|')}> [--limit=N] [--only=map|candidates|unknown|new]`);
+    console.log(`Usage : node src/cli.mjs <${[...Object.keys(steps), 'all'].join('|')}> [--limit=N] [--only=map|candidates|unknown|roots|new]`);
     process.exitCode = 1;
   }
 } catch (e) {
