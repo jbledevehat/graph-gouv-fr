@@ -41,8 +41,27 @@
       "Ambassade": "Ministère de l'Europe et des Affaires étrangères",
       "Académie": "Ministère de l'Éducation nationale",
       "Université": "Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace",
-      "Préfécture": "Préfecture"
-    }
+      "Préfécture": "Préfecture",
+      "Santé": "Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+    },
+    "excludeDomains": [
+      "imf.org",
+      "ebrd.com",
+      "banquemondiale.org",
+      "worldbank.org",
+      "oecd.org",
+      "un.org",
+      "unesco.org",
+      "europa.eu",
+      "coe.int",
+      "nato.int",
+      "wto.org",
+      "who.int",
+      "iadb.org",
+      "afdb.org",
+      "adb.org",
+      "eib.org"
+    ]
   },
   "site": {
     "domain": "gouvfr.jbledevehat.fr"

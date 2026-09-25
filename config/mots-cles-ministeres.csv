@@ -1,0 +1,31 @@
+motif,ministere
+histoire-immigration|opera|theatre|musee|museum-?(?!national)|guimet|orangerie|rodin|picasso|quaibranly|mucem|louvre|chateau-|\bina$,Ministère de la Culture
+jardindesplantes|museedelhomme|parczoologique|mnhn|-sup$|ecole-?normale,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+institut-agro|agro-,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+parc-marin|parcsnationaux|parc-national|impactco2|ademe|panoramax|meteo|hautconseilclimat,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+mangerbouger|joueurs-info|oniam|fin-de-vie|injs,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+assuranceretraite|^fsv$,Ministère du Travail et des Solidarités
+monnaie|inc-conso,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+militaire,Ministère des Armées et des Anciens combattants
+# Dernier recours pour les sites restés sans ministère : mot-clé dans le nom de domaine
+# (expression régulière, insensible à la casse, appliquée au domaine sans « www. » ni suffixe).
+# Les sites rattachés ainsi portent « Rattachement déduit de : nom de domaine ».
+ecologi|developpement-durable|environnement|biodiversit|climat|transition-energetique|energie|eau-?france|risques|dechets,"Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature"
+sante|medicament|vaccin|covid|handicap|autonomie|famille|social|solidarites-sante,"Ministère de la Santé, des Familles, de l’Autonomie et des Personnes handicapées"
+travail|emploi|chomage|apprentissage|formation-pro|retraite,Ministère du Travail et des Solidarités
+culture|patrimoine|musee|archives|monuments|cinema|livre|bibliotheque,Ministère de la Culture
+education|eduscol|ecole|enseignant|college|lycee,Ministère de l'Éducation nationale
+enseignementsup|recherche|etudiant|universit|parcoursup|campus|science,"Ministère de l’Enseignement supérieur, de la Recherche et de l'Espace"
+agricult|alimentation|foret|peche|agri-|vétérinaire|veterinaire,"Ministère de l’Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire"
+interieur|police|gendarmerie|securite-routiere|immigration|elections|securite-civile|pompiers,Ministère de l'Intérieur
+justice|tribunal|prison|penitentiaire,Ministère de la Justice
+defense|armee|marine-nationale|air-espace|anciens-combattants|memoire-des-hommes|reserviste,Ministère des Armées et des Anciens combattants
+economie|finances|impots|douane|budget|tresor|entreprises|bercy|consommation|commerce|tourisme,"Ministère de l’Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique"
+sport|jeunesse|jeux-olympiques|paris2024|engagement|service-civique|associations,"Ministère des Sports, de la Jeunesse et de la Vie associative"
+logement|habitat|renovation|urbanisme|politique-de-la-ville,Ministère de la Ville et du Logement
+transport|mobilit|aviation|ferroviaire|routes|maritime|permis,Ministère des Transports
+outre-?mer,Ministère des Outre-mer
+diplomatie|affaires-etrangeres|consulat|ambassade|visa|francophonie,Ministère de l'Europe et des Affaires étrangères
+territoires|cohesion|collectivites|amenagement|decentralisation|ruralite,Ministère de l’Aménagement du Territoire et de la Décentralisation
+fonction-publique|action-publique|comptes-publics|modernisation|marches-publics|achats,Ministère de l'Action et des Comptes publics
+gouvernement|premier-ministre|numerique|france-?2030|plan-de-relance|egalite|^api,Premier ministre

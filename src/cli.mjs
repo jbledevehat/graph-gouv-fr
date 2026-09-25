@@ -281,7 +281,15 @@ function annuaireIndex(rows) {
   for (const r of rows) homonyms.set(norm(r.nom), (homonyms.get(norm(r.nom)) || 0) + 1);
   // Priorité au service qui déclare la racine du site (et non une sous-page), puis au plus haut
   // placé, puis au siège plutôt qu'à une antenne (« Arcom - Nouvelle-Calédonie »).
-  const rankOf = (r, url = '') => [/^https?:\/\/[^/]+\/?$/i.test(url) ? 0 : 1, ancestors(r.id).length, / - /.test(r.nom) ? 1 : 0];
+  // Affinité : le libellé du domaine (« inrae » pour inrae.fr) figure dans le sigle ou le nom du service.
+  const flat = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const affinity = (r, url) => {
+    const label = flat((hostOf(url) || '').replace(/^www\./, '').split('.')[0]);
+    if (label.length < 3) return 1;
+    const sigle = flat(r.sigle || r.nom.match(/\(([^)]+)\)\s*$/)?.[1]);
+    return sigle === label || flat(r.nom).includes(label) ? 0 : 1;
+  };
+  const rankOf = (r, url = '') => [/^https?:\/\/[^/]+\/?$/i.test(url) ? 0 : 1, affinity(r, url), ancestors(r.id).length, / - /.test(r.nom) ? 1 : 0];
   const better = (rank, prev) => !prev || rank.reduce((acc, v, i) => acc || Math.sign(v - prev.rank[i]), 0) < 0;
 
   const info = r => {
@@ -344,7 +352,8 @@ function annuaireIndex(rows) {
 function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
   const { suffix, includeSubdomains, excludePatterns } = config.candidates;
   const excludes = excludePatterns.map(re => new RegExp(re, 'i'));
-  const excluded = key => excludes.some(re => re.test(key));
+  const excludedDomains = new Set(config.candidates.excludeDomains || []);
+  const excluded = key => excludes.some(re => re.test(key)) || key.split('.').some((_, i, parts) => excludedDomains.has(parts.slice(i).join('.')));
   const known = new Set(elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
   const answered = s => /^([23]\d\d|401|403)\b/.test(s || '');
   const candidates = new Map();
@@ -435,6 +444,22 @@ async function check() {
     const crtsh = existsSync(crtFile) ? await readJson(crtFile) : {};
     const annuaire = await readJson(p('donnees/sources/annuaire.json'));
     let candidates = selectCandidates(elements, dinum, annuaire, crtsh);
+    // Informations des candidats déjà vérifiés mises à jour (type DINUM, parent, source…).
+    if (previous) {
+      const latest = await readJson(p('donnees/checks/latest.json'));
+      const byKey = new Map(candidates.map(c => [c.key, c]));
+      const current = new Set(byKey.keys());
+      let refreshed = 0;
+      const kept = latest.filter(r => r.kind !== 'candidate' || current.has(r.key)).map(r => {
+        const c = r.kind === 'candidate' && byKey.get(r.key);
+        if (!c) return r;
+        refreshed++;
+        const { dinumType, parentKey, source, siren, ...rest } = r;
+        return { ...rest, ...(c.dinumType && { dinumType: c.dinumType }), ...(c.parentKey && { parentKey: c.parentKey }), source: c.source, siren: c.siren || siren };
+      });
+      await writeFile(p('donnees/checks/latest.json'), checksJson(kept));
+      console.log(`  ${refreshed} candidats déjà vérifiés mis à jour, ${latest.length - kept.length} retirés (hors du périmètre actuel)`);
+    }
     if (previous) candidates = candidates.filter(c => !previous.has(c.key));
     // Les noms issus des certificats n'ont pas de statut connu : on écarte d'abord ceux absents du DNS.
     const toResolve = candidates.filter(c => c.dnsCheck);
@@ -620,11 +645,13 @@ async function build() {
   const checked = v2Elements.filter(e => e.Statut);
 
   // Connexions de la V1 (identifiants -> libellés), puis ajouts sans doublon.
-  const v2Connections = [], connKeys = new Set();
+  const v2Connections = [], connKeys = new Set(), adj = new Map();
+  const neighbour = (a, b) => { if (!adj.has(a)) adj.set(a, new Set()); adj.get(a).add(b); };
   const connect = (from, to, type, extra = {}) => {
     const k = `${from}\u0000${to}\u0000${type}`;
     if (from === to || connKeys.has(k)) return;
     connKeys.add(k);
+    neighbour(from, to); neighbour(to, from);
     v2Connections.push({ from, to, type, direction: 'undirected', ...extra });
   };
   for (const { from, to, direction, 'connection type': type, id, ...rest } of connections) {
@@ -709,6 +736,41 @@ async function build() {
       ...verif(c),
     });
   }
+  // Sites sans aucun rattachement, V1 comprise : un site est rattaché s'il est relié à une
+  // administration (directement ou via un site voisin) ou s'il appartient à la bulle d'un site parent.
+  const allUrlKeys = new Set([...v2Elements, ...additions].filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
+  const hasParentSite = label => {
+    const labels = siteKey(hostOf(label)).split('.');
+    for (let i = 1; i < labels.length - 1; i++) {
+      const up = labels.slice(i).join('.');
+      if (up === config.candidates.suffix) break;
+      if (allUrlKeys.has(up)) return true;
+    }
+    return false;
+  };
+  const nonUrlNeighbour = label => [...(adj.get(label) || [])].some(n => !isUrl(n));
+  const unattached = label => isUrl(label) && !hasParentSite(label) && !nonUrlNeighbour(label)
+    && ![...(adj.get(label) || [])].some(n => isUrl(n) && nonUrlNeighbour(n));
+  const adminFor = key => key.split('.').map((_, i, parts) => adminByDomain.get(parts.slice(i).join('.'))).find(Boolean);
+  let viaV1 = 0;
+  for (const e of v2Elements) {
+    if (!unattached(e.label)) continue;
+    const key = siteKey(hostOf(e.label));
+    const admin = adminFor(key), info = !admin && ann.site(key);
+    if (admin) {
+      connect(ensureOrg(admin), e.label, 'Site web/Administration');
+      e['Rattachement déduit de'] = 'config/rattachements.csv';
+    } else if (info) {
+      attach(info, e.label);
+      Object.assign(e, {
+        Organisme: info.organisme,
+        Tutelle: info.tutelle || '',
+        'Rattachement déduit de': info.tutelleVia && info.tutelleVia !== 'hiérarchie' ? info.tutelleVia : 'Annuaire de l\'administration',
+      });
+    } else continue;
+    viaV1++;
+  }
+
   // L'annuaire ne relie pas les établissements publics à leur ministère : on passe par la liste
   // des opérateurs de l'État (programme budgétaire chef de file -> ministère).
   const withParent = new Set(v2Connections.filter(c => c.type === 'Administration/Administration').map(c => c.to));
@@ -731,8 +793,15 @@ async function build() {
     }
     return best?.op;
   };
+  // Par sigle : « Centre de recherche INRAE - Occitanie » -> opérateur « INRAE - … ».
+  const opBySigle = new Map();
+  for (const op of operateurs) {
+    const sigle = op.nom.match(/^([A-Z][A-Z0-9&]{2,11})\s+[-–]\s/)?.[1];
+    if (sigle) opBySigle.set(sigle, op);
+  }
+  const sigleOp = name => (name.match(/\b[A-Z][A-Z0-9]{3,11}\b/g) || []).map(t => opBySigle.get(t)).find(Boolean);
   for (const o of [...newOrgs]) {
-    const op = [...nameKeys(o.label)].map(k => opByKey.get(k)).find(Boolean) || fuzzyOp(o.label);
+    const op = [...nameKeys(o.label)].map(k => opByKey.get(k)).find(Boolean) || fuzzyOp(o.label) || sigleOp(o.label);
     if (!op) continue;
     matchedOps.add(op.nom);
     Object.assign(o, { 'Opérateur de l\'État': op.nom, 'Statut juridique': op.statut, 'Programme chef de file': op.mission });
@@ -797,8 +866,7 @@ async function build() {
   const needsMinistry = a => a.tags.includes('À rattacher') || (orgLabels.has(a.Organisme) && !withParent.has(a.Organisme) && !isMinistry(a.Organisme));
   const toRead = [];
   let viaMarque = 0;
-  for (const a of additions) {
-    if (!needsMinistry(a)) continue;
+  for (const a of [...additions.filter(needsMinistry), ...v2Elements.filter(e => unattached(e.label))]) {
     toRead.push(a.label);
     const entry = marques[a.label] || {};
     let marque = entry.marque, ministry = ministryOfMarque(marque);
@@ -810,7 +878,8 @@ async function build() {
         if (found) votes.set(found, (votes.get(found) || 0) + 1);
       }
       const [top, n] = [...votes].sort((x, y) => y[1] - x[1])[0] || [];
-      if (n >= 2) { ministry = top; marque = `${n} mentions dans la page`; }
+      // Cité au moins deux fois, ou seul ministère reconnu parmi les mentions.
+      if (n >= 2 || (n === 1 && votes.size === 1)) { ministry = top; marque = `${n} mention${n > 1 ? 's' : ''} dans la page`; }
     }
     if (!ministry) continue;
     a['Bloc-marque'] = marque;
@@ -822,10 +891,37 @@ async function build() {
       withParent.add(a.Organisme);
     } else {
       connect(ministry, a.label, 'Site web/Administration');
-      a.tags = a.tags.filter(t => t !== 'À rattacher');
+      a.tags = (a.tags || []).filter(t => t !== 'À rattacher');
     }
   }
   await writeOut(p('out/marques-a-lire.json'), toRead);
+
+  // Dernier recours : mot-clé du nom de domaine (config/mots-cles-ministeres.csv).
+  const keywordRules = (await readConfigCsv('mots-cles-ministeres.csv')).map(r => ({ re: new RegExp(r.motif, 'i'), ministry: r.ministere.trim() }));
+  let viaKeyword = 0;
+  for (const e of [...v2Elements, ...additions]) {
+    if (!unattached(e.label)) continue;
+    const name = siteKey(hostOf(e.label)).replace(new RegExp(`\\.${config.candidates.suffix.replace('.', '\\.')}$|\\.[a-z]+$`), '');
+    const rule = keywordRules.find(r => r.re.test(name));
+    if (!rule) continue;
+    connect(ensureOrg(rule.ministry, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), e.label, 'Site web/Administration');
+    e.Tutelle = rule.ministry;
+    e['Rattachement déduit de'] = 'nom de domaine';
+    e.tags = (e.tags || []).filter(t => t !== 'À rattacher');
+    viaKeyword++;
+  }
+  // Même règle pour les organismes encore sans tutelle, d'après le domaine de leurs sites.
+  const domainName = label => siteKey(hostOf(label)).replace(new RegExp(`\\.${config.candidates.suffix.replace('.', '\\.')}$|\\.[a-z]+$`), '');
+  for (const o of newOrgs) {
+    if (withParent.has(o.label) || isMinistry(o.label)) continue;
+    const names = [...(adj.get(o.label) || [])].filter(isUrl).map(domainName);
+    const rule = keywordRules.find(r => names.some(n => r.re.test(n)));
+    if (!rule) continue;
+    connect(ensureOrg(rule.ministry, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' }), o.label, 'Administration/Administration');
+    withParent.add(o.label);
+    o['Rattachement déduit de'] = 'nom de domaine de ses sites';
+    viaKeyword++;
+  }
   for (const o of newOrgs) if (!isMinistry(o.label) && !withParent.has(o.label)) o.tags.push('Tutelle à préciser');
   v2Elements.push(...newOrgs, ...additions);
 
@@ -896,7 +992,7 @@ Vérifications HTTP du ${checkedOn}.
 - Administrations de la V1 renommées selon l'intitulé actuel : **${renamed.length}**
 - Nouveaux sites : **${additions.length}**, dont ${subCount} sous-domaines (annuaire ${fromSource('Annuaire')}, DINUM ${fromSource('DINUM')}, certificats ${fromSource('crt.sh')}) ; **${orphans.length}** sans rattachement
 - Nouvelles administrations (annuaire) : **${newOrgs.length}**, dont ${ministries.length} ministères et ${newOrgs.filter(o => o.tags.includes('Tutelle à préciser')).length} sans ministère de tutelle connu
-- Rattachements complémentaires : ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page
+- Rattachements complémentaires : ${viaV1} sites de la V1 sans lien (annuaire, config/rattachements.csv), ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page, ${viaKeyword} sites par leur nom de domaine
 - Opérateurs de l'État (PLF) reconnus : **${matchedOps.size}** sur ${operateurs.length} ; ${tutelleByOrg.size} administrations rattachées à leur ministère grâce au programme budgétaire
 - V2 : **${v2Elements.length}** éléments, **${v2Connections.length}** connexions (${v2Connections.length - v1ConnectionCount} nouvelles)
 ${warnings.length ? `\n### Avertissements\n\n${warnings.map(w => `- ${w}`).join('\n')}\n` : ''}

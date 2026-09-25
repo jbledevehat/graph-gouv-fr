@@ -96,8 +96,16 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 - pour les sites restés sans ministère, `npm run fetch:marques` lit la page d'accueil : le
   **bloc-marque** du DSFR (nom du ministère sous la Marianne) ou, à défaut, un ministère cité
   au moins deux fois dans la page. Résultats en cache dans `donnees/checks/marques.json` ;
+- ces règles s'appliquent à **tous** les sites sans rattachement, y compris ceux de la V1 ;
+- dans l'annuaire, le service retenu pour un site est d'abord celui dont le sigle ou le nom
+  correspond au domaine (INRAE pour inrae.fr) ; les opérateurs sont aussi reconnus par leur sigle ;
+- en dernier recours, `config/mots-cles-ministeres.csv` déduit le ministère d'un mot-clé du nom
+  de domaine (`musee` → Culture, `parc-marin` → Transition écologique…), pour un site ou pour
+  l'organisme sans tutelle qui le porte ;
+- les sites d'organisations internationales (`candidates.excludeDomains`) sont exclus ;
 - le champ `Rattachement déduit de` indique la méthode utilisée quand ce n'est pas la hiérarchie ;
-- `config/rattachements.csv` (`domaine,administration`) force le rattachement d'un site ;
+- `config/rattachements.csv` (`domaine,administration`) force le rattachement d'un site et de
+  ses sous-domaines ;
 - les sites restés sans rattachement ont le tag `À rattacher` et sont listés dans
   `out/a-rattacher.csv`.
 
