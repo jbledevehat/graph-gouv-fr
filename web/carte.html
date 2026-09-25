@@ -135,6 +135,7 @@
   .howto ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
   .howto strong { color: var(--ink); font-weight: 600; }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+  .updated a { color: var(--accent); }
   .figures b { font-size: 16px; font-weight: 600; }
   .figures span { font-size: 12px; color: var(--muted); }
 
@@ -554,7 +555,7 @@
         <li>Cliquez sur un point pour ouvrir sa fiche ; zoomez pour lire les noms.</li>
       </ul>
     </details>
-    <p class="updated" id="updated"></p>
+    <p class="updated"><span id="updated"></span> · <a href="https://github.com/jbledevehat/graph-gouv-fr" target="_blank" rel="noopener">Code et données sur GitHub</a></p>
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
