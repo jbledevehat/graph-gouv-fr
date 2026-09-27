@@ -91,15 +91,33 @@ function probe(url, opts) {
   return throttled(url, opts, () => rawProbe(url, opts));
 }
 
-async function rawProbe(url, { timeoutMs, userAgent }) {
-  try {
-    const res = await fetch(url, {
-      redirect: 'follow',
-      signal: AbortSignal.timeout(timeoutMs),
+// Redirections suivies à la main, comme un navigateur : une redirection de https vers http est
+// remontée en https (ex. www.diplomatie.gouv.fr redirige vers http://…/fr, dont le port 80 refuse
+// les connexions ; un navigateur, avec HSTS, reste en https).
+async function followRedirects(url, { timeoutMs, userAgent }) {
+  const signal = AbortSignal.timeout(timeoutMs);
+  let current = url;
+  for (let hop = 0; hop < 10; hop++) {
+    const res = await fetch(current, {
+      redirect: 'manual',
+      signal,
       headers: { 'user-agent': userAgent, accept: 'text/html,*/*;q=0.8' },
     });
+    const loc = res.headers.get('location');
+    if (res.status < 300 || res.status >= 400 || !loc) return { res, finalUrl: current };
+    res.body?.cancel().catch(() => {});
+    let next = new URL(loc, current);
+    if (next.protocol === 'http:' && new URL(current).protocol === 'https:') next.protocol = 'https:';
+    current = next.href;
+  }
+  throw Object.assign(new Error('Trop de redirections'), { cause: { code: 'TOO_MANY_REDIRECTS' } });
+}
+
+async function rawProbe(url, { timeoutMs, userAgent }) {
+  try {
+    const { res, finalUrl } = await followRedirects(url, { timeoutMs, userAgent });
     const html = /html/i.test(res.headers.get('content-type') || '') ? await readHead(res) : (res.body?.cancel().catch(() => {}), '');
-    return { url, code: res.status, finalUrl: res.url, parked: res.ok && isParked(html, res.url) };
+    return { url, code: res.status, finalUrl, parked: res.ok && isParked(html, finalUrl) };
   } catch (e) {
     const cause = e.cause?.code || e.cause?.message || e.name || e.message;
     const error = String(cause);
@@ -113,8 +131,11 @@ async function rawProbe(url, { timeoutMs, userAgent }) {
 const isUp = code => code != null && (code < 400 || code === 401 || code === 403);
 // Un 401/403 derrière un certificat invalide ne prouve pas qu'un site existe encore.
 const isLive = a => isUp(a.code) && !a.parked && !(a.tlsError && a.code >= 400);
-// Échecs considérés comme définitifs : domaine inexistant, connexion refusée, page absente.
-const isGone = a => a.parked || [404, 410].includes(a.code) || /ENOTFOUND|ECONNREFUSED|Redirection invalide/.test(a.error || '');
+// Échecs considérés comme définitifs : domaine inexistant, page absente, page de parking
+// (une connexion refusée n'en est pas une : un pare-feu peut refuser un client trop insistant).
+const isStrong = a => a.parked || [404, 410].includes(a.code);
+const isGone = a => isStrong(a) || /ENOTFOUND|Redirection invalide/.test(a.error || '');
+const isRefused = a => /ECONNREFUSED/.test(a.error || '');
 
 export async function checkUrl(url, opts) {
   const attempts = [];
@@ -138,7 +159,10 @@ export async function checkUrl(url, opts) {
     statut = from === to || to.endsWith('.' + from) ? 'En ligne' : 'Redirigé';
   } else {
     // Hors ligne seulement sur une preuve nette ; sinon (limitation de débit, timeout, 5xx…) on ne conclut pas.
-    statut = attempts.every(a => isGone(a)) ? 'Hors ligne' : 'Indéterminé';
+    // Parking ou 404/410 suffisent ; sinon toutes les variantes doivent échouer nettement, un refus
+    // de connexion n'étant pas une preuve à lui seul.
+    const gone = attempts.some(isStrong) || (attempts.every(a => isGone(a) || isRefused(a)) && attempts.some(isGone));
+    statut = gone ? 'Hors ligne' : 'Indéterminé';
   }
   return {
     url,

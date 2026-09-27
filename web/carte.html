@@ -468,6 +468,7 @@
   body.list-mode .zoom, body.list-mode #poles { display: none; }
 
   .via { color: var(--muted); font-size: 12px; }
+  ul.plain { margin: 0; padding-left: 16px; display: grid; gap: 2px; }
   .subs { margin: 8px 0 4px; border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; }
   .subs summary { padding: 8px 0; cursor: pointer; font-weight: 600; font-size: 13px; }
   .subs ul { list-style: none; margin: 0 0 8px; padding: 0; max-height: 320px; overflow-y: auto; }
@@ -576,7 +577,11 @@
   <div class="legend">
     <div class="legend-title"><span>Afficher</span><button type="button" id="all">Tout afficher</button></div>
     <div id="cats"></div>
-
+    <label class="toggle" for="demarches">
+      <input type="checkbox" id="demarches">
+      <span class="ring" aria-hidden="true"></span>
+      <span>Mettre en avant les démarches essentielles <span class="count" id="demarches-count"></span></span>
+    </label>
   </div>
 </aside>
 
@@ -682,7 +687,7 @@
   // --- État de l'interface ---
   // Par défaut, les sites off ou archivés sont masqués.
   const STORE = 'carte-v2-filtres-2';
-  const state = { hidden: new Set(['archive']), hovered: null, selected: null, neighbours: new Set() };
+  const state = { hidden: new Set(['archive']), demarches: false, hovered: null, selected: null, neighbours: new Set() };
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
     if (saved) {
@@ -762,6 +767,12 @@
     }
   }
 
+  // --- Démarches essentielles (Observatoire) ---
+  const hasDemarche = a => /Démarche essentielle/.test(a.attrs.tags || '');
+  const demarchesBox = document.getElementById('demarches');
+  document.getElementById('demarches-count').textContent = fmt(graph.filterNodes((n, a) => hasDemarche(a)).length);
+  demarchesBox.addEventListener('change', () => { state.demarches = demarchesBox.checked; renderer.refresh(); });
+
   // --- Rendu ---
   const faded = () => isDark() ? '#2A3342' : '#D3D9E2';
   const focus = () => state.hovered || state.selected;
@@ -786,6 +797,11 @@
       // Président et Premier ministre, au centre de la carte : nom toujours affiché, nœud agrandi.
       if (a.categorie === 'personne') { r.label = a.label; r.forceLabel = true; r.size = 12; r.zIndex = 3; }
       const f = focus();
+      if (!f && state.demarches) {
+        // Sites portant des démarches essentielles mis en avant, le reste estompé.
+        if (hasDemarche(a)) { r.zIndex = 2; r.forceLabel = true; r.label = a.label; r.size = Math.max(a.size, 5); }
+        else if (a.categorie !== 'personne') { r.color = faded(); r.label = ''; r.zIndex = 0; }
+      }
       if (f) {
         if (node === f) { r.highlighted = true; r.zIndex = 2; r.forceLabel = true; r.label = a.label; }
         // Voisins mis en évidence ; les noms des membres d'une bulle n'apparaissent qu'en zoomant.
@@ -866,7 +882,7 @@
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
     ['Type précédent', 'Type en V1'], ['Type V1', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
-    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'], ['Anciennes adresses', 'Anciennes adresses', 'urls'], ['Sites déclarés', 'Site déclaré (annuaire)', 'urls'],
+    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['Démarches essentielles', 'Démarches essentielles', 'list'], ['URL annuaire', 'Fiche annuaire', 'url'], ['Anciennes adresses', 'Anciennes adresses', 'urls'], ['Sites déclarés', 'Site déclaré (annuaire)', 'urls'],
   ];
   const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };
 
@@ -914,14 +930,15 @@
     const badges = [];
     if (a.attrs.Statut) badges.push(`<span class="badge ${statusClass[a.attrs.Statut] ?? ''}">${esc(a.attrs.Statut)}</span>`);
     for (const t of (a.attrs.tags || '').split('|')) {
-      if (['À rattacher', 'À revérifier', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
+      if (['Démarche essentielle', 'À rattacher', 'À revérifier', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
     }
     document.getElementById('d-badges').innerHTML = badges.join('');
     const pole = data.poles[a.pole];
     document.getElementById('d-attrs').innerHTML = (pole && pole.id !== node ? `<dt>Pôle</dt><dd>${esc(pole.id)}</dd>` : '') + FIELDS
       .filter(([k]) => a.attrs[k])
       .map(([k, label, kind]) => `<dt>${esc(label)}</dt><dd class="${kind === 'mono' ? 'mono' : ''}">${
-        kind === 'url' ? link(a.attrs[k]) : kind === 'urls' ? a.attrs[k].split(' ; ').map(link).join('<br>') : esc(a.attrs[k])}</dd>`)
+        kind === 'url' ? link(a.attrs[k]) : kind === 'urls' ? a.attrs[k].split(' ; ').map(link).join('<br>')
+          : kind === 'list' ? '<ul class="plain">' + a.attrs[k].split(' ; ').map(t => `<li>${esc(t)}</li>`).join('') + '</ul>' : esc(a.attrs[k])}</dd>`)
       .join('');
     // Voisins groupés par catégorie, dans l'ordre de la légende.
     // Hors arborescence de la bulle (déjà présentée dans « Sous-domaines »).

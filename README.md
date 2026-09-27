@@ -24,7 +24,7 @@ enchaîne les quatre étapes, qui peuvent aussi être lancées séparément :
 | Commande | Rôle | Sortie |
 |---|---|---|
 | `npm run fetch:kumu` | Instantané de la carte publique (éléments, connexions, description) via l'API CouchDB de Kumu | `donnees/kumu/` |
-| `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (filtrée sur `gouv.fr`), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)) et liste des opérateurs de l'État du PLF | `donnees/sources/` (non versionné) |
+| `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (si le fichier brut est remplacé par une page anti-robot, le dépôt est cloné avec git ; à défaut, la liste précédente est conservée), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)), liste des opérateurs de l'État du PLF et [démarches essentielles](https://observatoire.numerique.gouv.fr/observatoire) de l'Observatoire | `donnees/sources/` (non versionné) |
 | `npm run fetch:hierarchie` | Hiérarchie de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr/themes) telle que le site la présente : fil d'Ariane de chaque fiche nationale (Ministères > Ministère… > Direction… > service), une page par seconde, relue tous les 90 jours | `donnees/annuaire/hierarchie.json` (versionné) |
 | `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), avec un cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
 | `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/latest.json` (un résultat par ligne) |
@@ -42,7 +42,7 @@ vérification précédente.
 |---|---|
 | En ligne (2xx/3xx, ou 401/403) | Type inchangé ; un « Site off/archivé » revenu en ligne repasse en « Site web » |
 | Redirigé vers un autre site | Passe en « Site off/archivé » (sauf « Service web » : les redirections d'authentification sont normales) |
-| Hors ligne (domaine inexistant, connexion refusée, 404/410) | Passe en « Site off/archivé » |
+| Hors ligne (domaine inexistant, page parquée, 404/410) | Passe en « Site off/archivé » |
 | Indéterminé (limitation de débit, timeout, 5xx…) | Type inchangé, listé dans le rapport pour revérification |
 
 Chaque élément reçoit les champs `Statut`, `Code HTTP`, `URL finale`, `Erreur`, `Vérifié le`,
@@ -51,7 +51,10 @@ de correspondance lors de l'import.
 
 Chaque URL est essayée en http, en https, puis avec `www.`, et les échecs sont réessayés plus
 lentement. Un serveur au certificat TLS mal configuré est considéré comme en ligne (l'erreur est
-notée dans `Erreur`). Les requêtes vers une même adresse IP sont limitées (`perIp`, `perIpGapMs`) : la plateforme
+notée dans `Erreur`). Les redirections sont suivies une à une, en restant en https si un
+serveur renvoie vers http (diplomatie.gouv.fr le fait pour les robots). Une connexion refusée
+seule ne suffit pas à déclarer un site hors ligne : il reste « indéterminé »
+(`check --only=refused` pour revérifier). Les requêtes vers une même adresse IP sont limitées (`perIp`, `perIpGapMs`) : la plateforme
 mutualisée des préfectures bannit pendant quelques heures les clients trop rapides. Si des
 préfectures restent « indéterminées », relancer plus tard `node src/cli.mjs check --only=unknown`
 puis `npm run build`.
@@ -70,6 +73,15 @@ puis `npm run build`.
   couvre pas, ceux des journaux de certificats (crt.sh), d'abord filtrés par le DNS. Chaque
   sous-domaine est relié à son site parent. Ceux qui redirigent vers un autre site, parent
   compris, sont écartés (`includeSubdomains` pour désactiver).
+
+- adresses des **démarches essentielles** de l'[Observatoire de la qualité des démarches en
+  ligne](https://observatoire.numerique.gouv.fr/observatoire) (tous domaines : urssaf.fr, caf.fr…).
+  Source sûre : elles échappent aux filtres de noms, gardent leur adresse même si elles redirigent
+  vers une page de connexion, et sont ajoutées (tag `À revérifier`) même quand elles bloquent nos
+  vérifications ; seules celles absentes du DNS sont écartées. Un site resté sans ministère est
+  rattaché à l'administration et au ministère indiqués par l'Observatoire. Les sites concernés
+  portent le tag `Démarche essentielle` et la liste de leurs démarches ; la carte permet de les
+  mettre en avant.
 
 Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 

@@ -306,7 +306,7 @@ export function toGexf({ graph }) {
 }
 
 // Attributs gardés pour les membres d'une bulle (fichier plus léger).
-const MEMBER_ATTRS = ['Statut', 'Code HTTP', 'URL finale', 'Site parent', 'Source', 'Vérifié le', 'Ajouté le', 'Type précédent', 'Type V1', 'Organisme', 'Tutelle'];
+const MEMBER_ATTRS = ['Statut', 'Code HTTP', 'URL finale', 'Site parent', 'Source', 'Vérifié le', 'Ajouté le', 'Type précédent', 'Type V1', 'Organisme', 'Tutelle', 'Démarches essentielles'];
 
 // Données compactes pour la page web :
 // nœuds [clé, x, y, taille, catégorie, nouveau, attributs, pôle, racine de bulle, parent direct]

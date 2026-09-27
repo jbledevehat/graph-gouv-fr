@@ -17,7 +17,8 @@
         "Institution européenne"
       ]
     },
-    "operateurs": "https://static.data.gouv.fr/resources/projet-de-loi-de-finances-pour-2026-plf-2026-jaune-operateurs-de-letat-liste-des-operateurs-et-categories/20260113-145343/plf2026-jauneoperateurs.csv"
+    "operateurs": "https://static.data.gouv.fr/resources/projet-de-loi-de-finances-pour-2026-plf-2026-jaune-operateurs-de-letat-liste-des-operateurs-et-categories/20260113-145343/plf2026-jauneoperateurs.csv",
+    "demarches": "https://observatoire.numerique.gouv.fr/api/procedures?"
   },
   "check": {
     "concurrency": 12,

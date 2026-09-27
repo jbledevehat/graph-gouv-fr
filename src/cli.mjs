@@ -84,12 +84,31 @@ async function download(url, label) {
   throw last;
 }
 
+// Le CSV brut peut être remplacé par une page anti-robot (HTML) : on passe alors par un clone git
+// du dépôt, et, à défaut, on garde la liste précédente plutôt qu'une liste vide.
+const isDinumCsv = text => /^name,/.test(text) && text.split('\n').length > 1000;
+async function dinumByGit() {
+  const { execFile } = await import('node:child_process');
+  const { mkdtemp, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const dir = await mkdtemp(join(tmpdir(), 'dinum-'));
+  try {
+    const repo = config.sources.dinum.replace(/\/-\/raw\/.*$/, '.git');
+    await new Promise((ok, ko) => execFile('git', ['clone', '--depth', '1', '--quiet', repo, dir], { timeout: 300000 }, e => e ? ko(e) : ok()));
+    return await readFile(join(dir, 'domains.csv'), 'utf8');
+  } finally { await rm(dir, { recursive: true, force: true }); }
+}
+
 async function fetchDinum() {
   console.log('Téléchargement de la liste DINUM des noms de domaine publics…');
-  const res = await download(config.sources.dinum, 'DINUM');
-  const text = await res.text();
+  let text = await download(config.sources.dinum, 'DINUM').then(r => r.text()).catch(() => '');
+  if (!isDinumCsv(text)) {
+    console.log('  Fichier brut indisponible (page anti-robot), clone git du dépôt…');
+    text = await dinumByGit().catch(e => { console.warn(`  Clone impossible : ${e.message}`); return ''; });
+  }
+  if (!isDinumCsv(text)) throw new Error('DINUM: liste introuvable, liste précédente conservée');
   await writeOut(p('donnees/sources/dinum-domains.csv'), text);
-  const all = parseCsv(text);
+  const all = parseCsv(text).filter(r => r.name);
   await writeOut(p('donnees/sources/dinum.json'), all);
   console.log(`  ${all.length} domaines, dont ${all.filter(r => r.name.endsWith('.' + config.candidates.suffix)).length} en ${config.candidates.suffix}`);
 }
@@ -143,12 +162,27 @@ async function fetchTerritoires() {
   console.log(`  ${names.length} territoires`);
 }
 
+// Démarches essentielles de l'Observatoire de la qualité des démarches en ligne (dernière édition).
+async function fetchDemarches() {
+  console.log('Téléchargement des démarches essentielles (Observatoire)…');
+  const rows = await (await download(config.sources.demarches, 'Observatoire')).json();
+  const list = (Array.isArray(rows) ? rows : rows.docs || []).map(r => ({
+    titre: r.title,
+    ministere: r.ministere || '',
+    administration: r.administration || r.sousorg || '',
+    url: (r.fields || []).find(f => f.slug === 'online' && /^https?:\/\//.test(f.value || ''))?.value || '',
+  }));
+  await writeOut(p('donnees/sources/demarches.json'), list);
+  console.log(`  ${list.length} démarches, ${list.filter(d => d.url).length} en ligne`);
+}
+
 async function fetchSources() {
   // La liste DINUM ne sert qu'à trouver de nouveaux candidats : son absence n'empêche pas la carte.
   try { await fetchDinum(); } catch (e) { console.warn(`  Avertissement : ${e.message} (liste DINUM ignorée)`); }
   await fetchAnnuaire();
   await fetchOperateurs();
   try { await fetchTerritoires(); } catch (e) { console.warn(`  Avertissement : ${e.message} (règle des préfectures limitée à la V1)`); }
+  try { await fetchDemarches(); } catch (e) { console.warn(`  Avertissement : ${e.message} (démarches essentielles ignorées)`); }
 }
 
 // ------------------------------------------------------- fetch-hierarchie
@@ -483,7 +517,7 @@ function annuaireIndex(rows, hier = {}) {
 // - domaines *.gouv.fr de la liste DINUM qui répondent (d'après la DINUM) ;
 // - sous-domaines d'un site de la carte ou d'un de ces nouveaux sites : liste DINUM (tous domaines,
 //   s'ils répondent d'après elle) et journaux de certificats (crt.sh, filtrés ensuite par le DNS).
-function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
+function selectCandidates(elements, dinumRows, annuaireRows, crtsh, demarches = []) {
   const { suffix, includeSubdomains, excludePatterns } = config.candidates;
   const excludes = excludePatterns.map(re => new RegExp(re, 'i'));
   const excludedDomains = new Set(config.candidates.excludeDomains || []);
@@ -524,6 +558,12 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     if (!(r.type in stateTypes) || candidates.has(key)) continue;
     candidates.set(key, { ...dinumCandidate(key, r), dinumType: r.type });
   }
+  // Domaines des démarches essentielles de l'Observatoire (tous domaines, sous-domaines compris).
+  const demarcheKeys = new Map();
+  for (const d of demarches) {
+    const key = d.url && siteKey(hostOf(d.url));
+    if (key && !demarcheKeys.has(key)) demarcheKeys.set(key, d);
+  }
   if (!includeSubdomains) return [...candidates.values()].sort((a, b) => a.key.localeCompare(b.key));
 
   // Sous-domaines : rattachés au site connu le plus proche en remontant les labels.
@@ -547,6 +587,11 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     else if (key.endsWith('.' + suffix) && key !== registrable(key, suffix)) candidates.set(key, make());
   };
   for (const [key, r] of dinum) addSub(key, () => dinumCandidate(key, r));
+  for (const [key, d] of demarcheKeys) {
+    if (known.has(key) || candidates.has(key)) continue;
+    const parentKey = parentOf(key);
+    candidates.set(key, { key, url: `https://${hostOf(d.url)}`, source: 'Observatoire des démarches essentielles', ...(parentKey && { parentKey }) });
+  }
   for (const [domain, { names }] of Object.entries(crtsh || {})) {
     for (const name of names) {
       const key = siteKey(name);
@@ -562,18 +607,19 @@ async function check() {
   const elements = await readJson(p('donnees/kumu/elements.json'));
   const only = args.only;
   let targets = [];
-  if (only === 'unknown' || only === 'roots') {
+  if (only === 'unknown' || only === 'roots' || only === 'refused') {
     // « unknown » : URLs restées indéterminées au dernier passage ; « roots » : sites principaux
     // (sans site parent) indéterminés ou hors ligne, souvent indisponibles le temps d'une vérification.
     const retry = r => only === 'unknown' ? r.statut === 'Indéterminé'
+      : only === 'refused' ? r.statut === 'Hors ligne' && /ECONNREFUSED/.test(r.error || '') && !/ENOTFOUND/.test(r.error || '')
       : !r.parentKey && (r.statut === 'Indéterminé' || r.statut === 'Hors ligne');
     targets = (await readJson(p('donnees/checks/latest.json'))).filter(retry)
       .map(({ statut, code, finalUrl, error, checkedAt, ...t }) => t);
-  } else if (only !== 'candidates' && only !== 'new' && only !== 'roots') {
+  } else if (only !== 'candidates' && only !== 'new' && only !== 'roots' && only !== 'refused') {
     const urls = [...new Set(elements.filter(e => isUrl(e.label)).map(e => e.label.trim()))];
     targets.push(...urls.map(url => ({ url, kind: 'map' })));
   }
-  if (only !== 'map' && only !== 'unknown' && only !== 'roots') {
+  if (only !== 'map' && only !== 'unknown' && only !== 'roots' && only !== 'refused') {
     const previous = only === 'new' && existsSync(p('donnees/checks/latest.json'))
       ? new Set((await readJson(p('donnees/checks/latest.json'))).filter(r => r.kind === 'candidate').map(r => r.key)) : null;
     const dinumFile = p('donnees/sources/dinum.json'), crtFile = p('donnees/sources/crtsh.json');
@@ -581,7 +627,8 @@ async function check() {
     const dinum = existsSync(dinumFile) ? await readJson(dinumFile) : [];
     const crtsh = existsSync(crtFile) ? await readJson(crtFile) : {};
     const annuaire = await readJson(p('donnees/sources/annuaire.json'));
-    let candidates = selectCandidates(elements, dinum, annuaire, crtsh);
+    const demarches = existsSync(p('donnees/sources/demarches.json')) ? await readJson(p('donnees/sources/demarches.json')) : [];
+    let candidates = selectCandidates(elements, dinum, annuaire, crtsh, demarches);
     // Informations des candidats déjà vérifiés mises à jour (type DINUM, parent, source…).
     if (previous) {
       const latest = await readJson(p('donnees/checks/latest.json'));
@@ -673,7 +720,7 @@ async function check() {
   let all = results;
   if (only && existsSync(p('donnees/checks/latest.json'))) {
     const redone = new Set(results.map(r => `${r.kind} ${r.url}`));
-    const keep = r => ['unknown', 'roots', 'new'].includes(only) ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
+    const keep = r => ['unknown', 'roots', 'refused', 'new'].includes(only) ? !redone.has(`${r.kind} ${r.url}`) : r.kind !== (only === 'map' ? 'map' : 'candidate');
     all = [...(await readJson(p('donnees/checks/latest.json'))).filter(keep), ...results];
   }
   // Pas de copie datée : l'historique Git conserve chaque version.
@@ -873,23 +920,31 @@ async function build() {
   const nameExcludes = config.candidates.excludePatterns.map(re => new RegExp(re, 'i'));
   const candidateKeys = new Set(checks.filter(c => c.kind === 'candidate').map(c => c.key));
   const technical = key => nameExcludes.some(re => re.test(key)) || isEnvVariant(key, candidateKeys);
+  // Adresses des démarches essentielles (Observatoire) : source sûre, elles échappent aux filtres
+  // de noms, gardent leur adresse même redirigée et sont ajoutées même si elles bloquent nos
+  // vérifications (URSSAF…) ; seules celles absentes du DNS sont écartées.
+  const demarches = existsSync(p('donnees/sources/demarches.json')) ? await readJson(p('donnees/sources/demarches.json')) : [];
+  const demarcheHosts = new Set(demarches.map(d => d.url && siteKey(hostOf(d.url))).filter(Boolean));
   // Sites d'abord, sous-domaines ensuite (leur parent doit déjà être connu), du plus court au plus long.
-  const ordered = checks.filter(c => c.kind === 'candidate' && !technical(c.key))
+  const ordered = checks.filter(c => c.kind === 'candidate' && (demarcheHosts.has(c.key) || !technical(c.key)))
     .sort((a, b) => (!!a.parentKey - !!b.parentKey) || a.key.split('.').length - b.key.split('.').length || a.key.localeCompare(b.key));
   for (const c of ordered) {
-    if (c.statut === 'Redirigé') { skippedRedirects.push(c); continue; }
+    // Démarche redirigée (page de connexion…) ou qui bloque nos vérifications : gardée à son adresse.
+    const demarche = demarcheHosts.has(c.key);
+    const ownUrl = demarche && c.statut !== 'Hors ligne' && !/ENOTFOUND/.test(c.error || '');
+    if (c.statut === 'Redirigé' && !ownUrl) { skippedRedirects.push(c); continue; }
     // Un serveur qui répond par une erreur 5xx existe : le site est ajouté, à revérifier.
     // Exception : un sous-domaine en 500, 502 ou 503 n'est pas ajouté.
-    const serverError = c.statut === 'Indéterminé' && c.code >= 500;
-    if (c.statut !== 'En ligne' && !serverError) continue;
+    const serverError = c.statut === 'Indéterminé' && (c.code >= 500 || ownUrl);
+    if (c.statut !== 'En ligne' && !serverError && !ownUrl) continue;
     // Sous-domaine : parent connu, ou nom en *.gouv.fr sous un domaine gouv.fr (registrable() ne
     // reconnaît que ce suffixe : un domaine principal hors gouv.fr n'est pas un sous-domaine).
     const isSubdomain = !!c.parentKey || (c.key.endsWith('.' + config.candidates.suffix) && c.key !== registrable(c.key));
-    if (serverError && [500, 502, 503].includes(c.code) && isSubdomain) continue;
-    const finalHost = hostOf(c.finalUrl || c.url);
+    if (serverError && [500, 502, 503].includes(c.code) && isSubdomain && !demarche) continue;
+    const finalHost = hostOf(ownUrl ? c.url : c.finalUrl || c.url);
     if (known.has(siteKey(finalHost))) continue;
     known.add(siteKey(finalHost));
-    const label = new URL(c.finalUrl || c.url).origin;
+    const label = new URL(ownUrl ? c.url : c.finalUrl || c.url).origin;
     const isSub = !!c.parentKey || (c.key.endsWith('.gouv.fr') && c.key !== registrable(c.key));
     const parentKey = c.parentKey === config.candidates.suffix ? null : c.parentKey;
     const parent = parentKey ? sites.get(parentKey) : isSub ? sites.get(registrable(c.key)) : null;
@@ -1126,6 +1181,35 @@ async function build() {
   }
   await writeOut(p('out/marques-a-lire.json'), toRead);
 
+  // Démarches essentielles (Observatoire) : un domaine resté sans rattachement est placé sous
+  // l'administration et le ministère indiqués par l'Observatoire (ex. URSSAF, CNAF).
+  const demarchesByKey = new Map();
+  for (const d of demarches) {
+    const key = d.url && siteKey(hostOf(d.url));
+    if (!key) continue;
+    if (!demarchesByKey.has(key)) demarchesByKey.set(key, []);
+    demarchesByKey.get(key).push(d);
+  }
+  let viaDemarches = 0;
+  for (const e of [...v2Elements, ...additions]) {
+    if (!unattached(e.label)) continue;
+    const d = demarchesByKey.get(siteKey(hostOf(e.label)))?.[0];
+    const ministry = d && ministryOfMarque(d.ministere);
+    if (!ministry) continue;
+    let above = ensureOrg(ministry, { 'Type d\'organisme': 'Administration centrale (ou Ministère)' });
+    if (d.administration && norm(d.administration) !== norm(ministry)) {
+      const known = labelByNorm.has(norm(d.administration));
+      const org = ensureOrg(d.administration, { 'Source': 'Observatoire des démarches essentielles' });
+      if (!known) connect(above, org, 'Administration/Administration');
+      above = org;
+    }
+    connect(above, e.label, 'Site web/Administration');
+    e.Tutelle = ministry;
+    e['Rattachement déduit de'] = 'Observatoire des démarches essentielles';
+    e.tags = (e.tags || []).filter(t => t !== 'À rattacher');
+    viaDemarches++;
+  }
+
   // Dernier recours : mot-clé du nom de domaine (config/mots-cles-ministeres.csv).
   const keywordRules = (await readConfigCsv('mots-cles-ministeres.csv')).map(r => ({ re: new RegExp(r.motif, 'i'), ministry: r.ministere.trim() }));
   let viaKeyword = 0;
@@ -1207,6 +1291,18 @@ async function build() {
     const keep = e => !mergedInto.has(e.label);
     v2Elements.splice(0, v2Elements.length, ...v2Elements.filter(keep));
     additions.splice(0, additions.length, ...additions.filter(keep));
+  }
+
+  // Sites qui portent des démarches essentielles (y compris par une ancienne adresse).
+  let demarcheSites = 0;
+  for (const e of v2Elements) {
+    if (!isUrl(e.label)) continue;
+    const keys = [e.label, ...String(e['Anciennes adresses'] || '').split(' ; ').filter(Boolean)].map(l => siteKey(hostOf(l)));
+    const list = keys.flatMap(k => demarchesByKey.get(k) || []);
+    if (!list.length) continue;
+    e['Démarches essentielles'] = [...new Set(list.map(d => d.titre))].join(' ; ');
+    if (!(e.tags || []).includes('Démarche essentielle')) e.tags = [...(e.tags || []), 'Démarche essentielle'];
+    demarcheSites++;
   }
 
   // 3. Jeu de données complet pour la carte V2.
@@ -1292,6 +1388,7 @@ Vérifications HTTP du ${checkedOn}.
 - Sites de la V1 réorganisés selon l'annuaire : ${reorganized} liens de 2019 remplacés
 - Entités de premier niveau de l'annuaire ajoutées (même sans site propre) : ${viaEntities}
 - Doublons fusionnés (anciennes adresses qui mènent au même site) : ${mergedInto.size}
+- Sites portant des démarches essentielles (Observatoire) : ${demarcheSites} ; rattachés grâce à l'Observatoire : ${viaDemarches}
 - Organismes reliés au site vers lequel redirige leur site déclaré : ${viaRedirectSites}
 - Services en ligne et consultations de la V1 reclassés en site ou sous-domaine : ${retyped}
 - Rattachements complémentaires : ${viaV1} sites de la V1 sans lien (annuaire, config/rattachements.csv), ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page, ${viaKeyword} sites par leur nom de domaine

@@ -5,10 +5,28 @@
     "checkedAt": "2026-09-25T06:49:47.059Z",
     "v": 2
   },
+  "http://affmar-infocentre.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.604Z",
+    "v": 2
+  },
   "http://agenda2030-ng.ecologie.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:42.880Z",
+    "v": 2
+  },
+  "http://aladin.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:37.255Z",
+    "v": 2
+  },
+  "http://anemoc.cetmef.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:58.307Z",
     "v": 2
   },
   "http://apiagent.gouv.fr": {
@@ -23,6 +41,18 @@
     "checkedAt": "2026-09-25T06:50:13.827Z",
     "v": 2
   },
+  "http://apim.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:39.258Z",
+    "v": 2
+  },
+  "http://apiop.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:39.369Z",
+    "v": 2
+  },
   "http://apiparticulier.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -33,6 +63,18 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:43.707Z",
+    "v": 2
+  },
+  "http://asterie.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:41.258Z",
+    "v": 2
+  },
+  "http://atena-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:41.159Z",
     "v": 2
   },
   "http://biodiversite-en-action.gouv.fr": {
@@ -53,6 +95,12 @@
     "checkedAt": "2026-09-25T01:43:44.178Z",
     "v": 2
   },
+  "http://canaf.cetmef.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:00.307Z",
+    "v": 2
+  },
   "http://cassiopee.fabnum.fr": {
     "marque": null,
     "mentions": [],
@@ -65,16 +113,34 @@
     "checkedAt": "2026-09-25T01:43:33.944Z",
     "v": 2
   },
+  "http://cataloguecdu.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:51.668Z",
+    "v": 2
+  },
   "http://centre-documentation-segur.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:38.621Z",
     "v": 2
   },
+  "http://cerberus.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:51.735Z",
+    "v": 2
+  },
   "http://cerc.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:48.924Z",
+    "v": 2
+  },
+  "http://cgt-snpam.syndicat.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:04.944Z",
     "v": 2
   },
   "http://civilsdeladefense.fabnum.fr": {
@@ -89,10 +155,28 @@
     "checkedAt": "2026-09-25T06:49:36.711Z",
     "v": 2
   },
+  "http://cmvoa.projet.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:54.450Z",
+    "v": 2
+  },
+  "http://cmvoa.projets.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:56.437Z",
+    "v": 2
+  },
   "http://cncp.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:59.326Z",
+    "v": 2
+  },
+  "http://comdalo.info.application.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:22.918Z",
     "v": 2
   },
   "http://consultation-ecophyto2plus.gouv.fr": {
@@ -113,6 +197,24 @@
     "checkedAt": "2026-09-25T06:49:48.949Z",
     "v": 2
   },
+  "http://dataiku-automation.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:00.377Z",
+    "v": 2
+  },
+  "http://dataiku.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:02.374Z",
+    "v": 2
+  },
+  "http://demande-logement-social-2.site-ecole.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:06.386Z",
+    "v": 2
+  },
   "http://developpementdurable.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -127,6 +229,12 @@
     "checkedAt": "2026-09-25T06:49:52.620Z",
     "v": 2
   },
+  "http://documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:01.869Z",
+    "v": 2
+  },
   "http://drjscs.gouv.fr": {
     "marque": null,
     "mentions": [
@@ -134,6 +242,24 @@
       "Ministère des Sports"
     ],
     "checkedAt": "2026-09-25T06:49:40.807Z",
+    "v": 2
+  },
+  "http://dtrf.setra.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:10.386Z",
+    "v": 2
+  },
+  "http://e-scaleport.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:09.288Z",
+    "v": 2
+  },
+  "http://ebc.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:22.978Z",
     "v": 2
   },
   "http://echauffeur.fabnum.fr": {
@@ -146,6 +272,60 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:57.326Z",
+    "v": 2
+  },
+  "http://ecoquartiers.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:04.077Z",
+    "v": 2
+  },
+  "http://edsiam.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:11.043Z",
+    "v": 2
+  },
+  "http://eedd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:03.374Z",
+    "v": 2
+  },
+  "http://enqueteur.auvergne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:34.903Z",
+    "v": 2
+  },
+  "http://enqueteur.dde-maine-et-loire.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:56.927Z",
+    "v": 2
+  },
+  "http://enqueteur.haute-normandie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:48.917Z",
+    "v": 2
+  },
+  "http://enqueteur.mayenne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:52.919Z",
+    "v": 2
+  },
+  "http://enqueteur.spes.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:33.597Z",
+    "v": 2
+  },
+  "http://escaleport.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:42.176Z",
     "v": 2
   },
   "http://etatplateforme.gouv.fr": {
@@ -166,6 +346,56 @@
     "checkedAt": "2026-09-24T14:09:14.727Z",
     "v": 2
   },
+  "http://flap.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:44.153Z",
+    "v": 2
+  },
+  "http://flux.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:44.234Z",
+    "v": 2
+  },
+  "http://fr-cits-pp.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:11.342Z",
+    "v": 2
+  },
+  "http://geostandards.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et solidaire"
+    ],
+    "checkedAt": "2026-09-27T16:17:13.370Z",
+    "v": 2
+  },
+  "http://gina-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:57.536Z",
+    "v": 2
+  },
+  "http://grace2.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:57.621Z",
+    "v": 2
+  },
+  "http://i.ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:15.620Z",
+    "v": 2
+  },
+  "http://igc.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:22.925Z",
+    "v": 2
+  },
   "http://immigration.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -182,6 +412,30 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:44.623Z",
+    "v": 2
+  },
+  "http://ipec.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:44.207Z",
+    "v": 2
+  },
+  "http://iwiki.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:11.067Z",
+    "v": 2
+  },
+  "http://journeequalitedelair.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:21.240Z",
+    "v": 2
+  },
+  "http://koalha.midi-pyrenees.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:11.134Z",
     "v": 2
   },
   "http://leportailetudiant.gouv.fr": {
@@ -208,10 +462,202 @@
     "checkedAt": "2026-09-25T06:49:46.832Z",
     "v": 2
   },
+  "http://lmp-assistants.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:13.239Z",
+    "v": 2
+  },
+  "http://loki.canaris.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:51.569Z",
+    "v": 2
+  },
+  "http://lss.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:15.028Z",
+    "v": 2
+  },
+  "http://mer12.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.508Z",
+    "v": 2
+  },
+  "http://mer13.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.571Z",
+    "v": 2
+  },
+  "http://mer14.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.630Z",
+    "v": 2
+  },
+  "http://mer168.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.696Z",
+    "v": 2
+  },
+  "http://mer17.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.759Z",
+    "v": 2
+  },
+  "http://mer170.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.824Z",
+    "v": 2
+  },
+  "http://mer172.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.889Z",
+    "v": 2
+  },
+  "http://mer174.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:23.955Z",
+    "v": 2
+  },
+  "http://mer175.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.020Z",
+    "v": 2
+  },
+  "http://mer4.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.100Z",
+    "v": 2
+  },
+  "http://mer4000.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.180Z",
+    "v": 2
+  },
+  "http://mer4001.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.262Z",
+    "v": 2
+  },
+  "http://mer4002.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.343Z",
+    "v": 2
+  },
+  "http://mer4003.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:24.425Z",
+    "v": 2
+  },
+  "http://mer4004.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.104Z",
+    "v": 2
+  },
+  "http://mer4005.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:25.852Z",
+    "v": 2
+  },
+  "http://mer4006.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:25.933Z",
+    "v": 2
+  },
+  "http://mer4007.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.025Z",
+    "v": 2
+  },
+  "http://mer4008.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.108Z",
+    "v": 2
+  },
+  "http://mer4009.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.189Z",
+    "v": 2
+  },
+  "http://mer4010.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.189Z",
+    "v": 2
+  },
+  "http://mer4011.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.273Z",
+    "v": 2
+  },
+  "http://mer4012.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.270Z",
+    "v": 2
+  },
+  "http://mer4013.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.355Z",
+    "v": 2
+  },
+  "http://mer4014.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.356Z",
+    "v": 2
+  },
   "http://mont-saint-michel.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:10.564Z",
+    "v": 2
+  },
+  "http://naos.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:40.906Z",
+    "v": 2
+  },
+  "http://navctrl.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:19.028Z",
+    "v": 2
+  },
+  "http://notx.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:21.138Z",
+    "v": 2
+  },
+  "http://oedipp-epp-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:22.989Z",
     "v": 2
   },
   "http://ogm.gouv.fr": {
@@ -230,10 +676,76 @@
     "checkedAt": "2026-09-25T06:49:58.826Z",
     "v": 2
   },
+  "http://paysages.languedoc-roussillon.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:29.128Z",
+    "v": 2
+  },
+  "http://pflau.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:33.379Z",
+    "v": 2
+  },
+  "http://piacssl.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:56.905Z",
+    "v": 2
+  },
+  "http://pmr-gestion-enm-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:35.130Z",
+    "v": 2
+  },
+  "http://polmar.cetmef.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:35.414Z",
+    "v": 2
+  },
+  "http://portail-du-marin-site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.080Z",
+    "v": 2
+  },
+  "http://portail-du-marin-site.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:39.240Z",
+    "v": 2
+  },
+  "http://portail.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:40.056Z",
+    "v": 2
+  },
+  "http://poseidon.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:41.238Z",
+    "v": 2
+  },
+  "http://rapport-mission-dcs.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:45.239Z",
+    "v": 2
+  },
   "http://redressementproductif.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:42.475Z",
+    "v": 2
+  },
+  "http://registre.data.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:02.918Z",
     "v": 2
   },
   "http://saintpierre-et-miquelon.gouv.fr": {
@@ -248,6 +760,12 @@
     "checkedAt": "2026-09-24T14:09:22.341Z",
     "v": 2
   },
+  "http://sam-ag.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:45.291Z",
+    "v": 2
+  },
   "http://segur.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -260,10 +778,40 @@
     "checkedAt": "2026-09-25T01:43:31.945Z",
     "v": 2
   },
+  "http://simba.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:55.240Z",
+    "v": 2
+  },
   "http://spi-racine.ca.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:27.019Z",
+    "v": 2
+  },
+  "http://spm.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:59.058Z",
+    "v": 2
+  },
+  "http://stcw.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:01.073Z",
+    "v": 2
+  },
+  "http://taiga-legacy.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:05.193Z",
+    "v": 2
+  },
+  "http://trafic2000.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:07.051Z",
     "v": 2
   },
   "http://transition-energetique.gouv.fr": {
@@ -276,6 +824,90 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:24.456Z",
+    "v": 2
+  },
+  "http://vip-153.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:22.171Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-144.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:22.277Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-153.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:23.557Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-156.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:23.654Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-167.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:23.735Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-168.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:23.808Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-169.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:23.901Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-173.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.005Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-174.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.106Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-185.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.195Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-186.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:44.913Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-187.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.294Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-188.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.387Z",
+    "v": 2
+  },
+  "http://vip-inter-rp-189.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.487Z",
     "v": 2
   },
   "http://voeux2016.gouv.fr": {
@@ -296,6 +928,48 @@
     "checkedAt": "2026-09-25T06:49:49.037Z",
     "v": 2
   },
+  "http://webixi.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:25.558Z",
+    "v": 2
+  },
+  "http://webreverse.setra.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.760Z",
+    "v": 2
+  },
+  "http://wifi.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:47.703Z",
+    "v": 2
+  },
+  "http://wikibardig.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:40.590Z",
+    "v": 2
+  },
+  "http://wikigeotech.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:54.268Z",
+    "v": 2
+  },
+  "http://ws-dam-thetys.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.822Z",
+    "v": 2
+  },
+  "http://www-maj.sam.polynesie-francaise.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:25.611Z",
+    "v": 2
+  },
   "http://www.aide-developpement.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -308,10 +982,28 @@
     "checkedAt": "2026-09-25T01:43:43.305Z",
     "v": 2
   },
+  "http://www.assainissementng.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:53.331Z",
+    "v": 2
+  },
   "http://www.base-donnees-publique.medicament.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:26.148Z",
+    "v": 2
+  },
+  "http://www.bison-fute.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:53.659Z",
+    "v": 2
+  },
+  "http://www.btp.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:53.735Z",
     "v": 2
   },
   "http://www.cetu.gouv.fr": {
@@ -320,10 +1012,48 @@
     "checkedAt": "2026-09-24T14:08:58.817Z",
     "v": 2
   },
+  "http://www.donnees-communales.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:59.098Z",
+    "v": 2
+  },
+  "http://www.donnees.basse-normandie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:05.014Z",
+    "v": 2
+  },
+  "http://www.donnees.centre.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:05.104Z",
+    "v": 2
+  },
+  "http://www.dre.picardie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:07.014Z",
+    "v": 2
+  },
+  "http://www.ecoquartier.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:02.074Z",
+    "v": 2
+  },
   "http://www.environnement.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:01.824Z",
+    "v": 2
+  },
+  "http://www.fichier-etudesimpact.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de l’Écologie, du Développement Durable et de l'Énergie"
+    ],
+    "checkedAt": "2026-09-27T16:17:07.392Z",
     "v": 2
   },
   "http://www.forages-domestiques.gouv.fr": {
@@ -332,10 +1062,22 @@
     "checkedAt": "2026-09-24T14:09:03.825Z",
     "v": 2
   },
+  "http://www.foragesdomestiques.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:11.243Z",
+    "v": 2
+  },
   "http://www.gisp.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:02.589Z",
+    "v": 2
+  },
+  "http://www.hydroportailv3.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:17.244Z",
     "v": 2
   },
   "http://www.ira.gouv.fr": {
@@ -362,10 +1104,40 @@
     "checkedAt": "2026-09-25T01:43:48.697Z",
     "v": 2
   },
+  "http://www.monsieurvelo.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:27.748Z",
+    "v": 2
+  },
+  "http://www.nord-pas-de-calais-picardie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:28.437Z",
+    "v": 2
+  },
+  "http://www.nord-pas-de-calais.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:30.435Z",
+    "v": 2
+  },
   "http://www.ombel.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:12.606Z",
+    "v": 2
+  },
+  "http://www.paysages.alsace.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:27.241Z",
+    "v": 2
+  },
+  "http://www.picardie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:50.789Z",
     "v": 2
   },
   "http://www.prix-controle-technique.gouv.fr": {
@@ -380,16 +1152,65 @@
     "checkedAt": "2026-09-24T14:09:21.215Z",
     "v": 2
   },
+  "http://www.route.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:07.064Z",
+    "v": 2
+  },
+  "http://www.routes.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:09.063Z",
+    "v": 2
+  },
+  "http://www.sedd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:11.079Z",
+    "v": 2
+  },
   "http://www.semainedudeveloppementdurable.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:23.208Z",
     "v": 2
   },
+  "http://www.sytadin.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:19.499Z",
+    "v": 2
+  },
+  "http://www.territoire-durable-2030.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de l'Energie, du Développement durable et de l'Energie",
+      "Ministère de l’Écologie, du Développement durable et de l’Énergie",
+      "Ministère de l'Écologie, du Développement durable et de l'Énergie",
+      "Ministère de l’Égalité des Territoires et du Logement",
+      "Ministère de l'Écologie, du Développement durable et de l'Énergie",
+      "Ministère de l'Écologie, du Développement durable et de l'Énergie"
+    ],
+    "checkedAt": "2026-09-27T16:18:21.397Z",
+    "v": 2
+  },
   "http://www.tribunal-conflits.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:54.091Z",
+    "v": 2
+  },
+  "http://www.urbanisme.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:21.462Z",
+    "v": 2
+  },
+  "http://www.vigicrues.ecole.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.094Z",
     "v": 2
   },
   "https://17cyber.gouv.fr": {
@@ -402,6 +1223,30 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:27.961Z",
+    "v": 2
+  },
+  "https://777-bo.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:51.463Z",
+    "v": 2
+  },
+  "https://777-bo1.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:53.332Z",
+    "v": 2
+  },
+  "https://777-sbox.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:55.440Z",
+    "v": 2
+  },
+  "https://777.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.420Z",
     "v": 2
   },
   "https://abonnement.solutions-documentaires.reseau-canope.fr": {
@@ -458,10 +1303,28 @@
     "checkedAt": "2026-09-24T14:08:56.361Z",
     "v": 2
   },
+  "https://adfn.qualite-tourisme.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:51.457Z",
+    "v": 2
+  },
   "https://aditroom.apps.adit.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:43.009Z",
+    "v": 2
+  },
+  "https://admincarto.sig.ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.381Z",
+    "v": 2
+  },
+  "https://adminep.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.539Z",
     "v": 2
   },
   "https://admissions.telecom-paristech.fr": {
@@ -492,10 +1355,44 @@
     "checkedAt": "2026-09-24T14:08:46.207Z",
     "v": 2
   },
+  "https://aide-conteneursfaciles.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.758Z",
+    "v": 2
+  },
+  "https://aide-depot.din.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "ministère de l’Aménagement du territoire et de la Décentralisation et le ministère de la Transition écologique, de la Biodiversité, de la Forêt, de la Me"
+    ],
+    "checkedAt": "2026-09-27T16:18:48.966Z",
+    "v": 2
+  },
+  "https://aide.din.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [
+      "ministère de l’Aménagement du territoire et de la Décentralisation et le ministère de la Transition écologique, de la Biodiversité, de la Forêt, de la Me"
+    ],
+    "checkedAt": "2026-09-27T16:18:50.986Z",
+    "v": 2
+  },
   "https://aide.dora.inclusion.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:54.222Z",
+    "v": 2
+  },
+  "https://aide.dossierfacile.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:37.190Z",
+    "v": 2
+  },
+  "https://airs.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:51.495Z",
     "v": 2
   },
   "https://alertesante-ng.ecologie.gouv.fr": {
@@ -517,6 +1414,12 @@
     "marque": "R&eacute;publique Fran&ccedil;aise",
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:56.594Z",
+    "v": 2
+  },
+  "https://anne.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:14.963Z",
     "v": 2
   },
   "https://ansm.sante.fr": {
@@ -592,6 +1495,18 @@
     "checkedAt": "2026-09-25T01:43:44.545Z",
     "v": 2
   },
+  "https://archive-elettre.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:56.885Z",
+    "v": 2
+  },
+  "https://archive-elettre.extranet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:16.958Z",
+    "v": 2
+  },
   "https://archive.back.eduscol.education.fr": {
     "marque": null,
     "mentions": [],
@@ -610,10 +1525,40 @@
     "checkedAt": "2026-09-25T06:49:36.526Z",
     "v": 2
   },
+  "https://argo-cd.cluster-01.horsprod.liriae.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:03.830Z",
+    "v": 2
+  },
   "https://arretonslesviolences.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:56.730Z",
+    "v": 2
+  },
+  "https://artificialisation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:51.455Z",
+    "v": 2
+  },
+  "https://assistance-geoportail-urbanisme.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:53.936Z",
+    "v": 2
+  },
+  "https://assistanceelections2026.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:41.699Z",
+    "v": 2
+  },
+  "https://atlas-paysages.jura.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:53.971Z",
     "v": 2
   },
   "https://attente.examens-concours.gouv.fr": {
@@ -637,16 +1582,68 @@
     "checkedAt": "2026-09-24T14:08:58.756Z",
     "v": 2
   },
+  "https://attestations-construction.developpement-durable.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:59.031Z",
+    "v": 2
+  },
+  "https://attributionlogementsocialetdalo.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:01.068Z",
+    "v": 2
+  },
+  "https://audience-sites-stats.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:03.029Z",
+    "v": 2
+  },
+  "https://audit1.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:45.005Z",
+    "v": 2
+  },
+  "https://audit2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:45.581Z",
+    "v": 2
+  },
   "https://authentification-candidat2.pole-emploi.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:28.287Z",
     "v": 2
   },
+  "https://authentification1.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition Écologique",
+      "Ministère de la Cohésion des Territoires et des Relations avec les Collectivités Terrritoriales",
+      "Ministère de la Mer"
+    ],
+    "checkedAt": "2026-09-27T16:18:45.304Z",
+    "v": 2
+  },
+  "https://automatisation.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:57.007Z",
+    "v": 2
+  },
   "https://autometa.inclusion.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:43.809Z",
+    "v": 2
+  },
+  "https://autorite-environnementale-entrepot.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:05.033Z",
     "v": 2
   },
   "https://auvergnerhonealpes.cnpf.fr": {
@@ -661,6 +1658,15 @@
     "checkedAt": "2026-09-24T14:08:58.360Z",
     "v": 2
   },
+  "https://balise.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de l’Écologie, du Développement durable et de l’Énergie",
+      "Ministère de la Transition écologique et solidaire"
+    ],
+    "checkedAt": "2026-09-27T16:18:47.608Z",
+    "v": 2
+  },
   "https://barometre.planification-ecologique.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -671,6 +1677,15 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:43.948Z",
+    "v": 2
+  },
+  "https://bd-recherche-ecophyto.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Transition écologique",
+      "Ministère de la Transition Ecologique"
+    ],
+    "checkedAt": "2026-09-27T16:16:53.537Z",
     "v": 2
   },
   "https://bea.aero": {
@@ -689,10 +1704,22 @@
     "checkedAt": "2026-09-25T01:43:28.451Z",
     "v": 2
   },
+  "https://bibliodaf.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:45.665Z",
+    "v": 2
+  },
   "https://bibliotheque.meteo.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:43.267Z",
+    "v": 2
+  },
+  "https://bilan-adap-sdap.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:09.422Z",
     "v": 2
   },
   "https://biodechet.gouv.fr": {
@@ -713,6 +1740,14 @@
     "checkedAt": "2026-09-25T01:43:44.067Z",
     "v": 2
   },
+  "https://boussole-renovation.din.developpement-durable.gouv.fr": {
+    "marque": "MINISTÈRES AMÉNAGEMENT DU TERRITOIRE TRANSITION ÉCOLOGIQUE",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité, et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:59.152Z",
+    "v": 2
+  },
   "https://boutique.marinenationale.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -723,6 +1758,16 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:58.812Z",
+    "v": 2
+  },
+  "https://c-its.developpement-durable.gouv.fr": {
+    "marque": "Ministère des transports",
+    "mentions": [
+      "Ministère des transports",
+      "Ministère de la Transition Ecologique et de la Cohésion des Territoires déploie ces nouvelles technologies pilotes, en s’appuyant sur plusieurs grands proje",
+      "Ministère des transports"
+    ],
+    "checkedAt": "2026-09-27T16:16:54.249Z",
     "v": 2
   },
   "https://c2rmf.fr": {
@@ -743,16 +1788,48 @@
     "checkedAt": "2026-09-25T01:43:28.324Z",
     "v": 2
   },
+  "https://capapro-transport.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:11.169Z",
+    "v": 2
+  },
   "https://cartes.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:58.771Z",
     "v": 2
   },
+  "https://carto2.geo-ide.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:18.969Z",
+    "v": 2
+  },
+  "https://carto2.geo-ide.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:27.622Z",
+    "v": 2
+  },
   "https://cartobio.agencebio.org": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:25.992Z",
+    "v": 2
+  },
+  "https://catalogue.geo-ide.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:00.963Z",
+    "v": 2
+  },
+  "https://catalogue.ipec.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique"
+    ],
+    "checkedAt": "2026-09-27T16:18:54.499Z",
     "v": 2
   },
   "https://cbn-alpin.fr": {
@@ -785,6 +1862,12 @@
     "checkedAt": "2026-09-24T14:08:58.820Z",
     "v": 2
   },
+  "https://certibiocide.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:02.975Z",
+    "v": 2
+  },
   "https://chambres-agriculture.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:42.327Z"
@@ -811,6 +1894,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:59.015Z",
+    "v": 2
+  },
+  "https://cites.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:21.012Z",
     "v": 2
   },
   "https://cle-nir.inclusion.gouv.fr": {
@@ -841,6 +1930,48 @@
     "marque": "République française",
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:59.086Z",
+    "v": 2
+  },
+  "https://coeur.ecole.orcet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:29.697Z",
+    "v": 2
+  },
+  "https://collab.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:54.550Z",
+    "v": 2
+  },
+  "https://collecte-pro.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:56.059Z",
+    "v": 2
+  },
+  "https://comdalo.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:15.013Z",
+    "v": 2
+  },
+  "https://comdalo.site-ecole.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:06.976Z",
+    "v": 2
+  },
+  "https://commissionnement-env.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:08.967Z",
+    "v": 2
+  },
+  "https://commissionnement.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:55.742Z",
     "v": 2
   },
   "https://communaute.inclusion.gouv.fr": {
@@ -916,6 +2047,21 @@
     "checkedAt": "2026-09-25T01:43:45.687Z",
     "v": 2
   },
+  "https://coopits.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'aménagement du territoire et de la décentralisation",
+    "mentions": [
+      "Ministère chargé des Transports et financée à 50% par la Commission européenne",
+      "Ministère de la Transition Écologique et de la Cohésion des Territoires"
+    ],
+    "checkedAt": "2026-09-27T16:16:57.386Z",
+    "v": 2
+  },
+  "https://coordination-dicom.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:58.458Z",
+    "v": 2
+  },
   "https://correcteur.examens-concours.gouv.fr": {
     "marque": "République Française",
     "mentions": [
@@ -928,6 +2074,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:00.815Z",
+    "v": 2
+  },
+  "https://cosmose.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.512Z",
     "v": 2
   },
   "https://cours-fad-public.ensg.eu": {
@@ -970,6 +2122,18 @@
     "checkedAt": "2026-09-25T01:43:28.751Z",
     "v": 2
   },
+  "https://dalo-daho-ile-de-france.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'île-de-france",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.620Z",
+    "v": 2
+  },
+  "https://dashboard.data.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:56.701Z",
+    "v": 2
+  },
   "https://data.esr.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -982,10 +2146,22 @@
     "checkedAt": "2026-09-25T01:43:45.880Z",
     "v": 2
   },
+  "https://datacarto.sig.ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:56.521Z",
+    "v": 2
+  },
   "https://datafresq.data.esr.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:55.269Z",
+    "v": 2
+  },
+  "https://datatoolsge.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:04.447Z",
     "v": 2
   },
   "https://decalco.reseau-canope.fr": {
@@ -1000,12 +2176,27 @@
     "checkedAt": "2026-09-25T01:43:47.267Z",
     "v": 2
   },
+  "https://declaration-cstmd.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique",
+      "Ministère de la Transition écologique"
+    ],
+    "checkedAt": "2026-09-27T16:19:12.964Z",
+    "v": 2
+  },
   "https://declaration-manifestations.gouv.fr": {
     "marque": "Gouvernement",
     "mentions": [
       "ministère des Sports, de la Jeunesse et de la Vie associative"
     ],
     "checkedAt": "2026-09-24T14:08:59.459Z",
+    "v": 2
+  },
+  "https://declarationindustrielsphyto.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.757Z",
     "v": 2
   },
   "https://deforestationimportee.ecologie.gouv.fr": {
@@ -1017,10 +2208,44 @@
     "checkedAt": "2026-09-25T01:43:48.922Z",
     "v": 2
   },
+  "https://demande-autonomie.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.745Z",
+    "v": 2
+  },
+  "https://demarches.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "ministère de la Transition écologique",
+      "Ministère de la Transition écologique et de la Cohésion des territoires",
+      "Ministère de la Transition énergétique"
+    ],
+    "checkedAt": "2026-09-27T16:16:57.905Z",
+    "v": 2
+  },
   "https://demission-reconversion.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:59.581Z",
+    "v": 2
+  },
+  "https://depannage-2222.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:58.052Z",
+    "v": 2
+  },
+  "https://depannage-atl3.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:00.665Z",
+    "v": 2
+  },
+  "https://depot-sml.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:00.479Z",
     "v": 2
   },
   "https://devabonnement.solutions-documentaires.reseau-canope.fr": {
@@ -1045,6 +2270,15 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:29.929Z",
+    "v": 2
+  },
+  "https://diagnostiqueurs.din.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Ville et du Logement",
+    "mentions": [
+      "Ministère de la Ville et du Logement",
+      "Ministère de la Ville et du Logement"
+    ],
+    "checkedAt": "2026-09-27T16:19:14.959Z",
     "v": 2
   },
   "https://dias.ensg.eu": {
@@ -1075,6 +2309,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:36.543Z",
+    "v": 2
+  },
+  "https://doctec.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:23.137Z",
     "v": 2
   },
   "https://doctorat.gouv.fr": {
@@ -1117,6 +2357,18 @@
     "checkedAt": "2026-09-24T14:09:26.966Z",
     "v": 2
   },
+  "https://donnees-peche-dpma.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:09.292Z",
+    "v": 2
+  },
+  "https://donnees.drieat.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:02.155Z",
+    "v": 2
+  },
   "https://dora.inclusion.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -1141,16 +2393,88 @@
     "checkedAt": "2026-09-25T06:49:38.475Z",
     "v": 2
   },
+  "https://e-doc-tmd.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:25.058Z",
+    "v": 2
+  },
+  "https://e-lettre.extranet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:05.495Z",
+    "v": 2
+  },
+  "https://e-scaleport-ext.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:09.225Z",
+    "v": 2
+  },
+  "https://ecole.certibiocide.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:06.019Z",
+    "v": 2
+  },
+  "https://ecole.commissionnement-env.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:07.664Z",
+    "v": 2
+  },
+  "https://ecole.face.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:09.782Z",
+    "v": 2
+  },
+  "https://ecole.lucca.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:11.699Z",
+    "v": 2
+  },
+  "https://ecole.qcm-aipr.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:13.709Z",
+    "v": 2
+  },
+  "https://ecole.siap.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:29.054Z",
+    "v": 2
+  },
+  "https://ecole.telecarb.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:15.670Z",
+    "v": 2
+  },
   "https://ecoledespupillesdelair.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:47.462Z",
     "v": 2
   },
+  "https://ecologie-prod.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:02.004Z",
+    "v": 2
+  },
   "https://ecologie-solidaire.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:08.768Z",
+    "v": 2
+  },
+  "https://ecotransfert.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:33.113Z",
     "v": 2
   },
   "https://editions.rmngp.fr": {
@@ -1171,6 +2495,12 @@
   "https://eetaa722.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:43.912Z"
+  },
+  "https://elections2026.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:03.725Z",
+    "v": 2
   },
   "https://electionsrepresentantshlm.gouv.fr": {
     "marque": null,
@@ -1218,16 +2548,349 @@
     "checkedAt": "2026-09-25T01:43:29.836Z",
     "v": 2
   },
+  "https://enpc.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:13.338Z",
+    "v": 2
+  },
   "https://enquete.ensg.eu": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:36.277Z",
     "v": 2
   },
+  "https://enquetes-en-ligne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et de la Cohésion des territoires -- accueil",
+      "Ministère de la Transition écologique et de la Cohésion des territoires"
+    ],
+    "checkedAt": "2026-09-27T16:17:25.770Z",
+    "v": 2
+  },
+  "https://enquetes-en-ligne.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales -- accueil",
+      "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales"
+    ],
+    "checkedAt": "2026-09-27T16:17:27.680Z",
+    "v": 2
+  },
   "https://enquetes.bnu.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:30.134Z",
+    "v": 2
+  },
+  "https://enqueteur.cma-fad.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:38.254Z",
+    "v": 2
+  },
+  "https://enqueteur.cross-etel.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:39.947Z",
+    "v": 2
+  },
+  "https://enqueteur.cross-gris-nez.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:42.169Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-arras.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:43.842Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-clermont.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:46.198Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-nancy.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:47.940Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-nantes.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:49.577Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-rouen.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:52.340Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-toulouse.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:53.375Z",
+    "v": 2
+  },
+  "https://enqueteur.cvrh-tours.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:56.010Z",
+    "v": 2
+  },
+  "https://enqueteur.daei.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:18.495Z",
+    "v": 2
+  },
+  "https://enqueteur.daj.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:20.647Z",
+    "v": 2
+  },
+  "https://enqueteur.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et solidaire -- accueil",
+      "Ministère de la Transition écologique et solidaire"
+    ],
+    "checkedAt": "2026-09-27T16:17:29.550Z",
+    "v": 2
+  },
+  "https://enqueteur.dgampa.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:59.919Z",
+    "v": 2
+  },
+  "https://enqueteur.dgec.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:02.129Z",
+    "v": 2
+  },
+  "https://enqueteur.dgpr.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:03.892Z",
+    "v": 2
+  },
+  "https://enqueteur.dicom.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:22.428Z",
+    "v": 2
+  },
+  "https://enqueteur.dihal.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:05.552Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-centre-est.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:08.096Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-ile-de-france.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:09.743Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-massif-central.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:11.905Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-nord-ouest.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:13.642Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-nord.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:15.874Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-ouest.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:17.736Z",
+    "v": 2
+  },
+  "https://enqueteur.dir-sud-ouest.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:19.676Z",
+    "v": 2
+  },
+  "https://enqueteur.dirm-mediterranee.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:21.527Z",
+    "v": 2
+  },
+  "https://enqueteur.dirm-namo.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:23.676Z",
+    "v": 2
+  },
+  "https://enqueteur.dm-soi.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:26.180Z",
+    "v": 2
+  },
+  "https://enqueteur.dnum.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:24.414Z",
+    "v": 2
+  },
+  "https://enqueteur.draaf-bretagne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:27.671Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-auvergne-rhone-alpes.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:29.513Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-centre.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:32.175Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-grand-est.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:33.815Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-hauts-de-france.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:35.716Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-normandie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:37.723Z",
+    "v": 2
+  },
+  "https://enqueteur.dreal-nouvelle-aquitaine.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:39.651Z",
+    "v": 2
+  },
+  "https://enqueteur.drieat.ile-de-france.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:26.631Z",
+    "v": 2
+  },
+  "https://enqueteur.drihl-idf.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:42.109Z",
+    "v": 2
+  },
+  "https://enqueteur.dtam-975.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:44.086Z",
+    "v": 2
+  },
+  "https://enqueteur.ensam.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:45.812Z",
+    "v": 2
+  },
+  "https://enqueteur.entpe.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:47.781Z",
+    "v": 2
+  },
+  "https://enqueteur.evaluation-sdit.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:28.359Z",
+    "v": 2
+  },
+  "https://enqueteur.lycee-maritime-ciboure.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:51.740Z",
+    "v": 2
+  },
+  "https://enqueteur.mayotte.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:55.726Z",
+    "v": 2
+  },
+  "https://enqueteur.miqcp.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:57.470Z",
+    "v": 2
+  },
+  "https://enqueteur.schapi.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:00.404Z",
+    "v": 2
+  },
+  "https://enqueteur.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:02.211Z",
+    "v": 2
+  },
+  "https://enqueteur.shfds.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:30.708Z",
+    "v": 2
+  },
+  "https://enqueteur.soes.cgdd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:33.114Z",
+    "v": 2
+  },
+  "https://enqueteur.stac.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:03.595Z",
+    "v": 2
+  },
+  "https://enqueteur.stmar.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:36.599Z",
     "v": 2
   },
   "https://ens.syracuse.cloud": {
@@ -1239,6 +2902,12 @@
   "https://ensad-nancy.eu": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:43.019Z"
+  },
+  "https://envinorma.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:07.160Z",
+    "v": 2
   },
   "https://eolbretsud.debatpublic.fr": {
     "marque": null,
@@ -1287,6 +2956,12 @@
     "checkedAt": "2026-09-25T01:43:49.174Z",
     "v": 2
   },
+  "https://etools.emails-elections2026.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:42.360Z",
+    "v": 2
+  },
   "https://etools.votezaletranger.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -1303,6 +2978,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:30.270Z",
+    "v": 2
+  },
+  "https://exploitation.dir.nord.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:10.609Z",
     "v": 2
   },
   "https://extraclasse.reseau-canope.fr": {
@@ -1323,6 +3004,12 @@
     "checkedAt": "2026-09-25T01:43:47.019Z",
     "v": 2
   },
+  "https://face.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:05.106Z",
+    "v": 2
+  },
   "https://fad-etudiants.ensg.eu": {
     "marque": null,
     "mentions": [],
@@ -1332,6 +3019,18 @@
   "https://fondation-cnrs.org": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:45.557Z"
+  },
+  "https://forge-bretagne.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:44.550Z",
+    "v": 2
+  },
+  "https://forge.din.developpement-durable.gouv.fr": {
+    "marque": "Ministères transition écologique aménagement du territoire transports ville et logement",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:06.990Z",
+    "v": 2
   },
   "https://formulaires.inclusion.gouv.fr": {
     "marque": null,
@@ -1393,10 +3092,34 @@
     "checkedAt": "2026-09-25T01:43:26.264Z",
     "v": 2
   },
+  "https://galion.application.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:08.979Z",
+    "v": 2
+  },
+  "https://galion.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:37.644Z",
+    "v": 2
+  },
+  "https://galiongrandpublic.application.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:10.975Z",
+    "v": 2
+  },
   "https://gd4h.ecologie.gouv.fr": {
     "marque": "Gouvernement",
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:47.230Z",
+    "v": 2
+  },
+  "https://ged.workey.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:48.997Z",
     "v": 2
   },
   "https://gemassur.stac.aviation-civile.gouv.fr": {
@@ -1405,16 +3128,94 @@
     "checkedAt": "2026-09-25T01:43:55.414Z",
     "v": 2
   },
+  "https://geoidd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:11.619Z",
+    "v": 2
+  },
+  "https://geolittoral.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:12.966Z",
+    "v": 2
+  },
+  "https://geolittoral2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:14.966Z",
+    "v": 2
+  },
+  "https://geolittoral3.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:16.961Z",
+    "v": 2
+  },
+  "https://geolittoral4.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:18.966Z",
+    "v": 2
+  },
+  "https://geopred.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:13.267Z",
+    "v": 2
+  },
+  "https://gesapp.rh.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:16.028Z",
+    "v": 2
+  },
+  "https://gidaf.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:13.461Z",
+    "v": 2
+  },
   "https://ginkcart.gd4h.ecologie.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:55.361Z",
     "v": 2
   },
+  "https://glpi.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:16.122Z",
+    "v": 2
+  },
+  "https://grandest-scdd.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:20:58.793Z",
+    "v": 2
+  },
   "https://grandest.cnpf.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:02.812Z",
+    "v": 2
+  },
+  "https://grist.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:21.001Z",
+    "v": 2
+  },
+  "https://grist.incubateur.dnum.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:33.777Z",
+    "v": 2
+  },
+  "https://grr.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:16.292Z",
     "v": 2
   },
   "https://h2a-france.org": {
@@ -1453,6 +3254,12 @@
     "checkedAt": "2026-09-25T01:43:47.518Z",
     "v": 2
   },
+  "https://honore.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:00.570Z",
+    "v": 2
+  },
   "https://idf.drieets.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -1477,6 +3284,12 @@
     "checkedAt": "2026-09-24T14:09:03.845Z",
     "v": 2
   },
+  "https://igedd.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:03.424Z",
+    "v": 2
+  },
   "https://impactco2.fr": {
     "marque": null,
     "mentions": [],
@@ -1493,16 +3306,88 @@
     "checkedAt": "2026-09-25T06:49:48.427Z",
     "v": 2
   },
+  "https://indicateurs-snbc.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:17:35.407Z",
+    "v": 2
+  },
   "https://info-financiere.gouv.fr": {
     "marque": "République française",
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:04.128Z",
     "v": 2
   },
+  "https://info.cites.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T16:21:25.145Z",
+    "v": 2
+  },
   "https://info.dilcrah.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:30.539Z",
+    "v": 2
+  },
+  "https://info.isis-transports.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:26.975Z",
+    "v": 2
+  },
+  "https://info.osmose2.din.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T19:59:39.995Z",
+    "v": 2
+  },
+  "https://info.semafor.din.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T19:59:43.164Z",
+    "v": 2
+  },
+  "https://info.siouh.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:43.615Z",
+    "v": 2
+  },
+  "https://infolettre-dgac.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:38.429Z",
+    "v": 2
+  },
+  "https://infolettre.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:44.134Z",
+    "v": 2
+  },
+  "https://infolettre.extranet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:45.629Z",
+    "v": 2
+  },
+  "https://infosols.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:19.388Z",
     "v": 2
   },
   "https://innovation-transformations.ecologie.gouv.fr": {
@@ -1533,10 +3418,52 @@
     "checkedAt": "2026-09-25T01:43:26.390Z",
     "v": 2
   },
+  "https://interface-trafic2000.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:05.249Z",
+    "v": 2
+  },
   "https://internet-signalement.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:06.376Z",
+    "v": 2
+  },
+  "https://intra-maj.dnum.sg.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:47.645Z",
+    "v": 2
+  },
+  "https://intra-maj.hfds.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:28.962Z",
+    "v": 2
+  },
+  "https://intra-maj.portail-intranet.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:30.969Z",
+    "v": 2
+  },
+  "https://intra.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:09.051Z",
+    "v": 2
+  },
+  "https://isidor3.pei.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:09.194Z",
+    "v": 2
+  },
+  "https://isis-transports.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:32.968Z",
     "v": 2
   },
   "https://isoprod.back.odysseum.eduscol.education.fr": {
@@ -1587,6 +3514,12 @@
     "checkedAt": "2026-09-25T01:43:30.633Z",
     "v": 2
   },
+  "https://koalha.occitanie.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:13.233Z",
+    "v": 2
+  },
   "https://l-prod-intramet.meteo.fr": {
     "marque": null,
     "mentions": [],
@@ -1597,6 +3530,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:31.065Z",
+    "v": 2
+  },
+  "https://labair.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:46.314Z",
     "v": 2
   },
   "https://labeau.ecologie.gouv.fr": {
@@ -1664,6 +3603,12 @@
     "checkedAt": "2026-09-25T01:43:35.833Z",
     "v": 2
   },
+  "https://lexursat-n.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:13.137Z",
+    "v": 2
+  },
   "https://libredoc.meteo.fr": {
     "marque": null,
     "mentions": [],
@@ -1721,10 +3666,40 @@
     "checkedAt": "2026-09-25T01:43:31.953Z",
     "v": 2
   },
+  "https://lmp.info.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:49.620Z",
+    "v": 2
+  },
+  "https://locataire.dossierfacile.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:13.324Z",
+    "v": 2
+  },
   "https://logement.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:20.784Z",
+    "v": 2
+  },
+  "https://lucca.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:13.748Z",
+    "v": 2
+  },
+  "https://lune.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:35.008Z",
+    "v": 2
+  },
+  "https://lune.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.014Z",
     "v": 2
   },
   "https://m-prod-intramet.meteo.fr": {
@@ -1757,6 +3732,12 @@
     "checkedAt": "2026-09-25T01:43:26.750Z",
     "v": 2
   },
+  "https://maintenance.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:17.072Z",
+    "v": 2
+  },
   "https://maisondelautisme.gouv.fr": {
     "marque": "République Française",
     "mentions": [],
@@ -1775,10 +3756,39 @@
     "checkedAt": "2026-09-25T01:43:51.295Z",
     "v": 2
   },
+  "https://mdls.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:53.644Z",
+    "v": 2
+  },
+  "https://mdm-seg.cabinet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:33.201Z",
+    "v": 2
+  },
   "https://mediature.incubateur.net": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:26.150Z",
+    "v": 2
+  },
+  "https://meet.webconf.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:33.477Z",
+    "v": 2
+  },
+  "https://melanie2web.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique,",
+      "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales,",
+      "Ministère de la mer,",
+      "Ministère de l'Agriculture et de l'Alimentation"
+    ],
+    "checkedAt": "2026-09-27T16:17:23.444Z",
     "v": 2
   },
   "https://mem4csd.telecom-paristech.fr": {
@@ -1811,6 +3821,12 @@
     "checkedAt": "2026-09-25T01:43:34.203Z",
     "v": 2
   },
+  "https://micollab.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:17.125Z",
+    "v": 2
+  },
   "https://mieuxrespirerenville.gouv.fr": {
     "marque": "République Française",
     "mentions": [
@@ -1823,6 +3839,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:10.362Z",
+    "v": 2
+  },
+  "https://misis.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:50.335Z",
     "v": 2
   },
   "https://mission-jaures.reseau-canope.fr": {
@@ -1858,10 +3880,28 @@
     "checkedAt": "2026-09-24T14:08:49.304Z",
     "v": 2
   },
+  "https://mon-entreprise.urssaf.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.759Z",
+    "v": 2
+  },
   "https://mon-vie-via.businessfrance.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:10.454Z",
+    "v": 2
+  },
+  "https://monaiot.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.601Z",
+    "v": 2
+  },
+  "https://mondalo.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:52.464Z",
     "v": 2
   },
   "https://monmaster.gouv.fr": {
@@ -1956,10 +3996,34 @@
     "checkedAt": "2026-09-25T01:43:26.011Z",
     "v": 2
   },
+  "https://notix.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:19.211Z",
+    "v": 2
+  },
   "https://nouvelle-aquitaine.cnpf.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:10.749Z",
+    "v": 2
+  },
+  "https://nouvelle-elettre-dgac.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:55.588Z",
+    "v": 2
+  },
+  "https://nouvelle-elettre.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:00.828Z",
+    "v": 2
+  },
+  "https://nouvelle-elettre.extranet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:57.628Z",
     "v": 2
   },
   "https://nouvelles-chances.gouv.fr": {
@@ -1968,10 +4032,26 @@
     "checkedAt": "2026-09-24T14:09:10.749Z",
     "v": 2
   },
+  "https://nowhere.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:23.183Z",
+    "v": 2
+  },
   "https://nuage.supagro.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:34.298Z",
+    "v": 2
+  },
+  "https://objectif-paysages.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature lance l’appel à candidatures de l’é",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:01.195Z",
     "v": 2
   },
   "https://observatoire.covoiturage.gouv.fr": {
@@ -1990,10 +4070,34 @@
     "checkedAt": "2026-09-25T01:43:49.509Z",
     "v": 2
   },
+  "https://observatoires-littoral.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:06.296Z",
+    "v": 2
+  },
   "https://occitanie.cnpf.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:12.732Z",
+    "v": 2
+  },
+  "https://octave.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et solidaire",
+      "Ministère de la Transition écologique et solidaire"
+    ],
+    "checkedAt": "2026-09-27T16:18:07.000Z",
+    "v": 2
+  },
+  "https://octave2.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:08.968Z",
     "v": 2
   },
   "https://odysseum.eduscol.education.fr": {
@@ -2002,6 +4106,18 @@
       "Ministère de l'Éducation nationale"
     ],
     "checkedAt": "2026-09-25T01:43:55.064Z",
+    "v": 2
+  },
+  "https://offre-services-cif3.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:25.348Z",
+    "v": 2
+  },
+  "https://oiso.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:23.278Z",
     "v": 2
   },
   "https://old.mon-rdv-dondesang.efs.sante.fr": {
@@ -2028,10 +4144,43 @@
     "checkedAt": "2026-09-25T01:43:34.282Z",
     "v": 2
   },
+  "https://openproject.pnm1.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:27.389Z",
+    "v": 2
+  },
   "https://opentermsarchive.org": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:26.082Z",
+    "v": 2
+  },
+  "https://ops.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:11.221Z",
+    "v": 2
+  },
+  "https://ort-occitanie.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:14.041Z",
+    "v": 2
+  },
+  "https://orthi.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:14.964Z",
+    "v": 2
+  },
+  "https://oscean.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:25.465Z",
     "v": 2
   },
   "https://paca.cnpf.fr": {
@@ -2058,6 +4207,12 @@
     "checkedAt": "2026-09-25T01:43:34.319Z",
     "v": 2
   },
+  "https://pandora.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:46.991Z",
+    "v": 2
+  },
   "https://pandore.reseau-canope.fr": {
     "marque": null,
     "mentions": [],
@@ -2074,6 +4229,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:26.147Z",
+    "v": 2
+  },
+  "https://paot-tdb.datatoolsge.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:59.628Z",
     "v": 2
   },
   "https://parc-marin-bassin-arcachon.fr": {
@@ -2136,10 +4297,32 @@
     "checkedAt": "2026-09-25T01:43:34.399Z",
     "v": 2
   },
+  "https://partenaire.dossierfacile.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la transition écologique et de la cohésion des territoires"
+    ],
+    "checkedAt": "2026-09-27T16:21:27.155Z",
+    "v": 2
+  },
+  "https://participation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition Écologique"
+    ],
+    "checkedAt": "2026-09-27T16:17:50.639Z",
+    "v": 2
+  },
   "https://pass-g7.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:12.942Z",
+    "v": 2
+  },
+  "https://passculture.app": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.746Z",
     "v": 2
   },
   "https://passrail.gouv.fr": {
@@ -2160,10 +4343,22 @@
     "checkedAt": "2026-09-25T01:43:57.141Z",
     "v": 2
   },
+  "https://pcm.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:33.139Z",
+    "v": 2
+  },
   "https://peage-flux-libre.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:13.116Z",
+    "v": 2
+  },
+  "https://pegase.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:33.296Z",
     "v": 2
   },
   "https://pegase.reseau-canope.fr": {
@@ -2185,6 +4380,18 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:34.449Z",
+    "v": 2
+  },
+  "https://pesage-routier.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:50.723Z",
+    "v": 2
+  },
+  "https://pgp-2.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:01.618Z",
     "v": 2
   },
   "https://photos.pole-emploi.fr": {
@@ -2219,10 +4426,40 @@
     "checkedAt": "2026-09-25T01:43:26.870Z",
     "v": 2
   },
+  "https://plateformepemd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:55.799Z",
+    "v": 2
+  },
   "https://platform.twitter.com": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:34.618Z",
+    "v": 2
+  },
+  "https://pmr-gestion-enm.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:35.357Z",
+    "v": 2
+  },
+  "https://pna-loup.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:21.307Z",
+    "v": 2
+  },
+  "https://pna-lynx.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:24.177Z",
     "v": 2
   },
   "https://pngmdr.debatpublic.fr": {
@@ -2236,10 +4473,46 @@
     "checkedAt": "2026-09-25T06:49:52.423Z",
     "v": 2
   },
+  "https://portail-armateur.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.354Z",
+    "v": 2
+  },
+  "https://portail-du-marin.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.503Z",
+    "v": 2
+  },
   "https://portail-partenaire.pole-emploi.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:34.585Z",
+    "v": 2
+  },
+  "https://portail-support.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.750Z",
+    "v": 2
+  },
+  "https://portail.documentation.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.846Z",
+    "v": 2
+  },
+  "https://portail.ecole.orcet.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:03.681Z",
+    "v": 2
+  },
+  "https://portail.siam2.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:37.963Z",
     "v": 2
   },
   "https://portailpro.gouv.fr": {
@@ -2258,6 +4531,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:34.726Z",
+    "v": 2
+  },
+  "https://pram.application.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:43.555Z",
     "v": 2
   },
   "https://pret-a-taux-zero-plus.gouv.fr": {
@@ -2344,6 +4623,26 @@
     "checkedAt": "2026-09-25T01:43:36.936Z",
     "v": 2
   },
+  "https://promete.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:43.352Z",
+    "v": 2
+  },
+  "https://proprietaire.dossierfacile.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:39.695Z",
+    "v": 2
+  },
+  "https://pse-environnement.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la transition écologique Liberté, Égalité, Fraternité",
+    "mentions": [
+      "Ministère de la transition écologique et les Agences de l'eau, ce dispositif d'aides rémunère les services environnementaux rendus par les agriculteurs et i"
+    ],
+    "checkedAt": "2026-09-27T16:18:24.984Z",
+    "v": 2
+  },
   "https://psl.eu": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:49.078Z"
@@ -2378,6 +4677,12 @@
     "checkedAt": "2026-09-25T01:43:51.314Z",
     "v": 2
   },
+  "https://qcm-aipr.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:58.995Z",
+    "v": 2
+  },
   "https://quartiers-ete.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -2394,6 +4699,18 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T06:49:56.425Z",
+    "v": 2
+  },
+  "https://rapidd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:04.618Z",
+    "v": 2
+  },
+  "https://rapport-nav.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:47.288Z",
     "v": 2
   },
   "https://rct-pva-certificat.ca.gouv.fr": {
@@ -2414,6 +4731,18 @@
     "checkedAt": "2026-09-25T01:43:59.205Z",
     "v": 2
   },
+  "https://redmine.ddtm35.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:46.174Z",
+    "v": 2
+  },
+  "https://redmine.rh.dirm-memn.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:18.098Z",
+    "v": 2
+  },
   "https://referentiels-professionnels.eduscol.education.fr": {
     "marque": null,
     "mentions": [],
@@ -2426,16 +4755,48 @@
     "checkedAt": "2026-09-25T09:42:18.343Z",
     "v": 2
   },
+  "https://registre-vtc.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et de la Cohésion des territoires",
+      "Ministère de la Transition écologique et de la Cohésion des territoires",
+      "Ministère de la Transition écologique et de la Cohésion des territoires"
+    ],
+    "checkedAt": "2026-09-27T16:18:27.028Z",
+    "v": 2
+  },
+  "https://registre-vtc.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et de la Cohésion des territoires",
+      "Ministère de la Transition écologique et de la Cohésion des territoires",
+      "Ministère de la Transition écologique et de la Cohésion des territoires"
+    ],
+    "checkedAt": "2026-09-27T16:22:01.001Z",
+    "v": 2
+  },
   "https://registre.label-bas-carbone.ecologie.gouv.fr": {
     "marque": "Ministère de la transition écologique",
     "mentions": [],
     "checkedAt": "2026-09-25T01:44:05.242Z",
     "v": 2
   },
+  "https://registry.gitlab-forge.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:43.809Z",
+    "v": 2
+  },
   "https://relance-logement.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:18.977Z",
+    "v": 2
+  },
+  "https://ressources.geomce.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:45.225Z",
     "v": 2
   },
   "https://resultats.examens-concours.gouv.fr": {
@@ -2448,6 +4809,14 @@
     "marque": "Ministères Aménagement du territoire Transition écologique Liberté, Égalité, Fraternité",
     "mentions": [],
     "checkedAt": "2026-09-25T01:44:01.197Z",
+    "v": 2
+  },
+  "https://rt-re-batiment.developpement-durable.gouv.fr": {
+    "marque": "Gouvernement",
+    "mentions": [
+      "ministère de la Ville et du Logement rend publiques les données de la RE2020 pour accompagner la transition environnementale du bâtiment"
+    ],
+    "checkedAt": "2026-09-27T16:18:29.276Z",
     "v": 2
   },
   "https://ruralite.gouv.fr": {
@@ -2474,6 +4843,18 @@
     "checkedAt": "2026-09-25T01:43:51.425Z",
     "v": 2
   },
+  "https://s2.collab.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:43.917Z",
+    "v": 2
+  },
+  "https://salicorn.logement.gouv.fr": {
+    "marque": "MINISTERE DE LA TRANSITION ECOLOGIQUE ET DE LA COHESION DES TERRITOIRES",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:09.283Z",
+    "v": 2
+  },
   "https://sanctuaire-agoa.fr": {
     "marque": null,
     "mentions": [],
@@ -2486,10 +4867,34 @@
     "checkedAt": "2026-09-25T01:43:27.092Z",
     "v": 2
   },
+  "https://scoopfr-itss.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:04.963Z",
+    "v": 2
+  },
   "https://screening.adit.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:37.645Z",
+    "v": 2
+  },
+  "https://seamis-geoloc.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:49.280Z",
+    "v": 2
+  },
+  "https://seastats.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:51.340Z",
+    "v": 2
+  },
+  "https://secmar.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:53.348Z",
     "v": 2
   },
   "https://secours-depotoffre.pole-emploi.fr": {
@@ -2502,6 +4907,18 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:40.749Z",
+    "v": 2
+  },
+  "https://selfy.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:06.988Z",
+    "v": 2
+  },
+  "https://selfy.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:05.633Z",
     "v": 2
   },
   "https://service.tsi.telecom-paristech.fr": {
@@ -2520,6 +4937,65 @@
     "marque": "Ministères Transition écologique Aménagement du territoire Transports Ville et Logement Liberté, Égalité, Fraternité",
     "mentions": [],
     "checkedAt": "2026-09-25T01:44:03.739Z",
+    "v": 2
+  },
+  "https://sg-dnum-uni-dsp.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:08.971Z",
+    "v": 2
+  },
+  "https://shfds-mtect.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:10.961Z",
+    "v": 2
+  },
+  "https://siap.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.002Z",
+    "v": 2
+  },
+  "https://sid.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:52.210Z",
+    "v": 2
+  },
+  "https://side.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "MINISTERE DE LA TRANSITION*\\",
+      "MINISTERE DE LA TRANSITION*\\",
+      "MINISTERE DE LA TRANSITION*\\",
+      "MINISTERE DE LA TRANSITION*\\"
+    ],
+    "checkedAt": "2026-09-27T16:18:11.943Z",
+    "v": 2
+  },
+  "https://sig.ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:12.296Z",
+    "v": 2
+  },
+  "https://sioa.pei.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:47.353Z",
+    "v": 2
+  },
+  "https://siouh2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.027Z",
+    "v": 2
+  },
+  "https://siouh2.site-ecole.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:07.706Z",
     "v": 2
   },
   "https://sip3.comu.gouv.fr": {
@@ -2546,10 +5022,37 @@
     "checkedAt": "2026-09-25T01:43:29.684Z",
     "v": 2
   },
+  "https://sipa.developpement-durable.gouv.fr": {
+    "marque": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+    "mentions": [
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
+    ],
+    "checkedAt": "2026-09-27T16:18:36.056Z",
+    "v": 2
+  },
   "https://sirene.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:23.145Z",
+    "v": 2
+  },
+  "https://sirh.projet.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:54.942Z",
+    "v": 2
+  },
+  "https://sirh.projet.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:47.532Z",
+    "v": 2
+  },
+  "https://sirh.projets.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:56.794Z",
     "v": 2
   },
   "https://sisp-mobilite.pole-emploi.fr": {
@@ -2558,16 +5061,44 @@
     "checkedAt": "2026-09-25T01:43:37.974Z",
     "v": 2
   },
+  "https://sitadel2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:15.042Z",
+    "v": 2
+  },
+  "https://sitadel3.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:16.975Z",
+    "v": 2
+  },
   "https://site.bdlg.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:23.652Z",
     "v": 2
   },
+  "https://site.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et solidaire",
+      "Ministère de la Transition écologique permettant de découvrir les sites et territoires d'exception français",
+      "Ministère de la Transition écologique"
+    ],
+    "checkedAt": "2026-09-27T16:22:19.961Z",
+    "v": 2
+  },
   "https://sitepedago.telecom-paristech.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:38.298Z",
+    "v": 2
+  },
+  "https://sls.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:36.971Z",
     "v": 2
   },
   "https://sndi-ng.ecologie.gouv.fr": {
@@ -2588,10 +5119,37 @@
     "checkedAt": "2026-09-24T14:09:23.445Z",
     "v": 2
   },
+  "https://socle-giseh.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:38.959Z",
+    "v": 2
+  },
+  "https://sonarqube-ee.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:20.979Z",
+    "v": 2
+  },
   "https://sondage.ensg.eu": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:38.291Z",
+    "v": 2
+  },
+  "https://sp2019.collab.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:47.635Z",
+    "v": 2
+  },
+  "https://spote2.din.developpement-durable.gouv.fr": {
+    "marque": "MINISTÈRES TRANSITION ÉCOLOGIQUE AMÉNAGEMENT DU TERRITOIRE TRANSPORTS VILLE ET LOGEMENT",
+    "mentions": [
+      "ministère de la Culture et le Service de la transformation numérique de la Direction générale de la police nationale, ainsi que différentes structures inter",
+      "ministère de la Culture"
+    ],
+    "checkedAt": "2026-09-27T16:22:23.278Z",
     "v": 2
   },
   "https://stages.ensg.eu": {
@@ -2647,6 +5205,24 @@
     "checkedAt": "2026-09-25T01:43:38.553Z",
     "v": 2
   },
+  "https://suivi-pnacc-3.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:01.251Z",
+    "v": 2
+  },
+  "https://suivi-pnacc.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:03.241Z",
+    "v": 2
+  },
+  "https://suivi.dalo-daho-idf.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:03.004Z",
+    "v": 2
+  },
   "https://surfmar.meteo.fr": {
     "marque": null,
     "mentions": [],
@@ -2659,16 +5235,52 @@
     "checkedAt": "2026-09-25T01:43:38.816Z",
     "v": 2
   },
+  "https://syssi.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:03.110Z",
+    "v": 2
+  },
+  "https://taiga.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:25.042Z",
+    "v": 2
+  },
   "https://tam.ca.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:28.850Z",
     "v": 2
   },
+  "https://tchap-bot.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:05.173Z",
+    "v": 2
+  },
+  "https://telecarb.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:42.963Z",
+    "v": 2
+  },
   "https://teledeclarants.pole-emploi.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:38.819Z",
+    "v": 2
+  },
+  "https://temoin-ecocompose.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:26.987Z",
+    "v": 2
+  },
+  "https://temoin-wacs.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:28.951Z",
     "v": 2
   },
   "https://territoires-en-transition.ecologie.gouv.fr": {
@@ -2707,10 +5319,28 @@
     "checkedAt": "2026-09-25T01:43:53.615Z",
     "v": 2
   },
+  "https://trafic2000.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:07.223Z",
+    "v": 2
+  },
   "https://tribunal-stationnement-payant.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:56.254Z",
+    "v": 2
+  },
+  "https://trident.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:09.220Z",
+    "v": 2
+  },
+  "https://triton.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:30.952Z",
     "v": 2
   },
   "https://tube.reseau-canope.fr": {
@@ -2781,6 +5411,12 @@
     "checkedAt": "2026-09-25T01:43:51.834Z",
     "v": 2
   },
+  "https://valflux.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:32.969Z",
+    "v": 2
+  },
   "https://vdiuagext1.ensg.eu": {
     "marque": null,
     "mentions": [],
@@ -2791,6 +5427,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:42.319Z",
+    "v": 2
+  },
+  "https://veille-md.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:35.062Z",
     "v": 2
   },
   "https://video.cnnumerique.fr": {
@@ -2823,6 +5465,41 @@
     "marque": null,
     "checkedAt": "2026-09-24T14:04:51.035Z"
   },
+  "https://vip-inter-rp-146.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique,",
+      "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales,",
+      "Ministère de la mer,",
+      "Ministère de l'Agriculture et de l'Alimentation"
+    ],
+    "checkedAt": "2026-09-27T16:18:22.764Z",
+    "v": 2
+  },
+  "https://virage.coraly.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:02.663Z",
+    "v": 2
+  },
+  "https://vivacite2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.241Z",
+    "v": 2
+  },
+  "https://vms-cotiers.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:24.591Z",
+    "v": 2
+  },
+  "https://vms.application.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.468Z",
+    "v": 2
+  },
   "https://voie-reservee.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -2835,10 +5512,44 @@
     "checkedAt": "2026-09-24T14:09:46.748Z",
     "v": 2
   },
+  "https://vtc-controle.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition Écologique et Solidaire",
+      "Ministère de la Cohésion des Territoires",
+      "Ministère de la Transition Écologique et Solidaire"
+    ],
+    "checkedAt": "2026-09-27T16:18:47.012Z",
+    "v": 2
+  },
   "https://webconf.comu.gouv.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:27.358Z",
+    "v": 2
+  },
+  "https://webconf.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.726Z",
+    "v": 2
+  },
+  "https://wikiresilience.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:54.383Z",
+    "v": 2
+  },
+  "https://wiklimat.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:56.388Z",
+    "v": 2
+  },
+  "https://workey.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:33.189Z",
     "v": 2
   },
   "https://works-magnet.esr.gouv.fr": {
@@ -2851,6 +5562,174 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-25T01:43:42.819Z",
+    "v": 2
+  },
+  "https://wsa.sig.ville.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:13.954Z",
+    "v": 2
+  },
+  "https://www-maj.aqst.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:36.965Z",
+    "v": 2
+  },
+  "https://www-maj.atlas-paysages-71.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:38.965Z",
+    "v": 2
+  },
+  "https://www-maj.atlas-paysages.jura.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:09.640Z",
+    "v": 2
+  },
+  "https://www-maj.atlas-paysages.saone-et-loire.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:11.647Z",
+    "v": 2
+  },
+  "https://www-maj.deal-guyanne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:40.970Z",
+    "v": 2
+  },
+  "https://www-maj.deal-reunion.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:42.949Z",
+    "v": 2
+  },
+  "https://www-maj.dir-ouest.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:44.946Z",
+    "v": 2
+  },
+  "https://www-maj.dir.ile-de-france.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:13.632Z",
+    "v": 2
+  },
+  "https://www-maj.dreal-grand-est.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:46.952Z",
+    "v": 2
+  },
+  "https://www-maj.dreal-normandie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:48.945Z",
+    "v": 2
+  },
+  "https://www-maj.dreal-nouvelle-aquitaine.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:50.980Z",
+    "v": 2
+  },
+  "https://www-maj.dreal-pays-de-la-loire.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:52.944Z",
+    "v": 2
+  },
+  "https://www-maj.e-lettre-dgac.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:54.941Z",
+    "v": 2
+  },
+  "https://www-maj.hctisn.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:56.954Z",
+    "v": 2
+  },
+  "https://www-maj.info.cites.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:15.634Z",
+    "v": 2
+  },
+  "https://www-maj.lycee-maritime-ciboure.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:22:58.968Z",
+    "v": 2
+  },
+  "https://www-maj.observatoire-habitat-guadeloupe.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:00.944Z",
+    "v": 2
+  },
+  "https://www-maj.oh-guadeloupe.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:02.965Z",
+    "v": 2
+  },
+  "https://www-maj.ort-occitanie.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:04.952Z",
+    "v": 2
+  },
+  "https://www-maj.paysages.aura.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:17.611Z",
+    "v": 2
+  },
+  "https://www-maj.paysages.pdl.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:19.645Z",
+    "v": 2
+  },
+  "https://www-maj.paysages.seine-saint-denis.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:21.625Z",
+    "v": 2
+  },
+  "https://www-maj.paysages.yvelines.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:23.627Z",
+    "v": 2
+  },
+  "https://www-maj.radiofrequences.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:06.948Z",
+    "v": 2
+  },
+  "https://www-maj.rt-batiment.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:08.983Z",
+    "v": 2
+  },
+  "https://www-maj.spppy.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:10.963Z",
+    "v": 2
+  },
+  "https://www-maj.urbanisme-puca.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:23:12.973Z",
     "v": 2
   },
   "https://www.1000-premiers-jours.fr": {
@@ -2895,6 +5774,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:56.474Z",
+    "v": 2
+  },
+  "https://www.aeea.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:51.434Z",
     "v": 2
   },
   "https://www.afd.fr": {
@@ -2996,6 +5881,23 @@
     "checkedAt": "2026-09-24T14:08:46.041Z",
     "v": 2
   },
+  "https://www.archives-orales.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:51.478Z",
+    "v": 2
+  },
+  "https://www.archives.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et solidaire et du Ministère de la Cohésion des territoires",
+      "Ministère de la Transition écologique et solidaire et du Ministère de la Cohésion des territoires",
+      "Ministère de la Transition écologique et solidaire et du Ministère de la Cohésion des territoires",
+      "Ministère de la Transition écologique et solidaire et du Ministère de la Cohésion des territoires"
+    ],
+    "checkedAt": "2026-09-27T16:16:57.452Z",
+    "v": 2
+  },
   "https://www.arcom.fr": {
     "marque": null,
     "mentions": [],
@@ -3033,6 +5935,12 @@
     "checkedAt": "2026-09-24T14:08:56.741Z",
     "v": 2
   },
+  "https://www.atlas-paysages.saone-et-loire.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:55.626Z",
+    "v": 2
+  },
   "https://www.atout-france.fr": {
     "marque": "République Française",
     "mentions": [],
@@ -3061,6 +5969,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:56.856Z",
+    "v": 2
+  },
+  "https://www.balae.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:07.041Z",
     "v": 2
   },
   "https://www.banque-france.fr": {
@@ -3095,6 +6009,16 @@
       "ministère des mines ou une institution chargée de développer le secteur minier ? Le BRGM vous accompagne pour créer un cadre attractif, sécurisé et transp"
     ],
     "checkedAt": "2026-09-24T14:08:46.597Z",
+    "v": 2
+  },
+  "https://www.bulletin-officiel.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique et Solidaire et de la Cohésion des Territoires Ministère de la Transition Energétique Ministère de la Mer",
+      "ministère de la transition écologique, de la biodiversité et des négociations internationales sur le climat et la nature",
+      "Ministère de la Transition écologique et de la cohésion des territoires Ministère de la transition énérgétique Secrétariat d'état chargé de la Mer"
+    ],
+    "checkedAt": "2026-09-27T16:16:55.751Z",
     "v": 2
   },
   "https://www.cada.fr": {
@@ -3246,6 +6170,12 @@
     "checkedAt": "2026-09-24T14:08:47.005Z",
     "v": 2
   },
+  "https://www.cne.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:13.438Z",
+    "v": 2
+  },
   "https://www.cng.sante.fr": {
     "marque": null,
     "mentions": [],
@@ -3341,6 +6271,12 @@
     "checkedAt": "2026-09-24T14:08:47.047Z",
     "v": 2
   },
+  "https://www.crdd.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.551Z",
+    "v": 2
+  },
   "https://www.cre.fr": {
     "marque": null,
     "mentions": [],
@@ -3369,10 +6305,28 @@
     "checkedAt": "2026-09-24T14:08:59.619Z",
     "v": 2
   },
+  "https://www.data.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:17.046Z",
+    "v": 2
+  },
+  "https://www.datmd.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:10.982Z",
+    "v": 2
+  },
   "https://www.debatpublic.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:47.230Z",
+    "v": 2
+  },
+  "https://www.declarationpollution.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:16:57.715Z",
     "v": 2
   },
   "https://www.defenseurdesdroits.fr": {
@@ -3385,6 +6339,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:59.536Z",
+    "v": 2
+  },
+  "https://www.demarches-simplifiees.fr": {
+    "marque": "gouvernement",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.751Z",
     "v": 2
   },
   "https://www.deux-sevres.gouv.fr": {
@@ -3409,15 +6369,65 @@
     "checkedAt": "2026-09-24T14:09:01.700Z",
     "v": 2
   },
+  "https://www.dir.ile-de-france.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [
+      "ministère chargé des transports, elle est placée sous l’autorité du préfet d’Île-de-France, préfet de Paris, au sein de la direction régionale et interdépart"
+    ],
+    "checkedAt": "2026-09-27T16:19:17.314Z",
+    "v": 2
+  },
+  "https://www.dir.ouest.developpement-durable.gouv.fr": {
+    "marque": "Ministère des Transports",
+    "mentions": [
+      "Ministère des Transports",
+      "Ministère des Transports"
+    ],
+    "checkedAt": "2026-09-27T16:19:19.301Z",
+    "v": 2
+  },
+  "https://www.dirm.mediterranee.developpement-durable.gouv.fr": {
+    "marque": "Ministère chargé de la Mer et de la Pêche",
+    "mentions": [
+      "Ministère chargé de la Mer et de la Pêche",
+      "Ministère chargé de la Mer et de la Pêche"
+    ],
+    "checkedAt": "2026-09-27T16:19:21.498Z",
+    "v": 2
+  },
   "https://www.dondorganes.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:47.873Z",
     "v": 2
   },
+  "https://www.donnees.rhone-alpes.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:07.160Z",
+    "v": 2
+  },
+  "https://www.dossierfacile.logement.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.747Z",
+    "v": 2
+  },
   "https://www.doubs.gouv.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:57.917Z"
+  },
+  "https://www.dre.provence-alpes-cote-d-azur.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région Provence-Alpes- Côte d'Azur",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:25.445Z",
+    "v": 2
+  },
+  "https://www.drieat.ile-de-france.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:27.387Z",
+    "v": 2
   },
   "https://www.drogues-info-service.fr": {
     "marque": null,
@@ -3431,6 +6441,18 @@
     "checkedAt": "2026-09-25T01:43:29.736Z",
     "v": 2
   },
+  "https://www.e-lettre-dgac.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:19.189Z",
+    "v": 2
+  },
+  "https://www.e-lettre.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:21.089Z",
+    "v": 2
+  },
   "https://www.ebrd.com": {
     "marque": null,
     "mentions": [],
@@ -3441,6 +6463,27 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:47.406Z",
+    "v": 2
+  },
+  "https://www.ecole.fluides.frigo.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T20:00:31.659Z",
+    "v": 2
+  },
+  "https://www.ecole.i-cites.developpement-durable.gouv.fr": {
+    "marque": "République française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:19:31.096Z",
+    "v": 2
+  },
+  "https://www.ecoquartiers.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique, favorise de nouvelles façons de concevoir, construire et gérer la ville durablement",
+      "Ministère de la Transition Écologique"
+    ],
+    "checkedAt": "2026-09-27T16:17:03.300Z",
     "v": 2
   },
   "https://www.efs.sante.fr": {
@@ -3514,6 +6557,21 @@
   "https://www.fiva.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:45.015Z"
+  },
+  "https://www.fluides-frigorigenes.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:31.060Z",
+    "v": 2
+  },
+  "https://www.fluvial.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T16:17:33.726Z",
+    "v": 2
   },
   "https://www.fondation-alliancefr.org": {
     "marque": null,
@@ -3624,6 +6682,12 @@
     "checkedAt": "2026-09-24T14:08:48.512Z",
     "v": 2
   },
+  "https://www.histoire-dac.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:15.443Z",
+    "v": 2
+  },
   "https://www.histoire-immigration.fr": {
     "marque": null,
     "mentions": [],
@@ -3634,6 +6698,18 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:02.977Z",
+    "v": 2
+  },
+  "https://www.hydroportailgrandpublicv32.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:15.267Z",
+    "v": 2
+  },
+  "https://www.hydroportailv32.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:19.266Z",
     "v": 2
   },
   "https://www.iedom.fr": {
@@ -3692,6 +6768,12 @@
       "Ministère des armées"
     ],
     "checkedAt": "2026-09-24T14:08:48.709Z",
+    "v": 2
+  },
+  "https://www.info-retraite.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.869Z",
     "v": 2
   },
   "https://www.injs-paris.fr": {
@@ -3814,6 +6896,12 @@
     "checkedAt": "2026-09-24T14:08:49.239Z",
     "v": 2
   },
+  "https://www.le-recensement-et-moi.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.760Z",
+    "v": 2
+  },
   "https://www.le-smv.gouv.fr": {
     "marque": "Ministère des armées et des anciens combattants",
     "mentions": [],
@@ -3859,6 +6947,12 @@
     "checkedAt": "2026-09-24T14:08:49.784Z",
     "v": 2
   },
+  "https://www.magelan.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:21.323Z",
+    "v": 2
+  },
   "https://www.mangerbouger.fr": {
     "marque": null,
     "mentions": [],
@@ -3881,6 +6975,24 @@
     "checkedAt": "2026-09-24T14:09:09.436Z",
     "v": 2
   },
+  "https://www.mayotte.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région Mayotte",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:48.622Z",
+    "v": 2
+  },
+  "https://www.mementorenovationenergetique.drieat.ile-de-france.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T19:59:56.215Z",
+    "v": 2
+  },
+  "https://www.meridienne-ng.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:17:26.443Z",
+    "v": 2
+  },
   "https://www.minesparis.psl.eu": {
     "marque": null,
     "mentions": [],
@@ -3897,6 +7009,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:10.414Z",
+    "v": 2
+  },
+  "https://www.monespacesante.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.743Z",
     "v": 2
   },
   "https://www.monnaiedeparis.fr": {
@@ -3924,6 +7042,12 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:08:49.571Z",
+    "v": 2
+  },
+  "https://www.msr25.doubs.developpement-durable.gouv.fr": {
+    "marque": "République Française",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:39.604Z",
     "v": 2
   },
   "https://www.musee-orangerie.fr": {
@@ -3960,6 +7084,21 @@
     "checkedAt": "2026-09-24T14:09:10.681Z",
     "v": 2
   },
+  "https://www.observatoire-habitat-guadeloupe.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T16:18:04.308Z",
+    "v": 2
+  },
+  "https://www.obshabitat.gers.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:43.920Z",
+    "v": 2
+  },
   "https://www.onerc.gouv.fr": {
     "marque": null,
     "mentions": [],
@@ -3981,6 +7120,12 @@
   "https://www.operadeparis.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:46.757Z"
+  },
+  "https://www.ort.bfc.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:44.959Z",
+    "v": 2
   },
   "https://www.parcoursup.gouv.fr": {
     "marque": null,
@@ -4018,10 +7163,49 @@
     "checkedAt": "2026-09-25T01:43:57.535Z",
     "v": 2
   },
+  "https://www.paysages.hauts-de-seine.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:49.382Z",
+    "v": 2
+  },
+  "https://www.paysages.seine-saint-denis.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:52.051Z",
+    "v": 2
+  },
+  "https://www.paysages.val-de-marne.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:54.443Z",
+    "v": 2
+  },
+  "https://www.paysages.yvelines.developpement-durable.gouv.fr": {
+    "marque": "Préfet de la région d'Île-de-France",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:55.645Z",
+    "v": 2
+  },
   "https://www.pension-alimentaire.caf.fr": {
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:13.430Z",
+    "v": 2
+  },
+  "https://www.planbatimentdurable.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T16:18:17.243Z",
+    "v": 2
+  },
+  "https://www.planif-territoires.logement.gouv.fr": {
+    "marque": "Ministères Transition écologique Aménagement du territoire Transports Ville et Logement",
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:19.388Z",
     "v": 2
   },
   "https://www.pluie-inondation.gouv.fr": {
@@ -4054,6 +7238,12 @@
       "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le climat et la nature"
     ],
     "checkedAt": "2026-09-24T14:09:17.168Z",
+    "v": 2
+  },
+  "https://www.proto.hydroportailv32.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:21:39.786Z",
     "v": 2
   },
   "https://www.publicite-responsable.ecologie.gouv.fr": {
@@ -4089,6 +7279,18 @@
     "checkedAt": "2026-09-24T14:09:18.911Z",
     "v": 2
   },
+  "https://www.registrenationaldesrefus.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:10:04.749Z",
+    "v": 2
+  },
+  "https://www.reperesdecrues.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:07.297Z",
+    "v": 2
+  },
   "https://www.santepubliquefrance.fr": {
     "marque": null,
     "mentions": [
@@ -4106,6 +7308,15 @@
   "https://www.sciencespo.fr": {
     "marque": null,
     "checkedAt": "2026-09-24T14:04:49.830Z"
+  },
+  "https://www.sdnsd.developpement-durable.gouv.fr": {
+    "marque": "Ministère de l'Aménagement du territoire et de la Décentralisation",
+    "mentions": [
+      "Ministère de l'Aménagement du territoire et de la Décentralisation",
+      "Ministère de l'Aménagement du territoire et de la Décentralisation"
+    ],
+    "checkedAt": "2026-09-27T16:18:31.855Z",
+    "v": 2
   },
   "https://www.senat.fr": {
     "marque": null,
@@ -4145,6 +7356,12 @@
     "marque": "Haut-commissariat à la Stratégie et au Plan",
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:23.575Z",
+    "v": 2
+  },
+  "https://www.syplo.logement.gouv.fr": {
+    "marque": null,
+    "mentions": [],
+    "checkedAt": "2026-09-27T16:18:41.095Z",
     "v": 2
   },
   "https://www.systeme-de-design.gouv.fr": {
@@ -4231,6 +7448,17 @@
     "marque": null,
     "mentions": [],
     "checkedAt": "2026-09-24T14:09:26.845Z",
+    "v": 2
+  },
+  "https://z2.din.developpement-durable.gouv.fr": {
+    "marque": null,
+    "mentions": [
+      "Ministère de la Transition écologique,",
+      "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales,",
+      "Ministère de la mer,",
+      "Ministère de l'Agriculture et de l'Alimentation"
+    ],
+    "checkedAt": "2026-09-27T16:22:51.415Z",
     "v": 2
   }
 }
