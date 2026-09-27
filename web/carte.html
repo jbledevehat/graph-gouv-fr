@@ -576,11 +576,7 @@
   <div class="legend">
     <div class="legend-title"><span>Afficher</span><button type="button" id="all">Tout afficher</button></div>
     <div id="cats"></div>
-    <label class="toggle" for="only-new">
-      <input type="checkbox" id="only-new">
-      <span class="ring" aria-hidden="true"></span>
-      <span>Mettre en avant les ajouts de la V2</span>
-    </label>
+
   </div>
 </aside>
 
@@ -686,16 +682,15 @@
   // --- État de l'interface ---
   // Par défaut, les sites off ou archivés sont masqués.
   const STORE = 'carte-v2-filtres-2';
-  const state = { hidden: new Set(['archive']), onlyNew: false, hovered: null, selected: null, neighbours: new Set() };
+  const state = { hidden: new Set(['archive']), hovered: null, selected: null, neighbours: new Set() };
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
     if (saved) {
       state.hidden = new Set((saved.hidden || []).filter(c => cats.has(c)));
-      state.onlyNew = !!saved.onlyNew;
     }
   } catch (e) {}
   const save = () => {
-    try { localStorage.setItem(STORE, JSON.stringify({ hidden: [...state.hidden], onlyNew: state.onlyNew })); } catch (e) {}
+    try { localStorage.setItem(STORE, JSON.stringify({ hidden: [...state.hidden] })); } catch (e) {}
   };
   // Toute modification des filtres redessine la carte et, si elle est ouverte, la liste.
   const filtersChanged = () => { save(); renderer.refresh(); if (!listEl.hidden) renderList(); };
@@ -721,9 +716,6 @@
     catsEl.querySelectorAll('input').forEach(i => { i.checked = true; });
     filtersChanged();
   });
-  const onlyNew = document.getElementById('only-new');
-  onlyNew.checked = state.onlyNew;
-  onlyNew.addEventListener('change', () => { state.onlyNew = onlyNew.checked; filtersChanged(); });
 
   // --- Étiquettes : couleurs du thème, fond contrasté ---
   const theme = {};
@@ -799,10 +791,6 @@
         // Voisins mis en évidence ; les noms des membres d'une bulle n'apparaissent qu'en zoomant.
         else if (state.neighbours.has(node)) { r.zIndex = 1; r.forceLabel = a.bulle !== f; }
         else { r.color = faded(); r.label = ''; r.zIndex = 0; }
-      } else if (state.onlyNew && !a.nouveau) {
-        r.color = faded(); r.label = '';
-      } else if (state.onlyNew) {
-        r.zIndex = 1;
       }
       return r;
     },
@@ -878,7 +866,7 @@
     ['Programme chef de file', 'Programme budgétaire'], ['Intitulé 2019', 'Intitulé 2019'],
     ['Code HTTP', 'Code HTTP', 'mono'], ['URL finale', 'URL finale', 'url'], ['Erreur', 'Erreur', 'mono'],
     ['Type précédent', 'Type en V1'], ['Type V1', 'Type en V1'], ['Vérifié le', 'Vérifié le'], ['Ajouté le', 'Ajouté le'],
-    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'], ['Sites déclarés', 'Site déclaré (annuaire)', 'urls'],
+    ['SIREN', 'SIREN', 'mono'], ['Source', 'Source'], ['URL annuaire', 'Fiche annuaire', 'url'], ['Anciennes adresses', 'Anciennes adresses', 'urls'], ['Sites déclarés', 'Site déclaré (annuaire)', 'urls'],
   ];
   const statusClass = { 'En ligne': 'ok', 'Redirigé': 'warn', 'Hors ligne': 'bad', 'Indéterminé': '' };
 
@@ -924,7 +912,6 @@
     document.getElementById('d-cat').innerHTML = `<span class="dot" style="background:${catColor(a.categorie)}"></span>${esc(cat.label)}`;
     document.getElementById('d-title').innerHTML = /^https?:\/\//.test(node) ? link(node) : esc(node);
     const badges = [];
-    if (a.nouveau) badges.push('<span class="badge new">Ajout V2</span>');
     if (a.attrs.Statut) badges.push(`<span class="badge ${statusClass[a.attrs.Statut] ?? ''}">${esc(a.attrs.Statut)}</span>`);
     for (const t of (a.attrs.tags || '').split('|')) {
       if (['À rattacher', 'À revérifier', 'Tutelle à préciser', 'Opérateur de l\'État'].includes(t)) badges.push(`<span class="badge">${esc(t)}</span>`);
@@ -1049,7 +1036,7 @@
 
   // --- Vue liste par pôle (mêmes filtres que la carte) ---
   function renderList() {
-    const visible = (n, a) => !state.hidden.has(a.categorie) && (!state.onlyNew || a.nouveau);
+    const visible = (n, a) => !state.hidden.has(a.categorie);
     const byPole = data.poles.map(() => new Map());
     let total = 0;
     graph.forEachNode((n, a) => {
@@ -1060,7 +1047,7 @@
       total++;
     });
     document.getElementById('list-count').textContent =
-      `${fmt(total)} sites et administrations affichés selon les filtres de la légende${state.onlyNew ? ' (ajouts de la V2 seulement)' : ''} ; les sous-domaines sont listés dans la fiche de leur site.`;
+      `${fmt(total)} sites et administrations affichés selon les filtres de la légende ; les sous-domaines sont listés dans la fiche de leur site.`;
     const order = data.poles.map((p, i) => [p, i]).filter(([, i]) => byPole[i].size)
       .sort(([a], [b]) => (a.id === 'Sans ministère identifié') - (b.id === 'Sans ministère identifié') || a.label.localeCompare(b.label, 'fr'));
     // Contenu d'un pôle construit seulement quand on le déplie.
@@ -1070,7 +1057,7 @@
         const subs = membersOf.get(n)?.length;
         return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}" aria-hidden="true"></span>` +
           `<span class="txt">${esc(short(n))}${subs ? ` <span class="via">+${fmt(subs)} sous-domaines</span>` : ''}</span>` +
-          `${graph.getNodeAttribute(n, 'nouveau') ? '<span class="new">Ajout V2</span>' : ''}</button></li>`;
+          `</button></li>`;
       }).join('') + '</ul>';
     }).join('');
     const body = document.getElementById('list-body');

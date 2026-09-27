@@ -88,6 +88,10 @@ Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
 - un site déclaré qui **redirige** ailleurs relie l'organisme au site d'arrivée (ajouté à la carte
   si besoin), et les sous-domaines d'un ancien domaine qui redirige rejoignent la bulle du site
   d'arrivée (surveillance.eau-adour-garonne.fr → bulle d'eau-grandsudouest.fr) ;
+- les **doublons** (adresses qui mènent au même site) sont fusionnés : le site d'arrivée est
+  gardé, les autres adresses figurent dans sa fiche (« Anciennes adresses ») ;
+- les noms techniques sont écartés par motif (`candidates.excludePatterns`) et, pour les
+  environnements de test, par contexte : `xxxdev` / `xxxval` seulement si `xxx` existe ;
 - la fiche d'un organisme indique toujours ses **sites déclarés** dans l'annuaire, même quand il
   s'agit du site partagé de son ministère ;
 - les **entités de premier niveau** de l'annuaire (directement sous un ministère ou à la racine

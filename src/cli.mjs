@@ -283,6 +283,13 @@ function nameKeys(name) {
   return keys;
 }
 
+// Variante d'environnement d'un nom existant : « lesfondamentauxdev » ou « mission-jaures-val »
+// quand « lesfondamentaux » / « mission-jaures » existe (le nom seul ne suffit pas : festival, carnaval).
+function isEnvVariant(key, existing) {
+  const m = key.match(/^([a-z0-9-]+?)-?(dev|val|qa|rec|recette|preprod|test|staging)\.(.+)$/);
+  return !!m && existing.has(`${m[1]}.${m[3]}`);
+}
+
 const isMinistry = name => /^(ministère|premier ministre)/i.test(name);
 
 // Index de l'annuaire. Pour chaque service, sa tutelle ministérielle :
@@ -530,8 +537,9 @@ function selectCandidates(elements, dinumRows, annuaireRows, crtsh) {
     }
     return null;
   };
+  const allNames = new Set([...known, ...dinum.keys(), ...Object.values(crtsh || {}).flatMap(x => x.names.map(siteKey))]);
   const addSub = (key, make) => {
-    if (!key || known.has(key) || candidates.has(key) || excluded(key)) return;
+    if (!key || known.has(key) || candidates.has(key) || excluded(key) || isEnvVariant(key, allNames)) return;
     const parentKey = parentOf(key);
     if (parentKey) candidates.set(key, { ...make(), parentKey });
     // Sous-domaine gouv.fr dont aucun parent n'est sur la carte : ajouté seul (rattachement par
@@ -861,8 +869,12 @@ async function build() {
     .map(e => [siteKey(hostOf(e.label)), e.label]));
   const known = new Set(elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
   const additions = [], warnings = [], skippedRedirects = [];
+  // Filtres de noms appliqués aussi aux candidats déjà vérifiés (filtres renforcés depuis).
+  const nameExcludes = config.candidates.excludePatterns.map(re => new RegExp(re, 'i'));
+  const candidateKeys = new Set(checks.filter(c => c.kind === 'candidate').map(c => c.key));
+  const technical = key => nameExcludes.some(re => re.test(key)) || isEnvVariant(key, candidateKeys);
   // Sites d'abord, sous-domaines ensuite (leur parent doit déjà être connu), du plus court au plus long.
-  const ordered = checks.filter(c => c.kind === 'candidate')
+  const ordered = checks.filter(c => c.kind === 'candidate' && !technical(c.key))
     .sort((a, b) => (!!a.parentKey - !!b.parentKey) || a.key.split('.').length - b.key.split('.').length || a.key.localeCompare(b.key));
   for (const c of ordered) {
     if (c.statut === 'Redirigé') { skippedRedirects.push(c); continue; }
@@ -1159,6 +1171,44 @@ async function build() {
   }
   v2Elements.push(...newOrgs, ...additions);
 
+  // Doublons : adresses qui mènent au même site (redirection) et entrées répétées de la V1. Le site
+  // d'arrivée est gardé ; les autres adresses deviennent ses « Anciennes adresses », leurs liens lui
+  // sont reportés et leurs sous-domaines rejoignent sa bulle.
+  const finalKeyOf = e => siteKey(hostOf(e['URL finale'] || '') || hostOf(e.label));
+  const byFinal = new Map();
+  for (const e of v2Elements) {
+    if (!isUrl(e.label)) continue;
+    const k = finalKeyOf(e);
+    if (!byFinal.has(k)) byFinal.set(k, []);
+    byFinal.get(k).push(e);
+  }
+  const mergedInto = new Map();
+  for (const [k, list] of byFinal) {
+    if (list.length < 2) continue;
+    const own = e => siteKey(hostOf(e.label)) === k;
+    const canon = list.find(e => own(e) && e.type !== OFF && e.Statut !== 'Hors ligne')
+      || list.find(own) || list.find(e => e.Statut === 'En ligne') || list[0];
+    const others = list.filter(e => e !== canon);
+    for (const e of others) mergedInto.set(e.label, canon.label);
+    const previous = canon['Anciennes adresses'] ? canon['Anciennes adresses'].split(' ; ') : [];
+    canon['Anciennes adresses'] = [...new Set([...previous, ...others.map(e => e.label)])].join(' ; ');
+  }
+  if (mergedInto.size) {
+    const remap = l => mergedInto.get(l) || l;
+    const seenConn = new Set(), keptConn = [];
+    for (const c of v2Connections) {
+      const from = remap(c.from), to = remap(c.to);
+      const k = `${from}\u0000${to}\u0000${c.type}`;
+      if (from === to || seenConn.has(k)) continue;
+      seenConn.add(k);
+      keptConn.push({ ...c, from, to });
+    }
+    v2Connections.splice(0, v2Connections.length, ...keptConn);
+    const keep = e => !mergedInto.has(e.label);
+    v2Elements.splice(0, v2Elements.length, ...v2Elements.filter(keep));
+    additions.splice(0, additions.length, ...additions.filter(keep));
+  }
+
   // 3. Jeu de données complet pour la carte V2.
   console.log('Génération du jeu de données V2…');
   await writeOut(p('out/kumu-v2.json'), { elements: v2Elements, connections: v2Connections });
@@ -1182,6 +1232,10 @@ async function build() {
     if (c.statut !== 'Redirigé' || !c.finalUrl || !c.key) continue;
     const to = siteKey(hostOf(c.finalUrl));
     if (!onMap.has(c.key) && onMap.has(to) && to !== c.key) aliases.set(c.key, to);
+  }
+  for (const [old, canon] of mergedInto) {
+    const from = siteKey(hostOf(old)), to = siteKey(hostOf(canon));
+    if (from !== to && !onMap.has(from)) aliases.set(from, to);
   }
   const graph = buildGraph({ elements: v2Elements, connections: v2Connections, aliases });
   await writeOut(p('out/sites-gouv-fr-v2.gexf'), toGexf(graph));
@@ -1237,6 +1291,7 @@ Vérifications HTTP du ${checkedOn}.
 - Nouvelles administrations (annuaire) : **${newOrgs.length}**, dont ${ministries.length} ministères et ${newOrgs.filter(o => o.tags.includes('Tutelle à préciser')).length} sans ministère de tutelle connu
 - Sites de la V1 réorganisés selon l'annuaire : ${reorganized} liens de 2019 remplacés
 - Entités de premier niveau de l'annuaire ajoutées (même sans site propre) : ${viaEntities}
+- Doublons fusionnés (anciennes adresses qui mènent au même site) : ${mergedInto.size}
 - Organismes reliés au site vers lequel redirige leur site déclaré : ${viaRedirectSites}
 - Services en ligne et consultations de la V1 reclassés en site ou sous-domaine : ${retyped}
 - Rattachements complémentaires : ${viaV1} sites de la V1 sans lien (annuaire, config/rattachements.csv), ${viaManual} organismes par config/tutelles.csv, ${viaPrefecture} sites de préfecture, ${viaMarque} sites par leur bloc-marque DSFR ou les ministères cités dans la page, ${viaKeyword} sites par leur nom de domaine
