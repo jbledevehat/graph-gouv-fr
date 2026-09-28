@@ -23,6 +23,7 @@
     "graphology": "^0.26.0",
     "graphology-gexf": "^0.13.2",
     "graphology-layout-forceatlas2": "^0.10.1",
+    "pdfkit": "^0.17.2",
     "pg": "^8.23.0"
   }
 }

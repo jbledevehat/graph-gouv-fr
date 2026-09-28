@@ -523,6 +523,16 @@
     font-size: 18px;
     cursor: pointer;
   }
+  .zoom .zoom-btn {
+    display: grid;
+    place-items: center;
+    width: 44px; height: 44px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+  }
+  .zoom .zoom-btn:hover { background: var(--panel-2); }
+  .zoom .zoom-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
   .zoom button:last-child { border-bottom: 0; font-size: 13px; }
   .zoom button:hover { background: var(--panel-2); }
 
@@ -577,7 +587,7 @@
         <li>Cliquez sur un point pour ouvrir sa fiche ; zoomez pour lire les noms.</li>
       </ul>
     </details>
-    <p class="updated"><span id="updated"></span> · <a href="https://github.com/jbledevehat/graph-gouv-fr" target="_blank" rel="noopener">Code sur GitHub</a> · Liste des sites : <a href="sites.csv" download>CSV</a>, <a href="sites.json" download>JSON</a></p>
+    <p class="updated"><span id="updated"></span> · <a href="https://github.com/jbledevehat/graph-gouv-fr" target="_blank" rel="noopener">Code sur GitHub</a> · Liste des sites : <a href="sites.csv" download>CSV</a>, <a href="sites.json" download>JSON</a> · <a href="carte.pdf" download>Carte en PDF</a></p>
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
@@ -636,7 +646,10 @@
   <div id="list-body"></div>
 </section>
 
-<div class="zoom panel" role="group" aria-label="Zoom">
+<div class="zoom panel" role="group" aria-label="Commandes de la carte">
+  <a class="zoom-btn" href="carte.pdf" download aria-label="Télécharger la carte en PDF (vectoriel, tous les noms, zoom sans perte)" title="Télécharger la carte en PDF haute résolution">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+  </a>
   <button type="button" id="z-in" aria-label="Zoomer" title="Zoomer"><span aria-hidden="true">+</span></button>
   <button type="button" id="z-out" aria-label="Dézoomer" title="Dézoomer"><span aria-hidden="true">−</span></button>
   <button type="button" id="z-reset" aria-label="Recentrer la carte" title="Recentrer la carte"><span aria-hidden="true">⟲</span></button>

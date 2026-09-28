@@ -12,6 +12,7 @@ import {
 } from './attachments.mjs';
 import { formerAddresses, mergeDuplicates } from './duplicates.mjs';
 import { siteRecords, webMeta, writeSiteLists, writeWeb } from './export.mjs';
+import { writePdf } from './pdf.mjs';
 import { createMap, tag } from './model.mjs';
 import { report } from './report.mjs';
 import { loadV1 } from './v1.mjs';
@@ -140,7 +141,10 @@ export async function build() {
   const checkedOn = input.checks[0]?.checkedAt?.slice(0, 10) || today;
   const sites = siteRecords(graph);
   await writeSiteLists(sites, 'donnees');
-  await writeWeb(toWebData(graph, webMeta({ map, graph, checkedOn })), sites);
+  const webData = toWebData(graph, webMeta({ map, graph, checkedOn }));
+  await writeWeb(webData, sites);
+  await writePdf(webData);
+  console.log('  -> out/web/carte.pdf');
   await writeOut('out/sites-gouv-fr-v2.gexf', toGexf(graph));
   await writeOut('out/rapport.md', report({ map, v1: input.v1, checkedOn }));
   console.log(`  ${map.elements.length} éléments (${map.newOrgs.length} administrations et ${map.additions.length} sites nouveaux), ${map.connections.length} connexions ; ${sites.length} sites dans donnees/sites.csv`);

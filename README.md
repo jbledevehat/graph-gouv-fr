@@ -32,6 +32,10 @@ La liste des sites (sites, sous-domaines et sites archivés), mise à jour avec 
 | `anciennes_adresses` | Adresses fusionnées avec ce site (elles y redirigent) |
 | `source` | Origine : carte V1 (2019), Annuaire de l'administration, DINUM, crt.sh, Observatoire |
 
+La carte existe aussi en **PDF vectoriel** ([carte.pdf](https://gouvfr.jbledevehat.fr/carte.pdf),
+bouton de téléchargement sur la carte) : même placement, tous les noms affichés, y compris ceux
+des sous-domaines (lisibles en zoomant), texte cherchable.
+
 Dans le CSV, les listes sont séparées par ` ; `. Le graphe complet (administrations, liens,
 positions) est écrit dans `out/sites-gouv-fr-v2.gexf` à chaque construction, à ouvrir dans
 [Gephi](https://gephi.org) ou [Gephi Lite](https://gephi.org/gephi-lite/).
@@ -196,7 +200,7 @@ src/
   candidates.mjs   sélection des candidats
   check.mjs        vérification HTTP
   marques.mjs      lecture des blocs-marques
-  build/           construction : V1, nouveaux sites, rattachements, doublons, exports, rapport
+  build/           construction : V1, nouveaux sites, rattachements, doublons, exports (CSV, JSON, PDF), rapport
   graph.mjs        graphe, bulles, placement, GEXF et données de la page
   lib/             CSV, HTTP, URL, comparaison d'intitulés
 config/            sources, filtres et tables de rattachement
