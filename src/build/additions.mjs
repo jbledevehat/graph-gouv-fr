@@ -20,7 +20,10 @@ export function addCandidates(map, { v1, checks, ann, annSite, adminFor, demarch
   // Filtres de noms appliqués aussi aux candidats déjà vérifiés (filtres renforcés depuis).
   const patterns = technicalPatterns();
   const candidateKeys = new Set(checks.filter(c => c.kind === 'candidate').map(c => c.key));
-  const technical = key => patterns.some(re => re.test(key)) || isEnvVariant(key, candidateKeys);
+  // Organisations internationales et plateformes privées (x.com, blogspot.com…) : jamais ajoutées.
+  const excludedDomains = config.candidates.excludeDomains || [];
+  const technical = key => patterns.some(re => re.test(key)) || isEnvVariant(key, candidateKeys)
+    || excludedDomains.some(d => key === d || key.endsWith('.' + d));
   const skippedRedirects = [];
   // Sites d'abord, sous-domaines ensuite (leur parent doit déjà être connu), du plus court au plus long.
   const ordered = checks.filter(c => c.kind === 'candidate' && (demarcheHosts.has(c.key) || !technical(c.key)))
