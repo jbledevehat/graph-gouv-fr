@@ -1,9 +1,14 @@
 <title>Sites web publics V2</title>
+<script>
+  // Thème choisi (clair ou sombre), sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root {
+    color-scheme: light;
     --ground: #EDF0F5;
     --panel: #FFFFFF;
     --panel-2: #F5F7FA;
@@ -374,6 +379,19 @@
     cursor: pointer;
   }
   .views button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .theme { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+  .theme span { font-size: 12px; color: var(--muted); margin-right: 2px; }
+  .theme button {
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: 500 12px var(--sans);
+    cursor: pointer;
+  }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
 
   /* --- Vue liste par pôle --- */
   #list {
@@ -560,6 +578,12 @@
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
+    </div>
+    <div class="theme" role="group" aria-label="Thème">
+      <span aria-hidden="true">Thème</span>
+      <button type="button" data-theme-choice="auto" aria-pressed="true">Système</button>
+      <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
     </div>
   </div>
   <div class="search">
@@ -871,6 +895,21 @@
   };
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
   new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // Choix du thème : système, clair ou sombre (mémorisé dans ce navigateur).
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const choice = b.dataset.themeChoice;
+    if (choice === 'auto') delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = choice;
+    try { if (choice === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', choice); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
 
   // --- Fiche ---
   const detail = document.getElementById('detail');
