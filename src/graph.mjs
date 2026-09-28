@@ -8,14 +8,16 @@ import { hostOf, isUrl, siteKey } from './lib/url.mjs';
 
 const { UndirectedGraph } = graphology;
 
-// Catégories affichées, dans l'ordre de la légende. Couleurs reprises de la légende de la V1.
+// Catégories affichées, dans l'ordre de la légende. Une couleur par thème, d'un contraste d'au
+// moins 3:1 sur le fond de la carte (WCAG 1.4.11) : color pour le fond clair (et le GEXF), dark
+// pour le fond sombre.
 export const CATEGORIES = [
-  { id: 'personne', label: 'Présidence et Premier ministre', color: '#2F6BD8' },
-  { id: 'ministere', label: 'Ministères', color: '#E0A800' },
-  { id: 'administration', label: 'Administrations et opérateurs', color: '#B8860B' },
-  { id: 'site', label: 'Sites web', color: '#2E9E5B' },
-  { id: 'sous-domaine', label: 'Sous-domaines', color: '#E8772E' },
-  { id: 'archive', label: 'Sites off ou archivés', color: '#4A4F57' },
+  { id: 'personne', label: 'Présidence et Premier ministre', color: '#2F6BD8', dark: '#5B8DEF' },
+  { id: 'ministere', label: 'Ministères', color: '#A37500', dark: '#E0A800' },
+  { id: 'administration', label: 'Administrations et opérateurs', color: '#7D5B16', dark: '#C99A2E' },
+  { id: 'site', label: 'Sites web', color: '#1D7A43', dark: '#3DB36E' },
+  { id: 'sous-domaine', label: 'Sous-domaines', color: '#C2530F', dark: '#EC8A45' },
+  { id: 'archive', label: 'Sites off ou archivés', color: '#4A4F57', dark: '#8A919C' },
 ];
 
 // Suffixes qui ne sont jamais des sites parents.

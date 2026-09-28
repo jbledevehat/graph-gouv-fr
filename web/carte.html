@@ -15,12 +15,13 @@
     --ink: #162033;
     --muted: #5A6579;
     --line: #D6DCE6;
+    --control: #7C8699; /* bordure des champs et boutons (3:1) */
     --accent: #1F3FB5;
     --accent-soft: #E3E8FA;
     --ok: #17703D;
     --warn: #8A5300;
-    --bad: #C2362F;
-    --neutral: #6B7483;
+    --bad: #B42F29;
+    --neutral: #566073;
     --edge: rgba(22,32,51,0.13);
     --label: #162033;
     --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
@@ -36,6 +37,7 @@
       --ink: #E4E9F1;
       --muted: #97A2B5;
       --line: #273142;
+    --control: #65718A;
       --accent: #8EA6FF;
       --accent-soft: #1E2A4A;
       --ok: #4CC47E;
@@ -55,6 +57,7 @@
     --ink: #E4E9F1;
     --muted: #97A2B5;
     --line: #273142;
+    --control: #65718A;
     --accent: #8EA6FF;
     --accent-soft: #1E2A4A;
     --ok: #4CC47E;
@@ -149,7 +152,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 8px 10px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 7px;
     background: var(--panel-2);
     color: var(--ink);
@@ -283,7 +286,7 @@
   .close {
     flex: none;
     width: 36px; height: 36px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 7px;
     background: var(--panel-2);
     color: var(--ink);
@@ -346,18 +349,18 @@
     letter-spacing: .06em;
     text-transform: uppercase;
     text-align: center;
-    color: var(--muted);
-    background: color-mix(in srgb, var(--ground) 78%, transparent);
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ground) 90%, transparent);
     white-space: normal;
     text-wrap: balance;
   }
-  #poles.dim span { opacity: .25; }
+  #poles.dim span { opacity: .7; } /* estompé, lisible (4,5:1 au moins) */
 
   .goto { padding: 0 16px 12px; border-bottom: 1px solid var(--line); }
   .goto select {
     width: 100%;
     padding: 7px 8px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 7px;
     background: var(--panel-2);
     color: var(--ink);
@@ -371,7 +374,7 @@
   .views button {
     flex: 1;
     min-height: 36px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 7px;
     background: var(--panel-2);
     color: var(--ink);
@@ -384,7 +387,7 @@
   .theme button {
     min-height: 28px;
     padding: 0 10px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 999px;
     background: transparent;
     color: var(--ink);
@@ -420,7 +423,7 @@
   .list-back {
     min-height: 36px;
     padding: 0 12px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--control);
     border-radius: 7px;
     background: var(--panel-2);
     color: var(--ink);
@@ -662,7 +665,11 @@
   const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const isDark = () => css('--ground').toLowerCase() === '#0c1119';
   // Le gris des sites archivés est trop sombre sur fond sombre.
-  const catColor = id => (id === 'archive' && isDark()) ? '#8A919C' : cats.get(id).color;
+  // Couleur de catégorie propre à chaque thème (contraste d'au moins 3:1 sur le fond).
+  const catColor = id => isDark() ? cats.get(id).dark : cats.get(id).color;
+  // Les pastilles (légende, fiches, listes) utilisent var(--cat-<id>) : elles suivent le thème.
+  const setCatVars = () => data.categories.forEach(c => document.documentElement.style.setProperty('--cat-' + c.id, catColor(c.id)));
+  setCatVars();
 
   // Libellé court sur la carte, libellé complet dans la fiche.
   const short = key => key.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
@@ -733,7 +740,7 @@
     const label = document.createElement('label');
     label.htmlFor = 'cat-' + c.id;
     label.innerHTML = `<input type="checkbox" id="cat-${c.id}" ${state.hidden.has(c.id) ? '' : 'checked'}>` +
-      `<span class="dot" style="background:${catColor(c.id)}"></span><span>${c.label}</span><span class="count">${fmt(counts[c.id])}</span>`;
+      `<span class="dot" style="background:var(--cat-${c.id})"></span><span>${c.label}</span><span class="count">${fmt(counts[c.id])}</span>`;
     label.querySelector('input').addEventListener('change', e => {
       e.target.checked ? state.hidden.delete(c.id) : state.hidden.add(c.id);
       filtersChanged();
@@ -887,10 +894,7 @@
     readTheme();
     renderer.setSetting('labelColor', { color: css('--label') });
     renderer.setSetting('defaultEdgeColor', css('--edge'));
-    catsEl.querySelectorAll('.dot').forEach((d, i) => {
-      const id = data.categories.filter(c => counts[c.id])[i].id;
-      d.style.background = catColor(id);
-    });
+    setCatVars();
     renderer.refresh();
   };
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
@@ -944,7 +948,7 @@
       kids.slice().sort((a, b) => short(a).localeCompare(short(b), 'fr')).map(k => {
         const a = graph.getNodeAttributes(k), st = a.attrs.Statut, code = a.attrs['Code HTTP'];
         const sub = childrenOf.get(k)?.length;
-        return `<li><button type="button" data-node="${esc(k)}"><span class="dot" style="background:${catColor(a.categorie)}" aria-hidden="true"></span>${esc(short(k))}</button>` +
+        return `<li><button type="button" data-node="${esc(k)}"><span class="dot" style="background:var(--cat-${a.categorie})" aria-hidden="true"></span>${esc(short(k))}</button>` +
           `${sub ? ` <span class="via">+${fmt(sub)}</span>` : ''}` +
           `${st ? ` <span class="badge ${statusClassOf(st)}">${esc(st)}${code && st !== 'En ligne' ? ' ' + esc(code) : ''}</span>` : ''}</li>`;
       }).join('') + '</ul></details>';
@@ -964,7 +968,7 @@
     }
     const a = graph.getNodeAttributes(node);
     const cat = cats.get(a.categorie);
-    document.getElementById('d-cat').innerHTML = `<span class="dot" style="background:${catColor(a.categorie)}"></span>${esc(cat.label)}`;
+    document.getElementById('d-cat').innerHTML = `<span class="dot" style="background:var(--cat-${a.categorie})"></span>${esc(cat.label)}`;
     document.getElementById('d-title').innerHTML = /^https?:\/\//.test(node) ? link(node) : esc(node);
     const badges = [];
     if (a.attrs.Statut) badges.push(`<span class="badge ${statusClass[a.attrs.Statut] ?? ''}">${esc(a.attrs.Statut)}</span>`);
@@ -991,7 +995,7 @@
     const html = data.categories.filter(c => groups.has(c.id)).map(c => {
       const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
       return `<h3>${esc(c.label)} · ${items.length}</h3><ul>` + items.map(n =>
-        `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}"></span><span class="txt">${esc(short(n))}</span></button></li>`).join('') + '</ul>';
+        `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:var(--cat-${c.id})"></span><span class="txt">${esc(short(n))}</span></button></li>`).join('') + '</ul>';
     }).join('');
     document.getElementById('d-links').innerHTML = subsHtml(node) + (html || (graph.getNodeAttribute(node, 'bulle') ? '' : '<h3>Aucun lien</h3>'));
     detail.hidden = false;
@@ -1021,7 +1025,7 @@
     matches = words.length ? index.filter(([, t]) => words.every(w => t.includes(w))).map(([n]) => n).slice(0, 30) : [];
     results.innerHTML = matches.map(n => {
       const a = graph.getNodeAttributes(n);
-      return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(a.categorie)}" aria-hidden="true"></span>` +
+      return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:var(--cat-${a.categorie})" aria-hidden="true"></span>` +
         `<span class="txt">${esc(short(n))}${a.bulle ? ` <span class="via">bulle ${esc(short(a.bulle))}</span>` : ''}</span></button></li>`;
     }).join('') + (words.length && !matches.length ? '<li class="sub" style="padding:6px 8px">Aucun résultat.</li>' : '');
     document.getElementById('q-count').textContent = words.length
@@ -1111,7 +1115,7 @@
       const items = groups.get(c.id).sort((x, y) => short(x).localeCompare(short(y), 'fr'));
       return `<h3>${esc(c.label)} · ${fmt(items.length)}</h3><ul>` + items.map(n => {
         const subs = membersOf.get(n)?.length;
-        return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:${catColor(c.id)}" aria-hidden="true"></span>` +
+        return `<li><button type="button" data-node="${esc(n)}"><span class="dot" style="background:var(--cat-${c.id})" aria-hidden="true"></span>` +
           `<span class="txt">${esc(short(n))}${subs ? ` <span class="via">+${fmt(subs)} sous-domaines</span>` : ''}</span>` +
           `</button></li>`;
       }).join('') + '</ul>';
