@@ -1,262 +1,223 @@
-# Représentation en *graph* des sites et services web publics de l'État
+# Carte des sites web publics de l'État
 
-**Carte V2 : [gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr)** · carte V1 (2019) :
-[Kumu](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)
+**[gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr)** : les sites de l'État, rangés par
+ministère selon l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr).
 
-Ce dépôt contient l'outil de mise à jour de la carte de 2019 (voir [Version 1](#version-1-2019)).
+Ce dépôt met à jour la carte réalisée en 2019 sous Kumu
+([V1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)) : il vérifie
+chaque site, ajoute les sites publics manquants, les rattache à leur administration et à leur
+ministère, puis publie la carte et la liste des sites.
 
-Il part de la carte V1 (2019), vérifie chaque site, ajoute les sites publics manquants et
-produit le jeu de données complet d'une **carte V2** à importer dans Kumu, avec un rapport des
-changements. Kumu n'offrant pas d'API d'écriture, l'import reste manuel.
+## Données
 
-## Prérequis
+La liste des sites (sites, sous-domaines et sites archivés), mise à jour avec la carte :
 
-Node.js 20 ou plus, puis `npm install` (graphology, pour le placement du graphe et l'export GEXF).
+- [`donnees/sites.csv`](donnees/sites.csv) (séparateur virgule, UTF-8) ;
+- [`donnees/sites.json`](donnees/sites.json) (tableau d'objets, un par ligne) ;
+- également téléchargeables depuis la carte : [sites.csv](https://gouvfr.jbledevehat.fr/sites.csv),
+  [sites.json](https://gouvfr.jbledevehat.fr/sites.json).
+
+| Champ | Contenu |
+|---|---|
+| `url` | Adresse du site |
+| `domaine` | Domaine, sans `www.` |
+| `type` | `site`, `sous-domaine` ou `archivé` |
+| `statut` | `En ligne`, `Redirigé`, `Hors ligne` ou `Indéterminé` (dernière vérification) |
+| `code_http`, `url_finale`, `verifie_le` | Résultat de la vérification HTTP |
+| `site_parent` | Domaine du site dont il est un sous-domaine |
+| `organisme` | Administration qui porte le site |
+| `pole` | Ministère (ou Présidence, Premier ministre, Autorités indépendantes, Institutions et juridictions) ; vide si inconnu |
+| `rattachement` | Règle qui a donné l'organisme ou le ministère (voir [Rattachements](#rattachements)) |
+| `demarches_essentielles` | Démarches de l'[Observatoire](https://observatoire.numerique.gouv.fr/observatoire) proposées sur ce site |
+| `anciennes_adresses` | Adresses fusionnées avec ce site (elles y redirigent) |
+| `source` | Origine : carte V1 (2019), Annuaire de l'administration, DINUM, crt.sh, Observatoire |
+
+Dans le CSV, les listes sont séparées par ` ; `. Le graphe complet (administrations, liens,
+positions) est écrit dans `out/sites-gouv-fr-v2.gexf` à chaque construction, à ouvrir dans
+[Gephi](https://gephi.org) ou [Gephi Lite](https://gephi.org/gephi-lite/).
 
 ## Utilisation
+
+Node.js 22 ou plus, puis `npm install`.
 
 ```bash
 npm run update
 ```
 
-enchaîne les quatre étapes, qui peuvent aussi être lancées séparément :
+enchaîne toutes les étapes, qui peuvent aussi être lancées séparément :
 
-| Commande | Rôle | Sortie |
+| Commande | Rôle | Résultat |
 |---|---|---|
-| `npm run fetch:kumu` | Instantané de la carte publique (éléments, connexions, description) via l'API CouchDB de Kumu | `donnees/kumu/` |
-| `npm run fetch:sources` | Liste DINUM des [noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) (si le fichier brut est remplacé par une page anti-robot, le dépôt est cloné avec git ; à défaut, la liste précédente est conservée), services nationaux de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr) ([API](https://api-lannuaire.service-public.fr)), liste des opérateurs de l'État du PLF et [démarches essentielles](https://observatoire.numerique.gouv.fr/observatoire) de l'Observatoire | `donnees/sources/` (non versionné) |
-| `npm run fetch:hierarchie` | Hiérarchie de l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr/themes) telle que le site la présente : fil d'Ariane de chaque fiche nationale (Ministères > Ministère… > Direction… > service), une page par seconde, relue tous les 90 jours | `donnees/annuaire/hierarchie.json` (versionné) |
-| `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr de la carte, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), avec un cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
-| `npm run check` | Vérifie en HTTP chaque URL de la carte et chaque nouveau domaine candidat | `donnees/checks/latest.json` (un résultat par ligne) |
-| `npm run build` | Calcule les changements, génère le jeu de données V2, le graphe et le rapport | `out/` |
+| `npm run fetch:sources` | Télécharge les sources publiques (voir [Sources](#sources)) | `donnees/sources/` (non versionné) |
+| `npm run fetch:hierarchie` | Lit le fil d'Ariane de chaque fiche nationale de l'annuaire, une page par seconde, relue tous les 90 jours | `donnees/annuaire/hierarchie.json` |
+| `npm run fetch:subdomains` | Sous-domaines des domaines hors gouv.fr, lus dans les journaux de certificats ([crt.sh](https://crt.sh)), cache de 30 jours | `donnees/sources/crtsh.json` (non versionné) |
+| `npm run check` | Vérifie en HTTP chaque site de la V1 et chaque candidat | `donnees/checks/latest.json` |
+| `npm run build` | Construit la carte, la liste des sites et le rapport | `donnees/sites.*`, `out/` |
+| `npm run fetch:marques` | Lit le bloc-marque des sites restés sans ministère (relancer `build` ensuite) | `donnees/checks/marques.json` |
 
-Options de `check` : `--limit=N` (tester sur N URLs), `--only=map`, `--only=candidates` ou
-`--only=unknown` (seulement les URLs restées indéterminées) ; le reste est repris de la
-vérification précédente.
+Options de `check` : `--only=map` (sites de la V1), `candidates`, `new` (candidats jamais
+vérifiés), `unknown` (restés indéterminés), `roots` (sites principaux indéterminés ou hors
+ligne), `refused` (connexions refusées) ; `--limit=N` pour un essai. Les autres résultats sont
+repris de la vérification précédente.
 
-## Règles appliquées
+`out/rapport.md` résume chaque construction : changements depuis la V1, nouveaux sites, sites
+sans rattachement, avertissements.
 
-**Éléments existants** (tous ceux dont le libellé est une URL) :
+Pour voir la carte en local : `python3 -m http.server 8765 --directory out/web`.
 
-| Résultat de la vérification | Effet |
+## Sources
+
+- **Carte V1 (2019)** : instantané versionné dans `donnees/v1-2019/`.
+- **[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr)**
+  ([API](https://api-lannuaire.service-public.fr)) : services nationaux (catégorie `SI`) et
+  leurs sites, hors ordres professionnels, associations, ambassades, collectivités…
+  (`sources.annuaire.excludeTypes`) ; hiérarchie lue sur le site (fil d'Ariane).
+- **[Noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public)**
+  (DINUM). Si le fichier brut est remplacé par une page anti-robot, le dépôt est cloné avec git ;
+  à défaut, la liste précédente est gardée. Le serveur est injoignable depuis GitHub Actions :
+  les nouveaux domaines DINUM s'ajoutent lors d'une mise à jour locale.
+- **[Opérateurs de l'État](https://www.data.gouv.fr/datasets/projet-de-loi-de-finances-pour-2026-plf-2026-jaune-operateurs-de-letat-liste-des-operateurs-et-categories)**
+  (annexe « jaune » du PLF ; URL à changer à chaque nouveau PLF).
+- **[Démarches essentielles](https://observatoire.numerique.gouv.fr/observatoire)** de
+  l'Observatoire de la qualité des démarches en ligne.
+- **Journaux de certificats** ([crt.sh](https://crt.sh)) et **départements et régions**
+  ([geo.api.gouv.fr](https://geo.api.gouv.fr)).
+
+## Règles
+
+### Vérification HTTP
+
+| Résultat | Effet sur un site de la V1 |
 |---|---|
-| En ligne (2xx/3xx, ou 401/403) | Type inchangé ; un « Site off/archivé » revenu en ligne repasse en « Site web » |
-| Redirigé vers un autre site | Passe en « Site off/archivé » (sauf « Service web » : les redirections d'authentification sont normales) |
-| Hors ligne (domaine inexistant, page parquée, 404/410) | Passe en « Site off/archivé » |
-| Indéterminé (limitation de débit, timeout, 5xx…) | Type inchangé, listé dans le rapport pour revérification |
-
-Chaque élément reçoit les champs `Statut`, `Code HTTP`, `URL finale`, `Erreur`, `Vérifié le`,
-et `Type précédent` quand son type change. Les libellés ne sont jamais modifiés : c'est la clé
-de correspondance lors de l'import.
+| En ligne (2xx/3xx, ou 401/403) | Reste actif ; un site archivé revenu en ligne redevient actif |
+| Redirigé vers un autre site | Archivé ; si le site d'arrivée est sur la carte, l'adresse devient l'une de ses anciennes adresses |
+| Hors ligne (domaine inexistant, page parquée, 404/410) | Archivé |
+| Indéterminé (limitation de débit, délai dépassé, 5xx…) | Inchangé, listé dans le rapport |
 
 Chaque URL est essayée en http, en https, puis avec `www.`, et les échecs sont réessayés plus
-lentement. Un serveur au certificat TLS mal configuré est considéré comme en ligne (l'erreur est
-notée dans `Erreur`). Les redirections sont suivies une à une, en restant en https si un
-serveur renvoie vers http (diplomatie.gouv.fr le fait pour les robots). Une connexion refusée
-seule ne suffit pas à déclarer un site hors ligne : il reste « indéterminé »
-(`check --only=refused` pour revérifier). Les requêtes vers une même adresse IP sont limitées (`perIp`, `perIpGapMs`) : la plateforme
-mutualisée des préfectures bannit pendant quelques heures les clients trop rapides. Si des
-préfectures restent « indéterminées », relancer plus tard `node src/cli.mjs check --only=unknown`
-puis `npm run build`.
+lentement. Un certificat TLS mal configuré n'empêche pas un site d'être en ligne. Les
+redirections sont suivies une à une, en restant en https si un serveur renvoie vers http. Une
+connexion refusée seule laisse le site « indéterminé ». Les requêtes vers une même adresse IP
+sont espacées (`perIp`, `perIpGapMs`) : la plateforme des préfectures bannit les clients trop
+rapides ; relancer plus tard `check --only=unknown`.
 
-**Nouveaux sites**, s'ils répondent et ne ressemblent pas à des noms techniques (`api.`,
-`mail.`, `recette`, `preprod`…, voir `config/config.json`) :
+### Nouveaux sites
 
-- sites déclarés par les services nationaux (catégorie `SI`) de l'Annuaire de l'administration,
-  quel que soit le domaine (`ademe.fr`, `insee.fr`…). Les ordres professionnels, associations,
-  ambassades, collectivités, etc. sont exclus (`sources.annuaire.excludeTypes`). L'organisme,
-  son type et sa tutelle (la racine de sa hiérarchie dans l'annuaire) sont repris en attributs ;
-- domaines `*.gouv.fr` de la liste DINUM ;
-- **sous-domaines** d'un site de la carte (ou d'un nouveau site) : ceux de la liste DINUM, tous
-  domaines confondus (pour gouv.fr, elle intègre déjà les journaux de certificats via le script
-  `import-from-ct-logs.py` de la DINUM), et, pour les domaines hors gouv.fr que la DINUM ne
-  couvre pas, ceux des journaux de certificats (crt.sh), d'abord filtrés par le DNS. Chaque
-  sous-domaine est relié à son site parent. Ceux qui redirigent vers un autre site, parent
-  compris, sont écartés (`includeSubdomains` pour désactiver).
+Un candidat est ajouté s'il répond et ne ressemble pas à un nom technique (`api.`, `recette`,
+`solr`…, `candidates.excludePatterns` ; `xxxdev` ou `xxxval` seulement si `xxx` existe) :
 
-- adresses des **démarches essentielles** de l'[Observatoire de la qualité des démarches en
-  ligne](https://observatoire.numerique.gouv.fr/observatoire) (tous domaines : urssaf.fr, caf.fr…).
-  Source sûre : elles échappent aux filtres de noms, gardent leur adresse même si elles redirigent
-  vers une page de connexion, et sont ajoutées (tag `À revérifier`) même quand elles bloquent nos
-  vérifications ; seules celles absentes du DNS sont écartées. Un site resté sans ministère est
-  rattaché à l'administration et au ministère indiqués par l'Observatoire. Les sites concernés
-  portent le tag `Démarche essentielle` et la liste de leurs démarches ; la carte permet de les
-  mettre en avant.
+- sites déclarés dans l'annuaire, quel que soit le domaine (`ademe.fr`, `insee.fr`…) ;
+- domaines `*.gouv.fr` de la liste DINUM, et domaines de l'État qu'elle type (ambassades,
+  académies, universités…, `candidates.dinumTypes`) ;
+- **sous-domaines** d'un site de la carte, d'après la liste DINUM et les journaux de certificats
+  (filtrés par le DNS). Un sous-domaine qui redirige, ou en erreur 500, 502 ou 503, n'est pas
+  ajouté ;
+- adresses des **démarches essentielles**. Source sûre : elles échappent aux filtres de noms,
+  gardent leur adresse même si elles mènent à une page de connexion, et sont ajoutées même
+  quand elles bloquent nos vérifications (URSSAF) ; seules celles absentes du DNS sont écartées.
 
-Ils sont ajoutés en « Site web » avec les tags `Nouveau` et `À rattacher`.
+Les sites d'organisations internationales sont exclus (`candidates.excludeDomains`).
 
-**Administrations** (reprises de l'Annuaire de l'administration) :
+### Rattachements
 
-- **l'organisation suit celle de l'annuaire** : pour chaque service, le fil d'Ariane de sa fiche
-  (`npm run fetch:hierarchie`) donne sa section (Ministères, Autorités indépendantes,
-  Institutions et juridictions, Ambassades) et sa chaîne de rattachement, créée sur la carte
-  (ministère > direction > … > service > site). Pour un site déclaré dans l'annuaire, V1 comprise,
-  cette chaîne prime sur toutes les autres règles ; les liens de 2019 sont remplacés. Les règles
-  ci-dessous ne servent qu'aux sites et organismes que l'annuaire ne rattache pas ;
-- un site déclaré par un organisme **et ses propres antennes** (délégations, directions
-  régionales…) appartient à cet organisme (ex. eau-grandsudouest.fr → Agence de l'eau
-  Adour-Garonne), sauf s'il est déclaré par un ministère ou par plus de 100 services (site de
-  ministère) ;
-- un site déclaré qui **redirige** ailleurs relie l'organisme au site d'arrivée (ajouté à la carte
-  si besoin), et les sous-domaines d'un ancien domaine qui redirige rejoignent la bulle du site
-  d'arrivée (surveillance.eau-adour-garonne.fr → bulle d'eau-grandsudouest.fr) ;
-- les **doublons** (adresses qui mènent au même site) sont fusionnés : le site d'arrivée est
-  gardé, les autres adresses figurent dans sa fiche (« Anciennes adresses ») ;
-- les noms techniques sont écartés par motif (`candidates.excludePatterns`) et, pour les
-  environnements de test, par contexte : `xxxdev` / `xxxval` seulement si `xxx` existe ;
-- la fiche d'un organisme indique toujours ses **sites déclarés** dans l'annuaire, même quand il
-  s'agit du site partagé de son ministère ;
+Les règles s'appliquent dans cet ordre ; chacune ne traite que ce que les précédentes n'ont pas
+rattaché. La colonne `rattachement` indique celle qui a servi.
+
+1. **Site parent** : un sous-domaine rejoint la bulle de son site parent.
+2. **Annuaire** : le site suit la chaîne de l'organisme qui le déclare (ministère > direction >
+   … > organisme > site), V1 comprise ; les liens de 2019 sont alors remplacés. Si plusieurs
+   services le déclarent :
+   - le propriétaire manifeste l'emporte (sigle ou initiales égaux au domaine : OFB pour ofb.gouv.fr) ;
+   - un site déclaré par un organisme et ses antennes lui appartient (eau-grandsudouest.fr →
+     Agence de l'eau Adour-Garonne), sauf s'il est déclaré par un ministère ou par plus de
+     100 services ;
+   - un site déclaré par au moins 3 services d'un même ministère est rattaché au ministère
+     (info.gouv.fr → Premier ministre).
+
+   Un domaine déclaré qui redirige vaut pour le site d'arrivée. À défaut de hiérarchie, la
+   tutelle se déduit de l'adresse (ministère majoritaire parmi les services au même endroit).
+3. **`config/rattachements.csv`** (`domaine,administration`) : un domaine et ses sous-domaines.
+4. **Type DINUM** : ambassade, académie, université…
+5. **Opérateurs de l'État** : un établissement reconnu (nom, mots ou sigle) est placé sous le
+   ministère de son programme chef de file (`config/programmes-ministeres.csv`).
+6. **`config/tutelles.csv`** (`motif,ministere`) : caisses nationales, chambres consulaires…
+7. **Préfectures** : `<département ou région>.gouv.fr`.
+8. **Bloc-marque** DSFR de la page d'accueil (nom du ministère sous la Marianne) ou, à défaut,
+   ministère cité dans la page.
+9. **Observatoire des démarches** : administration et ministère de la démarche.
+10. **Mot-clé du domaine** (`config/mots-cles-ministeres.csv` : `musee` → Culture…).
+
+Autres règles :
+
 - les **entités de premier niveau** de l'annuaire (directement sous un ministère ou à la racine
-  d'une section : directions générales, établissements publics, services à compétence nationale,
-  conseils…) figurent sur la carte même sans site propre, hors cabinets ministériels ; elles sont
-  reliées à leur propre site, pas à un site partagé par de nombreux services ;
-- le Premier ministre est relié à chaque ministère (liens « Gouvernement ») et le Président de la
-  République au Premier ministre ; la « Présidence de la République » de l'annuaire est le nœud
-  du Président (elysee.fr). Ces liens restent visibles sur la carte ;
+  d'une section) figurent sur la carte même sans site propre, hors cabinets ;
+- le Premier ministre est relié à chaque ministère ; la « Présidence de la République » de
+  l'annuaire est le nœud du Président (elysee.fr) ;
+- les **doublons** (adresses qui mènent au même site) sont fusionnés en un seul site, avec ses
+  anciennes adresses ; les sous-domaines d'un ancien domaine rejoignent la bulle du site d'arrivée ;
+- les ministères de la V1 prennent leur intitulé actuel (`config/correspondances-2019.csv`, à
+  mettre à jour après chaque remaniement) ;
+- les « services en ligne » et « consultations » de la V1 deviennent des sites ou des
+  sous-domaines.
 
-- chaque nouveau site est relié au service qui le déclare dans l'annuaire (ou, pour un domaine
-  DINUM, au service de même SIREN), et ce service à son ministère de tutelle, c'est-à-dire le plus
-  proche ancêtre ministériel dans la hiérarchie de l'annuaire ;
-- l'annuaire ne relie pas les établissements publics à leur ministère : ils sont rapprochés (par
-  nom ou sigle) de la [liste des opérateurs de l'État](https://www.data.gouv.fr/datasets/projet-de-loi-de-finances-pour-2026-plf-2026-jaune-operateurs-de-letat-liste-des-operateurs-et-categories)
-  (annexe « jaune » du PLF), dont le programme budgétaire chef de file donne le ministère via
-  `config/programmes-ministeres.csv`. Ils reçoivent le tag `Opérateur de l'État` et les champs
-  `Statut juridique` et `Programme chef de file`. Ceux qui restent sans ministère (autorités
-  indépendantes, institutions…) reçoivent le tag `Tutelle à préciser` ;
-- les administrations de la V1 prennent leur intitulé actuel selon
-  `config/correspondances-2019.csv` (l'ancien est conservé dans `Intitulé 2019`), et leurs
-  connexions suivent. À mettre à jour après chaque remaniement ;
-- à défaut de hiérarchie, la tutelle d'un service est déduite de son **adresse** (ministère
-  majoritaire, à 60 % au moins, parmi les services installés au même endroit) ;
-- un site déclaré par plusieurs services d'un même ministère (ex. `info.gouv.fr`, déclaré par
-  120 services du Premier ministre) est rattaché directement à ce ministère ;
-- `config/tutelles.csv` (`motif,ministere`) donne la tutelle d'organismes qui ne sont ni
-  rattachés dans l'annuaire ni opérateurs de l'État (caisses nationales, chambres consulaires…) ;
-- les sites `<département ou région>.gouv.fr` sont reliés au nœud « Préfecture » ;
-- pour les sites restés sans ministère, `npm run fetch:marques` lit la page d'accueil : le
-  **bloc-marque** du DSFR (nom du ministère sous la Marianne) ou, à défaut, un ministère cité
-  au moins deux fois dans la page. Résultats en cache dans `donnees/checks/marques.json` ;
-- ces règles s'appliquent à **tous** les sites sans rattachement, y compris ceux de la V1 ;
-- dans l'annuaire, le service retenu pour un site est d'abord celui dont le sigle ou le nom
-  correspond au domaine (INRAE pour inrae.fr) ; les opérateurs sont aussi reconnus par leur sigle ;
-- en dernier recours, `config/mots-cles-ministeres.csv` déduit le ministère d'un mot-clé du nom
-  de domaine (`musee` → Culture, `parc-marin` → Transition écologique…), pour un site ou pour
-  l'organisme sans tutelle qui le porte ;
-- les sites d'organisations internationales (`candidates.excludeDomains`) sont exclus ;
-- le champ `Rattachement déduit de` indique la méthode utilisée quand ce n'est pas la hiérarchie ;
-- `config/rattachements.csv` (`domaine,administration`) force le rattachement d'un site et de
-  ses sous-domaines ;
-- les sites restés sans rattachement ont le tag `À rattacher` et sont listés dans
-  `out/a-rattacher.csv`.
+## La carte
 
-## Visualiser la carte V2
+Page autonome ([sigma.js](https://www.sigmajs.org), source `web/carte.html`) : recherche,
+légende filtrante (sites archivés masqués par défaut), mise en avant des démarches
+essentielles, fiche de chaque élément, vue en liste par pôle, accessible au clavier et aux
+lecteurs d'écran. Lien direct vers un site : `#ademe.fr`.
 
-Kumu n'étant utilisable qu'avec un abonnement, `build` produit aussi :
+Le placement est calculé pendant `build` : chaque élément rejoint le pôle de son ministère (ou
+« Autorités indépendantes », « Institutions et juridictions ») ; les sous-domaines sont
+regroupés en bulles autour de leur site ; dans un pôle, une simulation de forces (d3-force)
+donne sa place à chaque bulle ; les pôles sont ensuite empaquetés autour du Président, au
+centre, et du Premier ministre.
 
-- `out/web/` : une page autonome (sigma.js) avec recherche, légende filtrante (sites off ou
-  archivés masqués par défaut), mise en avant des ajouts de la V2, fiche de chaque élément et
-  **vue en liste par pôle**, accessible au clavier et aux lecteurs d'écran. Elle se publie telle quelle, par exemple sur
-  GitHub Pages. Lien direct vers un élément : `index.html#ademe.fr`. Source : `web/carte.html`.
-  Pour la voir en local : `python3 -m http.server 8765 --directory out/web`.
-  **Bulles de sous-domaines** : tout site dont un domaine parent est sur la carte (quel que soit
-  son type, V1 comme V2) est dessiné en petit point dans la bulle de son ancêtre le plus haut
-  (« +N » sur la carte) ; `gouv.fr` n'est jamais un parent. Dans une bulle, chaque sous-domaine
-  regroupe ses propres sous-domaines en sous-bulle ; les liens parent → enfant s'affichent pour la
-  bulle de l'élément sélectionné, et les fiches permettent de remonter et descendre l'arborescence. Le placement réserve la place de
-  chaque bulle. La fiche du site liste les membres de sa bulle, celle d'un membre renvoie à la
-  bulle. Les sous-domaines en « Indéterminé » 500, 502 ou 503 ne sont pas ajoutés.
-- `out/sites-gouv-fr-v2.gexf` : le graphe complet, sous-domaines compris (positions, couleurs, attributs), à ouvrir dans
-  [Gephi](https://gephi.org), [Gephi Lite](https://gephi.org/gephi-lite/) ou à publier avec
-  [Retina](https://ouestware.gitlab.io/retina/).
-
-Le placement est calculé pendant `build`, à la manière de Kumu : chaque élément rejoint le pôle
-de son ministère (ou « Autorités indépendantes », « Institutions et juridictions ») ; dans une
-bulle, les sous-bulles sont empaquetées au plus serré autour de leur parent (d3-hierarchy) ; dans
-un pôle, une simulation de forces (d3-force) donne à chaque bulle exactement sa place (collision),
-rapproche ce qui est relié et évite les trous ; les pôles sont ensuite empaquetés avec un écart
-constant, autour du Président (au centre) et du Premier ministre (juste en dessous). Les liens entre pôles ne s'affichent qu'à la sélection d'un élément. Il n'y a plus de
-« services en ligne » ni de « consultations » : ces sites de la V1 sont reclassés en site ou
-sous-domaine (type d'origine dans « Type V1 »).
-
-## Publication sur gouvfr.jbledevehat.fr
+## Publication
 
 La GitHub Action [`carte.yml`](.github/workflows/carte.yml) publie `out/web/` sur GitHub Pages :
 
-- à chaque push sur `master`, la carte est reconstruite à partir des vérifications HTTP
-  versionnées dans `donnees/checks/` ;
-- le 1er de chaque mois (ou à la demande, option « complet »), toutes les vérifications HTTP sont
-  relancées et leurs résultats versionnés avant publication.
+- à chaque push sur `master`, la carte est reconstruite à partir des vérifications versionnées ;
+- le 1er de chaque mois (ou à la demande, option « complet »), toutes les vérifications sont
+  relancées, puis les résultats et la liste des sites sont versionnés avant publication.
 
-Le domaine est fixé par `site.domain` dans `config/config.json` (fichier `CNAME` généré). Côté
-DNS (OVH), un enregistrement `CNAME` `gouvfr` → `jbledevehat.github.io.` le fait pointer vers
-GitHub Pages.
+Le domaine est fixé par `site.domain` dans `config/config.json` ; chez OVH, un enregistrement
+`CNAME` `gouvfr` → `jbledevehat.github.io.` pointe vers GitHub Pages.
 
-## Import dans Kumu (optionnel, abonnement requis)
+## Organisation du code
 
-`out/kumu-v2.json` contient **toute** la carte : les éléments et connexions de la V1 (types,
-statuts et intitulés mis à jour) plus les nouveaux sites et administrations. `out/elements.csv` et `out/connections.csv` en sont
-l'équivalent tableur.
-
-Dans Kumu, les éléments appartiennent au **projet**, pas à la carte : une carte V2 créée dans le
-même projet que la V1 modifierait aussi les éléments de la V1. Pour conserver la V1 telle quelle :
-
-1. Relire `out/rapport.md`.
-2. Créer un nouveau projet Kumu (par exemple `sites-web-gouvfr-v2`), avec une carte
-   « Liste des sites web publics (V2) ».
-3. Menu **+** (en bas à droite) → **Import** → choisir `out/kumu-v2.json`.
-4. Reprendre la vue et la légende de la V1 : coller `donnees/kumu/perspective.css` dans l'éditeur
-   avancé de la vue (*Settings* → *Advanced editor*) ; ajouter une couleur pour le tag `Nouveau`
-   si besoin.
-5. Renseigner la description de la carte (sources, date de mise à jour).
-
-Pour les mises à jour suivantes, pointer `kumu.project` de `config/config.json` vers le projet V2.
-
-## Configuration
-
-`config/config.json` : projet Kumu, sources (l'URL de la liste des opérateurs est à changer à
-chaque nouveau PLF), paramètres de vérification (`concurrency`,
-`timeoutMs`) et filtres des candidats. Une concurrence trop élevée déclenche la limitation de
-débit des hébergements mutualisés de l'État (sites des préfectures notamment).
+```
+src/
+  cli.mjs          commandes
+  context.mjs      chemins, configuration, lecture et écriture des fichiers
+  sources.mjs      téléchargement des sources
+  annuaire.mjs     hiérarchie de l'annuaire et index de ses sites
+  subdomains.mjs   sous-domaines (crt.sh)
+  candidates.mjs   sélection des candidats
+  check.mjs        vérification HTTP
+  marques.mjs      lecture des blocs-marques
+  build/           construction : V1, nouveaux sites, rattachements, doublons, exports, rapport
+  graph.mjs        graphe, bulles, placement, GEXF et données de la page
+  lib/             CSV, HTTP, URL, comparaison d'intitulés
+config/            sources, filtres et tables de rattachement
+donnees/           V1 (2019), vérifications, hiérarchie de l'annuaire, liste des sites
+web/carte.html     page de la carte
+```
 
 ## Version 1 (2019)
 
-La première version de la carte, réalisée à la main sous Kumu. Ses données et images sont conservées dans `Data/` et `SitesWebGouvFr/`.
-
-Suite à la liste des sites web en `.gouv.fr` générée sur le dépôt [GitHub gouvfrlist](https://github.com/bzg/gouvfrlist/blob/master/tested.gouv.fr.txt), voici une représentation des domaines et sous-domaines par ministère et administrations (déconcentrées). Nous nous sommes également appuyé sur la liste du [**top 250** des démarches administratives](https://www.numerique.gouv.fr/actualites/qualite-des-services-numeriques-deux-nouveaux-outils-pour-suivre-lavancee-de-la-dematerialisation-et-recueillir-lavis-des-usagers/), la [liste des sites en .gouv.fr datant de 2014](https://www.data.gouv.fr/fr/datasets/listes-des-sites-gouv-fr/) et surtout la [liste des noms de domaine `.fr` de l'AFNIC en open data](https://opendata.afnic.fr) .
-
-![Logo](./SitesWebGouvFr/SitesWebGouvFr.jpeg)
-
-### Représentations 
-
-Les objets représentés sont :
-- Le Président de la République française et le Premier ministre sont qualifiés sous le type "Person" (en bleu)
-- Les ministères ou directions administratives (en jaune)
-- Les sites web (en vert)
-- Les sous-domaines de ces sites-web (en orange)
-- Les services en ligne (en rouge)
-- Les sites web de consultation citoyenne (en rose)
-- Les sites web off ou archivés (en noir)
-
-
-### Publications web
-
-Cette représentation est accessible sur l'application *KUMU* à l'adresse suivante : 
-
-**[https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)**
-
-Les données ont été retraitées et sont accessible dans **[ce fichier d'import KUMU](/Data/Import-KUMU-SitesWeb-AdministrationsPubliques.xlsx)** et sont publiées sur un [jeu de données sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/listes-des-sites-et-services-web-en-gouv-fr/)
-
-Les [noms de domaines considérés comme (possiblement) inutile/inutilisé sont listés dans le fichier contenant les noms de domaines en `gouv.fr` de l'AFNIC de Juillet 2019](/Data/AFNIC-gouvfr-201907.xlsx).
+La première carte, réalisée à la main sous Kumu à partir de la liste
+[gouvfrlist](https://github.com/bzg/gouvfrlist), du top 250 des démarches, de la
+[liste des sites en gouv.fr de 2014](https://www.data.gouv.fr/fr/datasets/listes-des-sites-gouv-fr/)
+et des [noms de domaine de l'AFNIC](https://opendata.afnic.fr). Ses fichiers d'origine (imports
+Kumu, données AFNIC, images) sont conservés dans le tag
+[`v1-2019`](https://github.com/jbledevehat/graph-gouv-fr/tree/v1-2019).
 
 ## Contributions
 
-Ce dépôt est ouvert aux contributions - vous pouvez :
-
-- poser une question sur le contenu en ouvrant une issue ;
-- *forker* le dépôt et envoyer des *pull request* avec des propositions d'amélioration.
-
-Merci !
+Questions et corrections bienvenues : ouvrez une issue ou proposez une *pull request* (un
+rattachement manquant se corrige souvent dans `config/rattachements.csv`).
 
 ## Licence
 
-[Licence Ouverte 2.0](LICENSE.md) — Jean-Baptiste Le Dévéhat
+Jean-Baptiste Le Dévéhat, 2019-2026, [Licence Ouverte 2.0](LICENSE.md).

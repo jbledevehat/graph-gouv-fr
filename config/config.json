@@ -1,7 +1,6 @@
 {
-  "kumu": {
-    "project": "jbledevehat/sites-web-gouvfr",
-    "map": "liste-des-sites-web-en-gouvfr-v1"
+  "v1": {
+    "url": "https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1"
   },
   "sources": {
     "dinum": "https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public/-/raw/master/domains.csv",

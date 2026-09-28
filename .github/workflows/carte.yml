@@ -1,9 +1,9 @@
-# Construit la carte V2 et la publie sur GitHub Pages (gouvfr.jbledevehat.fr).
+# Construit la carte V2 et la liste des sites, et les publie sur GitHub Pages (gouvfr.jbledevehat.fr).
 #
 # - À chaque push sur master : reconstruit la carte à partir des vérifications HTTP versionnées
-#   (donnees/checks/latest.json), après avoir retéléchargé les sources (annuaire, opérateurs, DINUM).
+#   (donnees/checks/latest.json), après avoir retéléchargé les sources (annuaire, opérateurs, démarches, DINUM).
 # - Le 1er de chaque mois, ou à la demande avec « complet » : relance toutes les vérifications
-#   HTTP, versionne les nouveaux résultats, puis publie.
+#   HTTP, versionne les nouveaux résultats et la liste des sites (donnees/), puis publie.
 name: Carte V2
 
 on:
@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add donnees/kumu donnees/checks
+          git add donnees
           git diff --cached --quiet || git commit -m "Vérifications HTTP du $(date +%F)"
           git push
 

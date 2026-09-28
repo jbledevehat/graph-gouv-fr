@@ -1,4 +1,4 @@
-// Normalisation des URLs / domaines utilisés comme libellés dans Kumu.
+// URLs et domaines : un site est identifié par son URL, comparé aux autres par son domaine.
 
 export function isUrl(label) {
   return /^https?:\/\//i.test(label || '');

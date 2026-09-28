@@ -1,14 +1,13 @@
 {
-  "name": "sites-gouv-fr",
-  "version": "0.1.0",
-  "description": "Mise à jour de la cartographie Kumu des sites web en gouv.fr",
+  "name": "graph-gouv-fr",
+  "version": "2.0.0",
+  "description": "Carte des sites web publics de l'État (gouvfr.jbledevehat.fr)",
   "type": "module",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
-    "fetch:kumu": "node src/cli.mjs fetch-kumu",
     "fetch:sources": "node src/cli.mjs fetch-sources",
     "fetch:hierarchie": "node src/cli.mjs fetch-hierarchie",
     "fetch:subdomains": "node src/cli.mjs fetch-subdomains",
