@@ -29,6 +29,9 @@ export function mergeDuplicates(map) {
     const remap = l => mergedInto.get(l) || l;
     const seen = new Set(), kept = [];
     for (const c of map.connections) {
+      // Lien de sous-domaine d'une ancienne adresse (demarches.interieur.gouv.fr -> interieur.gouv.fr) :
+      // il ne vaut pas pour le site d'arrivée.
+      if (c.type === 'Site web/Sous-domaine' && (mergedInto.has(c.from) || mergedInto.has(c.to))) continue;
       const from = remap(c.from), to = remap(c.to);
       const k = `${from}\u0000${to}\u0000${c.type}`;
       if (from === to || seen.has(k)) continue;
