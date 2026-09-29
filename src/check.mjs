@@ -2,7 +2,8 @@
 //
 // Modes (--only=) : map (sites de la V1), candidates (candidats), new (candidats jamais vérifiés),
 // unknown (URLs restées indéterminées), roots (sites principaux indéterminés ou hors ligne),
-// refused (connexions refusées). Sans option : tout. Les résultats non revérifiés sont conservés.
+// refused (connexions refusées), principaux (sites principaux en ligne, relus). Sans option :
+// tout. Les résultats non revérifiés sont conservés.
 import { lookup } from 'node:dns/promises';
 import { writeFile } from 'node:fs/promises';
 import { selectCandidates } from './candidates.mjs';
@@ -14,6 +15,8 @@ const RETRY = {
   unknown: r => r.statut === 'Indéterminé',
   roots: r => !r.parentKey && (r.statut === 'Indéterminé' || r.statut === 'Hors ligne'),
   refused: r => r.statut === 'Hors ligne' && /ECONNREFUSED/.test(r.error || '') && !/ENOTFOUND/.test(r.error || ''),
+  // Sites principaux en ligne : relecture de leur page (pages par défaut, sites en construction…).
+  principaux: r => !r.parentKey && r.statut === 'En ligne',
 };
 const MODES = ['map', 'candidates', 'new', ...Object.keys(RETRY)];
 const resultKey = r => `${r.kind} ${r.url}`;
@@ -33,7 +36,13 @@ export async function check({ only, limit } = {}) {
     if (!only || only === 'candidates' || only === 'new') targets.push(...await candidateTargets(only === 'new' ? previous : null));
   }
   if (limit) targets = targets.slice(0, Number(limit));
-  const results = await verify(interleave(targets));
+  let results = await verify(interleave(targets));
+  // Relecture des sites en ligne : un résultat non concluant (limitation de débit, délai dépassé)
+  // ne remplace pas le précédent ; seuls les changements nets sont retenus.
+  if (only === 'principaux') {
+    const before = new Map(previous.map(r => [resultKey(r), r]));
+    results = results.map(r => r.statut === 'Indéterminé' && before.get(resultKey(r)) || r);
+  }
 
   // Vérification partielle : les résultats précédents de l'autre partie sont conservés.
   let all = results;

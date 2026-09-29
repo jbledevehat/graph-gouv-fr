@@ -90,11 +90,16 @@ async function fetchTerritoires() {
 async function fetchDemarches() {
   console.log('Démarches essentielles (Observatoire)…');
   const rows = await (await download(config.sources.demarches, 'Observatoire')).json();
+  // Indicateurs de qualité, tels que l'Observatoire les affiche (« 7.3 / 10 », « Partiel »…).
+  const INDICATORS = ['online', 'satisfaction', 'handicap', 'dlnuf', 'simplicity', 'auth', 'help_reachable', 'usage', 'uptime', 'performance'];
   const list = (Array.isArray(rows) ? rows : rows.docs || []).map(r => ({
     titre: r.title,
     ministere: r.ministere || '',
     administration: r.administration || r.sousorg || '',
     url: (r.fields || []).find(f => f.slug === 'online' && /^https?:\/\//.test(f.value || ''))?.value || '',
+    volume: r.volume || null,
+    edition: r.edition?.name || '',
+    indicateurs: Object.fromEntries((r.fields || []).filter(f => INDICATORS.includes(f.slug)).map(f => [f.slug, f.label || ''])),
   }));
   await writeOut(FILES.demarches, list);
   console.log(`  ${list.length} démarches, ${list.filter(d => d.url).length} en ligne`);

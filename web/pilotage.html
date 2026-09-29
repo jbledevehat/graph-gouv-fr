@@ -1,0 +1,853 @@
+<title>Pilotage des sites de l'État</title>
+<script>
+  // Thème choisi sur la carte ou ici (même réglage), sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Mêmes jetons que la carte (web/carte.html). Mise en page : une colonne de lecture, synthèse
+     d'abord, puis actions, ministères, démarches, liste complète et feuille de route. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --ok: #17703D;
+    --warn: #8A5300;
+    --bad: #B42F29;
+    --ok-soft: #E3F1E8;
+    --warn-soft: #F6ECDD;
+    --bad-soft: #F8E4E2;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119;
+      --panel: #141B26;
+      --panel-2: #1A2331;
+      --ink: #E4E9F1;
+      --muted: #97A2B5;
+      --line: #273142;
+      --control: #65718A;
+      --accent: #8EA6FF;
+      --accent-soft: #1E2A4A;
+      --ok: #4CC47E;
+      --warn: #E6A43A;
+      --bad: #F0706A;
+      --ok-soft: #14301F;
+      --warn-soft: #33260F;
+      --bad-soft: #3A1917;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119;
+    --panel: #141B26;
+    --panel-2: #1A2331;
+    --ink: #E4E9F1;
+    --muted: #97A2B5;
+    --line: #273142;
+    --control: #65718A;
+    --accent: #8EA6FF;
+    --accent-soft: #1E2A4A;
+    --ok: #4CC47E;
+    --warn: #E6A43A;
+    --bad: #F0706A;
+    --ok-soft: #14301F;
+    --warn-soft: #33260F;
+    --bad-soft: #3A1917;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip {
+    position: fixed; z-index: 10; top: 8px; left: 8px;
+    padding: 8px 12px; border-radius: 6px;
+    background: var(--panel); color: var(--ink); border: 2px solid var(--accent);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 14px/1.5 var(--sans);
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+
+  /* --- En-tête --- */
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+  .brand { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
+  .eyebrow {
+    font: 500 12px/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brand strong { font-size: 16px; }
+  nav.views { display: flex; gap: 6px; }
+  nav.views a {
+    display: inline-flex; align-items: center;
+    min-height: 34px; padding: 0 12px;
+    border: 1px solid var(--control); border-radius: 7px;
+    color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px;
+  }
+  nav.views a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme span { font-size: 12px; color: var(--muted); }
+  .theme button {
+    min-height: 28px; padding: 0 10px;
+    border: 1px solid var(--control); border-radius: 999px;
+    background: transparent; color: var(--ink);
+    font: 500 12px var(--sans); cursor: pointer;
+  }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* --- Contenu --- */
+  main { padding-block: 24px 48px; display: grid; gap: 28px; }
+  .intro h1 { margin: 4px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  .intro p { margin: 0 0 6px; max-width: 72ch; color: var(--muted); }
+  .notice {
+    display: inline-block; margin-top: 6px; padding: 4px 10px;
+    border: 1px dashed var(--control); border-radius: 6px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+  #liste { scroll-margin-top: 80px; }
+  section > h2 { margin: 0; font-size: 18px; text-wrap: balance; }
+  section > .lead { margin: -4px 0 0; color: var(--muted); max-width: 80ch; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    min-width: 0;
+  }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; }
+  .kpi b { font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi small { font: 12px var(--mono); color: var(--muted); }
+
+  /* Actions prioritaires */
+  .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .action {
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start;
+    padding: 14px 16px; border-left: 4px solid var(--sev);
+  }
+  .action[data-sev="bad"] { --sev: var(--bad); }
+  .action[data-sev="warn"] { --sev: var(--warn); }
+  .action[data-sev="ok"] { --sev: var(--ok); }
+  .action .n { grid-row: span 3; font: 600 22px/1.1 var(--sans); font-variant-numeric: tabular-nums; min-width: 3ch; }
+  .action h3 { margin: 0; font-size: 14px; }
+  .action p { margin: 0; color: var(--muted); font-size: 13px; }
+  .action .who { font: 12px var(--mono); color: var(--muted); }
+  .action button, .linkbtn {
+    justify-self: start; margin-top: 4px; padding: 0; border: 0; background: none;
+    color: var(--accent); font: 500 13px var(--sans); text-decoration: underline; cursor: pointer;
+  }
+
+  /* Tableaux */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #demarches-table { min-width: 980px; }
+  #demarches-table tbody th { min-width: 240px; }
+  #sites-table { min-width: 860px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { position: sticky; top: 0; background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:hover { background: var(--panel-2); }
+  th button {
+    all: unset; cursor: pointer; display: inline-flex; gap: 4px; align-items: center;
+  }
+  th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  th[aria-sort="ascending"] button::after { content: "▲"; font-size: 9px; }
+  th[aria-sort="descending"] button::after { content: "▼"; font-size: 9px; }
+  .bar { display: flex; align-items: center; justify-content: flex-end; gap: 1px; min-width: 190px; }
+  .bar span { margin-left: 8px; min-width: 5ch; }
+  .bar i { display: block; height: 8px; border-radius: 4px; background: var(--accent); }
+  .bar i + i { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; }
+  .url { font-family: var(--mono); font-size: 12.5px; word-break: break-all; }
+  .muted { color: var(--muted); }
+
+  .chip {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .chip.ok { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+  .chip.bad { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+  .chip.na { color: var(--muted); border-color: var(--line); }
+
+  /* Filtres */
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .filters label { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+  .filters input[type="search"], .filters select {
+    min-height: 34px; padding: 4px 8px;
+    border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel); color: var(--ink); font: 13px var(--sans);
+  }
+  .filters input[type="search"] { width: min(320px, 80vw); }
+  .filters .check { display: flex; align-items: center; gap: 6px; color: var(--ink); font-size: 13px; min-height: 34px; }
+  .filters .check input { accent-color: var(--accent); }
+  .tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 16px; }
+  .tools p { margin: 0; color: var(--muted); font-size: 13px; }
+  .btn {
+    min-height: 32px; padding: 0 12px;
+    border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel-2); color: var(--ink); font: 500 13px var(--sans); cursor: pointer;
+  }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .pager { display: flex; gap: 6px; align-items: center; }
+
+  /* Réponses des serveurs */
+  .answers { display: grid; gap: 8px; padding: 14px 16px; }
+  .answer {
+    display: grid; grid-template-columns: minmax(0, 15rem) 1fr auto; gap: 12px; align-items: center;
+    padding: 6px 8px; border-radius: 7px; border: 1px solid transparent;
+    background: none; color: var(--ink); font: 13px var(--sans); text-align: left; cursor: pointer;
+  }
+  .answer:hover { background: var(--panel-2); border-color: var(--line); }
+  .answer b { font-weight: 600; }
+  .answer small { display: block; color: var(--muted); font-size: 12px; font-weight: 400; }
+  .answer .track { height: 10px; border-radius: 5px; background: var(--panel-2); overflow: hidden; }
+  .answer .track i { display: block; height: 100%; background: var(--sev); }
+  .answer[data-sev="ok"] { --sev: var(--ok); }
+  .answer[data-sev="na"] { --sev: var(--control); }
+  .answer[data-sev="warn"] { --sev: var(--warn); }
+  .answer[data-sev="bad"] { --sev: var(--bad); }
+  .answer .num { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 7ch; text-align: right; }
+  @media (max-width: 640px) { .answer { grid-template-columns: 1fr auto; } .answer .track { grid-column: 1 / -1; } }
+  details.parked { border-top: 1px solid var(--line); padding: 10px 16px 14px; }
+  details.parked summary { cursor: pointer; font-weight: 500; }
+  details.parked ul { columns: 18rem; margin: 10px 0 0; padding-left: 18px; font-size: 12.5px; }
+
+  /* Tableau par ministère : lignes dépliables */
+  .toggle-row {
+    all: unset; cursor: pointer; display: inline-flex; gap: 6px; align-items: baseline;
+    color: var(--accent); font-weight: 600; text-decoration: underline;
+  }
+  .toggle-row::before { content: "▸"; display: inline-block; width: 1em; text-decoration: none; transition: transform .15s; }
+  .toggle-row[aria-expanded="true"]::before { transform: rotate(90deg); }
+  .toggle-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  tr.child th { padding-left: 34px; font-weight: 400; }
+  tr.child { background: var(--panel-2); }
+  .org-filter { display: inline-flex; gap: 6px; align-items: center; padding: 2px 4px 2px 10px; border-radius: 999px; background: var(--accent-soft); font-size: 12.5px; }
+  .org-filter button { all: unset; cursor: pointer; padding: 0 6px; font-weight: 700; }
+  .org-filter button:focus-visible { outline: 2px solid var(--accent); }
+
+  /* Feuille de route */
+  .roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+  .phase { padding: 16px; display: grid; gap: 8px; align-content: start; }
+  .phase .when { font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .phase h3 { margin: 0; font-size: 16px; }
+  .phase ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+  .phase li { font-size: 13.5px; }
+  .phase .owner { font: 12px var(--mono); color: var(--muted); }
+
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 90ch; }
+</style>
+
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="eyebrow">Cartographie · V2</span>
+      <strong>Sites web publics de l'État</strong>
+    </div>
+    <nav class="views" aria-label="Vues">
+      <a href="./">Carte</a>
+      <a href="pilotage.html" aria-current="page">Pilotage</a>
+    </nav>
+    <div class="theme" role="group" aria-label="Thème">
+      <span aria-hidden="true">Thème</span>
+      <button type="button" data-theme-choice="auto" aria-pressed="true">Système</button>
+      <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
+    </div>
+  </div>
+</header>
+
+<main id="contenu" class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Tableau de bord</span>
+    <h1>Pilotage des sites de l'État</h1>
+    <p>Cette page recense les <strong id="i-sites">sites et sous-domaines</strong> de l'État et de ses opérateurs, vérifiés un par un. Elle liste les points à corriger (certificats de sécurité, HTTPS, nom de domaine en .gouv.fr, sites sans responsable), compare les ministères entre eux, suit la qualité des <strong id="i-demarches">démarches essentielles</strong> les plus utilisées et propose une feuille de route en trois étapes.</p>
+    <p id="dates" class="muted"></p>
+    <span class="notice">Proposition indépendante construite à partir de données publiques ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <section aria-labelledby="t-synthese">
+    <h2 id="t-synthese">Synthèse</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section aria-labelledby="t-actions">
+    <h2 id="t-actions">Ce qui demande une action</h2>
+    <p class="lead">Chaque constat renvoie à la liste des sites ou des démarches concernés. Le rouge signale un risque pour les usagers, l'orange un écart aux règles de l'État.</p>
+    <div class="actions" id="actions"></div>
+  </section>
+
+  <section aria-labelledby="t-reponses">
+    <h2 id="t-reponses">Réponses des serveurs</h2>
+    <p class="lead">Code HTTP renvoyé par chaque site actif lors de la dernière vérification. Un accès restreint (401, 403) n'est pas une erreur : c'est le plus souvent un outil interne, un espace connecté ou un pare-feu. Ces sites ne sont pas publics pour autant. Cliquez sur une ligne pour voir les sites.</p>
+    <div class="card">
+      <div class="answers" id="answers"></div>
+      <details class="parked" id="parked">
+        <summary id="parked-sum"></summary>
+        <p class="muted" id="parked-lead"></p>
+        <ul id="parked-list"></ul>
+      </details>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-poles">
+    <h2 id="t-poles">Par ministère</h2>
+    <p class="lead">Sites actifs rattachés à chaque pôle (ministère, Présidence, Premier ministre, autorités indépendantes, institutions). Dépliez un pôle pour voir ses administrations et opérateurs ; cliquez sur un nom pour afficher ses sites.</p>
+    <div><button type="button" class="btn" id="expand-all" aria-pressed="false">Tout déplier</button></div>
+    <div class="card table-scroll">
+      <table id="poles-table">
+        <caption class="sr-only">Indicateurs par ministère ; les en-têtes de colonne permettent de trier.</caption>
+        <thead><tr></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-demarches">
+    <h2 id="t-demarches">Démarches essentielles</h2>
+    <p class="lead"><span id="demarches-lead"></span> Pour en savoir plus : <a href="https://observatoire.numerique.gouv.fr/observatoire" target="_blank" rel="noopener">l'Observatoire de la qualité des démarches en ligne</a>, publié par la <a href="https://www.numerique.gouv.fr" target="_blank" rel="noopener">Direction interministérielle du numérique (DINUM)</a>.</p>
+    <div class="card">
+      <div class="filters">
+        <label for="d-q">Rechercher une démarche
+          <input type="search" id="d-q" placeholder="Carte grise, RSA, impôts…" autocomplete="off">
+        </label>
+        <label for="d-pole">Ministère
+          <select id="d-pole"><option value="">Tous</option></select>
+        </label>
+        <label class="check" for="d-issues"><input type="checkbox" id="d-issues"> Avec un point faible</label>
+      </div>
+      <div class="tools"><p id="d-count" aria-live="polite"></p></div>
+      <div class="table-scroll">
+        <table id="demarches-table">
+          <caption class="sr-only">Démarches essentielles et leurs indicateurs de qualité ; les en-têtes de colonne permettent de trier.</caption>
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-liste">
+    <h2 id="t-liste">Tous les sites</h2>
+    <div class="card" id="liste">
+      <div class="filters">
+        <label for="s-q">Rechercher un site ou un organisme
+          <input type="search" id="s-q" placeholder="ademe, impots, préfecture…" autocomplete="off">
+        </label>
+        <label for="s-pole">Pôle
+          <select id="s-pole"><option value="">Tous</option></select>
+        </label>
+        <label for="s-type">Type
+          <select id="s-type">
+            <option value="">Actifs (sites et sous-domaines)</option>
+            <option value="site">Sites principaux</option>
+            <option value="sous-domaine">Sous-domaines</option>
+            <option value="archivé">Archivés</option>
+            <option value="*">Tous</option>
+          </select>
+        </label>
+        <label for="s-issue">Constat
+          <select id="s-issue">
+            <option value="">Aucun filtre</option>
+            <option value="nohttps">Sans redirection HTTPS</option>
+            <option value="tls">Certificat en erreur</option>
+            <option value="central-nogouv">Administration centrale hors .gouv.fr</option>
+            <option value="nogouv">Hors .gouv.fr</option>
+            <option value="restricted">Accès restreint (401, 403)</option>
+            <option value="server">Erreur serveur (5xx)</option>
+            <option value="unknown">Statut indéterminé</option>
+            <option value="nopole">Sans ministère identifié</option>
+            <option value="demarche">Porte une démarche essentielle</option>
+          </select>
+        </label>
+      </div>
+      <div class="tools">
+        <p><span id="s-count" aria-live="polite"></span> <span id="s-org" hidden class="org-filter"><span id="s-org-name"></span><button type="button" id="s-org-clear" aria-label="Retirer le filtre organisme">×</button></span></p>
+        <div class="pager">
+          <button type="button" class="btn" id="s-csv">Exporter la sélection (CSV)</button>
+          <button type="button" class="btn" id="s-prev" aria-label="Page précédente">←</button>
+          <span id="s-page" class="muted"></span>
+          <button type="button" class="btn" id="s-next" aria-label="Page suivante">→</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="sites-table">
+          <caption class="sr-only">Liste des sites ; les en-têtes de colonne permettent de trier.</caption>
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-feuille">
+    <h2 id="t-feuille">Feuille de route proposée</h2>
+    <p class="lead">Trois étapes pour passer d'un foisonnement de sites à un service numérique lisible, sobre et pensé pour les usagers. Les chiffres viennent de la liste ci-dessus.</p>
+    <div class="roadmap" id="roadmap"></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p id="sources"></p>
+  <p>Sources : <a href="https://lannuaire.service-public.gouv.fr" target="_blank" rel="noopener">Annuaire de l'administration</a> (DILA), <a href="https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public" target="_blank" rel="noopener">liste des noms de domaine publics</a> (<a href="https://www.numerique.gouv.fr" target="_blank" rel="noopener">DINUM</a>), opérateurs de l'État (PLF), <a href="https://observatoire.numerique.gouv.fr/observatoire" target="_blank" rel="noopener">Observatoire de la qualité des démarches en ligne</a>, journaux de certificats. Code et données : <a href="https://github.com/jbledevehat/graph-gouv-fr" target="_blank" rel="noopener">github.com/jbledevehat/graph-gouv-fr</a>, Licence Ouverte 2.0.</p>
+</footer>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const fmt = n => Number(n).toLocaleString('fr-FR');
+  const pct = (a, b) => b ? Math.round(a / b * 100) + ' %' : '–';
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const dateFr = d => d ? new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+
+  // Thème : même réglage que la carte.
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+
+  let data;
+  try { data = await (await fetch('pilotage.json', { cache: 'no-cache' })).json(); }
+  catch (e) { $('kpis').textContent = 'Impossible de charger les données (pilotage.json) : ' + e.message; return; }
+
+  const F = Object.fromEntries(data.fields.map((f, i) => [f, i]));
+  const sites = data.sites.map(r => Object.fromEntries(data.fields.map((f, i) => [f, r[i]])));
+  const poles = data.poles;
+  const NO_POLE = poles.findIndex(p => /sans minist/i.test(p.id));
+  const poleName = i => i >= 0 ? poles[i].label : 'Sans ministère identifié';
+  const active = sites.filter(s => s.type !== 'archivé');
+  // Sites principaux : hors des bulles d'un autre site.
+  const mains = active.filter(s => s.type === 'site' && !s.parent);
+  const D = data.demarches;
+
+  $('i-sites').textContent = `${fmt(active.length)} sites et sous-domaines`;
+  $('i-demarches').textContent = `${fmt(D.length)} démarches essentielles`;
+  $('dates').textContent = `Données du ${dateFr(data.meta.date)} · sites vérifiés le ${dateFr(data.meta.verifie)}`
+    + (data.meta.observatoire ? ` · Observatoire des démarches, édition ${data.meta.observatoire}` : '');
+
+  // --- Constats sur les sites ---
+  const isIssue = {
+    nohttps: s => s.statut === 'En ligne' && !s.https,
+    tls: s => s.tls === 2,
+    'central-nogouv': s => s.type === 'site' && !s.parent && s.central === 1 && !s.gouv,
+    nogouv: s => s.type === 'site' && !s.parent && !s.gouv,
+    unknown: s => s.statut === 'Indéterminé',
+    nopole: s => s.pole === NO_POLE || s.pole < 0,
+    demarche: s => s.demarches > 0,
+    // Accès restreint depuis l'extérieur : outil interne, espace connecté ou pare-feu (pas une erreur).
+    restricted: s => s.type !== 'archivé' && (s.code === 401 || s.code === 403),
+    server: s => s.type !== 'archivé' && s.code >= 500,
+  };
+  const count = (list, k) => list.filter(isIssue[k]).length;
+
+  // --- Indicateurs des démarches ---
+  const score = v => { const m = /([\d.]+)\s*\/\s*10/.exec(v || ''); return m ? Number(m[1]) : null; };
+  const dq = {
+    online: d => d.online === 'Oui',
+    a11yNo: d => d.handicap === 'Non',
+    a11yPart: d => d.handicap === 'Partiel',
+    lowSat: d => score(d.satisfaction) !== null && score(d.satisfaction) < 7,
+    noFC: d => d.auth === 'Non',
+    slow: d => d.uptime === 'Faible' || d.performance === 'Faible',
+  };
+  const weak = d => dq.a11yNo(d) || dq.lowSat(d) || dq.noFC(d) || dq.slow(d) || d.online === 'Non';
+
+  // --- Synthèse ---
+  const kpi = (value, label, note = '') => `<div class="card kpi"><b>${value}</b><span>${label}</span>${note ? `<small>${note}</small>` : ''}</div>`;
+  const gouvMains = mains.filter(s => s.gouv).length;
+  $('kpis').innerHTML = [
+    kpi(fmt(active.length), 'sites et sous-domaines actifs', `${fmt(mains.length)} sites principaux`),
+    kpi(fmt(new Set(active.map(s => s.organisme).filter(Boolean)).size), 'organismes qui portent des sites'),
+    kpi(pct(gouvMains, mains.length), 'des sites principaux en .gouv.fr', `${fmt(mains.length - gouvMains)} hors .gouv.fr`),
+    kpi(fmt(count(active, 'nohttps')), 'sites sans redirection HTTPS'),
+    kpi(fmt(sites.filter(s => s.type === 'archivé').length), 'sites archivés ou fermés', 'depuis la carte de 2019'),
+    kpi(`${fmt(D.filter(dq.online).length)} / ${fmt(D.length)}`, 'démarches essentielles en ligne', `${fmt(D.filter(dq.a11yNo).length)} non accessibles`),
+  ].join('');
+
+  // --- Actions prioritaires ---
+  const actions = [
+    { sev: 'bad', n: D.filter(dq.a11yNo).length, title: 'Démarches essentielles non accessibles', text: 'Démarches parmi les plus utilisées qui ne respectent pas l\'accessibilité, alors que la loi l\'impose.', who: 'DINUM · ministères', go: () => goDemarches('a11yNo') },
+    { sev: 'bad', n: count(active, 'tls'), title: 'Certificats de sécurité en erreur', text: 'Certificat expiré, autosigné ou établi pour un autre nom : le navigateur affiche une alerte de sécurité à l\'usager.', who: 'Ministères · opérateurs', go: () => goSites('tls') },
+    { sev: 'bad', n: D.filter(dq.lowSat).length, title: 'Démarches jugées insatisfaisantes', text: 'Démarches notées moins de 7 sur 10 par les usagers.', who: 'DINUM · ministères', go: () => goDemarches('lowSat') },
+    { sev: 'warn', n: count(active, 'nohttps'), title: 'Sites qui n\'imposent pas HTTPS', text: 'Sites encore servis en http sans redirection vers une connexion chiffrée.', who: 'Ministères · opérateurs', go: () => goSites('nohttps') },
+    { sev: 'warn', n: count(mains, 'central-nogouv'), title: 'Sites de l\'administration centrale hors .gouv.fr', text: 'La circulaire du 7 juillet 2023 impose le .gouv.fr aux sites de l\'État.', who: 'SIG · ministères', go: () => goSites('central-nogouv') },
+    { sev: 'warn', n: D.filter(dq.noFC).length, title: 'Démarches sans FranceConnect', text: 'Démarches où l\'usager doit créer un compte de plus.', who: 'DINUM · ministères', go: () => goDemarches('noFC') },
+    { sev: 'warn', n: count(active, 'unknown'), title: 'Sites qui ne répondent pas normalement', text: 'Erreur serveur, délai dépassé ou blocage des vérifications : à confirmer, puis réparer ou fermer.', who: 'Ministères · opérateurs', go: () => goSites('unknown') },
+    { sev: 'warn', n: count(active, 'nopole'), title: 'Sites sans ministère identifié', text: 'Personne n\'en répond publiquement : à rattacher ou à fermer.', who: 'SIG', go: () => goSites('nopole') },
+  ];
+  $('actions').innerHTML = actions.map((a, i) => `<article class="card action" data-sev="${a.n ? a.sev : 'ok'}">
+      <span class="n">${fmt(a.n)}</span>
+      <h3>${a.title}</h3>
+      <p>${a.text}</p>
+      <span class="who">${a.who}</span>
+      ${a.n ? `<button type="button" data-action="${i}">Voir la liste</button>` : ''}
+    </article>`).join('');
+  $('actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (b) actions[+b.dataset.action].go(); });
+
+  // --- Tableau triable générique ---
+  function sortable(table, columns, getRows, render, initial) {
+    let sort = initial;
+    const head = table.querySelector('thead tr');
+    head.innerHTML = columns.map((c, i) => `<th scope="col" class="${c.num ? 'num' : ''}" ${c.sort ? `aria-sort="none"` : ''}>${c.sort ? `<button type="button" data-col="${i}">${c.label}</button>` : c.label}</th>`).join('');
+    const apply = () => {
+      head.querySelectorAll('th').forEach((th, i) => { if (columns[i].sort) th.setAttribute('aria-sort', sort.col === i ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'); });
+      const rows = getRows().slice().sort((a, b) => {
+        const x = columns[sort.col].sort(a), y = columns[sort.col].sort(b);
+        return (x > y ? 1 : x < y ? -1 : 0) * sort.dir;
+      });
+      render(rows);
+    };
+    head.addEventListener('click', e => {
+      const b = e.target.closest('[data-col]'); if (!b) return;
+      const col = +b.dataset.col;
+      sort = { col, dir: sort.col === col ? -sort.dir : (columns[col].num ? -1 : 1) };
+      apply();
+    });
+    return apply;
+  }
+
+  // --- Par ministère, puis par administration ou opérateur ---
+  const orgOfSite = new Map(sites.map(s => [s.url, s.organisme]));
+  const stats = (list, ds) => {
+    const m = list.filter(s => s.type === 'site' && !s.parent);
+    return {
+      total: list.length, sites: m.length, subs: list.length - m.length,
+      gouv: m.length ? m.filter(s => s.gouv).length / m.length : 0,
+      nohttps: count(list, 'nohttps'), tls: count(list, 'tls'),
+      restricted: count(list, 'restricted'), server: count(list, 'server'),
+      demarches: ds.length, weak: ds.filter(weak).length,
+    };
+  };
+  const poleRows = poles.map((p, i) => ({ i, label: p.label, ...stats(active.filter(s => s.pole === i), D.filter(d => d.pole === i)) }))
+    .filter(r => r.total);
+  // Administrations et opérateurs d'un pôle, calculés au premier dépliage.
+  const orgCache = new Map();
+  const orgRows = i => {
+    if (orgCache.has(i)) return orgCache.get(i);
+    const byOrg = new Map();
+    for (const s of active) if (s.pole === i) {
+      const k = s.organisme || 'Organisme non identifié';
+      if (!byOrg.has(k)) byOrg.set(k, []);
+      byOrg.get(k).push(s);
+    }
+    const rows = [...byOrg].map(([org, list]) => ({ org, ...stats(list, D.filter(d => d.pole === i && orgOfSite.get(d.site) === org)) }))
+      .sort((x, y) => y.total - x.total || x.org.localeCompare(y.org));
+    orgCache.set(i, rows);
+    return rows;
+  };
+  const maxTotal = Math.max(...poleRows.map(r => r.total));
+  const poleCols = [
+    { label: 'Pôle, puis administration', sort: r => r.label },
+    { label: 'Sites actifs', num: true, sort: r => r.total },
+    { label: 'Sites principaux', num: true, sort: r => r.sites },
+    { label: 'Part en .gouv.fr', num: true, sort: r => r.gouv },
+    { label: 'Sans HTTPS', num: true, sort: r => r.nohttps },
+    { label: 'Certificat en erreur', num: true, sort: r => r.tls },
+    { label: 'Accès restreint', num: true, sort: r => r.restricted },
+    { label: 'Erreur serveur', num: true, sort: r => r.server },
+    { label: 'Démarches (point faible)', num: true, sort: r => r.demarches },
+  ];
+  const cells = r => `
+      <td class="num"><div class="bar" title="${fmt(r.sites)} sites principaux, ${fmt(r.subs)} sous-domaines"><i style="width:${Math.max(2, r.sites / maxTotal * 130)}px"></i><i style="width:${r.subs / maxTotal * 130}px"></i><span>${fmt(r.total)}</span></div></td>
+      <td class="num">${fmt(r.sites)}</td>
+      <td class="num">${r.sites ? Math.round(r.gouv * 100) + ' %' : '–'}</td>
+      <td class="num">${fmt(r.nohttps)}</td>
+      <td class="num">${fmt(r.tls)}</td>
+      <td class="num">${fmt(r.restricted)}</td>
+      <td class="num">${fmt(r.server)}</td>
+      <td class="num">${r.demarches ? `${fmt(r.demarches)} <span class="muted">(${fmt(r.weak)})</span>` : '–'}</td>`;
+  const expanded = new Set();
+  const poleTable = $('poles-table');
+  const renderPoles = sortable(poleTable, poleCols, () => poleRows, rows => {
+    poleTable.querySelector('tbody').innerHTML = rows.map(r => {
+      const open = expanded.has(r.i);
+      const head = `<tr>
+      <th scope="row"><button type="button" class="toggle-row" data-toggle="${r.i}" aria-expanded="${open}" aria-controls="pole-${r.i}">${esc(r.label)}</button></th>${cells(r)}
+    </tr>`;
+      if (!open) return head;
+      return head + orgRows(r.i).map((o, k) => `<tr class="child"${k === 0 ? ` id="pole-${r.i}"` : ''}>
+      <th scope="row"><button type="button" class="linkbtn" data-org="${esc(o.org)}" data-pole="${r.i}">${esc(o.org)}</button></th>${cells(o)}
+    </tr>`).join('');
+    }).join('');
+  }, { col: 1, dir: -1 });
+  renderPoles();
+  poleTable.addEventListener('click', e => {
+    const t = e.target.closest('[data-toggle]');
+    if (t) {
+      const i = +t.dataset.toggle;
+      expanded.has(i) ? expanded.delete(i) : expanded.add(i);
+      renderPoles();
+      poleTable.querySelector(`[data-toggle="${i}"]`)?.focus();
+      return;
+    }
+    const o = e.target.closest('[data-org]'); if (!o) return;
+    showOrg(o.dataset.org, o.dataset.pole);
+  });
+  $('expand-all').addEventListener('click', e => {
+    const all = expanded.size < poleRows.length;
+    expanded.clear();
+    if (all) poleRows.forEach(r => expanded.add(r.i));
+    e.currentTarget.textContent = all ? 'Tout replier' : 'Tout déplier';
+    e.currentTarget.setAttribute('aria-pressed', String(all));
+    renderPoles();
+  });
+
+  // --- Démarches ---
+  $('demarches-lead').textContent = `Les ${fmt(D.length)} démarches les plus utilisées, suivies par l'Observatoire de la qualité des démarches en ligne${data.meta.observatoire ? ` (édition ${data.meta.observatoire})` : ''}. Volume : nombre annuel de démarches.`;
+  const chip = (v, kind) => {
+    if (!v || v === 'À venir' || v === '-' || v === 'Non applicable') return `<span class="chip na">${esc(v || '–')}</span>`;
+    let c = 'na';
+    if (kind === 'yesno') c = v === 'Oui' ? 'ok' : v === 'Partiel' ? 'warn' : 'bad';
+    else if (kind === 'score') { const s = score(v); c = s === null ? 'na' : s >= 8 ? 'ok' : s >= 7 ? 'warn' : 'bad'; }
+    else if (kind === 'level') c = v === 'Optimal' ? 'ok' : v === 'Partiel' ? 'warn' : 'bad';
+    else if (kind === 'auth') c = /FranceConnect/.test(v) ? 'ok' : 'bad';
+    return `<span class="chip ${c}">${esc(v)}</span>`;
+  };
+  // Ministère d'une démarche : son pôle sur la carte, sinon celui qu'indique l'Observatoire.
+  const shortMinistry = m => (m || '').replace(/^Ministère (de la |de l'|de l’|des |du |de )/i, '').split(',')[0].replace(/^./, c => c.toUpperCase());
+  const demMinistry = d => d.pole >= 0 && d.pole !== NO_POLE ? poleName(d.pole) : shortMinistry(d.ministere) || 'Non précisé';
+  const level = v => ({ 'Oui': 3, 'Optimal': 3, 'Partiel': 2, 'Faible': 1, 'Non': 0 }[v] ?? -1);
+  const usedPoles = [...new Set(D.map(d => d.pole).filter(i => i >= 0))].sort((a, b) => poles[a].label.localeCompare(poles[b].label));
+  $('d-pole').insertAdjacentHTML('beforeend', usedPoles.map(i => `<option value="${i}">${esc(poles[i].label)}</option>`).join(''));
+  let dFilter = null;
+  const dCols = [
+    { label: 'Démarche', sort: d => d.titre },
+    { label: 'Ministère', sort: d => demMinistry(d) },
+    { label: 'Volume', num: true, sort: d => d.volume || 0 },
+    { label: 'En ligne', sort: d => level(d.online) },
+    { label: 'Accessibilité', sort: d => level(d.handicap) },
+    { label: 'Satisfaction', sort: d => score(d.satisfaction) ?? -1 },
+    { label: 'Connexion', sort: d => /FranceConnect/.test(d.auth || '') ? 1 : 0 },
+    { label: 'Disponibilité', sort: d => level(d.uptime) },
+    { label: 'Rapidité', sort: d => level(d.performance) },
+  ];
+  const dRows = () => {
+    const q = $('d-q').value.trim().toLowerCase(), p = $('d-pole').value, issues = $('d-issues').checked;
+    return D.filter(d => (!q || (d.titre + ' ' + d.administration).toLowerCase().includes(q))
+      && (p === '' || d.pole === +p) && (!issues || weak(d)) && (!dFilter || dq[dFilter](d)));
+  };
+  const dTable = $('demarches-table');
+  const renderDemarches = sortable(dTable, dCols, dRows, rows => {
+    $('d-count').textContent = `${fmt(rows.length)} démarche${rows.length > 1 ? 's' : ''}` + (dFilter ? ' · filtre du constat actif' : '');
+    dTable.querySelector('tbody').innerHTML = rows.map(d => `<tr>
+      <th scope="row">${d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.titre)}</a>` : esc(d.titre)}<div class="muted">${esc(d.administration)}</div></th>
+      <td>${esc(demMinistry(d))}</td>
+      <td class="num">${d.volume ? fmt(d.volume) : '–'}</td>
+      <td>${chip(d.online, 'yesno')}</td>
+      <td>${chip(d.handicap, 'yesno')}</td>
+      <td>${chip(d.satisfaction, 'score')}</td>
+      <td>${chip(d.auth, 'auth')}</td>
+      <td>${chip(d.uptime, 'level')}</td>
+      <td>${chip(d.performance, 'level')}</td>
+    </tr>`).join('');
+  }, { col: 2, dir: -1 });
+  ['d-q', 'd-pole', 'd-issues'].forEach(id => $(id).addEventListener('input', () => { dFilter = null; renderDemarches(); }));
+  renderDemarches();
+  function goDemarches(k) {
+    dFilter = k; $('d-q').value = ''; $('d-pole').value = ''; $('d-issues').checked = false;
+    renderDemarches(); $('t-demarches').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // --- Tous les sites ---
+  const state = { page: 0, org: '' };
+  const PAGE = 50;
+  $('s-pole').insertAdjacentHTML('beforeend', poles.map((p, i) => ({ p, i })).filter(({ i }) => poleRows.some(r => r.i === i))
+    .sort((a, b) => a.p.label.localeCompare(b.p.label)).map(({ p, i }) => `<option value="${i}">${esc(p.label)}</option>`).join(''));
+  const sCols = [
+    { label: 'Site', sort: s => s.domaine },
+    { label: 'Type', sort: s => s.type },
+    { label: 'Statut (code HTTP)', sort: s => s.statut + String(s.code ?? '').padStart(3, '0') },
+    { label: 'Pôle', sort: s => poleName(s.pole) },
+    { label: 'Organisme', sort: s => s.organisme },
+    { label: 'Signaux' },
+  ];
+  const sRows = () => {
+    const q = $('s-q').value.trim().toLowerCase(), p = $('s-pole').value, t = $('s-type').value, issue = $('s-issue').value;
+    return sites.filter(s => (t === '*' || (t === '' ? s.type !== 'archivé' : t === 'site' ? s.type === 'site' && !s.parent : t === 'sous-domaine' ? s.type === 'sous-domaine' || (s.type === 'site' && s.parent) : s.type === t))
+      && (p === '' || s.pole === +p) && (!issue || isIssue[issue](s)) && (!state.org || s.organisme === state.org)
+      && (!q || s.domaine.includes(q) || s.organisme.toLowerCase().includes(q)));
+  };
+  let current = [];
+  const code = s => s.code ? ` <span class="muted">${s.code}</span>` : '';
+  const statusChip = s => (isIssue.restricted(s) ? `<span class="chip na">Accès restreint</span>`
+    : s.statut === 'En ligne' ? `<span class="chip ok">En ligne</span>`
+    : s.statut === 'Hors ligne' ? `<span class="chip bad">Hors ligne</span>`
+    : s.statut ? `<span class="chip warn">${esc(s.statut)}</span>` : `<span class="chip na">–</span>`) + code(s);
+  const signals = s => [
+    s.gouv ? '' : '<span class="chip na">hors .gouv.fr</span>',
+    s.statut === 'En ligne' && !s.https ? '<span class="chip warn">sans HTTPS</span>' : '',
+    s.tls === 2 ? '<span class="chip bad">certificat</span>' : '',
+    s.demarches ? `<span class="chip ok">${s.demarches} démarche${s.demarches > 1 ? 's' : ''}</span>` : '',
+  ].join(' ');
+  const sTable = $('sites-table');
+  const renderSites = sortable(sTable, sCols, sRows, rows => {
+    current = rows;
+    const pages = Math.max(1, Math.ceil(rows.length / PAGE));
+    state.page = Math.min(state.page, pages - 1);
+    const slice = rows.slice(state.page * PAGE, state.page * PAGE + PAGE);
+    $('s-count').textContent = `${fmt(rows.length)} site${rows.length > 1 ? 's' : ''}`;
+    $('s-page').textContent = `page ${state.page + 1} / ${pages}`;
+    $('s-prev').disabled = state.page === 0; $('s-next').disabled = state.page >= pages - 1;
+    sTable.querySelector('tbody').innerHTML = slice.map(s => `<tr>
+      <th scope="row"><a class="url" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.domaine)}</a>${s.parent ? `<div class="muted">dans ${esc(s.parent)}</div>` : ''}</th>
+      <td>${esc(s.type)}</td>
+      <td>${statusChip(s)}</td>
+      <td>${esc(poleName(s.pole))}</td>
+      <td>${esc(s.organisme)}</td>
+      <td>${signals(s)}</td>
+    </tr>`).join('') || `<tr><td colspan="6" class="muted">Aucun site ne correspond à ces filtres.</td></tr>`;
+  }, { col: 0, dir: 1 });
+  ['s-q', 's-pole', 's-type', 's-issue'].forEach(id => $(id).addEventListener('input', () => { state.page = 0; renderSites(); }));
+  $('s-prev').addEventListener('click', () => { state.page--; renderSites(); });
+  $('s-next').addEventListener('click', () => { state.page++; renderSites(); });
+  renderSites();
+  function goSites(issue) {
+    state.org = ''; $('s-org').hidden = true;
+    $('s-issue').value = issue; $('s-pole').value = ''; $('s-q').value = '';
+    $('s-type').value = issue === 'central-nogouv' || issue === 'nogouv' ? 'site' : '';
+    state.page = 0; renderSites(); $('liste').scrollIntoView({ behavior: 'smooth' });
+  }
+  $('s-csv').addEventListener('click', () => {
+    const cols = ['url', 'domaine', 'type', 'statut', 'pole', 'organisme', 'gouv', 'https', 'tls', 'demarches'];
+    const cell = v => /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+    const csv = [cols.join(','), ...current.map(s => cols.map(c => cell(c === 'pole' ? poleName(s.pole) : s[c] ?? '')).join(','))].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'sites-selection.csv';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+
+  // Filtre par organisme (depuis le tableau par ministère).
+  function showOrg(org, pole) {
+    state.org = org; state.page = 0;
+    $('s-org-name').textContent = 'Organisme : ' + org; $('s-org').hidden = false;
+    $('s-pole').value = pole ?? ''; $('s-issue').value = ''; $('s-type').value = ''; $('s-q').value = '';
+    renderSites(); $('liste').scrollIntoView({ behavior: 'smooth' });
+  }
+  $('s-org-clear').addEventListener('click', () => { state.org = ''; $('s-org').hidden = true; state.page = 0; renderSites(); });
+
+  // --- Réponses des serveurs ---
+  const onMap = active.filter(s => s.statut === 'En ligne' || s.statut === 'Indéterminé' || s.statut === 'Redirigé');
+  const classes = [
+    { key: 'public', sev: 'ok', label: 'Contenu public', note: 'Réponse 2xx ou redirection vers une page accessible.', test: s => s.code && s.code < 400 },
+    { key: 'restricted', sev: 'na', label: 'Accès restreint (401, 403)', note: 'Outil interne, espace connecté ou pare-feu : pas une erreur, mais pas un site public.', test: isIssue.restricted },
+    { key: 'server', sev: 'bad', label: 'Erreur serveur (5xx)', note: 'Le serveur répond, mais le site est en panne.', test: isIssue.server },
+    { key: 'other', sev: 'warn', label: 'Autre erreur (4xx)', note: 'Page introuvable ou requête refusée.', test: s => s.code >= 400 && s.code < 500 && s.code !== 401 && s.code !== 403 },
+    { key: 'unknown', sev: 'warn', label: 'Pas de réponse exploitable', note: 'Délai dépassé ou vérification bloquée : à confirmer.', test: s => !s.code },
+  ];
+  const maxClass = Math.max(...classes.map(c => onMap.filter(c.test).length));
+  $('answers').innerHTML = classes.map(c => {
+    const n = onMap.filter(c.test).length;
+    return `<button type="button" class="answer" data-sev="${c.sev}" data-class="${c.key}">
+      <span><b>${c.label}</b><small>${c.note}</small></span>
+      <span class="track" aria-hidden="true"><i style="width:${n / maxClass * 100}%"></i></span>
+      <span class="num">${fmt(n)}</span>
+    </button>`;
+  }).join('');
+  isIssue.public = classes[0].test; isIssue.other = classes[3].test; isIssue.noanswer = classes[4].test;
+  $('answers').addEventListener('click', e => {
+    const b = e.target.closest('[data-class]'); if (!b) return;
+    const k = b.dataset.class === 'unknown' ? 'noanswer' : b.dataset.class;
+    if (![...$('s-issue').options].some(o => o.value === k)) $('s-issue').insertAdjacentHTML('beforeend', `<option value="${k}">${esc(classes.find(c => c.key === b.dataset.class).label)}</option>`);
+    goSites(k);
+  });
+  // Domaines sans site : page par défaut, en construction ou de parking.
+  const P = data.parked || [];
+  $('parked').hidden = !P.length;
+  $('parked-sum').textContent = `${fmt(P.length)} domaines détenus sans site (page par défaut, en construction ou de parking)`;
+  $('parked-lead').textContent = 'Ils répondent, mais n\'affichent aucun contenu. Ils ne figurent pas sur la carte ; à fermer ou à rediriger vers le site de l\'organisme.';
+  $('parked-list').innerHTML = P.map(([url, key, pole]) => `<li><a class="url" href="${esc(url)}" target="_blank" rel="noopener">${esc(key)}</a>${pole >= 0 && pole !== NO_POLE ? ` <span class="muted">(${esc(poleName(pole))})</span>` : ''}</li>`).join('');
+
+  // --- Feuille de route ---
+  const n = k => fmt(count(active, k));
+  const phases = [
+    {
+      when: '0 à 6 mois', title: 'Voir et réparer', owner: 'SIG · DINUM · ministères',
+      items: [
+        `Publier un <strong>registre officiel et ouvert</strong> des sites de l'État, tenu à jour, avec un responsable nommé pour chaque site (${fmt(active.length)} aujourd'hui).`,
+        `Rattacher ou fermer les <strong>${n('nopole')}</strong> sites sans ministère identifié.`,
+        `Corriger les <strong>${n('tls')}</strong> certificats en erreur et imposer HTTPS sur les <strong>${n('nohttps')}</strong> sites qui ne le font pas.`,
+        `Vérifier les <strong>${n('unknown')}</strong> sites au statut indéterminé et les <strong>${n('server')}</strong> en erreur serveur : réparer ou fermer.`,
+        `Fermer ou rediriger les <strong>${fmt(P.length)}</strong> domaines détenus sans site, et décider si les <strong>${n('restricted')}</strong> outils à accès restreint doivent rester exposés sur internet.`,
+      ],
+    },
+    {
+      when: '6 à 18 mois', title: 'Faire moins', owner: 'SIG · ministères',
+      items: [
+        `Appliquer la circulaire de 2023 aux <strong>${fmt(count(mains, 'central-nogouv'))}</strong> sites de l'administration centrale hors .gouv.fr.`,
+        `Un site de communication par ministère, sur le modèle de defense.gouv.fr, qui a fusionné une trentaine de sites.`,
+        `Conditionner toute création de site à un <strong>besoin d'usager non couvert</strong>, et organiser chaque fermeture : redirection, archivage, information.`,
+        `Revoir les sous-domaines des pôles les plus foisonnants, en distinguant les sites pour les usagers de ceux qui servent la vie interne des institutions.`,
+      ],
+    },
+    {
+      when: '18 à 36 mois', title: 'Servir les usagers', owner: 'DINUM · ministères · opérateurs',
+      items: [
+        `Rendre accessibles les <strong>${fmt(D.filter(dq.a11yNo).length)}</strong> démarches essentielles qui ne le sont pas, puis les <strong>${fmt(D.filter(dq.a11yPart).length)}</strong> partiellement accessibles.`,
+        `Remonter au-dessus de 7/10 les <strong>${fmt(D.filter(dq.lowSat).length)}</strong> démarches mal notées, et proposer FranceConnect sur les <strong>${fmt(D.filter(dq.noFC).length)}</strong> qui ne l'offrent pas.`,
+        `Organiser les parcours par <strong>événement de vie</strong> et par public (particuliers, professionnels, associations) plutôt que par administration.`,
+        `Étendre la mesure publique de l'Observatoire à tous les sites : accessibilité déclarée, système de design, disponibilité.`,
+      ],
+    },
+  ];
+  $('roadmap').innerHTML = phases.map(p => `<article class="card phase">
+      <span class="when">${p.when}</span>
+      <h3>${p.title}</h3>
+      <ul>${p.items.map(i => `<li>${i}</li>`).join('')}</ul>
+      <span class="owner">Porteurs : ${p.owner}</span>
+    </article>`).join('');
+})();
+</script>

@@ -61,8 +61,10 @@ enchaîne toutes les étapes, qui peuvent aussi être lancées séparément :
 
 Options de `check` : `--only=map` (sites de la V1), `candidates`, `new` (candidats jamais
 vérifiés), `unknown` (restés indéterminés), `roots` (sites principaux indéterminés ou hors
-ligne), `refused` (connexions refusées) ; `--limit=N` pour un essai. Les autres résultats sont
-repris de la vérification précédente.
+ligne), `refused` (connexions refusées), `principaux` (relecture des sites principaux en
+ligne, pour repérer ceux devenus vides ; un résultat non concluant ne remplace pas le
+précédent) ; `--limit=N` pour un essai. Les autres résultats sont repris de la vérification
+précédente.
 
 `out/rapport.md` résume chaque construction : changements depuis la V1, nouveaux sites, sites
 sans rattachement, avertissements.
@@ -176,6 +178,25 @@ Le placement est calculé pendant `build` : chaque élément rejoint le pôle de
 regroupés en bulles autour de leur site ; dans un pôle, une simulation de forces (d3-force)
 donne sa place à chaque bulle ; les pôles sont ensuite empaquetés autour du Président, au
 centre, et du Premier ministre.
+
+## Le tableau de bord de pilotage
+
+Page `pilotage.html` (source `web/pilotage.html`, données `out/web/pilotage.json`), même design
+que la carte : chiffres clés, constats à traiter (démarches non accessibles, certificats en
+erreur, sites sans HTTPS, sites de l'administration centrale hors .gouv.fr…), réponses des
+serveurs par code HTTP, tableau par ministère dépliable par administration, indicateurs des
+démarches essentielles de l'Observatoire, liste complète triable et filtrable, et feuille de
+route. Présentée comme une proposition indépendante, pas comme un outil officiel.
+
+Quelques conventions :
+
+- un **accès restreint** (401, 403) n'est pas une erreur : outil interne, espace connecté ou
+  pare-feu ;
+- un **certificat en erreur** est une erreur visible dans le navigateur (expiré, autosigné,
+  établi pour un autre nom) ; une chaîne de certificats incomplète, que les navigateurs
+  complètent, n'est pas comptée ;
+- un domaine qui affiche une page par défaut, « Site en construction » ou de parking est
+  **hors ligne** : il figure dans la liste des domaines détenus sans site.
 
 ## Publication
 

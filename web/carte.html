@@ -382,6 +382,19 @@
     cursor: pointer;
   }
   .views button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  /* Lien vers la page de pilotage, présenté comme les boutons de vue. */
+  .views a {
+    flex: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 36px;
+    border: 1px solid var(--control);
+    border-radius: 7px;
+    background: var(--panel-2);
+    color: var(--ink);
+    font: 500 13px var(--sans);
+    text-decoration: none;
+  }
+  .views a:hover { background: var(--accent-soft); }
   .theme { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
   .theme span { font-size: 12px; color: var(--muted); margin-right: 2px; }
   .theme button {
@@ -594,6 +607,7 @@
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
+      <a href="pilotage.html">Pilotage</a>
     </div>
     <div class="theme" role="group" aria-label="Thème">
       <span aria-hidden="true">Thème</span>
@@ -670,7 +684,7 @@
   const status = document.getElementById('status');
   let data;
   try {
-    const res = await fetch('graph.json');
+    const res = await fetch('graph.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
   } catch (e) {

@@ -52,13 +52,19 @@ export async function writeSiteLists(rows, dir) {
   await writeOut(`${dir}/sites.json`, jsonLines(rows));
 }
 
-// Page web : carte.html dans une page complète, données, domaine personnalisé de GitHub Pages.
+// Pages web (carte et pilotage), données, domaine personnalisé de GitHub Pages.
 export async function writeWeb(webData, rows) {
   await writeOut('out/web/graph.json', JSON.stringify(webData));
   await writeSiteLists(rows, 'out/web');
   if (config.site?.domain) await writeOut('out/web/CNAME', config.site.domain + '\n');
-  const page = await readFile(path('web/carte.html'), 'utf8');
-  await writeOut('out/web/index.html', `<!doctype html>
+  await writePage('web/carte.html', 'out/web/index.html');
+  await writePage('web/pilotage.html', 'out/web/pilotage.html');
+}
+
+// Fragment HTML de web/ placé dans une page complète.
+async function writePage(source, target) {
+  const page = await readFile(path(source), 'utf8');
+  await writeOut(target, `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">

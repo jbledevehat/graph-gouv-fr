@@ -13,6 +13,7 @@ import {
 import { formerAddresses, mergeDuplicates } from './duplicates.mjs';
 import { siteRecords, webMeta, writeSiteLists, writeWeb } from './export.mjs';
 import { writePdf } from './pdf.mjs';
+import { pilotageData } from './pilotage.mjs';
 import { createMap, tag } from './model.mjs';
 import { report } from './report.mjs';
 import { loadV1 } from './v1.mjs';
@@ -38,6 +39,7 @@ async function loadInputs() {
     // config/rattachements.csv : domaine ou l'un de ses domaines parents.
     adminFor: key => key.split('.').map((_, i, parts) => adminByDomain.get(parts.slice(i).join('.'))).find(Boolean),
     renames: new Map((await readConfigCsv('correspondances-2019.csv')).map(r => [norm(r.ancien), r.actuel.trim()])),
+    demarches,
     demarchesByKey,
     demarcheHosts: new Set(demarchesByKey.keys()),
     operateurs: await readJsonIf(FILES.operateurs, []),
@@ -142,6 +144,7 @@ export async function build() {
   const sites = siteRecords(graph);
   await writeSiteLists(sites, 'donnees');
   const webData = toWebData(graph, webMeta({ map, graph, checkedOn }));
+  await writeOut('out/web/pilotage.json', JSON.stringify(pilotageData(graph, webData, input.demarches, input.checks)));
   await writeWeb(webData, sites);
   await writePdf(webData);
   console.log('  -> out/web/carte.pdf');

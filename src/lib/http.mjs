@@ -35,8 +35,10 @@ export function isParked(html, finalUrl) {
   const title = (html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] || '').trim().toLowerCase();
   let host = '';
   try { host = new URL(finalUrl).hostname; } catch {}
-  // Gandi et d'autres affichent une page dont le titre est le nom de domaine lui-même.
-  return PARKED.test(html) || (title && (title === host || title === host.replace(/^www\./, '')));
+  // Gandi et d'autres affichent une page dont le titre est le nom de domaine lui-même ; les
+  // hébergeurs affichent « Site en construction » (OVHcloud…).
+  return PARKED.test(html) || (title && (title === host || title === host.replace(/^www\./, '')))
+    || /^(site en construction|site under construction|under construction|page par défaut|default web site page|coming soon)$/.test(title);
 }
 
 // Lit au plus `max` octets du corps de la réponse.
