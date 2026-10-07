@@ -78,6 +78,21 @@
       "twitter.com",
       "blogspot.com",
       "syracuse.cloud"
+    ],
+    "securityPatterns": [
+      "(^|[.-])(vaultwarden|bitwarden|passbolt|keepass|[a-z]*vault|password|[a-z]*motdepasse|secrets)([.-]|$)",
+      "(^|[.-])([a-z0-9]*vpn[0-9]*|globalprotect|guacamole|bastion|teleport|citrix[a-z]*|netscaler|rdweb|remotesupport)([.-]|$)",
+      "(^|[.-])(firewall|stormshield|forti(gate|net|client)[0-9]*|pfsense|opnsense|[a-z]*radius)([.-]|$)",
+      "(^|[.-])(keycloak[a-z0-9]*|adfs|idp[a-z]*|sso[a-z0-9]*|adminsso|authsso|oauth2?|[a-z]*ldap|auth|login)([.-]|$)",
+      "^([a-z0-9]+-)*cas\\.",
+      "(^|[.-])(grafana|graylog|kibana|nagios|zabbix|centreon|prometheus|supervision|monitoring|xymon|wazuh|splunk)([.-]|$)",
+      "(^|[.-])(adminer|phpmyadmin|portainer|minio|harbor|sonarqube[a-z]*|gitlab|jenkins|argocd|rancher|backup)([.-]|$)",
+      "(^|[.-])(pentest|webmail[a-z0-9]*|owa)([.-]|$)"
+    ],
+    "securityKeep": [
+      "cfspro-idp.impots.gouv.fr",
+      "edu-cas.ac-versailles.fr",
+      "login.resana.numerique.gouv.fr"
     ]
   },
   "site": {

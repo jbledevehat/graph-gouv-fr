@@ -18,12 +18,21 @@ export function isEnvVariant(key, existing) {
 
 // Noms techniques (api., recette, solr…) : config.candidates.excludePatterns.
 export const technicalPatterns = () => config.candidates.excludePatterns.map(re => new RegExp(re, 'i'));
+// Outils liés à la sécurité (gestionnaires de mots de passe, VPN, pare-feu, authentification,
+// supervision, administration technique) : leur adresse n'a pas à figurer sur une carte publique.
+// config.candidates.securityPatterns, testé sur chaque segment du nom (vaultwarden.ademe.fr).
+export const securityPatterns = () => (config.candidates.securityPatterns || []).map(re => new RegExp(re, 'i'));
+// Outil de sécurité, sauf exception (config.candidates.securityKeep : portes publiques de connexion).
+export function securityFilter() {
+  const patterns = securityPatterns(), keep = new Set(config.candidates.securityKeep || []);
+  return key => !keep.has(key) && patterns.some(re => re.test(key));
+}
 
 export function selectCandidates({ elements, dinumRows, annuaireRows, crtsh, demarches }) {
   const { suffix, includeSubdomains } = config.candidates;
-  const patterns = technicalPatterns();
+  const patterns = technicalPatterns(), isSecurityTool = securityFilter();
   const excludedDomains = new Set(config.candidates.excludeDomains || []);
-  const excluded = key => patterns.some(re => re.test(key))
+  const excluded = key => patterns.some(re => re.test(key)) || isSecurityTool(key)
     || key.split('.').some((_, i, parts) => excludedDomains.has(parts.slice(i).join('.')));
   const known = new Set(elements.filter(e => isUrl(e.label)).map(e => siteKey(hostOf(e.label))));
   const answered = s => /^([23]\d\d|401|403)\b/.test(s || '');

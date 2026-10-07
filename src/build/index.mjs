@@ -6,6 +6,7 @@ import { buildGraph, toGexf, toWebData } from '../graph.mjs';
 import { flat, isMinistry, ministryMatcher, norm } from '../lib/text.mjs';
 import { hostOf, isUrl, siteKey } from '../lib/url.mjs';
 import { addCandidates, addRedirectTargets } from './additions.mjs';
+import { securityFilter } from '../candidates.mjs';
 import {
   addFirstLevelEntities, attachByDemarches, attachByKeyword, attachByMarque, attachManualTutelles,
   attachOperators, attachPrefectures, attachV1Sites, linkGovernment, retypeV1Services,
@@ -114,6 +115,21 @@ function redirectAliases(map, checks, mergedInto) {
   return aliases;
 }
 
+// Adresses d'outils de sécurité (mots de passe, VPN, authentification…) retirées de la carte, V1
+// comprise ; une démarche essentielle (porte publique, ex. l'espace particulier des impôts) et les
+// exceptions de config.candidates.securityKeep restent.
+function removeSecurityTools(map, checks) {
+  const isSecurityTool = securityFilter();
+  const sensitive = e => isUrl(e.label) && !e['Démarches essentielles'] && isSecurityTool(siteKey(hostOf(e.label)));
+  const removed = new Set(map.elements.filter(sensitive).map(e => e.label));
+  map.elements = map.elements.filter(e => !removed.has(e.label));
+  map.connections = map.connections.filter(c => !removed.has(c.from) && !removed.has(c.to));
+  // Total : sites retirés ici, plus candidats en ligne écartés dès leur sélection.
+  const skipped = checks.filter(c => c.kind === 'candidate' && c.statut === 'En ligne' && isSecurityTool(c.key)).length;
+  map.stats.securityRemoved = removed.size + skipped;
+  console.log(`  Outils de sécurité retirés de la carte : ${map.stats.securityRemoved}`);
+}
+
 export async function build() {
   const input = await loadInputs();
   const map = createMap();
@@ -137,6 +153,7 @@ export async function build() {
   map.elements.push(...map.newOrgs, ...map.additions);
   const mergedInto = mergeDuplicates(map);
   tagDemarches(map, input.demarchesByKey);
+  removeSecurityTools(map, input.checks);
 
   console.log('Calcul du placement du graphe…');
   const graph = buildGraph({ elements: map.elements, connections: map.connections, aliases: redirectAliases(map, input.checks, mergedInto) });

@@ -124,6 +124,14 @@ Un candidat est ajouté s'il répond et ne ressemble pas à un nom technique (`a
 
 Les sites d'organisations internationales sont exclus (`candidates.excludeDomains`).
 
+Les **outils liés à la sécurité** ne figurent pas sur la carte, pour ne pas indiquer de cible :
+gestionnaires de mots de passe (Vaultwarden, Bitwarden, Passbolt…), VPN et accès distant,
+pare-feu, serveurs d'authentification (Keycloak, SSO, fournisseurs d'identité), supervision,
+administration technique, sous-domaines de tests d'intrusion, webmails
+(`candidates.securityPatterns`, testés sur chaque segment du nom). Restent les portes publiques :
+démarches essentielles et exceptions de `candidates.securityKeep` (connexion à l'espace
+professionnel des impôts, à l'ENT, à Resana).
+
 ### Rattachements
 
 Les règles s'appliquent dans cet ordre ; chacune ne traite que ce que les précédentes n'ont pas

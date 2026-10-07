@@ -1,7 +1,7 @@
 // Nouveaux sites : candidats vérifiés (annuaire, DINUM, certificats, démarches essentielles),
 // chacun rattaché dès son ajout quand c'est possible.
 import { config, today } from '../context.mjs';
-import { isEnvVariant, technicalPatterns } from '../candidates.mjs';
+import { isEnvVariant, securityFilter, technicalPatterns } from '../candidates.mjs';
 import { hostOf, isUrl, registrable, siteKey } from '../lib/url.mjs';
 import { MINISTRY_TYPE, OFF } from './model.mjs';
 import { verification } from './v1.mjs';
@@ -18,11 +18,11 @@ export function addCandidates(map, { v1, checks, ann, annSite, adminFor, demarch
     if (e['element type'] !== OFF) map.sites.set(siteKey(hostOf(e.label)), e.label);
   }
   // Filtres de noms appliqués aussi aux candidats déjà vérifiés (filtres renforcés depuis).
-  const patterns = technicalPatterns();
+  const patterns = technicalPatterns(), isSecurityTool = securityFilter();
   const candidateKeys = new Set(checks.filter(c => c.kind === 'candidate').map(c => c.key));
   // Organisations internationales et plateformes privées (x.com, blogspot.com…) : jamais ajoutées.
   const excludedDomains = config.candidates.excludeDomains || [];
-  const technical = key => patterns.some(re => re.test(key)) || isEnvVariant(key, candidateKeys)
+  const technical = key => patterns.some(re => re.test(key)) || isSecurityTool(key) || isEnvVariant(key, candidateKeys)
     || excludedDomains.some(d => key === d || key.endsWith('.' + d));
   const skippedRedirects = [];
   // Sites d'abord, sous-domaines ensuite (leur parent doit déjà être connu), du plus court au plus long.

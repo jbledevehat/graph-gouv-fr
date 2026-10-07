@@ -35,6 +35,7 @@ Vérifications HTTP du ${checkedOn}.
 - Sites de la V1 réorganisés selon l'annuaire : ${s.reorganized} liens de 2019 remplacés
 - Entités de premier niveau de l'annuaire ajoutées (même sans site propre) : ${s.viaEntities}
 - Doublons fusionnés (anciennes adresses qui mènent au même site) : ${s.merged}
+- Adresses d'outils de sécurité retirées (mots de passe, VPN, authentification, supervision…) : ${s.securityRemoved ?? 0}
 - Sites portant des démarches essentielles (Observatoire) : ${s.demarcheSites} ; rattachés grâce à l'Observatoire : ${s.viaDemarches}
 - Organismes reliés au site vers lequel redirige leur site déclaré : ${s.viaRedirectSites}
 - Services en ligne et consultations de la V1 reclassés en site ou sous-domaine : ${s.retyped}
