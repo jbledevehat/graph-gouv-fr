@@ -93,6 +93,18 @@
       "cfspro-idp.impots.gouv.fr",
       "edu-cas.ac-versailles.fr",
       "login.resana.numerique.gouv.fr"
+    ],
+    "nonProductionPatterns": [
+      "(^|[.-])(pre-?prod[a-z0-9]*|pprod[a-z0-9]*|ppd|preprd)([.-]|\\d|$)|[a-z](preprod|pprod)([.-]|\\d|$)",
+      "(^|[.-])pp\\d?([.-]|$)",
+      "(^|[.-])preview[a-z0-9]*([.-]|$)",
+      "(^|[.-])(staging[a-z0-9]*|stg)([.-]|\\d|$)",
+      "(^|[.-])(recette[a-z0-9]*|qualif[a-z0-9]*|qlf|qualification)([.-]|\\d|$)|[a-z]recette([.-]|$)",
+      "(^|[.-])(test|tests|testing|tst)([.-]|\\d|$)",
+      "(^|[.-])(dev|develop|devel)([.-]|\\d|$)",
+      "(^|[.-])(demo|sandbox|bac-a-sable|bas(?!-rhin|-carbone)[0-9]*)([.-]|$)",
+      "(^|[.-])(hors-?prod|non-?prod|nonprod|uat|integ|integration)([.-]|\\d|$)",
+      "(^|[.-])(maquette|mockup|prototype|proto)([.-]|\\d|$)"
     ]
   },
   "site": {

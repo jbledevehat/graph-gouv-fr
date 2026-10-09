@@ -138,6 +138,12 @@ administration technique, sous-domaines de tests d'intrusion, webmails
 démarches essentielles et exceptions de `candidates.securityKeep` (connexion à l'espace
 professionnel des impôts, à l'ENT, à Resana).
 
+Les **environnements hors production** sont retirés de la même façon : préproduction (`preprod`,
+`pprod`, `ppd`, `pp`), prévisualisation, staging, recette et qualification (`qlf`), test, bac à
+sable (`bas`, `sandbox`), hors production et intégration, maquettes et prototypes
+(`candidates.nonProductionPatterns`). Les faux amis sont écartés : `bas-rhin`, `bas-carbone`,
+« stage » (stage d'étudiant), noms de laboratoires (`pharmadev`, `mecadev`).
+
 ### Rattachements
 
 Les règles s'appliquent dans cet ordre ; chacune ne traite que ce que les précédentes n'ont pas

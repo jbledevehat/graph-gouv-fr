@@ -115,7 +115,8 @@ function redirectAliases(map, checks, mergedInto) {
   return aliases;
 }
 
-// Adresses d'outils de sécurité (mots de passe, VPN, authentification…) retirées de la carte, V1
+// Adresses d'outils de sécurité (mots de passe, VPN, authentification…) et d'environnements hors
+// production (préproduction, recette, test…) retirées de la carte, V1
 // comprise ; une démarche essentielle (porte publique, ex. l'espace particulier des impôts) et les
 // exceptions de config.candidates.securityKeep restent.
 function removeSecurityTools(map, checks) {
@@ -127,7 +128,7 @@ function removeSecurityTools(map, checks) {
   // Total : sites retirés ici, plus candidats en ligne écartés dès leur sélection.
   const skipped = checks.filter(c => c.kind === 'candidate' && c.statut === 'En ligne' && isSecurityTool(c.key)).length;
   map.stats.securityRemoved = removed.size + skipped;
-  console.log(`  Outils de sécurité retirés de la carte : ${map.stats.securityRemoved}`);
+  console.log(`  Outils de sécurité et environnements hors production retirés de la carte : ${map.stats.securityRemoved}`);
 }
 
 export async function build() {

@@ -22,9 +22,13 @@ export const technicalPatterns = () => config.candidates.excludePatterns.map(re 
 // supervision, administration technique) : leur adresse n'a pas à figurer sur une carte publique.
 // config.candidates.securityPatterns, testé sur chaque segment du nom (vaultwarden.ademe.fr).
 export const securityPatterns = () => (config.candidates.securityPatterns || []).map(re => new RegExp(re, 'i'));
-// Outil de sécurité, sauf exception (config.candidates.securityKeep : portes publiques de connexion).
+// Environnements hors production (préproduction, recette, test, bac à sable, maquette…) :
+// config.candidates.nonProductionPatterns (ppd.ants.gouv.fr, pp-www.arcom.fr, bas.portail.cnsa.fr).
+export const nonProductionPatterns = () => (config.candidates.nonProductionPatterns || []).map(re => new RegExp(re, 'i'));
+// Adresse à ne pas publier (outil de sécurité ou environnement hors production), sauf exception
+// (config.candidates.securityKeep : portes publiques de connexion).
 export function securityFilter() {
-  const patterns = securityPatterns(), keep = new Set(config.candidates.securityKeep || []);
+  const patterns = [...securityPatterns(), ...nonProductionPatterns()], keep = new Set(config.candidates.securityKeep || []);
   return key => !keep.has(key) && patterns.some(re => re.test(key));
 }
 
