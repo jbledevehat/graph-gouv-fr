@@ -8,6 +8,12 @@ Ce dépôt met à jour la carte réalisée en 2019 sous Kumu
 chaque site, ajoute les sites publics manquants, les rattache à leur administration et à leur
 ministère, puis publie la carte et la liste des sites.
 
+> **Source des données** : la liste des sites part de la
+> [liste des noms de domaine des organismes publics](https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public) tenue par la
+> **DINUM** (Direction interministérielle du numérique), complétée par l'Annuaire de
+> l'administration, la liste des opérateurs de l'État, l'Observatoire des démarches en ligne et
+> les journaux de certificats (détail dans [Sources](#sources)).
+
 ## Données
 
 La liste des sites (sites, sous-domaines et sites archivés), mise à jour avec la carte :
