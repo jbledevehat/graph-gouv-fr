@@ -30,6 +30,7 @@ async function loadInputs() {
     if (!demarchesByKey.has(key)) demarchesByKey.set(key, []);
     demarchesByKey.get(key).push(d);
   }
+  const addedHosts = new Set((await readConfigCsv('sites-ajoutes.csv')).map(r => r.domaine.trim()));
   const links = await readConfigCsv('rattachements.csv');
   const adminByDomain = new Map(links.map(l => [siteKey(l.domaine.trim().toLowerCase()), l.administration.trim()]));
   return {
@@ -42,7 +43,12 @@ async function loadInputs() {
     renames: new Map((await readConfigCsv('correspondances-2019.csv')).map(r => [norm(r.ancien), r.actuel.trim()])),
     demarches,
     demarchesByKey,
-    demarcheHosts: new Set(demarchesByKey.keys()),
+    // Adresses gardées à leur propre adresse, même redirigées : démarches essentielles et sites
+    // ajoutés à la main (config/sites-ajoutes.csv).
+    demarcheHosts: new Set([...demarchesByKey.keys(), ...addedHosts]),
+    addedHosts,
+    // Sites retirés à la main (config/sites-retires.csv).
+    removedHosts: new Set((await readConfigCsv('sites-retires.csv')).map(r => r.domaine.trim())),
     operateurs: await readJsonIf(FILES.operateurs, []),
     programmes: await readConfigCsv('programmes-ministeres.csv'),
     tutelles: await readConfigCsv('tutelles.csv'),
@@ -131,6 +137,15 @@ function removeSecurityTools(map, checks) {
   console.log(`  Outils de sécurité et environnements hors production retirés de la carte : ${map.stats.securityRemoved}`);
 }
 
+// Sites retirés à la main (config/sites-retires.csv) : seul le domaine indiqué, pas ses sous-domaines.
+function removeListedSites(map, hosts) {
+  const removed = new Set(map.elements.filter(e => isUrl(e.label) && hosts.has(siteKey(hostOf(e.label)))).map(e => e.label));
+  map.elements = map.elements.filter(e => !removed.has(e.label));
+  map.connections = map.connections.filter(c => !removed.has(c.from) && !removed.has(c.to));
+  map.stats.manualRemoved = removed.size;
+  console.log(`  Sites retirés à la main (config/sites-retires.csv) : ${removed.size}`);
+}
+
 export async function build() {
   const input = await loadInputs();
   const map = createMap();
@@ -152,9 +167,10 @@ export async function build() {
   linkGovernment(map);
   retypeV1Services(map);
   map.elements.push(...map.newOrgs, ...map.additions);
-  const mergedInto = mergeDuplicates(map);
+  const mergedInto = mergeDuplicates(map, input.addedHosts);
   tagDemarches(map, input.demarchesByKey);
   removeSecurityTools(map, input.checks);
+  removeListedSites(map, input.removedHosts);
 
   console.log('Calcul du placement du graphe…');
   const graph = buildGraph({ elements: map.elements, connections: map.connections, aliases: redirectAliases(map, input.checks, mergedInto) });

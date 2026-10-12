@@ -144,6 +144,11 @@ sable (`bas`, `sandbox`), hors production et intégration, maquettes et prototyp
 (`candidates.nonProductionPatterns`). Les faux amis sont écartés : `bas-rhin`, `bas-carbone`,
 « stage » (stage d'étudiant), noms de laboratoires (`pharmadev`, `mecadev`).
 
+Deux fichiers corrigent la sélection à la main, un domaine par ligne :
+**`config/sites-ajoutes.csv`** garde un site à sa propre adresse, même s'il redirige vers une
+page de connexion (academie.ademe.fr) ; **`config/sites-retires.csv`** retire un site de la carte
+(le domaine indiqué seulement, pas ses sous-domaines).
+
 ### Rattachements
 
 Les règles s'appliquent dans cet ordre ; chacune ne traite que ce que les précédentes n'ont pas

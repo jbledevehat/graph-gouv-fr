@@ -1,0 +1,4 @@
+# Sites ajoutés à la main : gardés sur la carte à leur propre adresse, même s'ils redirigent vers
+# une page de connexion ou échappent aux autres filtres. Un domaine par ligne.
+domaine
+academie.ademe.fr

@@ -6,8 +6,12 @@ import { OFF } from './model.mjs';
 
 export const formerAddresses = e => String(e['Anciennes adresses'] || '').split(' ; ').filter(Boolean);
 
-export function mergeDuplicates(map) {
-  const finalKeyOf = e => siteKey(hostOf(e['URL finale'] || '') || hostOf(e.label));
+// Les sites ajoutés à la main (config/sites-ajoutes.csv) restent à leur propre adresse.
+export function mergeDuplicates(map, addedHosts = new Set()) {
+  const finalKeyOf = e => {
+    const own = siteKey(hostOf(e.label));
+    return addedHosts.has(own) ? own : siteKey(hostOf(e['URL finale'] || '') || hostOf(e.label));
+  };
   const byFinal = new Map();
   for (const e of map.elements) {
     if (!isUrl(e.label)) continue;
