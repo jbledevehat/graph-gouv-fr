@@ -73,7 +73,6 @@
   #scene text.fil { font-weight: 700; opacity: .9; }
   #scene .est-col { fill: transparent; cursor: pointer; }
   #scene .est-sep { stroke: var(--control); stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
-  #scene .est-temoin { fill: none; stroke: var(--muted); stroke-width: 1px; vector-effect: non-scaling-stroke; pointer-events: none; }
   #scene .est-haut { fill: var(--ink); fill-opacity: .05; stroke: var(--ink); stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; stroke-width: 1.2px; }
   #scene .est-bas { fill: var(--hatch); fill-opacity: .7; stroke: var(--ink); stroke-width: 1px; vector-effect: non-scaling-stroke; }
   #scene .est-haut.sel, #scene .est-bas.sel, #scene .est-col.sel { stroke: var(--ink); stroke-width: 2.5px; stroke-dasharray: none; }
@@ -456,11 +455,6 @@
         });
         y += hautFile + LEGENDE + MARGE;
       }
-      // Carré témoin : 10 Md€ à la même échelle que les blocs, s'il reste la place.
-      const cote = Math.sqrt(10 * a), xt = col.x + col.w / 2 - cote / 2, yt = y + 10;
-      if (yt + cote + 60 > col.y + col.h) return;
-      ce.temoin = { x: xt, y: yt, c: cote };
-      h += `<rect class="est-temoin" x="${xt}" y="${yt}" width="${cote}" height="${cote}"/><text class="est-l halo" data-tm="${ce.id}" text-anchor="middle" display="none"></text>`;
     });
     return h;
   }
@@ -493,11 +487,6 @@
         [[c.label, 11, 'n'], [f, 10, 'v']],
         [[c.label, 9.5, 'n'], [f, 9, 'v']],
         [[c.label, 9, 'n']]], kk);
-    }
-    for (const c of colonnes.filter(c => c.temoin)) {
-      const t = c.temoin;
-      ecrireAuMieux(svg.querySelector(`[data-tm="${c.id}"]`), t.x + t.c / 2, t.y + t.c + 4 / kk, c.w * kk - 6, 60 * kk, [
-        [['Repère : 10 Md€ à la même échelle', 9.5, 'v']], [['10 Md€', 9, 'v']]], kk);
     }
     for (const e of estim) {
       const f = fourchette(e.bas, e.haut);
@@ -787,7 +776,7 @@
       if (!off && avant.size && racineDe(n).id === 'dep') off = n.fonction ? !avant.has(n.fonction) : ![...(n.children || [])].some(c => avant.has(c.fonction));
       svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
     }
-    svg.querySelectorAll('[data-e], [data-el], [data-et], [data-tm], .est-sep, .est-temoin').forEach(el => el.classList.toggle('off', caches.has('estim')));
+    svg.querySelectorAll('[data-e], [data-el], [data-et], .est-sep').forEach(el => el.classList.toggle('off', caches.has('estim')));
     $('hl-off').hidden = !avant.size;
   }
   $('c-admin').addEventListener('change', e => { const k = e.target.dataset.sect; e.target.checked ? caches.delete(k) : caches.add(k); appliquerFiltres(); });
