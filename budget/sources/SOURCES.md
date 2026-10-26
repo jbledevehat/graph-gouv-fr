@@ -138,7 +138,7 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 
 ## `sources/plf-2025/PLF2025-Depenses-selon-destination.csv`
 
-- **Contenu** : Utilisé seulement pour rattacher chaque programme à un ministère (le PLRG 2024 ne donne pas le ministère).
+- **Contenu** : Utilisé pour rattacher chaque programme à un ministère (le PLRG 2024 ne donne pas le ministère) et pour la répartition prévue par action et sous-action en 2025.
 - **Jeu de données** : PLF 2025 - Dépenses 2025 selon destination
 - **Producteur** : Direction du budget
 - **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf25-depenses-2025-selon-destination/exports/csv?delimiter=%3B>
@@ -459,3 +459,99 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 170 297 octets
 - **SHA-256** : `60b1d3bd207c387bb24abf35aa11c2f4637839fc6ceefd0881603a8da98cdd46`
+
+## `sources/plrg-2023/Annexe1-Etat_AE-2023.csv`
+
+- **Contenu** : Budget général : autorisations d'engagement votées, ouvertes et consommées en 2023 par mission, programme et titre.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/annexe1_etat_ae_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 34 230 octets
+- **SHA-256** : `f266d080eacdd1534f13d59b13420a98b3ceab0773042b0fcccf0523d1c77813`
+
+## `sources/plrg-2024/Annexe1-Etat_AE-2024.csv`
+
+- **Contenu** : Budget général : autorisations d'engagement votées, ouvertes et consommées en 2024 par mission, programme et titre.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2024 (PLRG 2024)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plrg-2024/attachments/annexe1_etat_ae_2024_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/plrg-2024/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 35 919 octets
+- **SHA-256** : `1c6611456b2f8ba0e9162f31a6532f91efd50da2ce1fa4b525b3dd9bfbb06420`
+
+## `sources/plrg-2025/Annexe1-Etat_AE-2025.csv`
+
+- **Contenu** : Budget général : autorisations d'engagement votées, ouvertes et consommées en 2025 par mission, programme et titre.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/annexe1_etat_ae_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 34 624 octets
+- **SHA-256** : `df97f73aefe4073f4ed37e05d9aed62d7332840c3a0a65d82d2fcfd72d644b96`
+
+## `sources/plf-2023/PLF2023-Credits-destination-nature.csv`
+
+- **Contenu** : Crédits prévus par le projet de loi de finances pour 2023, par programme, action, sous-action et catégorie (codes seulement).
+- **Jeu de données** : PLF 2023 Credits_Destination_Nature
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf-2023-credits_destination_nature/exports/csv?delimiter=%3B>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/plf-2023-credits_destination_nature/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 155 865 octets
+- **SHA-256** : `180529c87d1efd9ac229fb65e6d6f1bdbcb66b80e4f01485a0ca0b8929e720c4`
+
+## `sources/plf-2023/LFI2023-Nomenclature-destination.csv`
+
+- **Contenu** : Libellés des programmes, actions et sous-actions de 2023, pour nommer les codes du fichier précédent.
+- **Jeu de données** : Nomenclature par destination LFI 2023
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/nomenclature-par-destination-lfi-2023/exports/csv?delimiter=%3B>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/nomenclature-par-destination-lfi-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 659 131 octets
+- **SHA-256** : `b294559ea2c23e23ec6f91b9dc949766447f1190da7f44610c2bc5a8ba7a2d7b`
+
+## `sources/plf-2024/PLF2024-Depenses-destination-nature.csv`
+
+- **Contenu** : Crédits prévus par le projet de loi de finances pour 2024, par programme, action, sous-action et catégorie.
+- **Jeu de données** : PLF 2024 - Dépenses 2024 selon nomenclatures destination et nature
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/plf-2024-depenses-2024-selon-nomenclatures-destination-et-nature/exports/csv?delimiter=%3B>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/plf-2024-depenses-2024-selon-nomenclatures-destination-et-nature/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 525 858 octets
+- **SHA-256** : `171179c3e0bd7689d9eb9bc88043b3a743f7929d4c72df415978bbb5b3eb665f`
+
+## `sources/performance/Performance-execution-cible-2022-2024.csv`
+
+- **Contenu** : Indicateurs de performance des rapports annuels de performance 2022 à 2024 : objectif, indicateur, cible, réalisé et appréciation.
+- **Jeu de données** : Performance : exécution et atteinte de la cible du Budget de l'État jusqu'au niveau sous-indicateur
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/performance-execution-et-atteinte-de-la-cible-du-budget-de-l-etat-jusqu-au-niveau-sous-indicateur/exports/csv?delimiter=%3B>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/performance-execution-et-atteinte-de-la-cible-du-budget-de-l-etat-jusqu-au-niveau-sous-indicateur/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 2 551 744 octets
+- **SHA-256** : `917ca3e81559313549f446d7864fb9fababb24f7ade42f7a9c836c58bfc3cc12`
+
+## `sources/performance/RAP2025-Performance.csv`
+
+- **Contenu** : Indicateurs de performance des rapports annuels de performance 2025 : objectif, indicateur, cible, réalisé et appréciation.
+- **Jeu de données** : Performance de la dépense (RAP) 2025
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/performance-de-la-depense-rap-2025/exports/csv?delimiter=%3B>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 988 382 octets
+- **SHA-256** : `4d5b13587efda73edc71b0be473dd7d098b6c1685f31f1acecfeb33e7aa71400`

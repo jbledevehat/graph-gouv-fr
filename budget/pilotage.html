@@ -131,6 +131,7 @@
   .mondrian .cell { cursor: pointer; }
   .mondrian .cell rect.f { stroke: var(--panel); stroke-width: 2px; }
   .mondrian .cell:hover rect.f, .mondrian .cell.sel rect.f { stroke: var(--ink); }
+  .mondrian rect.fin { fill: none; stroke: var(--panel); stroke-width: .75px; stroke-opacity: .75; pointer-events: none; }
   .mondrian .cell:focus-visible { outline: none; }
   .mondrian .cell:focus-visible rect.f { stroke: var(--accent); stroke-width: 3px; }
   .mondrian text { pointer-events: none; font-family: var(--sans); fill: var(--ink); }
@@ -138,6 +139,7 @@
   .mondrian text.t { font-weight: 600; }
   .mondrian text.v { font: 500 11.5px var(--mono); }
   .mondrian text.g { font-weight: 700; font-size: 13px; }
+  .mondrian text.g2 { font-weight: 600; font-size: 12px; }
   .mondrian .cadre-vide { fill: none; stroke: var(--line); stroke-dasharray: 5 4; }
   .mondrian .cadre-txt { fill: var(--muted); font: 12px var(--sans, system-ui); }
   .h-a { height: min(74vh, 600px); }
@@ -226,6 +228,79 @@
   .results .rp { grid-column: 2 / 4; font-size: 12px; color: var(--muted); }
   .results .vide { color: var(--muted); font-size: 13px; padding: 6px 10px; }
   .cell.flash rect.f { stroke: var(--ink); stroke-width: 3px; }
+  /* Détail d'un ministère, d'une mission ou d'un programme : blocs sous l'encadré. Couleurs
+     d'appréciation des indicateurs (fixes, toujours avec un symbole et un libellé) : vert pour une
+     cible atteinte, jaune pour un progrès sans l'atteindre, rouge sans amélioration, gris non mesuré. */
+  :root { --st-atteinte: #0CA30C; --st-progres: #FAB219; --st-non: #D03B3B; --st-nd: var(--m-na); }
+  .blocs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 18px 32px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .bloc { display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .bloc.large { grid-column: 1 / -1; }
+  .bloc h4 { margin: 0; font-size: 14px; }
+  .bloc .sub { margin: 0; }
+  .casc { display: grid; gap: 5px; }
+  .casc .c { display: grid; grid-template-columns: minmax(0, 15rem) 1fr 6.5rem; gap: 10px; align-items: center; font-size: 13px; }
+  .casc .c > b { font: 500 12px var(--mono); text-align: right; white-space: nowrap; }
+  .casc .c.total > span:first-child { font-weight: 600; }
+  .casc .c.total > b { font-weight: 700; color: var(--ink); }
+  .casc .tr { position: relative; height: 12px; }
+  .casc .tr i { position: absolute; top: 0; bottom: 0; border-radius: 3px; min-width: 2px; }
+  .casc .total i { background: var(--m-etat); }
+  .casc .plus i { background: color-mix(in srgb, var(--m-etat) 45%, var(--panel)); outline: 1px solid var(--m-etat); outline-offset: -1px; }
+  .casc .moins i { background: repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 5px); outline: 1px solid var(--control); outline-offset: -1px; }
+  @media (max-width: 640px) { .casc .c { grid-template-columns: 1fr 6rem; } .casc .tr { grid-column: 1 / -1; grid-row: 2; } }
+  details.act > summary { list-style: none; cursor: pointer; }
+  details.act > summary::-webkit-details-marker { display: none; }
+  details.act > summary .bar > span:first-child::before { content: "▸ "; color: var(--muted); }
+  details.act[open] > summary .bar > span:first-child::before { content: "▾ "; }
+  details.act > summary.vide { cursor: default; }
+  details.act > summary.vide .bar > span:first-child::before { content: "  "; }
+  details.act .bars { margin: 6px 0 8px 1.2rem; padding-left: 10px; border-left: 2px solid var(--line); }
+  details.act .bar { font-size: 12.5px; }
+  .stbar { display: flex; gap: 2px; height: 14px; border-radius: 4px; overflow: hidden; min-width: 40px; }
+  .stbar i { display: block; min-width: 2px; }
+  .st-atteinte { background: var(--st-atteinte); } .st-progres { background: var(--st-progres); } .st-non { background: var(--st-non); }
+  .st-nd { background: var(--st-nd); }
+  .stleg { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .stleg li { display: inline-flex; align-items: center; gap: 5px; }
+  .ic { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; font: 700 10.5px/1 var(--sans); color: #fff; flex: none; }
+  .ic.st-progres { color: #162033; } .ic.st-nd { color: var(--ink); outline: 1px solid var(--control); outline-offset: -1px; }
+  .strows { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .strows li { display: grid; grid-template-columns: minmax(0, 17rem) 1fr 8.5rem; gap: 10px; align-items: center; font-size: 13px; }
+  .strows button { all: unset; cursor: pointer; color: var(--accent); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .strows button:hover { text-decoration: underline; }
+  .strows button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  .strows .n { font: 12px var(--mono); color: var(--muted); text-align: right; white-space: nowrap; }
+  @media (max-width: 640px) { .strows li { grid-template-columns: 1fr auto; } .strows .stbar { grid-column: 1 / -1; grid-row: 2; } }
+  table.ind { font-size: 12.5px; }
+  table.ind td, table.ind th { padding: 6px 8px; }
+  table.ind .obj th { background: var(--panel-2); font-weight: 600; white-space: normal; }
+  table.ind .ap { white-space: nowrap; }
+  table.ind .ap .ic { margin-right: 5px; vertical-align: -3px; }
+  table.ind .mes { color: var(--muted); }
+  @media (forced-colors: active) { .stbar, .ic, .casc i { forced-color-adjust: none; } }
+  /* Circuit de l'argent de l'État (diagramme de Sankey, vertical, à la manière d'une affiche) :
+     ménages en bleu-vert et entreprises en orange s'ajoutent aux couleurs des administrations ;
+     ordre des destinataires choisi pour que deux couleurs voisines restent distinctes (palette
+     vérifiée pour les daltonismes, en clair et en sombre). Chaque bloc porte son nom. */
+  :root { --m-men: #0E8FA3; --m-ent: #EB6834; }
+  :root[data-theme="dark"] { --m-men: #1BA3B3; --m-ent: #D95926; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --m-men: #1BA3B3; --m-ent: #D95926; } }
+  .flux-wrap { overflow-x: auto; margin-inline: -4px; }
+  .sankey { min-width: 880px; }
+  .sankey svg { display: block; width: 100%; height: auto; }
+  .sankey .lien { fill-opacity: .42; cursor: pointer; transition: fill-opacity .15s; }
+  .sankey .lien:hover, .sankey .lien.on { fill-opacity: .8; }
+  .sankey.survol .lien:not(.on) { fill-opacity: .14; }
+  .sankey .noeud { cursor: pointer; }
+  .sankey .noeud rect { stroke: var(--panel); stroke-width: 1px; }
+  .sankey .noeud:focus-visible { outline: none; }
+  .sankey .noeud:focus-visible rect { stroke: var(--accent); stroke-width: 3px; }
+  .sankey text { font-family: var(--sans); fill: var(--ink); pointer-events: none; }
+  .sankey text.nom { font-size: 12px; font-weight: 600; }
+  .sankey text.mt { font: 500 11px var(--mono); fill: var(--muted); }
+  .sankey text.halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+  .sankey text.etage { font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
+  .sankey text.tronc { font-size: 14px; font-weight: 700; fill: #fff; }
 </style>
 </head>
 <body>
@@ -238,7 +313,7 @@
     <span class="eyebrow">Tableau de bord</span>
     <h1 id="h1">L'argent public en <span data-annee>2024</span></h1>
     <p>État, sécurité sociale, collectivités locales et opérateurs : toutes les administrations publiques réunies. Où va l'argent, d'où il vient, ce que pèse le budget de l'État et la place des aides aux entreprises. Chaque rectangle est à l'échelle de son montant.</p>
-    <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">comptes de la Nation de l'Insee</a> pour l'ensemble des administrations publiques, <a href="https://data.economie.gouv.fr/explore/dataset/plrg-2024/" target="_blank" rel="noopener">loi d'approbation des comptes 2024</a> (DGFiP) pour le budget de l'État, <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener">rapport annexé au PLF 2027</a> pour les aides aux entreprises. Détail et empreintes des fichiers <a href="#s-sources">en bas de page</a>.</p>
+    <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">comptes de la Nation de l'Insee</a> pour l'ensemble des administrations publiques, <a href="https://data.economie.gouv.fr/explore/dataset/plrg-2024/" target="_blank" rel="noopener">loi d'approbation des comptes 2024</a> (DGFiP) pour le budget de l'État, <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener">rapport annexé au PLF 2027</a> pour les aides aux entreprises, <a href="https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/" target="_blank" rel="noopener">rapports annuels de performance</a> et projets de loi de finances (Direction du budget) pour les indicateurs et le détail par action. Détail et empreintes des fichiers <a href="#s-sources">en bas de page</a>.</p>
     <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
   </div>
 
@@ -252,8 +327,21 @@
     <div class="card search">
       <label for="q">Rechercher dans ces comptes</label>
       <input type="search" id="q" placeholder="retraites, gendarmerie, TVA, crédit d'impôt recherche, Bpifrance…" autocomplete="off" aria-describedby="q-aide" aria-controls="q-res">
-      <p id="q-aide" class="note">Fonctions, administrations, ministères, missions, programmes, impôts et aides aux entreprises. Un résultat ouvre le graphique concerné, à la bonne échelle.</p>
+      <p id="q-aide" class="note">Fonctions, administrations, ministères, missions, programmes et leurs actions, impôts et aides aux entreprises. Un résultat ouvre le graphique concerné, à la bonne échelle.</p>
       <ul id="q-res" class="results" aria-live="polite"></ul>
+    </div>
+  </section>
+
+  <section id="s-circuit" aria-labelledby="t-circuit">
+    <div class="sec-head">
+      <span class="num">Vue d'ensemble · Le circuit de l'argent public</span>
+      <h2 id="t-circuit">D'où vient l'argent public, qui le dépense, et pour quoi faire</h2>
+      <p id="circuit-lead"></p>
+    </div>
+    <div class="panel">
+      <div class="flux-wrap"><div class="sankey" id="circuit" role="img"></div></div>
+      <p class="note" id="circuit-note"></p>
+      <details class="data"><summary>Voir les flux en tableau</summary><div class="scroll"><table id="tb-circuit"></table></div></details>
     </div>
   </section>
 
@@ -281,7 +369,13 @@
       <h2 id="t-recettes">D'où vient l'argent</h2>
       <p id="rec-lead"></p>
     </div>
-    <ul class="legend" id="leg-rec"></ul>
+    <div class="controls">
+      <div class="seg-ctl" role="group" aria-label="Regrouper les recettes par">
+        <button type="button" data-rec="admin" aria-pressed="true">Par administration</button>
+        <button type="button" data-rec="type" aria-pressed="false">Par type de recette</button>
+      </div>
+      <ul class="legend" id="leg-rec"></ul>
+    </div>
     <div class="mondrian h-a" id="m-rec" role="img"></div>
     <div class="panel" id="p-rec" aria-live="polite"></div>
     <p class="note" id="rec-note"></p>
@@ -300,9 +394,26 @@
       <p id="etat-lead"></p>
     </div>
     <div class="bridge" id="bridge"></div>
+    <div class="panel" id="p-flux">
+      <h3>D'où vient l'argent du budget de l'État voté par le Parlement, et où il va</h3>
+      <p class="sub" id="flux-sub"></p>
+      <div class="seg-ctl" role="group" aria-label="Niveau de détail du circuit">
+        <button type="button" data-flux="ensemble" aria-pressed="true">Vue d'ensemble</button>
+        <button type="button" data-flux="ministeres" aria-pressed="false">Par ministère</button>
+      </div>
+      <div class="flux-wrap"><div class="sankey" id="flux" role="img"></div></div>
+      <p class="note" id="flux-note"></p>
+      <details class="data"><summary>Voir les flux en tableau</summary><div class="scroll"><table id="tb-flux"></table></div></details>
+    </div>
     <ul class="legend" id="leg-etat"></ul>
     <div class="mondrian h-a" id="m-etat" role="img"></div>
     <div class="panel" id="p-etat" aria-live="polite"></div>
+    <div class="panel" id="p-perf">
+      <h3>Les objectifs des ministères sont-ils atteints ?</h3>
+      <p class="sub" id="perf-sub"></p>
+      <ul class="stleg" id="perf-leg"></ul>
+      <ul class="strows" id="perf-min"></ul>
+    </div>
     <div class="panel">
       <h3>Comment l'État finance ce budget</h3>
       <p class="sub" id="etat-fin-sub"></p>
@@ -327,7 +438,7 @@
     <div class="sec-head">
       <span class="num">5 · Sources et méthode</span>
       <h2 id="t-sources">D'où viennent ces chiffres</h2>
-      <p>Chaque montant vient de l'un de ces fichiers officiels, téléchargés sans modification. L'empreinte SHA-256 permet de vérifier qu'un fichier est identique à l'original. Données construites : <a href="donnees/argent-public-2024.json" download>administrations publiques (JSON)</a>, <a href="donnees/budget-etat-2024.json" download>budget de l'État (JSON)</a>, <a href="donnees/depenses-2024-par-programme.csv" download>dépenses par programme (CSV)</a>, <a href="donnees/recettes-2024.csv" download>recettes de l'État (CSV)</a>, <a href="donnees/aides-2024-rattachement-ministere.csv" download>aides par ministère (CSV)</a>.</p>
+      <p>Chaque montant vient de l'un de ces fichiers officiels, téléchargés sans modification. L'empreinte SHA-256 permet de vérifier qu'un fichier est identique à l'original. Données construites : <a href="donnees/argent-public-2024.json" download>administrations publiques (JSON)</a>, <a href="donnees/budget-etat-2024.json" download>budget de l'État (JSON)</a>, <a href="donnees/detail-etat-2024.json" download>détail par programme : crédits, actions, indicateurs (JSON)</a>, <a href="donnees/depenses-2024-par-programme.csv" download>dépenses par programme (CSV)</a>, <a href="donnees/recettes-2024.csv" download>recettes de l'État (CSV)</a>, <a href="donnees/aides-2024-rattachement-ministere.csv" download>aides par ministère (CSV)</a>.</p>
     </div>
     <div class="panel"><ol id="method" style="margin:0;padding-left:20px;display:grid;gap:8px"></ol></div>
     <details class="data" open><summary>Fichiers sources</summary><div class="scroll"><table id="tb-src"></table></div></details>
@@ -343,8 +454,8 @@
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nf = (v, d = 1) => Number(v).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
   // Montants en milliards d'euros.
-  const mds = v => v >= 1 ? nf(v, v >= 100 ? 0 : 1) + ' Md€' : Math.round(v * 1000).toLocaleString('fr-FR') + ' M€';
-  const pct = (a, b) => { const v = a / b * 100; return v < 1 ? nf(v, 1) + ' %' : Math.round(v) + ' %'; };
+  const mds = v => v >= 1 ? nf(v, v >= 100 ? 0 : 1) + ' Md€' : v > 0 && v < 0.0005 ? '< 1 M€' : Math.round(v * 1000).toLocaleString('fr-FR') + ' M€';
+  const pct = (a, b) => { const v = a / b * 100; return v > 0 && v < 0.05 ? '< 0,1 %' : v < 1 ? nf(v, 1) + ' %' : Math.round(v) + ' %'; };
   const sum = (l, f) => l.reduce((s, x) => s + (f(x) || 0), 0);
 
   const themeButtons = document.querySelectorAll('[data-theme-choice]');
@@ -366,9 +477,14 @@
   const inseeDispo = AN.insee.includes(annee), etatDispo = AN.etat.includes(annee), complet = AN.aides.includes(annee);
   if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
   document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
+  document.querySelectorAll('a[href="donnees/detail-etat-2024.json"]').forEach(a => { if (AN.etat.includes(annee)) a.href = `donnees/detail-etat-${annee}.json`; else a.remove(); });
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   // B : budget de l'État 2024 (aides, sources, méthode) ; BE : celui de l'année affichée, s'il existe.
   let G, B, X, BE;
+  const { arbresArgentPublic } = await import('./arbres.js');
+  // DE : détail de chaque programme (prévu et réalisé, nature fine, actions, indicateurs de
+  // performance), chargé en parallèle ; la page reste utilisable s'il manque.
+  const DE = etatDispo ? fetch(`donnees/detail-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);
   try {
     [G, B, X] = await Promise.all([inseeDispo ? `donnees/argent-public-${annee}.json` : null, 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => u && fetch(u, { cache: 'no-cache' }).then(r => r.json())));
     BE = complet ? B : etatDispo ? await fetch(`donnees/budget-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.json()) : null;
@@ -417,31 +533,48 @@
     for (const g of gl) {
       const x0 = g.x + G1 / 2, y0 = g.y + G1 / 2, w0 = Math.max(0, g.w - G1), h0 = Math.max(0, g.h - G1);
       const cs = squarify(g.children, x0, y0, w0, h0);
+      // Comme sur la page d'exploration : le niveau suivant de chaque case est dessiné en traits fins
+      // et nommé bloc par bloc. Le nom du groupe va en bas à droite du plus grand bloc du groupe ;
+      // celui d'une case, en bas à droite de son plus grand bloc, un cran plus haut s'il partage ce coin.
+      const aire = (a, b) => b.w * b.h - a.w * a.h;
       for (const c of cs) {
-        const x = c.x + G2 / 2, y = c.y + G2 / 2, w = Math.max(0, c.w - G2), h = Math.max(0, c.h - G2);
+        const fins = (c.children || []).filter(d => d.v > 0);
+        c.detail = fins.length > 1 && c.w > 24 && c.h > 24 ? squarify(fins, c.x, c.y, c.w, c.h) : [];
+        c.zones = c.detail.length ? c.detail : [c];
+        c.ancre = c.zones.slice().sort(aire)[0];
+      }
+      const ancreG = cs.flatMap(c => c.zones).sort(aire)[0];
+      for (const c of cs) {
+        const { x, y, w, h } = c;
         const fill = c.color === 'hatch' ? `url(#hatch-${el.id})` : c.hatch ? `url(#hatch-${el.id}-${c.color})` : `var(--m-${c.color})`;
-
-        let label = '';
-        c.lh = 0;
         const hachure = c.color === 'hatch' || c.hatch;
         const txt = hachure ? ' halo' : '', col = hachure ? '' : ` fill:var(--on-${c.color});`;
-        const fs = w > 220 && h > 90 ? 17 : w > 120 && h > 54 ? 14 : 12.5;
-        if (w > 64 && h > 34) {
-          const max = Math.floor((w - 14) / (fs * 0.56));
-          const lines = wrap(c.label, max, h > 90 ? 3 : h > 60 ? 2 : 1);
-          label = lines.map((l, i) => `<text class="t${txt}" x="${x + 7}" y="${y + 6 + fs + i * (fs * 1.18)}" style="font-size:${fs}px;${col}">${esc(l)}</text>`).join('')
-            + `<text class="v${txt}" x="${x + 7}" y="${y + 6 + fs + lines.length * (fs * 1.18) + 3}" style="${col}">${esc(c.valueLabel ?? mds(c.v))}</text>`;
-          c.lh = 8 + fs + lines.length * fs * 1.18 + 10;
+        // Nom et montant en haut à gauche d'un bloc ; renvoie le texte et la hauteur occupée.
+        const ecrire = (d, x, y, w, h) => {
+          const fs = w > 220 && h > 90 ? 17 : w > 120 && h > 54 ? 14 : 12.5;
+          if (!(w > 64 && h > 34)) return ['', 0];
+          const lines = wrap(d.label, Math.floor((w - 14) / (fs * 0.56)), h > 90 ? 3 : h > 60 ? 2 : 1);
+          return [lines.map((l, i) => `<text class="t${txt}" x="${x + 7}" y="${y + 6 + fs + i * (fs * 1.18)}" style="font-size:${fs}px;${col}">${esc(l)}</text>`).join('')
+            + `<text class="v${txt}" x="${x + 7}" y="${y + 6 + fs + lines.length * (fs * 1.18) + 3}" style="${col}">${esc(d.valueLabel ?? mds(d.v))}</text>`, 8 + fs + lines.length * fs * 1.18 + 10];
+        };
+        let label = '';
+        for (const d of c.zones) { const [t, lh] = ecrire(d, d.x, d.y, d.w, d.h); label += t; d.lh = lh; }
+        const traits = c.detail.map(d => `<rect class="fin" x="${d.x}" y="${d.y}" width="${d.w}" height="${d.h}"/>`).join('');
+        if (c.detail.length) {
+          const a = c.ancre, partage = a === ancreG && groupLabels && groups.length > 1;
+          if (a.w > c.label.length * 7 + 16 && a.h - a.lh > (partage ? 52 : 30)) {
+            label += `<text class="g2${txt}" x="${a.x + a.w - 8}" y="${a.y + a.h - 8 - (partage ? 18 : 0)}" text-anchor="end" style="${col}opacity:.9">${esc(c.label)}</text>`;
+            if (partage) a.pris = 18;
+          }
         }
         const i = cellsOut.length;
         cellsOut.push(c);
-        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${label}</g>`;
+        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${traits}${label}</g>`;
       }
-      const big = cs.slice().sort((a, b) => b.w * b.h - a.w * a.h)[0];
       const largeur = g.label.length * 7.6 + 20;
-      if (groupLabels && groups.length > 1 && big && big.w > largeur && big.h - G2 - (big.lh || 0) > 34) {
-        const hb = big.color === 'hatch' || big.hatch;
-        svg += `<text class="g${hb ? ' halo' : ''}" x="${big.x + big.w - 8}" y="${big.y + big.h - 8}" text-anchor="end" style="${hb ? '' : `fill:var(--on-${big.color});`}opacity:.9">${esc(g.label)}</text>`;
+      if (groupLabels && groups.length > 1 && ancreG && ancreG.w > largeur && ancreG.h - ancreG.lh - (ancreG.pris || 0) > 34) {
+        const proprio = cs.find(c => c.zones.includes(ancreG)), hb = proprio.color === 'hatch' || proprio.hatch;
+        svg += `<text class="g${hb ? ' halo' : ''}" x="${ancreG.x + ancreG.w - 8}" y="${ancreG.y + ancreG.h - 8}" text-anchor="end" style="${hb ? '' : `fill:var(--on-${proprio.color});`}opacity:.9">${esc(g.label)}</text>`;
       }
     }
     el.innerHTML = svg + '</svg>';
@@ -468,11 +601,77 @@
     if (out.join(' ').length < text.length) { const last = out.length - 1; out[last] = out[last].slice(0, Math.max(1, max - 1)).replace(/\s+\S*$/, '') + '…'; }
     return out.map(l => l.length > max ? l.slice(0, max - 1) + '…' : l);
   }
+  // --- Diagramme de Sankey vertical, commun au circuit de l'argent public et à celui de l'État ---
+  // etages : [{ y, ep, titre, titreY, dessus, noeuds: [{ id, label, titre, v, color, invisible, tronc }] }] ;
+  // liens : [{ s, t, v, color }], s et t étant des identifiants de nœuds. Un nœud invisible laisse
+  // passer ses rubans sans s'arrêter ; un tronc est une barre épaisse qui porte son texte.
+  // La largeur d'un bloc est proportionnelle à son montant, sur une échelle commune à tous les étages.
+  function sankey(el, { etages, liens: L, H }) {
+    const W = Math.max(880, el.clientWidth), pad = 18, gap = 7;
+    const max = Math.max(...etages.map(e => e.noeuds.length));
+    const total = Math.max(...etages.map(e => sum(e.noeuds, n => n.v)));
+    const k = (W - 2 * pad - gap * (max - 1)) / total;
+    const par = {};
+    const N = etages.flatMap((e, row) => {
+      const larg = sum(e.noeuds, n => n.v) * k + gap * (e.noeuds.length - 1); let x = (W - larg) / 2;
+      return e.noeuds.map(n => { const o = { ...n, row, x0: x, x1: x + n.v * k, y0: e.y, y1: e.y + (n.invisible ? 0 : e.ep), out: x, in: x }; x = o.x1 + gap; par[n.id] = o; return o; });
+    });
+    const liens = L.filter(l => l.v > 0.0005).map(l => ({ ...l, s: par[l.s], t: par[l.t] }));
+    // Ordre des rubans au départ et à l'arrivée de chaque bloc : de gauche à droite selon l'autre extrémité.
+    const cx = n => (n.x0 + n.x1) / 2;
+    [...liens].sort((a, b) => cx(a.t) - cx(b.t)).forEach(l => { l.sx = l.s.out; l.s.out += l.v * k; });
+    [...liens].sort((a, b) => cx(a.s) - cx(b.s)).forEach(l => { l.tx = l.t.in; l.t.in += l.v * k; });
+    const hach = el.id + '-hachure';
+    const fill = c => c === 'hatch' ? `url(#${hach})` : `var(--m-${c})`;
+    const ruban = l => { const w = l.v * k, ya = l.s.y1, yb = l.t.y0, m = (ya + yb) / 2;
+      return `M${l.sx},${ya} C${l.sx},${m} ${l.tx},${m} ${l.tx},${yb} L${l.tx + w},${yb} C${l.tx + w},${m} ${l.sx + w},${m} ${l.sx + w},${ya} Z`; };
+    // Étiquettes : horizontales si le bloc est assez large, sinon verticales, le long du ruban. En haut,
+    // un bloc étroit garde une étiquette horizontale, remontée d'un cran pour ne pas toucher ses voisins.
+    const etiquette = n => {
+      const e = etages[n.row], dessus = e.dessus !== false, w = n.x1 - n.x0, c = cx(n), mt = mds(n.v), etroit = w < 92;
+      if (!etroit || n.row === 0) {
+        const lignes = wrap(n.label, Math.max(8, Math.floor((etroit ? 96 : w + gap) / 6.6)), dessus ? 3 : 4);
+        const y = dessus ? n.y0 - 8 - lignes.length * 14 - (etroit ? 34 : 0) : n.y1 + 16;
+        return lignes.map((t, i) => `<text class="nom halo" x="${c}" y="${y + i * 14}" text-anchor="middle">${esc(t)}</text>`).join('') + `<text class="mt halo" x="${c}" y="${y + lignes.length * 14}" text-anchor="middle">${esc(mt)}</text>`;
+      }
+      // Place disponible : jusqu'à l'étage du dessus, ou jusqu'au bas du dessin ; le montant compris.
+      const prec = etages[n.row - 1], long = dessus ? n.y0 - prec.y - prec.ep - 14 : H - n.y1 - 12;
+      const txt = wrap(n.label, Math.max(6, Math.floor((long - mt.length * 6.6 - 6) / (dessus ? 6.8 : 6.3))), 1)[0];
+      return dessus
+        ? `<text class="nom halo" transform="translate(${c + 4},${n.y0 - 8}) rotate(-90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`
+        : `<text class="nom halo" transform="translate(${c - 4},${n.y1 + 8}) rotate(90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`;
+    };
+    const visibles = N.filter(n => !n.invisible && !n.tronc), troncs = N.filter(n => n.tronc);
+    el._liens = liens; el._noeuds = [...visibles, ...troncs];
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><defs><pattern id="${hach}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern></defs>
+      ${liens.map((l, i) => `<path class="lien" data-l="${i}" d="${ruban(l)}" style="fill:${fill(l.color)}"/>`).join('')}
+      ${el._noeuds.map((n, i) => `<g class="noeud" data-n="${i}" tabindex="0" role="button" aria-label="${esc(n.titre || n.label)} : ${esc(mds(n.v))}"><rect x="${n.x0}" y="${n.y0}" width="${Math.max(1.5, n.x1 - n.x0)}" height="${n.y1 - n.y0}" rx="${n.tronc ? 4 : 2}" style="fill:${fill(n.color)}"/></g>`).join('')}
+      ${troncs.map(n => `<text class="tronc" x="${cx(n)}" y="${n.y0 + etages[n.row].ep / 2 + 5}" text-anchor="middle">${esc(n.tronc)}</text>`).join('')}
+      ${etages.filter(e => e.titre).map(e => `<text class="etage halo" x="${pad}" y="${e.titreY}">${esc(e.titre)}</text>`).join('')}
+      ${visibles.map(etiquette).join('')}</svg>`;
+  }
+  // Survol (infobulle, rubans du bloc surlignés), clic et clavier ; branché une seule fois par dessin.
+  function sankeyInteractif(el, { tipNoeud, onPick }) {
+    const tipLien = l => `<b>${esc(l.s.titre || l.s.label)} → ${esc(l.t.titre || l.t.label)}</b><span class="val">${mds(l.v)}</span> · ${pct(l.v, l.s.v)} de « ${esc(l.s.label)} », ${pct(l.v, l.t.v)} de « ${esc(l.t.label)} »`;
+    const allumer = ls => { el.classList.toggle('survol', !!ls); el.querySelectorAll('.lien').forEach(p => p.classList.toggle('on', !!ls && ls.includes(el._liens[+p.dataset.l]))); };
+    // Les rubans d'un nœud invisible sont ceux du flux qui le traverse : on remonte et on descend.
+    const relies = n => el._liens.filter(l => l.s.id === n.id || l.t.id === n.id);
+    el.addEventListener('pointermove', e => {
+      const p = e.target.closest('.lien'), g = e.target.closest('.noeud');
+      if (p) { const l = el._liens[+p.dataset.l]; allumer([l]); showTip(tipLien(l), e.clientX, e.clientY); }
+      else if (g) { const n = el._noeuds[+g.dataset.n]; allumer(relies(n)); showTip(tipNoeud(n), e.clientX, e.clientY); }
+      else { allumer(null); hideTip(); }
+    });
+    el.addEventListener('pointerleave', () => { allumer(null); hideTip(); });
+    const choisir = e => { const g = e.target.closest('.noeud'); if (g) onPick(el._noeuds[+g.dataset.n]); };
+    el.addEventListener('click', choisir);
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choisir(e); } });
+  }
   const charts = [];
   let raf = 0;
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => charts.forEach(f => f())); }).observe(document.querySelector('main'));
   const legend = (el, items) => { $(el).innerHTML = items.map(([c, l, h]) => `<li><span class="sw${c === 'hatch' ? ' hatch' : ''}${c === 'na' ? ' na' : ''}${h ? ' hatch-c' : ''}" style="--c:var(--m-${c})"></span>${esc(l)}</li>`).join(''); };
-  const bars = (items, max) => `<div class="bars">${items.map(([l, v, c]) => `<div class="bar"><span>${esc(l)}</span><span class="tr"><i style="width:${Math.max(.6, v / max * 64)}%;--c:var(--m-${c || 'op'})"></i><span>${mds(v)}</span></span></div>`).join('')}</div>`;
+  const bars = (items, max) => `<div class="bars">${items.map(([l, v, c]) => `<div class="bar"><span>${esc(l)}</span><span class="tr"><i style="width:${Math.max(.6, v / max * 64)}%;${c === 'hatch' ? 'background:repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 5px);outline:1px solid var(--control);outline-offset:-1px' : `--c:var(--m-${c || 'op'})`}"></i><span>${mds(v)}</span></span></div>`).join('')}</div>`;
   const table = (el, head, rows) => { $(el).innerHTML = `<thead><tr>${head.map((h, i) => `<th scope="col"${i ? ' class="num"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => i ? `<td class="num">${c}</td>` : `<th scope="row">${c}</th>`).join('')}</tr>`).join('')}</tbody>`; };
 
   // ================= Chiffres clés =================
@@ -558,7 +757,7 @@
   const tipDe = (titre, v, extra = '', ex) => `<b>${esc(titre)}</b><span class="val">${mds(v)}</span>${extra}${ex ? `<br><span class="tq">${esc(ex.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
   const sur100 = (v, total) => (v / total * 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   // Encadré sous une composition : ce que c'est, des exemples, ce que pèse le montant, puis le détail.
-  const panneau = (el, n, total, { extra = '', base = "d'argent public dépensés" } = {}) => {
+  const panneau = (el, n, total, { extra = '', base = "d'argent public dépensés", apres = '' } = {}) => {
     const parent = n.parent;
     const enfants = (n.children || []).filter(c => c.v > 0).sort((a, b) => b.v - a.v);
     const ex = n.explication;
@@ -569,8 +768,8 @@
       ? `Sur 100 € ${base}, <b>${sur100(n.v, total)} €</b> vont ici.${parent.parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}`
       : `Le total : <b>${mds(n.v)}</b>.`;
     $(el).innerHTML = `<h3>${esc(n.titre || n.label)} : ${mds(n.v)}</h3>${quoi}
-      <p class="combien">${poids}${n.desc && !ex ? ' ' + esc(n.desc) : ''}${extra}</p>
-      ${enfants.length ? `<p class="sub">${enfants.length > 1 ? 'Détail :' : ''}</p>` + bars(enfants.slice(0, 15).map(c => [c.titre || c.label, c.v, c.color === 'hatch' ? 'op' : c.color]), enfants[0].v) + (enfants.length > 15 ? `<p class="sub">et ${enfants.length - 15} autres.</p>` : '') : ''}`;
+      <p class="combien">${poids}${n.desc && !ex ? ' ' + esc(n.desc) : ''}${n.note ? ' ' + esc(n.note) : ''}${extra}</p>
+      ${enfants.length ? `<p class="sub">${enfants.length > 1 ? 'Détail :' : ''}</p>` + bars(enfants.slice(0, 15).map(c => [c.titre || c.label, c.v, c.color]), enfants[0].v) + (enfants.length > 15 ? `<p class="sub">et ${enfants.length - 15} autres.</p>` : '') : ''}${apres}`;
   };
 
 
@@ -578,7 +777,7 @@
   // Parties 1 et 2 : comptes de l'Insee, disponibles jusqu'à 2024 (pas encore pour 2025).
   const ECH_INSEE = { v: AN.echelle.insee_md, libelle: 'plus grand total des années disponibles' };
   if (!G) {
-    ['s-depenses', 's-recettes'].forEach(id => { $(id).hidden = true; });
+    ['s-circuit', 's-depenses', 's-recettes'].forEach(id => { $(id).hidden = true; });
     $('s-depenses').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Les comptes de l'ensemble des administrations publiques ne sont pas encore publiés pour ${annee}</b> par l'Insee : cette page montre seulement le budget de l'État. <a href="?annee=${AN.insee[AN.insee.length - 1]}">Voir ${AN.insee[AN.insee.length - 1]}</a>.</p></section>`);
   }
   if (G) {
@@ -586,15 +785,13 @@
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
   legend('leg-admin', G.secteurs.map(s => [COUL[s.code], s.nom]));
   $('dep-lead').textContent = `${nf(D, 1)} milliards d'euros dépensés par l'ensemble des administrations publiques. Chaque euro n'est compté qu'une fois, là où il est finalement dépensé : une dotation de l'État à une commune est comptée dans les dépenses de la commune. Cliquez sur un rectangle pour zoomer : administration, puis fonction, puis sous-fonction.`;
-  let depMode = 'admin';
-  const sousDep = (s, f) => f.sous.map(x => ({ id: s.code + x.code, label: x.libelle, titre: `${x.libelle} (${s.nom})`, v: x.montant, color: COUL[s.code], explication: X.sous_fonctions[x.code], tip: tipDe(`${x.libelle} · ${s.nom}`, x.montant, ` · ${pct(x.montant, D)} des dépenses publiques`, X.sous_fonctions[x.code]) }));
-  const fonctionDep = (s, f, label) => ({ id: s.code + f.code, label, titre: `${f.libelle} (${s.nom})`, v: f.montant, color: COUL[s.code], explication: X.fonctions[f.code],
-    tip: tipDe(`${f.libelle} · ${s.nom}`, f.montant, ` · ${pct(f.montant, D)} des dépenses publiques`, X.fonctions[f.code]), children: sousDep(s, f) });
-  const arbreDep = () => depMode === 'admin'
-    ? { id: 'dep', label: 'Toutes les administrations', v: D, children: G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.total, color: COUL[s.code], explication: X.secteurs[s.code],
-        tip: tipDe(s.nom, s.total, '', X.secteurs[s.code]), children: s.fonctions.map(f => fonctionDep(s, f, f.libelle)) })) }
-    : { id: 'dep', label: 'Toutes les fonctions', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ id: f0.code, label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na', explication: X.fonctions[f0.code],
-        tip: tipDe(f0.libelle, sum(G.secteurs, s => s.fonctions[k].montant), '', X.fonctions[f0.code]), children: G.secteurs.map(s => fonctionDep(s, s.fonctions[k], s.nom)) })) };
+  // Mêmes blocs que la page d'exploration et ses PDF (arbres.js) : administration ou fonction,
+  // puis fonction ou administration, puis sous-fonction (dessinée en traits fins dans chaque case).
+  let depMode = 'admin', recMode = 'admin';
+  // Infobulle de chaque bloc : titre, montant, part du total, première phrase de l'explication.
+  const avecInfobulles = (racine, total, quoi) => { const p = n => { if (n !== racine) n.tip = tipDe(n.titre || n.label, n.v, ` · ${pct(n.v, total)} ${quoi}`, n.explication); (n.children || []).forEach(p); }; p(racine); return racine; };
+  const arbreDep = () => { const r = arbresArgentPublic(G, X, depMode, recMode)[0]; r.label = depMode === 'admin' ? 'Toutes les administrations' : 'Toutes les fonctions'; return avecInfobulles(r, D, 'des dépenses publiques'); };
+  const arbreRec = () => avecInfobulles(arbresArgentPublic(G, X, depMode, recMode)[1], R - S, "des recettes et de l'emprunt");
   const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D), echelle: ECH_INSEE });
   document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
@@ -607,17 +804,14 @@
   // Couleur = administration qui perçoit. Gris neutre = recettes qu'on ne peut pas attribuer à une seule
   // administration (autres recettes consolidées). Hachures = déficit.
   legend('leg-rec', [...G.secteurs.map(s => [COUL[s.code], s.nom]), ['na', 'Autres recettes, toutes administrations'], ['hatch', 'Déficit public']]);
-  $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Chaque couleur indique l'administration qui perçoit l'impôt ou la cotisation ; cliquez sur une administration pour zoomer.`;
+  $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Par administration, chaque couleur indique celle qui perçoit l'impôt ou la cotisation ; par type de recette, les impôts sont détaillés un par un, toutes administrations confondues. Cliquez sur un rectangle pour zoomer. Ce sont les mêmes blocs que sur la page d'exploration.`;
   // Total du financement : recettes et déficit (tableau 3.201), qui peut différer des dépenses par fonction.
-  explorer('rec', () => ({ id: 'rec', label: 'Recettes et emprunt', v: R - S, children: [
-    ...G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: COUL[s.code], explication: X.secteurs[s.code], tip: tipDe(`Recettes perçues par : ${s.nom}`, s.recettes.impots + s.recettes.cotisations), children: [
-      { id: s.code + 'i', label: `Impôts · ${s.nom}`, v: s.recettes.impots, color: COUL[s.code], explication: X.recettes.impots, tip: tipDe(`Impôts perçus par : ${s.nom}`, s.recettes.impots, ` · ${pct(s.recettes.impots, R)} des recettes publiques`, X.recettes.impots) },
-      { id: s.code + 'c', label: `Cotisations · ${s.nom}`, v: s.recettes.cotisations, color: COUL[s.code], explication: X.recettes.cotisations, tip: tipDe(`Cotisations sociales perçues par : ${s.nom}`, s.recettes.cotisations, s.code === 'S13111' ? ' · surtout les cotisations de retraite des fonctionnaires' : '', X.recettes.cotisations) },
-    ] })),
-    { id: 'autres', label: 'Autres recettes (ventes, revenus, transferts)', v: G.autres_recettes_consolidees, color: 'na', explication: X.recettes.autres, tip: tipDe('Autres recettes, toutes administrations', G.autres_recettes_consolidees, ' · ventes de biens et services, revenus de la propriété, transferts reçus. Non réparties : elles contiennent des flux entre administrations que le total neutralise.') },
-    { id: 'deficit', label: 'Déficit', v: -S, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit public', -S, ` · ${pct(-S, D)} des dépenses. ${G.secteurs.map(s => `${esc(s.nom)} : ${nf(s.recettes.solde, 1)}`).join(' ; ')} Md€.`) },
-  ] }), { onNode: n => panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }), echelle: ECH_INSEE });
-  panneau('p-rec', explorateurs.rec.root(), R - S, { base: "qui financent la dépense publique (recettes et emprunt)" });
+  // Mêmes blocs que la page d'exploration (arbres.js) ; on choisit le regroupement des recettes.
+  const xRec = explorer('rec', arbreRec, { onNode: n => panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }), echelle: ECH_INSEE });
+  document.querySelectorAll('[data-rec]').forEach(b => b.addEventListener('click', () => {
+    recMode = b.dataset.rec; document.querySelectorAll('[data-rec]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xRec.reconstruire();
+  }));
+  panneau('p-rec', xRec.root(), R - S, { base: "qui financent la dépense publique (recettes et emprunt)" });
   $('rec-note').textContent = `Impôts comptés chez l'administration qui les perçoit en dernier : une part de la TVA, par exemple, est affectée à la sécurité sociale et aux collectivités. Le gris neutre regroupe les ${nf(G.autres_recettes_consolidees, 1)} Md€ d'autres recettes, qu'on ne peut pas attribuer à une seule administration. Les impôts et cotisations non recouvrables sont déduits des impôts.`;
   const impCourt = l => l.replace(/^Taxe sur la valeur ajoutée.*/, 'TVA').replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/\s*\((D\d+)\)\s*$/, '')
     .replace(/Contribution sociale généralisée \(CSG\)/, 'CSG').replace(/Impôt sur le revenu des personnes physiques \(IRPP\)/, 'Impôt sur le revenu').replace(/Impôt sur les sociétés \(IS\)/, 'Impôt sur les sociétés')
@@ -628,6 +822,70 @@
   explorer('imp', () => ({ id: 'imp', label: 'Les 20 premiers prélèvements', v: sum(topImp, i => i.montant), children: topImp.map(i => ({ id: i.libelle, label: impCourt(i.libelle), titre: i.libelle.replace(/\s*\(\*\*\)/g, ''), v: i.montant, color: 'na', tip: `<b>${esc(i.libelle)}</b><span class="val">${mds(i.montant)}</span>` })) }));
   table('tb-rec', ['Administration', 'Impôts', 'Cotisations', 'Solde (capacité ou besoin de financement)'], G.secteurs.map(s => [esc(s.nom), mds(s.recettes.impots), mds(s.recettes.cotisations), nf(s.recettes.solde, 1) + ' Md€'])
     .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
+
+  // ================= Vue d'ensemble : le circuit de l'argent public (Sankey) =================
+  // Cinq étages de même total, tous tirés des comptes de l'Insee : ressources → administration qui
+  // les perçoit → passage entre administrations → administration qui dépense → fonction. L'Insee ne
+  // publie pas qui verse à qui : ce qu'une administration perçoit en plus de ce qu'elle dépense, et
+  // les autres recettes, passent par un réservoir commun qui finance les autres. Chaque administration
+  // est calculée exactement : dépense = impôts + cotisations + emprunt + reçu du réservoir − excédent.
+  {
+    const SECT = G.secteurs.map(s => {
+      const emprunt = Math.max(0, -s.recettes.solde), excedent = Math.max(0, s.recettes.solde);
+      const percu = s.recettes.impots + s.recettes.cotisations + emprunt;
+      const net = s.total + excedent - percu; // > 0 : reçoit du réservoir ; < 0 : y verse
+      return { s, c: COUL[s.code], emprunt, excedent, percu, recoit: Math.max(0, net), verse: Math.max(0, -net) };
+    });
+    const AUTRES = G.autres_recettes_consolidees;
+    const reservoir = AUTRES + sum(SECT, x => x.verse);
+    const FONCTIONS = G.secteurs[0].fonctions.map((f, i) => ({ id: 'f' + f.code, code: f.code, label: f.libelle, v: sum(G.secteurs, s => s.fonctions[i].montant) }));
+    // Fonctions rangées selon l'administration qui les finance surtout, pour limiter les croisements.
+    const rangS = Object.fromEntries(SECT.map((x, i) => [x.s.code, i]));
+    const baryF = i => sum(G.secteurs, s => rangS[s.code] * s.fonctions[i].montant) / (sum(G.secteurs, s => s.fonctions[i].montant) || 1);
+    const ordreF = FONCTIONS.map((f, i) => ({ ...f, b: baryF(i), i })).sort((a, b) => a.b - b.b);
+    // L'emprunt d'abord : il va surtout à l'État, placé à gauche ; son ruban hachuré ne traverse pas le dessin.
+    const ressources = [
+      { id: 'r-emp', label: 'Emprunt (déficit)', titre: 'Emprunt des administrations en déficit', v: sum(SECT, x => x.emprunt), color: 'hatch' },
+      { id: 'r-imp', label: 'Impôts', titre: 'Impôts, nets des impôts non recouvrables', v: sum(SECT, x => x.s.recettes.impots), color: 'na' },
+      { id: 'r-cot', label: 'Cotisations sociales', v: sum(SECT, x => x.s.recettes.cotisations), color: 'na' },
+      { id: 'r-aut', label: 'Autres recettes', titre: 'Autres recettes : ventes, revenus de la propriété, transferts reçus de l\'extérieur', v: AUTRES, color: 'na' }];
+    const [x0, ...autresSect] = SECT; // l'État d'abord, le réservoir juste après lui
+    // L'État de l'Insee (comptabilité nationale) n'est pas le budget voté de la partie 3 : on le nomme.
+    for (const x of SECT) x.nom = x.s.code === 'S13111' ? "État, selon l'Insee" : x.s.nom;
+    const dessinerCircuit = () => sankey($('circuit'), { H: 1150, etages: [
+      { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: ressources },
+      { y: 280, ep: 12, titre: 'Perçues par', titreY: 168, noeuds: [{ id: 'p' + x0.s.code, label: x0.nom, titre: `Perçu par : ${x0.nom} (comptabilité nationale)`, v: x0.percu, color: x0.c }, { id: 'pass-aut', v: AUTRES, invisible: true },
+        ...autresSect.map(x => ({ id: 'p' + x.s.code, label: x.nom, titre: `Perçu par : ${x.nom}`, v: x.percu, color: x.c }))] },
+      { y: 440, ep: 14, titre: 'Passent d\'une administration à l\'autre', titreY: 318, noeuds: [{ id: 'g' + x0.s.code, v: x0.percu - x0.verse, invisible: true },
+        { id: 'reservoir', label: 'Transferts entre administrations et autres recettes', titre: "Réservoir commun : ce qu'une administration perçoit en plus de ce qu'elle dépense, et les autres recettes ; il finance les autres administrations", v: reservoir, color: 'na' },
+        ...autresSect.map(x => ({ id: 'g' + x.s.code, v: x.percu - x.verse, invisible: true }))] },
+      { y: 640, ep: 12, titre: 'Dépensées par', titreY: 478, noeuds: [...SECT.map(x => ({ id: 'd' + x.s.code, code: x.s.code, label: x.nom, titre: `Dépensé par : ${x.nom}`, v: x.s.total, color: x.c })),
+        ...SECT.filter(x => x.excedent > 0.0005).map(x => ({ id: 'e' + x.s.code, label: `Excédent : ${x.s.nom}`, titre: `Excédent de ${x.s.nom} (non dépensé)`, v: x.excedent, color: x.c }))] },
+      { y: 820, ep: 12, titre: 'Pour quoi faire', titreY: 808, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, v: f.v, color: 'na' })) }],
+      liens: [
+        ...SECT.flatMap(x => [{ s: 'r-imp', t: 'p' + x.s.code, v: x.s.recettes.impots, color: x.c }, { s: 'r-cot', t: 'p' + x.s.code, v: x.s.recettes.cotisations, color: x.c }, { s: 'r-emp', t: 'p' + x.s.code, v: x.emprunt, color: 'hatch' }]),
+        { s: 'r-aut', t: 'pass-aut', v: AUTRES, color: 'na' }, { s: 'pass-aut', t: 'reservoir', v: AUTRES, color: 'na' },
+        ...SECT.flatMap(x => [{ s: 'p' + x.s.code, t: 'g' + x.s.code, v: x.percu - x.verse, color: x.c }, { s: 'p' + x.s.code, t: 'reservoir', v: x.verse, color: x.c },
+          { s: 'g' + x.s.code, t: 'd' + x.s.code, v: x.percu - x.verse - x.excedent, color: x.c }, { s: 'g' + x.s.code, t: 'e' + x.s.code, v: x.excedent, color: x.c },
+          { s: 'reservoir', t: 'd' + x.s.code, v: x.recoit, color: x.c }]),
+        ...SECT.flatMap(x => x.s.fonctions.map((f, i) => ({ s: 'd' + x.s.code, t: 'f' + f.code, v: f.montant, color: x.c })))] });
+    charts.push(dessinerCircuit);
+    dessinerCircuit();
+    const totalC = sum(ressources, r => r.v);
+    sankeyInteractif($('circuit'), {
+      tipNoeud: n => `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, totalC)} du total${n.code ? '<br><span class="tq">Cliquer pour ouvrir le détail ci-dessous.</span>' : ''}`,
+      onPick: n => {
+        if (!n.code) return;
+        if (n.id.startsWith('d')) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (s) explorateurs.dep.reveler(s); }
+        else { document.querySelector('[data-dep="fonction"]').click(); const f = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (f) explorateurs.dep.reveler(f); }
+      } });
+    const etat = SECT.find(x => x.s.code === 'S13111');
+    $('circuit-lead').textContent = `Les ${nf(D, 0)} milliards d'euros dépensés en ${annee} par l'ensemble des administrations publiques, suivis de leur source à leur usage. En haut, les ressources ; puis l'administration qui les perçoit ; au milieu, ce qui passe de l'une à l'autre ; puis l'administration qui dépense ; en bas, la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur une administration ou une fonction pour ouvrir son détail plus bas.`;
+    $('circuit-note').textContent = `L'État, selon l'Insee, perçoit ${mds(etat.percu)} (impôts, cotisations et emprunt) et en dépense lui-même ${mds(etat.s.total)} : les ${mds(etat.verse)} de différence financent les autres administrations, avec les ${mds(AUTRES)} d'autres recettes. ${autresSect.filter(x => x.recoit > 0.0005).map(x => `${x.s.nom} : ${mds(x.recoit)} reçus`).join(' ; ')}. L'Insee publie ce que chaque administration perçoit et dépense, mais pas le détail de qui verse à qui : ces montants passent donc par un réservoir commun, qui mêle transferts entre administrations et recettes propres (ventes, loyers, revenus). Pour l'argent qui part de l'État, la partie 3 donne le détail exact. Les impôts ne sont pas détaillés par administration, l'Insee ne publiant pas ce partage impôt par impôt. Le budget de l'État voté par le Parlement (partie 3) se compte autrement : ses ressources y sont plus élevées, car les impôts y figurent avant remboursements.`;
+    table('tb-circuit', ['Administration', 'Impôts', 'Cotisations', 'Emprunt', 'Versé aux autres', 'Reçu des autres et autres recettes', 'Excédent', 'Dépensé'],
+      SECT.map(x => [esc(x.s.nom), mds(x.s.recettes.impots), mds(x.s.recettes.cotisations), x.emprunt ? mds(x.emprunt) : '–', x.verse ? mds(x.verse) : '–', x.recoit ? mds(x.recoit) : '–', x.excedent ? mds(x.excedent) : '–', mds(x.s.total)])
+        .concat([['<b>Total</b>', mds(sum(SECT, x => x.s.recettes.impots)), mds(sum(SECT, x => x.s.recettes.cotisations)), mds(sum(SECT, x => x.emprunt)), mds(sum(SECT, x => x.verse)), mds(sum(SECT, x => x.recoit)), mds(sum(SECT, x => x.excedent)), `<b>${mds(D)}</b>`]]));
+  }
 
   }
   // ================= 3. Budget de l'État =================
@@ -640,11 +898,13 @@
       ? `<b>Les aides aux entreprises ne sont disponibles que pour 2024</b> : le rapport qui les recense ne porte que sur cette année. <a href="?annee=2024">Voir 2024</a>.`
       : `<b>Pour ${annee}, cette page montre l'ensemble des administrations publiques</b> (comptes de la Nation de l'Insee, parties 1 et 2). Le budget de l'État ministère par ministère n'est disponible ici que pour ${AN.etat.join(', ')}, les aides aux entreprises que pour ${AN.aides.join(', ')} : <a href="?annee=${AN.reference}">voir ${AN.reference}</a>.`}</p></section>`);
   }
+  // Nom court d'un ministère, aussi utilisé par la partie 4.
+  const shortMin = m => m.replace(/, souveraineté alimentaire et forêt|, énergie, climat et prévention des risques|, autonomie et égalité entre les femmes et les hommes|, simplification et transformation de l'action publique| avec les collectivités territoriales et décentralisation/, '');
   if (etatDispo) {
   const E = BE.equilibre;
   const P = BE.programmes.filter(p => p.programme !== '200');
   const etatCN = G?.secteurs.find(s => s.code === 'S13111').total;
-  $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 1. Cliquez pour zoomer : ministère, puis mission, puis programme.";
+  $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 1. Cliquez pour zoomer : ministère, puis mission, puis programme. Sous la composition, le détail de ce qui est affiché : du vote à la dépense, ce qui est payé, la répartition par action d'un programme et ses indicateurs de performance.";
   $('bridge').innerHTML = [
     ...(G ? [[nf(D, 0) + ' Md€', 'dépenses de toutes les administrations publiques (partie 1)'],
       [nf(etatCN, 0) + ' Md€', "dont dépenses finales de l'État en comptabilité nationale"]] : []),
@@ -659,10 +919,74 @@
     if (!m.has(p.mission)) m.set(p.mission, []);
     m.get(p.mission).push(p);
   }
-  const shortMin = m => m.replace(/, souveraineté alimentaire et forêt|, énergie, climat et prévention des risques|, autonomie et égalité entre les femmes et les hommes|, simplification et transformation de l'action publique| avec les collectivités territoriales et décentralisation/, '');
   const totalEtat = sum(P, p => p.depenses) / 1000;
   const natures = ps => Object.entries(BE.meta.natures).map(([k, l]) => [l, sum(ps, p => p.nature[k] || 0) / 1000]).filter(x => x[1] > 0.0005).sort((a, b) => b[1] - a[1]).map(([l, v]) => `${esc(l.toLowerCase())} ${mds(v)}`).join(' · ');
   const progLib = p => p.libelle.replace(/\s*\(crédits évaluatifs\)/, '');
+
+  // --- Détail sous l'encadré : du vote à la dépense, nature fine, actions, indicateurs ---
+  // Montants du fichier de détail en millions d'euros, affichés en milliards comme le reste.
+  const DD = await DE, DET = DD?.programmes || {};
+  const detCp = (ps, k) => sum(ps, p => DET[p.programme]?.cp?.[k]) / 1000;
+  const detAe = (ps, k) => sum(ps, p => DET[p.programme]?.ae?.[k]) / 1000;
+  const signe = v => (v < 0 ? '−' : '+') + ' ' + mds(Math.abs(v));
+  // Cascade : chaque étape part du niveau atteint par la précédente ; les totaux partent de zéro.
+  const cascade = ps => {
+    const c = k => detCp(ps, k);
+    const lfi = c('lfi'), ouv = c('ouverts'), dep = c('depenses');
+    const etapes = [
+      ['Votés par le Parlement (loi de finances initiale)', lfi, true],
+      ['Lois de finances rectificatives', c('lfr')],
+      ["Reports de crédits de l'année précédente", c('report_entrant')],
+      ['Fonds de concours et attributions de produits', c('fonds_de_concours')],
+      ["Virements, transferts et décrets en cours d'année", c('mouvements') + c('fongibilite')],
+      ['Crédits disponibles', ouv, true],
+      ["Reportés sur l'année suivante", -c('report_sortant')],
+      ["Annulés en fin d'année", -(c('annulations_fin') - c('ouvertures_fin'))],
+      ['Dépensés', dep, true],
+    ].filter(([, v, total]) => total || Math.abs(v) >= 0.0005);
+    let cur = 0;
+    const segs = etapes.map(([l, v, total]) => { const a = total ? 0 : Math.min(cur, cur + v), b = total ? v : Math.max(cur, cur + v); cur = total ? v : cur + v; return { l, v, total, a, b }; });
+    const max = Math.max(...segs.map(s => s.b)) || 1;
+    const ae = [detAe(ps, 'lfi'), detAe(ps, 'ouvertes'), detAe(ps, 'consommees')];
+    return `<div class="bloc"><h4>Du vote à la dépense</h4><p class="sub">Crédits de paiement ${annee} : ce qui pouvait être payé dans l'année, et ce qui l'a été.</p>
+      <div class="casc">${segs.map(s => `<div class="c ${s.total ? 'total' : s.v >= 0 ? 'plus' : 'moins'}"><span>${esc(s.l)}</span><span class="tr" aria-hidden="true"><i style="left:${Math.max(0, s.a) / max * 100}%;width:${(s.b - Math.max(0, s.a)) / max * 100}%"></i></span><b>${s.total ? mds(s.v) : signe(s.v)}</b></div>`).join('')}</div>
+      <p class="note">Dépensé : <b>${ouv > 0 ? pct(dep, ouv) : '–'}</b> des crédits disponibles${lfi > 0 ? `, ${pct(dep, lfi)} du montant voté` : ''}. Engagements juridiques de l'année (autorisations d'engagement, qui annoncent des paiements étalés sur plusieurs années) : ${mds(ae[0])} votés, ${mds(ae[1])} disponibles, <b>${mds(ae[2])} engagés</b>.</p></div>`;
+  };
+  const natureFine = ps => {
+    const l = Object.entries(DD.categories).map(([k, lib]) => [lib, sum(ps, p => DET[p.programme]?.categories?.[k]) / 1000]).filter(x => x[1] > 0.0005).sort((a, b) => b[1] - a[1]);
+    return l.length ? `<div class="bloc"><h4>Ce qui est payé</h4><p class="sub">Dépenses ${annee} par catégorie de la loi organique relative aux lois de finances.</p>${bars(l.map(([lib, v]) => [lib, v, 'etat']), l[0][1])}</div>` : '';
+  };
+  const parAction = p => {
+    const acts = (DET[p.programme]?.actions || []).filter(a => a.cp > 0.0005).sort((a, b) => b.cp - a.cp);
+    if (!acts.length) return '';
+    const tot = sum(acts, a => a.cp) / 1000, max = acts[0].cp / 1000;
+    // Part d'une action dans le programme, d'une sous-action dans son action.
+    const ligne = (l, v, m, t) => `<div class="bar"><span>${esc(l)}</span><span class="tr"><i style="width:${Math.max(.6, v / m * 64)}%;--c:var(--m-etat)"></i><span>${mds(v)} · ${pct(v, t)}</span></span></div>`;
+    return `<div class="bloc large"><h4>Par action et sous-action</h4><p class="sub">Répartition prévue par le ${esc(DD.source_actions)} : ${mds(tot)} au total, pour ${mds(p.depenses / 1000)} dépensés. La dépense réelle n'est pas publiée action par action en données ouvertes. Pourcentages : part de chaque action dans le programme, puis de chaque sous-action dans son action. Ouvrez une action pour voir ses sous-actions.</p>
+      ${acts.map(a => { const sas = (a.sous_actions || []).filter(s => s.cp > 0.0005).sort((x, y) => y.cp - x.cp);
+        return `<details class="act"><summary${sas.length ? '' : ' class="vide" tabindex="-1"'}>${ligne(a.libelle + (sas.length ? ` (${sas.length} sous-action${sas.length > 1 ? 's' : ''})` : ''), a.cp / 1000, max, tot)}</summary>${sas.length ? `<div class="bars">${sas.map(s => ligne(s.libelle, s.cp / 1000, sas[0].cp / 1000, a.cp / 1000)).join('')}</div>` : ''}</details>`; }).join('')}</div>`;
+  };
+  // Indicateurs : appréciation officielle de chaque mesure, toujours avec un symbole et un libellé.
+  const ST = [['atteinte', 'Cible atteinte', '✓'], ['progres', 'En progrès, sans atteindre la cible', '↗'], ['non', "Pas d'amélioration", '✕'], ['nd', 'Non mesuré', '–']];
+  const mesures = ps => ps.flatMap(p => (DET[p.programme]?.objectifs || []).flatMap(o => o.indicateurs.flatMap(i => i.mesures)));
+  const compter = ms => Object.fromEntries(ST.map(([k]) => [k, ms.filter(m => m.statut === k).length]));
+  const mesurees = n => n.atteinte + n.progres + n.non;
+  const icone = k => `<span class="ic st-${k}" aria-hidden="true">${ST.find(s => s[0] === k)[2]}</span>`;
+  const stbar = n => `<div class="stbar" role="img" aria-label="${esc(ST.map(([k, l]) => `${l} : ${n[k]}`).join(', '))}">${ST.filter(([k]) => n[k]).map(([k, l]) => `<i class="st-${k}" style="flex:${n[k]}" title="${esc(l)} : ${n[k]}"></i>`).join('')}</div>`;
+  const stleg = n => ST.map(([k, l]) => `<li>${icone(k)}${esc(l)}${n ? ` : <b>${n[k]}</b>` : ''}</li>`).join('');
+  const resume = n => mesurees(n) ? `${n.atteinte} cible${n.atteinte > 1 ? 's' : ''} atteinte${n.atteinte > 1 ? 's' : ''} sur ${mesurees(n)} mesurée${mesurees(n) > 1 ? 's' : ''} (${pct(n.atteinte, mesurees(n))})` : 'aucune mesure renseignée';
+  const avecUnite = (v, u) => !v ? '–' : /^-?[\d\s ]+(,\d+)?$/.test(v) && u && u !== 'Nb' ? `${v} ${u}` : v;
+  const performance = ps => {
+    const ms = mesures(ps);
+    if (!ms.length) return `<div class="bloc large"><h4>Résultats</h4><p class="sub">Pas d'indicateur de performance publié pour ${ps.length > 1 ? 'ces programmes' : 'ce programme'} en ${annee}.</p></div>`;
+    const c = compter(ms);
+    const detail = ps.length === 1
+      ? `<details class="data" open><summary>Les ${ms.length} mesures, objectif par objectif</summary><div class="scroll"><table class="ind"><thead><tr><th scope="col">Indicateur</th><th scope="col" class="num">Réalisé ${annee}</th><th scope="col" class="num">Cible ${annee}</th><th scope="col">Appréciation</th></tr></thead><tbody>${DET[ps[0].programme].objectifs.map(o => `<tr class="obj"><th colspan="4" scope="colgroup">Objectif : ${esc(o.libelle)}</th></tr>`
+          + o.indicateurs.map(i => i.mesures.map((m, j) => `<tr><td>${i.mesures.length === 1 && (!m.libelle || m.libelle === i.libelle) ? esc(i.libelle) : `${j ? '' : esc(i.libelle) + '<br>'}<span class="mes">${esc(m.libelle)}</span>`}</td><td class="num">${esc(avecUnite(m.realise, m.unite))}</td><td class="num">${esc(avecUnite(m.cible, m.unite))}</td><td class="ap">${icone(m.statut)}${esc(ST.find(s => s[0] === m.statut)[1])}</td></tr>`).join('')).join('')).join('')}</tbody></table></div></details>`
+      : `<ul class="strows">${ps.map(p => ({ p, k: compter(mesures([p])) })).filter(x => mesures([x.p]).length).sort((a, b) => b.k.atteinte / (mesurees(b.k) || 1) - a.k.atteinte / (mesurees(a.k) || 1) || mesurees(b.k) - mesurees(a.k))
+          .map(({ p, k }) => `<li><button type="button" data-prog="${esc(p.programme)}" title="${esc(progLib(p))}">${esc(progLib(p))} (P${esc(p.programme)})</button>${stbar(k)}<span class="n">${mesurees(k) ? `${k.atteinte} / ${mesurees(k)} atteintes` : 'non mesuré'}</span></li>`).join('')}</ul>`;
+    return `<div class="bloc large"><h4>Résultats : les indicateurs de performance ${annee}</h4><p class="sub">${resume(c)}. Chaque programme se fixe des objectifs, mesurés par des indicateurs assortis d'une cible annuelle ; l'appréciation est celle des ${esc(DD.source_performance)}.${ps.length > 1 ? ' Cliquez sur un programme pour voir ses indicateurs.' : ''}</p>${stbar(c)}<ul class="stleg">${stleg(c)}</ul>${detail}</div>`;
+  };
   const ECH_ETAT = { v: AN.echelle.etat_m / 1000, libelle: "plus grand budget général des années disponibles" };
   const xEtat = explorer('etat', () => ({ id: 'etat', label: "Budget général de l'État", v: totalEtat, children: [...ministres].map(([min, missions]) => {
     const ps = [...missions.values()].flat();
@@ -674,14 +998,36 @@
     return { id: min, label: shortMin(min), titre: min, v: sum(ps, p => p.depenses) / 1000, color: 'etat', progs: ps, explication, tip: tipDe(min, sum(ps, p => p.depenses) / 1000, ` · ${missions.size} mission${missions.size > 1 ? 's' : ''}`),
       children: [...missions].map(([mis, progs]) => ({ id: min + '|' + mis, label: mis, v: sum(progs, p => p.depenses) / 1000, color: 'etat', progs, explication: X.missions[mis],
         tip: tipDe(mis, sum(progs, p => p.depenses) / 1000, ` · ${esc(min)} · ${progs.length} programme${progs.length > 1 ? 's' : ''}`, X.missions[mis]),
-        children: progs.map(p => ({ id: 'P' + p.programme, label: `${progLib(p)} (P${p.programme})`, v: p.depenses / 1000, color: 'etat', progs: [p], cles: `programme ${p.programme}`,
+        children: progs.map(p => ({ id: 'P' + p.programme, label: `${progLib(p)} (P${p.programme})`, v: p.depenses / 1000, color: 'etat', progs: [p],
+          // La recherche trouve aussi un programme par ses actions et sous-actions (« porte-avions »).
+          cles: `programme ${p.programme} ${(DET[p.programme]?.actions || []).flatMap(a => [a.libelle, ...(a.sous_actions || []).map(s => s.libelle)]).join(' ')}`,
           tip: tipDe(`${progLib(p)} (programme ${p.programme})`, p.depenses / 1000, ` · votés ${esc(mds(p.lfi / 1000))}`) })) })) };
   }) }), { onNode: n => {
     const ps = n.progs || P;
     const aides = BE.aides.filter(a => ps.some(p => p.programme === a.programme) && a.annexe !== 4);
-    panneau('p-etat', n, totalEtat, { base: "du budget général de l'État", extra: ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}. Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''} Nature des dépenses : ${natures(ps)}.` });
+    panneau('p-etat', n, totalEtat, { base: "du budget général de l'État",
+      extra: `${DD ? '' : ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}.`} Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''}${DD ? '' : ` Nature des dépenses : ${natures(ps)}.`}`,
+      apres: DD ? `<div class="blocs">${cascade(ps)}${natureFine(ps)}${ps.length === 1 ? parAction(ps[0]) : ''}${performance(ps)}</div>` : '' });
   }, echelle: ECH_ETAT });
   xEtat.zoom(xEtat.root());
+  // Liens vers un ministère ou un programme, depuis le détail et le bloc des résultats.
+  const noeudEtat = id => { const trouver = n => n.id === id ? n : (n.children || []).reduce((t, c) => t || trouver(c), null); return trouver(xEtat.root()); };
+  const ouvrir = e => {
+    if (e.target.closest('summary.vide')) return e.preventDefault();
+    const b = e.target.closest('[data-prog], [data-min]'); if (!b) return;
+    const n = noeudEtat(b.dataset.prog ? 'P' + b.dataset.prog : b.dataset.min);
+    if (n) xEtat.reveler(n);
+  };
+  $('p-etat').addEventListener('click', ouvrir);
+  $('perf-min').addEventListener('click', ouvrir);
+  if (DD) {
+    const tout = compter(mesures(P));
+    const mins = [...ministres].map(([m, mis]) => ({ m, k: compter(mesures([...mis.values()].flat())) })).filter(x => mesurees(x.k));
+    $('perf-sub').textContent = `En ${annee}, ${resume(tout)} pour les programmes du budget général. Une ligne par ministère, du plus au moins souvent à la cible ; cliquez sur un ministère pour voir ses programmes et leurs indicateurs. Source : ${DD.source_performance}.`;
+    $('perf-leg').innerHTML = stleg(tout);
+    $('perf-min').innerHTML = mins.sort((a, b) => b.k.atteinte / mesurees(b.k) - a.k.atteinte / mesurees(a.k) || mesurees(b.k) - mesurees(a.k))
+      .map(({ m, k }) => `<li><button type="button" data-min="${esc(m)}" title="${esc(m)}">${esc(shortMin(m))}</button>${stbar(k)}<span class="n">${k.atteinte} / ${mesurees(k)} · ${pct(k.atteinte, mesurees(k))}</span></li>`).join('');
+  } else $('p-perf').hidden = true;
   // Financement du budget de l'État.
   const fisc = BE.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
   const grands = fisc.filter(s => /^1[1356] /.test(s.section));
@@ -704,8 +1050,90 @@
       { id: 'psru', label: "Reversé à l'Union européenne", v: psrUE, color: 'na', tip: tipDe("Prélèvement sur recettes au profit de l'Union européenne", psrUE, ' · contribution de la France au budget européen') }] },
     { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
   ] }));
-  table('tb-etat', ['Ministère', `Dépenses ${annee}`, 'Votés (LFI)', 'Personnel', 'Transferts aux entreprises'], [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return [esc(m), sum(ps, p => p.depenses) / 1000, sum(ps, p => p.lfi) / 1000, sum(ps, p => p.nature['2'] || 0) / 1000, sum(ps, p => p.transferts_entreprises) / 1000]; })
-    .sort((a, b) => b[1] - a[1]).map(r => [r[0], ...r.slice(1).map(v => mds(v))]));
+
+  // ================= Circuit de l'argent de l'État (Sankey vertical) =================
+  // Quatre étages de même total : ressources (impôts bruts, autres recettes, emprunt) → budget de
+  // l'État → ce qui est rendu ou reversé d'office, et chaque ministère → destinataires, d'après la
+  // catégorie de chaque dépense (loi organique, article 5). Tous les montants viennent des fichiers
+  // de la loi d'approbation des comptes ; aucun n'est estimé.
+  if (DD) {
+    const DEST = [
+      ['ue', "Union européenne", 'na'], ['coll', 'Collectivités locales', 'coll'], ['men', 'Ménages', 'men'], ['ent', 'Entreprises', 'ent'],
+      ['secu', 'Sécurité sociale et autres organismes', 'secu'], ['op', "Opérateurs de l'État", 'op'],
+      ['agents', "Agents de l'État : salaires et cotisations", 'etat'], ['fonct', "Fonctionnement et investissement de l'État", 'etat'],
+      ['dette', 'Intérêts et frais de la dette', 'etat'], ['fin', 'Prêts, participations et garanties', 'na']];
+    const CAT_DEST = { 10: 'fonct', 21: 'agents', 22: 'agents', 23: 'men', 31: 'fonct', 32: 'op', 41: 'dette', 42: 'dette', 43: 'dette', 51: 'fonct', 52: 'fonct', 53: 'op',
+      61: 'men', 62: 'ent', 63: 'coll', 64: 'secu', 65: 'fin', 71: 'fin', 72: 'fin', 73: 'fin' };
+    const parDest = ps => { const o = {}; for (const p of ps) for (const [k, v] of Object.entries(DET[p.programme]?.categories || {})) o[CAT_DEST[k]] = (o[CAT_DEST[k]] || 0) + v / 1000; return o; };
+    // Étage 1 : ressources brutes.
+    const fiscB = BE.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
+    const brut = re => sum(fiscB.filter(s => re.test(s.section)), s => s.brut) / 1000;
+    const def = -E.solde_budget_general / 1000;
+    const sources = [
+      ['tva', 'TVA', brut(/^16 /)], ['ir', 'Impôt sur le revenu', brut(/^11 /)], ['is', 'Impôt sur les sociétés', brut(/^13 /)],
+      ['autres', 'Autres impôts', E.recettes_fiscales_brutes / 1000 - brut(/^1[136] /)],
+      ['nf', 'Autres recettes', (E.recettes_non_fiscales + E.fonds_de_concours) / 1000, 'Autres recettes : dividendes, amendes, ventes, fonds de concours'],
+      ['def', 'Emprunt (déficit)', def]];
+    // Étage 3 : ce qui ne passe pas par un ministère, puis les ministères (les plus petits regroupés).
+    const P200 = BE.programmes.filter(p => p.programme === '200');
+    const mins = [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return { id: 'm:' + m, label: shortMin(m), titre: m, v: sum(ps, p => p.depenses) / 1000, d: parDest(ps), min: m }; }).sort((a, b) => b.v - a.v);
+    const NB = 11, gros = mins.slice(0, NB), petits = mins.slice(NB);
+    const autresMin = petits.length ? [{ id: 'm:autres', label: `${petits.length} autres ministères`, titre: `Autres ministères : ${petits.map(x => x.titre).join(', ')}`, v: sum(petits, x => x.v), d: petits.reduce((o, x) => { for (const [k, v] of Object.entries(x.d)) o[k] = (o[k] || 0) + v; return o; }, {}) }] : [];
+    // Vue d'ensemble : les ministères forment un seul bloc ; vue par ministère : un bloc chacun.
+    let fluxMode = 'ensemble';
+    const horsMin = [
+      { id: 'psr', label: "Reversé d'office", titre: "Reversé d'office aux collectivités et à l'Union européenne (prélèvements sur recettes)", v: psrC + psrUE, color: 'coll', d: { coll: psrC, ue: psrUE } },
+      { id: 'rd', label: 'Impôts remboursés ou dégrevés', titre: "Impôts remboursés ou dégrevés (remboursements de crédits d'impôt, de TVA, dégrèvements)", v: E.programme_200 / 1000, color: 'na', d: parDest(P200) }];
+    const etage3 = [...horsMin, ...gros, ...autresMin];
+    const etage3Ens = [...horsMin, { id: 'mins', label: 'Dépensé par les ministères', titre: "Dépensé par les ministères (budget général, hors remboursements d'impôts)", v: sum(etage3.slice(2), n => n.v), d: parDest(P) }];
+    const total = sum(sources, s => s[2]);
+    const totalBas = sum(etage3, n => n.v);
+    // Destinataires : montant reçu par chacun.
+    const recu = Object.fromEntries(DEST.map(([k]) => [k, sum(etage3, n => n.d[k] || 0)]));
+    const flux = () => {
+      // Ministères rangés selon la position moyenne de leurs destinataires, pour limiter les croisements.
+      const rang = Object.fromEntries(DEST.map(([d], i) => [d, i]));
+      const bary = n => sum(Object.entries(n.d), ([d, v]) => rang[d] * v) / (sum(Object.values(n.d), v => v) || 1);
+      const E3 = fluxMode === 'ensemble' ? etage3Ens : etage3;
+      const N2 = [...E3.slice(0, 2), ...E3.slice(2).sort((a, b) => bary(a) - bary(b))].map(n => ({ color: 'etat', ...n }));
+      const N3 = DEST.map(([id, label, color]) => ({ id, label, v: recu[id], color })).filter(n => n.v > 0.0005);
+      sankey($('flux'), { H: 1070, etages: [
+        { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: sources.map(([id, label, v, titre]) => ({ id, label, titre, v, color: id === 'def' ? 'hatch' : 'etat' })) },
+        { y: 272, ep: 26, noeuds: [{ id: 'budget', label: "Ressources du budget de l'État voté par le Parlement", v: total, color: 'etat', tronc: `Budget de l'État voté par le Parlement, ${annee} : ${mds(total)} de ressources` }] },
+        { y: 506, ep: 12, titre: 'Qui les dépense, ou les rend', titreY: 320, noeuds: N2 },
+        { y: 740, ep: 12, titre: 'Qui les reçoit', titreY: 728, dessus: false, noeuds: N3 }],
+        liens: [...sources.map(([id, , v]) => ({ s: id, t: 'budget', v, color: id === 'def' ? 'hatch' : 'etat' })),
+          ...N2.map(n => ({ s: 'budget', t: n.id, v: n.v, color: n.color })),
+          ...N2.flatMap(n => N3.map(d => ({ s: n.id, t: d.id, v: n.d[d.id] || 0, color: d.color })))] });
+    };
+    // Infobulles et liens vers les autres parties.
+    const tipNoeud = n => `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, total)} des ressources${n.min ? '<br><span class="tq">Cliquer pour ouvrir ce ministère ci-dessous.</span>' : n.id === 'mins' ? '<br><span class="tq">Cliquer pour voir chaque ministère.</span>' : ''}`;
+    const SECTEUR = { secu: 'S1314', coll: 'S1313', op: 'S13112' };
+    sankeyInteractif($('flux'), { tipNoeud, onPick: n => {
+      if (n.id === 'mins') document.querySelector('[data-flux="ministeres"]').click();
+      else if (n.min) { const m = noeudEtat(n.min); if (m) xEtat.reveler(m); }
+      else if (SECTEUR[n.id] && explorateurs.dep) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + SECTEUR[n.id]); if (s) explorateurs.dep.reveler(s); }
+    } });
+    charts.push(flux);
+    flux();
+    document.querySelectorAll('[data-flux]').forEach(b => b.addEventListener('click', () => {
+      fluxMode = b.dataset.flux; document.querySelectorAll('[data-flux]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); flux();
+    }));
+    $('flux-sub').textContent = `En haut, les ressources de l'État en ${annee} : impôts avant remboursements, autres recettes et emprunt. Au milieu, ce qu'il rend aux contribuables ou reverse d'office aux collectivités et à l'Union européenne, puis ce que dépense chaque ministère. En bas, qui reçoit l'argent. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire. Dans la vue par ministère, cliquez sur un ministère pour l'ouvrir dans la composition ci-dessous, ou sur les collectivités, la sécurité sociale et les opérateurs pour retrouver leur bloc dans la partie 1.`;
+    // Pourquoi ce total diffère de celui de l'État dans le circuit d'ouverture (Insee).
+    const etatInsee = G && G.secteurs.find(s => s.code === 'S13111');
+    const pourquoi = etatInsee ? `<span style="display:block;margin-bottom:8px"><b>Pourquoi ${mds(total)} ici et ${mds(etatInsee.recettes.impots + etatInsee.recettes.cotisations + Math.max(0, -etatInsee.recettes.solde))} pour l'État dans le circuit d'ouverture ?</b> Ce ne sont pas les mêmes comptes. Le budget voté compte les impôts avant les ${mds(E.programme_200 / 1000)} de remboursements et dégrèvements (crédits d'impôt, remboursements de TVA…), qu'il inscrit ensuite en dépense ; l'Insee les compte après. L'Insee ajoute en revanche ${mds(etatInsee.recettes.cotisations)} de cotisations, surtout pour les retraites des fonctionnaires, que le budget gère à part, hors du budget général ; et il range les ${mds((E.recettes_non_fiscales + E.fonds_de_concours) / 1000)} d'autres recettes dans le réservoir commun à toutes les administrations. Le reste de l'écart tient à la contribution à l'Union européenne et à des différences de périmètre et de date d'enregistrement, qu'aucun document public ne détaille ligne à ligne.</span>` : '';
+    $('flux-note').innerHTML = pourquoi + `Ce qui est versé aux collectivités, à la sécurité sociale et aux opérateurs (${mds(recu.coll + recu.secu + recu.op)}) y est dépensé : c'est pourquoi, dans la partie 1, l'Insee le compte chez eux et non chez l'État. « Sécurité sociale et autres organismes » regroupe les transferts aux « autres collectivités » de la loi organique, dont la sécurité sociale. ${Math.abs(total - totalBas) > 0.01 ? `Écart entre les étages : ${mds(Math.abs(total - totalBas))}.` : `Les quatre étages font le même total, au million d'euros près.`}`;
+    table('tb-flux', ['De', 'Vers', 'Montant'], [
+      ...sources.map(([, l, v]) => [esc(l), "Budget de l'État", mds(v)]),
+      ...etage3.flatMap(n => DEST.filter(([d]) => n.d[d] > 0.0005).map(([d, l]) => [esc(n.titre || n.label), esc(l), mds(n.d[d])]))]);
+  } else $('p-flux').hidden = true;
+  table('tb-etat', ['Ministère', `Dépenses ${annee}`, 'Votés (LFI)', ...(DD ? ['Crédits disponibles', 'Dépensé / disponible'] : []), 'Personnel', 'Transferts aux entreprises', ...(DD ? ['Cibles atteintes'] : [])],
+    [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return { m, ps, dep: sum(ps, p => p.depenses) / 1000 }; }).sort((a, b) => b.dep - a.dep).map(({ m, ps, dep }) => {
+      const k = DD && compter(mesures(ps)), ouv = DD && detCp(ps, 'ouverts');
+      return [esc(m), mds(dep), mds(sum(ps, p => p.lfi) / 1000), ...(DD ? [mds(ouv), ouv > 0 ? pct(dep, ouv) : '–'] : []), mds(sum(ps, p => p.nature['2'] || 0) / 1000), mds(sum(ps, p => p.transferts_entreprises) / 1000),
+        ...(DD ? [mesurees(k) ? `${k.atteinte} / ${mesurees(k)}` : '–'] : [])];
+    }));
 
   }
   if (complet) {
@@ -801,6 +1229,7 @@
     `<strong>Deux comptabilités.</strong> Les parties 1 et 2 suivent la comptabilité nationale de l'Insee (base 2020 ; les années récentes peuvent encore être révisées) : toutes les administrations publiques, dépenses consolidées, c'est-à-dire sans double compte des transferts entre elles. La partie 3 suit la comptabilité budgétaire de l'État : les crédits exécutés de la loi d'approbation des comptes 2024, dont une partie est reversée à d'autres administrations.`,
     `<strong>Contrôles.</strong> ${G ? `Les quatre administrations retombent sur le total de ${nf(D, 1)} Md€, les recettes sur ${nf(R, 1)} Md€, et le solde sur le besoin de financement publié par l'Insee (${nf(S, 1)} Md€). ` : ''}Pour l'État, chaque total de l'équilibre est recalculé à partir des fichiers de la DGFiP et retrouve le <a href="${esc(B.meta.equilibre_officiel_url)}" target="_blank" rel="noopener">tableau de l'article 1er du projet de loi</a> : aucun écart.`,
     `<strong>Fonctions.</strong> Nomenclature internationale COFOG. Les intérêts de la dette sont classés dans les services généraux, les retraites dans la protection sociale. Les remboursements de soins figurent en santé, les indemnités journalières en protection sociale.`,
+    `<strong>Du vote à la dépense, actions et résultats.</strong> Pour chaque programme, la loi d'approbation des comptes donne les crédits votés, leurs modifications en cours d'année (lois rectificatives, reports, fonds de concours, virements et décrets), les crédits disponibles, les dépenses, les reports sur l'année suivante et les annulations : le calcul retombe exactement sur les dépenses de la composition (à 2 M€ près en 2023, où certains montants sont arrondis). Les catégories de dépenses sont celles de l'article 5 de la loi organique relative aux lois de finances. La répartition par action et sous-action est la <em>prévision</em> du projet de loi de finances de l'année, seule publiée en données ouvertes : elle peut différer de l'exécution. Les indicateurs de performance, leurs cibles, leurs résultats et leur appréciation (cible atteinte, amélioration, absence d'amélioration) viennent des rapports annuels de performance annexés à la loi d'approbation des comptes ; « non mesuré » regroupe les données non renseignées ou non retenues. Seuls les indicateurs propres à chaque programme sont comptés, ceux des missions les reprenant. Fichiers : <code>donnees/detail-etat-AAAA.json</code>.`,
     `<strong>Ministères.</strong> Ceux du projet de loi de finances pour 2025 (gouvernement d'octobre 2024), le fichier d'exécution ne les donnant pas. La nature des dépenses de chaque mission (personnel, interventions, fonctionnement, investissement, dette) est donnée dans son détail.`,
     `<strong>Aides aux entreprises.</strong> ${RG.depense_fiscale} aides fiscales rattachées par le programme de leur dépense fiscale, ${RG.programme} par le premier programme cité par le rapport, ${RG.operateur} par le ministère de tutelle de l'opérateur qui les verse (table justifiée ligne à ligne), ${RG.cotisations} exonérations de cotisations à la sécurité sociale. Aides fiscales et exonérations sont des recettes en moins, pas des dépenses.`,
     `<strong>Anomalie signalée.</strong> Dans le fichier des recettes de l'État, la ligne « 17 (total) (total) » est en réalité la section 18 « Autres remboursements et dégrèvements d'impôts d'État », d'après la notice PDF officielle.`,

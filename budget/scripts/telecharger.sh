@@ -36,4 +36,18 @@ recuperer "$PLRG/notices_par_fichiers_csv_plrg_2024_zip" "$TMP/notices.zip"
 unzip -o -q "$TMP/notices.zip" Annexe1-Etat_CP-2024.pdf Annexe1-Etat_Recettes.pdf ListDepFisc-PLRN-2024.pdf -d sources/plrg-2024
 rm -rf "$TMP"
 
+echo "Détail par programme (autorisations d'engagement, actions, indicateurs de performance) :"
+API=https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets
+PLRG23=$API/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments
+PLRG25=$API/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments
+mkdir -p sources/plrg-2023 sources/plrg-2025 sources/plf-2023 sources/plf-2024 sources/performance
+recuperer "$PLRG23/annexe1_etat_ae_2023_csv" sources/plrg-2023/Annexe1-Etat_AE-2023.csv
+recuperer "$PLRG/annexe1_etat_ae_2024_csv" sources/plrg-2024/Annexe1-Etat_AE-2024.csv
+recuperer "$PLRG25/annexe1_etat_ae_2025csv" sources/plrg-2025/Annexe1-Etat_AE-2025.csv
+recuperer "$API/plf-2023-credits_destination_nature/exports/csv?delimiter=%3B" sources/plf-2023/PLF2023-Credits-destination-nature.csv
+recuperer "$API/nomenclature-par-destination-lfi-2023/exports/csv?delimiter=%3B" sources/plf-2023/LFI2023-Nomenclature-destination.csv
+recuperer "$API/plf-2024-depenses-2024-selon-nomenclatures-destination-et-nature/exports/csv?delimiter=%3B" sources/plf-2024/PLF2024-Depenses-destination-nature.csv
+recuperer "$API/performance-execution-et-atteinte-de-la-cible-du-budget-de-l-etat-jusqu-au-niveau-sous-indicateur/exports/csv?delimiter=%3B" sources/performance/Performance-execution-cible-2022-2024.csv
+recuperer "$API/performance-de-la-depense-rap-2025/exports/csv?delimiter=%3B" sources/performance/RAP2025-Performance.csv
+
 python3 scripts/registre.py

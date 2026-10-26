@@ -119,6 +119,8 @@ export async function writeWeb(webData, rows) {
     description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024, du rapport annexé au PLF 2027 : par instrument, par ministère, dispositif par dispositif, vérifiées ligne à ligne.`,
     bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) }, jsonld: [JEUX.aides],
   });
+  // Arbres des dépenses et des recettes, communs aux deux pages (et aux PDF).
+  await writeOut('out/web/budget/arbres.js', await readFile(path('budget/arbres.js')));
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
   }

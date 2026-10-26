@@ -8,11 +8,11 @@ import { createWriteStream, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import PDFDocument from 'pdfkit';
 import { path } from '../context.mjs';
+import { arbresArgentPublic } from '../../budget/arbres.js';
 
 const INK = '#162033', MUTED = '#5A6579', PAPER = '#FFFFFF', LINE = '#D6DCE6';
 const COULEURS = { etat: '#2A78D6', secu: '#4A3AA7', coll: '#D99A00', op: '#1BAF7A', na: '#DDE2EA', hatch: '#7C8699' };
 const ENCRE = { etat: '#FFFFFF', secu: '#FFFFFF', coll: INK, op: INK, na: INK, hatch: INK };
-const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
 const CHAR = 0.55; // largeur moyenne d'un caractère d'IBM Plex Sans, en em
 // Police du site (IBM Plex Sans, licence SIL OFL, src/build/polices/) : elle a le signe €, les
 // espaces fines et les accents, mal rendus par les polices de base des PDF.
@@ -56,62 +56,10 @@ function placer(n, x, y, w, h, depth = 0) {
   for (const [c, cx, cy, cw, ch] of squarify(n.children, x, y, w, h)) { c.parent = n; placer(c, cx + g / 2, cy + g / 2, Math.max(0, cw - g), Math.max(0, ch - g), depth + 1); }
 }
 
-// Arbres des deux moitiés, selon le regroupement choisi, comme sur la page.
+// Arbres des deux moitiés, selon le regroupement choisi : ceux de la page (budget/arbres.js).
 export const REGROUPEMENTS = { depenses: ['administration', 'fonction'], recettes: ['administration', 'type'] };
 function arbres(G, modeDep, modeRec) {
-  const D = G.total_depenses, S = G.solde;
-  const sous = (s, f) => f.sous.map(x => ({ label: x.libelle, v: x.montant, color: COUL[s.code] }));
-  const dep = modeDep === 'administration'
-    ? { label: 'Dépenses', v: D, children: G.secteurs.map(s => ({ label: s.nom, v: s.total, color: COUL[s.code],
-        children: s.fonctions.map(f => ({ label: f.libelle, v: f.montant, color: COUL[s.code], children: sous(s, f) })) })) }
-    : { label: 'Dépenses', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na',
-        children: G.secteurs.map(s => ({ label: s.nom, v: s.fonctions[k].montant, color: COUL[s.code], children: sous(s, s.fonctions[k]) })) })) };
-  const autres = G.recettes.filter(r => r.groupe === 'autres' && r.montant > 0);
-  const blocAutres = { label: 'Autres recettes', v: G.autres_recettes_consolidees, color: 'na', children: autres.map(r => ({ label: r.libelle, v: r.montant, color: 'na' })) };
-  const blocDeficit = { label: 'Déficit (emprunt)', v: -S, color: 'hatch' };
-  let financement;
-  if (modeRec === 'administration') {
-    financement = [...G.secteurs.map(s => {
-      const d = s.recettes.detail, c = COUL[s.code];
-      const impots = [['production', 'Impôts sur la consommation et la production'], ['revenu', 'Impôts sur le revenu et le patrimoine'],
-        ['capital', 'Droits de succession et de donation'], ['transferts', "Impôts reversés par d'autres administrations"]]
-        .filter(([k]) => d[k] > 0).map(([k, l]) => ({ label: l, v: d[k], color: c }));
-      const cot = [['Cotisations versées', s.recettes.cotisations - d.cotisations_imputees], ['Cotisations imputées', d.cotisations_imputees]]
-        .filter(x => x[1] > 0.05).map(([l, v]) => ({ label: l, v, color: c }));
-      return { label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: c, children: [
-        { label: 'Impôts', v: s.recettes.impots, color: c, children: impots },
-        cot.length === 1 ? cot[0] : { label: 'Cotisations', v: s.recettes.cotisations, color: c, children: cot }] };
-    }), blocAutres, blocDeficit];
-  } else {
-    // Impôts un par un (tableau 3.217), toutes administrations confondues ; même calcul que la page.
-    const net = l => l.replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/ \(D\d+\w*\)$/, '').trim();
-    const NOMS = { 'Taxe sur la valeur ajoutée (TVA) (D211)': 'TVA', 'Impôts et droits sur les importations (D212)': 'Droits de douane (part française)',
-      'Impôts sur les produits (D214)': 'Taxes sur des produits', "Impôts sur les salaires et la main d'œuvre (D291)": 'Impôts sur les salaires',
-      'Impôts divers sur la production (D292)': 'Impôts sur la production', 'Impôts courants sur le revenu (D51)': 'Impôts sur le revenu',
-      'Autres impôts courants (D59)': 'Autres impôts courants', 'Impôts en capital (D91r)': 'Successions et donations' };
-    const familles = G.impots.filter(i => i.niveau === 1 && NOMS[i.libelle]).map(f => {
-      let enfants = G.impots.filter(i => i.niveau === 2 && i.categorie === f.libelle && !/Union Européenne/.test(i.libelle)).map(i => ({ ...i }));
-      for (const cr of enfants.filter(i => i.montant < 0)) {
-        const cible = enfants.find(i => i.montant > 0 && (/IRPP/.test(cr.libelle) ? /\(IRPP\)/ : /\(IS\)/).test(i.libelle));
-        if (cible) cible.montant += cr.montant;
-      }
-      enfants = enfants.filter(i => i.montant > 0);
-      const ue = G.impots.find(i => i.categorie === f.libelle && /Union Européenne/.test(i.libelle));
-      const v = f.montant - (ue ? ue.montant : 0);
-      const reste = v - sum(enfants, i => i.montant);
-      const ch = enfants.map(i => ({ label: net(i.libelle), v: i.montant, color: 'na' }));
-      if (ch.length && reste > 0.05) ch.push({ label: `Autres (${NOMS[f.libelle].toLowerCase()})`, v: reste, color: 'na' });
-      return { label: NOMS[f.libelle], v, color: 'na', children: ch.length ? ch : undefined };
-    });
-    const cotT = G.impots.find(i => i.niveau === 1 && i.libelle === 'Cotisations sociales');
-    const imputees = G.impots.find(i => i.categorie === 'Cotisations sociales' && /imputées/.test(i.libelle)).montant;
-    financement = [
-      { label: 'Impôts', v: sum(G.secteurs, s => s.recettes.impots), color: 'na', children: familles },
-      { label: 'Cotisations sociales', v: cotT.montant, color: 'na', children: [
-        { label: 'Cotisations versées', v: cotT.montant - imputees, color: 'na' }, { label: 'Cotisations imputées', v: imputees, color: 'na' }] },
-      blocAutres, blocDeficit];
-  }
-  return [dep, { label: 'Recettes et emprunt', v: sum(financement, c => c.v), children: financement }];
+  return arbresArgentPublic(G, {}, modeDep === 'administration' ? 'admin' : 'fonction', modeRec === 'administration' ? 'admin' : 'type');
 }
 
 // Estimation pour l'année : celle de l'année si elle existe, sinon la plus proche (décalée).

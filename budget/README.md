@@ -137,12 +137,33 @@ et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent)
 sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à jour sources/SOURCES.md
 for a in $(seq 2019 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
 for a in 2023 2024 2025; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
+for a in 2023 2024 2025; do python3 scripts/detail.py $a; done     # détail par programme -> donnees/detail-etat-AAAA.json
 python3 scripts/annees.py      # années disponibles et échelle commune -> donnees/annees.json
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
 python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
 ```
 
 Les scripts n'utilisent que la bibliothèque standard de Python 3.
+
+## Détail d'un programme
+
+Sous la composition du budget de l'État, l'encadré détaille ce qui est affiché (budget entier,
+ministère, mission ou programme). `scripts/detail.py` l'assemble dans
+`donnees/detail-etat-AAAA.json`, chargé à part par la page :
+
+- **Du vote à la dépense** : crédits votés, lois rectificatives, reports, fonds de concours,
+  virements et décrets, crédits disponibles, reports sur l'année suivante, annulations et dépenses,
+  en crédits de paiement ; autorisations d'engagement votées, disponibles et engagées (loi
+  d'approbation des comptes, fichiers `Annexe1-Etat_CP` et `Annexe1-Etat_AE`). Le script vérifie
+  que les composantes retombent sur les crédits disponibles et sur les dépenses.
+- **Ce qui est payé** : les vingt catégories de dépenses de la loi organique (rémunérations,
+  cotisations, transferts aux ménages, aux entreprises, aux collectivités…), fichier `Annexe1-Etat_Titre_Cat`.
+- **Par action et sous-action** (programme seulement) : répartition *prévue* par le projet de loi
+  de finances de l'année, seule publiée en données ouvertes ; la dépense réelle par action ne l'est
+  pas (le « budget vert » la donne, mais sur un périmètre qui ne retombe pas sur les programmes).
+- **Résultats** : indicateurs des rapports annuels de performance, avec cible, réalisé et
+  appréciation officielle ; seuls les indicateurs des programmes sont comptés (ceux des missions
+  les reprennent). Un bloc résume l'atteinte des cibles ministère par ministère.
 
 ## Années
 
