@@ -135,7 +135,7 @@ et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent)
 
 ```sh
 sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à jour sources/SOURCES.md
-for a in $(seq 2009 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
+for a in $(seq 2019 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
 for a in 2023 2024 2025; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
 python3 scripts/annees.py      # années disponibles et échelle commune -> donnees/annees.json
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
@@ -153,7 +153,7 @@ Les années disponibles sont dans [`donnees/annees.json`](donnees/annees.json), 
 
 | Source | Années | Pages |
 |---|---|---|
-| Ensemble des administrations publiques (Insee, comptes de la Nation, base 2020) | 2009 à 2024 | exploration ; pilotage, parties 1 et 2 |
+| Ensemble des administrations publiques (Insee, comptes de la Nation, base 2020) | 2019 à 2024 | exploration ; pilotage, parties 1 et 2 |
 | Budget de l'État ministère par ministère (DGFiP) | 2023 à 2025 | pilotage, partie 3 |
 | Aides aux entreprises (rapport annexé au PLF 2027) | 2024 | pilotage, partie 4 ; page des aides |
 
@@ -164,11 +164,11 @@ partie de la zone seulement. Dans le pilotage, la vue d'ensemble de chaque compo
 que la part du cadre correspondant à son montant (le reste, en pointillés, rappelle ce que vaut le
 cadre entier) ; le zoom, lui, remplit le cadre.
 
-**Insee, 2009 à 2018.** Pour ces années, le total des dépenses par fonction (tableau 3.307, qui
-donne la composition) dépasse de 14 à 20 Md€ le total des dépenses du tableau 3.201 (qui équilibre
-recettes et déficit) ; l'écart, non expliqué par l'Insee, disparaît à partir de 2019. Les deux
-totaux sont gardés et l'écart est signalé sur les pages : les dépenses sont dessinées d'après le
-tableau par fonction, le financement d'après le tableau général.
+**Pourquoi 2019.** Les tableaux de l'Insee remontent plus loin, mais de 2009 à 2018 le total des
+dépenses par fonction (tableau 3.307, qui donne la composition) dépasse de 14 à 20 Md€ celui du
+tableau 3.201 (qui équilibre recettes et déficit), sans explication de l'Insee. À partir de 2019,
+les deux concordent : on commence donc à 2019. `scripts/annees.py` signalerait sur les pages toute
+année où cet écart dépasserait 50 M€.
 
 **État.** 2023 et 2025 viennent des fichiers des projets de loi relatifs aux résultats de la
 gestion, contrôlés contre leur article 1er. Ces deux années, les recettes y sont brutes, les

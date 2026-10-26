@@ -7,12 +7,11 @@
 # Usage : python3 scripts/verifier.py   (depuis la racine du projet) ; code de sortie 1 en cas d'écart.
 import csv
 import json
-ANNEES_INSEE = [str(a) for a in range(2009, 2025)]
+ANNEES_INSEE = [str(a) for a in range(2019, 2025)]
 ANNEES_ETAT = ['2023', '2024', '2025']
 from collections import defaultdict
 
 erreurs = []
-avertissements = []
 
 
 def egal(nom, calcule, attendu, tolerance=0.01):
@@ -66,16 +65,7 @@ for annee in ANNEES_INSEE:
         egal(f"{x['nom']} : détail des impôts = impôts", d_['production'] + d_['revenu'] + d_['capital'] + d_['transferts'] + d_['non_recouvrables'], x['recettes']['impots'], 0.01)
     egal('somme des recettes = total des recettes', sum(r['montant'] for r in g['recettes']), g['total_recettes'], 0.01)
     egal('recettes - dépenses (tableau 3.201) = besoin de financement publié', g['total_recettes'] - g['total_depenses_par_nature'], g['solde'], 0.01)
-    # Avant 2019, les deux tableaux de l'Insee divergent de 14 à 20 Md€ (écart non expliqué par
-    # l'Insee, signalé sur les pages) : c'est un avertissement, pas une erreur de construction.
-    if int(annee) < 2019:
-        ecart = g['total_depenses'] - g['total_depenses_par_nature']
-        print(f"  AVERTISSEMENT dépenses par fonction (3.307) - dépenses par nature (3.201) : {ecart:+.1f} Md€ (écart de l'Insee, signalé sur les pages)")
-        avertissements.append(f'{annee} : {ecart:+.1f} Md€')
-    else:
-        egal('dépenses par fonction (3.307) = dépenses par nature (3.201), à 50 M€ près', g['total_depenses'], g['total_depenses_par_nature'], 0.05)
+    egal('dépenses par fonction (3.307) = dépenses par nature (3.201), à 50 M€ près', g['total_depenses'], g['total_depenses_par_nature'], 0.05)
 
 print('Résultat :', 'aucun écart' if not erreurs else f'{len(erreurs)} écart(s) : ' + ' ; '.join(erreurs))
-if avertissements:
-    print(f"Avertissements (écarts de l'Insee entre ses tableaux 3.307 et 3.201) : {' ; '.join(avertissements)}")
 raise SystemExit(1 if erreurs else 0)
