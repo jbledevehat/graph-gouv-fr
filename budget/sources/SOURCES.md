@@ -255,3 +255,63 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 34 535 octets
 - **SHA-256** : `a4b45b590b694a82269460587e20be7126279e0c3ec2cdeff8c7bed83e631825`
+
+## `sources/estimations/hcfips-2026-note-fraudes-sociales.pdf`
+
+- **Contenu** : Fraude sociale évaluée à 14 Md€ (52 % cotisations, 36 % bénéficiaires de prestations, 12 % professionnels de santé) 
+- **Jeu de données** : Note annuelle de suivi et d'évaluation des fraudes sociales (janvier 2026)
+- **Producteur** : Haut Conseil du financement de la protection sociale (HCFiPS)
+- **Adresse du fichier** : <https://www.securite-sociale.fr/files/live/sites/SSFR/files/medias/HCFIPS/2026/Note%20annuelle%20de%20suivi%20et%20d'%C3%A9valuation%20des%20fraudes%20sociales%20VF.pdf>
+- **Page du jeu de données** : <https://www.securite-sociale.fr/hcfips>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 2 561 632 octets
+- **SHA-256** : `6a0dfb529c79f0fd5147dabb0e200c482b40ae542280c654c93f2f00e306a25b`
+
+## `sources/estimations/dgfip-analyses-07-2024-manque-a-gagner-tva.pdf`
+
+- **Contenu** : TVA non déclarée par les entreprises déclarantes : 6 à 10 Md€ en 2019, soit 4 à 5 % de la TVA collectée (minorant).
+- **Jeu de données** : DGFiP Analyses n° 7, Le manque à gagner de TVA en France (septembre 2024)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://www.impots.gouv.fr/sites/default/files/media/9_statistiques/0_etudes_et_stats/0_publications/dgfip_analyses/2024/num07_09/dgfip_analyses_07_2024.pdf>
+- **Page du jeu de données** : <https://www.impots.gouv.fr/dgfip-analyses-le-manque-gagner-de-tva-en-france>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 1 072 872 octets
+- **SHA-256** : `f3285632f4472e12460c85628cde6008419dc262ac2a54b2cd35e4d203473d2e`
+
+## `sources/estimations/drees-er1370-non-recours-rsa.pdf`
+
+- **Contenu** : Non-recours au RSA fin 2021 : 33 à 37 % des foyers éligibles, environ 630 M€ de RSA non versé par trimestre (tableau 1 : 626 M€).
+- **Jeu de données** : Études et Résultats n° 1370, Non-recours au RSA (mai 2026)
+- **Producteur** : DREES
+- **Adresse du fichier** : <https://drees.solidarites-sante.gouv.fr/sites/default/files/2026-05/ER1370_Non-recours_RSA.pdf>
+- **Page du jeu de données** : <https://drees.solidarites-sante.gouv.fr/>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 279 194 octets
+- **SHA-256** : `dd2f52dbb12cf6f278126b79a48dddec4eb913a8e2605969ab6dd32b7e919f6e`
+
+## `sources/estimations/cae-note-054-2019.pdf`
+
+- **Contenu** : Perte de recettes due à l'évitement fiscal des multinationales via les paradis fiscaux : 4,6 Md€ par an (estimation prudente).
+- **Jeu de données** : Note du CAE n° 54, Fiscalité internationale des entreprises : quelles réformes pour quels effets ? (novembre 2019)
+- **Producteur** : Conseil d'analyse économique
+- **Adresse du fichier** : <https://www.cae-eco.fr/staticfiles/pdf/cae-note054.pdf>
+- **Page du jeu de données** : <https://www.cae-eco.fr/fiscalite-internationale-des-entreprises-quelles-reformes-pour-quels-effets>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 379 093 octets
+- **SHA-256** : `70f805ff7e3aadf4a82ab630709ac6c20d3d776dd3dfadd4c4bba9161b827abb`
+
+## `sources/estimations/cepii-lettre-400-2019.pdf`
+
+- **Contenu** : 36 Md€ de profits non déclarés en France en 2015, soit des pertes de recettes fiscales de l'ordre de 14 Md€ (29 % de l'impôt sur les sociétés).
+- **Jeu de données** : La Lettre du CEPII n° 400 (2019), V. Vicard
+- **Producteur** : CEPII
+- **Adresse du fichier** : <https://www.cepii.fr/PDF_PUB/lettre/2019/let400.pdf>
+- **Page du jeu de données** : <https://www.cepii.fr/>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 367 647 octets
+- **SHA-256** : `b4df0471d1dc3022e68b5846edef3e1fe302d2b8ef608b1f873d4e8552f5b45a`

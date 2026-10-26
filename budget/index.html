@@ -71,6 +71,13 @@
   #scene text.zone { font-weight: 700; fill: var(--ink); }
   #scene text.zone .v { fill: var(--muted); font-weight: 500; }
   #scene text.fil { font-weight: 700; opacity: .9; }
+  #scene .est-col { fill: var(--panel); fill-opacity: .55; stroke: var(--control); stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+  #scene .est-haut { fill: var(--ink); fill-opacity: .05; stroke: var(--ink); stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; stroke-width: 1.2px; }
+  #scene .est-bas { fill: var(--hatch); fill-opacity: .7; stroke: var(--ink); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  #scene .est-haut.sel, #scene .est-bas.sel, #scene .est-col.sel { stroke: var(--ink); stroke-width: 2.5px; stroke-dasharray: none; }
+  #scene text.est-t .n, #scene text.est-l .n { font-weight: 700; }
+  #scene text.est-t .v, #scene text.est-l .v { font-family: var(--mono); fill: var(--muted); }
+  .sw.est { background: transparent; border: 1.5px dashed var(--ink); border-radius: 50%; }
   #status { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; pointer-events: none; }
 
   /* --- Panneaux (comme la carte) --- */
@@ -176,7 +183,7 @@
   <div class="head">
     <div class="eyebrow">Exploration · 2024</div>
     <div class="h-row"><h1>L'argent public en 2024</h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
-    <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
+    <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
   </div>
@@ -242,8 +249,8 @@
   }));
   showTheme();
 
-  let G, X;
-  try { [G, X] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
+  let G, X, E;
+  try { [G, X, E] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
@@ -326,10 +333,14 @@
   // l'autre (écran étroit ou haut). On garde celle qui donne le plus grand dessin à l'écran.
   const TETE = 70, ECART = 36;
   const DISPOSITIONS = {
-    cote: { W: 2000, H: 1260, zones: [{ x: 0, y: TETE, w: 982, h: 1190 }, { x: 1018, y: TETE, w: 982, h: 1190 }] },
-    pile: { W: 1200, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }] },
+    // Les colonnes d'estimations (aides non demandées, recettes perdues) encadrent les comptes :
+    // à gauche et à droite côte à côte, à droite de chaque moitié une fois empilées.
+    cote: { W: 2640, H: 1260, zones: [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1338, y: TETE, w: 982, h: 1190 }],
+      estim: [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2360, y: TETE, w: 280, h: 1190 }] },
+    pile: { W: 1520, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }],
+      estim: [{ x: 1240, y: 210, w: 280, h: 760 }, { x: 1240, y: 2 * 210 + 760 + 70, w: 280, h: 760 }] },
   };
-  let disposition = 'cote', W = 2000, H = 1260, zones = DISPOSITIONS.cote.zones;
+  let disposition = 'cote', W = 2640, H = 1260, zones = DISPOSITIONS.cote.zones, colonnesEst = DISPOSITIONS.cote.estim;
   const choisirDisposition = () => {
     const { r, gauche, haut, bas } = marges(), aw = r.width - gauche - 24, ah = r.height - haut - bas - 12;
     const surface = d => { const D = DISPOSITIONS[d], k = Math.min(aw / D.W, ah / D.H); return k * k * D.zones[0].w * D.zones[0].h; };
@@ -369,7 +380,7 @@
   const encreDe = n => n.color === 'hatch' || n.color === 'na' ? null : `var(--on-${n.color})`;
   function dessiner() {
     disposition = choisirDisposition();
-    ({ W, H, zones } = DISPOSITIONS[disposition]);
+    ({ W, H, zones, estim: colonnesEst } = DISPOSITIONS[disposition]);
     $('ou-dep').textContent = disposition === 'pile' ? 'En haut' : 'À gauche';
     $('ou-rec').textContent = disposition === 'pile' ? 'en bas' : 'à droite';
     [racines] = [arbres()];
@@ -393,9 +404,80 @@
       // Nom du grand bloc (administration ou fonction) : toujours en texte détouré, lisible sur toutes les couleurs.
       if (n.depth <= 2 && n.children?.length) h += `<text data-f="${n.id}" class="fil halo" text-anchor="end" display="none">${esc(n.label)}</text>`;
     }
+    h += dessinerEstimations();
     svg.innerHTML = h + '</g>';
     appliquerFiltres();
     majVue();
+  }
+
+  // ================= Estimations : fraude, évitement fiscal, non-recours =================
+  // Des cercles et non des rectangles, car ce ne sont pas des comptes : la surface suit la même
+  // échelle que les comptes ; le disque plein est la borne basse, le cercle pointillé la haute.
+  let estim = [], colonnes = [];
+  const fourchette = (b, h) => {
+    const f = v => v < 1 ? Math.round(v * 1000) + ' M€' : nf(v, 1) + ' Md€';
+    return b === h ? '≈ ' + f(b) : (b < 1) === (h < 1) ? `${f(b).replace(/ M?d?€$/, '').replace(/ M€$/, '')} à ${f(h)}` : `${f(b)} à ${f(h)}`;
+  };
+  function dessinerEstimations() {
+    const a = zones[0].w * zones[0].h / D, ENTETE = 240, MARGE = 26;
+    estim = []; colonnes = [];
+    let h = '';
+    [['aides', E.non_percu_aides], ['recettes', E.non_percu_recettes]].forEach(([cle, c], i) => {
+      const col = colonnesEst[i], postes = [...c.postes].sort((p, q) => q.haut - p.haut);
+      const bas = sum(postes, p => p.bas), haut = sum(postes, p => p.haut);
+      const ce = { id: 'ec-' + cle, cle, est: 'col', label: c.titre, titre: `${c.titre} (estimations)`, sous: c.sous_titre, bas, haut, quoi: c.quoi, non_chiffre: c.non_chiffre,
+        x: col.x, y: col.y, w: col.w, h: col.h, enfants: [] };
+      colonnes.push(ce);
+      h += `<rect class="est-col" data-e="${ce.id}" x="${col.x}" y="${col.y}" width="${col.w}" height="${col.h}" rx="18"/>`;
+      h += `<text class="est-t halo" data-et="${ce.id}" display="none"></text>`;
+      let y = col.y + ENTETE;
+      for (const p of postes) {
+        const R = Math.sqrt(p.haut * a / Math.PI), r = Math.sqrt(p.bas * a / Math.PI), haute = Math.max(2 * R, 64);
+        const e = { ...p, id: `e-${cle}-${p.id}`, est: 'poste', col: ce, R, r, cx: col.x + 16 + R, cy: y + haute / 2,
+          x: col.x + 16, y, w: col.w - 32, h: haute };
+        estim.push(e); ce.enfants.push(e);
+        if (R > r + 0.5) h += `<circle class="est-haut" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${R}"/>`;
+        h += `<circle class="est-bas" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${r}"/>`;
+        h += `<text class="est-l halo" data-el="${e.id}" display="none"></text>`;
+        y += haute + MARGE;
+      }
+    });
+    return h;
+  }
+  // Texte replié sur plusieurs lignes dans une largeur donnée (en pixels à l'écran).
+  function ecrire(t, x, yHaut, largeurPx, hauteurPx, lignes, kk) {
+    const sortie = [];
+    for (const [txt, fs, cls] of lignes) {
+      const parLigne = Math.floor(largeurPx / (fs * 0.56));
+      if (parLigne < 6) { t.setAttribute('display', 'none'); return; }
+      let cour = '';
+      for (const mot of txt.split(' ')) {
+        if ((cour + ' ' + mot).trim().length > parLigne && cour) { sortie.push([cour, fs, cls]); cour = mot; } else cour = (cour + ' ' + mot).trim();
+      }
+      if (cour) sortie.push([cour, fs, cls]);
+    }
+    const haut = sum(sortie, l => l[1] * 1.25);
+    if (haut > hauteurPx) { t.setAttribute('display', 'none'); return; }
+    t.setAttribute('display', 'inline'); t.setAttribute('stroke-width', 3 / kk);
+    let dy = yHaut;
+    t.innerHTML = sortie.map(([l, fs, cls]) => { dy += fs * 1.25 / kk; return `<tspan class="${cls}" x="${x}" y="${dy - fs * 0.25 / kk}" font-size="${fs / kk}">${esc(l)}</tspan>`; }).join('');
+  }
+  function rendreEstimations(kk) {
+    for (const c of colonnes) {
+      ecrire(svg.querySelector(`[data-et="${c.id}"]`), c.x + 7 / kk, c.y + 6 / kk, c.w * kk - 14, 240 * kk - 8,
+        [[c.label, 12, 'n'], [c.sous, 10, 'v'], [fourchette(c.bas, c.haut), 10.5, 'v']], kk);
+    }
+    for (const e of estim) {
+      const x = e.cx + e.R + 10 / kk, larg = (e.col.x + e.col.w - x) * kk - 8;
+      const t = svg.querySelector(`[data-el="${e.id}"]`);
+      ecrire(t, x, e.y, larg, e.h * kk + 18, [[e.label, 12, 'n'], [fourchette(e.bas, e.haut) + ' · ' + e.annee, 10.5, 'v']], kk);
+      // Centrage vertical du texte sur le cercle.
+      if (t.getAttribute('display') !== 'none') {
+        const nb = t.children.length, hauteur = [...t.children].reduce((s, l) => s + +l.getAttribute('font-size') * 1.25, 0);
+        const decal = e.cy - hauteur / 2 - e.y;
+        [...t.children].forEach(l => l.setAttribute('y', +l.getAttribute('y') + decal));
+      }
+    }
   }
 
   // ================= Vue : zoom et déplacement =================
@@ -417,7 +499,7 @@
   let s0 = 1;
   const borner = () => {
     vue.k = Math.min(3000, Math.max(1, vue.k));
-    vue.cx = Math.min(W, Math.max(0, vue.cx)); vue.cy = Math.min(H, Math.max(0, vue.cy));
+    vue.cx = Math.min(W * 1.6, Math.max(-W * 0.6, vue.cx)); vue.cy = Math.min(H * 1.2, Math.max(-H * 0.2, vue.cy));
   };
   let raf = 0;
   const majVue = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(rendreVue); };
@@ -433,6 +515,7 @@
     const tient = n => n.w * kk > 74 && n.h * kk > 30;
     // Noms des zones, au-dessus de chaque moitié.
     placerControles();
+    rendreEstimations(kk);
     // Titres des deux moitiés : même taille pour les deux, assez petite pour laisser la place au
     // sélecteur sur la même ligne ; s'il ne tient pas (mobile), le sélecteur passe dessous.
     const ctl = z => $(z.id === 'dep' ? 'ctl-dep' : 'ctl-rec');
@@ -579,11 +662,17 @@
     return n;
   };
   // La capture du pointeur (glisser) fait de la scène la cible : on cherche le bloc par position.
-  const sousPointeur = e => { const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf'); return el ? parId.get(el.dataset.id) : null; };
+  const estParId = id => estim.find(x => x.id === id) || colonnes.find(x => x.id === id);
+  const sousPointeur = e => {
+    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, [data-e]');
+    if (!el) return null;
+    return el.dataset.e ? estParId(el.dataset.e) : parId.get(el.dataset.id);
+  };
   function survol(e) {
     const f = sousPointeur(e); if (!f) return cacherTip();
-    const n = designe(f), z = racineDe(n);
-    tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
+    if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
+    else { const n = designe(f), z = racineDe(n);
+    tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
     tip.hidden = false;
     const t = tip.getBoundingClientRect();
     tip.style.left = Math.max(8, Math.min(innerWidth - t.width - 8, e.clientX + 14)) + 'px';
@@ -591,8 +680,9 @@
   }
   const racineDe = n => { let x = n; while (x.parent) x = x.parent; return x; };
   let choisi = null;
-  function cliquer(e) { const f = sousPointeur(e); if (f) ouvrir(designe(f)); }
+  function cliquer(e) { const f = sousPointeur(e); if (f) ouvrir(f.est ? f : designe(f)); }
   function ouvrir(n, { zoom = false } = {}) {
+    if (n.est) return ouvrirEstimation(n, { zoom });
     choisi = n;
     svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
     svg.querySelector(`[data-id="${n.id}"]`)?.classList.add('sel');
@@ -613,6 +703,35 @@
     $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = parId.get(b.dataset.go); ouvrir(c); cadrer(c); });
     if (zoom) cadrer(n); else majVue();
   }
+  // Fiche d'une estimation : la fourchette, ce que c'est, comment c'est calculé, sa fiabilité, sa source.
+  function ouvrirEstimation(n, { zoom = false } = {}) {
+    choisi = n;
+    svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
+    svg.querySelectorAll(`[data-e="${n.id}"]`).forEach(x => x.classList.add('sel'));
+    const col = n.est === 'col' ? n : n.col, base = col.cle === 'aides' ? ['des dépenses publiques', D] : ['des recettes publiques', R];
+    const lien = (u, t) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;
+    $('d-chip').innerHTML = `<span class="sw est"></span>Estimation · ${esc(col.label)}`;
+    $('d-title').textContent = n.titre || n.label;
+    const part = `${nf(n.bas / base[1] * 100, 1)}${n.haut !== n.bas ? ' à ' + nf(n.haut / base[1] * 100, 1) : ''} %`;
+    $('d-body').innerHTML = n.est === 'col' ? `<p class="big">${fourchette(n.bas, n.haut)}</p>
+      <p>${esc(n.quoi)}</p>
+      <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de 2024. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>
+      <div class="bars">${n.enfants.map(c => `<div class="bar" style="--c:var(--hatch)"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${fourchette(c.bas, c.haut)}</span><i style="width:${Math.max(2, c.haut / n.enfants[0].haut * 100)}%"></i></div>`).join('')}</div>
+      <p class="ex"><b class="acc">Pas de chiffre fiable pour :</b></p><ul class="ex">${n.non_chiffre.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button></div>`
+      : `<p class="big">${fourchette(n.bas, n.haut)} <span class="ex" style="font-size:13px;font-weight:400">· année ${esc(n.annee)}</span></p>
+      <p><b class="acc">C'est quoi ?</b> ${esc(n.quoi)}</p>
+      <p><b class="acc">Comment c'est estimé :</b> ${esc(n.calcul)}</p>
+      <p><b class="acc">Fiabilité :</b> ${esc(n.certitude)}</p>
+      <p class="ex">Ordre de grandeur : ${part} ${base[0]} de 2024${n.annee !== '2024' ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.</p>
+      <p class="ex"><b class="acc">Source :</b> ${lien(n.url, n.source)}${n.url2 ? ` · ${lien(n.url2, 'CEPII')}` : ''}</p>
+      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-up">Voir « ${esc(col.label)} »</button></div>`;
+    $('detail').hidden = false;
+    $('d-zoom').onclick = () => cadrer(n);
+    if ($('d-up')) $('d-up').onclick = () => { ouvrirEstimation(col); cadrer(col); };
+    $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = estParId(b.dataset.go); ouvrirEstimation(c); cadrer(c); });
+    if (zoom) cadrer(n); else majVue();
+  }
   $('d-close').onclick = () => { $('detail').hidden = true; choisi = null; svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); majVue(); };
 
   // ================= Cases à cocher =================
@@ -620,6 +739,7 @@
   const lignesAdmin = [...G.secteurs.map(s => [s.code, s.nom, COUL[s.code], s.total]), ['autres', 'Autres recettes', 'na', G.autres_recettes_consolidees], ['deficit', 'Déficit (emprunt)', 'hatch', -S]];
   $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}" checked><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${mds(v)}</span></label>`).join('');
   // Fonctions de la plus grosse à la plus petite, sans pastille : elles n'ont pas de couleur propre.
+  $('c-admin').insertAdjacentHTML('beforeend', `<label><input type="checkbox" data-sect="estim" checked><span class="sw est"></span><span>Estimations : fraude, non-recours</span><span class="num"></span></label>`);
   $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => [f, sum(G.secteurs, s => s.fonctions[k].montant)]).sort((a, b) => b[1] - a[1])
     .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
   function appliquerFiltres() {
@@ -630,6 +750,7 @@
       if (!off && avant.size && racineDe(n).id === 'dep') off = n.fonction ? !avant.has(n.fonction) : ![...(n.children || [])].some(c => avant.has(c.fonction));
       svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
     }
+    svg.querySelectorAll('[data-e], [data-el], [data-et]').forEach(el => el.classList.toggle('off', caches.has('estim')));
     $('hl-off').hidden = !avant.size;
   }
   $('c-admin').addEventListener('change', e => { const k = e.target.dataset.sect; e.target.checked ? caches.delete(k) : caches.add(k); appliquerFiltres(); });
@@ -663,9 +784,14 @@
       const i = textes.findIndex(t => variantes.some(v => v.every(m => debut(t, m))));
       return i < 0 ? null : i;
     };
-    trouves = noeuds.filter(n => n.parent).map(n => [n, rang(n)]).filter(([, r]) => r !== null)
-      .sort(([a, ra], [b, rb]) => (ra - rb) || (a.depth - b.depth) || (b.v - a.v)).map(([n]) => n).slice(0, 15);
-    $('results').innerHTML = trouves.length ? trouves.map((n, i) => `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc([racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
+    const rangEst = n => {
+      const textes = [n.label, [n.label, n.col?.label || ''].join(' '), [n.label, n.col?.label || '', n.quoi, n.calcul || '', n.source || ''].join(' ')].map(plat);
+      const i = textes.findIndex(t => variantes.some(v => v.every(m => debut(t, m))));
+      return i < 0 ? null : i;
+    };
+    trouves = [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])].filter(([, r]) => r !== null)
+      .sort(([a, ra], [b, rb]) => (ra - rb) || ((a.depth ?? 2) - (b.depth ?? 2)) || ((b.v ?? b.haut) - (a.v ?? a.haut))).map(([n]) => n).slice(0, 15);
+    $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc([racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
       : `<li class="vide">Aucun résultat. Essayez un mot plus court.</li>`;
   });
   $('results').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) ouvrir(trouves[+b.dataset.r], { zoom: true }); });

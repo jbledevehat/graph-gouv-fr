@@ -99,6 +99,34 @@ et leur empreinte SHA-256 sont dans [`sources/SOURCES.md`](sources/SOURCES.md). 
   (−8,7 Md€) est en réalité la section 18 « Autres remboursements et dégrèvements d'impôts
   d'État », d'après la notice PDF officielle ; elle est renommée.
 
+## Estimations : fraude, évitement fiscal, aides non demandées
+
+La page d'exploration montre aussi, en cercles et non en rectangles, ce qui échappe aux comptes :
+à droite les **recettes perdues** (fraude aux cotisations et aux prestations, fraude de
+professionnels de santé, TVA non déclarée, évitement fiscal des multinationales), à gauche les
+**aides non demandées** (non-recours au RSA et au minimum vieillesse). Ce ne sont pas des comptes
+mais des estimations publiées, rassemblées dans
+[`donnees/estimations.json`](donnees/estimations.json) avec, pour chacune, son année de
+référence (souvent antérieure à 2024), sa méthode, sa fiabilité et sa source ; les documents
+d'origine sont dans `sources/estimations/` et au registre. Le disque plein est la borne basse de
+la fourchette, le cercle pointillé la borne haute, à la même échelle que les comptes.
+
+| Estimation | Montant | Année | Source |
+|---|---|---|---|
+| Fraude aux cotisations sociales | ≈ 7,3 Md€ (52 % de 14 Md€) | 2024-2025 | HCFiPS, janvier 2026 |
+| Fraude aux prestations par des bénéficiaires | ≈ 5,0 Md€ (36 %) | 2024-2025 | HCFiPS, janvier 2026 |
+| Fraude de professionnels de santé | ≈ 1,7 Md€ (12 %) | 2024-2025 | HCFiPS, janvier 2026 |
+| TVA non déclarée | 6 à 10 Md€ (minorant) | 2019 | DGFiP Analyses n° 7, 2024 |
+| Évitement fiscal des multinationales | 4,6 à 14 Md€ | 2015-2019 | CAE note n° 54 ; CEPII Lettre n° 400 |
+| RSA non demandé | ≈ 2,5 Md€ | 2021 | DREES, Études et Résultats n° 1370, 2026 |
+| Minimum vieillesse non demandé (personnes seules) | 0,79 à 1,09 Md€ | 2016 | DREES, Dossier n° 97, 2022 |
+
+Ne sont pas chiffrés, faute d'estimation publique fiable : la fraude à l'impôt sur le revenu, à
+l'impôt sur les sociétés et aux impôts sur le patrimoine ; le non-recours à l'assurance chômage,
+à la complémentaire santé solidaire et à la prime d'activité (seuls des taux existent). Les
+chiffres souvent cités de 80 à 100 Md€ de fraude fiscale ou de 10 Md€ d'aides non demandées ne
+sont pas repris, faute de méthode reprise par la statistique publique.
+
 ## Refaire le travail
 
 ```sh

@@ -1,0 +1,104 @@
+{
+ "_note": "Estimations publiées par des organismes publics ou des centres d'études, rassemblées à la main pour ce tableau de bord. Ce ne sont pas des comptes : chaque montant est une estimation, avec son année de référence, qui n'est pas toujours 2024. Quand l'organisme donne une fourchette, « bas » et « haut » en sont les bornes ; sinon les deux sont égaux. Les sommes ne s'additionnent pas toutes exactement (périmètres et années différents) : le total n'est qu'un ordre de grandeur. Documents d'origine dans sources/estimations/ quand ils sont téléchargeables.",
+ "non_percu_recettes": {
+  "titre": "Recettes perdues",
+  "sous_titre": "Fraude et évitement fiscal · estimations",
+  "quoi": "Des sommes qui auraient dû revenir aux administrations, ou qu'elles ont versées à tort, et qui leur échappent : fraude aux cotisations, fraude aux prestations, TVA non déclarée, bénéfices des multinationales déplacés vers des pays à faible impôt. Ce sont des estimations, établies à partir de contrôles au hasard ou de modèles statistiques.",
+  "postes": [
+   {
+    "id": "cotisations",
+    "label": "Fraude aux cotisations sociales",
+    "bas": 7.3, "haut": 7.3, "annee": "2024-2025",
+    "quoi": "Surtout du travail dissimulé : des salaires versés sans être déclarés, donc sans cotisations pour la retraite, la santé ou le chômage. Inclut aussi les cotisations éludées par des micro-entrepreneurs.",
+    "calcul": "52 % des 14 Md€ de fraude sociale estimés par le Haut Conseil, part qu'il attribue au recouvrement des cotisations. Pour le seul travail dissimulé dans le secteur privé, l'Urssaf estime 6,2 à 7,9 Md€ en 2024.",
+    "certitude": "Estimation officielle des organismes de sécurité sociale, fondée sur des contrôles au hasard.",
+    "source": "Haut Conseil du financement de la protection sociale (HCFiPS), Note annuelle de suivi et d'évaluation des fraudes sociales, janvier 2026",
+    "url": "https://www.securite-sociale.fr/files/live/sites/SSFR/files/medias/HCFIPS/2026/Note%20annuelle%20de%20suivi%20et%20d'%C3%A9valuation%20des%20fraudes%20sociales%20VF.pdf",
+    "fichier": "sources/estimations/hcfips-2026-note-fraudes-sociales.pdf"
+   },
+   {
+    "id": "prestations",
+    "label": "Fraude aux prestations sociales",
+    "bas": 5.0, "haut": 5.0, "annee": "2024-2025",
+    "quoi": "Des aides versées à tort à des personnes qui ont fraudé : ressources ou situation familiale non déclarées, par exemple. Le RSA, la prime d'activité, les aides au logement et l'allocation aux adultes handicapés font 90 % de la fraude estimée par les caisses d'allocations familiales. Ce n'est pas une recette manquante mais une dépense indue, à récupérer.",
+    "calcul": "36 % des 14 Md€ de fraude sociale estimés par le Haut Conseil, part qu'il attribue aux bénéficiaires de prestations.",
+    "certitude": "Estimation officielle des organismes de sécurité sociale, fondée sur des contrôles au hasard. Par convention, tout l'indu d'un dossier où une fraude est reconnue est compté comme fraude.",
+    "source": "HCFiPS, Note annuelle de suivi et d'évaluation des fraudes sociales, janvier 2026",
+    "url": "https://www.securite-sociale.fr/files/live/sites/SSFR/files/medias/HCFIPS/2026/Note%20annuelle%20de%20suivi%20et%20d'%C3%A9valuation%20des%20fraudes%20sociales%20VF.pdf",
+    "fichier": "sources/estimations/hcfips-2026-note-fraudes-sociales.pdf"
+   },
+   {
+    "id": "sante",
+    "label": "Fraude de professionnels de santé",
+    "bas": 1.7, "haut": 1.7, "annee": "2024-2025",
+    "quoi": "Des soins facturés à l'assurance maladie sans avoir été faits, ou surfacturés, par des professionnels ou des établissements : infirmiers, transporteurs, centres de santé, fournisseurs de matériel médical.",
+    "calcul": "12 % des 14 Md€ de fraude sociale estimés par le Haut Conseil.",
+    "certitude": "Estimation officielle de l'assurance maladie, par profession ; le périmètre est encore en cours d'extension.",
+    "source": "HCFiPS, Note annuelle de suivi et d'évaluation des fraudes sociales, janvier 2026",
+    "url": "https://www.securite-sociale.fr/files/live/sites/SSFR/files/medias/HCFIPS/2026/Note%20annuelle%20de%20suivi%20et%20d'%C3%A9valuation%20des%20fraudes%20sociales%20VF.pdf",
+    "fichier": "sources/estimations/hcfips-2026-note-fraudes-sociales.pdf"
+   },
+   {
+    "id": "tva",
+    "label": "TVA non déclarée",
+    "bas": 6, "haut": 10, "annee": "2019",
+    "quoi": "La TVA que des entreprises auraient dû reverser et qu'elles n'ont pas déclarée, volontairement ou par erreur : ventes dissimulées, déductions abusives. Le commerce en représente 30 %.",
+    "calcul": "Fourchette de la DGFiP, soit 4 à 5 % de la TVA collectée. C'est un minimum : elle ne compte ni les entreprises qui ne déclarent pas du tout de TVA, ni les fraudes que les contrôles ne détectent pas. L'Insee, avec une autre méthode et sur l'année 2012, arrivait à 20 à 25 Md€.",
+    "certitude": "Estimation officielle de l'administration fiscale, fondée sur ses contrôles et validée par des contrôles au hasard.",
+    "source": "DGFiP Analyses n° 7, « Le manque à gagner de TVA en France », septembre 2024",
+    "url": "https://www.impots.gouv.fr/dgfip-analyses-le-manque-gagner-de-tva-en-france",
+    "fichier": "sources/estimations/dgfip-analyses-07-2024-manque-a-gagner-tva.pdf"
+   },
+   {
+    "id": "multinationales",
+    "label": "Évitement fiscal des multinationales",
+    "bas": 4.6, "haut": 14, "annee": "2015-2019",
+    "quoi": "L'impôt sur les sociétés que la France ne perçoit pas parce que des groupes déplacent leurs bénéfices vers des pays à faible impôt (Luxembourg, Irlande, Pays-Bas, Suisse…). C'est souvent légal : on parle d'évitement ou d'optimisation plutôt que de fraude.",
+    "calcul": "4,6 Md€ par an selon le Conseil d'analyse économique (2019), qui juge son estimation prudente ; environ 14 Md€ en 2015 selon le CEPII (2019), soit 29 % de l'impôt sur les sociétés, pour 36 Md€ de bénéfices non déclarés en France.",
+    "certitude": "Études économiques, avec des méthodes différentes : le résultat varie du simple au triple.",
+    "source": "Conseil d'analyse économique, note n° 54, novembre 2019 ; CEPII, La Lettre n° 400, 2019",
+    "url": "https://www.cae-eco.fr/fiscalite-internationale-des-entreprises-quelles-reformes-pour-quels-effets",
+    "url2": "https://www.cepii.fr/PDF_PUB/lettre/2019/let400.pdf",
+    "fichier": "sources/estimations/cae-note-054-2019.pdf"
+   }
+  ],
+  "non_chiffre": [
+   "La fraude à l'impôt sur le revenu, à l'impôt sur les sociétés et aux impôts sur le patrimoine n'a pas d'estimation publique : la Cour des comptes relève qu'il n'existe pas d'évaluation statistique d'ensemble de la fraude fiscale.",
+   "Les chiffres souvent cités de 80 à 100 Md€ de fraude fiscale viennent d'un syndicat des finances publiques (Solidaires Finances publiques), par extrapolation ; ils ne sont pas repris par l'administration et ne le sont pas ici."
+  ]
+ },
+ "non_percu_aides": {
+  "titre": "Aides non demandées",
+  "sous_titre": "Non-recours · estimations",
+  "quoi": "Des aides auxquelles des personnes ont droit mais qu'elles ne demandent pas, faute d'information, par complexité des démarches ou par crainte d'être mal vues. Cet argent n'est pas dépensé ; ce sont des estimations, difficiles à établir car il faut repérer des personnes qui n'apparaissent dans aucun fichier.",
+  "postes": [
+   {
+    "id": "rsa",
+    "label": "RSA non demandé",
+    "bas": 2.5, "haut": 2.5, "annee": "2021",
+    "quoi": "Le revenu de solidarité active complète les ressources des foyers les plus modestes. Un tiers des foyers qui y ont droit ne le demandent pas : environ 560 000 foyers, souvent proches de l'emploi et éligibles peu de temps.",
+    "calcul": "Environ 630 millions d'euros par trimestre fin 2021, en France métropolitaine, soit 2,5 Md€ sur une année. Taux de non-recours estimé entre 33 % et 37 %. La DREES estimait 3 Md€ par an en 2018 avec une méthode antérieure.",
+    "certitude": "Estimation de la statistique publique (DREES), à partir des revenus déclarés mois par mois.",
+    "source": "DREES, Études et Résultats n° 1370, « Non-recours au RSA : plus d'un tiers des foyers éligibles ne le percevaient pas fin 2021 », mai 2026",
+    "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2026-05/ER1370_Non-recours_RSA.pdf",
+    "fichier": "sources/estimations/drees-er1370-non-recours-rsa.pdf"
+   },
+   {
+    "id": "minimum-vieillesse",
+    "label": "Minimum vieillesse non demandé",
+    "bas": 0.79, "haut": 1.09, "annee": "2016",
+    "quoi": "Le minimum vieillesse complète la retraite des personnes âgées aux revenus les plus faibles. La moitié des personnes seules qui y ont droit ne le demandent pas, notamment parce qu'il peut être récupéré sur leur héritage.",
+    "calcul": "790 M€ pour les personnes seules étudiées, 1,09 Md€ en étendant à toutes les personnes seules, fin 2016. Les couples ne sont pas comptés.",
+    "certitude": "Estimation de la statistique publique (DREES), sur les personnes seules uniquement.",
+    "source": "DREES, Les Dossiers de la DREES n° 97, « Le non-recours au minimum vieillesse des personnes seules », mai 2022",
+    "url": "https://drees.solidarites-sante.gouv.fr/publications-communique-de-presse/les-dossiers-de-la-drees/le-non-recours-au-minimum-vieillesse-des"
+   }
+  ],
+  "non_chiffre": [
+   "Assurance chômage : 25 % à 42 % des personnes qui y avaient droit après une fin de contrat ne s'inscrivaient pas (Dares, 2018-2019), sans montant estimé.",
+   "Complémentaire santé solidaire : 44 % des personnes éligibles ne la demandaient pas en 2021 (DREES), sans montant estimé.",
+   "Prime d'activité : la DREES juge qu'il n'est pas possible à ce stade d'afficher un taux de non-recours fiable.",
+   "Le chiffre de 10 Md€ d'aides non demandées, souvent cité, n'a pas de source publique vérifiable : il n'est pas repris ici."
+  ]
+ }
+}
