@@ -133,11 +133,22 @@ def recettes_du_secteur(fichier):
     impots = sum(v[k] for k in ('Impôts sur la production et les importations (D2)', 'Impôts courants sur le revenu et le patrimoine (D5)',
                                 'Impôts en capital à recevoir (D91r)', 'Transferts de recettes fiscales  (D733)'.strip(),
                                 'Impôts et cotisations dus non recouvrables nets (D995r)') if k in v)
+    # Détail des impôts perçus (les transferts de recettes fiscales et les impôts non recouvrables
+    # peuvent être négatifs) et part des cotisations imputées (retraites des fonctionnaires…).
+    g = lambda k: round(v.get(k, 0.0), 3)
+    detail = {'production': g('Impôts sur la production et les importations (D2)'), 'revenu': g('Impôts courants sur le revenu et le patrimoine (D5)'),
+              'capital': g('Impôts en capital à recevoir (D91r)'), 'transferts': g('Transferts de recettes fiscales  (D733)'.strip()),
+              'non_recouvrables': g('Impôts et cotisations dus non recouvrables nets (D995r)'),
+              'cotisations_imputees': g('dont (a) - Cotisations sociales imputées (D612)')}
     return {'impots': round(impots, 3), 'cotisations': round(v['Cotisations sociales nettes (D61)'], 3),
-            'solde': round(v['Capacité (+) ou besoin (-) de financement (B9NF)'], 3)}
+            'solde': round(v['Capacité (+) ou besoin (-) de financement (B9NF)'], 3), 'detail': detail}
 
 
 recettes_par_secteur = {code: recettes_du_secteur(f) for code, f in FICHIERS_SECTEURS.items()}
+for code, r in recettes_par_secteur.items():
+    d = r['detail']
+    if abs(d['production'] + d['revenu'] + d['capital'] + d['transferts'] + d['non_recouvrables'] - r['impots']) > 0.01:
+        raise SystemExit(f'{code} : le détail des impôts ne retombe pas sur leur total')
 impots_apu = sum(ligne[k] for k in ('Impôts sur la production et les importations (D2)', 'Impôts courants sur le revenu et le patrimoine (D5)',
                                      'Impôts en capital à recevoir (D91r)', 'Impôts et cotisations dus non recouvrables nets (D995r)'))
 for cle, attendu in (('impots', impots_apu), ('cotisations', ligne['Cotisations sociales nettes (D61)'])):

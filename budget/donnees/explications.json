@@ -903,6 +903,199 @@
     "les obligations émises par l'État",
     "les emprunts de la Sécurité sociale"
    ]
+  },
+  "impots_production": {
+   "quoi": "Les impôts payés quand on achète, qu'on produit ou qu'on possède un bien : la TVA sur presque tout ce qu'on achète, les taxes sur le carburant, le tabac ou l'alcool, la taxe foncière sur les logements et les bureaux.",
+   "exemples": [
+    "la TVA payée en caisse",
+    "les taxes sur l'essence et le gazole",
+    "la taxe foncière",
+    "les droits sur les tabacs"
+   ]
+  },
+  "impots_revenu": {
+   "quoi": "Les impôts prélevés sur ce que gagnent les ménages et les entreprises : salaires, retraites, revenus de l'épargne, bénéfices.",
+   "exemples": [
+    "la CSG prélevée sur les salaires et les retraites",
+    "l'impôt sur le revenu",
+    "l'impôt sur les sociétés"
+   ]
+  },
+  "impots_capital": {
+   "quoi": "Les impôts payés quand un patrimoine change de main sans être vendu : héritage ou donation.",
+   "exemples": [
+    "les droits de succession",
+    "les droits sur les donations"
+   ]
+  },
+  "transferts_fiscaux": {
+   "quoi": "Une part d'impôts perçus par une autre administration, le plus souvent l'État, et qui lui est reversée : c'est le cas d'une fraction de la TVA donnée aux régions et aux départements depuis la suppression de taxes locales.",
+   "exemples": [
+    "la fraction de TVA versée aux collectivités"
+   ]
+  },
+  "cotisations_versees": {
+   "quoi": "Les cotisations réellement payées sur les salaires par les employeurs et les salariés, et par les indépendants sur leurs revenus. Elles ouvrent des droits : retraite, chômage, indemnités en cas de maladie.",
+   "exemples": [
+    "les cotisations retraite sur la fiche de paie",
+    "les cotisations chômage",
+    "les cotisations des indépendants"
+   ]
+  },
+  "cotisations_imputees": {
+   "quoi": "Des cotisations comptées par convention : quand un employeur public paie directement les retraites de ses anciens agents, l'Insee enregistre une cotisation équivalente. Aucun argent ne circule, mais cela rend comparable le public et le privé.",
+   "exemples": [
+    "les pensions des fonctionnaires de l'État, payées par l'État lui-même"
+   ]
+  },
+  "ventes": {
+   "quoi": "Ce que paient les usagers pour certains services publics, en plus des impôts : une partie du prix est à leur charge.",
+   "exemples": [
+    "la cantine scolaire",
+    "les tickets modérateurs à l'hôpital",
+    "les péages et les parkings publics",
+    "les entrées des musées"
+   ]
+  },
+  "propriete": {
+   "quoi": "Ce que rapportent les biens et les placements des administrations.",
+   "exemples": [
+    "les dividendes des entreprises dont l'État est actionnaire",
+    "les intérêts des placements",
+    "les loyers et redevances"
+   ]
+  },
+  "transferts_recus": {
+   "quoi": "D'autres sommes reçues d'acteurs extérieurs aux administrations : fonds européens, amendes, dons.",
+   "exemples": [
+    "les fonds européens",
+    "les amendes",
+    "les dons et legs"
+   ]
+  }
+ },
+ "impots": {
+  "Taxe sur la valeur ajoutée (TVA) (D211)": {
+   "quoi": "Un impôt compris dans le prix de presque tout ce qu'on achète, en général 20 % du prix hors taxe (moins pour l'alimentation, les médicaments, les transports). C'est la première recette publique.",
+   "exemples": [
+    "les courses",
+    "un repas au restaurant",
+    "une facture de travaux"
+   ]
+  },
+  "Impôts et droits sur les importations (D212)": {
+   "quoi": "Les droits de douane sur les produits venus de hors de l'Union européenne. L'essentiel va au budget européen : seule la part gardée par la France est comptée ici.",
+   "exemples": []
+  },
+  "Impôts sur les produits (D214)": {
+   "quoi": "Des taxes sur certains produits ou services précis, en plus de la TVA.",
+   "exemples": [
+    "le carburant",
+    "le tabac et l'alcool",
+    "les contrats d'assurance",
+    "l'achat d'un logement (frais de notaire)"
+   ]
+  },
+  "Impôts sur les salaires et la main d'œuvre (D291)": {
+   "quoi": "Des impôts payés par les employeurs, calculés sur les salaires qu'ils versent, et qui financent des besoins précis.",
+   "exemples": [
+    "le versement mobilité qui finance les transports en commun",
+    "la taxe d'apprentissage",
+    "la taxe sur les salaires"
+   ]
+  },
+  "Impôts divers sur la production (D292)": {
+   "quoi": "Des impôts payés par les entreprises et les propriétaires du seul fait de détenir des biens ou d'exercer une activité, quel que soit leur bénéfice.",
+   "exemples": [
+    "la taxe foncière",
+    "la cotisation foncière des entreprises",
+    "la contribution sociale de solidarité des sociétés"
+   ]
+  },
+  "Impôts courants sur le revenu (D51)": {
+   "quoi": "Les impôts sur ce que gagnent les ménages et les entreprises, chaque année.",
+   "exemples": [
+    "la CSG",
+    "l'impôt sur le revenu",
+    "l'impôt sur les sociétés"
+   ]
+  },
+  "Autres impôts courants (D59)": {
+   "quoi": "D'autres impôts payés chaque année par les ménages sur ce qu'ils possèdent.",
+   "exemples": [
+    "la taxe d'habitation sur les résidences secondaires",
+    "l'impôt sur la fortune immobilière"
+   ]
+  },
+  "Impôts en capital (D91r)": {
+   "quoi": "Les impôts payés quand un patrimoine est transmis : héritage ou donation.",
+   "exemples": [
+    "les droits de succession",
+    "les droits sur les donations"
+   ]
+  },
+  "Contribution sociale généralisée (CSG) (**)": {
+   "quoi": "Un prélèvement sur presque tous les revenus : 9,2 % des salaires, moins sur les retraites et les allocations, plus sur les revenus de l'épargne. Elle finance surtout la sécurité sociale.",
+   "exemples": [
+    "la ligne CSG de la fiche de paie",
+    "la CSG sur les pensions de retraite"
+   ]
+  },
+  "Contribution au remboursement de la dette sociale (CRDS) (**)": {
+   "quoi": "Un prélèvement de 0,5 % sur presque tous les revenus, qui sert à rembourser la dette accumulée par la sécurité sociale.",
+   "exemples": []
+  },
+  "Impôt sur le revenu des personnes physiques (IRPP), avant crédits d'impôt": {
+   "quoi": "L'impôt sur le revenu des ménages, prélevé à la source. Il dépend des revenus et de la situation du foyer ; un peu moins de la moitié des foyers en paient. Le montant est compté après les crédits d'impôt (emploi à domicile, garde d'enfant…).",
+   "exemples": [
+    "le prélèvement à la source sur le salaire"
+   ]
+  },
+  "Impôt sur les sociétés (IS), avant crédits d'impôt": {
+   "quoi": "L'impôt sur les bénéfices des entreprises, 25 % en règle générale. Le montant est compté après les crédits d'impôt (recherche, innovation…).",
+   "exemples": []
+  },
+  "Taxe foncière": {
+   "quoi": "Un impôt local payé chaque année par les propriétaires de logements, de bureaux ou de terrains. Il finance les communes et les intercommunalités.",
+   "exemples": []
+  },
+  "Accises sur les produits énergétiques (TICPE)": {
+   "quoi": "La taxe sur les carburants et le fioul, comptée au litre : près de 70 centimes par litre d'essence.",
+   "exemples": [
+    "le plein d'essence ou de gazole"
+   ]
+  },
+  "Accises sur les tabacs": {
+   "quoi": "La taxe sur les cigarettes et le tabac, qui représente l'essentiel du prix d'un paquet. Elle finance l'assurance maladie.",
+   "exemples": []
+  },
+  "Droits d'enregistrement (sur transactions immobilières et autres)": {
+   "quoi": "Les droits payés lors de l'achat d'un logement ou d'un terrain, compris dans les « frais de notaire ». Ils vont surtout aux départements.",
+   "exemples": []
+  },
+  "Taxe sur les conventions d'assurances": {
+   "quoi": "Une taxe sur les contrats d'assurance : voiture, habitation, complémentaire santé.",
+   "exemples": []
+  },
+  "Taxe sur les salaires": {
+   "quoi": "Un impôt payé par les employeurs qui ne paient pas la TVA, comme les banques, les assurances, les hôpitaux et les associations.",
+   "exemples": []
+  },
+  "Versement mobilité": {
+   "quoi": "Un impôt payé par les employeurs d'au moins onze salariés, qui finance les transports en commun de leur ville ou de leur région.",
+   "exemples": []
+  },
+  "Droits de mutation à titre gratuit": {
+   "quoi": "Les droits de succession et de donation, payés quand un patrimoine est transmis sans être vendu.",
+   "exemples": []
+  },
+  "Prélèvement de solidarité et autres contributions sociales": {
+   "quoi": "Des prélèvements sociaux sur les revenus de l'épargne et du patrimoine (intérêts, loyers, plus-values), qui s'ajoutent à la CSG.",
+   "exemples": []
+  },
+  "Cotisation foncière des entreprises": {
+   "quoi": "Un impôt local payé par les entreprises selon la valeur des locaux qu'elles occupent.",
+   "exemples": []
   }
  }
 }

@@ -119,7 +119,16 @@ ce qui les finance (impôts, cotisations, autres recettes, emprunt) à droite, �
 - **Zoom et déplacement** : molette, pincement, glisser, boutons + et −, « Tout » ; au clavier,
   + et −, flèches, 0. Les noms apparaissent à mesure qu'on zoome.
 - **Fiche** : un clic sur un bloc ouvre son explication, sa part sur 100 € et son détail.
-- **Panneau** : recherche, regroupement des dépenses par administration ou par fonction, cases
+- **Recettes** : par administration, chacune avec ses impôts (consommation et production, revenu
+  et patrimoine, successions, part reversée par une autre administration) et ses cotisations
+  (versées ou imputées, comme les retraites des fonctionnaires que l'État paie lui-même) ; ou par
+  type de recette, impôt par impôt (TVA, CSG, impôt sur le revenu, taxe foncière…, tableau 3.217
+  de l'Insee, sans la part des droits de douane qui revient à l'Union européenne). L'impôt sur le
+  revenu et l'impôt sur les sociétés sont comptés après crédits d'impôt. Quand un total est net
+  (impôts reversés, impôts jamais encaissés), sa fiche le dit : ses sous-blocs, eux, sont avant
+  ces déductions.
+- **Panneau** : recherche, regroupement des dépenses par administration ou par fonction, et des
+  recettes par administration ou par type, cases
   pour afficher ou atténuer chaque administration, l'emprunt et les autres recettes, cases pour
   mettre en avant une ou plusieurs fonctions.
 
