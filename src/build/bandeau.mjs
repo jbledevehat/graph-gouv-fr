@@ -38,6 +38,9 @@ const STYLE = `<style>
   .bandeau .b-sub .b-wrap { padding-block: 4px; gap: 4px 18px; }
   .bandeau .b-ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
   .bandeau .b-ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  /* La flèche devant le sélecteur reste accrochée à la section : elle ne commence jamais une ligne. */
+  .bandeau .b-ariane li.b-sel::before { content: none; }
+  .bandeau .b-ariane li.b-sec::after { content: "›"; margin-left: 6px; color: var(--control); }
   .bandeau .b-ariane a { color: var(--accent); text-decoration: none; }
   .bandeau .b-ariane a:hover { text-decoration: underline; }
   .bandeau .b-ariane [aria-current] { color: var(--ink); font-weight: 500; }
@@ -73,8 +76,8 @@ export function bandeau({ racine = '', section = null, page = null } = {}) {
     `<a href="${racine}${s.chemin}"${k === section ? ' aria-current="true"' : ''}>${esc(s.nom)}</a>`).join('');
   const sousLigne = S ? (() => {
     const onglets = S.pages.map(([k, nom, href]) => `<a href="${racine}${href}"${k === page ? ' aria-current="page"' : ''}>${esc(nom)}</a>`).join('');
-    const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
-      + `<li><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
+    const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li class="b-sec"><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
+      + `<li class="b-sel"><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
     return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav></div></div>`;
   })() : '';
   return `${STYLE}
