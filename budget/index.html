@@ -200,7 +200,7 @@
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
     <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <div class="figures" id="figures"></div>
-    <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
+    <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a> · <a id="lien-pdf" href="pdf/argent-public-2024.pdf" download>Exploration en PDF</a></p>
     <p class="alerte" id="alerte" hidden></p>
     <details class="apropos">
       <summary>À propos de cette page</summary>
@@ -280,7 +280,8 @@
   const annee = AN.insee.includes(voulue) ? voulue : AN.reference;
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   if (annee !== '2024') document.title = `Explorer l'argent public en ${annee}`;
-  $('z-pdf').href = `pdf/argent-public-${annee}.pdf`;
+  $('z-pdf').href = $('lien-pdf').href = `pdf/argent-public-${annee}.pdf`;
+  $('lien-pdf').textContent = `Exploration ${annee} en PDF`;
   let G, X, E;
   try { [G, X, E] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
