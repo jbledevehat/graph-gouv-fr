@@ -105,6 +105,7 @@
   .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
   .checks { display: grid; gap: 2px; }
   .checks label { display: grid; grid-template-columns: auto auto 1fr auto; gap: 8px; align-items: center; padding: 4px 2px; font-size: 13px; cursor: pointer; border-radius: 6px; }
+  #c-fonction label { grid-template-columns: auto 1fr auto; }
   .checks label:hover { background: var(--panel-2); }
   .checks input { accent-color: var(--accent); margin: 0; }
   .checks .num { font: 12px var(--mono); color: var(--muted); }
@@ -503,7 +504,9 @@
   const caches = new Set(), avant = new Set();
   const lignesAdmin = [...G.secteurs.map(s => [s.code, s.nom, COUL[s.code], s.total]), ['autres', 'Autres recettes', 'na', G.autres_recettes_consolidees], ['deficit', 'Déficit (emprunt)', 'hatch', -S]];
   $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}" checked><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${mds(v)}</span></label>`).join('');
-  $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => `<label><input type="checkbox" data-fn="${f.code}"><span class="sw na"></span><span>${esc(f.libelle)}</span><span class="num">${mds(sum(G.secteurs, s => s.fonctions[k].montant))}</span></label>`).join('');
+  // Fonctions de la plus grosse à la plus petite, sans pastille : elles n'ont pas de couleur propre.
+  $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => [f, sum(G.secteurs, s => s.fonctions[k].montant)]).sort((a, b) => b[1] - a[1])
+    .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
   function appliquerFiltres() {
     for (const n of noeuds) {
       if (!n.parent) continue;
