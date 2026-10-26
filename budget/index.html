@@ -166,14 +166,14 @@
 <body>
 <a class="skip" href="#q">Aller à la recherche</a>
 <!--bandeau-->
-<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public en 2024 : les dépenses à gauche, ce qui les finance à droite. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
+<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public en 2024 : les dépenses et ce qui les finance, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
 <p id="status">Chargement…</p>
 
 <aside id="side" class="panel" aria-label="Recherche et options">
   <div class="head">
     <div class="eyebrow">Exploration · 2024</div>
     <div class="h-row"><h1>L'argent public en 2024</h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
-    <p class="sub">À gauche, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; à droite, ce qui le finance. Les deux ont la même surface. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
+    <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
   </div>
@@ -266,8 +266,19 @@
   };
 
   // ================= Mise en page (coordonnées « monde ») =================
-  const W = 2000, H = 1260, TETE = 70, ECART = 36;
-  const zones = [{ x: 0, y: TETE, w: (W - ECART) / 2, h: H - TETE }, { x: (W + ECART) / 2, y: TETE, w: (W - ECART) / 2, h: H - TETE }];
+  // Deux dispositions : dépenses et financement côte à côte (écran large) ou l'un au-dessus de
+  // l'autre (écran étroit ou haut). On garde celle qui donne le plus grand dessin à l'écran.
+  const TETE = 70, ECART = 36;
+  const DISPOSITIONS = {
+    cote: { W: 2000, H: 1260, zones: [{ x: 0, y: TETE, w: 982, h: 1190 }, { x: 1018, y: TETE, w: 982, h: 1190 }] },
+    pile: { W: 1200, H: 2 * TETE + 2 * 760 + ECART, zones: [{ x: 0, y: TETE, w: 1200, h: 760 }, { x: 0, y: 2 * TETE + 760 + ECART, w: 1200, h: 760 }] },
+  };
+  let disposition = 'cote', W = 2000, H = 1260, zones = DISPOSITIONS.cote.zones;
+  const choisirDisposition = () => {
+    const { r, gauche, haut, bas } = marges(), aw = r.width - gauche - 24, ah = r.height - haut - bas - 12;
+    const surface = d => { const D = DISPOSITIONS[d], k = Math.min(aw / D.W, ah / D.H); return k * k * D.zones[0].w * D.zones[0].h; };
+    return surface('pile') > surface('cote') ? 'pile' : 'cote';
+  };
   function squarify(items, x, y, w, h) {
     const tot = sum(items, d => d.v);
     const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => b.a - a.a);
@@ -300,6 +311,10 @@
   const fillDe = n => n.color === 'hatch' ? 'url(#hachure)' : `var(--m-${n.color})`;
   const encreDe = n => n.color === 'hatch' || n.color === 'na' ? null : `var(--on-${n.color})`;
   function dessiner() {
+    disposition = choisirDisposition();
+    ({ W, H, zones } = DISPOSITIONS[disposition]);
+    $('ou-dep').textContent = disposition === 'pile' ? 'En haut' : 'À gauche';
+    $('ou-rec').textContent = disposition === 'pile' ? 'en bas' : 'à droite';
     [racines] = [arbres()];
     racines.forEach((r, i) => placer(r, zones[i].x, zones[i].y, zones[i].w, zones[i].h));
     noeuds = []; parId = new Map();
@@ -329,10 +344,10 @@
   const vue = { k: 1, cx: W / 2, cy: H / 2 };
   const marges = () => {
     const r = scene.getBoundingClientRect();
-    const large = innerWidth > 900;
+    const large = innerWidth > 760;
     const gauche = large ? $('side').getBoundingClientRect().right + 12 - r.left : 0;
     const droite = large && !$('detail').hidden ? r.right - $('detail').getBoundingClientRect().left + 12 : 0;
-    const haut = large ? 0 : $('side').getBoundingClientRect().bottom + 8 - r.top;
+    const haut = large ? 0 : $('side').getBoundingClientRect().bottom + 30 - r.top;
     // Bande réservée en bas pour les boutons de zoom.
     const bas = $('z-in').closest('.zoom').getBoundingClientRect().height + 20;
     return { r, gauche, droite, haut, bas };
@@ -454,7 +469,12 @@
   $('z-in').onclick = () => { const [ex, ey] = centreEcran(); zoomerAutour(1.6, ex, ey); };
   $('z-out').onclick = () => { const [ex, ey] = centreEcran(); zoomerAutour(1 / 1.6, ex, ey); };
   $('z-fit').onclick = toutVoir;
-  addEventListener('resize', majVue);
+  // Au redimensionnement, on change de disposition si l'autre devient meilleure.
+  addEventListener('resize', () => {
+    if (choisirDisposition() === disposition) return majVue();
+    const id = choisi?.id; dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 });
+    if (id && parId.has(id)) ouvrir(parId.get(id)); majVue();
+  });
 
   // ================= Survol, clic, fiche =================
   const tip = $('tip');
@@ -525,7 +545,7 @@
   $('hl-off').onclick = () => { avant.clear(); $('c-fonction').querySelectorAll('input').forEach(i => i.checked = false); appliquerFiltres(); };
   document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => {
     mode = b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    const id = choisi?.id; dessiner(); $('detail').hidden = true; choisi = null; if (id && parId.has(id)) ouvrir(parId.get(id));
+    const id = choisi?.id; dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); $('detail').hidden = true; choisi = null; if (id && parId.has(id)) ouvrir(parId.get(id));
   });
 
   // ================= Recherche =================
@@ -556,6 +576,7 @@
   // Sur mobile, le panneau est replié : le bouton « Options » déplie filtres et regroupements.
   $('opts').onclick = () => { const o = $('side').classList.toggle('ouvert'); $('opts').setAttribute('aria-expanded', String(o)); majVue(); };
   dessiner();
+  Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 });
   new ResizeObserver(majVue).observe($('side'));
   new ResizeObserver(majVue).observe(document.querySelector('.bandeau') || document.body);
 })();
