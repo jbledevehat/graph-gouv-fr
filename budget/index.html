@@ -163,6 +163,9 @@
   .zoom { position: fixed; z-index: 5; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: row; overflow: hidden; }
   .zoom button { width: 44px; height: 40px; border: 0; border-right: 1px solid var(--line); background: var(--panel); color: var(--ink); font-size: 18px; cursor: pointer; }
   .zoom button:last-child { border-right: 0; width: auto; padding: 0 14px; font-size: 12.5px; }
+  .zoom a { width: 44px; height: 40px; display: grid; place-items: center; border-right: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  .zoom a:hover { background: var(--panel-2); }
+  .zoom a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
   .zoom button:hover { background: var(--panel-2); }
   .zoom button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
@@ -203,7 +206,7 @@
       <summary>À propos de cette page</summary>
       <p>Cette exploration montre l'argent public en France : toutes les <strong>dépenses publiques</strong> de l'État, de la sécurité sociale, des collectivités locales et des opérateurs de l'État, et ce qui les finance, <strong>impôts, cotisations sociales, autres recettes et emprunt</strong>. Chaque bloc a une surface proportionnelle à son montant, à la même échelle pour toutes les années, de 2019 à 2024.</p>
       <p>Les dépenses se lisent par administration ou par fonction : retraites, santé, enseignement, défense, sécurité, transports… Les recettes, par administration ou impôt par impôt : TVA, CSG, impôt sur le revenu, impôt sur les sociétés, taxe foncière… Sur les côtés, des cercles montrent des <strong>estimations</strong> de ce qui échappe : fraude aux cotisations et aux prestations, TVA non déclarée, évitement fiscal des multinationales, et aides non demandées comme le RSA.</p>
-      <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>.</p>
+      <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>, et cette exploration en PDF vectoriel pour chaque année (bouton de téléchargement à côté du zoom).</p>
     </details>
   </div>
   <div class="search">
@@ -241,6 +244,7 @@
   <button type="button" data-mode-rec="type" aria-pressed="false">Type de recette</button>
 </div>
 <div class="zoom panel" role="group" aria-label="Zoom">
+  <a id="z-pdf" href="pdf/argent-public-2024.pdf" download aria-label="Télécharger cette exploration en PDF (vectoriel, tous les noms, zoom sans perte)" title="Télécharger en PDF haute résolution"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <button type="button" id="z-in" aria-label="Zoomer">+</button>
   <button type="button" id="z-out" aria-label="Dézoomer">−</button>
   <button type="button" id="z-fit" aria-label="Revenir à la vue d'ensemble" title="Vue d'ensemble">Tout</button>
@@ -276,6 +280,7 @@
   const annee = AN.insee.includes(voulue) ? voulue : AN.reference;
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   if (annee !== '2024') document.title = `Explorer l'argent public en ${annee}`;
+  $('z-pdf').href = `pdf/argent-public-${annee}.pdf`;
   let G, X, E;
   try { [G, X, E] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }

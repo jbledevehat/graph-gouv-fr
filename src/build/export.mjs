@@ -5,6 +5,7 @@ import { toCsv } from '../lib/csv.mjs';
 import { hostOf, siteKey } from '../lib/url.mjs';
 import { formerAddresses } from './duplicates.mjs';
 import { avecBandeau, SECTIONS } from './bandeau.mjs';
+import { writeBudgetPdf } from './pdf-budget.mjs';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -121,6 +122,13 @@ export async function writeWeb(webData, rows) {
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
   }
+  // Exploration en PDF vectoriel, une par année des comptes de l'Insee.
+  const estimations = JSON.parse(await readFile(path('budget/donnees/estimations.json'), 'utf8'));
+  for (const a of A.insee) {
+    const G = JSON.parse(await readFile(path(`budget/donnees/argent-public-${a}.json`), 'utf8'));
+    await writeBudgetPdf(G, estimations, A, a, `out/web/budget/pdf/argent-public-${a}.pdf`);
+  }
+  console.log(`  -> out/web/budget/pdf/argent-public-{${A.insee[0]}…${A.insee[A.insee.length - 1]}}.pdf`);
   await writeOut('out/web/budget/sources/aides-entreprises/aides-entreprises-2024.json', await readFile(path('budget/sources/aides-entreprises/aides-entreprises-2024.json')));
 
   // --- Accueil ---
@@ -212,6 +220,7 @@ function jeuxBudget(base, A) {
       distribution: [
         ...A.insee.map(a => fichier(`donnees/argent-public-${a}.json`, 'application/json', `Administrations publiques ${a}`)),
         ...A.etat.map(a => fichier(`donnees/depenses-${a}-par-programme.csv`, 'text/csv', `Budget de l'État ${a} par programme`)),
+        ...A.insee.map(a => fichier(`pdf/argent-public-${a}.pdf`, 'application/pdf', `L'argent public en ${a}, en PDF`)),
       ],
     },
     aides: {
