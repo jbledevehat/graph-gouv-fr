@@ -109,30 +109,52 @@ function dessinerArbre(doc, racine) {
       doc.restore();
     }
     doc.rect(n.x, n.y, n.w, n.h).lineWidth(0.4).strokeColor(PAPER).stroke();
-    // Nom et montant, en haut à gauche du bloc.
-    const pad = Math.min(6, n.w * 0.06), encre = ENCRE[n.color];
-    const t = ligne(doc, n.label, n.x + pad, n.y + pad, n.w - 2 * pad, Math.min(15, n.h * 0.28), { gras: true, couleur: encre });
-    if (t) ligne(doc, mds(n.v), n.x + pad, n.y + pad + t * 1.25, n.w - 2 * pad, t * 0.85, { couleur: encre });
+    etiqueterBloc(doc, n);
   }
-  // Noms des grands blocs (administration, puis fonction), en bas à droite, détourés.
-  // Place de chaque étiquette ; celle d'une fonction est omise si elle tombe sous celle de son
-  // administration (même coin), qui est dessinée par-dessus.
-  const etiquette = n => {
-    const taille = Math.min(n.depth === 1 ? 18 : 11, n.w / (n.label.length * CHAR + 2), n.h * 0.2);
-    if (taille < 3) return null;
-    const l = doc.font('Plex-Gras').fontSize(taille).widthOfString(n.label), m = taille * 0.3;
-    return { taille, l, m, x: n.x + n.w - l - m - 4, y: n.y + n.h - taille * 1.3 - m - 4 };
-  };
-  const grands = noeuds.filter(n => n.depth >= 1 && n.depth <= 2 && n.children?.length).sort((a, b) => b.depth - a.depth);
-  const places = new Map(grands.map(n => [n, etiquette(n)]));
-  for (const n of grands) {
-    const e = places.get(n);
-    if (!e) continue;
-    const p = places.get(n.parent);
-    if (n.depth === 2 && p && e.y + e.taille * 1.3 > p.y - p.m && e.x + e.l > p.x - p.m) continue;
-    doc.save().roundedRect(e.x - e.m, e.y - e.m * 0.6, e.l + 2 * e.m, e.taille * 1.3 + e.m, e.taille * 0.25).fillOpacity(0.88).fill(PAPER).restore();
-    doc.font('Plex-Gras').fontSize(e.taille).fillColor(INK).text(n.label, e.x, e.y, { lineBreak: false });
+}
+
+// Coupe un texte en lignes d'une largeur donnée, à la taille donnée.
+function couper(doc, texte, police, taille, largeur) {
+  doc.font(police).fontSize(taille);
+  const lignes = [];
+  let cour = '';
+  for (const mot of texte.split(' ')) {
+    const essai = cour ? cour + ' ' + mot : mot;
+    if (doc.widthOfString(essai) <= largeur || !cour) cour = essai; else { lignes.push(cour); cour = mot; }
   }
+  if (cour) lignes.push(cour);
+  return lignes.every(l => doc.widthOfString(l) <= largeur) ? lignes : null;
+}
+
+// Tous les textes d'un bloc, sans taille minimale (le PDF est vectoriel : on zoome) : son nom,
+// replié sur plusieurs lignes, son montant, et ce dont il fait partie (fonction, administration).
+// Dans un bloc haut et étroit, le texte est écrit verticalement.
+function etiqueterBloc(doc, n) {
+  const vertical = n.h > n.w * 1.8;
+  const L = vertical ? n.h : n.w, H = vertical ? n.w : n.h;
+  const pad = Math.min(6, L * 0.05, H * 0.08);
+  const contexte = []; for (let p = n.parent; p && p.parent; p = p.parent) contexte.push(p.label);
+  const textes = [[n.label, 'Plex-Gras', 1], [mds(n.v), 'Plex', 0.85], ...(contexte.length ? [[contexte.join(' · '), 'Plex', 0.7]] : [])];
+  // Plus grande taille (au plus 15 pt) qui fait tout tenir.
+  let taille = Math.min(15, H / 2.2), mise = null;
+  for (; taille > 0.15; taille *= 0.92) {
+    const blocs = textes.map(([t, police, f]) => ({ police, taille: taille * f, lignes: couper(doc, t, police, taille * f, L - 2 * pad) }));
+    if (blocs.some(b => !b.lignes)) continue;
+    const hauteur = blocs.reduce((s, b) => s + b.lignes.length * b.taille * 1.2, 0) + taille * 0.15;
+    if (hauteur <= H - 2 * pad) { mise = blocs; break; }
+  }
+  if (!mise) return;
+  const encre = ENCRE[n.color];
+  doc.save();
+  if (vertical) doc.translate(n.x + pad, n.y + n.h - pad).rotate(-90);
+  else doc.translate(n.x + pad, n.y + pad);
+  let y = 0;
+  mise.forEach((b, i) => {
+    doc.font(b.police).fontSize(b.taille).fillColor(encre).opacity(i === 2 ? 0.75 : 1);
+    for (const l of b.lignes) { doc.text(l, 0, y, { lineBreak: false }); y += b.taille * 1.2; }
+    if (i === 0) y += taille * 0.15;
+  });
+  doc.restore();
 }
 
 function dessinerEstimations(doc, E, annee, aire) {
