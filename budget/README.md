@@ -127,8 +127,9 @@ ce qui les finance (impôts, cotisations, autres recettes, emprunt) à droite, �
   revenu et l'impôt sur les sociétés sont comptés après crédits d'impôt. Quand un total est net
   (impôts reversés, impôts jamais encaissés), sa fiche le dit : ses sous-blocs, eux, sont avant
   ces déductions.
-- **Panneau** : recherche, regroupement des dépenses par administration ou par fonction, et des
-  recettes par administration ou par type, cases
+- **Regroupements**, à côté du titre de chaque moitié : dépenses par administration ou par
+  fonction, recettes par administration ou par type.
+- **Panneau** : recherche, cases
   pour afficher ou atténuer chaque administration, l'emprunt et les autres recettes, cases pour
   mettre en avant une ou plusieurs fonctions.
 

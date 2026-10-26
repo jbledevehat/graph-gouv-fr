@@ -103,6 +103,9 @@
   .seg-ctl button { min-height: 30px; padding: 0 11px; border: 0; background: transparent; color: var(--ink); font: 500 12.5px var(--sans); cursor: pointer; }
   .seg-ctl button + button { border-left: 1px solid var(--control); }
   .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  .zone-ctl { position: fixed; z-index: 4; background: var(--panel); box-shadow: var(--shadow); }
+  .zone-ctl button { min-height: 28px; font-size: 12px; padding: 0 10px; }
+  @media (max-width: 760px) { .zone-ctl button { min-height: 24px; font-size: 11px; padding: 0 7px; } }
   .checks { display: grid; gap: 2px; }
   .checks label { display: grid; grid-template-columns: auto auto 1fr auto; gap: 8px; align-items: center; padding: 4px 2px; font-size: 13px; cursor: pointer; border-radius: 6px; }
   #c-fonction label { grid-template-columns: auto 1fr auto; }
@@ -184,20 +187,6 @@
   </div>
   <div class="body" id="side-body">
     <div class="sec">
-      <h2>Dépenses regroupées par</h2>
-      <div class="seg-ctl" role="group" aria-label="Regrouper les dépenses par">
-        <button type="button" data-mode="admin" aria-pressed="true">Administration</button>
-        <button type="button" data-mode="fonction" aria-pressed="false">Fonction</button>
-      </div>
-    </div>
-    <div class="sec">
-      <h2>Recettes regroupées par</h2>
-      <div class="seg-ctl" role="group" aria-label="Regrouper les recettes par">
-        <button type="button" data-mode-rec="admin" aria-pressed="true">Administration</button>
-        <button type="button" data-mode-rec="type" aria-pressed="false">Type de recette</button>
-      </div>
-    </div>
-    <div class="sec">
       <h2>Afficher <button type="button" id="all-on">Tout afficher</button></h2>
       <div class="checks" id="c-admin"></div>
     </div>
@@ -216,6 +205,15 @@
   <div class="d-body" id="d-body"></div>
 </aside>
 
+<!-- Regroupements, placés à la suite du titre de chaque moitié (voir placerControles). -->
+<div class="seg-ctl zone-ctl" id="ctl-dep" role="group" aria-label="Regrouper les dépenses par">
+  <button type="button" data-mode="admin" aria-pressed="true">Administration</button>
+  <button type="button" data-mode="fonction" aria-pressed="false">Fonction</button>
+</div>
+<div class="seg-ctl zone-ctl" id="ctl-rec" role="group" aria-label="Regrouper les recettes par">
+  <button type="button" data-mode-rec="admin" aria-pressed="true">Administration</button>
+  <button type="button" data-mode-rec="type" aria-pressed="false">Type de recette</button>
+</div>
 <div class="zoom panel" role="group" aria-label="Zoom">
   <button type="button" id="z-in" aria-label="Zoomer">+</button>
   <button type="button" id="z-out" aria-label="Dézoomer">−</button>
@@ -329,7 +327,7 @@
   const TETE = 70, ECART = 36;
   const DISPOSITIONS = {
     cote: { W: 2000, H: 1260, zones: [{ x: 0, y: TETE, w: 982, h: 1190 }, { x: 1018, y: TETE, w: 982, h: 1190 }] },
-    pile: { W: 1200, H: 2 * TETE + 2 * 760 + ECART, zones: [{ x: 0, y: TETE, w: 1200, h: 760 }, { x: 0, y: 2 * TETE + 760 + ECART, w: 1200, h: 760 }] },
+    pile: { W: 1200, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }] },
   };
   let disposition = 'cote', W = 2000, H = 1260, zones = DISPOSITIONS.cote.zones;
   const choisirDisposition = () => {
@@ -434,7 +432,20 @@
     const visible = n => { const x0 = tx + n.x * kk, y0 = ty + n.y * kk; return x0 < r.width && y0 < r.height && x0 + n.w * kk > 0 && y0 + n.h * kk > 0; };
     const tient = n => n.w * kk > 74 && n.h * kk > 30;
     // Noms des zones, au-dessus de chaque moitié.
-    racines.forEach(z => { const t = svg.querySelector(`[data-z="${z.id}"]`); const lg = (z.label.length + mds(z.v).length + 3) * 0.6; const fs = Math.max(11, Math.min(22 * Math.sqrt(vue.k), z.w * kk / lg, 26)) / kk; t.setAttribute('x', z.x); t.setAttribute('y', z.y - 16 / kk); t.setAttribute('font-size', fs); });
+    placerControles();
+    // Titres des deux moitiés : même taille pour les deux, assez petite pour laisser la place au
+    // sélecteur sur la même ligne ; s'il ne tient pas (mobile), le sélecteur passe dessous.
+    const ctl = z => $(z.id === 'dep' ? 'ctl-dep' : 'ctl-rec');
+    const tailles = racines.map(z => {
+      const lg = (z.label.length + mds(z.v).length + 3) * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
+      z.empile = disposition === 'pile' && place / lg < 12;
+      return Math.min(22 * Math.sqrt(vue.k), (z.empile ? z.w * kk - 8 : place) / lg, 26);
+    });
+    const fsT = Math.max(9, Math.min(...tailles)) / kk;
+    racines.forEach(z => {
+      const t = svg.querySelector(`[data-z="${z.id}"]`);
+      t.setAttribute('x', z.x); t.setAttribute('y', z.y - (z.empile ? ctl(z).offsetHeight + 16 : 16) / kk); t.setAttribute('font-size', fsT);
+    });
     for (const n of noeuds) {
       if (!n.parent) continue;
       const t = svg.querySelector(`[data-l="${n.id}"]`);
@@ -459,6 +470,25 @@
         if (ok) { f.setAttribute('x', n.x + n.w - 8 / kk); f.setAttribute('y', n.y + n.h - 9 / kk); f.setAttribute('font-size', fs / kk); f.setAttribute('stroke-width', 4 / kk); }
       }
     }
+  }
+  // Les sélecteurs suivent le titre de leur moitié ; ils se cachent s'il sort de l'écran ou passe
+  // sous le panneau.
+  function placerControles() {
+    requestAnimationFrame(() => {
+      const panneau = $('side').getBoundingClientRect(), sc = scene.getBoundingClientRect();
+      [['dep', 'ctl-dep'], ['rec', 'ctl-rec']].forEach(([z, c]) => {
+        const t = svg.querySelector(`[data-z="${z}"]`), el = $(c);
+        if (!t) return;
+        const r = t.getBoundingClientRect(), b = el.getBoundingClientRect();
+        const zz = racines.find(q => q.id === z);
+        let x = r.right + 12, y = r.top + r.height / 2 - b.height / 2;
+        if (zz?.empile) { x = r.left; y = r.bottom + 4; }
+        else if (x + b.width > innerWidth - 8) x = innerWidth - b.width - 8;
+        const sous = innerWidth > 760 ? x < panneau.right + 4 && y < panneau.bottom : y < panneau.bottom + 2;
+        el.hidden = y < sc.top + 2 || y > sc.bottom - 40 || x < 0 || sous;
+        el.style.left = x + 'px'; el.style.top = y + 'px';
+      });
+    });
   }
   const zoomerAutour = (facteur, px, py) => {
     const kk = s0 * vue.k, [ex, ey] = centreEcran();
