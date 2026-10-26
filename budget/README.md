@@ -146,7 +146,7 @@ Les scripts n'utilisent que la bibliothèque standard de Python 3.
 
 ## Années
 
-Un bloc « Année » dans le bandeau (liste et flèches « ‹ » « › ») permet de changer d'année ;
+Un bloc « Année » dans le bandeau (un bouton par année, comme les pages de la section) permet de changer d'année ;
 l'année est dans l'adresse (`?annee=2022`) et suit le visiteur d'une page à l'autre de la section.
 Les années disponibles sont dans [`donnees/annees.json`](donnees/annees.json), écrit par
 `scripts/annees.py` :

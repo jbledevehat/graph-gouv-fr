@@ -51,13 +51,14 @@ const STYLE = `<style>
   .bandeau .b-pages a:hover { background: var(--panel-2); color: var(--ink); text-decoration: none; }
   .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
   .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
-  .bandeau .b-annee { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
-  .bandeau .b-annee label { font-weight: 500; }
-  .bandeau .b-annee select { min-height: 30px; padding: 0 8px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel); color: var(--ink); font: 500 13px "IBM Plex Mono", ui-monospace, Menlo, monospace; cursor: pointer; }
-  .bandeau .b-annee button { width: 30px; height: 30px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel); color: var(--ink); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
-  .bandeau .b-annee button:hover:not(:disabled) { background: var(--panel-2); }
-  .bandeau .b-annee button:disabled { color: var(--control); cursor: not-allowed; }
-  .bandeau .b-annee select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .bandeau .b-annee { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
+  .bandeau .b-annee > span:first-child { font-weight: 500; }
+  .bandeau .b-annee .b-pages > * { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; padding: 0 10px; }
+  .bandeau .b-annee .b-pages [aria-disabled] { color: var(--control); background: var(--panel); cursor: not-allowed; }
+  @media (max-width: 480px) {
+    .bandeau .b-annee > span:first-child { display: none; }
+    .bandeau .b-annee .b-pages > * { padding: 0 6px; font-size: 12px; }
+  }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   /* Panneau de gauche repliable (pages plein écran). */
   .p-replier { position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--muted); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
@@ -86,19 +87,12 @@ const SCRIPT = `<script>
     // la retrouver en revenant sur une autre page.
     const blocAnnee = b.querySelector('.b-annee');
     if (blocAnnee) {
-      const choix = blocAnnee.querySelector('select'), options = [...choix.options];
-      const permises = options.filter(o => !o.disabled).map(o => o.value);
+      const liens = [...blocAnnee.querySelectorAll('[data-annee-choix]')];
+      const toutes = [...blocAnnee.querySelectorAll('.b-pages > *')].map(e => e.textContent);
       const voulue = new URLSearchParams(location.search).get('annee');
-      const affichee = permises.includes(voulue) ? voulue : blocAnnee.dataset.reference;
-      choix.value = affichee;
-      const aller = a => { const u = new URL(location.href); u.searchParams.set('annee', a); u.hash = ''; location.href = u.href; };
-      choix.addEventListener('change', () => aller(choix.value));
-      blocAnnee.querySelectorAll('[data-pas]').forEach(bt => {
-        const i = permises.indexOf(affichee) + +bt.dataset.pas;
-        if (i < 0 || i >= permises.length) bt.disabled = true;
-        else { bt.title = bt.getAttribute('aria-label') + ' : ' + permises[i]; bt.onclick = () => aller(permises[i]); }
-      });
-      const annee = options.some(o => o.value === voulue) ? voulue : null;
+      const active = liens.find(a => a.dataset.anneeChoix === voulue) || liens.find(a => a.dataset.anneeChoix === blocAnnee.dataset.reference);
+      if (active) active.setAttribute('aria-current', 'page');
+      const annee = toutes.includes(voulue) ? voulue : null;
       if (annee) document.addEventListener('DOMContentLoaded', () => {
         const base = new URL(b.querySelector('.b-ariane li.b-sec a').href);
         document.querySelectorAll('a[href]').forEach(a => {
@@ -151,12 +145,11 @@ export function bandeau({ racine = '', section = null, page = null, annees = nul
     const onglets = S.pages.map(([k, nom, href]) => `<a href="${racine}${href}"${k === page ? ' aria-current="page"' : ''}>${esc(nom)}</a>`).join('');
     const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li class="b-sec"><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
       + `<li class="b-sel"><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
-    // Choix de l'année (section budget) : liste déroulante, et flèches vers l'année voisine.
-    const choixAnnee = S.annees && annees ? `<div class="b-annee" data-reference="${annees.reference}">
-      <button type="button" data-pas="-1" aria-label="Année précédente" title="Année précédente">‹</button>
-      <label for="b-annee-choix">Année</label>
-      <select id="b-annee-choix">${annees.toutes.map(a => `<option value="${a}"${annees.page.includes(a) ? '' : ' disabled'}>${a}${annees.page.includes(a) ? '' : ' (non disponible ici)'}</option>`).join('')}</select>
-      <button type="button" data-pas="1" aria-label="Année suivante" title="Année suivante">›</button></div>` : '';
+    // Choix de l'année (section budget) : boutons accolés, comme les pages de la section ; les
+    // années que la page n'a pas sont grisées.
+    const choixAnnee = S.annees && annees ? `<div class="b-annee" data-reference="${annees.reference}"><span>Année</span><span class="b-pages" role="group" aria-label="Année des données">${annees.toutes.map(a => annees.page.includes(a)
+      ? `<a href="?annee=${a}" data-annee-choix="${a}">${a}</a>`
+      : `<span aria-disabled="true" title="Pas de données pour ${a} sur cette page">${a}</span>`).join('')}</span></div>` : '';
     return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav>${choixAnnee}</div></div>`;
   })() : '';
   return `${STYLE}
