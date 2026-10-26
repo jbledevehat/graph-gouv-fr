@@ -138,7 +138,7 @@ export async function writeWeb(webData, rows) {
   const secu = argent.secteurs.find(x => x.code === 'S1314').total;
   const part = code => argent.secteurs.find(x => x.code === code).total;
   await writePage('web/accueil.html', 'out/web/index.html', {
-    base, url: base, siteName: "Piloter l'action publique par les données",
+    base, url: base, siteName: "Piloter l'action publique par la donnée",
     title: "Mieux piloter nos politiques publiques par la donnée",
     description: `Tableaux de bord ouverts et vérifiés : les ${n(sites)} sites web de l'État et l'argent public, ${depenses} de dépenses publiques en 2024, budget de l'État et aides.`,
     jsonld: [siteWeb(base)],
@@ -189,7 +189,7 @@ const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replac
 const SOURCE_DINUM = 'https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public';
 const REPO = 'https://github.com/jbledevehat/graph-gouv-fr';
 const AUTEUR = { '@type': 'Person', name: 'Jean-Baptiste Le Dévéhat', url: 'https://jbledevehat.fr' };
-const NOM_DU_SITE = "Piloter l'action publique par les données";
+const NOM_DU_SITE = "Piloter l'action publique par la donnée";
 
 // Le site lui-même (page d'accueil).
 const siteWeb = base => ({
@@ -279,7 +279,7 @@ function headTags(meta) {
     ...(meta.url ? [`<link rel="canonical" href="${meta.url}">`] : []),
     `<meta property="og:type" content="website">`,
     `<meta property="og:locale" content="fr_FR">`,
-    `<meta property="og:site_name" content="${esc(meta.siteName || "Piloter l'action publique par les données")}">`,
+    `<meta property="og:site_name" content="${esc(meta.siteName || "Piloter l'action publique par la donnée")}">`,
     `<meta property="og:title" content="${esc(meta.title)}">`,
     `<meta property="og:description" content="${esc(meta.description)}">`,
     ...(meta.url ? [`<meta property="og:url" content="${meta.url}">`] : []),

@@ -156,7 +156,7 @@ export function bandeau({ racine = '', section = null, page = null, annees = nul
   return `${STYLE}
 <header class="bandeau">
   <div class="b-wrap">
-    <a class="b-brand" href="${racine || './'}"><span class="b-logo" aria-hidden="true"><i style="background:#4A3AA7"></i><i style="background:#D99A00"></i><i style="background:#1BAF7A"></i><i style="background:#2A78D6"></i></span><span class="b-name"><span class="b-eyebrow">Données publiques</span><strong>Piloter l'action publique par les données</strong></span></a>
+    <a class="b-brand" href="${racine || './'}"><span class="b-logo" aria-hidden="true"><i style="background:#4A3AA7"></i><i style="background:#D99A00"></i><i style="background:#1BAF7A"></i><i style="background:#2A78D6"></i></span><span class="b-name"><span class="b-eyebrow">Données publiques</span><strong>Piloter l'action publique par la donnée</strong></span></a>
     <nav class="b-sections" aria-label="Sections du site">${sections}</nav>
     <div class="b-theme" role="group" aria-label="Thème">
       <span aria-hidden="true">Thème</span>

@@ -1,4 +1,4 @@
-# Piloter l'action publique par les données
+# Piloter l'action publique par la donnée
 
 **[gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr)** : des tableaux de bord ouverts et
 vérifiés pour partager les données publiques et piloter les politiques publiques.
