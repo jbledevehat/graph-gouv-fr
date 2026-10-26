@@ -54,7 +54,8 @@ const STYLE = `<style>
   .bandeau .b-annee { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
   .bandeau .b-annee > span:first-child { font-weight: 500; }
   .bandeau .b-annee .b-pages > * { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; padding: 0 10px; }
-  .bandeau .b-annee .b-pages [aria-disabled] { color: var(--control); background: var(--panel); cursor: not-allowed; }
+  .bandeau .b-annee .b-pages [aria-disabled] { display: inline-flex; align-items: center; min-height: 28px; color: var(--control); background: var(--panel); font-size: 13px; font-weight: 500; cursor: not-allowed; }
+  .bandeau .b-annee .b-pages > * + * { border-left: 1px solid var(--control); }
   @media (max-width: 480px) {
     .bandeau .b-annee > span:first-child { display: none; }
     .bandeau .b-annee .b-pages > * { padding: 0 6px; font-size: 12px; }
