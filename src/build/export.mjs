@@ -90,6 +90,10 @@ export async function writeWeb(webData, rows) {
 
   // --- Section « Budget de l'État » (pages et données de budget/, construites à part) ---
   const argent = JSON.parse(await readFile(path('budget/donnees/argent-public-2024.json'), 'utf8'));
+  // Années disponibles (budget/donnees/annees.json) : choix de l'année dans le bandeau.
+  const A = JSON.parse(await readFile(path('budget/donnees/annees.json'), 'utf8'));
+  const toutes = [...new Set([...A.insee, ...A.etat, ...A.aides])].sort();
+  const annees = page => ({ toutes, page, reference: A.reference });
   const budget = JSON.parse(await readFile(path('budget/donnees/budget-etat-2024.json'), 'utf8'));
   const md = v => `${Math.round(v).toLocaleString('fr-FR').replace(/ /g, ' ')} Md€`;
   const depenses = md(argent.total_depenses);
@@ -99,19 +103,19 @@ export async function writeWeb(webData, rows) {
     base, url: `${base}budget/`,
     title: `Explorer l'argent public en 2024 : ${depenses} de dépenses et ce qui les finance`,
     description: `Les dépenses publiques de 2024 (État, sécurité sociale, collectivités, opérateurs) et leurs recettes sur une même carte, à zoomer : recherche, filtres et explications en langage courant, d'après l'Insee.`,
-    bandeau: { racine: '../', section: 'budget', page: 'exploration' },
+    bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) },
   });
   await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
     base, url: `${base}budget/pilotage.html`,
     title: `Pilotage du budget : ${depenses} de dépenses publiques en 2024, le budget de l'État ministère par ministère`,
     description: `Toutes les dépenses et recettes publiques de 2024 (État, sécurité sociale, collectivités, opérateurs), le budget de l'État par ministère et les aides aux entreprises, d'après l'Insee et la DGFiP. Sources vérifiées, données ouvertes.`,
-    bandeau: { racine: '../', section: 'budget', page: 'pilotage' },
+    bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) },
   });
   await writeBudgetPage('budget/aides.html', 'out/web/budget/aides.html', {
     base, url: `${base}budget/aides.html`,
     title: `Aides publiques aux entreprises : ${aides} et ${n(budget.aides.length)} dispositifs en 2024`,
     description: `Les ${n(budget.aides.length)} aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : socle et périmètre élargi, par instrument et par ministère. Chiffres vérifiés ligne à ligne.`,
-    bandeau: { racine: '../', section: 'budget', page: 'aides', annees: ['2024'] },
+    bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) },
   });
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));

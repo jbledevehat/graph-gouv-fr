@@ -96,6 +96,7 @@
   .figures b { font-size: 17px; }
   .figures span { font-size: 11.5px; color: var(--muted); }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+  .alerte { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid var(--m-coll); background: var(--panel-2); font-size: 12px; line-height: 1.4; }
   .search { padding: 10px 16px; border-bottom: 1px solid var(--line); position: relative; }
   .search input { width: 100%; box-sizing: border-box; min-height: 36px; padding: 6px 10px; border: 1px solid var(--control); border-radius: 8px; background: var(--panel); color: var(--ink); font: 14px var(--sans); }
   #results { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 2px; max-height: 260px; overflow-y: auto; }
@@ -191,6 +192,7 @@
     <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
+    <p class="alerte" id="alerte" hidden></p>
   </div>
   <div class="search">
     <label for="q" class="sr-only">Rechercher une dépense, une recette, une fonction</label>
@@ -255,8 +257,11 @@
   showTheme();
 
   // Année affichée : adresse ?annee=…, choisie dans le bandeau ; 2024 par défaut.
-  const ANNEES = ['2020', '2021', '2022', '2023', '2024'];
-  const annee = ANNEES.includes(new URLSearchParams(location.search).get('annee')) ? new URLSearchParams(location.search).get('annee') : '2024';
+  // Années disponibles et échelle commune des surfaces (donnees/annees.json).
+  let AN;
+  try { AN = await fetch('donnees/annees.json', { cache: 'no-cache' }).then(r => r.json()); } catch (e) { AN = { insee: ['2024'], insee_ecart: [], reference: '2024', echelle: { insee_md: 1671.794 } }; }
+  const voulue = new URLSearchParams(location.search).get('annee');
+  const annee = AN.insee.includes(voulue) ? voulue : AN.reference;
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   if (annee !== '2024') document.title = `Explorer l'argent public en ${annee}`;
   let G, X, E;
@@ -264,6 +269,10 @@
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
+  if (AN.insee_ecart.includes(annee)) {
+    $('alerte').hidden = false;
+    $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné à gauche, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, à droite. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
+  }
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
   $('figures').innerHTML = [[mds(D), 'dépensés'], [mds(R), 'de recettes'], [mds(-S), 'de déficit']].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
 
@@ -334,7 +343,9 @@
           { id: 'r-t-cotis-m', label: 'Cotisations imputées', v: imputees, color: 'na', secteur: 'impots', explication: R.cotisations_imputees } ] },
         blocAutres(), blocDeficit];
     }
-    const rec = { id: 'rec', label: 'Recettes et emprunt', v: D, children: financement };
+    // Total du financement : recettes et déficit, soit les dépenses du tableau 3.201 de l'Insee,
+    // qui peuvent différer de celles par fonction (tableau 3.307) de la partie gauche.
+    const rec = { id: 'rec', label: 'Recettes et emprunt', v: sum(financement, c => c.v), children: financement };
     return [relier(dep), relier(rec)];
   };
 
@@ -394,7 +405,15 @@
     $('ou-dep').textContent = disposition === 'pile' ? 'En haut' : 'À gauche';
     $('ou-rec').textContent = disposition === 'pile' ? 'en bas' : 'à droite';
     [racines] = [arbres()];
-    racines.forEach((r, i) => placer(r, zones[i].x, zones[i].y, zones[i].w, zones[i].h));
+    // Même échelle pour toutes les années : la surface de chaque moitié est proportionnelle à son
+    // total, rapporté au plus grand total de toutes les années (qui remplit sa zone). La moitié
+    // reste collée au milieu du dessin (côte à côte) ou à gauche (empilé), en haut de sa zone.
+    racines.forEach((r, i) => {
+      const z = zones[i], f = Math.sqrt(r.v / AN.echelle.insee_md), w = z.w * f, h = z.h * f;
+      const x = disposition === 'cote' && i === 0 ? z.x + z.w - w : z.x;
+      r.zone = { x, y: z.y, w, h };
+      placer(r, x, z.y, w, h);
+    });
     noeuds = []; parId = new Map();
     // Les blocs de montant nul ne sont pas placés : on les écarte.
     const parcourir = n => { if (n.x === undefined) return; noeuds.push(n); parId.set(n.id, n); (n.children || []).forEach(parcourir); };

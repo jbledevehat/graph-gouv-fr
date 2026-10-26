@@ -399,3 +399,63 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 159 250 octets
 - **SHA-256** : `ea51e5bfa80096a6d999a5c8b958293e0b72d26af8d831fd53cbd9ef1a5d16c1`
+
+## `sources/plrg-2025/Annexe1-Etat_CP-2025.csv`
+
+- **Contenu** : Budget général 2025 : crédits et dépenses constatées par mission, programme et titre.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/annexe1_etat_cp_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 34 516 octets
+- **SHA-256** : `6e9e0ddb861a6eb47857b0a481d3e1a293ba8ce96bb9c880431f9d689ce9d5c8`
+
+## `sources/plrg-2025/Annexe1-Etat_Recettes-2025.csv`
+
+- **Contenu** : Budget général 2025 : recettes recouvrées, ligne d'exécution par ligne d'exécution, montants bruts (remboursements non ventilés par impôt, sans prévisions).
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/annexe1_etat_recettes_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 114 979 octets
+- **SHA-256** : `a5522721ac13758c7ee0bf1b8fcea4f0922ef34673ad5a9af38d5bc94b92ae31`
+
+## `sources/plrg-2025/Annexe1-Etat_Titre_Cat-2025.csv`
+
+- **Contenu** : Budget général 2025 : dépenses par programme, titre et catégorie.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/annexe1_etat_titre_cat_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 88 002 octets
+- **SHA-256** : `f1e4c8dcacd389e67d384e8fd55d2705c9eb533218cd954aa503a06620ca1288`
+
+## `sources/plrg-2025/Annexe2-Etat_CP-2025.csv`
+
+- **Contenu** : Comptes spéciaux 2025 : dépenses par catégorie, mission et programme.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/annexe2_etat_cp_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 9 918 octets
+- **SHA-256** : `d477ba4e77303ee0b18e0f8317154dd930f7cecd0d5abe35a7623fa56797e159`
+
+## `sources/plrg-2025/ListDepFisc-PLRN-2025.csv`
+
+- **Contenu** : Liste des dépenses fiscales 2025 et leur programme de rattachement.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2025 (PLRG 2025)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/attachments/listdepfisc_plrn_2025csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 170 297 octets
+- **SHA-256** : `60b1d3bd207c387bb24abf35aa11c2f4637839fc6ceefd0881603a8da98cdd46`

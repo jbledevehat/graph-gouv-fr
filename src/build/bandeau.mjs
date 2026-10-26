@@ -12,7 +12,7 @@ export const SECTIONS = {
     pages: [['carte', 'Carte', 'sites/'], ['pilotage', 'Pilotage', 'sites/pilotage.html']],
   },
   budget: {
-    nom: "Budget de l'État", chemin: 'budget/', annees: ['2020', '2021', '2022', '2023', '2024'],
+    nom: "Budget de l'État", chemin: 'budget/', annees: true,
     pages: [['exploration', 'Exploration', 'budget/'], ['pilotage', 'Pilotage', 'budget/pilotage.html'], ['aides', 'Aides aux entreprises', 'budget/aides.html']],
   },
 };
@@ -51,14 +51,13 @@ const STYLE = `<style>
   .bandeau .b-pages a:hover { background: var(--panel-2); color: var(--ink); text-decoration: none; }
   .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
   .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
-  .bandeau .b-annee { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
-  .bandeau .b-annee > span:first-child { font-weight: 500; }
-  .bandeau .b-annee .b-seg { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
-  .bandeau .b-annee .b-seg > * { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; color: var(--ink); background: var(--panel); text-decoration: none; font: 500 13px "IBM Plex Mono", ui-monospace, Menlo, monospace; }
-  .bandeau .b-annee .b-seg > * + * { border-left: 1px solid var(--control); }
-  .bandeau .b-annee .b-seg a:hover { background: var(--panel-2); }
-  .bandeau .b-annee .b-seg [aria-current] { background: var(--accent); color: var(--panel); }
-  .bandeau .b-annee .b-seg [aria-disabled] { color: var(--control); cursor: not-allowed; }
+  .bandeau .b-annee { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
+  .bandeau .b-annee label { font-weight: 500; }
+  .bandeau .b-annee select { min-height: 30px; padding: 0 8px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel); color: var(--ink); font: 500 13px "IBM Plex Mono", ui-monospace, Menlo, monospace; cursor: pointer; }
+  .bandeau .b-annee button { width: 30px; height: 30px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel); color: var(--ink); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
+  .bandeau .b-annee button:hover:not(:disabled) { background: var(--panel-2); }
+  .bandeau .b-annee button:disabled { color: var(--control); cursor: not-allowed; }
+  .bandeau .b-annee select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   /* Panneau de gauche repliable (pages plein écran). */
   .p-replier { position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--muted); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
@@ -82,18 +81,25 @@ const SCRIPT = `<script>
     const publier = () => document.documentElement.style.setProperty('--bandeau-h', b.getBoundingClientRect().height + 'px');
     publier();
     if ('ResizeObserver' in window) new ResizeObserver(publier).observe(b);
-    // Année choisie (?annee=…) : marquée dans le bloc « Année » et reportée dans les liens vers
-    // les autres pages de la section, pour comparer d'une page à l'autre la même année.
-    const choix = [...b.querySelectorAll('[data-annee-choix]')];
-    if (choix.length) {
+    // Année choisie (?annee=…) : affichée dans la liste, et reportée dans les liens vers les autres
+    // pages de la section, même si cette page ne l'a pas (la page des aides : 2024 seulement), pour
+    // la retrouver en revenant sur une autre page.
+    const blocAnnee = b.querySelector('.b-annee');
+    if (blocAnnee) {
+      const choix = blocAnnee.querySelector('select'), options = [...choix.options];
+      const permises = options.filter(o => !o.disabled).map(o => o.value);
       const voulue = new URLSearchParams(location.search).get('annee');
-      const active = choix.find(a => a.dataset.anneeChoix === voulue) || choix[choix.length - 1];
-      active.setAttribute('aria-current', 'true');
-      // On reporte l'année demandée, même si cette page ne l'a pas (page des aides : 2024 seulement),
-      // pour la retrouver en revenant sur une autre page de la section.
-      const toutes = [...b.querySelectorAll('.b-annee .b-seg > *')].map(e => e.textContent);
-      const annee = toutes.includes(voulue) ? voulue : active.dataset.anneeChoix;
-      if (voulue) document.addEventListener('DOMContentLoaded', () => {
+      const affichee = permises.includes(voulue) ? voulue : blocAnnee.dataset.reference;
+      choix.value = affichee;
+      const aller = a => { const u = new URL(location.href); u.searchParams.set('annee', a); u.hash = ''; location.href = u.href; };
+      choix.addEventListener('change', () => aller(choix.value));
+      blocAnnee.querySelectorAll('[data-pas]').forEach(bt => {
+        const i = permises.indexOf(affichee) + +bt.dataset.pas;
+        if (i < 0 || i >= permises.length) bt.disabled = true;
+        else { bt.title = bt.getAttribute('aria-label') + ' : ' + permises[i]; bt.onclick = () => aller(permises[i]); }
+      });
+      const annee = options.some(o => o.value === voulue) ? voulue : null;
+      if (annee) document.addEventListener('DOMContentLoaded', () => {
         const base = new URL(b.querySelector('.b-ariane li.b-sec a').href);
         document.querySelectorAll('a[href]').forEach(a => {
           const u = new URL(a.href, location.href);
@@ -135,6 +141,8 @@ const SCRIPT = `<script>
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
+// annees (section budget) : { toutes, page, reference } — toutes les années de la section, celles
+// que la page sait afficher, et celle affichée par défaut.
 export function bandeau({ racine = '', section = null, page = null, annees = null } = {}) {
   const S = section && SECTIONS[section];
   const sections = Object.entries(SECTIONS).map(([k, s]) =>
@@ -143,11 +151,12 @@ export function bandeau({ racine = '', section = null, page = null, annees = nul
     const onglets = S.pages.map(([k, nom, href]) => `<a href="${racine}${href}"${k === page ? ' aria-current="page"' : ''}>${esc(nom)}</a>`).join('');
     const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li class="b-sec"><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
       + `<li class="b-sel"><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
-    // Choix de l'année (section budget) : toutes celles de la section, cliquables si la page les a.
-    const dispo = annees || S.annees || [];
-    const choixAnnee = S.annees ? `<div class="b-annee" role="group" aria-label="Année des données"><span>Année</span><span class="b-seg">${S.annees.map(a => dispo.includes(a)
-      ? `<a href="?annee=${a}" data-annee-choix="${a}">${a}</a>`
-      : `<span aria-disabled="true" title="Cette page n'existe que pour ${esc(dispo.join(', '))}">${a}</span>`).join('')}</span></div>` : '';
+    // Choix de l'année (section budget) : liste déroulante, et flèches vers l'année voisine.
+    const choixAnnee = S.annees && annees ? `<div class="b-annee" data-reference="${annees.reference}">
+      <button type="button" data-pas="-1" aria-label="Année précédente" title="Année précédente">‹</button>
+      <label for="b-annee-choix">Année</label>
+      <select id="b-annee-choix">${annees.toutes.map(a => `<option value="${a}"${annees.page.includes(a) ? '' : ' disabled'}>${a}${annees.page.includes(a) ? '' : ' (non disponible ici)'}</option>`).join('')}</select>
+      <button type="button" data-pas="1" aria-label="Année suivante" title="Année suivante">›</button></div>` : '';
     return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav>${choixAnnee}</div></div>`;
   })() : '';
   return `${STYLE}

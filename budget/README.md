@@ -135,8 +135,9 @@ et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent)
 
 ```sh
 sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à jour sources/SOURCES.md
-for a in 2020 2021 2022 2023 2024; do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
-for a in 2023 2024; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
+for a in $(seq 2009 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
+for a in 2023 2024 2025; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
+python3 scripts/annees.py      # années disponibles et échelle commune -> donnees/annees.json
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
 python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
 ```
@@ -145,23 +146,42 @@ Les scripts n'utilisent que la bibliothèque standard de Python 3.
 
 ## Années
 
-Un bloc « Année » dans le bandeau permet de passer de 2020 à 2024 ; l'année est dans l'adresse
-(`?annee=2022`) et suit le visiteur d'une page à l'autre de la section. Les comptes de l'Insee
-(ensemble des administrations publiques : exploration, parties 1 et 2 du pilotage) existent pour
-chaque année, tirés des mêmes tableaux, vérifiés année par année par `scripts/verifier.py`. Le
-budget de l'État ministère par ministère existe pour 2023 et 2024 ; les aides aux entreprises pour
-2024 seulement (un seul rapport publié). Pour une autre année, le pilotage le dit à leur place, et
-la page des aides n'offre que 2024.
+Un bloc « Année » dans le bandeau (liste et flèches « ‹ » « › ») permet de changer d'année ;
+l'année est dans l'adresse (`?annee=2022`) et suit le visiteur d'une page à l'autre de la section.
+Les années disponibles sont dans [`donnees/annees.json`](donnees/annees.json), écrit par
+`scripts/annees.py` :
 
-Le budget de l'État 2023 vient des fichiers du projet de loi relatif aux résultats de la gestion
-2023 (DGFiP), contrôlés contre son article 1er. Ce projet de loi a été rejeté par le Parlement ;
-ses montants restent ceux de l'exécution arrêtée par le Gouvernement. Trois différences avec 2024 :
-quatorze grands montants du fichier sont arrondis à six chiffres significatifs (notation
-scientifique), d'où des contrôles à 1 M€ près (écart constaté : moins de 0,6 M€) ; les recettes y
-sont brutes, les remboursements d'impôts n'étant pas ventilés par impôt (le financement de l'État
-2023 montre donc les impôts nets en un seul bloc) ; deux programmes supprimés depuis sont
-rattachés au ministère de leur mission (`config/programmes-hors-plf2025.csv`). Les ministères
-sont ceux du PLF 2025 pour les deux années, pour qu'elles se comparent.
+| Source | Années | Pages |
+|---|---|---|
+| Ensemble des administrations publiques (Insee, comptes de la Nation, base 2020) | 2009 à 2024 | exploration ; pilotage, parties 1 et 2 |
+| Budget de l'État ministère par ministère (DGFiP) | 2023 à 2025 | pilotage, partie 3 |
+| Aides aux entreprises (rapport annexé au PLF 2027) | 2024 | pilotage, partie 4 ; page des aides |
+
+**Même échelle pour toutes les années.** Un milliard d'euros a la même surface quelle que soit
+l'année : la surface du dessin est proportionnelle au total, rapporté au plus grand total de
+toutes les années (2024 pour l'Insee, qui remplit la zone). Une année plus petite occupe donc une
+partie de la zone seulement. Dans le pilotage, la vue d'ensemble de chaque composition n'occupe
+que la part du cadre correspondant à son montant (le reste, en pointillés, rappelle ce que vaut le
+cadre entier) ; le zoom, lui, remplit le cadre.
+
+**Insee, 2009 à 2018.** Pour ces années, le total des dépenses par fonction (tableau 3.307, qui
+donne la composition) dépasse de 14 à 20 Md€ le total des dépenses du tableau 3.201 (qui équilibre
+recettes et déficit) ; l'écart, non expliqué par l'Insee, disparaît à partir de 2019. Les deux
+totaux sont gardés et l'écart est signalé sur les pages : les dépenses sont dessinées d'après le
+tableau par fonction, le financement d'après le tableau général.
+
+**État.** 2023 et 2025 viennent des fichiers des projets de loi relatifs aux résultats de la
+gestion, contrôlés contre leur article 1er. Ces deux années, les recettes y sont brutes, les
+remboursements d'impôts n'étant pas ventilés par impôt : le financement de l'État y montre les
+impôts nets en un seul bloc. En 2023, quatorze grands montants du fichier sont arrondis à six
+chiffres significatifs (notation scientifique), d'où des contrôles à 1 M€ près (écart constaté :
+moins de 0,6 M€). Les deux projets de loi ont été rejetés par l'Assemblée nationale (celui de 2025
+adopté avec modifications par le Sénat) ; leurs montants sont ceux de l'exécution arrêtée par le
+Gouvernement. Les ministères sont ceux du PLF 2025 pour toutes les années, pour qu'elles se
+comparent ; trois programmes absents du PLF 2025 sont rattachés au ministère de leur mission
+(`config/programmes-hors-plf2025.csv`). Pour 2025, l'Insee n'a pas encore publié les comptes de
+l'ensemble des administrations : le pilotage ne montre que l'État.
+
 Les estimations (fraude, non-recours) gardent leurs propres années de référence.
 
 ## Interactions

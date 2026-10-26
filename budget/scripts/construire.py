@@ -86,9 +86,10 @@ for v in programmes.values():
 
 # --- Recettes du budget général ---
 # Deux formats : en 2024, un fichier hiérarchisé (lignes, sections, catégories) avec les montants
-# nets de remboursements ; en 2023, les seules lignes d'exécution, brutes. Pour 2023, les
-# remboursements et dégrèvements d'impôts d'État ne sont pas ventilés par impôt : ils forment une
-# section à part, d'un montant égal aux dépenses du programme 200 qui les porte.
+# nets de remboursements ; en 2023 et 2025, les seules lignes d'exécution, brutes (en 2025, sans
+# les prévisions). Ces années-là, les remboursements et dégrèvements d'impôts d'État ne sont pas
+# ventilés par impôt : ils forment une section à part, d'un montant égal aux dépenses du
+# programme 200 qui les porte.
 chemin_recettes = f'{SRC}/Annexe1-Etat_Recettes-{ANNEE}.csv'
 with open(chemin_recettes, encoding='utf-8-sig') as f:
     hierarchise = 'Niveau hiérarchique' in f.readline()
@@ -131,17 +132,20 @@ if hierarchise:
 
 else:
     lignes = [r for r in lire(chemin_recettes) if r['Categorie'].strip()]
+    col = lambda r, *noms: next((r[n] for n in noms if n in r), '')
     par_section = defaultdict(lambda: {'prevision': 0.0, 'brut': 0.0})
     details_ = defaultdict(lambda: {'prevision': 0.0, 'recouvre': 0.0})
     for r in lignes:
-        cle = (r['Categorie'], r['Section'].strip())
-        par_section[cle]['prevision'] += nombre(r['Total_prevision']) / EUR
-        par_section[cle]['brut'] += nombre(r['Total_recouvrement']) / EUR
-        d = details_[cle + (r['Ligne_prevision'].strip(),)]
-        d['prevision'] += nombre(r['Total_prevision']) / EUR
-        d['recouvre'] += nombre(r['Total_recouvrement']) / EUR
+        cle = (r['Categorie'], r['Section'].replace('*', '').strip())
+        prevision, recouvre = nombre(col(r, 'Total_prevision')) / EUR, nombre(col(r, 'Total_recouvrement', 'Total_des_recouvrements')) / EUR
+        par_section[cle]['prevision'] += prevision
+        par_section[cle]['brut'] += recouvre
+        d = details_[cle + (col(r, 'Ligne_prevision', 'Ligne_de_prevision').strip(),)]
+        d['prevision'] += prevision
+        d['recouvre'] += recouvre
+    # La section 18 (autres remboursements), vide dans le fichier 2025, est remplacée ci-dessous.
     sections = [{'categorie': c, 'section': sec, 'prevision': v['prevision'], 'brut': v['brut'], 'net': v['brut']}
-                for (c, sec), v in par_section.items() if sec != '0']
+                for (c, sec), v in par_section.items() if sec != '0' and not sec.startswith('18')]
     remb = programmes['200']['depenses'] / EUR
     sections.append({'categorie': 'Recettes fiscales', 'section': "18 - Remboursements et dégrèvements d'impôts d'État (non ventilés par impôt)",
                      'prevision': 0.0, 'brut': 0.0, 'net': -remb})
@@ -288,7 +292,7 @@ donnees = {
         'sources': [{**{k: s[k] for k in ('fichier', 'jeu_de_donnees', 'producteur', 'url', 'page_du_jeu', 'licence', 'telecharge_le', 'contenu')},
                      'sha256': hashlib.sha256(open(s['fichier'], 'rb').read()).hexdigest()} for s in sources],
         'regles_aides': dict(Counter(a['regle'] for a in aides_out)),
-        'equilibre_officiel_url': {'2023': 'https://www.senat.fr/leg/pjl24-032.html', '2024': 'https://www.senat.fr/leg/pjl24-718.html'}[ANNEE],
+        'equilibre_officiel_url': open(f'config/equilibre-officiel-{ANNEE}.csv', encoding='utf-8').read().split('(', 2)[1].split(')')[0],
         # Chiffres repris tels quels de l'article 1er, faute de fichiers détaillés retenus ici.
         'officiel_non_recalcule': {r['cle']: {'libelle': r['libelle'], 'montant': round(float(r['montant_euros'].replace(',', '.')) / EUR, 3)}
                                    for r in lire(f'config/officiel-non-recalcule-{ANNEE}.csv')},

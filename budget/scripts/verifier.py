@@ -7,8 +7,8 @@
 # Usage : python3 scripts/verifier.py   (depuis la racine du projet) ; code de sortie 1 en cas d'écart.
 import csv
 import json
-ANNEES_INSEE = ['2020', '2021', '2022', '2023', '2024']
-ANNEES_ETAT = ['2023', '2024']
+ANNEES_INSEE = [str(a) for a in range(2009, 2025)]
+ANNEES_ETAT = ['2023', '2024', '2025']
 from collections import defaultdict
 
 erreurs = []
