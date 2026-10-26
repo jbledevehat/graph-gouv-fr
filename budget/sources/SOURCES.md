@@ -339,3 +339,63 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 6 688 952 octets
 - **SHA-256** : `285f1f5c8fe095997511b2d431871f5b2fdb6bf9cc7850afd52b998420ec192e`
+
+## `sources/plrg-2023/Annexe1-Etat_CP-2023.csv`
+
+- **Contenu** : Budget général 2023 : crédits et dépenses constatées par mission, programme et titre (trois montants arrondis en notation scientifique).
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/annexe1_etat_cp_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 35 505 octets
+- **SHA-256** : `3729b37c66bce70b1efe08e5e769969f1bdb3302fed8cf3055f74eea8a8270cb`
+
+## `sources/plrg-2023/Annexe1-Etat_Recettes-2023.csv`
+
+- **Contenu** : Budget général 2023 : recettes prévues et recouvrées, ligne d'exécution par ligne d'exécution, montants bruts (remboursements non ventilés par impôt).
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/annexe1_etat_recettes_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 138 877 octets
+- **SHA-256** : `4a11506f837190c81ab04cd4cf67f3d32f429d7f42d15b41f66163e6e27ca407`
+
+## `sources/plrg-2023/Annexe1-Etat_Titre_Cat-2023.csv`
+
+- **Contenu** : Budget général 2023 : dépenses par programme, titre et catégorie.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/annexe1_etat_titre_cat_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 87 715 octets
+- **SHA-256** : `677661db99765a0bd495f01d10bf4ccb2c51eb5bf771c4694bfdebed573b5e97`
+
+## `sources/plrg-2023/Annexe2-Etat_CP-2023.csv`
+
+- **Contenu** : Comptes spéciaux 2023 : dépenses par mission et programme.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/annexe2_etat_cp_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 9 280 octets
+- **SHA-256** : `f1cb3db7b1c4f91f908f2b67d8027b15e9a6134d0f7da19b920aa0a8233a6199`
+
+## `sources/plrg-2023/ListDepFisc-PLRN-2023.csv`
+
+- **Contenu** : Liste des dépenses fiscales 2023 et leur programme de rattachement.
+- **Jeu de données** : Projet de loi relatif aux résultats de la gestion et portant approbation des comptes de l'année 2023 (PLRG 2023)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/attachments/listdepfisc_plrn_2023_csv>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/projet-de-loi-relatif-aux-resultats-de-la-gestion-et-portant-approbation-des-comptes-de-lannee-plrg-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 159 250 octets
+- **SHA-256** : `ea51e5bfa80096a6d999a5c8b958293e0b72d26af8d831fd53cbd9ef1a5d16c1`

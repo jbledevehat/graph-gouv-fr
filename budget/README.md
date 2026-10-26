@@ -136,7 +136,7 @@ et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent)
 ```sh
 sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à jour sources/SOURCES.md
 for a in 2020 2021 2022 2023 2024; do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
-python3 scripts/construire.py  # budget de l'État et aides -> donnees/budget-etat-2024.json et CSV
+for a in 2023 2024; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
 python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
 ```
@@ -149,8 +149,19 @@ Un bloc « Année » dans le bandeau permet de passer de 2020 à 2024 ; l'année
 (`?annee=2022`) et suit le visiteur d'une page à l'autre de la section. Les comptes de l'Insee
 (ensemble des administrations publiques : exploration, parties 1 et 2 du pilotage) existent pour
 chaque année, tirés des mêmes tableaux, vérifiés année par année par `scripts/verifier.py`. Le
-budget de l'État ministère par ministère et les aides aux entreprises ne sont disponibles que pour
-2024 : pour une autre année, le pilotage le dit à leur place, et la page des aides n'offre que 2024.
+budget de l'État ministère par ministère existe pour 2023 et 2024 ; les aides aux entreprises pour
+2024 seulement (un seul rapport publié). Pour une autre année, le pilotage le dit à leur place, et
+la page des aides n'offre que 2024.
+
+Le budget de l'État 2023 vient des fichiers du projet de loi relatif aux résultats de la gestion
+2023 (DGFiP), contrôlés contre son article 1er. Ce projet de loi a été rejeté par le Parlement ;
+ses montants restent ceux de l'exécution arrêtée par le Gouvernement. Trois différences avec 2024 :
+quatorze grands montants du fichier sont arrondis à six chiffres significatifs (notation
+scientifique), d'où des contrôles à 1 M€ près (écart constaté : moins de 0,6 M€) ; les recettes y
+sont brutes, les remboursements d'impôts n'étant pas ventilés par impôt (le financement de l'État
+2023 montre donc les impôts nets en un seul bloc) ; deux programmes supprimés depuis sont
+rattachés au ministère de leur mission (`config/programmes-hors-plf2025.csv`). Les ministères
+sont ceux du PLF 2025 pour les deux années, pour qu'elles se comparent.
 Les estimations (fraude, non-recours) gardent leurs propres années de référence.
 
 ## Interactions

@@ -1,6 +1,6 @@
 # Vérifie les données construites :
 # 1. chaque total de l'équilibre recalculé à partir des fichiers DGFiP doit égaler, au centime près,
-#    le tableau de l'article 1er du projet de loi d'approbation des comptes 2024 ;
+#    le tableau de l'article 1er du projet de loi d'approbation des comptes de l'année (2023, 2024) ;
 # 2. les sommes par ministère, par nature et par instrument doivent retomber sur les totaux ;
 # 3. aucune aide ne doit rester sans ministère ;
 # 4. les comptes de l'Insee doivent être cohérents (administrations, fonctions, recettes, solde).
@@ -8,9 +8,9 @@
 import csv
 import json
 ANNEES_INSEE = ['2020', '2021', '2022', '2023', '2024']
+ANNEES_ETAT = ['2023', '2024']
 from collections import defaultdict
 
-d = json.load(open('donnees/budget-etat-2024.json', encoding='utf-8'))
 erreurs = []
 
 
@@ -21,32 +21,38 @@ def egal(nom, calcule, attendu, tolerance=0.01):
         erreurs.append(nom)
 
 
-print("1. Équilibre du budget général comparé à l'article 1er (en euros)")
-with open('config/equilibre-officiel-2024.csv', encoding='utf-8') as f:
-    for r in csv.DictReader(f, delimiter=';'):
-        # La page stocke des millions arrondis au millier d'euros : on compare au millier près.
-        egal(r['libelle'], d['equilibre'][r['cle']] * 1e6, float(r['montant_euros'].replace(',', '.')), tolerance=1000)
+for annee in ANNEES_ETAT:
+    d = json.load(open(f'donnees/budget-etat-{annee}.json', encoding='utf-8'))
+    print(f"  {annee}")
+    print("  1. Équilibre du budget général comparé à l'article 1er (en euros)")
+    with open(f'config/equilibre-officiel-{annee}.csv', encoding='utf-8') as f:
+        for r in csv.DictReader(f, delimiter=';'):
+            # La page stocke des millions arrondis au millier d'euros : on compare au millier près ;
+            # en 2023, à 1 M€ près, car quatorze montants du fichier source sont arrondis (voir construire.py).
+            egal(r['libelle'], d['equilibre'][r['cle']] * 1e6, float(r['montant_euros'].replace(',', '.')), tolerance=1e6 if annee == '2023' else 1000)
 
-print('2. Cohérence interne (en millions d’euros)')
-P = d['programmes']
-total = sum(p['depenses'] for p in P)
-egal('somme des programmes = dépenses brutes + fonds de concours', total,
-     d['equilibre']['depenses_brutes_hors_fdc'] + d['equilibre']['fonds_de_concours'], 0.01)
-par_ministere = defaultdict(float)
-for p in P:
-    par_ministere[p['ministere']] += p['depenses']
-egal('somme par ministère = somme des programmes', sum(par_ministere.values()), total, 0.01)
-egal('somme par nature = somme des programmes', sum(sum(p['nature'].values()) for p in P), total, 0.01)
-R = d['recettes']
-egal('sections fiscales nettes = recettes fiscales nettes',
-     sum(s['net'] for s in R['sections'] if s['categorie'] == 'Recettes fiscales'), d['equilibre']['recettes_fiscales_nettes'], 0.01)
-egal('sections non fiscales = recettes non fiscales',
-     sum(s['net'] for s in R['sections'] if s['categorie'] == 'Recettes non fiscales'), d['equilibre']['recettes_non_fiscales'], 0.01)
-A = d['aides']
-egal('aides : somme = 166 081 M€ (somme des lignes du rapport)', sum(a['montant'] or 0 for a in A), 166081, 0.5)
-egal('aides : 469 dispositifs', len(A), 469, 0)
-sans = [a['nom'] for a in A if not a['ministere']]
-egal('aides sans ministère', len(sans), 0, 0)
+    print('  2. Cohérence interne (en millions d’euros)')
+    tol = 2 if annee == '2023' else 0.01  # 2023 : montants sources arrondis, voir plus haut
+    P = d['programmes']
+    total = sum(p['depenses'] for p in P)
+    egal('somme des programmes = dépenses brutes + fonds de concours', total,
+         d['equilibre']['depenses_brutes_hors_fdc'] + d['equilibre']['fonds_de_concours'], tol)
+    par_ministere = defaultdict(float)
+    for p in P:
+        par_ministere[p['ministere']] += p['depenses']
+    egal('somme par ministère = somme des programmes', sum(par_ministere.values()), total, tol)
+    egal('somme par nature = somme des programmes', sum(sum(p['nature'].values()) for p in P), total, tol)
+    R = d['recettes']
+    egal('sections fiscales nettes = recettes fiscales nettes',
+         sum(s['net'] for s in R['sections'] if s['categorie'] == 'Recettes fiscales'), d['equilibre']['recettes_fiscales_nettes'], tol)
+    egal('sections non fiscales = recettes non fiscales',
+         sum(s['net'] for s in R['sections'] if s['categorie'] == 'Recettes non fiscales'), d['equilibre']['recettes_non_fiscales'], tol)
+    if annee == '2024':
+        A = d['aides']
+        egal('aides : somme = 166 081 M€ (somme des lignes du rapport)', sum(a['montant'] or 0 for a in A), 166081, 0.5)
+        egal('aides : 469 dispositifs', len(A), 469, 0)
+        sans = [a['nom'] for a in A if not a['ministere']]
+        egal('aides sans ministère', len(sans), 0, 0)
 
 print("3. Ensemble des administrations publiques (Insee, en milliards d'euros), année par année")
 for annee in ANNEES_INSEE:

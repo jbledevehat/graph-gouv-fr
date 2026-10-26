@@ -1,16 +1,25 @@
 # Construit les données du tableau de bord à partir des fichiers officiels de sources/ :
-# - donnees/budget-etat-2024.json, lu par la page ;
+# - donnees/budget-etat-AAAA.json, lu par la page ;
 # - des CSV réutilisables (dépenses par programme, recettes, rattachement des aides).
 # Aucun chiffre n'est saisi à la main : tout vient des fichiers sources, des tables de
 # rattachement de config/ (documentées) ou d'un calcul expliqué ci-dessous.
-# Usage : python3 scripts/construire.py   (depuis la racine du projet)
+# Usage : python3 scripts/construire.py [année]   (depuis la racine du projet ; 2024 par défaut)
+# Années disponibles : 2023 et 2024 (fichiers de la loi relative aux résultats de la gestion).
+# Les aides aux entreprises n'existent que pour 2024 (un seul rapport publié).
 import csv
+import sys
 import hashlib
 import json
 import re
 from collections import Counter, defaultdict
 
 EUR = 1e6  # Les montants publiés sont en euros ; la page travaille en millions d'euros.
+ANNEE = sys.argv[1] if len(sys.argv) > 1 else '2024'
+SRC = f'sources/plrg-{ANNEE}'
+# Tolérance des contrôles, en euros. Dans les fichiers de 2023, quatorze grands montants sont
+# écrits en notation scientifique arrondie à six chiffres (« 1,37322E+11 ») : chacun peut s'écarter
+# de 500 000 € au plus du montant exact. Les contrôles de 2023 se font donc à 2 M€ près.
+TOLERANCE = 2e6 if ANNEE == '2023' else 1
 
 
 def nombre(s):
@@ -22,8 +31,11 @@ def nombre(s):
 
 
 def lire(chemin, sep=';'):
-    with open(chemin, encoding='utf-8-sig') as f:
-        return list(csv.DictReader(f, delimiter=sep))
+    # newline='' : dans certains fichiers (recettes 2023), un retour chariot isolé coupe un libellé
+    # en deux ; les lignes se terminent par CRLF. On garde les lignes, on recolle les libellés.
+    with open(chemin, encoding='utf-8-sig', newline='') as f:
+        texte = f.read().replace('\r\n', '\n').replace('\r', ' ')
+    return list(csv.DictReader(texte.splitlines(), delimiter=sep))
 
 
 def numero_programme(libelle):
@@ -42,7 +54,7 @@ for p, r in complements.items():
 
 # --- Dépenses du budget général par programme ---
 programmes = {}
-for r in lire('sources/plrg-2024/Annexe1-Etat_CP-2024.csv'):
+for r in lire(f'{SRC}/Annexe1-Etat_CP-{ANNEE}.csv'):
     p = numero_programme(r['Programme'])
     prog = programmes.setdefault(p, {
         'programme': p,
@@ -62,51 +74,87 @@ if sans_ministere:
 
 NATURES = {'1': 'Dotations des pouvoirs publics', '2': 'Personnel', '3': 'Fonctionnement', '4': 'Charge de la dette',
            '5': 'Investissement', '6': 'Interventions', '7': 'Opérations financières'}
-for r in lire('sources/plrg-2024/Annexe1-Etat_Titre_Cat-2024.csv'):
+for r in lire(f'{SRC}/Annexe1-Etat_Titre_Cat-{ANNEE}.csv'):
     p = numero_programme(r['Programme'])
     titre = r['Titre'].replace('Titre', '').strip()
     programmes[p]['nature'][titre] += nombre(r['Depenses'])
     if r['Categorie'].strip() == '62':  # Titre 6, catégorie 62 : transferts aux entreprises
         programmes[p]['transferts_entreprises'] += nombre(r['Depenses'])
 for v in programmes.values():
-    if abs(sum(v['nature'].values()) - v['depenses']) > 1:
+    if abs(sum(v['nature'].values()) - v['depenses']) > TOLERANCE:
         raise SystemExit(f"Programme {v['programme']} : la ventilation par nature ne retombe pas sur le total")
 
 # --- Recettes du budget général ---
-recettes_lignes = lire('sources/plrg-2024/Annexe1-Etat_Recettes-2024.csv', sep=',')
-sections = []
-for r in recettes_lignes:
-    if r['Niveau hiérarchique de la ligne'] != '3':
-        continue
-    libelle = r['Section'].replace(' (total)', '').strip()
-    # Le CSV nomme « 17 (total) (total) » la section 18 « Autres remboursements et dégrèvements
-    # d'impôts d'État » ; la notice PDF officielle (Annexe1-Etat_Recettes.pdf) la nomme correctement.
-    if r['Section'].endswith('(total) (total)'):
-        libelle = "18 - Autres remboursements et dégrèvements d'impôts d'État (non ventilés par impôt)"
-    if r['Catégorie'] == 'Fonds de concours et attributions de produits' and libelle.startswith('Prélèvements'):
-        continue  # ligne de prévision sans exécution, doublon de catégorie dans le fichier
-    sections.append({
-        'categorie': r['Catégorie'], 'section': libelle,
+# Deux formats : en 2024, un fichier hiérarchisé (lignes, sections, catégories) avec les montants
+# nets de remboursements ; en 2023, les seules lignes d'exécution, brutes. Pour 2023, les
+# remboursements et dégrèvements d'impôts d'État ne sont pas ventilés par impôt : ils forment une
+# section à part, d'un montant égal aux dépenses du programme 200 qui les porte.
+chemin_recettes = f'{SRC}/Annexe1-Etat_Recettes-{ANNEE}.csv'
+with open(chemin_recettes, encoding='utf-8-sig') as f:
+    hierarchise = 'Niveau hiérarchique' in f.readline()
+if hierarchise:
+    recettes_lignes = lire(chemin_recettes, sep=',')
+    sections = []
+    for r in recettes_lignes:
+        if r['Niveau hiérarchique de la ligne'] != '3':
+            continue
+        libelle = r['Section'].replace(' (total)', '').strip()
+        # Le CSV nomme « 17 (total) (total) » la section 18 « Autres remboursements et dégrèvements
+        # d'impôts d'État » ; la notice PDF officielle (Annexe1-Etat_Recettes.pdf) la nomme correctement.
+        if r['Section'].endswith('(total) (total)'):
+            libelle = "18 - Autres remboursements et dégrèvements d'impôts d'État (non ventilés par impôt)"
+        if r['Catégorie'] == 'Fonds de concours et attributions de produits' and libelle.startswith('Prélèvements'):
+            continue  # ligne de prévision sans exécution, doublon de catégorie dans le fichier
+        sections.append({
+            'categorie': r['Catégorie'], 'section': libelle,
+            'prevision': nombre(r['Total des prévisions']) / EUR,
+            'brut': nombre(r['Total des recouvrements']) / EUR,
+            'net': nombre(r['Total des recettes**']) / EUR,
+        })
+    # Détail par impôt (montants bruts recouvrés, avant remboursements) et par prélèvement.
+    details = []
+    for r in recettes_lignes:
+        if r['Niveau hiérarchique de la ligne'] != '2':
+            continue
+        details.append({
+            'categorie': r['Catégorie'], 'section': r['Section'].strip(),
+            'ligne': r['Ligne de prévision'].replace(' (total)', '').strip(),
+            'prevision': nombre(r['Total des prévisions']) / EUR,
+            'recouvre': nombre(r['Total des recouvrements']) / EUR,
+        })
+    totaux_recettes = {r['Catégorie'].replace(' (total)', ''): {
         'prevision': nombre(r['Total des prévisions']) / EUR,
         'brut': nombre(r['Total des recouvrements']) / EUR,
         'net': nombre(r['Total des recettes**']) / EUR,
-    })
-# Détail par impôt (montants bruts recouvrés, avant remboursements) et par prélèvement.
-details = []
-for r in recettes_lignes:
-    if r['Niveau hiérarchique de la ligne'] != '2':
-        continue
-    details.append({
-        'categorie': r['Catégorie'], 'section': r['Section'].strip(),
-        'ligne': r['Ligne de prévision'].replace(' (total)', '').strip(),
-        'prevision': nombre(r['Total des prévisions']) / EUR,
-        'recouvre': nombre(r['Total des recouvrements']) / EUR,
-    })
-totaux_recettes = {r['Catégorie'].replace(' (total)', ''): {
-    'prevision': nombre(r['Total des prévisions']) / EUR,
-    'brut': nombre(r['Total des recouvrements']) / EUR,
-    'net': nombre(r['Total des recettes**']) / EUR,
-} for r in recettes_lignes if r['Niveau hiérarchique de la ligne'] == '4'}
+    } for r in recettes_lignes if r['Niveau hiérarchique de la ligne'] == '4'}
+
+
+else:
+    lignes = [r for r in lire(chemin_recettes) if r['Categorie'].strip()]
+    par_section = defaultdict(lambda: {'prevision': 0.0, 'brut': 0.0})
+    details_ = defaultdict(lambda: {'prevision': 0.0, 'recouvre': 0.0})
+    for r in lignes:
+        cle = (r['Categorie'], r['Section'].strip())
+        par_section[cle]['prevision'] += nombre(r['Total_prevision']) / EUR
+        par_section[cle]['brut'] += nombre(r['Total_recouvrement']) / EUR
+        d = details_[cle + (r['Ligne_prevision'].strip(),)]
+        d['prevision'] += nombre(r['Total_prevision']) / EUR
+        d['recouvre'] += nombre(r['Total_recouvrement']) / EUR
+    sections = [{'categorie': c, 'section': sec, 'prevision': v['prevision'], 'brut': v['brut'], 'net': v['brut']}
+                for (c, sec), v in par_section.items() if sec != '0']
+    remb = programmes['200']['depenses'] / EUR
+    sections.append({'categorie': 'Recettes fiscales', 'section': "18 - Remboursements et dégrèvements d'impôts d'État (non ventilés par impôt)",
+                     'prevision': 0.0, 'brut': 0.0, 'net': -remb})
+    details = [{'categorie': c, 'section': sec, 'ligne': l, **v} for (c, sec, l), v in details_.items() if sec != '0']
+    totaux_recettes = {}
+    for s_ in sections:
+        t = totaux_recettes.setdefault(s_['categorie'], {'prevision': 0.0, 'brut': 0.0, 'net': 0.0})
+        for k in t:
+            t[k] += s_[k]
+    # Les fonds de concours prévus sans section dans le fichier (« 0 ») comptent dans la prévision.
+    for (c, sec), v in par_section.items():
+        if sec == '0' and c in totaux_recettes:
+            totaux_recettes[c]['prevision'] += v['prevision']
 
 # --- Équilibre du budget général (même calcul que l'article 1er du projet de loi) ---
 rf = totaux_recettes['Recettes fiscales']
@@ -133,8 +181,14 @@ equilibre['solde_budget_general'] = equilibre['recettes_nettes_hors_fdc'] - equi
 
 # --- Comptes spéciaux ---
 comptes_speciaux = defaultdict(float)
-for r in lire('sources/plrg-2024/Annexe2-Etat_CP-2024.csv'):
-    comptes_speciaux[(r['Categorie'], r['Mission'])] += nombre(r['Depenses_constatees']) / EUR
+# En 2023, le fichier ne dit pas la catégorie : les comptes de concours financiers sont les
+# missions d'avances et de prêts, les autres sont des comptes d'affectation spéciale.
+CONCOURS = re.compile(r'^(Avances|Prêts)')
+for r in lire(f'{SRC}/Annexe2-Etat_CP-{ANNEE}.csv'):
+    if r['Mission'] == 'Mission':
+        continue
+    cat = r.get('Categorie') or ('Comptes de concours financiers' if CONCOURS.match(r['Mission']) else "Comptes d'affectation spéciale")
+    comptes_speciaux[(cat, r['Mission'])] += nombre(r['Depenses_constatees']) / EUR
 equilibre['depenses_cas'] = sum(v for k, v in comptes_speciaux.items() if 'affectation' in k[0])
 equilibre['depenses_ccf'] = sum(v for k, v in comptes_speciaux.items() if 'concours' in k[0])
 
@@ -147,18 +201,22 @@ def montant_df(s):
 
 
 depenses_fiscales = {}
-for r in lire('sources/plrg-2024/ListDepFisc-PLRN-2024.csv'):
+N, N_1 = ANNEE, str(int(ANNEE) - 1)
+for r in lire(f'{SRC}/ListDepFisc-PLRN-{ANNEE}.csv'):
     depenses_fiscales[r['Numero_de_depense_fiscale']] = {
         'numero': r['Numero_de_depense_fiscale'], 'libelle': r['Libelle_de_la_depense_fiscale'],
         'impot': r['Impot'], 'programme': r['Numero_de_programme_principal'],
-        'montant_2023': montant_df(r['Montant_N-1_definitif_(millions)']),
-        'montant_2024': montant_df(r['Montant_N_actualise_(millions)']),
-        'montant_2024_imprime': r['Montant_N_actualise_(millions)'],
+        f'montant_{N_1}': montant_df(r['Montant_N-1_definitif_(millions)']),
+        f'montant_{N}': montant_df(r['Montant_N_actualise_(millions)']),
+        f'montant_{N}_imprime': r['Montant_N_actualise_(millions)'],
     }
 
 # --- Aides aux entreprises : rattachement à un ministère ---
-src = json.load(open('sources/aides-entreprises/aides-entreprises-2024.json', encoding='utf-8'))
-aides = [dict(zip(src['fields'], r)) for r in src['aides']]
+if ANNEE == '2024':
+    src = json.load(open('sources/aides-entreprises/aides-entreprises-2024.json', encoding='utf-8'))
+    aides = [dict(zip(src['fields'], r)) for r in src['aides']]
+else:
+    aides = []  # Le rapport sur les aides aux entreprises ne porte que sur 2024.
 regles = lire('config/aides-operateurs.csv')
 PIA = re.compile(r'\bPIA|FRANCE 2030|FR2030|F2030', re.I)
 PLAN_DE_RELANCE = {'362', '363', '364'}
@@ -225,16 +283,18 @@ for a in aides_out:
 sources = lire('config/sources.csv')
 donnees = {
     'meta': {
-        'exercice': 2024,
+        'exercice': int(ANNEE),
         'unite': "millions d'euros",
         'sources': [{**{k: s[k] for k in ('fichier', 'jeu_de_donnees', 'producteur', 'url', 'page_du_jeu', 'licence', 'telecharge_le', 'contenu')},
                      'sha256': hashlib.sha256(open(s['fichier'], 'rb').read()).hexdigest()} for s in sources],
         'regles_aides': dict(Counter(a['regle'] for a in aides_out)),
-        'equilibre_officiel_url': 'https://www.senat.fr/leg/pjl24-718.html',
+        'equilibre_officiel_url': {'2023': 'https://www.senat.fr/leg/pjl24-032.html', '2024': 'https://www.senat.fr/leg/pjl24-718.html'}[ANNEE],
         # Chiffres repris tels quels de l'article 1er, faute de fichiers détaillés retenus ici.
         'officiel_non_recalcule': {r['cle']: {'libelle': r['libelle'], 'montant': round(float(r['montant_euros'].replace(',', '.')) / EUR, 3)}
-                                   for r in lire('config/officiel-non-recalcule.csv')},
+                                   for r in lire(f'config/officiel-non-recalcule-{ANNEE}.csv')},
         'natures': NATURES,
+        # Faux en 2023 : les remboursements d'impôts ne sont pas ventilés par impôt dans le fichier.
+        'recettes_nettes_par_impot': hierarchise,
     },
     'equilibre': {k: arrondi(v) for k, v in equilibre.items()},
     'programmes': [{
@@ -250,12 +310,12 @@ donnees = {
                  'details': [{**d, 'prevision': arrondi(d['prevision']), 'recouvre': arrondi(d['recouvre'])} for d in details]},
     'comptes_speciaux': [{'categorie': k[0], 'mission': k[1], 'depenses': arrondi(v)} for k, v in sorted(comptes_speciaux.items(), key=lambda x: -x[1])],
     'depenses_fiscales': [{**d, 'aide': bool(aides_par_df.get(n)), 'perimetre_aide': (aides_par_df[n][0]['perimetre'] if aides_par_df.get(n) else None)}
-                          for n, d in sorted(depenses_fiscales.items(), key=lambda x: -(x[1]['montant_2024'] or 0))],
+                          for n, d in sorted(depenses_fiscales.items(), key=lambda x: -(x[1][f'montant_{N}'] or 0))],
     'aides': aides_out,
 }
-with open('donnees/budget-etat-2024.json', 'w', encoding='utf-8') as f:
+with open(f'donnees/budget-etat-{ANNEE}.json', 'w', encoding='utf-8') as f:
     json.dump(donnees, f, ensure_ascii=False, separators=(',', ':'))
-print('  -> donnees/budget-etat-2024.json')
+print(f'  -> donnees/budget-etat-{ANNEE}.json')
 
 
 # --- CSV réutilisables ---
@@ -268,15 +328,16 @@ def ecrire_csv(chemin, colonnes, lignes):
     print(f'  -> {chemin}')
 
 
-ecrire_csv('donnees/depenses-2024-par-programme.csv',
-           ['ministere', 'mission', 'programme', 'libelle', 'credits_lfi_meur', 'credits_ouverts_meur', 'depenses_2024_meur',
+ecrire_csv(f'donnees/depenses-{ANNEE}-par-programme.csv',
+           ['ministere', 'mission', 'programme', 'libelle', 'credits_lfi_meur', 'credits_ouverts_meur', f'depenses_{ANNEE}_meur',
             'personnel_meur', 'fonctionnement_meur', 'interventions_meur', 'investissement_meur', 'transferts_aux_entreprises_meur', 'source_du_ministere'],
            [[p['ministere'], p['mission'], p['programme'], p['libelle'], p['lfi'], p['ouverts'], p['depenses'],
              p['nature'].get('2', 0.0), p['nature'].get('3', 0.0), p['nature'].get('6', 0.0), p['nature'].get('5', 0.0),
              p['transferts_entreprises'], p['source_ministere']] for p in donnees['programmes']])
-ecrire_csv('donnees/recettes-2024.csv', ['categorie', 'section', 'prevision_meur', 'recouvre_brut_meur', 'net_meur'],
+ecrire_csv(f'donnees/recettes-{ANNEE}.csv', ['categorie', 'section', 'prevision_meur', 'recouvre_brut_meur', 'net_meur'],
            [[s['categorie'], s['section'], s['prevision'], s['brut'], s['net']] for s in donnees['recettes']['sections']])
-ecrire_csv('donnees/aides-2024-rattachement-ministere.csv',
+if aides_out:
+  ecrire_csv('donnees/aides-2024-rattachement-ministere.csv',
            ['instrument', 'perimetre', 'numero', 'nom', 'montant_meur', 'montant_imprime', 'page_du_rapport', 'ministere', 'programme', 'regle', 'justification'],
            [[a['instrument'], 'socle' if a['perimetre'] == 'P1' else 'élargi', a['numero'], a['nom'], a['montant'], a['montant_imprime'], a['page'],
              a['ministere'], a['programme'], a['regle'], a['justification']] for a in aides_out])

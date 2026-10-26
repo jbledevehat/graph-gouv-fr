@@ -356,17 +356,19 @@
   showTheme();
 
   // Année affichée (adresse ?annee=…, choisie dans le bandeau). L'ensemble des administrations
-  // publiques (Insee) existe pour chaque année ; le budget de l'État par ministère et les aides
-  // aux entreprises, pour 2024 seulement.
+  // publiques (Insee) existe pour chaque année ; les aides aux
+  // entreprises n'existent que pour 2024, le budget de l'État ministère par ministère pour 2023 et 2024.
   const ANNEES = ['2020', '2021', '2022', '2023', '2024'];
   const annee = ANNEES.includes(new URLSearchParams(location.search).get('annee')) ? new URLSearchParams(location.search).get('annee') : '2024';
-  const complet = annee === '2024';
+  const complet = annee === '2024', etatDispo = ['2023', '2024'].includes(annee);
   if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
   document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
-  let G, B, X;
+  // B : budget de l'État 2024 (aides, sources, méthode) ; BE : celui de l'année affichée, s'il existe.
+  let G, B, X, BE;
   try {
     [G, B, X] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
+    BE = complet ? B : etatDispo ? await fetch(`donnees/budget-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.json()) : null;
   } catch (e) { $('facts').textContent = 'Impossible de charger les données : ' + e.message; return; }
 
   // --- Infobulle ---
@@ -475,9 +477,8 @@
     [nf(R, 1) + ' Md€', `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
     [nf(-S, 1) + ' Md€', "de déficit public, financé par l'emprunt"],
     [nf(G.secteurs.find(s => s.code === 'S1314').total, 1) + ' Md€', 'dépensés par la sécurité sociale, premier poste', 'secu'],
-    ...(complet ? [
-      [nf(B.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"],
-      [nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"]] : []),
+    ...(etatDispo ? [[nf(BE.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"]] : []),
+    ...(complet ? [[nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"]] : []),
   ].map(([b, s, c]) => `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${b}</b><span>${s}</span></div>`).join('');
 
   // ================= Explorateur : zoom dans les compositions et barre des totaux =================
@@ -609,14 +610,18 @@
     .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
 
   // ================= 3. Budget de l'État =================
-  // Parties 3 et 4 : 2024 seulement. Pour une autre année, elles sont remplacées par un message.
+  // Partie 3 : 2023 et 2024 ; partie 4 : 2024 seulement. Sinon, un message les remplace.
   if (!complet) {
-    ['s-etat', 's-aides'].forEach(id => { $(id).hidden = true; });
-    $('s-etat').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Pour ${annee}, cette page montre l'ensemble des administrations publiques</b> (comptes de la Nation de l'Insee, parties 1 et 2). Le budget de l'État ministère par ministère et les aides aux entreprises ne sont disponibles ici que pour 2024 : <a href="?annee=2024">voir 2024</a>.</p></section>`);
+    $('s-aides').hidden = true;
+    if (!etatDispo) $('s-etat').hidden = true;
+    const ou = etatDispo ? 's-aides' : 's-etat';
+    $(ou).insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p>${etatDispo
+      ? `<b>Les aides aux entreprises ne sont disponibles que pour 2024</b> : le rapport qui les recense ne porte que sur cette année. <a href="?annee=2024">Voir 2024</a>.`
+      : `<b>Pour ${annee}, cette page montre l'ensemble des administrations publiques</b> (comptes de la Nation de l'Insee, parties 1 et 2). Le budget de l'État ministère par ministère n'est disponible ici que pour 2023 et 2024, les aides aux entreprises que pour 2024 : <a href="?annee=2024">voir 2024</a>.`}</p></section>`);
   }
-  if (complet) {
-  const E = B.equilibre;
-  const P = B.programmes.filter(p => p.programme !== '200');
+  if (etatDispo) {
+  const E = BE.equilibre;
+  const P = BE.programmes.filter(p => p.programme !== '200');
   const etatCN = G.secteurs.find(s => s.code === 'S13111').total;
   $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 1. Cliquez pour zoomer : ministère, puis mission, puis programme.";
   $('bridge').innerHTML = [
@@ -635,7 +640,7 @@
   }
   const shortMin = m => m.replace(/, souveraineté alimentaire et forêt|, énergie, climat et prévention des risques|, autonomie et égalité entre les femmes et les hommes|, simplification et transformation de l'action publique| avec les collectivités territoriales et décentralisation/, '');
   const totalEtat = sum(P, p => p.depenses) / 1000;
-  const natures = ps => Object.entries(B.meta.natures).map(([k, l]) => [l, sum(ps, p => p.nature[k] || 0) / 1000]).filter(x => x[1] > 0.0005).sort((a, b) => b[1] - a[1]).map(([l, v]) => `${esc(l.toLowerCase())} ${mds(v)}`).join(' · ');
+  const natures = ps => Object.entries(BE.meta.natures).map(([k, l]) => [l, sum(ps, p => p.nature[k] || 0) / 1000]).filter(x => x[1] > 0.0005).sort((a, b) => b[1] - a[1]).map(([l, v]) => `${esc(l.toLowerCase())} ${mds(v)}`).join(' · ');
   const progLib = p => p.libelle.replace(/\s*\(crédits évaluatifs\)/, '');
   const xEtat = explorer('etat', () => ({ id: 'etat', label: "Budget général de l'État", v: totalEtat, children: [...ministres].map(([min, missions]) => {
     const ps = [...missions.values()].flat();
@@ -651,20 +656,24 @@
           tip: tipDe(`${progLib(p)} (programme ${p.programme})`, p.depenses / 1000, ` · votés ${esc(mds(p.lfi / 1000))}`) })) })) };
   }) }), { onNode: n => {
     const ps = n.progs || P;
-    const aides = B.aides.filter(a => ps.some(p => p.programme === a.programme) && a.annexe !== 4);
+    const aides = BE.aides.filter(a => ps.some(p => p.programme === a.programme) && a.annexe !== 4);
     panneau('p-etat', n, totalEtat, { base: "du budget général de l'État", extra: ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}. Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''} Nature des dépenses : ${natures(ps)}.` });
   } });
   xEtat.zoom(xEtat.root());
   // Financement du budget de l'État.
-  const fisc = B.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
+  const fisc = BE.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
   const grands = fisc.filter(s => /^1[1356] /.test(s.section));
-  const finEtat = [
+  // En 2023, le fichier ne ventile pas les remboursements par impôt : un seul bloc d'impôts nets.
+  const finEtat = BE.meta.recettes_nettes_par_impot ? [
     ...grands.map(s => ({ l: s.section.replace(/^\d+ - /, ''), v: s.net / 1000, c: 'etat' })),
     { l: 'Autres impôts, nets des autres remboursements', v: sum(fisc.filter(s => !grands.includes(s)), s => s.net) / 1000, c: 'etat' },
     { l: 'Recettes non fiscales (dividendes, amendes…)', v: E.recettes_non_fiscales / 1000, c: 'etat' },
+  ] : [
+    { l: "Impôts, nets des remboursements (non ventilés par impôt pour cette année)", v: E.recettes_fiscales_nettes / 1000, c: 'etat' },
+    { l: 'Recettes non fiscales (dividendes, amendes…)', v: E.recettes_non_fiscales / 1000, c: 'etat' },
   ];
   const psr = E.prelevements_sur_recettes / 1000;
-  const psrC = -B.recettes.sections.find(s => s.section.startsWith('31')).net / 1000, psrUE = -B.recettes.sections.find(s => s.section.startsWith('32')).net / 1000;
+  const psrC = -BE.recettes.sections.find(s => s.section.startsWith('31')).net / 1000, psrUE = -BE.recettes.sections.find(s => s.section.startsWith('32')).net / 1000;
   $('etat-fin-sub').textContent = `Recettes fiscales et non fiscales de l'État après remboursements d'impôts, en milliards d'euros. En bleu, ce que l'État garde ; en jaune (la couleur des collectivités), ce qu'il leur reverse d'office (${nf(psrC, 1)} Md€) ; en gris neutre, sa contribution au budget européen (${nf(psrUE, 1)} Md€) ; en hachuré, le déficit.`;
   explorer('etat-rec', () => ({ id: 'fin', label: "Financement du budget de l'État", v: sum(finEtat, f => f.v) + psr - E.solde_budget_general / 1000, children: [
     { id: 'garde', label: "Gardé par l'État", v: sum(finEtat, f => f.v), color: 'etat', tip: tipDe("Recettes gardées par l'État", sum(finEtat, f => f.v)), children: finEtat.map(f => ({ id: f.l, label: f.l, v: f.v, color: f.c, tip: tipDe(f.l, f.v) })) },
@@ -673,9 +682,11 @@
       { id: 'psru', label: "Reversé à l'Union européenne", v: psrUE, color: 'na', tip: tipDe("Prélèvement sur recettes au profit de l'Union européenne", psrUE, ' · contribution de la France au budget européen') }] },
     { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
   ] }));
-  table('tb-etat', ['Ministère', 'Dépenses 2024', 'Votés (LFI)', 'Personnel', 'Transferts aux entreprises'], [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return [esc(m), sum(ps, p => p.depenses) / 1000, sum(ps, p => p.lfi) / 1000, sum(ps, p => p.nature['2'] || 0) / 1000, sum(ps, p => p.transferts_entreprises) / 1000]; })
+  table('tb-etat', ['Ministère', `Dépenses ${annee}`, 'Votés (LFI)', 'Personnel', 'Transferts aux entreprises'], [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return [esc(m), sum(ps, p => p.depenses) / 1000, sum(ps, p => p.lfi) / 1000, sum(ps, p => p.nature['2'] || 0) / 1000, sum(ps, p => p.transferts_entreprises) / 1000]; })
     .sort((a, b) => b[1] - a[1]).map(r => [r[0], ...r.slice(1).map(v => mds(v))]));
 
+  }
+  if (complet) {
   // ================= 4. Aides aux entreprises =================
   // Code de couleur des aides (comme sur aides.html) : instrument en couleur, périmètre élargi hachuré.
   const A = B.aides;
