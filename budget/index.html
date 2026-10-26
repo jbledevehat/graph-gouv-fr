@@ -333,7 +333,8 @@
       if (!n.parent) continue;
       const enc = encreDe(n);
       h += `<text data-l="${n.id}" class="${enc ? '' : 'halo'}"${enc ? ` style="fill:${enc}"` : ''} display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
-      if (n.depth === 1 && n.children?.length) h += `<text data-f="${n.id}" class="fil${enc ? '' : ' halo'}" text-anchor="end"${enc ? ` style="fill:${enc}"` : ''} display="none">${esc(n.label)}</text>`;
+      // Nom du grand bloc (administration ou fonction) : toujours en texte détouré, lisible sur toutes les couleurs.
+      if (n.depth === 1 && n.children?.length) h += `<text data-f="${n.id}" class="fil halo" text-anchor="end" display="none">${esc(n.label)}</text>`;
     }
     svg.innerHTML = h + '</g>';
     appliquerFiltres();
@@ -391,10 +392,10 @@
       }
       if (n.depth === 1 && n.children?.length) {
         const f = svg.querySelector(`[data-f="${n.id}"]`);
-        const fs = 13;
-        const ok = visible(n) && n.w * kk > n.label.length * 8 + 40 && n.h * kk > 120;
+        const fs = 15;
+        const ok = visible(n) && n.w * kk > n.label.length * 8 + 20 && n.h * kk > 60;
         f.setAttribute('display', ok ? 'inline' : 'none');
-        if (ok) { f.setAttribute('x', n.x + n.w - 8 / kk); f.setAttribute('y', n.y + n.h - 9 / kk); f.setAttribute('font-size', fs / kk); if (f.classList.contains('halo')) f.setAttribute('stroke-width', 3 / kk); }
+        if (ok) { f.setAttribute('x', n.x + n.w - 8 / kk); f.setAttribute('y', n.y + n.h - 9 / kk); f.setAttribute('font-size', fs / kk); f.setAttribute('stroke-width', 4 / kk); }
       }
     }
   }
