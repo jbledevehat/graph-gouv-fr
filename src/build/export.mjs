@@ -127,7 +127,7 @@ export async function writeWeb(webData, rows) {
   const part = code => argent.secteurs.find(x => x.code === code).total;
   await writePage('web/accueil.html', 'out/web/index.html', {
     base, url: base, siteName: "Piloter l'action publique par les données",
-    title: "Partager les données publiques pour piloter nos politiques publiques",
+    title: "Mieux piloter nos politiques publiques par la donnée",
     description: `Deux tableaux de bord ouverts et vérifiés : les sites web de l'État (${counts}) et l'argent public (${depenses} de dépenses publiques en 2024, budget de l'État, aides aux entreprises).`,
     vars: {
       sites: n(sites), admins: n(admins), demarches: n(demarches), depenses, budget: budgetEtat, aides,
