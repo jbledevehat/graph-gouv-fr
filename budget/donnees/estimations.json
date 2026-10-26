@@ -1,5 +1,5 @@
 {
- "_note": "Estimations publiées par des organismes publics ou des centres d'études, rassemblées à la main pour ce tableau de bord. Ce ne sont pas des comptes : chaque montant est une estimation, avec son année de référence, qui n'est pas toujours 2024. Quand l'organisme donne une fourchette, « bas » et « haut » en sont les bornes ; sinon les deux sont égaux. Les sommes ne s'additionnent pas toutes exactement (périmètres et années différents) : le total n'est qu'un ordre de grandeur. Documents d'origine dans sources/estimations/ quand ils sont téléchargeables.",
+ "_note": "Estimations publiées par des organismes publics ou des centres d'études, rassemblées à la main pour ce tableau de bord. Ce ne sont pas des comptes : chaque montant est une estimation, avec son année de référence, qui n'est pas toujours 2024. Quand l'organisme donne une fourchette, « bas » et « haut » en sont les bornes ; sinon les deux sont égaux. Les sommes ne s'additionnent pas toutes exactement (périmètres et années différents) : le total n'est qu'un ordre de grandeur. Documents d'origine dans sources/estimations/ quand ils sont téléchargeables. Une estimation peut avoir d'autres années (« serie ») : la page montre celle de l'année affichée, sinon la plus proche, atténuée et datée.",
  "non_percu_recettes": {
   "titre": "Recettes perdues",
   "sous_titre": "Fraude et évitement fiscal · estimations",
@@ -113,7 +113,17 @@
     "certitude": "Estimation de la statistique publique (DREES), à partir des revenus déclarés mois par mois.",
     "source": "DREES, Études et Résultats n° 1370, « Non-recours au RSA : plus d'un tiers des foyers éligibles ne le percevaient pas fin 2021 », mai 2026",
     "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2026-05/ER1370_Non-recours_RSA.pdf",
-    "fichier": "sources/estimations/drees-er1370-non-recours-rsa.pdf"
+    "fichier": "sources/estimations/drees-er1370-non-recours-rsa.pdf",
+    "serie": [
+     {
+      "annee": "2018",
+      "bas": 3.0,
+      "haut": 3.0,
+      "calcul": "Environ 750 millions d'euros par trimestre en 2018, soit 3 Md€ sur l'année ; taux de non-recours estimé à 34 % par trimestre, avec une méthode antérieure à celle de 2021 (revenus annuels reconstitués mois par mois).",
+      "source": "DREES, Les Dossiers de la DREES n° 92, « Mesurer régulièrement le non-recours au RSA et à la prime d'activité », février 2022 (cité par le rapport du Sénat n° 836, 2023)",
+      "url": "https://www.senat.fr/rap/r22-836/r22-8365.html"
+     }
+    ]
    },
    {
     "id": "minimum-vieillesse",

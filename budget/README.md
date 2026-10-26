@@ -182,7 +182,9 @@ comparent ; trois programmes absents du PLF 2025 sont rattachés au ministère d
 (`config/programmes-hors-plf2025.csv`). Pour 2025, l'Insee n'a pas encore publié les comptes de
 l'ensemble des administrations : le pilotage ne montre que l'État.
 
-Les estimations (fraude, non-recours) gardent leurs propres années de référence.
+Les estimations (fraude, non-recours) n'existent pas chaque année : ce sont des études ponctuelles.
+Pour l'année affichée, la page montre l'estimation de cette année si elle existe (le RSA en a deux,
+2018 et 2021), sinon celle de l'année la plus proche, atténuée et datée ; sa fiche le dit.
 
 ## Interactions
 
