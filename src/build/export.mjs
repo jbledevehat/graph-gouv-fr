@@ -135,6 +135,10 @@ export async function writeWeb(webData, rows) {
 
   // --- Référencement : image d'aperçu, robots.txt et plan du site ---
   await writeOut('out/web/apercu.jpg', await readFile(path('web/apercu.jpg')));
+  // Favicon : le logo du bandeau (quatre pavés de couleur).
+  for (const f of ['favicon.svg', 'favicon.png', 'favicon.ico', 'apple-touch-icon.png']) {
+    await writeOut(`out/web/${f}`, await readFile(path(`web/${f}`)));
+  }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
     const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
@@ -189,8 +193,12 @@ function datasetJsonLd({ dataUrl: base, title, description }) {
 // Balises de référencement et d'aperçu (réseaux sociaux) d'une page.
 function headTags(meta) {
   const image = `${meta.base}apercu.jpg`;
+  const racine = meta.base || '/';
   return [
     `<title>${esc(meta.title)}</title>`,
+    `<link rel="icon" href="${racine}favicon.ico" sizes="48x48">`,
+    `<link rel="icon" href="${racine}favicon.svg" type="image/svg+xml">`,
+    `<link rel="apple-touch-icon" href="${racine}apple-touch-icon.png">`,
     `<meta name="description" content="${esc(meta.description)}">`,
     `<meta name="author" content="Jean-Baptiste Le Dévéhat">`,
     ...(meta.url ? [`<link rel="canonical" href="${meta.url}">`] : []),
