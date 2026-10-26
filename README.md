@@ -1,7 +1,29 @@
+# Piloter l'action publique par les données
+
+**[gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr)** : des tableaux de bord ouverts et
+vérifiés pour partager les données publiques et piloter les politiques publiques.
+
+| Adresse | Contenu | Source |
+|---|---|---|
+| [`/`](https://gouvfr.jbledevehat.fr/) | Page d'accueil | `web/accueil.html` |
+| [`/sites/`](https://gouvfr.jbledevehat.fr/sites/) | Carte des sites web de l'État | `web/carte.html` |
+| [`/sites/pilotage.html`](https://gouvfr.jbledevehat.fr/sites/pilotage.html) | Pilotage des sites web | `web/pilotage.html` |
+| [`/budget/`](https://gouvfr.jbledevehat.fr/budget/) | L'argent public et le budget de l'État en 2024 | `budget/index.html` |
+| [`/budget/aides.html`](https://gouvfr.jbledevehat.fr/budget/aides.html) | Les aides aux entreprises | `budget/aides.html` |
+
+Chaque page porte un fil d'Ariane vers l'accueil et sa section. Les anciennes adresses restent
+valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la racine, et
+`pilotage.html` renvoie vers `sites/pilotage.html`.
+
+Le budget et les aides ont leurs propres données, scripts et sources, décrits dans
+[`budget/README.md`](budget/README.md) ; la construction du site se contente de copier leurs
+pages et leurs données dans `out/web/budget/`. La suite de ce document porte sur la carte des
+sites web.
+
 # Carte des sites web publics de l'État
 
-**[gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr)** : les sites de l'État, rangés par
-ministère selon l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr).
+Les sites de l'État, rangés par ministère selon
+l'[Annuaire de l'administration](https://lannuaire.service-public.gouv.fr).
 
 Ce dépôt met à jour la carte réalisée en 2019 sous Kumu
 ([V1](https://kumu.io/jbledevehat/sites-web-gouvfr#liste-des-sites-web-en-gouvfr-v1)) : il vérifie
@@ -38,7 +60,7 @@ La liste des sites (sites, sous-domaines et sites archivés), mise à jour avec 
 | `anciennes_adresses` | Adresses fusionnées avec ce site (elles y redirigent) |
 | `source` | Origine : carte V1 (2019), Annuaire de l'administration, DINUM, crt.sh, Observatoire |
 
-La carte existe aussi en **PDF vectoriel** ([carte.pdf](https://gouvfr.jbledevehat.fr/carte.pdf),
+La carte existe aussi en **PDF vectoriel** ([carte.pdf](https://gouvfr.jbledevehat.fr/sites/carte.pdf),
 bouton de téléchargement sur la carte) : même placement, tous les noms affichés, y compris ceux
 des sous-domaines (lisibles en zoomant), texte cherchable.
 
@@ -206,7 +228,7 @@ centre, et du Premier ministre.
 
 ## Le tableau de bord de pilotage
 
-Page `pilotage.html` (source `web/pilotage.html`, données `out/web/pilotage.json`), même design
+Page `sites/pilotage.html` (source `web/pilotage.html`, données `out/web/sites/pilotage.json`), même design
 que la carte : chiffres clés, constats à traiter (démarches non accessibles, certificats en
 erreur, sites sans HTTPS, sites de l'administration centrale hors .gouv.fr…), réponses des
 serveurs par code HTTP, tableau par ministère dépliable par administration, indicateurs des

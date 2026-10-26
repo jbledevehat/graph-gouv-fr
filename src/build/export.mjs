@@ -1,5 +1,5 @@
 // Liste des sites (CSV et JSON), graphe GEXF et page web.
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { config, jsonLines, path, today, writeOut } from '../context.mjs';
 import { toCsv } from '../lib/csv.mjs';
 import { hostOf, siteKey } from '../lib/url.mjs';
@@ -52,43 +52,105 @@ export async function writeSiteLists(rows, dir) {
   await writeOut(`${dir}/sites.json`, jsonLines(rows));
 }
 
-// Pages web (carte et pilotage), données, domaine personnalisé de GitHub Pages.
+// Le site gouvfr.jbledevehat.fr : une page d'accueil, puis deux sections.
+//   /                      accueil : partager les données pour piloter les politiques publiques
+//   /sites/                carte des sites web de l'État, et /sites/pilotage.html
+//   /budget/               argent public et budget de l'État, et /budget/aides.html
+// Les anciennes adresses (sites.csv, sites.json, carte.pdf, pilotage.html) restent valides.
 export async function writeWeb(webData, rows) {
-  await writeOut('out/web/graph.json', JSON.stringify(webData));
-  await writeSiteLists(rows, 'out/web');
+  await writeOut('out/web/sites/graph.json', JSON.stringify(webData));
+  await writeSiteLists(rows, 'out/web/sites');
+  await writeSiteLists(rows, 'out/web'); // anciennes adresses
   const domain = config.site?.domain;
   if (domain) await writeOut('out/web/CNAME', domain + '\n');
   const base = domain ? `https://${domain}/` : '';
   const sites = rows.filter(r => r.type !== 'archivé').length;
   const admins = webData.nodes.filter(n => ['ministere', 'administration'].includes(n[4])).length;
-  const n = x => x.toLocaleString('fr-FR').replace(/ /g, ' ');
+  const demarches = new Set(rows.flatMap(r => r.demarches_essentielles)).size;
+  const n = x => x.toLocaleString('fr-FR').replace(/ /g, ' ');
   const counts = `${n(sites)} sites et sous-domaines, ${n(admins)} administrations`;
-  await writePage('web/carte.html', 'out/web/index.html', {
-    base, url: base,
+
+  // --- Section « Sites web de l'État » ---
+  await writePage('web/carte.html', 'out/web/sites/index.html', {
+    base, url: `${base}sites/`,
     title: `Carte des sites web de l'État : ${counts}`,
     description: `Tous les sites web de l'État et de ses opérateurs (${counts}), rattachés à leur ministère. Liste complète en CSV et JSON, carte en PDF, mise à jour chaque mois. Données ouvertes.`,
-    dataset: { sites, admins },
+    dataset: { sites, admins }, dataUrl: `${base}sites/`,
   });
-  await writePage('web/pilotage.html', 'out/web/pilotage.html', {
-    base, url: `${base}pilotage.html`,
+  await writePage('web/pilotage.html', 'out/web/sites/pilotage.html', {
+    base, url: `${base}sites/pilotage.html`,
     title: "Pilotage des sites web de l'État : tableau de bord et feuille de route",
     description: `Tableau de bord des ${counts} de l'État : réponses des serveurs, sites par ministère, démarches essentielles, actions à mener et feuille de route.`,
   });
-  // Référencement : image d'aperçu, robots.txt et plan du site.
+  await writeOut('out/web/pilotage.html', redirection('sites/pilotage.html', `${base}sites/pilotage.html`));
+
+  // --- Section « Budget de l'État » (pages et données de budget/, construites à part) ---
+  const argent = JSON.parse(await readFile(path('budget/donnees/argent-public-2024.json'), 'utf8'));
+  const budget = JSON.parse(await readFile(path('budget/donnees/budget-etat-2024.json'), 'utf8'));
+  const md = v => `${Math.round(v).toLocaleString('fr-FR').replace(/ /g, ' ')} Md€`;
+  const depenses = md(argent.total_depenses);
+  const aides = md(budget.aides.reduce((t, a) => t + (a.montant || 0), 0) / 1000);
+  const budgetEtat = md(budget.equilibre.depenses_nettes_hors_fdc / 1000);
+  await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
+    base, url: `${base}budget/`,
+    title: `L'argent public en 2024 : ${depenses} de dépenses publiques, le budget de l'État ministère par ministère`,
+    description: `Toutes les dépenses et recettes publiques de 2024 (État, sécurité sociale, collectivités, opérateurs), le budget de l'État par ministère et les aides aux entreprises, d'après l'Insee et la DGFiP. Sources vérifiées, données ouvertes.`,
+  });
+  await writeBudgetPage('budget/aides.html', 'out/web/budget/aides.html', {
+    base, url: `${base}budget/aides.html`,
+    title: `Aides publiques aux entreprises : ${aides} et ${n(budget.aides.length)} dispositifs en 2024`,
+    description: `Les ${n(budget.aides.length)} aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : socle et périmètre élargi, par instrument et par ministère. Chiffres vérifiés ligne à ligne.`,
+  });
+  for (const f of await readdir(path('budget/donnees'))) {
+    await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
+  }
+  await writeOut('out/web/budget/sources/aides-entreprises/aides-entreprises-2024.json', await readFile(path('budget/sources/aides-entreprises/aides-entreprises-2024.json')));
+
+  // --- Accueil ---
+  const secu = argent.secteurs.find(x => x.code === 'S1314').total;
+  const part = code => argent.secteurs.find(x => x.code === code).total;
+  await writePage('web/accueil.html', 'out/web/index.html', {
+    base, url: base, siteName: "Piloter l'action publique par les données",
+    title: "Partager les données publiques pour piloter nos politiques publiques",
+    description: `Deux tableaux de bord ouverts et vérifiés : les sites web de l'État (${counts}) et l'argent public (${depenses} de dépenses publiques en 2024, budget de l'État, aides aux entreprises).`,
+    vars: {
+      sites: n(sites), admins: n(admins), demarches: n(demarches), depenses, budget: budgetEtat, aides,
+      part_secu: secu.toFixed(1), part_reste: (argent.total_depenses - secu).toFixed(1),
+      part_coll: part('S1313').toFixed(1), part_op: part('S13112').toFixed(1),
+    },
+  });
+
+  // --- Référencement : image d'aperçu, robots.txt et plan du site ---
   await writeOut('out/web/apercu.jpg', await readFile(path('web/apercu.jpg')));
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'pilotage.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/aides.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
+
+// Page qui renvoie vers la nouvelle adresse d'une page déplacée.
+const redirection = (cible, canonique) => `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Page déplacée</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="${canonique || cible}">
+<meta http-equiv="refresh" content="0; url=${cible}">
+</head>
+<body>
+<p>Cette page a été déplacée : <a href="${cible}">${cible}</a>.</p>
+</body>
+</html>
+`;
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const SOURCE_DINUM = 'https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public';
 const REPO = 'https://github.com/jbledevehat/graph-gouv-fr';
 
 // Fiche du jeu de données (schema.org), lue par les moteurs de recherche (Google Dataset Search).
-function datasetJsonLd({ base, title, description }) {
+function datasetJsonLd({ dataUrl: base, title, description }) {
   const file = (name, format) => ({ '@type': 'DataDownload', encodingFormat: format, contentUrl: `${base}${name}` });
   return JSON.stringify({
     '@context': 'https://schema.org',
@@ -111,19 +173,17 @@ function datasetJsonLd({ base, title, description }) {
   }).replace(/</g, '\\u003c');
 }
 
-// Fragment HTML de web/ placé dans une page complète, avec les balises de référencement et
-// d'aperçu (réseaux sociaux). Le titre du fragment est remplacé par celui de la page.
-async function writePage(source, target, meta) {
-  const page = (await readFile(path(source), 'utf8')).replace(/<title>[^<]*<\/title>\n?/, '');
+// Balises de référencement et d'aperçu (réseaux sociaux) d'une page.
+function headTags(meta) {
   const image = `${meta.base}apercu.jpg`;
-  const head = [
+  return [
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}">`,
     `<meta name="author" content="Jean-Baptiste Le Dévéhat">`,
     ...(meta.url ? [`<link rel="canonical" href="${meta.url}">`] : []),
     `<meta property="og:type" content="website">`,
     `<meta property="og:locale" content="fr_FR">`,
-    `<meta property="og:site_name" content="Sites web publics de l'État">`,
+    `<meta property="og:site_name" content="${esc(meta.siteName || "Piloter l'action publique par les données")}">`,
     `<meta property="og:title" content="${esc(meta.title)}">`,
     `<meta property="og:description" content="${esc(meta.description)}">`,
     ...(meta.url ? [`<meta property="og:url" content="${meta.url}">`] : []),
@@ -134,6 +194,26 @@ async function writePage(source, target, meta) {
     `<meta name="twitter:card" content="summary_large_image">`,
     ...(meta.dataset ? [`<script type="application/ld+json">${datasetJsonLd(meta)}</script>`] : []),
   ].join('\n');
+}
+
+// Page complète du budget (budget/*.html) : on remplace son titre et sa description par les
+// balises de référencement du site.
+async function writeBudgetPage(source, target, meta) {
+  const page = (await readFile(path(source), 'utf8'))
+    .replace(/<title>[^<]*<\/title>\n?/, '')
+    .replace(/<meta name="description"[^>]*>\n?/, '');
+  if (!page.includes('</head>')) throw new Error(`${source} : balise </head> introuvable`);
+  await writeOut(target, page.replace('</head>', headTags(meta) + '\n</head>'));
+}
+
+// Fragment HTML de web/ placé dans une page complète, avec les balises de référencement et
+// d'aperçu (réseaux sociaux). Le titre du fragment est remplacé par celui de la page, et les
+// {{variables}} par leur valeur.
+async function writePage(source, target, meta) {
+  const page = (await readFile(path(source), 'utf8')).replace(/<title>[^<]*<\/title>\n?/, '')
+    .replace(/\{\{(\w+)\}\}/g, (m, k) => { if (!(k in (meta.vars || {}))) throw new Error(`${source} : valeur manquante pour {{${k}}}`); return esc(meta.vars[k]); });
+  const head = headTags(meta);
+
   // Présentation lisible sans JavaScript (moteurs de recherche, lecteurs sans script).
   const intro = meta.dataset ? `<noscript>
 <h1>Carte des sites web de l'État</h1>

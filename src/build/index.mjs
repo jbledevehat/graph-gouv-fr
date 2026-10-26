@@ -1,7 +1,8 @@
 // Construction de la carte V2 : V1 vérifiée, nouveaux sites, rattachements, doublons, puis
 // exports (liste des sites, graphe, page web, rapport).
+import { copyFile } from 'node:fs/promises';
 import { annuaireIndex } from '../annuaire.mjs';
-import { FILES, readConfigCsv, readJson, readJsonIf, today, writeOut } from '../context.mjs';
+import { FILES, path, readConfigCsv, readJson, readJsonIf, today, writeOut } from '../context.mjs';
 import { buildGraph, toGexf, toWebData } from '../graph.mjs';
 import { flat, isMinistry, ministryMatcher, norm } from '../lib/text.mjs';
 import { hostOf, isUrl, siteKey } from '../lib/url.mjs';
@@ -178,10 +179,11 @@ export async function build() {
   const sites = siteRecords(graph);
   await writeSiteLists(sites, 'donnees');
   const webData = toWebData(graph, webMeta({ map, graph, checkedOn }));
-  await writeOut('out/web/pilotage.json', JSON.stringify(pilotageData(graph, webData, input.demarches, input.checks)));
+  await writeOut('out/web/sites/pilotage.json', JSON.stringify(pilotageData(graph, webData, input.demarches, input.checks)));
   await writeWeb(webData, sites);
-  await writePdf(webData);
-  console.log('  -> out/web/carte.pdf');
+  await writePdf(webData, 'out/web/sites/carte.pdf');
+  console.log('  -> out/web/sites/carte.pdf');
+  await copyFile(path('out/web/sites/carte.pdf'), path('out/web/carte.pdf')); // ancienne adresse
   await writeOut('out/sites-gouv-fr-v2.gexf', toGexf(graph));
   await writeOut('out/rapport.md', report({ map, v1: input.v1, checkedOn }));
   console.log(`  ${map.elements.length} éléments (${map.newOrgs.length} administrations et ${map.additions.length} sites nouveaux), ${map.connections.length} connexions ; ${sites.length} sites dans donnees/sites.csv`);

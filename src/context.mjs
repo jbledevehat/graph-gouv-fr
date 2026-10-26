@@ -40,7 +40,8 @@ export const readJsonIf = async (file, fallback) => existsSync(path(file)) ? rea
 export async function writeOut(file, content) {
   const full = path(file);
   await mkdir(dirname(full), { recursive: true });
-  await writeFile(full, typeof content === 'string' ? content : JSON.stringify(content, null, 2) + '\n');
+  // Texte et contenus binaires (Buffer) tels quels ; le reste est écrit en JSON.
+  await writeFile(full, typeof content === 'string' || content instanceof Uint8Array ? content : JSON.stringify(content, null, 2) + '\n');
   console.log(`  -> ${file}`);
 }
 

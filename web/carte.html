@@ -581,6 +581,13 @@
   @media (max-width: 760px) and (max-height: 700px) {
     .legend { max-height: 18vh; }
   }
+  /* Fil d'Ariane, commun à toutes les pages du site. */
+  nav.ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  nav.ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  nav.ariane a { color: var(--accent); text-decoration: none; }
+  nav.ariane a:hover { text-decoration: underline; }
+  nav.ariane [aria-current="page"] { color: var(--ink); font-weight: 500; }
+  .head nav.ariane { margin-bottom: 10px; }
 </style>
 
 <a class="skip" href="#q">Aller à la recherche</a>
@@ -591,6 +598,7 @@
 
 <aside id="side" class="panel" aria-label="Recherche et légende">
   <div class="head">
+    <nav class="ariane" aria-label="Fil d'Ariane"><ol><li><a href="../">Accueil</a></li><li aria-current="page">Sites web de l'État</li></ol></nav>
     <div class="eyebrow">Cartographie · V2</div>
     <h1>Sites web publics de l'État</h1>
     <p class="sub">Les sites de l'État, rangés par ministère selon l'Annuaire de l'administration.</p>

@@ -1,0 +1,232 @@
+<title>Données publiques pour piloter</title>
+<script>
+  // Thème choisi sur l'une des pages du site, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Page d'accueil : la thèse en tête (partager les données pour piloter), puis les deux
+     sections du site en grandes cartes, la chaîne de la donnée à la décision, et les principes.
+     Mêmes jetons que la carte, le pilotage, le budget et les aides. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --m-etat: #2A78D6;
+    --m-secu: #4A3AA7;
+    --m-coll: #D99A00;
+    --m-op: #1BAF7A;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+      --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+      --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+    --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+    --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .skip { position: fixed; z-index: 10; top: 8px; left: 8px; padding: 8px 12px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 2px solid var(--accent); transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 15px/1.55 var(--sans); }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+
+  header.top { background: var(--panel); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+  .brand { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .brand strong { font-size: 16px; }
+  nav.views { display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.views a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border: 1px solid var(--control); border-radius: 7px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px; }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme span { font-size: 12px; color: var(--muted); }
+  .theme button { min-height: 28px; padding: 0 10px; border: 1px solid var(--control); border-radius: 999px; background: transparent; color: var(--ink); font: 500 12px var(--sans); cursor: pointer; }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+  main { padding-block: 40px 56px; display: grid; gap: 44px; }
+  .hero { display: grid; gap: 14px; max-width: 78ch; }
+  .hero h1 { margin: 0; font-size: clamp(28px, 4.4vw, 42px); line-height: 1.12; letter-spacing: -.015em; text-wrap: balance; }
+  .hero p { margin: 0; color: var(--muted); font-size: 17px; max-width: 68ch; }
+  .notice { justify-self: start; padding: 4px 10px; border: 1px dashed var(--control); border-radius: 6px; font-size: 12.5px; color: var(--muted); }
+  section { display: grid; gap: 14px; min-width: 0; }
+  section > h2 { margin: 0; font-size: 19px; text-wrap: balance; }
+  section > .lead { margin: -6px 0 0; color: var(--muted); max-width: 80ch; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); min-width: 0; }
+
+  /* Les deux sections du site */
+  .doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; }
+  .door { position: relative; display: grid; grid-template-rows: auto 1fr; overflow: hidden; transition: transform .15s; }
+  .door:hover { transform: translateY(-2px); }
+  .door h3 a { color: inherit; text-decoration: none; }
+  .door h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+  .door h3 a:focus-visible { outline: none; }
+  .door:focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .door .visual { height: 190px; border-bottom: 1px solid var(--line); background: var(--panel-2); position: relative; overflow: hidden; }
+  .door .visual img { width: 100%; height: 100%; object-fit: cover; object-position: 88% 45%; display: block; }
+  @media (max-width: 640px) { .door .visual img { object-position: 100% 45%; } }
+  .door .body { padding: 18px 20px 20px; display: grid; gap: 10px; align-content: start; }
+  .door h3 { margin: 0; font-size: 21px; line-height: 1.2; }
+  .door p { margin: 0; color: var(--muted); font-size: 14px; }
+  .figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 4px 0 2px; }
+  .figs div { display: grid; gap: 1px; }
+  .figs b { font-size: 21px; line-height: 1.1; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .figs span { font-size: 12px; color: var(--muted); }
+  .door .go { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13.5px; font-weight: 500; }
+  .door .go a { position: relative; z-index: 1; text-decoration: none; }
+  .door .go a:hover { text-decoration: underline; }
+  .door .go a::after { content: " →"; }
+  /* Aperçu du budget : la dépense publique partagée entre les quatre administrations, à l'échelle. */
+  .mini { position: absolute; inset: 16px; display: grid; gap: 3px; }
+  .mini div { border-radius: 4px; position: relative; overflow: hidden; min-width: 0; }
+  .mini b { position: absolute; left: 8px; right: 6px; top: 6px; font: 600 12px var(--sans); color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini .coll b, .mini .op b { color: #162033; }
+  .mini .secu { background: var(--m-secu); } .mini .etat { background: var(--m-etat); } .mini .coll { background: var(--m-coll); } .mini .op { background: var(--m-op); }
+  :root[data-theme="dark"] .mini b { color: #0C1119; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mini b { color: #0C1119; } }
+
+  /* De la donnée à la décision */
+  .chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: etape; }
+  .chain li { counter-increment: etape; padding: 16px; display: grid; gap: 6px; align-content: start; position: relative; }
+  .chain li::before { content: counter(etape); font: 600 13px var(--mono); color: var(--accent); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); }
+  .chain b { font-size: 15px; }
+  .chain span { font-size: 13px; color: var(--muted); }
+
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; }
+  .principles div { padding: 16px; display: grid; gap: 6px; align-content: start; border-left: 4px solid var(--accent); }
+  .principles b { font-size: 15px; }
+  .principles span { font-size: 13.5px; color: var(--muted); }
+
+  footer { padding-block: 0 36px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 92ch; }
+</style>
+
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="eyebrow">Données publiques · pilotage</span>
+      <strong>Piloter l'action publique par les données</strong>
+    </div>
+    <nav class="views" aria-label="Sections">
+      <a href="sites/">Sites web de l'État</a>
+      <a href="budget/">Budget de l'État</a>
+    </nav>
+    <div class="theme" role="group" aria-label="Thème">
+      <span aria-hidden="true">Thème</span>
+      <button type="button" data-theme-choice="auto" aria-pressed="true">Système</button>
+      <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
+    </div>
+  </div>
+</header>
+
+<main id="contenu" class="wrap">
+  <div class="hero">
+    <span class="eyebrow">Tableaux de bord ouverts</span>
+    <h1>Partager les données publiques pour mieux piloter nos politiques publiques</h1>
+    <p>On ne pilote bien que ce que l'on connaît. Combien de sites l'État fait-il vivre, et sont-ils sûrs ? Combien coûte chaque politique, qui la paie, à qui vont les aides ? Les réponses existent, dispersées dans des fichiers officiels. Ces tableaux de bord les rassemblent, les vérifient et les rendent lisibles, pour que décideurs, agents publics et citoyens partent des mêmes chiffres.</p>
+    <span class="notice">Proposition indépendante construite à partir de données publiques ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <section aria-labelledby="t-sections">
+    <h2 id="t-sections">Deux tableaux de bord</h2>
+    <div class="doors">
+      <div class="card door">
+        <div class="visual"><img src="apercu.jpg" alt="" width="1200" height="630"></div>
+        <div class="body">
+          <span class="eyebrow">Numérique de l'État</span>
+          <h3><a href="sites/">Les sites web de l'État</a></h3>
+          <p>Tous les sites de l'État et de ses opérateurs, rattachés à leur ministère et vérifiés un par un : sécurité, nom de domaine, démarches essentielles, feuille de route.</p>
+          <div class="figs">
+            <div><b>{{sites}}</b><span>sites et sous-domaines</span></div>
+            <div><b>{{admins}}</b><span>administrations</span></div>
+            <div><b>{{demarches}}</b><span>démarches essentielles suivies</span></div>
+          </div>
+          <div class="go"><a href="sites/">La carte</a><a href="sites/pilotage.html">Le pilotage</a></div>
+        </div>
+      </div>
+      <div class="card door">
+        <div class="visual" aria-hidden="true">
+          <div class="mini" style="grid-template-columns: {{part_secu}}fr {{part_reste}}fr; grid-template-rows: 1fr 1fr;">
+            <div class="secu" style="grid-row: span 2"><b>Sécurité sociale</b></div>
+            <div class="etat"><b>État</b></div>
+            <div style="display:grid;grid-template-columns: {{part_coll}}fr {{part_op}}fr;gap:3px"><div class="coll"><b>Collectivités</b></div><div class="op"><b>Opérateurs</b></div></div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="eyebrow">Finances publiques</span>
+          <h3><a href="budget/">Le budget de l'État et l'argent public</a></h3>
+          <p>Toutes les dépenses et recettes publiques de 2024, le budget de l'État ministère par ministère, et les aides aux entreprises, chacune rattachée à son ministère.</p>
+          <div class="figs">
+            <div><b>{{depenses}}</b><span>de dépenses publiques</span></div>
+            <div><b>{{budget}}</b><span>de budget de l'État</span></div>
+            <div><b>{{aides}}</b><span>d'aides aux entreprises</span></div>
+          </div>
+          <div class="go"><a href="budget/">L'argent public</a><a href="budget/aides.html">Les aides aux entreprises</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-chaine">
+    <h2 id="t-chaine">De la donnée à la décision</h2>
+    <p class="lead">La même démarche pour chaque tableau de bord.</p>
+    <ol class="chain">
+      <li class="card"><b>Recenser</b><span>Partir des sources officielles : DINUM, Annuaire de l'administration, Insee, DGFiP, annexes du projet de loi de finances.</span></li>
+      <li class="card"><b>Vérifier</b><span>Recouper chaque total avec le chiffre officiel publié, signaler les écarts plutôt que les masquer.</span></li>
+      <li class="card"><b>Relier</b><span>Rattacher chaque site, chaque crédit, chaque aide à un ministère responsable.</span></li>
+      <li class="card"><b>Partager</b><span>Publier les données en CSV et JSON, sous Licence Ouverte, avec le code qui les produit.</span></li>
+      <li class="card"><b>Piloter</b><span>Faire ressortir ce qui demande une action, et proposer une feuille de route.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="t-principes">
+    <h2 id="t-principes">Des chiffres qu'on peut vérifier</h2>
+    <div class="principles">
+      <div class="card"><b>Chaque chiffre a sa source</b><span>Le fichier d'origine, son producteur, sa licence et sa date de téléchargement sont indiqués en bas de chaque page.</span></div>
+      <div class="card"><b>Les écarts sont signalés</b><span>Quand un document officiel se contredit, l'écart est montré et expliqué, pas corrigé en silence.</span></div>
+      <div class="card"><b>Tout est refaisable</b><span>Les scripts de téléchargement, de construction et de vérification sont publiés : chacun peut refaire le calcul.</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Un projet de Jean-Baptiste Le Dévéhat. Code et données : <a href="https://github.com/jbledevehat/graph-gouv-fr" target="_blank" rel="noopener">github.com/jbledevehat/graph-gouv-fr</a>, Licence Ouverte 2.0.</p>
+</footer>
+
+<script>
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => { const c = document.documentElement.dataset.theme || 'auto'; themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === c))); };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+</script>

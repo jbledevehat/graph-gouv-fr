@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Les 469 aides de l'État aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : périmètre socle (60 Md€) et élargi (166 Md€).">
+<title>Aides publiques aux entreprises</title>
+<script>
+  // Thème choisi par le visiteur, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Les quatre instruments (budgétaire, fiscal,
+     financier, cotisations) reprennent les teintes du rapport ; palette vérifiée pour les
+     daltonismes sur les deux fonds. Le périmètre élargi est hachuré, le socle en aplat. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --ok: #17703D;
+    --warn: #8A5300;
+    --bad: #B42F29;
+    --ok-soft: #E3F1E8;
+    --warn-soft: #F6ECDD;
+    --bad-soft: #F8E4E2;
+    --c1: #2A78D6;
+    --c2: #EB6834;
+    --c3: #1BAF7A;
+    --c4: #4A3AA7;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119;
+      --panel: #141B26;
+      --panel-2: #1A2331;
+      --ink: #E4E9F1;
+      --muted: #97A2B5;
+      --line: #273142;
+      --control: #65718A;
+      --accent: #8EA6FF;
+      --accent-soft: #1E2A4A;
+      --ok: #4CC47E;
+      --warn: #E6A43A;
+      --bad: #F0706A;
+      --ok-soft: #14301F;
+      --warn-soft: #33260F;
+      --bad-soft: #3A1917;
+      --c1: #2F8FF0;
+      --c2: #D95926;
+      --c3: #199E70;
+      --c4: #C060C8;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119;
+    --panel: #141B26;
+    --panel-2: #1A2331;
+    --ink: #E4E9F1;
+    --muted: #97A2B5;
+    --line: #273142;
+    --control: #65718A;
+    --accent: #8EA6FF;
+    --accent-soft: #1E2A4A;
+    --ok: #4CC47E;
+    --warn: #E6A43A;
+    --bad: #F0706A;
+    --ok-soft: #14301F;
+    --warn-soft: #33260F;
+    --bad-soft: #3A1917;
+    --c1: #2F8FF0;
+    --c2: #D95926;
+    --c3: #199E70;
+    --c4: #C060C8;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip {
+    position: fixed; z-index: 10; top: 8px; left: 8px;
+    padding: 8px 12px; border-radius: 6px;
+    background: var(--panel); color: var(--ink); border: 2px solid var(--accent);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 14px/1.5 var(--sans);
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+
+  /* --- En-tête --- */
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+  .brand { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
+  .eyebrow {
+    font: 500 12px/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brand strong { font-size: 16px; }
+  /* Sur téléphone, l'en-tête défile avec la page pour laisser la place au contenu. */
+  @media (max-width: 640px) { header.top { position: static; } }
+  nav.views { display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.views a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border: 1px solid var(--control); border-radius: 7px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px; }
+  nav.views a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme span { font-size: 12px; color: var(--muted); }
+  .theme button {
+    min-height: 28px; padding: 0 10px;
+    border: 1px solid var(--control); border-radius: 999px;
+    background: transparent; color: var(--ink);
+    font: 500 12px var(--sans); cursor: pointer;
+  }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* --- Contenu --- */
+  main { padding-block: 24px 48px; display: grid; gap: 28px; }
+  .intro h1 { margin: 4px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  .intro p { margin: 0 0 6px; max-width: 72ch; color: var(--muted); }
+  .intro p.source { margin: 10px 0 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 8px 8px 0; color: var(--ink); max-width: 80ch; }
+  .notice {
+    display: inline-block; margin-top: 6px; padding: 4px 10px;
+    border: 1px dashed var(--control); border-radius: 6px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+  #liste { scroll-margin-top: 80px; }
+  section > h2 { margin: 0; font-size: 18px; text-wrap: balance; }
+  section > .lead { margin: -4px 0 0; color: var(--muted); max-width: 80ch; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    min-width: 0;
+  }
+  .pad { padding: 16px; }
+  .muted { color: var(--muted); }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
+  .two > .card { display: grid; gap: 10px; align-content: start; }
+  .card h3 { margin: 0; font-size: 15px; }
+  .card .sub { margin: -6px 0 0; color: var(--muted); font-size: 13px; }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi small { font: 12px var(--mono); color: var(--muted); }
+
+  /* Légende des instruments */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
+  .sw.p2, .seg.p2 {
+    background: repeating-linear-gradient(135deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 28%, var(--panel)) 3px 7px);
+  }
+  .sw.na { background: var(--panel-2); outline: 1px solid var(--control); outline-offset: -1px; }
+  [data-i="1"] { --c: var(--c1); }
+  [data-i="2"] { --c: var(--c2); }
+  [data-i="3"] { --c: var(--c3); }
+  [data-i="4"] { --c: var(--c4); }
+
+  /* De 60 à 166 Md€ : barres empilées */
+  .stack { display: grid; gap: 14px; }
+  .stack-row { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 12px; align-items: center; }
+  .stack-row > span { font-size: 13px; }
+  .stack-row > span b { display: block; font-size: 18px; }
+  .stack-bar { display: flex; gap: 2px; height: 30px; }
+  .seg {
+    all: unset; box-sizing: border-box; height: 100%; min-width: 2px; cursor: pointer;
+    background: var(--c);
+  }
+  .seg:first-child { border-radius: 4px 0 0 4px; }
+  .seg:last-child { border-radius: 0 4px 4px 0; }
+  .seg:hover { filter: brightness(1.1); }
+  .seg:focus-visible { outline: 3px solid var(--ink); outline-offset: 1px; }
+  .stack-axis { position: relative; height: 18px; margin-left: calc(9.5rem + 12px); font: 11.5px var(--mono); color: var(--muted); border-top: 1px solid var(--line); }
+  .stack-axis span { position: absolute; top: 2px; transform: translateX(-50%); white-space: nowrap; }
+  .stack-axis span:first-child { transform: none; }
+  @media (max-width: 640px) {
+    .stack-row { grid-template-columns: 1fr; }
+    .stack-axis { margin-left: 0; }
+  }
+  .stack-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .stack-notes li { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; font-size: 13px; }
+  .stack-notes .sw { margin-top: 5px; grid-row: span 2; }
+  .stack-notes small { color: var(--muted); font-size: 12px; }
+
+  /* Graphiques SVG */
+  svg text { font-family: var(--sans); }
+  .chart { width: 100%; display: block; overflow: visible; }
+  .grid line { stroke: var(--line); stroke-width: 1; }
+  .axis text { fill: var(--muted); font: 11.5px var(--mono); }
+  .halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* Tuiles (treemap) */
+  .tm-tools { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+  .seg-ctl { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
+  .seg-ctl button { min-height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+  .seg-ctl button + button { border-left: 1px solid var(--control); }
+  .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  #treemap { position: relative; height: 520px; }
+  @media (max-width: 640px) { #treemap { height: 440px; } }
+  #treemap svg { width: 100%; height: 100%; display: block; }
+  #treemap rect.tile { stroke: var(--panel); stroke-width: 2px; cursor: pointer; }
+  #treemap rect.tile:hover, #treemap rect.tile.sel { stroke: var(--ink); }
+  #treemap text { fill: var(--ink); font-size: 12px; pointer-events: none; }
+  #treemap text.v { font: 500 11px var(--mono); }
+  #treemap text.grp { font-weight: 700; font-size: 13px; }
+  .fiche { display: grid; gap: 4px; padding: 12px 14px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); font-size: 13px; }
+  .fiche b { font-size: 14px; }
+  .fiche dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 4px 0 0; }
+  .fiche dt { color: var(--muted); }
+  .fiche dd { margin: 0; }
+
+  /* Infobulle */
+  #tip {
+    position: fixed; z-index: 20; pointer-events: none; max-width: 320px;
+    padding: 8px 10px; border-radius: 8px;
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow);
+    font-size: 12.5px; line-height: 1.4;
+  }
+  #tip b { display: block; font-size: 13px; }
+  #tip .val { font: 600 13px var(--mono); }
+
+  /* Barres horizontales (objectifs, estimations) */
+  .hbars { display: grid; gap: 8px; }
+  .hbar { display: grid; grid-template-columns: minmax(0, 13rem) 1fr; gap: 10px; align-items: center; font-size: 13px; }
+  .hbar .track { display: flex; align-items: center; gap: 2px; min-width: 0; }
+  .hbar .track i { display: block; height: 12px; border-radius: 0; background: var(--accent); flex: none; }
+  .hbar .track i:first-child { border-radius: 4px 0 0 4px; }
+  .hbar .track i.add { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; border-radius: 0 4px 4px 0; }
+  .hbar .track i:only-of-type { border-radius: 4px; }
+  .hbar .track span { margin-left: 8px; white-space: nowrap; font: 12px var(--mono); color: var(--muted); }
+  .hbar .track span b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 640px) { .hbar { grid-template-columns: 1fr; gap: 2px; } }
+  .key { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); }
+  .key span { display: inline-flex; gap: 6px; align-items: center; }
+  .key i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--accent); }
+  .key i.add { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; }
+
+  .range { display: grid; gap: 14px; }
+  .range-row { display: grid; gap: 4px; font-size: 13px; }
+  .range-row .what { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .range-row .what b { font-weight: 600; }
+  .range-row[data-us] .what b { color: var(--accent); }
+  .range-track { position: relative; height: 16px; }
+  .range-track::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: var(--line); }
+  .range-track .span { position: absolute; top: 5px; height: 6px; border-radius: 3px; background: var(--muted); }
+  .range-track .dot { position: absolute; top: 2px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 2px var(--panel); }
+  .range-row[data-us] .span, .range-row[data-us] .dot { background: var(--accent); }
+
+  /* Points d'attention */
+  .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+  .action {
+    display: grid; gap: 4px; align-content: start;
+    padding: 14px 16px; border-left: 4px solid var(--sev);
+  }
+  .action[data-sev="bad"] { --sev: var(--bad); }
+  .action[data-sev="warn"] { --sev: var(--warn); }
+  .action[data-sev="info"] { --sev: var(--accent); }
+  .action .n { font: 600 22px/1.1 var(--sans); }
+  .action h3 { margin: 0; font-size: 14px; }
+  .action p { margin: 0; color: var(--muted); font-size: 13px; }
+  .action button, .linkbtn {
+    justify-self: start; margin-top: 4px; padding: 0; border: 0; background: none;
+    color: var(--accent); font: 500 13px var(--sans); text-decoration: underline; cursor: pointer;
+  }
+
+  /* Tableaux */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #groups-table { min-width: 820px; }
+  #aides-table { min-width: 940px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { position: sticky; top: 0; background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:hover { background: var(--panel-2); }
+  th button {
+    all: unset; cursor: pointer; display: inline-flex; gap: 4px; align-items: center;
+  }
+  th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  th[aria-sort="ascending"] button::after { content: "▲"; font-size: 9px; }
+  th[aria-sort="descending"] button::after { content: "▼"; font-size: 9px; }
+  .bar { display: flex; align-items: center; justify-content: flex-end; gap: 1px; min-width: 210px; }
+  .bar span { margin-left: 8px; min-width: 8ch; }
+  .bar i { display: block; height: 8px; border-radius: 4px; background: var(--accent); }
+  .bar i + i { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; }
+  .chip {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .chip.p1 { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .chip.p2 { color: var(--muted); border-color: var(--control); border-style: dashed; }
+  .instr { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .num-small { font: 12px var(--mono); color: var(--muted); }
+
+  .toggle-row {
+    all: unset; cursor: pointer; display: inline-flex; gap: 6px; align-items: baseline;
+    color: var(--accent); font-weight: 600; text-decoration: underline;
+  }
+  .toggle-row::before { content: "▸"; display: inline-block; width: 1em; text-decoration: none; transition: transform .15s; }
+  .toggle-row[aria-expanded="true"]::before { transform: rotate(90deg); }
+  .toggle-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  tr.child th { padding-left: 34px; font-weight: 400; }
+  tr.child { background: var(--panel-2); }
+
+  /* Filtres */
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .filters label { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+  .filters input[type="search"], .filters select {
+    min-height: 34px; padding: 4px 8px; max-width: 80vw;
+    border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel); color: var(--ink); font: 13px var(--sans);
+  }
+  .filters input[type="search"] { width: min(320px, 80vw); }
+  .tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 16px; }
+  .tools p { margin: 0; color: var(--muted); font-size: 13px; }
+  .btn {
+    min-height: 32px; padding: 0 12px;
+    border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel-2); color: var(--ink); font: 500 13px var(--sans); cursor: pointer;
+  }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .pager { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+  /* Hors champ */
+  .outside { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .outside li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .outside li:last-child { border-bottom: 0; }
+  .outside small { grid-column: 1 / -1; color: var(--muted); }
+  .outside b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* Feuille de route */
+  .roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+  .phase { padding: 16px; display: grid; gap: 8px; align-content: start; }
+  .phase .when { font: 500 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .phase h3 { margin: 0; font-size: 16px; }
+  .phase ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+  .phase li { font-size: 13.5px; }
+  .phase .owner { font: 12px var(--mono); color: var(--muted); }
+
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 90ch; }
+
+  @media (forced-colors: active) {
+    .seg, .sw, #treemap rect.tile { forced-color-adjust: none; }
+  }
+  /* Fil d'Ariane, commun à toutes les pages du site. */
+  nav.ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  nav.ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  nav.ariane a { color: var(--accent); text-decoration: none; }
+  nav.ariane a:hover { text-decoration: underline; }
+  nav.ariane [aria-current="page"] { color: var(--ink); font-weight: 500; }
+  main > nav.ariane { margin-bottom: -16px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="eyebrow">Finances publiques · exécution 2024</span>
+      <strong>Aides publiques aux entreprises</strong>
+    </div>
+    <nav class="views" aria-label="Vues">
+      <a href="./">Vue d'ensemble</a>
+      <a href="aides.html" aria-current="page">Aides aux entreprises</a>
+    </nav>
+    <div class="theme" role="group" aria-label="Thème">
+      <span aria-hidden="true">Thème</span>
+      <button type="button" data-theme-choice="auto" aria-pressed="true">Système</button>
+      <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
+    </div>
+  </div>
+</header>
+
+<main id="contenu" class="wrap">
+  <nav class="ariane" aria-label="Fil d'Ariane"><ol><li><a href="../">Accueil</a></li><li><a href="./">Budget de l'État</a></li><li aria-current="page">Aides aux entreprises</li></ol></nav>
+  <div class="intro">
+    <span class="eyebrow">Tableau de bord</span>
+    <h1>Les aides de l'État aux entreprises : de 60 à 166 milliards d'euros</h1>
+    <p>Pour la première fois, un rapport annexé au projet de loi de finances pour 2027 recense une à une les aides de l'État et de ses opérateurs aux entreprises, sur l'exécution 2024. Il les classe en deux périmètres : un <strong>socle</strong>, dont la qualification d'aide ne soulève aucune ambiguïté, et un périmètre <strong>élargi</strong>, qui ajoute les dispositifs pour lesquels au moins un critère de la définition est incertain. Cette page reprend <strong id="i-n">les dispositifs</strong> de ses annexes, montre où va l'argent et ce qu'il reste à fiabiliser.</p>
+    <p class="source">Source : <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener"><strong>Rapport relatif aux aides publiques aux entreprises</strong>, annexe au projet de loi de finances pour 2027 (PDF, 85 pages)</a>, présenté par la <a href="https://www.tresor.economie.gouv.fr/Articles/2026/10/14/aides-publiques-aux-entreprises-un-nouveau-jaune-budgetaire-pour-mieux-les-recenser" target="_blank" rel="noopener">Direction générale du Trésor</a> le 14 octobre 2026. Chaque dispositif de la liste renvoie à la page du rapport où il figure.</p>
+    <span class="notice">Proposition indépendante construite à partir de ce document public ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <section aria-labelledby="t-synthese">
+    <h2 id="t-synthese">Synthèse</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section aria-labelledby="t-perimetres">
+    <h2 id="t-perimetres">De 60 à 166 milliards : ce que contient chaque périmètre</h2>
+    <p class="lead">Somme des montants des dispositifs, par instrument. Le socle est en aplat, ce qu'ajoute le périmètre élargi est hachuré. Cliquez sur un segment pour voir ses dispositifs.</p>
+    <div class="card pad stack">
+      <ul class="legend" id="legend"></ul>
+      <div id="stack" class="stack"></div>
+      <ul class="stack-notes" id="stack-notes"></ul>
+      <p class="muted" id="stack-gap" style="margin:0;font-size:12.5px"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-tuiles">
+    <h2 id="t-tuiles">Les dispositifs, à la bonne échelle</h2>
+    <p class="lead">Chaque rectangle est un dispositif, sa surface est proportionnelle à son montant. Survolez-le pour le lire, cliquez pour sa fiche. Les dispositifs sans montant chiffré n'apparaissent pas ici ; ils figurent dans la liste plus bas.</p>
+    <div class="card pad" style="display:grid;gap:12px">
+      <div class="tm-tools">
+        <div class="seg-ctl" role="group" aria-label="Périmètre affiché">
+          <button type="button" data-tm="P2" aria-pressed="true">Périmètre élargi</button>
+          <button type="button" data-tm="P1" aria-pressed="false">Socle seulement</button>
+        </div>
+        <ul class="legend" id="legend-2" aria-hidden="true"></ul>
+      </div>
+      <div id="treemap" role="img" aria-describedby="tm-desc"></div>
+      <p id="tm-desc" class="sr-only"></p>
+      <div class="fiche" id="fiche" aria-live="polite"><span class="muted">Cliquez sur un rectangle pour afficher la fiche du dispositif.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-concentration">
+    <h2 id="t-concentration">Une poignée de dispositifs fait l'essentiel du montant</h2>
+    <div class="two">
+      <div class="card pad">
+        <h3>Part cumulée du montant, dispositifs classés du plus gros au plus petit</h3>
+        <p class="sub" id="lorenz-sub"></p>
+        <div id="lorenz"></div>
+      </div>
+      <div class="card pad">
+        <h3>Par objectif de politique publique</h3>
+        <p class="sub">Classement du rapport (graphiques 3 et 4, pages 35 et 40), en milliards d'euros. Il n'est pas publié dispositif par dispositif.</p>
+        <div class="key"><span><i></i>Socle</span><span><i class="add"></i>Ajouté par le périmètre élargi</span></div>
+        <div class="hbars" id="objectifs"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-actions">
+    <h2 id="t-actions">Points d'attention pour le pilotage</h2>
+    <p class="lead">Ce que la lecture des annexes fait ressortir. Chaque constat renvoie à la liste des dispositifs concernés. L'orange signale une donnée à fiabiliser, le bleu un enjeu de pilotage.</p>
+    <div class="actions" id="actions"></div>
+  </section>
+
+  <section aria-labelledby="t-groupes">
+    <h2 id="t-groupes">Par programme ou opérateur de rattachement</h2>
+    <p class="lead">Le rapport rattache chaque dispositif à un ou plusieurs programmes budgétaires, à un opérateur ou à une branche de la sécurité sociale. Les dispositifs à rattachements multiples sont comptés sous le premier cité. Dépliez une ligne pour voir ses dispositifs.</p>
+    <div class="card table-scroll">
+      <table id="groups-table">
+        <caption class="sr-only">Montants par programme ou opérateur de rattachement ; les en-têtes de colonne permettent de trier.</caption>
+        <thead><tr></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div><button type="button" class="btn" id="groups-more" aria-expanded="false"></button></div>
+  </section>
+
+  <section aria-labelledby="t-liste">
+    <h2 id="t-liste">Tous les dispositifs</h2>
+    <div class="card" id="liste">
+      <div class="filters">
+        <label for="f-q">Rechercher
+          <input type="search" id="f-q" placeholder="crédit d'impôt, TVA, Bpifrance, 200302…" autocomplete="off">
+        </label>
+        <label for="f-ann">Instrument
+          <select id="f-ann"><option value="">Tous</option></select>
+        </label>
+        <label for="f-per">Périmètre
+          <select id="f-per">
+            <option value="">Élargi (tout)</option>
+            <option value="P1">Socle</option>
+            <option value="P2">Ajouts du périmètre élargi</option>
+          </select>
+        </label>
+        <label for="f-size">Montant
+          <select id="f-size">
+            <option value="">Tous</option>
+            <option value="g1">1 Md€ et plus</option>
+            <option value="g2">100 M€ à 1 Md€</option>
+            <option value="g3">10 à 100 M€</option>
+            <option value="g4">Moins de 10 M€</option>
+            <option value="none">Sans montant chiffré</option>
+          </select>
+        </label>
+        <label for="f-flag">Constat
+          <select id="f-flag">
+            <option value="">Aucun filtre</option>
+            <option value="multi">Plusieurs programmes de rattachement</option>
+            <option value="general">Allègements généraux de cotisations</option>
+            <option value="tva">Taux réduits de TVA</option>
+          </select>
+        </label>
+      </div>
+      <div class="tools">
+        <p><span id="f-count" aria-live="polite"></span> <span id="f-group" hidden class="chip p1"></span> <button type="button" class="linkbtn" id="f-reset" hidden>Retirer les filtres</button></p>
+        <div class="pager">
+          <button type="button" class="btn" id="f-csv">Exporter la sélection (CSV)</button>
+          <button type="button" class="btn" id="f-prev" aria-label="Page précédente">←</button>
+          <span id="f-page" class="muted"></span>
+          <button type="button" class="btn" id="f-next" aria-label="Page suivante">→</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="aides-table">
+          <caption class="sr-only">Liste des dispositifs d'aide ; les en-têtes de colonne permettent de trier.</caption>
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-estimations">
+    <h2 id="t-estimations">Ce que le chiffre compte, et ce qu'il ne compte pas</h2>
+    <div class="two">
+      <div class="card pad">
+        <h3>Trois estimations, deux périmètres chacune</h3>
+        <p class="sub">En milliards d'euros, d'après la partie 5.3 du rapport. Les années et les champs diffèrent : le HCSP inclut par exemple une estimation des aides des collectivités locales, absente de ce rapport.</p>
+        <div class="range" id="range"></div>
+      </div>
+      <div class="card" style="display:grid;align-content:start">
+        <div class="pad" style="padding-bottom:6px">
+          <h3>Hors du chiffre de 166 Md€</h3>
+          <p class="sub" style="margin-top:4px">Exclus par le rapport, ou pas encore recensés.</p>
+        </div>
+        <ul class="outside" id="outside"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-feuille">
+    <h2 id="t-feuille">Feuille de route proposée</h2>
+    <p class="lead">Trois étapes pour passer d'un premier recensement à un vrai pilotage des aides. Les chiffres viennent de la liste ci-dessus.</p>
+    <div class="roadmap" id="roadmap"></div>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<footer class="wrap">
+  <p id="sources"></p>
+  <p>Données : <a href="donnees/aides-2024-rattachement-ministere.csv" download>CSV, avec le ministère de rattachement</a>, <a href="sources/aides-entreprises/aides-entreprises-2024.json" download>JSON</a>, extraites des annexes 1 à 4 du rapport (pages 48 à 78), une ligne par dispositif. Chaque ligne a été vérifiée contre le PDF (nom, numéro, périmètre, montant). Les sommes par annexe retrouvent les totaux imprimés, à 1 M€ près pour les aides fiscales du socle (27 070 M€ contre 27 071 M€, effet des arrondis), sauf la répartition socle / élargi de l'annexe 1 (voir les points d'attention). Licence Ouverte 2.0.</p>
+</footer>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const fmt = n => Number(n).toLocaleString('fr-FR');
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const md = (v, d = 1) => (v / 1000).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
+  // Montant en M€ : en milliards au-delà de 1 000 M€.
+  const eur = v => v == null ? '–' : v >= 1000 ? md(v) + ' Md€' : fmt(Math.round(v)) + ' M€';
+  const pct = (a, b) => {
+    if (!b) return '–';
+    const v = a / b * 100;
+    return v > 0 && v < 1 ? 'moins de 1 %' : v < 10 ? v.toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' %' : Math.round(v) + ' %';
+  };
+  const sum = (list, f = d => d.montant || 0) => list.reduce((s, d) => s + f(d), 0);
+
+  // Thème.
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+
+  let data;
+  try { data = await (await fetch('sources/aides-entreprises/aides-entreprises-2024.json', { cache: 'no-cache' })).json(); }
+  catch (e) { $('kpis').textContent = 'Impossible de charger les données (sources/aides-entreprises/aides-entreprises-2024.json) : ' + e.message; return; }
+
+  const M = data.meta;
+  const A = data.aides.map((r, id) => ({ id, ...Object.fromEntries(data.fields.map((f, i) => [f, r[i]])) }));
+  const ANN = [1, 2, 3, 4];
+  const annLabel = i => M.annexes[i].label;
+  const perLabel = p => p === 'P1' ? 'Socle' : 'Élargi';
+  const socle = A.filter(d => d.perimetre === 'P1');
+  const total = sum(A), totalSocle = sum(socle);
+  const chiffres = A.filter(d => d.montant != null);
+  const sansMontant = A.filter(d => d.montant == null);
+  // Rattachement principal : premier programme, opérateur ou branche cité.
+  const groupOf = d => d.annexe === 4 ? 'Sécurité sociale (cotisations)'
+    : d.rattachement.split(';')[0].replace(/\s+[–—]\s+/g, ' - ').replace(/\s+/g, ' ').trim() || 'Non précisé';
+  const isMulti = d => d.annexe !== 4 && d.rattachement.includes(';');
+  const isGeneral = d => d.annexe === 4 && d.perimetre === 'P2';
+  const isTva = d => d.annexe === 2 && /valeur ajout/i.test(d.type);
+  A.forEach(d => { d.groupe = groupOf(d); });
+  // Cotisations : « branche / ROBSS » devient une phrase.
+  const rattachLabel = d => {
+    if (d.annexe !== 4) return d.rattachement;
+    const [branche, robss] = d.rattachement.split(' / ');
+    return `Sécurité sociale${branche && branche !== 'Autre' ? ', branche ' + branche.toLowerCase() : ''}${/hors/i.test(robss || '') ? ' (hors régimes de base)' : ' (régimes obligatoires de base)'}`;
+  };
+
+  $('i-n').textContent = `les ${fmt(A.length)} dispositifs`;
+  $('sources').innerHTML = `Source : <a href="${esc(M.source_pdf)}" target="_blank" rel="noopener">${esc(M.source)}</a>, exécution ${M.exercice} (<a href="${esc(M.source_page)}" target="_blank" rel="noopener">présentation par la Direction générale du Trésor</a>). Aides de l'État et de ses opérateurs, hors collectivités locales et Union européenne.`;
+
+  // --- Synthèse ---
+  const ranked = chiffres.slice().sort((a, b) => b.montant - a.montant);
+  const topShare = k => sum(ranked.slice(0, k)) / total;
+  const general = A.filter(isGeneral).sort((a, b) => b.montant - a.montant);
+  const top3 = sum(general.slice(0, 3));
+  const pct1 = (a, b) => (a / b * 100).toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+  const kpi = (value, label, note = '') => `<div class="card kpi"><b>${value}</b><span>${label}</span>${note ? `<small>${note}</small>` : ''}</div>`;
+  $('kpis').innerHTML = [
+    kpi('166,1 Md€', 'périmètre élargi', `${M.pib_part.elargi.toLocaleString('fr-FR', { minimumFractionDigits: 1 })} % du PIB`),
+    kpi('59,8 Md€', 'périmètre socle', `${M.pib_part.socle.toLocaleString('fr-FR', { minimumFractionDigits: 1 })} % du PIB`),
+    kpi(fmt(A.length), 'dispositifs recensés', `${fmt(socle.length)} au socle, ${fmt(A.length - socle.length)} ajoutés`),
+    kpi(pct1(top3, total), 'pour trois allègements généraux de cotisations', `${md(top3)} Md€ · le rapport arrondit à 38 %`),
+    kpi(pct1(topShare(10) * total, total), 'pour les dix premiers dispositifs', `${md(topShare(10) * total)} Md€ · le rapport arrondit à 60 %`),
+    kpi(fmt(sansMontant.length), 'dispositifs sans montant chiffré', 'négligeable ou non chiffré'),
+  ].join('');
+
+  // --- Légende des instruments ---
+  const legendHtml = ANN.map(i => `<li data-i="${i}"><span class="sw"></span>${esc(annLabel(i))}</li>`).join('')
+    + `<li data-i="1"><span class="sw p2" style="--c:var(--control)"></span>hachuré : ajouté par le périmètre élargi</li>`;
+  $('legend').innerHTML = legendHtml;
+  $('legend-2').innerHTML = legendHtml;
+
+  // --- Infobulle partagée ---
+  const tip = $('tip');
+  const showTip = (html, x, y) => {
+    tip.innerHTML = html; tip.hidden = false;
+    const r = tip.getBoundingClientRect();
+    tip.style.left = Math.max(8, Math.min(innerWidth - r.width - 8, x + 14)) + 'px';
+    tip.style.top = (y + 14 + r.height > innerHeight ? y - r.height - 10 : y + 14) + 'px';
+  };
+  const hideTip = () => { tip.hidden = true; };
+  const tipFor = d => `<b>${esc(d.nom)}</b>${esc(annLabel(d.annexe))} · ${perLabel(d.perimetre)}<br><span class="val">${eur(d.montant)}</span> · ${pct(d.montant, total)} du total`;
+
+  // --- De 60 à 166 Md€ ---
+  const part = (i, p) => A.filter(d => d.annexe === i && d.perimetre === p);
+  const segs = ANN.map(i => ({ i, p: 'P1', v: sum(part(i, 'P1')), n: part(i, 'P1').length }))
+    .concat(ANN.map(i => ({ i, p: 'P2', v: sum(part(i, 'P2')), n: part(i, 'P2').length })).sort((a, b) => b.v - a.v));
+  const segHtml = list => list.map(s => `<button type="button" class="seg ${s.p === 'P2' ? 'p2' : ''}" data-i="${s.i}" data-p="${s.p}" style="width:${s.v / total * 100}%"
+      aria-label="${esc(annLabel(s.i))}, ${perLabel(s.p).toLowerCase()} : ${eur(s.v)}, ${s.n} dispositifs"></button>`).join('');
+  const ticks = [0, 50, 100, 150].map(t => `<span style="left:${t * 1000 / total * 100}%">${t}</span>`).join('') + `<span style="left:100%">Md€</span>`;
+  $('stack').innerHTML = `
+    <div class="stack-row"><span>Socle<b>${md(totalSocle)} Md€</b></span><div class="stack-bar">${segHtml(segs.filter(s => s.p === 'P1'))}</div></div>
+    <div class="stack-row"><span>Périmètre élargi<b>${md(total)} Md€</b></span><div class="stack-bar">${segHtml(segs)}</div></div>
+    <div class="stack-axis" aria-hidden="true">${ticks}</div>`;
+  $('stack').addEventListener('click', e => { const b = e.target.closest('.seg'); if (b) goList({ ann: b.dataset.i, per: b.dataset.p }); });
+  $('stack').addEventListener('pointermove', e => {
+    const b = e.target.closest('.seg'); if (!b) return hideTip();
+    const s = segs.find(s => s.i === +b.dataset.i && s.p === b.dataset.p);
+    showTip(`<b>${esc(annLabel(s.i))} · ${perLabel(s.p).toLowerCase()}</b><span class="val">${eur(s.v)}</span> · ${fmt(s.n)} dispositifs<br>${pct(s.v, total)} du périmètre élargi`, e.clientX, e.clientY);
+  });
+  $('stack').addEventListener('pointerleave', hideTip);
+  $('stack-gap').textContent = `Les barres additionnent les lignes des annexes. Le rapport affiche 59,8 Md€ pour le socle, contre ${md(totalSocle)} Md€ en additionnant ses lignes : l'écart vient de l'annexe 1 (voir les points d'attention). Le total du périmètre élargi est le même.`;
+  const biggest = (i, p) => part(i, p).sort((a, b) => (b.montant || 0) - (a.montant || 0))[0];
+  $('stack-notes').innerHTML = segs.filter(s => s.v >= 1000).map(s => `<li data-i="${s.i}"><span class="sw ${s.p === 'P2' ? 'p2' : ''}"></span>
+      <span><b>${eur(s.v)}</b> ${esc(annLabel(s.i).toLowerCase())}${s.p === 'P2' ? ' ajoutées' : ' (socle)'}</span>
+      <small>${fmt(s.n)} dispositifs, dont ${esc(biggest(s.i, s.p).nom.slice(0, 70))}${biggest(s.i, s.p).nom.length > 70 ? '…' : ''}</small></li>`).join('');
+
+  // --- Tuiles proportionnelles (treemap carré) ---
+  function squarify(items, x, y, w, h) {
+    const tot = sum(items, d => d.v);
+    const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((p, q) => q.a - p.a);
+    const out = [];
+    const worst = (row, s) => {
+      const t = row.reduce((z, r) => z + r.a, 0), mx = Math.max(...row.map(r => r.a)), mn = Math.min(...row.map(r => r.a));
+      return Math.max(s * s * mx / (t * t), t * t / (s * s * mn));
+    };
+    const place = row => {
+      const t = row.reduce((z, r) => z + r.a, 0);
+      if (w >= h) { const cw = t / h; let yy = y; for (const r of row) { const hh = r.a / cw; out.push({ ...r.d, x, y: yy, w: cw, h: hh }); yy += hh; } x += cw; w -= cw; }
+      else { const rh = t / w; let xx = x; for (const r of row) { const ww = r.a / rh; out.push({ ...r.d, x: xx, y, w: ww, h: rh }); xx += ww; } y += rh; h -= rh; }
+    };
+    let row = [];
+    while (q.length) {
+      const s = Math.min(w, h);
+      if (!row.length || worst([...row, q[0]], s) <= worst(row, s)) row.push(q.shift());
+      else { place(row); row = []; }
+    }
+    if (row.length) place(row);
+    return out;
+  }
+  let tmScope = 'P2', selected = null;
+  const tmBox = $('treemap');
+  function drawTreemap() {
+    const W = tmBox.clientWidth, H = tmBox.clientHeight;
+    if (!W) return;
+    const pool = chiffres.filter(d => tmScope === 'P2' || d.perimetre === 'P1');
+    const groups = squarify(ANN.map(i => ({ i, v: sum(pool.filter(d => d.annexe === i)) })), 0, 0, W, H);
+    let svg = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs>${ANN.map(i => `<pattern id="hatch-${i}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="8" height="8" style="fill:color-mix(in srgb, var(--c${i}) 35%, var(--panel))"/><rect width="2.5" height="8" style="fill:var(--c${i})"/></pattern>`).join('')}</defs>`;
+    for (const g of groups) {
+      const tiles = squarify(pool.filter(d => d.annexe === g.i).map(d => ({ ...d, v: d.montant })), g.x, g.y, g.w, g.h);
+      for (const t of tiles) {
+        svg += `<rect class="tile${selected === t.id ? ' sel' : ''}" data-id="${t.id}" x="${t.x}" y="${t.y}" width="${Math.max(0, t.w)}" height="${Math.max(0, t.h)}" style="fill:${t.perimetre === 'P2' ? `url(#hatch-${t.annexe})` : `var(--c${t.annexe})`}"/>`;
+      }
+      // Noms lisibles seulement dans les grands rectangles.
+      for (const t of tiles) {
+        if (t.w < 92 || t.h < 34) continue;
+        const max = Math.floor((t.w - 12) / 6.4);
+        const name = t.nom.length > max ? t.nom.slice(0, max - 1) + '…' : t.nom;
+        svg += `<text class="halo" x="${t.x + 6}" y="${t.y + 16}">${esc(name)}</text><text class="v halo" x="${t.x + 6}" y="${t.y + 30}">${eur(t.montant)}</text>`;
+      }
+      if (g.w > 120 && g.h > 60) svg += `<text class="grp halo" x="${g.x + g.w - 6}" y="${g.y + g.h - 8}" text-anchor="end">${esc(annLabel(g.i))} · ${eur(g.v)}</text>`;
+    }
+    tmBox.innerHTML = svg + '</svg>';
+    $('tm-desc').textContent = `Tuiles proportionnelles des ${fmt(pool.length)} dispositifs chiffrés du ${tmScope === 'P2' ? 'périmètre élargi' : 'socle'}, regroupés par instrument : `
+      + ANN.map(i => `${annLabel(i)} ${eur(sum(pool.filter(d => d.annexe === i)))}`).join(', ') + '. La liste complète figure plus bas.';
+  }
+  const showFiche = d => {
+    $('fiche').innerHTML = `<b>${esc(d.nom)}</b>
+      <dl>
+        <dt>Montant 2024</dt><dd>${eur(d.montant)}${d.montant != null ? ` · ${pct(d.montant, total)} du total` : ` (${esc(d.montant_imprime)})`}</dd>
+        <dt>Instrument</dt><dd><span class="instr" data-i="${d.annexe}"><span class="sw ${d.perimetre === 'P2' ? 'p2' : ''}"></span>${esc(annLabel(d.annexe))}</span> · ${esc(d.type)}</dd>
+        <dt>Périmètre</dt><dd>${perLabel(d.perimetre)}</dd>
+        ${d.numero ? `<dt>Dépense fiscale</dt><dd>n° ${esc(d.numero)}</dd>` : ''}
+        <dt>Rattachement</dt><dd>${esc(rattachLabel(d))}</dd>
+        <dt>Source</dt><dd><a href="${esc(M.source_pdf)}#page=${d.page}" target="_blank" rel="noopener">Annexe ${d.annexe} du rapport, page ${d.page}</a></dd>
+      </dl>`;
+  };
+  tmBox.addEventListener('pointermove', e => {
+    const r = e.target.closest('rect.tile'); if (!r) return hideTip();
+    showTip(tipFor(A[+r.dataset.id]), e.clientX, e.clientY);
+  });
+  tmBox.addEventListener('pointerleave', hideTip);
+  tmBox.addEventListener('click', e => {
+    const r = e.target.closest('rect.tile'); if (!r) return;
+    selected = +r.dataset.id; showFiche(A[selected]); drawTreemap();
+  });
+  document.querySelectorAll('[data-tm]').forEach(b => b.addEventListener('click', () => {
+    tmScope = b.dataset.tm;
+    document.querySelectorAll('[data-tm]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    drawTreemap();
+  }));
+  new ResizeObserver(() => { drawTreemap(); drawLorenz(); }).observe(tmBox);
+
+  // --- Concentration (courbe cumulée) ---
+  const cum = []; { let c = 0; ranked.forEach(d => { c += d.montant; cum.push(c / total); }); }
+  const rankFor = share => cum.findIndex(c => c >= share) + 1;
+  $('lorenz-sub').textContent = `Les 10 premiers font ${pct1(topShare(10) * total, total)} du montant, les ${fmt(rankFor(.9))} premiers 90 %. Les ${fmt(ranked.length - rankFor(.99))} derniers dispositifs chiffrés pèsent ensemble moins de 1 %.`;
+  const lorenz = $('lorenz');
+  function drawLorenz() {
+    const W = lorenz.clientWidth || 400, H = 250, L = 36, R = 12, T = 10, B = 40;
+    const N = ranked.length;
+    const x = k => L + (k / N) * (W - L - R), y = v => T + (1 - v) * (H - T - B);
+    const pts = [[0, 0], ...cum.map((c, k) => [k + 1, c])].map(([k, c]) => `${x(k).toFixed(1)},${y(c).toFixed(1)}`).join(' ');
+    const marks = [3, 10, rankFor(.9)].map(k => ({ k, c: cum[k - 1] }));
+    lorenz.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc($('lorenz-sub').textContent)}">
+      <g class="grid">${[0, .25, .5, .75, 1].map(v => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`).join('')}</g>
+      <g class="axis">${[0, .5, 1].map(v => `<text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v * 100} %</text>`).join('')}
+        ${[0, 100, 200, 300, 400].filter(k => k <= N).map(k => `<text x="${x(k)}" y="${H - B + 16}" text-anchor="middle">${k}</text>`).join('')}
+        <text x="${W - R}" y="${H - 4}" text-anchor="end">rang du dispositif →</text></g>
+      <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+      ${marks.map(m => `<circle cx="${x(m.k)}" cy="${y(m.c)}" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>
+        <text class="halo" x="${x(m.k) + 8}" y="${y(m.c) + 14}" font-size="12" fill="var(--ink)">${m.k} : ${Math.round(m.c * 100)} %</text>`).join('')}
+      <line id="lz-x" y1="${T}" y2="${H - B}" stroke="var(--control)" stroke-width="1" hidden/>
+      <rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent" id="lz-hit"/>
+    </svg>`;
+    const hit = $('lz-hit'), rule = $('lz-x');
+    hit.addEventListener('pointermove', e => {
+      const box = hit.getBoundingClientRect();
+      const k = Math.max(1, Math.min(N, Math.round((e.clientX - box.left) / box.width * N)));
+      rule.setAttribute('x1', x(k)); rule.setAttribute('x2', x(k)); rule.removeAttribute('hidden');
+      showTip(`<b>${fmt(k)} premier${k > 1 ? 's' : ''} dispositif${k > 1 ? 's' : ''}</b><span class="val">${Math.round(cum[k - 1] * 1000) / 10} %</span> du montant<br>n° ${k} : ${esc(ranked[k - 1].nom.slice(0, 80))} (${eur(ranked[k - 1].montant)})`, e.clientX, e.clientY);
+    });
+    hit.addEventListener('pointerleave', () => { rule.setAttribute('hidden', ''); hideTip(); });
+  }
+
+  // --- Objectifs (rapport, graphiques 3 et 4) ---
+  const obj = M.objectifs.slice().sort((a, b) => b[2] - a[2]);
+  const maxObj = obj[0][2];
+  const dec = v => v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  $('objectifs').innerHTML = obj.map(([label, s, e]) => `<div class="hbar">
+      <span>${esc(label)}</span>
+      <span class="track" title="Socle ${dec(s)} Md€, périmètre élargi ${dec(e)} Md€">
+        ${s ? `<i style="width:${s / maxObj * 52}%"></i>` : ''}${e - s >= .05 ? `<i class="add" style="width:${(e - s) / maxObj * 52}%"></i>` : ''}
+        <span><b>${dec(e)}</b>${e - s >= .05 ? (s ? ` (socle ${dec(s)})` : ' (hors socle)') : ''}</span>
+      </span>
+    </div>`).join('');
+
+  // --- Tableau triable générique ---
+  function sortable(table, columns, getRows, render, initial) {
+    let sort = initial;
+    const head = table.querySelector('thead tr');
+    head.innerHTML = columns.map((c, i) => `<th scope="col" class="${c.num ? 'num' : ''}" ${c.sort ? `aria-sort="none"` : ''}>${c.sort ? `<button type="button" data-col="${i}">${c.label}</button>` : c.label}</th>`).join('');
+    const apply = () => {
+      head.querySelectorAll('th').forEach((th, i) => { if (columns[i].sort) th.setAttribute('aria-sort', sort.col === i ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'); });
+      const rows = getRows().slice().sort((a, b) => {
+        const x = columns[sort.col].sort(a), y = columns[sort.col].sort(b);
+        return (typeof x === 'string' ? x.localeCompare(y, 'fr') : x > y ? 1 : x < y ? -1 : 0) * sort.dir;
+      });
+      render(rows);
+    };
+    head.addEventListener('click', e => {
+      const b = e.target.closest('[data-col]'); if (!b) return;
+      const col = +b.dataset.col;
+      sort = { col, dir: sort.col === col ? -sort.dir : (columns[col].num ? -1 : 1) };
+      apply();
+    });
+    return apply;
+  }
+
+  // --- Par rattachement ---
+  const byGroup = new Map();
+  for (const d of A) { if (!byGroup.has(d.groupe)) byGroup.set(d.groupe, []); byGroup.get(d.groupe).push(d); }
+  const gRows = [...byGroup].map(([label, list], k) => {
+    const s = sum(list.filter(d => d.perimetre === 'P1')), e = sum(list.filter(d => d.perimetre === 'P2'));
+    const top = list.slice().sort((a, b) => (b.montant || 0) - (a.montant || 0))[0];
+    return { k, label, list, n: list.length, s, e, t: s + e, top, anns: [...new Set(list.map(d => d.annexe))].sort() };
+  });
+  const maxG = Math.max(...gRows.map(r => r.t));
+  const LIMIT = 25;
+  let showAll = false;
+  const gExpanded = new Set();
+  const gCols = [
+    { label: 'Rattachement', sort: r => r.label },
+    { label: 'Instruments' },
+    { label: 'Dispositifs', num: true, sort: r => r.n },
+    { label: 'Socle', num: true, sort: r => r.s },
+    { label: 'Total (élargi)', num: true, sort: r => r.t },
+    { label: 'Premier dispositif' },
+  ];
+  const gTable = $('groups-table');
+  const renderGroups = sortable(gTable, gCols, () => gRows, rows => {
+    const shown = showAll ? rows : rows.slice(0, LIMIT);
+    gTable.querySelector('tbody').innerHTML = shown.map(r => {
+      const open = gExpanded.has(r.k);
+      const head = `<tr>
+        <th scope="row"><button type="button" class="toggle-row" data-toggle="${r.k}" aria-expanded="${open}">${esc(r.label)}</button></th>
+        <td>${r.anns.map(i => `<span class="instr" data-i="${i}" title="${esc(annLabel(i))}"><span class="sw"></span></span>`).join(' ')}</td>
+        <td class="num">${fmt(r.n)}</td>
+        <td class="num">${eur(r.s)}</td>
+        <td class="num"><div class="bar" title="Socle ${eur(r.s)}, ajouts du périmètre élargi ${eur(r.e)}"><i style="width:${Math.max(r.s ? 2 : 0, r.s / maxG * 140)}px"></i><i style="width:${r.e / maxG * 140}px"></i><span>${eur(r.t)}</span></div></td>
+        <td>${esc(r.top.nom.slice(0, 70))}${r.top.nom.length > 70 ? '…' : ''}</td>
+      </tr>`;
+      if (!open) return head;
+      return head + r.list.slice().sort((a, b) => (b.montant ?? -1) - (a.montant ?? -1)).map(d => `<tr class="child">
+        <th scope="row">${esc(d.nom)}</th>
+        <td><span class="instr" data-i="${d.annexe}"><span class="sw ${d.perimetre === 'P2' ? 'p2' : ''}"></span>${esc(annLabel(d.annexe))}</span></td>
+        <td class="num"></td>
+        <td class="num">${d.perimetre === 'P1' ? eur(d.montant) : ''}</td>
+        <td class="num">${d.montant != null ? eur(d.montant) : `<span class="muted">${esc(d.montant_imprime)}</span>`}</td>
+        <td><span class="chip ${d.perimetre.toLowerCase()}">${perLabel(d.perimetre)}</span></td>
+      </tr>`).join('');
+    }).join('');
+    $('groups-more').hidden = rows.length <= LIMIT;
+    $('groups-more').textContent = showAll ? `Afficher les ${LIMIT} premiers seulement` : `Afficher les ${fmt(rows.length)} rattachements`;
+    $('groups-more').setAttribute('aria-expanded', String(showAll));
+  }, { col: 4, dir: -1 });
+  renderGroups();
+  gTable.addEventListener('click', e => {
+    const t = e.target.closest('[data-toggle]'); if (!t) return;
+    const k = +t.dataset.toggle;
+    gExpanded.has(k) ? gExpanded.delete(k) : gExpanded.add(k);
+    renderGroups();
+    gTable.querySelector(`[data-toggle="${k}"]`)?.focus();
+  });
+  $('groups-more').addEventListener('click', () => { showAll = !showAll; renderGroups(); });
+
+  // --- Liste complète ---
+  $('f-ann').insertAdjacentHTML('beforeend', ANN.map(i => `<option value="${i}">${esc(annLabel(i))}</option>`).join(''));
+  const SIZE = {
+    g1: d => d.montant >= 1000, g2: d => d.montant >= 100 && d.montant < 1000,
+    g3: d => d.montant >= 10 && d.montant < 100, g4: d => d.montant != null && d.montant < 10, none: d => d.montant == null,
+  };
+  const FLAG = { multi: isMulti, general: isGeneral, tva: isTva };
+  const st = { page: 0, group: '' };
+  const PAGE = 50;
+  const fRows = () => {
+    const q = $('f-q').value.trim().toLowerCase(), ann = $('f-ann').value, per = $('f-per').value, size = $('f-size').value, flag = $('f-flag').value;
+    return A.filter(d => (!ann || d.annexe === +ann) && (!per || d.perimetre === per) && (!size || SIZE[size](d)) && (!flag || FLAG[flag](d))
+      && (!st.group || d.groupe === st.group)
+      && (!q || (d.nom + ' ' + d.rattachement + ' ' + d.numero + ' ' + d.type).toLowerCase().includes(q)));
+  };
+  const fCols = [
+    { label: 'Dispositif', sort: d => d.nom },
+    { label: 'Instrument', sort: d => d.annexe },
+    { label: 'Périmètre', sort: d => d.perimetre },
+    { label: 'Rattachement', sort: d => d.groupe },
+    { label: 'Montant 2024', num: true, sort: d => d.montant ?? -1 },
+    { label: 'Page', num: true, sort: d => d.page },
+  ];
+  let current = [];
+  const fTable = $('aides-table');
+  const renderList = sortable(fTable, fCols, fRows, rows => {
+    current = rows;
+    const pages = Math.max(1, Math.ceil(rows.length / PAGE));
+    st.page = Math.min(st.page, pages - 1);
+    const slice = rows.slice(st.page * PAGE, st.page * PAGE + PAGE);
+    const filtered = rows.length !== A.length || st.group;
+    $('f-count').textContent = `${fmt(rows.length)} dispositif${rows.length > 1 ? 's' : ''} · ${eur(sum(rows))}` + (filtered ? ` (${pct(sum(rows), total)} du total)` : '');
+    $('f-reset').hidden = !filtered;
+    $('f-page').textContent = `page ${st.page + 1} / ${pages}`;
+    $('f-prev').disabled = st.page === 0; $('f-next').disabled = st.page >= pages - 1;
+    fTable.querySelector('tbody').innerHTML = slice.map(d => `<tr>
+      <th scope="row">${esc(d.nom)}${d.numero ? ` <span class="num-small">n° ${esc(d.numero)}</span>` : ''}<div class="muted">${esc(d.type)}</div></th>
+      <td><span class="instr" data-i="${d.annexe}"><span class="sw ${d.perimetre === 'P2' ? 'p2' : ''}"></span>${esc(annLabel(d.annexe))}</span></td>
+      <td><span class="chip ${d.perimetre.toLowerCase()}">${perLabel(d.perimetre)}</span></td>
+      <td>${esc(rattachLabel(d))}</td>
+      <td class="num">${d.montant != null ? eur(d.montant) : `<span class="muted" title="${d.montant_imprime === 'ε' ? 'Montant négligeable' : 'Non chiffré'}">${esc(d.montant_imprime)}</span>`}</td>
+      <td class="num"><a href="${esc(M.source_pdf)}#page=${d.page}" target="_blank" rel="noopener" aria-label="Page ${d.page} du rapport">${d.page}</a></td>
+    </tr>`).join('') || `<tr><td colspan="6" class="muted">Aucun dispositif ne correspond à ces filtres.</td></tr>`;
+  }, { col: 4, dir: -1 });
+  ['f-q', 'f-ann', 'f-per', 'f-size', 'f-flag'].forEach(id => $(id).addEventListener('input', () => { st.page = 0; renderList(); }));
+  $('f-prev').addEventListener('click', () => { st.page--; renderList(); });
+  $('f-next').addEventListener('click', () => { st.page++; renderList(); });
+  $('f-reset').addEventListener('click', () => goList({}, false));
+  renderList();
+  function goList(f, scroll = true) {
+    $('f-q').value = ''; $('f-ann').value = f.ann ?? ''; $('f-per').value = f.per ?? ''; $('f-size').value = f.size ?? ''; $('f-flag').value = f.flag ?? '';
+    st.group = f.group ?? ''; $('f-group').hidden = !st.group; $('f-group').textContent = st.group;
+    st.page = 0; renderList();
+    if (scroll) $('liste').scrollIntoView({ behavior: 'smooth' });
+  }
+  $('f-csv').addEventListener('click', () => {
+    const cols = ['annexe', 'instrument', 'perimetre', 'numero', 'nom', 'rattachement', 'type', 'montant', 'montant_imprime', 'page'];
+    const cell = v => /[";\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+    const csv = [cols.join(';'), ...current.map(d => cols.map(c => cell(c === 'instrument' ? annLabel(d.annexe) : c === 'perimetre' ? perLabel(d.perimetre) : c === 'montant' ? String(d.montant ?? '').replace('.', ',') : d[c] ?? '')).join(';'))].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'aides-entreprises-selection.csv';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+
+  // --- Points d'attention ---
+  const small = A.filter(SIZE.g4), multi = A.filter(isMulti), tva = A.filter(isTva);
+  const big = ranked.filter(d => d.montant >= 1000);
+  const a1 = { s: sum(part(1, 'P1')), e: sum(part(1, 'P2')) };
+  const actions = [
+    { sev: 'info', n: md(top3) + ' Md€', title: `Trois allègements généraux font ${pct(top3, total)} du total`, text: `Avec les deux autres allègements généraux (${eur(sum(general) - top3)}), ils représentent près des deux tiers de l'écart entre les deux périmètres. Le rapport les classe hors du socle : l'avantage qu'ils procurent dépend de la norme de cotisation retenue.`, go: () => goList({ flag: 'general' }) },
+    { sev: 'info', n: fmt(big.length), title: 'Dispositifs de plus d\'un milliard', text: `Ils représentent ${pct(sum(big), total)} du montant. Un calendrier d'évaluation qui les couvre tous couvrirait l'essentiel de la dépense.`, go: () => goList({ size: 'g1' }) },
+    { sev: 'info', n: fmt(small.length), title: 'Dispositifs de moins de 10 M€', text: `${pct(small.length, A.length)} des dispositifs pour ${pct(sum(small), total)} du montant. Leur coût de gestion, pour l'État comme pour les entreprises, mérite d'être mis en regard.`, go: () => goList({ size: 'g4' }) },
+    { sev: 'warn', n: fmt(sansMontant.length), title: 'Dispositifs sans montant', text: `${fmt(A.filter(d => d.montant_imprime === 'ε').length)} sont marqués « ε » (négligeable) et ${fmt(sansMontant.length - A.filter(d => d.montant_imprime === 'ε').length)} « nc » ou « - » (non chiffrés). Leur coût réel reste inconnu.`, go: () => goList({ size: 'none' }) },
+    { sev: 'warn', n: fmt(multi.length), title: 'Dispositifs rattachés à plusieurs programmes', text: 'Un même dispositif financé par plusieurs programmes, parfois de ministères différents : personne n\'en répond seul.', go: () => goList({ flag: 'multi' }) },
+    { sev: 'warn', n: '3 écarts', title: 'Totaux du rapport à mettre en cohérence', text: `Les lignes des aides budgétaires donnent ${fmt(a1.s)} M€ au socle et ${fmt(a1.e)} M€ en élargi ; l'annexe 1 affiche ${fmt(M.annexes[1].imprime.P1)} M€ et ${fmt(M.annexes[1].imprime.P2)} M€, le tableau de la page 36 ${fmt(24405)} M€. Elle annonce 201 dispositifs et en liste ${fmt(part(1, 'P1').length + part(1, 'P2').length)}. Le socle total vaut 59,8 Md€, 59,9 Md€ (page 44) ou « près de 60 Md€ » selon les pages.`, go: () => goList({ ann: '1' }) },
+  ];
+  $('actions').innerHTML = actions.map((a, i) => `<article class="card action" data-sev="${a.sev}">
+      <span class="n">${a.n}</span>
+      <h3>${a.title}</h3>
+      <p>${a.text}</p>
+      <button type="button" data-action="${i}">Voir la liste</button>
+    </article>`).join('');
+  $('actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (b) actions[+b.dataset.action].go(); });
+
+  // --- Estimations et hors champ ---
+  const num1 = v => v.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  const maxR = 220;
+  $('range').innerHTML = M.estimations.map((r, k) => `<div class="range-row"${k === 0 ? ' data-us' : ''}>
+      <span class="what"><b>${esc(r.qui)}</b><span class="muted">${r.annee ? 'en ' + r.annee + ' · ' : ''}${num1(r.bas)} (${esc(r.bas_label)}) à ${num1(r.haut)} (${esc(r.haut_label)})</span></span>
+      <span class="range-track" aria-hidden="true"><span class="span" style="left:${r.bas / maxR * 100}%;width:${(r.haut - r.bas) / maxR * 100}%"></span><span class="dot" style="left:${r.bas / maxR * 100}%"></span><span class="dot" style="left:${r.haut / maxR * 100}%"></span></span>
+    </div>`).join('') + `<div class="stack-axis" style="margin-left:0" aria-hidden="true">${[0, 50, 100, 150, 200].map(t => `<span style="left:${t / maxR * 100}%">${t}</span>`).join('')}</div>`;
+  $('outside').innerHTML = M.hors_champ.map(([label, v, note]) => `<li><span>${esc(label)}</span><b>${v != null ? dec(v) + ' Md€' : 'non chiffré'}</b><small>${esc(v != null ? note.replace(/^Md€, /, '') : note)}</small></li>`).join('');
+
+  // --- Feuille de route ---
+  const phases = [
+    {
+      when: '0 à 6 mois', title: 'Fiabiliser le recensement', owner: 'Direction du budget · DLF · DSS',
+      items: [
+        `Corriger les totaux de l'annexe 1 et publier la liste en <strong>données ouvertes</strong> (CSV) avec le PLF, et non seulement en tableau dans un PDF.`,
+        `Donner à chaque dispositif un <strong>identifiant stable</strong> d'une année sur l'autre, comme le numéro des dépenses fiscales, pour suivre son évolution.`,
+        `Chiffrer les <strong>${fmt(sansMontant.length)}</strong> dispositifs marqués « ε », « nc » ou « - ».`,
+        `Désigner un <strong>responsable unique</strong> pour les ${fmt(multi.length)} dispositifs rattachés à plusieurs programmes.`,
+      ],
+    },
+    {
+      when: '6 à 18 mois', title: 'Compléter le périmètre', owner: 'DGFiP · DGCL · HCSP',
+      items: [
+        `Ajouter les aides des <strong>collectivités locales</strong> et de l'<strong>Union européenne</strong>, aujourd'hui hors du chiffre.`,
+        `Mesurer l'<strong>avantage réel</strong> des prêts et garanties (équivalent-subvention), et non seulement leur décaissement de l'année.`,
+        `Trancher le cas des associations et des GIP exclus faute de classement (70,5 M€), comme le rapport s'y engage.`,
+      ],
+    },
+    {
+      when: '18 à 36 mois', title: 'Évaluer et simplifier', owner: 'HCSP · Parlement · ministères',
+      items: [
+        `Évaluer les <strong>${fmt(big.length)}</strong> dispositifs de plus d'un milliard (${pct(sum(big), total)} du montant) sur un cycle de trois ans, dans le cadre du « choc d'évaluation » confié au HCSP.`,
+        `Réexaminer les <strong>${fmt(small.length)}</strong> dispositifs de moins de 10 M€ : fusionner, supprimer ou justifier.`,
+        `Toute nouvelle aide avec une <strong>date de fin</strong> et une évaluation prévue dès sa création.`,
+      ],
+    },
+  ];
+  $('roadmap').innerHTML = phases.map(p => `<article class="card phase">
+      <span class="when">${p.when}</span>
+      <h3>${p.title}</h3>
+      <ul>${p.items.map(i => `<li>${i}</li>`).join('')}</ul>
+      <span class="owner">Porteurs : ${p.owner}</span>
+    </article>`).join('');
+})();
+</script>
+</body>
+</html>
