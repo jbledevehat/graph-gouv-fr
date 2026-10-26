@@ -110,6 +110,17 @@ python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
 
 Les scripts n'utilisent que la bibliothèque standard de Python 3.
 
+## Interactions
+
+- **Zoom** : dans chaque composition, un clic sur un rectangle qui a du détail l'agrandit
+  (administration, puis fonction, puis sous-fonction ; ministère, puis mission, puis programme ;
+  instrument, puis ministère, puis dispositif). Un fil d'étapes permet de remonter.
+- **Barre des totaux** au-dessus de chaque composition : le montant et la part de chaque élément
+  du niveau affiché ; un clic sur un élément zoome dessus.
+- **Recherche** dans tous les comptes (fonctions, ministères, missions, programmes, impôts, aides),
+  avec les sigles courants (CIR, TVA, CSG…) et quelques équivalents du langage courant
+  (retraite → vieillesse, pensions) ; un résultat ouvre le graphique concerné, zoomé.
+
 ## Contenu
 
 - `index.html` : vue d'ensemble (dépenses publiques par administration et par fonction, recettes
