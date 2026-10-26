@@ -117,6 +117,11 @@ Les scripts n'utilisent que la bibliothèque standard de Python 3.
   instrument, puis ministère, puis dispositif). Un fil d'étapes permet de remonter.
 - **Barre des totaux** au-dessus de chaque composition : le montant et la part de chaque élément
   du niveau affiché ; un clic sur un élément zoome dessus.
+- **Explications** : chaque fonction, sous-fonction, administration, mission, type d'aide et
+  type de recette a un « C'est quoi ? » et des exemples concrets en langage courant
+  ([`donnees/explications.json`](donnees/explications.json), rédigé à partir de la nomenclature
+  COFOG appliquée par l'Insee et des lois de finances) ; le montant est traduit en « sur 100 €
+  d'argent public, X € vont ici ».
 - **Recherche** dans tous les comptes (fonctions, ministères, missions, programmes, impôts, aides),
   avec les sigles courants (CIR, TVA, CSG…) et quelques équivalents du langage courant
   (retraite → vieillesse, pensions) ; un résultat ouvre le graphique concerné, zoomé.

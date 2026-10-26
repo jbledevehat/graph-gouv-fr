@@ -202,6 +202,11 @@
   .titem .tp { color: var(--muted); font: 11.5px var(--mono); }
   .titem.more { cursor: default; color: var(--muted); }
   .num-small { font: 12px var(--mono); color: var(--muted); font-weight: 400; }
+  .panel .quoi, .panel .ex, .panel .combien { margin: 0; font-size: 14px; line-height: 1.55; max-width: 90ch; }
+  .panel .quoi b, .panel .ex b { color: var(--accent); font-weight: 600; }
+  .panel .ex { color: var(--muted); }
+  .panel .combien { color: var(--ink); }
+  #tip .tq { color: var(--muted); }
   /* Recherche */
   .search { padding: 14px 16px; display: grid; gap: 6px; }
   .search label { font-weight: 600; font-size: 14px; }
@@ -292,6 +297,7 @@
     </div>
     <ul class="legend" id="leg-rec"></ul>
     <div class="mondrian h-a" id="m-rec" role="img"></div>
+    <div class="panel" id="p-rec" aria-live="polite"></div>
     <p class="note" id="rec-note"></p>
     <div class="panel">
       <h3>Les impôts un par un</h3>
@@ -365,9 +371,9 @@
   }));
   showTheme();
 
-  let G, B;
+  let G, B, X;
   try {
-    [G, B] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/budget-etat-2024.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
+    [G, B, X] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
   } catch (e) { $('facts').textContent = 'Impossible de charger les données : ' + e.message; return; }
 
   // --- Infobulle ---
@@ -543,28 +549,38 @@
     return api;
   }
   const explorateurs = {};
-  const tipDe = (titre, v, extra = '') => `<b>${esc(titre)}</b><span class="val">${mds(v)}</span>${extra}`;
-  const panneau = (el, n, total, extra = '') => {
+  const tipDe = (titre, v, extra = '', ex) => `<b>${esc(titre)}</b><span class="val">${mds(v)}</span>${extra}${ex ? `<br><span class="tq">${esc(ex.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
+  const sur100 = (v, total) => (v / total * 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Encadré sous une composition : ce que c'est, des exemples, ce que pèse le montant, puis le détail.
+  const panneau = (el, n, total, { extra = '', base = "d'argent public dépensés" } = {}) => {
     const parent = n.parent;
     const enfants = (n.children || []).filter(c => c.v > 0).sort((a, b) => b.v - a.v);
-    $(el).innerHTML = `<h3>${esc(n.titre || n.label)} : ${mds(n.v)}</h3>
-      <p class="sub">${parent ? `${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} », ` : ''}${pct(n.v, total)} du total.${n.desc ? ' ' + esc(n.desc) : ''}${extra}</p>
-      ${enfants.length ? bars(enfants.slice(0, 15).map(c => [c.titre || c.label, c.v, c.color === 'hatch' ? 'op' : c.color]), enfants[0].v) + (enfants.length > 15 ? `<p class="sub">et ${enfants.length - 15} autres.</p>` : '') : ''}`;
+    const ex = n.explication;
+    const exParent = !ex && parent && parent.explication && parent.parent ? parent : null;
+    const quoi = ex ? `<p class="quoi"><b>C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b>Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}`
+      : exParent ? `<p class="quoi"><b>Fait partie de « ${esc(exParent.titre || exParent.label)} » :</b> ${esc(exParent.explication.quoi)}</p>` : '';
+    const poids = n.parent
+      ? `Sur 100 € ${base}, <b>${sur100(n.v, total)} €</b> vont ici.${parent.parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}`
+      : `Le total : <b>${mds(n.v)}</b>.`;
+    $(el).innerHTML = `<h3>${esc(n.titre || n.label)} : ${mds(n.v)}</h3>${quoi}
+      <p class="combien">${poids}${n.desc && !ex ? ' ' + esc(n.desc) : ''}${extra}</p>
+      ${enfants.length ? `<p class="sub">${enfants.length > 1 ? 'Détail :' : ''}</p>` + bars(enfants.slice(0, 15).map(c => [c.titre || c.label, c.v, c.color === 'hatch' ? 'op' : c.color]), enfants[0].v) + (enfants.length > 15 ? `<p class="sub">et ${enfants.length - 15} autres.</p>` : '') : ''}`;
   };
+
 
   // ================= 1. Dépenses =================
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
   legend('leg-admin', G.secteurs.map(s => [COUL[s.code], s.nom]));
   $('dep-lead').textContent = `${nf(D, 1)} milliards d'euros dépensés par l'ensemble des administrations publiques. Chaque euro n'est compté qu'une fois, là où il est finalement dépensé : une dotation de l'État à une commune est comptée dans les dépenses de la commune. Cliquez sur un rectangle pour zoomer : administration, puis fonction, puis sous-fonction.`;
   let depMode = 'admin';
-  const sousDep = (s, f) => f.sous.map(x => ({ id: s.code + x.code, label: x.libelle, v: x.montant, color: COUL[s.code], tip: tipDe(`${x.libelle} · ${s.nom}`, x.montant, ` · ${pct(x.montant, D)} des dépenses publiques`) }));
-  const fonctionDep = (s, f, label) => ({ id: s.code + f.code, label, titre: `${f.libelle} · ${s.nom}`, v: f.montant, color: COUL[s.code], desc: f.libelle_officiel + '.',
-    tip: tipDe(`${f.libelle} · ${s.nom}`, f.montant, ` · ${pct(f.montant, D)} des dépenses publiques`), children: sousDep(s, f) });
+  const sousDep = (s, f) => f.sous.map(x => ({ id: s.code + x.code, label: x.libelle, titre: `${x.libelle} (${s.nom})`, v: x.montant, color: COUL[s.code], explication: X.sous_fonctions[x.code], tip: tipDe(`${x.libelle} · ${s.nom}`, x.montant, ` · ${pct(x.montant, D)} des dépenses publiques`, X.sous_fonctions[x.code]) }));
+  const fonctionDep = (s, f, label) => ({ id: s.code + f.code, label, titre: `${f.libelle} (${s.nom})`, v: f.montant, color: COUL[s.code], explication: X.fonctions[f.code],
+    tip: tipDe(`${f.libelle} · ${s.nom}`, f.montant, ` · ${pct(f.montant, D)} des dépenses publiques`, X.fonctions[f.code]), children: sousDep(s, f) });
   const arbreDep = () => depMode === 'admin'
-    ? { id: 'dep', label: 'Toutes les administrations', v: D, children: G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.total, color: COUL[s.code], desc: s.description,
-        tip: tipDe(s.nom, s.total), children: s.fonctions.map(f => fonctionDep(s, f, f.libelle)) })) }
-    : { id: 'dep', label: 'Toutes les fonctions', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ id: f0.code, label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na', desc: f0.libelle_officiel + '.',
-        tip: tipDe(f0.libelle, sum(G.secteurs, s => s.fonctions[k].montant)), children: G.secteurs.map(s => fonctionDep(s, s.fonctions[k], s.nom)) })) };
+    ? { id: 'dep', label: 'Toutes les administrations', v: D, children: G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.total, color: COUL[s.code], explication: X.secteurs[s.code],
+        tip: tipDe(s.nom, s.total, '', X.secteurs[s.code]), children: s.fonctions.map(f => fonctionDep(s, f, f.libelle)) })) }
+    : { id: 'dep', label: 'Toutes les fonctions', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ id: f0.code, label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na', explication: X.fonctions[f0.code],
+        tip: tipDe(f0.libelle, sum(G.secteurs, s => s.fonctions[k].montant), '', X.fonctions[f0.code]), children: G.secteurs.map(s => fonctionDep(s, s.fonctions[k], s.nom)) })) };
   const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D) });
   document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
@@ -579,13 +595,14 @@
   legend('leg-rec', [...G.secteurs.map(s => [COUL[s.code], s.nom]), ['na', 'Autres recettes, toutes administrations'], ['hatch', 'Déficit public']]);
   $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Chaque couleur indique l'administration qui perçoit l'impôt ou la cotisation ; cliquez sur une administration pour zoomer.`;
   explorer('rec', () => ({ id: 'rec', label: 'Recettes et emprunt', v: D, children: [
-    ...G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: COUL[s.code], tip: tipDe(`Recettes perçues par : ${s.nom}`, s.recettes.impots + s.recettes.cotisations), children: [
-      { id: s.code + 'i', label: `Impôts · ${s.nom}`, v: s.recettes.impots, color: COUL[s.code], tip: tipDe(`Impôts perçus par : ${s.nom}`, s.recettes.impots, ` · ${pct(s.recettes.impots, R)} des recettes publiques`) },
-      { id: s.code + 'c', label: `Cotisations · ${s.nom}`, v: s.recettes.cotisations, color: COUL[s.code], tip: tipDe(`Cotisations sociales perçues par : ${s.nom}`, s.recettes.cotisations, s.code === 'S13111' ? ' · surtout les cotisations de retraite des fonctionnaires' : '') },
+    ...G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: COUL[s.code], explication: X.secteurs[s.code], tip: tipDe(`Recettes perçues par : ${s.nom}`, s.recettes.impots + s.recettes.cotisations), children: [
+      { id: s.code + 'i', label: `Impôts · ${s.nom}`, v: s.recettes.impots, color: COUL[s.code], explication: X.recettes.impots, tip: tipDe(`Impôts perçus par : ${s.nom}`, s.recettes.impots, ` · ${pct(s.recettes.impots, R)} des recettes publiques`, X.recettes.impots) },
+      { id: s.code + 'c', label: `Cotisations · ${s.nom}`, v: s.recettes.cotisations, color: COUL[s.code], explication: X.recettes.cotisations, tip: tipDe(`Cotisations sociales perçues par : ${s.nom}`, s.recettes.cotisations, s.code === 'S13111' ? ' · surtout les cotisations de retraite des fonctionnaires' : '', X.recettes.cotisations) },
     ] })),
-    { id: 'autres', label: 'Autres recettes (ventes, revenus, transferts)', v: G.autres_recettes_consolidees, color: 'na', tip: tipDe('Autres recettes, toutes administrations', G.autres_recettes_consolidees, ' · ventes de biens et services, revenus de la propriété, transferts reçus. Non réparties : elles contiennent des flux entre administrations que le total neutralise.') },
-    { id: 'deficit', label: 'Déficit', v: -S, color: 'hatch', tip: tipDe('Déficit public', -S, ` · ${pct(-S, D)} des dépenses. ${G.secteurs.map(s => `${esc(s.nom)} : ${nf(s.recettes.solde, 1)}`).join(' ; ')} Md€.`) },
-  ] }));
+    { id: 'autres', label: 'Autres recettes (ventes, revenus, transferts)', v: G.autres_recettes_consolidees, color: 'na', explication: X.recettes.autres, tip: tipDe('Autres recettes, toutes administrations', G.autres_recettes_consolidees, ' · ventes de biens et services, revenus de la propriété, transferts reçus. Non réparties : elles contiennent des flux entre administrations que le total neutralise.') },
+    { id: 'deficit', label: 'Déficit', v: -S, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit public', -S, ` · ${pct(-S, D)} des dépenses. ${G.secteurs.map(s => `${esc(s.nom)} : ${nf(s.recettes.solde, 1)}`).join(' ; ')} Md€.`) },
+  ] }), { onNode: n => panneau('p-rec', n, D, { base: "qui financent la dépense publique (recettes et emprunt)" }) });
+  panneau('p-rec', explorateurs.rec.root(), D, { base: "qui financent la dépense publique (recettes et emprunt)" });
   $('rec-note').textContent = `Impôts comptés chez l'administration qui les perçoit en dernier : une part de la TVA, par exemple, est affectée à la sécurité sociale et aux collectivités. Le gris neutre regroupe les ${nf(G.autres_recettes_consolidees, 1)} Md€ d'autres recettes, qu'on ne peut pas attribuer à une seule administration. Les impôts et cotisations non recouvrables sont déduits des impôts.`;
   const impCourt = l => l.replace(/^Taxe sur la valeur ajoutée.*/, 'TVA').replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/\s*\((D\d+)\)\s*$/, '')
     .replace(/Contribution sociale généralisée \(CSG\)/, 'CSG').replace(/Impôt sur le revenu des personnes physiques \(IRPP\)/, 'Impôt sur le revenu').replace(/Impôt sur les sociétés \(IS\)/, 'Impôt sur les sociétés')
@@ -622,15 +639,20 @@
   const progLib = p => p.libelle.replace(/\s*\(crédits évaluatifs\)/, '');
   const xEtat = explorer('etat', () => ({ id: 'etat', label: "Budget général de l'État", v: totalEtat, children: [...ministres].map(([min, missions]) => {
     const ps = [...missions.values()].flat();
-    return { id: min, label: shortMin(min), titre: min, v: sum(ps, p => p.depenses) / 1000, color: 'etat', progs: ps, tip: tipDe(min, sum(ps, p => p.depenses) / 1000, ` · ${missions.size} mission${missions.size > 1 ? 's' : ''}`),
-      children: [...missions].map(([mis, progs]) => ({ id: min + '|' + mis, label: mis, v: sum(progs, p => p.depenses) / 1000, color: 'etat', progs,
-        tip: tipDe(mis, sum(progs, p => p.depenses) / 1000, ` · ${esc(min)} · ${progs.length} programme${progs.length > 1 ? 's' : ''}`),
+    const noms = [...missions.keys()];
+    // Un ministère : ce que financent ses missions (reprise de l'explication s'il n'en a qu'une).
+    const explication = noms.length === 1 && X.missions[noms[0]]
+      ? { quoi: `Ses crédits passent par une seule mission, « ${noms[0]} » : ${X.missions[noms[0]].quoi.charAt(0).toLowerCase() + X.missions[noms[0]].quoi.slice(1)}`, exemples: X.missions[noms[0]].exemples }
+      : { quoi: `Ses crédits passent par ${noms.length} missions du budget : ${noms.join(', ')}. Ses trois plus gros programmes sont donnés en exemple.`, exemples: ps.slice().sort((x, y) => y.depenses - x.depenses).slice(0, 3).map(p => `${progLib(p).charAt(0).toLowerCase() + progLib(p).slice(1)} (${mds(p.depenses / 1000)})`) };
+    return { id: min, label: shortMin(min), titre: min, v: sum(ps, p => p.depenses) / 1000, color: 'etat', progs: ps, explication, tip: tipDe(min, sum(ps, p => p.depenses) / 1000, ` · ${missions.size} mission${missions.size > 1 ? 's' : ''}`),
+      children: [...missions].map(([mis, progs]) => ({ id: min + '|' + mis, label: mis, v: sum(progs, p => p.depenses) / 1000, color: 'etat', progs, explication: X.missions[mis],
+        tip: tipDe(mis, sum(progs, p => p.depenses) / 1000, ` · ${esc(min)} · ${progs.length} programme${progs.length > 1 ? 's' : ''}`, X.missions[mis]),
         children: progs.map(p => ({ id: 'P' + p.programme, label: `${progLib(p)} (P${p.programme})`, v: p.depenses / 1000, color: 'etat', progs: [p], cles: `programme ${p.programme}`,
           tip: tipDe(`${progLib(p)} (programme ${p.programme})`, p.depenses / 1000, ` · votés ${esc(mds(p.lfi / 1000))}`) })) })) };
   }) }), { onNode: n => {
     const ps = n.progs || P;
     const aides = B.aides.filter(a => ps.some(p => p.programme === a.programme) && a.annexe !== 4);
-    panneau('p-etat', n, totalEtat, ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}. Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''} Nature des dépenses : ${natures(ps)}.`);
+    panneau('p-etat', n, totalEtat, { base: "du budget général de l'État", extra: ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}. Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''} Nature des dépenses : ${natures(ps)}.` });
   } });
   xEtat.zoom(xEtat.root());
   // Financement du budget de l'État.
@@ -649,7 +671,7 @@
     { id: 'reverse', label: 'Reversé', v: psr, color: 'coll', tip: tipDe('Prélèvements sur recettes', psr), children: [
       { id: 'psrc', label: 'Reversé aux collectivités', v: psrC, color: 'coll', tip: tipDe('Prélèvements sur recettes au profit des collectivités', psrC, ' · dotation globale de fonctionnement, compensations…') },
       { id: 'psru', label: "Reversé à l'Union européenne", v: psrUE, color: 'na', tip: tipDe("Prélèvement sur recettes au profit de l'Union européenne", psrUE, ' · contribution de la France au budget européen') }] },
-    { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
+    { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
   ] }));
   table('tb-etat', ['Ministère', 'Dépenses 2024', 'Votés (LFI)', 'Personnel', 'Transferts aux entreprises'], [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return [esc(m), sum(ps, p => p.depenses) / 1000, sum(ps, p => p.lfi) / 1000, sum(ps, p => p.nature['2'] || 0) / 1000, sum(ps, p => p.transferts_entreprises) / 1000]; })
     .sort((a, b) => b[1] - a[1]).map(r => [r[0], ...r.slice(1).map(v => mds(v))]));
@@ -665,7 +687,7 @@
     const by = new Map();
     for (const a of A.filter(a => a.annexe === n)) { const k = a.ministere + '|' + a.perimetre; if (!by.has(k)) by.set(k, []); by.get(k).push(a); }
     const liste = A.filter(a => a.annexe === n);
-    return { id: 'i' + n, label: l, v: sum(liste, a => a.montant) / 1000, color: c, tip: tipDe(l, sum(liste, a => a.montant) / 1000, ` · ${liste.length} dispositifs`),
+    return { id: 'i' + n, label: l, v: sum(liste, a => a.montant) / 1000, color: c, explication: X.instruments[n], tip: tipDe(l, sum(liste, a => a.montant) / 1000, ` · ${liste.length} dispositifs`, X.instruments[n]),
       children: [...by].map(([k, list]) => {
         const [m, per] = k.split('|'); const v = sum(list, a => a.montant) / 1000;
         const perim = per === 'P1' ? 'socle' : 'élargi';
@@ -674,8 +696,8 @@
           children: list.filter(a => a.montant > 0).map((a, i) => ({ id: `${n}|${k}|${i}`, label: a.nom, v: a.montant / 1000, color: c, hatch: per === 'P2', cles: `${a.rattachement_rapport} ${a.numero} ${a.type || ''}`, desc: `${a.instrument}, périmètre ${perim}, page ${a.page} du rapport. ${a.justification}`,
             tip: tipDe(a.nom, a.montant / 1000, ` · ${esc(m)} · périmètre ${perim}`) })) };
       }) };
-  }) }), { onNode: n => panneau('p-aides', n, totA) });
-  panneau('p-aides', relier({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => ({ id: 'i' + n, label: l, v: sum(A.filter(a => a.annexe === n), a => a.montant) / 1000, color: c })) }), totA);
+  }) }), { onNode: n => panneau('p-aides', n, totA, { base: "d'aides aux entreprises" }) });
+  panneau('p-aides', relier({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => ({ id: 'i' + n, label: l, v: sum(A.filter(a => a.annexe === n), a => a.montant) / 1000, color: c })) }), totA, { base: "d'aides aux entreprises" });
   table('tb-aides', ['Ministère', ...INSTR.map(i => i[1]), 'Total'], [...new Set(A.map(a => a.ministere))].map(m => { const l = A.filter(a => a.ministere === m); return [esc(m), ...INSTR.map(([n]) => sum(l.filter(a => a.annexe === n), a => a.montant) / 1000), sum(l, a => a.montant) / 1000]; })
     .sort((a, b) => b[5] - a[5]).map(r => [r[0], ...r.slice(1).map(v => v ? mds(v) : '–')]));
 
@@ -740,6 +762,7 @@
   const RG = B.meta.regles_aides;
   $('method').innerHTML = [
     `<strong>Couleurs.</strong> Une couleur par administration, sur toute la page : bleu pour l'État, violet pour la sécurité sociale, jaune pour les collectivités locales, vert pour les opérateurs de l'État. Elles viennent de la palette du tableau de bord des aides, avec le même sens quand c'est possible : le bleu des aides budgétaires (versées par l'État), le violet des exonérations de cotisations (supportées par la sécurité sociale), le vert des aides financières (versées surtout par des opérateurs comme Bpifrance). Le gris neutre désigne ce qui ne revient pas à une seule administration (autres recettes, impôts partagés, contribution à l'Union européenne), les hachures le déficit ; dans la partie 4, les hachures marquent le périmètre élargi des aides.`,
+    `<strong>Explications.</strong> Les rubriques « C'est quoi ? » et « Par exemple » sont rédigées pour ce tableau de bord, en langage courant, à partir de la nomenclature internationale des fonctions publiques (COFOG) telle que l'applique l'Insee et de l'objet des missions décrit dans les lois de finances (<code>donnees/explications.json</code>). Elles illustrent ; elles ne remplacent pas les définitions officielles. Pour un ministère, les exemples sont ses trois plus gros programmes.`,
     `<strong>Deux comptabilités.</strong> Les parties 1 et 2 suivent la comptabilité nationale de l'Insee (compte semi-définitif 2024) : toutes les administrations publiques, dépenses consolidées, c'est-à-dire sans double compte des transferts entre elles. La partie 3 suit la comptabilité budgétaire de l'État : les crédits exécutés de la loi d'approbation des comptes 2024, dont une partie est reversée à d'autres administrations.`,
     `<strong>Contrôles.</strong> Les quatre administrations retombent sur le total de ${nf(D, 1)} Md€, les recettes sur ${nf(R, 1)} Md€, et le solde sur le besoin de financement publié par l'Insee (${nf(S, 1)} Md€). Pour l'État, chaque total de l'équilibre est recalculé à partir des fichiers de la DGFiP et retrouve le <a href="${esc(B.meta.equilibre_officiel_url)}" target="_blank" rel="noopener">tableau de l'article 1er du projet de loi</a> : aucun écart.`,
     `<strong>Fonctions.</strong> Nomenclature internationale COFOG. Les intérêts de la dette sont classés dans les services généraux, les retraites dans la protection sociale. Les remboursements de soins figurent en santé, les indemnités journalières en protection sociale.`,

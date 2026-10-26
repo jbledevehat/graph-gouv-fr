@@ -1,0 +1,908 @@
+{
+ "_note": "Explications en langage courant rédigées pour ce tableau de bord, à partir de la nomenclature des fonctions des administrations publiques (COFOG, Nations unies et Eurostat) telle que l'applique l'Insee, et de l'objet des missions décrit dans les lois de finances. Elles illustrent ; elles ne remplacent pas les définitions officielles.",
+ "secteurs": {
+  "S1314": {
+   "quoi": "Les caisses qui protègent chacun face aux grands risques de la vie : la vieillesse, la maladie, la famille, le chômage. Elles sont financées surtout par les cotisations sur les salaires et par la CSG.",
+   "exemples": [
+    "les retraites de base et complémentaires",
+    "le remboursement des soins et les hôpitaux publics",
+    "les allocations familiales",
+    "les allocations chômage"
+   ]
+  },
+  "S13111": {
+   "quoi": "Les ministères et les services de l'État, à Paris et dans les territoires, avec ce qu'ils versent directement aux ménages, aux entreprises et aux associations.",
+   "exemples": [
+    "les enseignants et les militaires",
+    "la police et la justice",
+    "les intérêts de la dette de l'État",
+    "les pensions des fonctionnaires de l'État"
+   ]
+  },
+  "S1313": {
+   "quoi": "Les communes, intercommunalités, départements et régions, et les établissements qu'ils financent. Ils gèrent les services publics de proximité.",
+   "exemples": [
+    "les écoles, collèges et lycées (bâtiments, cantines)",
+    "le RSA et l'aide sociale à l'enfance (départements)",
+    "les transports en commun et les routes locales",
+    "le ramassage des déchets"
+   ]
+  },
+  "S13112": {
+   "quoi": "Les organismes publics que l'État crée pour mener une mission précise, avec leur propre budget : universités, agences, établissements publics.",
+   "exemples": [
+    "les universités et le CNRS",
+    "France Travail",
+    "l'Ademe ou l'Office français de la biodiversité",
+    "France Télévisions et Radio France"
+   ]
+  }
+ },
+ "fonctions": {
+  "GF01": {
+   "quoi": "Le fonctionnement général des pouvoirs publics, qui ne relève pas d'une politique en particulier : institutions, gestion des impôts, diplomatie, recherche fondamentale, et les intérêts de la dette.",
+   "exemples": [
+    "le Parlement et les ministères",
+    "la collecte des impôts",
+    "les ambassades",
+    "les intérêts payés sur la dette publique"
+   ]
+  },
+  "GF02": {
+   "quoi": "La défense du pays : les armées, leurs équipements et leurs opérations.",
+   "exemples": [
+    "les militaires de l'armée de terre, de la marine et de l'armée de l'air",
+    "les avions, navires et blindés",
+    "la recherche militaire"
+   ]
+  },
+  "GF03": {
+   "quoi": "La sécurité des personnes et des biens, et la justice.",
+   "exemples": [
+    "la police et la gendarmerie",
+    "les sapeurs-pompiers",
+    "les tribunaux",
+    "les prisons"
+   ]
+  },
+  "GF04": {
+   "quoi": "Le soutien à l'économie et à l'emploi : transports, énergie, agriculture, industrie, recherche appliquée.",
+   "exemples": [
+    "les routes et le réseau ferré",
+    "le soutien aux énergies renouvelables",
+    "la politique de l'emploi",
+    "les aides à l'agriculture"
+   ]
+  },
+  "GF05": {
+   "quoi": "La protection de l'environnement : déchets, eaux usées, pollution, nature.",
+   "exemples": [
+    "la collecte et le traitement des ordures",
+    "les stations d'épuration",
+    "les parcs naturels"
+   ]
+  },
+  "GF06": {
+   "quoi": "Le logement et l'aménagement des villes et des villages.",
+   "exemples": [
+    "la construction de logements sociaux",
+    "l'aménagement urbain",
+    "l'eau potable",
+    "l'éclairage public"
+   ]
+  },
+  "GF07": {
+   "quoi": "Les soins et la prévention : ce que l'assurance maladie et les hôpitaux publics paient pour soigner.",
+   "exemples": [
+    "les consultations chez le médecin remboursées",
+    "les séjours à l'hôpital",
+    "les médicaments remboursés",
+    "la vaccination et le dépistage"
+   ]
+  },
+  "GF08": {
+   "quoi": "Le sport, la culture, les médias publics et la vie associative.",
+   "exemples": [
+    "les piscines et les stades",
+    "les musées et les bibliothèques",
+    "l'audiovisuel public",
+    "l'entretien des lieux de culte communaux"
+   ]
+  },
+  "GF09": {
+   "quoi": "L'école, de la maternelle à l'université, et ce qui l'accompagne.",
+   "exemples": [
+    "les salaires des enseignants",
+    "les écoles, collèges, lycées et universités",
+    "les cantines et les transports scolaires"
+   ]
+  },
+  "GF10": {
+   "quoi": "Les revenus versés pour faire face aux risques de la vie et les aides sociales : retraite, handicap, famille, chômage, logement, pauvreté. C'est de loin le premier poste de dépense publique.",
+   "exemples": [
+    "les pensions de retraite",
+    "les allocations familiales",
+    "les allocations chômage",
+    "le RSA et les aides au logement"
+   ]
+  }
+ },
+ "sous_fonctions": {
+  "GF0101": {
+   "quoi": "Le fonctionnement des institutions et des services qui gèrent les finances publiques et les relations avec les autres pays.",
+   "exemples": [
+    "le Parlement, la Présidence et le gouvernement",
+    "les services des impôts et des douanes",
+    "les ambassades et consulats",
+    "les assemblées locales"
+   ]
+  },
+  "GF0102": {
+   "quoi": "L'aide que la France apporte aux pays en développement.",
+   "exemples": [
+    "les dons et prêts à des pays partenaires",
+    "la contribution aux banques de développement"
+   ]
+  },
+  "GF0103": {
+   "quoi": "Les services communs des administrations et les sommes versées d'une administration à une autre sans usage précis connu.",
+   "exemples": [
+    "la gestion du personnel et de l'informatique",
+    "les statistiques publiques",
+    "une partie des dotations de l'État aux collectivités"
+   ]
+  },
+  "GF0104": {
+   "quoi": "La recherche qui fait avancer les connaissances, sans application immédiate.",
+   "exemples": [
+    "le CNRS",
+    "les laboratoires des universités"
+   ]
+  },
+  "GF0105": {
+   "quoi": "La recherche menée pour améliorer le fonctionnement des administrations.",
+   "exemples": [
+    "des études sur l'organisation des services publics"
+   ]
+  },
+  "GF0106": {
+   "quoi": "Les autres dépenses de fonctionnement général des administrations, non classées ailleurs.",
+   "exemples": [
+    "des frais de fonctionnement communs"
+   ]
+  },
+  "GF0107": {
+   "quoi": "Les intérêts que les administrations paient sur l'argent qu'elles ont emprunté. Le remboursement du capital emprunté n'en fait pas partie.",
+   "exemples": [
+    "les intérêts des obligations de l'État (OAT)",
+    "les intérêts des emprunts de la Sécurité sociale et des collectivités"
+   ]
+  },
+  "GF0201": {
+   "quoi": "Les armées : leurs militaires, leur entraînement, leurs équipements et leurs opérations.",
+   "exemples": [
+    "la solde des militaires",
+    "les avions de combat, navires, chars",
+    "les opérations extérieures"
+   ]
+  },
+  "GF0202": {
+   "quoi": "La préparation du pays aux crises majeures, hors armées.",
+   "exemples": [
+    "les plans de protection de la population en cas de crise"
+   ]
+  },
+  "GF0203": {
+   "quoi": "L'aide militaire apportée à d'autres pays.",
+   "exemples": [
+    "la formation de forces armées étrangères",
+    "le soutien en équipements"
+   ]
+  },
+  "GF0204": {
+   "quoi": "La recherche et le développement pour la défense.",
+   "exemples": [
+    "les programmes de recherche sur les futurs équipements militaires"
+   ]
+  },
+  "GF0205": {
+   "quoi": "Les autres dépenses de défense : administration, soutien, non classées ailleurs.",
+   "exemples": [
+    "l'administration du ministère des Armées"
+   ]
+  },
+  "GF0301": {
+   "quoi": "Les forces qui assurent la sécurité au quotidien.",
+   "exemples": [
+    "la police nationale",
+    "la gendarmerie",
+    "les polices municipales"
+   ]
+  },
+  "GF0302": {
+   "quoi": "Les secours et la protection face aux incendies, accidents et catastrophes.",
+   "exemples": [
+    "les sapeurs-pompiers (services départementaux d'incendie et de secours)",
+    "les moyens nationaux de la sécurité civile"
+   ]
+  },
+  "GF0303": {
+   "quoi": "Le fonctionnement de la justice.",
+   "exemples": [
+    "les tribunaux et cours d'appel",
+    "les magistrats et greffiers",
+    "l'aide juridictionnelle"
+   ]
+  },
+  "GF0304": {
+   "quoi": "Les prisons et le suivi des personnes condamnées.",
+   "exemples": [
+    "les établissements pénitentiaires",
+    "les surveillants",
+    "les services d'insertion et de probation"
+   ]
+  },
+  "GF0306": {
+   "quoi": "Les autres dépenses d'ordre et de sécurité, non classées ailleurs.",
+   "exemples": [
+    "l'administration des services de sécurité"
+   ]
+  },
+  "GF0401": {
+   "quoi": "Le pilotage de l'économie, du commerce et surtout de l'emploi.",
+   "exemples": [
+    "France Travail et l'accompagnement des demandeurs d'emploi",
+    "les aides à l'embauche et à l'apprentissage",
+    "la régulation des marchés"
+   ]
+  },
+  "GF0402": {
+   "quoi": "Le soutien à l'agriculture, à la forêt, à la pêche.",
+   "exemples": [
+    "les aides aux agriculteurs",
+    "la gestion des forêts publiques",
+    "le soutien à la pêche"
+   ]
+  },
+  "GF0403": {
+   "quoi": "L'énergie : production, réseaux et soutien aux énergies nouvelles.",
+   "exemples": [
+    "le soutien aux énergies renouvelables",
+    "l'électricité dans les territoires d'outre-mer et en Corse",
+    "les aides face à la hausse des prix de l'énergie"
+   ]
+  },
+  "GF0404": {
+   "quoi": "Le soutien à l'industrie et au bâtiment.",
+   "exemples": [
+    "les aides aux projets industriels",
+    "les programmes de France 2030 pour l'industrie"
+   ]
+  },
+  "GF0405": {
+   "quoi": "Les infrastructures et les services de transport.",
+   "exemples": [
+    "les routes et autoroutes non concédées",
+    "le réseau ferré et les trains régionaux",
+    "les bus, tramways et métros",
+    "les ports et voies navigables"
+   ]
+  },
+  "GF0406": {
+   "quoi": "Les télécommunications et la poste.",
+   "exemples": [
+    "le déploiement de la fibre optique",
+    "la présence postale dans les territoires"
+   ]
+  },
+  "GF0407": {
+   "quoi": "Les autres secteurs de l'économie.",
+   "exemples": [
+    "le tourisme",
+    "le commerce et l'artisanat",
+    "les zones d'activité"
+   ]
+  },
+  "GF0408": {
+   "quoi": "La recherche appliquée au service de l'économie.",
+   "exemples": [
+    "la recherche spatiale (CNES)",
+    "la recherche sur l'énergie",
+    "les projets d'innovation de France 2030"
+   ]
+  },
+  "GF0409": {
+   "quoi": "Les autres dépenses économiques, non classées ailleurs.",
+   "exemples": [
+    "des actions économiques transversales"
+   ]
+  },
+  "GF0501": {
+   "quoi": "La collecte et le traitement des déchets.",
+   "exemples": [
+    "le ramassage des ordures",
+    "les déchetteries",
+    "le tri et le recyclage"
+   ]
+  },
+  "GF0502": {
+   "quoi": "L'assainissement des eaux usées.",
+   "exemples": [
+    "les égouts",
+    "les stations d'épuration"
+   ]
+  },
+  "GF0503": {
+   "quoi": "La lutte contre les pollutions.",
+   "exemples": [
+    "la surveillance de la qualité de l'air",
+    "la dépollution des sols",
+    "la lutte contre le bruit"
+   ]
+  },
+  "GF0504": {
+   "quoi": "La protection de la nature et des espèces.",
+   "exemples": [
+    "les parcs nationaux",
+    "l'Office français de la biodiversité",
+    "la protection des espaces naturels"
+   ]
+  },
+  "GF0505": {
+   "quoi": "La recherche sur l'environnement.",
+   "exemples": [
+    "les études sur le climat et la biodiversité"
+   ]
+  },
+  "GF0506": {
+   "quoi": "Les autres dépenses d'environnement, non classées ailleurs.",
+   "exemples": [
+    "l'administration des politiques environnementales"
+   ]
+  },
+  "GF0601": {
+   "quoi": "La construction et la rénovation des logements.",
+   "exemples": [
+    "les logements sociaux",
+    "la rénovation des quartiers",
+    "la lutte contre l'habitat indigne"
+   ]
+  },
+  "GF0602": {
+   "quoi": "L'aménagement des villes et des villages.",
+   "exemples": [
+    "l'aménagement des places et des rues",
+    "les espaces verts",
+    "les équipements de quartier"
+   ]
+  },
+  "GF0603": {
+   "quoi": "La distribution de l'eau potable.",
+   "exemples": [
+    "les réseaux et usines d'eau potable"
+   ]
+  },
+  "GF0604": {
+   "quoi": "L'éclairage des rues.",
+   "exemples": [
+    "les lampadaires et leur électricité"
+   ]
+  },
+  "GF0606": {
+   "quoi": "Les autres dépenses de logement et d'équipements, non classées ailleurs.",
+   "exemples": [
+    "l'administration de l'urbanisme"
+   ]
+  },
+  "GF0701": {
+   "quoi": "Les médicaments et le matériel médical remboursés.",
+   "exemples": [
+    "les médicaments achetés en pharmacie",
+    "les lunettes, prothèses et appareils"
+   ]
+  },
+  "GF0702": {
+   "quoi": "Les soins en dehors de l'hôpital, remboursés par l'assurance maladie.",
+   "exemples": [
+    "les consultations chez le généraliste et le spécialiste",
+    "le dentiste, les infirmiers, les kinésithérapeutes",
+    "les analyses de laboratoire"
+   ]
+  },
+  "GF0703": {
+   "quoi": "Les soins à l'hôpital public et en clinique.",
+   "exemples": [
+    "les séjours et opérations",
+    "les urgences",
+    "les maternités"
+   ]
+  },
+  "GF0704": {
+   "quoi": "La prévention et la santé de toute la population.",
+   "exemples": [
+    "la vaccination et le dépistage",
+    "les agences sanitaires",
+    "la veille face aux épidémies"
+   ]
+  },
+  "GF0705": {
+   "quoi": "La recherche médicale.",
+   "exemples": [
+    "l'Inserm",
+    "la recherche dans les centres hospitaliers universitaires"
+   ]
+  },
+  "GF0706": {
+   "quoi": "Les autres dépenses de santé, dont l'organisation du système de soins.",
+   "exemples": [
+    "les agences régionales de santé",
+    "la gestion de l'assurance maladie"
+   ]
+  },
+  "GF0801": {
+   "quoi": "Le sport et les loisirs.",
+   "exemples": [
+    "les piscines, gymnases et stades",
+    "les centres de loisirs",
+    "le soutien aux clubs"
+   ]
+  },
+  "GF0802": {
+   "quoi": "La culture et le patrimoine.",
+   "exemples": [
+    "les musées et monuments",
+    "les bibliothèques",
+    "les théâtres, opéras et conservatoires"
+   ]
+  },
+  "GF0803": {
+   "quoi": "L'audiovisuel public et le soutien à la presse et à l'édition.",
+   "exemples": [
+    "France Télévisions et Radio France",
+    "les aides à la presse"
+   ]
+  },
+  "GF0804": {
+   "quoi": "Les cultes et la vie associative.",
+   "exemples": [
+    "l'entretien des églises qui appartiennent aux communes",
+    "le soutien aux associations"
+   ]
+  },
+  "GF0806": {
+   "quoi": "Les autres dépenses de culture et de loisirs, non classées ailleurs.",
+   "exemples": [
+    "l'administration des politiques culturelles"
+   ]
+  },
+  "GF0901": {
+   "quoi": "Les écoles maternelles et élémentaires.",
+   "exemples": [
+    "les professeurs des écoles",
+    "les bâtiments scolaires, entretenus par les communes",
+    "les agents qui assistent les enseignants en maternelle"
+   ]
+  },
+  "GF0902": {
+   "quoi": "Les collèges et les lycées.",
+   "exemples": [
+    "les professeurs de collège et de lycée",
+    "les collèges (départements) et les lycées (régions)"
+   ]
+  },
+  "GF0903": {
+   "quoi": "Certaines formations après le bac qui ne sont pas de l'enseignement supérieur.",
+   "exemples": [
+    "des formations professionnelles courtes après le bac"
+   ]
+  },
+  "GF0904": {
+   "quoi": "Les universités et les écoles de l'enseignement supérieur.",
+   "exemples": [
+    "les universités",
+    "les écoles d'ingénieurs publiques",
+    "les bourses étudiantes"
+   ]
+  },
+  "GF0905": {
+   "quoi": "Les formations qui ne correspondent pas à un niveau scolaire précis.",
+   "exemples": [
+    "la formation des adultes",
+    "l'enseignement à distance"
+   ]
+  },
+  "GF0906": {
+   "quoi": "Les services qui accompagnent la scolarité.",
+   "exemples": [
+    "les cantines",
+    "les transports scolaires",
+    "les internats",
+    "la santé scolaire"
+   ]
+  },
+  "GF0908": {
+   "quoi": "Les autres dépenses d'enseignement, dont l'administration de l'éducation.",
+   "exemples": [
+    "les rectorats et services académiques"
+   ]
+  },
+  "GF1001": {
+   "quoi": "Les revenus versés quand la maladie ou un handicap empêche de travailler. Les soins eux-mêmes sont comptés à part, dans la santé.",
+   "exemples": [
+    "les indemnités journalières en arrêt maladie",
+    "les pensions d'invalidité",
+    "l'allocation aux adultes handicapés (AAH)"
+   ]
+  },
+  "GF1002": {
+   "quoi": "Les retraites et l'aide aux personnes âgées.",
+   "exemples": [
+    "les pensions de retraite de base et complémentaires",
+    "les retraites des fonctionnaires",
+    "le minimum vieillesse",
+    "l'aide aux personnes âgées dépendantes (APA)"
+   ]
+  },
+  "GF1003": {
+   "quoi": "Ce qui est versé aux proches d'une personne décédée.",
+   "exemples": [
+    "les pensions de réversion versées au conjoint",
+    "le capital décès"
+   ]
+  },
+  "GF1004": {
+   "quoi": "L'aide aux familles et la protection des enfants.",
+   "exemples": [
+    "les allocations familiales",
+    "les aides pour la garde des jeunes enfants",
+    "l'aide sociale à l'enfance",
+    "les crèches publiques"
+   ]
+  },
+  "GF1005": {
+   "quoi": "Les revenus versés aux personnes qui ont perdu leur emploi.",
+   "exemples": [
+    "les allocations chômage",
+    "l'indemnisation du chômage partiel"
+   ]
+  },
+  "GF1006": {
+   "quoi": "Les aides pour payer son loyer.",
+   "exemples": [
+    "l'aide personnalisée au logement (APL)",
+    "les autres allocations de logement"
+   ]
+  },
+  "GF1007": {
+   "quoi": "Les aides aux personnes les plus pauvres ou en difficulté.",
+   "exemples": [
+    "le revenu de solidarité active (RSA)",
+    "la prime d'activité",
+    "l'hébergement d'urgence"
+   ]
+  },
+  "GF1009": {
+   "quoi": "Les autres dépenses de protection sociale, dont la gestion des caisses.",
+   "exemples": [
+    "le fonctionnement des caisses de sécurité sociale"
+   ]
+  }
+ },
+ "missions": {
+  "Engagements financiers de l'État": {
+   "quoi": "Surtout les intérêts de la dette de l'État, et les garanties que l'État a accordées et doit honorer.",
+   "exemples": [
+    "les intérêts des obligations de l'État",
+    "les appels en garantie des prêts garantis par l'État"
+   ]
+  },
+  "Enseignement scolaire": {
+   "quoi": "L'école, le collège et le lycée : d'abord les salaires des enseignants et des personnels.",
+   "exemples": [
+    "les professeurs des écoles, de collège et de lycée",
+    "les accompagnants d'élèves en situation de handicap",
+    "l'enseignement agricole"
+   ]
+  },
+  "Défense": {
+   "quoi": "Les armées : personnel, équipements, préparation et opérations.",
+   "exemples": [
+    "la solde des militaires",
+    "les programmes d'armement",
+    "les opérations extérieures"
+   ]
+  },
+  "Solidarité, insertion et égalité des chances": {
+   "quoi": "Les aides de l'État aux personnes en difficulté ou en situation de handicap.",
+   "exemples": [
+    "la prime d'activité",
+    "l'allocation aux adultes handicapés",
+    "l'égalité entre les femmes et les hommes"
+   ]
+  },
+  "Recherche et enseignement supérieur": {
+   "quoi": "Les universités, les organismes de recherche et la vie étudiante.",
+   "exemples": [
+    "les universités",
+    "le CNRS, l'Inserm, le CEA",
+    "les bourses et le logement étudiant"
+   ]
+  },
+  "Travail et emploi": {
+   "quoi": "La politique de l'emploi et de la formation professionnelle.",
+   "exemples": [
+    "les aides à l'embauche d'apprentis",
+    "France Travail",
+    "l'insertion des personnes éloignées de l'emploi"
+   ]
+  },
+  "Sécurités": {
+   "quoi": "La police, la gendarmerie, la sécurité routière et la sécurité civile.",
+   "exemples": [
+    "les policiers et gendarmes",
+    "les radars et la sécurité routière",
+    "les avions bombardiers d'eau"
+   ]
+  },
+  "Cohésion des territoires": {
+   "quoi": "Le logement, l'hébergement des plus fragiles et l'aménagement du territoire.",
+   "exemples": [
+    "les aides personnelles au logement (APL)",
+    "l'hébergement d'urgence",
+    "la politique de la ville"
+   ]
+  },
+  "Écologie, développement et mobilité durables": {
+   "quoi": "La transition écologique, l'énergie et les transports.",
+   "exemples": [
+    "le soutien aux énergies renouvelables",
+    "les infrastructures de transport",
+    "la prévention des risques naturels"
+   ]
+  },
+  "Gestion des finances publiques": {
+   "quoi": "Les administrations qui collectent les impôts et gèrent l'argent public.",
+   "exemples": [
+    "la direction générale des Finances publiques",
+    "les douanes"
+   ]
+  },
+  "Remboursements et dégrèvements": {
+   "quoi": "Ici, seulement les impôts locaux que l'État prend à sa charge à la place des contribuables : dégrèvements et allègements accordés par la loi. Les remboursements d'impôts d'État (TVA, impôt sur le revenu…) ne sont pas comptés dans ce graphique : ils sont déduits des recettes.",
+   "exemples": [
+    "les dégrèvements de taxe foncière ou de cotisation foncière des entreprises",
+    "les plafonnements d'impôts locaux en fonction des revenus"
+   ]
+  },
+  "Justice": {
+   "quoi": "Les tribunaux, les prisons et la protection judiciaire de la jeunesse.",
+   "exemples": [
+    "les magistrats et greffiers",
+    "l'administration pénitentiaire",
+    "l'aide juridictionnelle"
+   ]
+  },
+  "Investir pour la France de 2030": {
+   "quoi": "Le plan d'investissement de l'État dans l'innovation et l'industrie de demain.",
+   "exemples": [
+    "les projets France 2030",
+    "la recherche et les start-up innovantes"
+   ]
+  },
+  "Régimes sociaux et de retraite": {
+   "quoi": "La part de l'État dans le financement de certains régimes de retraite spéciaux.",
+   "exemples": [
+    "les retraites des cheminots",
+    "les retraites des marins",
+    "les retraites des anciens mineurs"
+   ]
+  },
+  "Économie": {
+   "quoi": "Le soutien aux entreprises, la régulation de l'économie et les statistiques.",
+   "exemples": [
+    "l'aide aux entreprises de l'industrie",
+    "l'Insee",
+    "le déploiement du très haut débit"
+   ]
+  },
+  "Relations avec les collectivités territoriales": {
+   "quoi": "Une partie de l'aide de l'État aux collectivités locales, versée par des crédits du budget.",
+   "exemples": [
+    "les aides à l'investissement des communes",
+    "les dotations pour certaines compétences transférées"
+   ]
+  },
+  "Aide publique au développement": {
+   "quoi": "L'aide de la France aux pays en développement.",
+   "exemples": [
+    "les dons à des pays partenaires",
+    "les contributions aux fonds internationaux"
+   ]
+  },
+  "Administration générale et territoriale de l'État": {
+   "quoi": "Les préfectures et l'organisation des élections.",
+   "exemples": [
+    "les préfectures et sous-préfectures",
+    "les titres d'identité et cartes grises",
+    "les élections"
+   ]
+  },
+  "Agriculture, alimentation, forêt et affaires rurales": {
+   "quoi": "Le soutien à l'agriculture, à la forêt et la sécurité de l'alimentation.",
+   "exemples": [
+    "les aides aux agriculteurs",
+    "les contrôles sanitaires des aliments",
+    "la forêt"
+   ]
+  },
+  "Action extérieure de l'État": {
+   "quoi": "La diplomatie et la présence de la France à l'étranger.",
+   "exemples": [
+    "les ambassades et consulats",
+    "les lycées français à l'étranger",
+    "l'accueil des étudiants étrangers"
+   ]
+  },
+  "Outre-Mer": {
+   "quoi": "Les aides spécifiques aux territoires d'outre-mer.",
+   "exemples": [
+    "les exonérations de cotisations pour l'emploi outre-mer",
+    "le logement outre-mer"
+   ]
+  },
+  "Anciens combattants, mémoire et liens avec la Nation": {
+   "quoi": "La reconnaissance et l'aide aux anciens combattants, et la mémoire des conflits.",
+   "exemples": [
+    "les pensions militaires d'invalidité",
+    "les commémorations"
+   ]
+  },
+  "Immigration, asile et intégration": {
+   "quoi": "L'accueil des demandeurs d'asile, l'intégration des étrangers et la lutte contre l'immigration irrégulière.",
+   "exemples": [
+    "l'hébergement des demandeurs d'asile",
+    "les cours de français",
+    "les centres de rétention"
+   ]
+  },
+  "Plan de relance": {
+   "quoi": "La fin du plan de relance lancé après la crise du Covid.",
+   "exemples": [
+    "la rénovation énergétique",
+    "le soutien à l'industrie"
+   ]
+  },
+  "Culture": {
+   "quoi": "Le patrimoine, la création artistique et la transmission de la culture.",
+   "exemples": [
+    "les monuments historiques",
+    "les musées nationaux",
+    "les écoles d'art"
+   ]
+  },
+  "Santé": {
+   "quoi": "Les actions de santé publique menées par l'État.",
+   "exemples": [
+    "la prévention",
+    "l'aide médicale de l'État"
+   ]
+  },
+  "Direction de l'action du Gouvernement": {
+   "quoi": "Les services du Premier ministre.",
+   "exemples": [
+    "la coordination du gouvernement",
+    "la cybersécurité de l'État",
+    "les autorités indépendantes"
+   ]
+  },
+  "Sport, jeunesse et vie associative": {
+   "quoi": "Le sport, la jeunesse et le soutien aux associations.",
+   "exemples": [
+    "le service national universel",
+    "le service civique",
+    "le sport de haut niveau"
+   ]
+  },
+  "Pouvoirs publics": {
+   "quoi": "Les grandes institutions de la République.",
+   "exemples": [
+    "la Présidence de la République",
+    "l'Assemblée nationale et le Sénat",
+    "le Conseil constitutionnel"
+   ]
+  },
+  "Conseil et contrôle de l'État": {
+   "quoi": "Les institutions qui conseillent et contrôlent l'action publique.",
+   "exemples": [
+    "le Conseil d'État et les tribunaux administratifs",
+    "la Cour des comptes"
+   ]
+  },
+  "Transformation et fonction publiques": {
+   "quoi": "La modernisation de l'administration et la gestion de la fonction publique.",
+   "exemples": [
+    "les projets numériques de l'État",
+    "la rénovation des bâtiments publics"
+   ]
+  },
+  "Médias, livre et industries culturelles": {
+   "quoi": "Le soutien à la presse, au livre, à la musique et au cinéma.",
+   "exemples": [
+    "les aides à la presse",
+    "le Centre national du livre"
+   ]
+  },
+  "Crédits non répartis": {
+   "quoi": "Une réserve pour les dépenses imprévues.",
+   "exemples": [
+    "les dépenses accidentelles"
+   ]
+  }
+ },
+ "instruments": {
+  "1": {
+   "quoi": "De l'argent versé directement aux entreprises : subventions, prises en charge, prestations.",
+   "exemples": [
+    "les aides à l'embauche d'apprentis",
+    "le soutien aux énergies renouvelables",
+    "les subventions de France 2030"
+   ]
+  },
+  "2": {
+   "quoi": "Des impôts que les entreprises paient en moins : crédits d'impôt, exonérations, taux réduits. L'État ne verse rien, il perçoit moins.",
+   "exemples": [
+    "le crédit d'impôt recherche",
+    "les taux réduits de TVA dans la restauration ou les travaux",
+    "le gazole agricole moins taxé"
+   ]
+  },
+  "3": {
+   "quoi": "Des prêts, avances ou garanties à des conditions plus favorables que celles des banques.",
+   "exemples": [
+    "les prêts garantis par l'État",
+    "les prêts à l'innovation de Bpifrance"
+   ]
+  },
+  "4": {
+   "quoi": "Des cotisations sociales que les employeurs paient en moins. C'est la Sécurité sociale qui perçoit moins, l'État compensant en partie.",
+   "exemples": [
+    "la réduction des cotisations sur les bas salaires",
+    "les exonérations pour l'emploi outre-mer",
+    "les jeunes entreprises innovantes"
+   ]
+  }
+ },
+ "recettes": {
+  "impots": {
+   "quoi": "Les impôts et taxes que perçoit cette administration.",
+   "exemples": [
+    "la TVA",
+    "l'impôt sur le revenu",
+    "la CSG",
+    "la taxe foncière"
+   ]
+  },
+  "cotisations": {
+   "quoi": "Les cotisations sociales prélevées sur les salaires et les revenus d'activité, qui ouvrent des droits (retraite, maladie, chômage).",
+   "exemples": [
+    "les cotisations de retraite",
+    "les cotisations d'assurance chômage"
+   ]
+  },
+  "autres": {
+   "quoi": "Ce que les administrations perçoivent en dehors des impôts : la vente de services, les loyers, les dividendes, les dons et fonds européens.",
+   "exemples": [
+    "les cantines et les crèches payées par les familles",
+    "les dividendes des entreprises publiques",
+    "les fonds européens"
+   ]
+  },
+  "deficit": {
+   "quoi": "La part des dépenses qui n'est pas couverte par les recettes de l'année. Elle est empruntée, et vient s'ajouter à la dette publique.",
+   "exemples": [
+    "les obligations émises par l'État",
+    "les emprunts de la Sécurité sociale"
+   ]
+  }
+ }
+}
