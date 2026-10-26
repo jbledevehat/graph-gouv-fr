@@ -8,10 +8,13 @@ vérifiés pour partager les données publiques et piloter les politiques publiq
 | [`/`](https://gouvfr.jbledevehat.fr/) | Page d'accueil | `web/accueil.html` |
 | [`/sites/`](https://gouvfr.jbledevehat.fr/sites/) | Carte des sites web de l'État | `web/carte.html` |
 | [`/sites/pilotage.html`](https://gouvfr.jbledevehat.fr/sites/pilotage.html) | Pilotage des sites web | `web/pilotage.html` |
-| [`/budget/`](https://gouvfr.jbledevehat.fr/budget/) | L'argent public et le budget de l'État en 2024 | `budget/index.html` |
+| [`/budget/`](https://gouvfr.jbledevehat.fr/budget/) | Exploration de l'argent public en 2024 (dépenses et recettes, à zoomer) | `budget/index.html` |
+| [`/budget/pilotage.html`](https://gouvfr.jbledevehat.fr/budget/pilotage.html) | Pilotage du budget : argent public et budget de l'État | `budget/pilotage.html` |
 | [`/budget/aides.html`](https://gouvfr.jbledevehat.fr/budget/aides.html) | Les aides aux entreprises | `budget/aides.html` |
 
-Chaque page porte un fil d'Ariane vers l'accueil et sa section. Les anciennes adresses restent
+Toutes les pages portent le même bandeau (`src/build/bandeau.mjs`, inséré à la construction à la
+place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux deux sections, thème, puis fil
+d'Ariane et onglets des pages de la section. Les anciennes adresses restent
 valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la racine, et
 `pilotage.html` renvoie vers `sites/pilotage.html`.
 

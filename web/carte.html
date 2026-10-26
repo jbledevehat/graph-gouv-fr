@@ -93,7 +93,8 @@
     font: 14px/1.45 var(--sans);
     overflow: hidden;
   }
-  #graph { position: fixed; inset: 0; }
+  /* Sous le bandeau commun, dont la hauteur est publiée dans --bandeau-h. */
+  #graph { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; }
   #graph canvas { outline: none; }
 
   .panel {
@@ -107,10 +108,10 @@
 
   /* --- Panneau principal : titre, recherche, légende --- */
   #side {
-    top: calc(16px + env(safe-area-inset-top, 0px));
+    top: calc(16px + var(--bandeau-h, 0px));
     left: 16px;
     width: 320px;
-    max-height: calc(100% - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100% - 32px - var(--bandeau-h, 0px) - env(safe-area-inset-bottom, 0px));
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -233,10 +234,10 @@
   /* --- Fiche d'un élément --- */
   #detail {
     z-index: 4;
-    top: calc(16px + env(safe-area-inset-top, 0px));
+    top: calc(16px + var(--bandeau-h, 0px));
     right: 16px;
     width: 360px;
-    max-height: calc(100% - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100% - 32px - var(--bandeau-h, 0px) - env(safe-area-inset-bottom, 0px));
     overflow-y: auto;
   }
   .detail-head {
@@ -338,7 +339,7 @@
   .neighbours .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* --- Noms des pôles sur la carte --- */
-  #poles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  #poles { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; z-index: 1; pointer-events: none; overflow: hidden; }
   #poles span {
     position: absolute;
     transform: translate(-50%, -100%);
@@ -411,7 +412,7 @@
 
   /* --- Vue liste par pôle --- */
   #list {
-    top: calc(16px + env(safe-area-inset-top, 0px));
+    top: calc(16px + var(--bandeau-h, 0px));
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     left: 352px;
     right: 16px;
@@ -553,7 +554,7 @@
 
   #status {
     position: fixed;
-    inset: 0;
+    inset: var(--bandeau-h, 0px) 0 0 0;
     display: grid;
     place-items: center;
     color: var(--muted);
@@ -591,6 +592,7 @@
 </style>
 
 <a class="skip" href="#q">Aller à la recherche</a>
+<!--bandeau-->
 <div id="graph" role="img" aria-label="Carte en réseau des sites web publics et de leurs administrations. Utilisez la recherche, le menu des ministères et la fiche de chaque élément pour la parcourir au clavier."></div>
 <p id="announce" class="sr-only" aria-live="polite"></p>
 <div id="poles" aria-hidden="true"></div>
@@ -598,7 +600,6 @@
 
 <aside id="side" class="panel" aria-label="Recherche et légende">
   <div class="head">
-    <nav class="ariane" aria-label="Fil d'Ariane"><ol><li><a href="../">Accueil</a></li><li aria-current="page">Sites web de l'État</li></ol></nav>
     <div class="eyebrow">Cartographie · V2</div>
     <h1>Sites web publics de l'État</h1>
     <p class="sub">Les sites de l'État, rangés par ministère selon l'Annuaire de l'administration.</p>
@@ -615,13 +616,6 @@
     <div class="views" role="group" aria-label="Affichage">
       <button type="button" id="v-map" aria-pressed="true">Carte</button>
       <button type="button" id="v-list" aria-pressed="false">Liste par pôle</button>
-      <a href="pilotage.html">Pilotage</a>
-    </div>
-    <div class="theme" role="group" aria-label="Thème">
-      <span aria-hidden="true">Thème</span>
-      <button type="button" data-theme-choice="auto" aria-pressed="true">Système</button>
-      <button type="button" data-theme-choice="light" aria-pressed="false">Clair</button>
-      <button type="button" data-theme-choice="dark" aria-pressed="false">Sombre</button>
     </div>
   </div>
   <div class="search">

@@ -1,8 +1,9 @@
 # L'argent public en 2024
 
 Section « Budget de l'État » de [gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr/budget/) :
-`index.html` est publié à l'adresse `/budget/`, `aides.html` à `/budget/aides.html`. La
-construction du site (`src/build/export.mjs`) copie ces deux pages, `donnees/` et le JSON des
+`index.html` (exploration) est publié à l'adresse `/budget/`, `pilotage.html` à
+`/budget/pilotage.html` et `aides.html` à `/budget/aides.html`. La construction du site
+(`src/build/export.mjs`) copie ces pages en y insérant le bandeau commun, `donnees/` et le JSON des
 aides ; les données elles-mêmes se reconstruisent avec les scripts ci-dessous, lancés depuis ce
 dossier `budget/`. Les scripts d'extraction du PDF des aides sont dans `scripts/aides/`.
 
@@ -112,6 +113,18 @@ Les scripts n'utilisent que la bibliothèque standard de Python 3.
 
 ## Interactions
 
+Page d'exploration (`index.html`), sur le modèle de la carte des sites : les dépenses à gauche et
+ce qui les finance (impôts, cotisations, autres recettes, emprunt) à droite, à la même échelle.
+
+- **Zoom et déplacement** : molette, pincement, glisser, boutons + et −, « Tout » ; au clavier,
+  + et −, flèches, 0. Les noms apparaissent à mesure qu'on zoome.
+- **Fiche** : un clic sur un bloc ouvre son explication, sa part sur 100 € et son détail.
+- **Panneau** : recherche, regroupement des dépenses par administration ou par fonction, cases
+  pour afficher ou atténuer chaque administration, l'emprunt et les autres recettes, cases pour
+  mettre en avant une ou plusieurs fonctions.
+
+Page de pilotage (`pilotage.html`) :
+
 - **Zoom** : dans chaque composition, un clic sur un rectangle qui a du détail l'agrandit
   (administration, puis fonction, puis sous-fonction ; ministère, puis mission, puis programme ;
   instrument, puis ministère, puis dispositif). Un fil d'étapes permet de remonter.
@@ -128,7 +141,8 @@ Les scripts n'utilisent que la bibliothèque standard de Python 3.
 
 ## Contenu
 
-- `index.html` : vue d'ensemble (dépenses publiques par administration et par fonction, recettes
+- `index.html` : exploration plein écran des dépenses et des recettes ;
+- `pilotage.html` : tableau de bord (dépenses publiques par administration et par fonction, recettes
   et impôts, budget de l'État par ministère, aides aux entreprises, sources) ;
 - `aides.html` : tableau de bord détaillé des aides aux entreprises ;
 - `donnees/` : données construites (JSON lu par la page, CSV réutilisables) ;

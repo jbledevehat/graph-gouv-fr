@@ -4,6 +4,7 @@ import { config, jsonLines, path, today, writeOut } from '../context.mjs';
 import { toCsv } from '../lib/csv.mjs';
 import { hostOf, siteKey } from '../lib/url.mjs';
 import { formerAddresses } from './duplicates.mjs';
+import { avecBandeau } from './bandeau.mjs';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -55,7 +56,8 @@ export async function writeSiteLists(rows, dir) {
 // Le site gouvfr.jbledevehat.fr : une page d'accueil, puis deux sections.
 //   /                      accueil : partager les données pour piloter les politiques publiques
 //   /sites/                carte des sites web de l'État, et /sites/pilotage.html
-//   /budget/               argent public et budget de l'État, et /budget/aides.html
+//   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides.html
+// Toutes les pages portent le même bandeau (src/build/bandeau.mjs).
 // Les anciennes adresses (sites.csv, sites.json, carte.pdf, pilotage.html) restent valides.
 export async function writeWeb(webData, rows) {
   await writeOut('out/web/sites/graph.json', JSON.stringify(webData));
@@ -76,11 +78,13 @@ export async function writeWeb(webData, rows) {
     title: `Carte des sites web de l'État : ${counts}`,
     description: `Tous les sites web de l'État et de ses opérateurs (${counts}), rattachés à leur ministère. Liste complète en CSV et JSON, carte en PDF, mise à jour chaque mois. Données ouvertes.`,
     dataset: { sites, admins }, dataUrl: `${base}sites/`,
+    bandeau: { racine: '../', section: 'sites', page: 'carte' },
   });
   await writePage('web/pilotage.html', 'out/web/sites/pilotage.html', {
     base, url: `${base}sites/pilotage.html`,
     title: "Pilotage des sites web de l'État : tableau de bord et feuille de route",
     description: `Tableau de bord des ${counts} de l'État : réponses des serveurs, sites par ministère, démarches essentielles, actions à mener et feuille de route.`,
+    bandeau: { racine: '../', section: 'sites', page: 'pilotage' },
   });
   await writeOut('out/web/pilotage.html', redirection('sites/pilotage.html', `${base}sites/pilotage.html`));
 
@@ -93,13 +97,21 @@ export async function writeWeb(webData, rows) {
   const budgetEtat = md(budget.equilibre.depenses_nettes_hors_fdc / 1000);
   await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
     base, url: `${base}budget/`,
-    title: `L'argent public en 2024 : ${depenses} de dépenses publiques, le budget de l'État ministère par ministère`,
+    title: `Explorer l'argent public en 2024 : ${depenses} de dépenses et ce qui les finance`,
+    description: `Les dépenses publiques de 2024 (État, sécurité sociale, collectivités, opérateurs) et leurs recettes sur une même carte, à zoomer : recherche, filtres et explications en langage courant, d'après l'Insee.`,
+    bandeau: { racine: '../', section: 'budget', page: 'exploration' },
+  });
+  await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
+    base, url: `${base}budget/pilotage.html`,
+    title: `Pilotage du budget : ${depenses} de dépenses publiques en 2024, le budget de l'État ministère par ministère`,
     description: `Toutes les dépenses et recettes publiques de 2024 (État, sécurité sociale, collectivités, opérateurs), le budget de l'État par ministère et les aides aux entreprises, d'après l'Insee et la DGFiP. Sources vérifiées, données ouvertes.`,
+    bandeau: { racine: '../', section: 'budget', page: 'pilotage' },
   });
   await writeBudgetPage('budget/aides.html', 'out/web/budget/aides.html', {
     base, url: `${base}budget/aides.html`,
     title: `Aides publiques aux entreprises : ${aides} et ${n(budget.aides.length)} dispositifs en 2024`,
     description: `Les ${n(budget.aides.length)} aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : socle et périmètre élargi, par instrument et par ministère. Chiffres vérifiés ligne à ligne.`,
+    bandeau: { racine: '../', section: 'budget', page: 'aides' },
   });
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
@@ -118,13 +130,14 @@ export async function writeWeb(webData, rows) {
       part_secu: secu.toFixed(1), part_reste: (argent.total_depenses - secu).toFixed(1),
       part_coll: part('S1313').toFixed(1), part_op: part('S13112').toFixed(1),
     },
+    bandeau: { racine: '' },
   });
 
   // --- Référencement : image d'aperçu, robots.txt et plan du site ---
   await writeOut('out/web/apercu.jpg', await readFile(path('web/apercu.jpg')));
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/aides.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
@@ -203,14 +216,14 @@ async function writeBudgetPage(source, target, meta) {
     .replace(/<title>[^<]*<\/title>\n?/, '')
     .replace(/<meta name="description"[^>]*>\n?/, '');
   if (!page.includes('</head>')) throw new Error(`${source} : balise </head> introuvable`);
-  await writeOut(target, page.replace('</head>', headTags(meta) + '\n</head>'));
+  await writeOut(target, avecBandeau(page, source, meta.bandeau).replace('</head>', headTags(meta) + '\n</head>'));
 }
 
 // Fragment HTML de web/ placé dans une page complète, avec les balises de référencement et
 // d'aperçu (réseaux sociaux). Le titre du fragment est remplacé par celui de la page, et les
 // {{variables}} par leur valeur.
 async function writePage(source, target, meta) {
-  const page = (await readFile(path(source), 'utf8')).replace(/<title>[^<]*<\/title>\n?/, '')
+  const page = avecBandeau(await readFile(path(source), 'utf8'), source, meta.bandeau).replace(/<title>[^<]*<\/title>\n?/, '')
     .replace(/\{\{(\w+)\}\}/g, (m, k) => { if (!(k in (meta.vars || {}))) throw new Error(`${source} : valeur manquante pour {{${k}}}`); return esc(meta.vars[k]); });
   const head = headTags(meta);
 

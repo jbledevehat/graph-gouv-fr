@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="L'argent public en France en 2024 : 1 672 milliards d'euros de dépenses de l'État, de la sécurité sociale, des collectivités et des opérateurs, leurs recettes, le budget de l'État ministère par ministère et les aides aux entreprises, en compositions proportionnelles.">
+<title>Argent public 2024</title>
+<script>
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Même style que le tableau de bord des aides (aides.html) : fond clair, cartes blanches,
+     IBM Plex, filets fins. Une couleur par administration sur toute la page, prise dans la palette
+     des aides et vérifiée pour les daltonismes : État en bleu (comme les aides budgétaires),
+     sécurité sociale en violet (comme les exonérations de cotisations), opérateurs en vert (comme
+     les aides financières, versées surtout par des opérateurs), collectivités en jaune. Gris neutre
+     pour ce qui ne revient pas à une seule administration, hachures pour le déficit. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --m-etat: #2A78D6;
+    --m-secu: #4A3AA7;
+    --m-coll: #D99A00;
+    --m-op: #1BAF7A;
+    --m-na: #DDE2EA;
+    --hatch: #7C8699;
+    --on-etat: #FFFFFF; --on-secu: #FFFFFF; --on-coll: #162033; --on-op: #162033; --on-na: #162033;
+    --on-a1: #FFFFFF; --on-a2: #162033; --on-a3: #162033; --on-a4: #FFFFFF;
+    --m-a1: #2A78D6; --m-a2: #EB6834; --m-a3: #1BAF7A; --m-a4: #4A3AA7;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+      --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+      --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
+      --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
+      --on-a1: #0C1119; --on-a2: #0C1119; --on-a3: #0C1119; --on-a4: #0C1119;
+      --m-a1: #2F8FF0; --m-a2: #D95926; --m-a3: #199E70; --m-a4: #C060C8;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+    --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+    --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
+    --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
+    --on-a1: #0C1119; --on-a2: #0C1119; --on-a3: #0C1119; --on-a4: #0C1119;
+    --m-a1: #2F8FF0; --m-a2: #D95926; --m-a3: #199E70; --m-a4: #C060C8;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .skip { position: fixed; z-index: 10; top: 8px; left: 8px; padding: 8px 12px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 2px solid var(--accent); transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.5 var(--sans); }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+
+  /* --- En-tête (identique à aides.html) --- */
+  header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px) { header.top { position: static; } }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+  .brand { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .brand strong { font-size: 16px; }
+  nav.views { display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.views a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border: 1px solid var(--control); border-radius: 7px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px; }
+  nav.views a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme span { font-size: 12px; color: var(--muted); }
+  .theme button { min-height: 28px; padding: 0 10px; border: 1px solid var(--control); border-radius: 999px; background: transparent; color: var(--ink); font: 500 12px var(--sans); cursor: pointer; }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* --- Contenu --- */
+  main { padding-block: 24px 48px; display: grid; gap: 28px; }
+  .intro h1 { margin: 4px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  .intro h1 b { font-weight: 700; }
+  .intro p { margin: 0 0 6px; max-width: 74ch; color: var(--muted); }
+  .intro p.source { margin: 10px 0 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 8px 8px 0; color: var(--ink); max-width: 84ch; }
+  .notice { display: inline-block; margin-top: 8px; padding: 4px 10px; border: 1px dashed var(--control); border-radius: 6px; font-size: 12.5px; color: var(--muted); }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+  .sec-head { display: grid; gap: 4px; }
+  .sec-head .num { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .sec-head h2 { margin: 0; font-size: 18px; text-wrap: balance; }
+  .sec-head p { margin: 0; color: var(--muted); max-width: 84ch; }
+  .card, .panel, details.data, .mondrian { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi[data-c] { border-left: 4px solid var(--m-c); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+  .seg-ctl { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
+  .seg-ctl button { min-height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+  .seg-ctl button + button { border-left: 1px solid var(--control); }
+  .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
+  .sw.na { outline: 1px solid var(--control); outline-offset: -1px; }
+  .sw.hatch { background: repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 5px); outline: 1px solid var(--control); outline-offset: -1px; }
+  .sw.hatch-c { background: repeating-linear-gradient(135deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 28%, var(--panel)) 3px 7px); }
+
+  /* Tuiles proportionnelles (comme sur aides.html) */
+  .mondrian { position: relative; width: 100%; overflow: hidden; }
+  .mondrian svg { display: block; width: 100%; height: 100%; }
+  .mondrian .cell { cursor: pointer; }
+  .mondrian .cell rect.f { stroke: var(--panel); stroke-width: 2px; }
+  .mondrian .cell:hover rect.f, .mondrian .cell.sel rect.f { stroke: var(--ink); }
+  .mondrian .cell:focus-visible { outline: none; }
+  .mondrian .cell:focus-visible rect.f { stroke: var(--accent); stroke-width: 3px; }
+  .mondrian text { pointer-events: none; font-family: var(--sans); fill: var(--ink); }
+  .mondrian text.halo { paint-order: stroke; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
+  .mondrian text.t { font-weight: 600; }
+  .mondrian text.v { font: 500 11.5px var(--mono); }
+  .mondrian text.g { font-weight: 700; font-size: 13px; }
+  .h-a { height: min(74vh, 600px); }
+  .h-b { height: min(66vh, 520px); }
+  .h-c { height: min(56vh, 420px); }
+  @media (max-width: 640px) { .h-a { height: 520px; } .h-b { height: 460px; } .h-c { height: 380px; } }
+
+  .panel { padding: 16px; display: grid; gap: 10px; }
+  .panel h3 { margin: 0; font-size: 15px; }
+  .panel .sub { margin: -4px 0 0; color: var(--muted); font-size: 13px; }
+  .bars { display: grid; gap: 7px; }
+  .bar { display: grid; grid-template-columns: minmax(0, 16rem) 1fr; gap: 10px; align-items: center; font-size: 13px; }
+  .bar .tr { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .bar .tr i { display: block; height: 10px; border-radius: 4px; background: var(--c, var(--accent)); flex: none; }
+  .bar .tr span { font: 12px var(--mono); color: var(--muted); white-space: nowrap; }
+  @media (max-width: 640px) { .bar { grid-template-columns: 1fr; gap: 2px; } }
+  .note { font-size: 12.5px; color: var(--muted); margin: 0; max-width: 90ch; }
+
+  /* Pont entre les mesures : des cartes, comme les chiffres clés */
+  .bridge { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+  .bridge div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .bridge b { font-size: 22px; line-height: 1.15; }
+  .bridge span { font-size: 12.5px; color: var(--muted); }
+
+  details.data summary { cursor: pointer; padding: 12px 16px; font-weight: 500; }
+  details.data .scroll { overflow-x: auto; border-top: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:hover { background: var(--panel-2); }
+  .hash { font: 11.5px var(--mono); color: var(--muted); word-break: break-all; }
+
+  #tip { position: fixed; z-index: 20; pointer-events: none; max-width: 320px; padding: 8px 10px; border-radius: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: 12.5px; line-height: 1.4; }
+  #tip b { display: block; font-size: 13px; }
+  #tip .val { font: 600 13px var(--mono); }
+
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 92ch; }
+  @media (forced-colors: active) { .mondrian, .sw, .bar .tr i { forced-color-adjust: none; } }
+  /* Fil d'Ariane, commun à toutes les pages du site. */
+  nav.ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  nav.ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  nav.ariane a { color: var(--accent); text-decoration: none; }
+  nav.ariane a:hover { text-decoration: underline; }
+  nav.ariane [aria-current="page"] { color: var(--ink); font-weight: 500; }
+  main > nav.ariane { margin-bottom: -16px; }
+  /* Explorateur : fil d'étapes et barre des totaux au-dessus de chaque composition */
+  .explore { display: grid; gap: 10px; scroll-margin-top: 96px; }
+  @media (max-width: 640px) { .explore { scroll-margin-top: 12px; } }
+  .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 13px; }
+  .crumbs button { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .crumbs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  .crumbs .sep { color: var(--control); }
+  .crumbs [aria-current] { font-weight: 600; }
+  .crumbs .back { margin-left: auto; text-decoration: none; padding: 3px 10px; border: 1px solid var(--control); border-radius: 7px; color: var(--ink); font-size: 12.5px; }
+  .totals { display: grid; gap: 8px; }
+  .tbar { display: flex; gap: 2px; height: 22px; border-radius: 6px; overflow: hidden; }
+  .tbar i { display: block; min-width: 2px; }
+  .tlist { display: flex; flex-wrap: wrap; gap: 6px; }
+  .titem { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px 4px 6px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink); font: 12.5px var(--sans); cursor: pointer; max-width: 100%; }
+  button.titem:hover { border-color: var(--control); background: var(--panel-2); }
+  .titem .sw { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .titem .tl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 24ch; }
+  .titem b { font: 600 12px var(--mono); white-space: nowrap; }
+  .titem .tp { color: var(--muted); font: 11.5px var(--mono); }
+  .titem.more { cursor: default; color: var(--muted); }
+  .num-small { font: 12px var(--mono); color: var(--muted); font-weight: 400; }
+  .panel .quoi, .panel .ex, .panel .combien { margin: 0; font-size: 14px; line-height: 1.55; max-width: 90ch; }
+  .panel .quoi b, .panel .ex b { color: var(--accent); font-weight: 600; }
+  .panel .ex { color: var(--muted); }
+  .panel .combien { color: var(--ink); }
+  #tip .tq { color: var(--muted); }
+  /* Recherche */
+  .search { padding: 14px 16px; display: grid; gap: 6px; }
+  .search label { font-weight: 600; font-size: 14px; }
+  .search input { min-height: 40px; padding: 6px 12px; border: 1px solid var(--control); border-radius: 8px; background: var(--panel); color: var(--ink); font: 15px var(--sans); }
+  .results { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; }
+  .results:empty { display: none; }
+  .results button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: 2px 10px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 1px solid transparent; }
+  .results button:hover, .results button:focus-visible { background: var(--panel-2); border-color: var(--line); }
+  .results .sw { width: 12px; height: 12px; border-radius: 3px; grid-row: span 2; }
+  .results .rl { font-weight: 500; font-size: 13.5px; }
+  .results .rl mark { background: var(--accent-soft); color: inherit; border-radius: 2px; }
+  .results .rv { font: 600 12.5px var(--mono); white-space: nowrap; }
+  .results .rp { grid-column: 2 / 4; font-size: 12px; color: var(--muted); }
+  .results .vide { color: var(--muted); font-size: 13px; padding: 6px 10px; }
+  .cell.flash rect.f { stroke: var(--ink); stroke-width: 3px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<!--bandeau-->
+
+<main id="contenu" class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Tableau de bord</span>
+    <h1 id="h1">L'argent public en 2024</h1>
+    <p>État, sécurité sociale, collectivités locales et opérateurs : toutes les administrations publiques réunies. Où va l'argent, d'où il vient, ce que pèse le budget de l'État et la place des aides aux entreprises. Chaque rectangle est à l'échelle de son montant.</p>
+    <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">comptes de la Nation de l'Insee</a> pour l'ensemble des administrations publiques, <a href="https://data.economie.gouv.fr/explore/dataset/plrg-2024/" target="_blank" rel="noopener">loi d'approbation des comptes 2024</a> (DGFiP) pour le budget de l'État, <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener">rapport annexé au PLF 2027</a> pour les aides aux entreprises. Détail et empreintes des fichiers <a href="#s-sources">en bas de page</a>.</p>
+    <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <section aria-labelledby="t-synthese">
+    <h2 id="t-synthese" class="sr-only">Synthèse</h2>
+    <div class="kpis" id="facts"></div>
+  </section>
+
+  <section aria-labelledby="t-recherche">
+    <h2 id="t-recherche" class="sr-only">Recherche</h2>
+    <div class="card search">
+      <label for="q">Rechercher dans ces comptes</label>
+      <input type="search" id="q" placeholder="retraites, gendarmerie, TVA, crédit d'impôt recherche, Bpifrance…" autocomplete="off" aria-describedby="q-aide" aria-controls="q-res">
+      <p id="q-aide" class="note">Fonctions, administrations, ministères, missions, programmes, impôts et aides aux entreprises. Un résultat ouvre le graphique concerné, à la bonne échelle.</p>
+      <ul id="q-res" class="results" aria-live="polite"></ul>
+    </div>
+  </section>
+
+  <section id="s-depenses" aria-labelledby="t-depenses">
+    <div class="sec-head">
+      <span class="num">1 · Les dépenses</span>
+      <h2 id="t-depenses">Qui dépense, et pour quoi faire</h2>
+      <p id="dep-lead"></p>
+    </div>
+    <div class="controls">
+      <div class="seg-ctl" role="group" aria-label="Regrouper par">
+        <button type="button" data-dep="admin" aria-pressed="true">Par administration</button>
+        <button type="button" data-dep="fonction" aria-pressed="false">Par fonction</button>
+      </div>
+      <ul class="legend" id="leg-admin"></ul>
+    </div>
+    <div class="mondrian h-a" id="m-dep" role="img"></div>
+    <div class="panel" id="p-dep" aria-live="polite"></div>
+    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-dep"></table></div></details>
+  </section>
+
+  <section id="s-recettes" aria-labelledby="t-recettes">
+    <div class="sec-head">
+      <span class="num">2 · Les recettes</span>
+      <h2 id="t-recettes">D'où vient l'argent</h2>
+      <p id="rec-lead"></p>
+    </div>
+    <ul class="legend" id="leg-rec"></ul>
+    <div class="mondrian h-a" id="m-rec" role="img"></div>
+    <div class="panel" id="p-rec" aria-live="polite"></div>
+    <p class="note" id="rec-note"></p>
+    <div class="panel">
+      <h3>Les impôts un par un</h3>
+      <p class="sub">Les 20 premiers prélèvements, en milliards d'euros. En gris neutre : un même impôt finance souvent plusieurs administrations (la TVA va à l'État, à la sécurité sociale et aux collectivités), l'Insee ne publiant pas ce partage impôt par impôt.</p>
+      <div class="mondrian h-c" id="m-imp" role="img"></div>
+    </div>
+    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-rec"></table></div></details>
+  </section>
+
+  <section id="s-etat" aria-labelledby="t-etat">
+    <div class="sec-head">
+      <span class="num">3 · Le budget de l'État</span>
+      <h2 id="t-etat">Le budget de l'État, ministère par ministère</h2>
+      <p id="etat-lead"></p>
+    </div>
+    <div class="bridge" id="bridge"></div>
+    <ul class="legend" id="leg-etat"></ul>
+    <div class="mondrian h-a" id="m-etat" role="img"></div>
+    <div class="panel" id="p-etat" aria-live="polite"></div>
+    <div class="panel">
+      <h3>Comment l'État finance ce budget</h3>
+      <p class="sub" id="etat-fin-sub"></p>
+      <div class="mondrian h-c" id="m-etat-rec" role="img"></div>
+    </div>
+    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-etat"></table></div></details>
+  </section>
+
+  <section id="s-aides" aria-labelledby="t-aides">
+    <div class="sec-head">
+      <span class="num">4 · Les aides aux entreprises</span>
+      <h2 id="t-aides">166 milliards d'aides aux entreprises, par ministère</h2>
+      <p id="aides-lead"></p>
+    </div>
+    <ul class="legend" id="leg-aides"></ul>
+    <div class="mondrian h-b" id="m-aides" role="img"></div>
+    <div class="panel" id="p-aides" aria-live="polite"></div>
+    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-aides"></table></div></details>
+  </section>
+
+  <section id="s-sources" aria-labelledby="t-sources">
+    <div class="sec-head">
+      <span class="num">5 · Sources et méthode</span>
+      <h2 id="t-sources">D'où viennent ces chiffres</h2>
+      <p>Chaque montant vient de l'un de ces fichiers officiels, téléchargés sans modification. L'empreinte SHA-256 permet de vérifier qu'un fichier est identique à l'original. Données construites : <a href="donnees/argent-public-2024.json" download>administrations publiques (JSON)</a>, <a href="donnees/budget-etat-2024.json" download>budget de l'État (JSON)</a>, <a href="donnees/depenses-2024-par-programme.csv" download>dépenses par programme (CSV)</a>, <a href="donnees/recettes-2024.csv" download>recettes de l'État (CSV)</a>, <a href="donnees/aides-2024-rattachement-ministere.csv" download>aides par ministère (CSV)</a>.</p>
+    </div>
+    <div class="panel"><ol id="method" style="margin:0;padding-left:20px;display:grid;gap:8px"></ol></div>
+    <details class="data" open><summary>Fichiers sources</summary><div class="scroll"><table id="tb-src"></table></div></details>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+<footer class="wrap"><p>L'argent public en 2024 · données sous Licence Ouverte 2.0 · proposition indépendante construite à partir de documents publics.</p></footer>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const nf = (v, d = 1) => Number(v).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
+  // Montants en milliards d'euros.
+  const mds = v => v >= 1 ? nf(v, v >= 100 ? 0 : 1) + ' Md€' : Math.round(v * 1000).toLocaleString('fr-FR') + ' M€';
+  const pct = (a, b) => { const v = a / b * 100; return v < 1 ? nf(v, 1) + ' %' : Math.round(v) + ' %'; };
+  const sum = (l, f) => l.reduce((s, x) => s + (f(x) || 0), 0);
+
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => { const c = document.documentElement.dataset.theme || 'auto'; themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === c))); };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+
+  let G, B, X;
+  try {
+    [G, B, X] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
+  } catch (e) { $('facts').textContent = 'Impossible de charger les données : ' + e.message; return; }
+
+  // --- Infobulle ---
+  const tip = $('tip');
+  const showTip = (html, x, y) => {
+    tip.innerHTML = html; tip.hidden = false;
+    const r = tip.getBoundingClientRect();
+    tip.style.left = Math.max(8, Math.min(innerWidth - r.width - 8, x + 14)) + 'px';
+    tip.style.top = (y + 16 + r.height > innerHeight ? y - r.height - 10 : y + 16) + 'px';
+  };
+  const hideTip = () => { tip.hidden = true; };
+
+  // --- Rectangles proportionnels (algorithme « squarified ») ---
+  function squarify(items, x, y, w, h) {
+    const tot = sum(items, d => d.v);
+    const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => b.a - a.a);
+    const out = [];
+    const worst = (row, s) => { const t = sum(row, r => r.a), mx = Math.max(...row.map(r => r.a)), mn = Math.min(...row.map(r => r.a)); return Math.max(s * s * mx / (t * t), t * t / (s * s * mn)); };
+    const place = row => {
+      const t = sum(row, r => r.a);
+      if (w >= h) { const cw = t / h; let yy = y; for (const r of row) { const hh = r.a / cw; out.push({ ...r.d, x, y: yy, w: cw, h: hh }); yy += hh; } x += cw; w -= cw; }
+      else { const rh = t / w; let xx = x; for (const r of row) { const ww = r.a / rh; out.push({ ...r.d, x: xx, y, w: ww, h: rh }); xx += ww; } y += rh; h -= rh; }
+    };
+    let row = [];
+    while (q.length) { const s = Math.min(w, h); if (!row.length || worst([...row, q[0]], s) <= worst(row, s)) row.push(q.shift()); else { place(row); row = []; } }
+    if (row.length) place(row);
+    return out;
+  }
+
+  // Composition à deux niveaux : groupes séparés par un trait épais, cases par un trait fin.
+  // groups : [{ id, label, children: [{ id, label, v, color, tip }] }]
+  function mondrian(el, groups, { onPick, groupLabels = true, selected } = {}) {
+    const W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    const G1 = 6, G2 = 0;
+    const couleurs = [...new Set(groups.flatMap(g => g.children.filter(c => c.hatch).map(c => c.color)))];
+    const gl = squarify(groups.map(g => ({ ...g, v: sum(g.children, c => c.v) })), 0, 0, W, H);
+    let svg = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><defs><pattern id="hatch-${el.id}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern>${couleurs.map(c => `<pattern id="hatch-${el.id}-${c}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:color-mix(in srgb, var(--m-${c}) 30%, var(--panel))"/><rect width="2.6" height="8" style="fill:var(--m-${c})"/></pattern>`).join('')}</defs>`;
+    const cellsOut = [];
+    for (const g of gl) {
+      const x0 = g.x + G1 / 2, y0 = g.y + G1 / 2, w0 = Math.max(0, g.w - G1), h0 = Math.max(0, g.h - G1);
+      const cs = squarify(g.children, x0, y0, w0, h0);
+      for (const c of cs) {
+        const x = c.x + G2 / 2, y = c.y + G2 / 2, w = Math.max(0, c.w - G2), h = Math.max(0, c.h - G2);
+        const fill = c.color === 'hatch' ? `url(#hatch-${el.id})` : c.hatch ? `url(#hatch-${el.id}-${c.color})` : `var(--m-${c.color})`;
+
+        let label = '';
+        c.lh = 0;
+        const hachure = c.color === 'hatch' || c.hatch;
+        const txt = hachure ? ' halo' : '', col = hachure ? '' : ` fill:var(--on-${c.color});`;
+        const fs = w > 220 && h > 90 ? 17 : w > 120 && h > 54 ? 14 : 12.5;
+        if (w > 64 && h > 34) {
+          const max = Math.floor((w - 14) / (fs * 0.56));
+          const lines = wrap(c.label, max, h > 90 ? 3 : h > 60 ? 2 : 1);
+          label = lines.map((l, i) => `<text class="t${txt}" x="${x + 7}" y="${y + 6 + fs + i * (fs * 1.18)}" style="font-size:${fs}px;${col}">${esc(l)}</text>`).join('')
+            + `<text class="v${txt}" x="${x + 7}" y="${y + 6 + fs + lines.length * (fs * 1.18) + 3}" style="${col}">${esc(c.valueLabel ?? mds(c.v))}</text>`;
+          c.lh = 8 + fs + lines.length * fs * 1.18 + 10;
+        }
+        const i = cellsOut.length;
+        cellsOut.push(c);
+        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${label}</g>`;
+      }
+      const big = cs.slice().sort((a, b) => b.w * b.h - a.w * a.h)[0];
+      const largeur = g.label.length * 7.6 + 20;
+      if (groupLabels && groups.length > 1 && big && big.w > largeur && big.h - G2 - (big.lh || 0) > 34) {
+        const hb = big.color === 'hatch' || big.hatch;
+        svg += `<text class="g${hb ? ' halo' : ''}" x="${big.x + big.w - 8}" y="${big.y + big.h - 8}" text-anchor="end" style="${hb ? '' : `fill:var(--on-${big.color});`}opacity:.9">${esc(g.label)}</text>`;
+      }
+    }
+    el.innerHTML = svg + '</svg>';
+    el._cells = cellsOut;
+    if (!el._wired) {
+      el._wired = true;
+      el.addEventListener('pointermove', e => { const g = e.target.closest('.cell'); if (!g) return hideTip(); const c = el._cells[+g.dataset.i]; showTip(c.tip, e.clientX, e.clientY); });
+      el.addEventListener('pointerleave', hideTip);
+      const pick = e => { const g = e.target.closest('.cell'); if (g && el._onPick) el._onPick(el._cells[+g.dataset.i]); };
+      el.addEventListener('click', pick);
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e); } });
+    }
+    el._onPick = onPick;
+  }
+  function wrap(text, max, n) {
+    const words = text.split(/\s+/), lines = [];
+    let cur = '';
+    for (const w of words) {
+      if ((cur + ' ' + w).trim().length <= max) cur = (cur + ' ' + w).trim();
+      else { if (cur) lines.push(cur); cur = w; if (lines.length === n) break; }
+    }
+    if (lines.length < n && cur) lines.push(cur);
+    const out = lines.slice(0, n);
+    if (out.join(' ').length < text.length) { const last = out.length - 1; out[last] = out[last].slice(0, Math.max(1, max - 1)).replace(/\s+\S*$/, '') + '…'; }
+    return out.map(l => l.length > max ? l.slice(0, max - 1) + '…' : l);
+  }
+  const charts = [];
+  let raf = 0;
+  new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => charts.forEach(f => f())); }).observe(document.querySelector('main'));
+  const legend = (el, items) => { $(el).innerHTML = items.map(([c, l, h]) => `<li><span class="sw${c === 'hatch' ? ' hatch' : ''}${c === 'na' ? ' na' : ''}${h ? ' hatch-c' : ''}" style="--c:var(--m-${c})"></span>${esc(l)}</li>`).join(''); };
+  const bars = (items, max) => `<div class="bars">${items.map(([l, v, c]) => `<div class="bar"><span>${esc(l)}</span><span class="tr"><i style="width:${Math.max(.6, v / max * 64)}%;--c:var(--m-${c || 'op'})"></i><span>${mds(v)}</span></span></div>`).join('')}</div>`;
+  const table = (el, head, rows) => { $(el).innerHTML = `<thead><tr>${head.map((h, i) => `<th scope="col"${i ? ' class="num"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => i ? `<td class="num">${c}</td>` : `<th scope="row">${c}</th>`).join('')}</tr>`).join('')}</tbody>`; };
+
+  // ================= Chiffres clés =================
+  const D = G.total_depenses, R = G.total_recettes, S = G.solde;
+  $('h1').innerHTML = `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en 2024`;
+  $('facts').innerHTML = [
+    [nf(D, 1) + ' Md€', `de dépenses publiques, ${nf(G.part_pib['dépenses'], 1)} % du PIB`],
+    [nf(R, 1) + ' Md€', `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
+    [nf(-S, 1) + ' Md€', "de déficit public, financé par l'emprunt"],
+    [nf(G.secteurs.find(s => s.code === 'S1314').total, 1) + ' Md€', 'dépensés par la sécurité sociale, premier poste', 'secu'],
+    [nf(B.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"],
+    [nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"],
+  ].map(([b, s, c]) => `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${b}</b><span>${s}</span></div>`).join('');
+
+  // ================= Explorateur : zoom dans les compositions et barre des totaux =================
+  // Chaque composition est un arbre { id, label, v, color, hatch, tip, children }. On affiche les
+  // enfants du nœud courant (en groupes) et leurs propres enfants (en cases). Un clic sur une case
+  // qui a du détail l'agrandit ; le fil d'étapes au-dessus permet de remonter. La barre des totaux
+  // montre, à chaque niveau, le montant de chaque groupe.
+  const relier = (n, parent = null) => { n.parent = parent; (n.children || []).forEach(c => relier(c, n)); return n; };
+  const feuillesCouleurs = n => n.children?.length ? n.children.flatMap(feuillesCouleurs) : [{ c: n.color, h: n.hatch, v: n.v }];
+  const fondSegment = n => {
+    // Un groupe d'une seule couleur reste uni ; un groupe mixte montre sa composition.
+    const parts = (n.children?.length ? n.children : [n]).filter(c => c.v > 0);
+    const couleurs = [...new Set(parts.map(c => c.color))];
+    if (couleurs.length === 1 && !parts.some(c => c.hatch)) return n.color === 'hatch' ? 'repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 6px)' : `var(--m-${couleurs[0]})`;
+    if (couleurs.length === 1 && parts.every(c => c.hatch)) return `repeating-linear-gradient(135deg, var(--m-${couleurs[0]}) 0 3px, color-mix(in srgb, var(--m-${couleurs[0]}) 28%, var(--panel)) 3px 7px)`;
+    const tot = sum(parts, c => c.v); let acc = 0;
+    const stops = parts.slice().sort((a, b) => b.v - a.v).map(c => { const a = acc / tot * 100; acc += c.v; const col = c.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.color})`; return `${col} ${a}% ${acc / tot * 100}%`; });
+    return `linear-gradient(90deg, ${stops.join(', ')})`;
+  };
+  function explorer(key, construire, { onNode, rootLabel } = {}) {
+    const el = $('m-' + key);
+    const tool = document.createElement('div');
+    tool.className = 'explore';
+    tool.innerHTML = `<nav class="crumbs" aria-label="Niveau affiché"></nav><div class="totals" role="list"></div>`;
+    el.before(tool);
+    let root = relier(construire()), courant = root, sel = null;
+    const chemin = n => { const l = []; for (let x = n; x; x = x.parent) l.unshift(x); return l; };
+    const zoom = n => { courant = n; sel = null; onNode && onNode(n); render(); };
+    const choisir = n => {
+      if (n.children?.length) return zoom(n);
+      sel = n.id; onNode && onNode(n); render();
+    };
+    const render = () => {
+      // Fil d'étapes.
+      const ch = chemin(courant);
+      tool.querySelector('.crumbs').innerHTML = ch.map((n, i) => i === ch.length - 1
+        ? `<span aria-current="true">${esc(n.label)} <span class="num-small">${mds(n.v)}</span></span>`
+        : `<button type="button" data-up="${i}">${esc(n.label)}</button>`).join('<span class="sep" aria-hidden="true">›</span>')
+        + (ch.length > 1 ? `<button type="button" class="back" data-up="${ch.length - 2}">↑ Remonter</button>` : '');
+      tool.querySelectorAll('[data-up]').forEach(b => b.onclick = () => zoom(ch[+b.dataset.up]));
+      // Barre des totaux du niveau affiché.
+      const enfants = (courant.children || []).filter(c => c.v > 0).sort((a, b) => b.v - a.v);
+      const tot = sum(enfants, c => c.v);
+      const max = 12;
+      const visibles = enfants.slice(0, max), reste = enfants.slice(max);
+      tool.querySelector('.totals').innerHTML = `<div class="tbar" aria-hidden="true">${enfants.map(c => `<i style="flex:${c.v};background:${fondSegment(c)}" title="${esc(c.label)} · ${esc(mds(c.v))}"></i>`).join('')}</div>
+        <div class="tlist">${visibles.map(c => `<button type="button" role="listitem" class="titem" data-id="${esc(c.id)}"${c.children?.length ? '' : ' data-leaf'}><span class="sw" style="background:${fondSegment(c)}"></span><span class="tl">${esc(c.label)}</span><b>${mds(c.v)}</b><span class="tp">${pct(c.v, tot)}</span></button>`).join('')}
+        ${reste.length ? `<span class="titem more">et ${reste.length} autre${reste.length > 1 ? 's' : ''} · ${mds(sum(reste, c => c.v))}</span>` : ''}</div>`;
+      tool.querySelectorAll('.titem[data-id]').forEach(b => b.onclick = () => choisir(enfants.find(c => c.id === b.dataset.id)));
+      // Composition.
+      const groupes = enfants.map(g => g.children?.length ? { id: g.id, label: g.label, node: g, children: g.children.filter(c => c.v > 0) } : { id: g.id, label: g.label, node: g, children: [g] });
+      mondrian(el, groupes, { onPick: c => choisir(c), selected: c => c.id === sel, groupLabels: groupes.some(g => g.children.length > 1 || g.children[0] !== g.node) });
+      el.setAttribute('aria-label', `${ch.map(n => n.label).join(', puis ')} : ${enfants.length} éléments ; la liste des totaux et le tableau des chiffres donnent les mêmes montants.`);
+    };
+    charts.push(render);
+    render();
+    const api = {
+      reconstruire: () => { root = relier(construire()); courant = root; sel = null; onNode && onNode(root); render(); }, zoom, root: () => root, render,
+      // Affiche un nœud trouvé par la recherche : on zoome sur lui s'il a du détail, sinon sur son parent en le sélectionnant.
+      reveler: n => { if (n.children?.length) { courant = n; sel = null; } else { courant = n.parent || root; sel = n.id; } onNode && onNode(n); render(); tool.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); },
+    };
+    explorateurs[key] = api;
+    return api;
+  }
+  const explorateurs = {};
+  const tipDe = (titre, v, extra = '', ex) => `<b>${esc(titre)}</b><span class="val">${mds(v)}</span>${extra}${ex ? `<br><span class="tq">${esc(ex.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
+  const sur100 = (v, total) => (v / total * 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Encadré sous une composition : ce que c'est, des exemples, ce que pèse le montant, puis le détail.
+  const panneau = (el, n, total, { extra = '', base = "d'argent public dépensés" } = {}) => {
+    const parent = n.parent;
+    const enfants = (n.children || []).filter(c => c.v > 0).sort((a, b) => b.v - a.v);
+    const ex = n.explication;
+    const exParent = !ex && parent && parent.explication && parent.parent ? parent : null;
+    const quoi = ex ? `<p class="quoi"><b>C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b>Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}`
+      : exParent ? `<p class="quoi"><b>Fait partie de « ${esc(exParent.titre || exParent.label)} » :</b> ${esc(exParent.explication.quoi)}</p>` : '';
+    const poids = n.parent
+      ? `Sur 100 € ${base}, <b>${sur100(n.v, total)} €</b> vont ici.${parent.parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}`
+      : `Le total : <b>${mds(n.v)}</b>.`;
+    $(el).innerHTML = `<h3>${esc(n.titre || n.label)} : ${mds(n.v)}</h3>${quoi}
+      <p class="combien">${poids}${n.desc && !ex ? ' ' + esc(n.desc) : ''}${extra}</p>
+      ${enfants.length ? `<p class="sub">${enfants.length > 1 ? 'Détail :' : ''}</p>` + bars(enfants.slice(0, 15).map(c => [c.titre || c.label, c.v, c.color === 'hatch' ? 'op' : c.color]), enfants[0].v) + (enfants.length > 15 ? `<p class="sub">et ${enfants.length - 15} autres.</p>` : '') : ''}`;
+  };
+
+
+  // ================= 1. Dépenses =================
+  const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
+  legend('leg-admin', G.secteurs.map(s => [COUL[s.code], s.nom]));
+  $('dep-lead').textContent = `${nf(D, 1)} milliards d'euros dépensés par l'ensemble des administrations publiques. Chaque euro n'est compté qu'une fois, là où il est finalement dépensé : une dotation de l'État à une commune est comptée dans les dépenses de la commune. Cliquez sur un rectangle pour zoomer : administration, puis fonction, puis sous-fonction.`;
+  let depMode = 'admin';
+  const sousDep = (s, f) => f.sous.map(x => ({ id: s.code + x.code, label: x.libelle, titre: `${x.libelle} (${s.nom})`, v: x.montant, color: COUL[s.code], explication: X.sous_fonctions[x.code], tip: tipDe(`${x.libelle} · ${s.nom}`, x.montant, ` · ${pct(x.montant, D)} des dépenses publiques`, X.sous_fonctions[x.code]) }));
+  const fonctionDep = (s, f, label) => ({ id: s.code + f.code, label, titre: `${f.libelle} (${s.nom})`, v: f.montant, color: COUL[s.code], explication: X.fonctions[f.code],
+    tip: tipDe(`${f.libelle} · ${s.nom}`, f.montant, ` · ${pct(f.montant, D)} des dépenses publiques`, X.fonctions[f.code]), children: sousDep(s, f) });
+  const arbreDep = () => depMode === 'admin'
+    ? { id: 'dep', label: 'Toutes les administrations', v: D, children: G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.total, color: COUL[s.code], explication: X.secteurs[s.code],
+        tip: tipDe(s.nom, s.total, '', X.secteurs[s.code]), children: s.fonctions.map(f => fonctionDep(s, f, f.libelle)) })) }
+    : { id: 'dep', label: 'Toutes les fonctions', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ id: f0.code, label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na', explication: X.fonctions[f0.code],
+        tip: tipDe(f0.libelle, sum(G.secteurs, s => s.fonctions[k].montant), '', X.fonctions[f0.code]), children: G.secteurs.map(s => fonctionDep(s, s.fonctions[k], s.nom)) })) };
+  const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D) });
+  document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
+    depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
+  }));
+  panneau('p-dep', xDep.root(), D);
+  table('tb-dep', ['Fonction', ...G.secteurs.map(s => s.nom), 'Total'], G.secteurs[0].fonctions.map((f, k) => [esc(f.libelle), ...G.secteurs.map(s => mds(s.fonctions[k].montant)), mds(sum(G.secteurs, s => s.fonctions[k].montant))])
+    .concat([['<b>Total</b>', ...G.secteurs.map(s => `<b>${mds(s.total)}</b>`), `<b>${mds(D)}</b>`]]));
+
+  // ================= 2. Recettes =================
+  // Couleur = administration qui perçoit. Gris neutre = recettes qu'on ne peut pas attribuer à une seule
+  // administration (autres recettes consolidées). Hachures = déficit.
+  legend('leg-rec', [...G.secteurs.map(s => [COUL[s.code], s.nom]), ['na', 'Autres recettes, toutes administrations'], ['hatch', 'Déficit public']]);
+  $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Chaque couleur indique l'administration qui perçoit l'impôt ou la cotisation ; cliquez sur une administration pour zoomer.`;
+  explorer('rec', () => ({ id: 'rec', label: 'Recettes et emprunt', v: D, children: [
+    ...G.secteurs.map(s => ({ id: s.code, label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: COUL[s.code], explication: X.secteurs[s.code], tip: tipDe(`Recettes perçues par : ${s.nom}`, s.recettes.impots + s.recettes.cotisations), children: [
+      { id: s.code + 'i', label: `Impôts · ${s.nom}`, v: s.recettes.impots, color: COUL[s.code], explication: X.recettes.impots, tip: tipDe(`Impôts perçus par : ${s.nom}`, s.recettes.impots, ` · ${pct(s.recettes.impots, R)} des recettes publiques`, X.recettes.impots) },
+      { id: s.code + 'c', label: `Cotisations · ${s.nom}`, v: s.recettes.cotisations, color: COUL[s.code], explication: X.recettes.cotisations, tip: tipDe(`Cotisations sociales perçues par : ${s.nom}`, s.recettes.cotisations, s.code === 'S13111' ? ' · surtout les cotisations de retraite des fonctionnaires' : '', X.recettes.cotisations) },
+    ] })),
+    { id: 'autres', label: 'Autres recettes (ventes, revenus, transferts)', v: G.autres_recettes_consolidees, color: 'na', explication: X.recettes.autres, tip: tipDe('Autres recettes, toutes administrations', G.autres_recettes_consolidees, ' · ventes de biens et services, revenus de la propriété, transferts reçus. Non réparties : elles contiennent des flux entre administrations que le total neutralise.') },
+    { id: 'deficit', label: 'Déficit', v: -S, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit public', -S, ` · ${pct(-S, D)} des dépenses. ${G.secteurs.map(s => `${esc(s.nom)} : ${nf(s.recettes.solde, 1)}`).join(' ; ')} Md€.`) },
+  ] }), { onNode: n => panneau('p-rec', n, D, { base: "qui financent la dépense publique (recettes et emprunt)" }) });
+  panneau('p-rec', explorateurs.rec.root(), D, { base: "qui financent la dépense publique (recettes et emprunt)" });
+  $('rec-note').textContent = `Impôts comptés chez l'administration qui les perçoit en dernier : une part de la TVA, par exemple, est affectée à la sécurité sociale et aux collectivités. Le gris neutre regroupe les ${nf(G.autres_recettes_consolidees, 1)} Md€ d'autres recettes, qu'on ne peut pas attribuer à une seule administration. Les impôts et cotisations non recouvrables sont déduits des impôts.`;
+  const impCourt = l => l.replace(/^Taxe sur la valeur ajoutée.*/, 'TVA').replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/\s*\((D\d+)\)\s*$/, '')
+    .replace(/Contribution sociale généralisée \(CSG\)/, 'CSG').replace(/Impôt sur le revenu des personnes physiques \(IRPP\)/, 'Impôt sur le revenu').replace(/Impôt sur les sociétés \(IS\)/, 'Impôt sur les sociétés')
+    .replace(/Contribution au remboursement de la dette sociale \(CRDS\)/, 'CRDS').replace(/Accises sur les produits énergétiques \(TICPE\)/, 'TICPE (carburants)').replace(/ \(sur transactions immobilières et autres\)/, '');
+  const imp = G.impots.filter(i => i.montant > 0 && !/^Cotisations sociales/.test(i.categorie || i.libelle) && (i.niveau === 2 || /TVA/.test(i.libelle)));
+  imp.push({ libelle: 'Cotisations sociales', montant: G.recettes.find(r => r.groupe === 'cotisations').montant });
+  const topImp = imp.sort((a, b) => b.montant - a.montant).slice(0, 20);
+  explorer('imp', () => ({ id: 'imp', label: 'Les 20 premiers prélèvements', v: sum(topImp, i => i.montant), children: topImp.map(i => ({ id: i.libelle, label: impCourt(i.libelle), titre: i.libelle.replace(/\s*\(\*\*\)/g, ''), v: i.montant, color: 'na', tip: `<b>${esc(i.libelle)}</b><span class="val">${mds(i.montant)}</span>` })) }));
+  table('tb-rec', ['Administration', 'Impôts', 'Cotisations', 'Solde (capacité ou besoin de financement)'], G.secteurs.map(s => [esc(s.nom), mds(s.recettes.impots), mds(s.recettes.cotisations), nf(s.recettes.solde, 1) + ' Md€'])
+    .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
+
+  // ================= 3. Budget de l'État =================
+  const E = B.equilibre;
+  const P = B.programmes.filter(p => p.programme !== '200');
+  const etatCN = G.secteurs.find(s => s.code === 'S13111').total;
+  $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 1. Cliquez pour zoomer : ministère, puis mission, puis programme.";
+  $('bridge').innerHTML = [
+    [nf(D, 0) + ' Md€', 'dépenses de toutes les administrations publiques (partie 1)'],
+    [nf(etatCN, 0) + ' Md€', "dont dépenses finales de l'État en comptabilité nationale"],
+    [nf((E.depenses_nettes_hors_fdc + E.fonds_de_concours) / 1000, 0) + ' Md€', "budget général de l'État exécuté, ci-dessous, dont une partie est reversée aux autres administrations"],
+    [nf(E.programme_200 / 1000, 0) + ' Md€', "de remboursements et dégrèvements d'impôts, exclus car ce sont des recettes restituées"],
+  ].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+  legend('leg-etat', [['etat', "État : un rectangle par mission, regroupées par ministère"]]);
+  const ministres = new Map();
+  for (const p of P) {
+    if (!ministres.has(p.ministere)) ministres.set(p.ministere, new Map());
+    const m = ministres.get(p.ministere);
+    if (!m.has(p.mission)) m.set(p.mission, []);
+    m.get(p.mission).push(p);
+  }
+  const shortMin = m => m.replace(/, souveraineté alimentaire et forêt|, énergie, climat et prévention des risques|, autonomie et égalité entre les femmes et les hommes|, simplification et transformation de l'action publique| avec les collectivités territoriales et décentralisation/, '');
+  const totalEtat = sum(P, p => p.depenses) / 1000;
+  const natures = ps => Object.entries(B.meta.natures).map(([k, l]) => [l, sum(ps, p => p.nature[k] || 0) / 1000]).filter(x => x[1] > 0.0005).sort((a, b) => b[1] - a[1]).map(([l, v]) => `${esc(l.toLowerCase())} ${mds(v)}`).join(' · ');
+  const progLib = p => p.libelle.replace(/\s*\(crédits évaluatifs\)/, '');
+  const xEtat = explorer('etat', () => ({ id: 'etat', label: "Budget général de l'État", v: totalEtat, children: [...ministres].map(([min, missions]) => {
+    const ps = [...missions.values()].flat();
+    const noms = [...missions.keys()];
+    // Un ministère : ce que financent ses missions (reprise de l'explication s'il n'en a qu'une).
+    const explication = noms.length === 1 && X.missions[noms[0]]
+      ? { quoi: `Ses crédits passent par une seule mission, « ${noms[0]} » : ${X.missions[noms[0]].quoi.charAt(0).toLowerCase() + X.missions[noms[0]].quoi.slice(1)}`, exemples: X.missions[noms[0]].exemples }
+      : { quoi: `Ses crédits passent par ${noms.length} missions du budget : ${noms.join(', ')}. Ses trois plus gros programmes sont donnés en exemple.`, exemples: ps.slice().sort((x, y) => y.depenses - x.depenses).slice(0, 3).map(p => `${progLib(p).charAt(0).toLowerCase() + progLib(p).slice(1)} (${mds(p.depenses / 1000)})`) };
+    return { id: min, label: shortMin(min), titre: min, v: sum(ps, p => p.depenses) / 1000, color: 'etat', progs: ps, explication, tip: tipDe(min, sum(ps, p => p.depenses) / 1000, ` · ${missions.size} mission${missions.size > 1 ? 's' : ''}`),
+      children: [...missions].map(([mis, progs]) => ({ id: min + '|' + mis, label: mis, v: sum(progs, p => p.depenses) / 1000, color: 'etat', progs, explication: X.missions[mis],
+        tip: tipDe(mis, sum(progs, p => p.depenses) / 1000, ` · ${esc(min)} · ${progs.length} programme${progs.length > 1 ? 's' : ''}`, X.missions[mis]),
+        children: progs.map(p => ({ id: 'P' + p.programme, label: `${progLib(p)} (P${p.programme})`, v: p.depenses / 1000, color: 'etat', progs: [p], cles: `programme ${p.programme}`,
+          tip: tipDe(`${progLib(p)} (programme ${p.programme})`, p.depenses / 1000, ` · votés ${esc(mds(p.lfi / 1000))}`) })) })) };
+  }) }), { onNode: n => {
+    const ps = n.progs || P;
+    const aides = B.aides.filter(a => ps.some(p => p.programme === a.programme) && a.annexe !== 4);
+    panneau('p-etat', n, totalEtat, { base: "du budget général de l'État", extra: ` Crédits votés : ${mds(sum(ps, p => p.lfi) / 1000)}. Personnel : ${mds(sum(ps, p => p.nature['2'] || 0) / 1000)}. Transferts aux entreprises : ${mds(sum(ps, p => p.transferts_entreprises) / 1000)}.${aides.length ? ` Aides aux entreprises rattachées : ${mds(sum(aides, a => a.montant) / 1000)} (${aides.length} dispositifs).` : ''} Nature des dépenses : ${natures(ps)}.` });
+  } });
+  xEtat.zoom(xEtat.root());
+  // Financement du budget de l'État.
+  const fisc = B.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
+  const grands = fisc.filter(s => /^1[1356] /.test(s.section));
+  const finEtat = [
+    ...grands.map(s => ({ l: s.section.replace(/^\d+ - /, ''), v: s.net / 1000, c: 'etat' })),
+    { l: 'Autres impôts, nets des autres remboursements', v: sum(fisc.filter(s => !grands.includes(s)), s => s.net) / 1000, c: 'etat' },
+    { l: 'Recettes non fiscales (dividendes, amendes…)', v: E.recettes_non_fiscales / 1000, c: 'etat' },
+  ];
+  const psr = E.prelevements_sur_recettes / 1000;
+  const psrC = -B.recettes.sections.find(s => s.section.startsWith('31')).net / 1000, psrUE = -B.recettes.sections.find(s => s.section.startsWith('32')).net / 1000;
+  $('etat-fin-sub').textContent = `Recettes fiscales et non fiscales de l'État après remboursements d'impôts, en milliards d'euros. En bleu, ce que l'État garde ; en jaune (la couleur des collectivités), ce qu'il leur reverse d'office (${nf(psrC, 1)} Md€) ; en gris neutre, sa contribution au budget européen (${nf(psrUE, 1)} Md€) ; en hachuré, le déficit.`;
+  explorer('etat-rec', () => ({ id: 'fin', label: "Financement du budget de l'État", v: sum(finEtat, f => f.v) + psr - E.solde_budget_general / 1000, children: [
+    { id: 'garde', label: "Gardé par l'État", v: sum(finEtat, f => f.v), color: 'etat', tip: tipDe("Recettes gardées par l'État", sum(finEtat, f => f.v)), children: finEtat.map(f => ({ id: f.l, label: f.l, v: f.v, color: f.c, tip: tipDe(f.l, f.v) })) },
+    { id: 'reverse', label: 'Reversé', v: psr, color: 'coll', tip: tipDe('Prélèvements sur recettes', psr), children: [
+      { id: 'psrc', label: 'Reversé aux collectivités', v: psrC, color: 'coll', tip: tipDe('Prélèvements sur recettes au profit des collectivités', psrC, ' · dotation globale de fonctionnement, compensations…') },
+      { id: 'psru', label: "Reversé à l'Union européenne", v: psrUE, color: 'na', tip: tipDe("Prélèvement sur recettes au profit de l'Union européenne", psrUE, ' · contribution de la France au budget européen') }] },
+    { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
+  ] }));
+  table('tb-etat', ['Ministère', 'Dépenses 2024', 'Votés (LFI)', 'Personnel', 'Transferts aux entreprises'], [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return [esc(m), sum(ps, p => p.depenses) / 1000, sum(ps, p => p.lfi) / 1000, sum(ps, p => p.nature['2'] || 0) / 1000, sum(ps, p => p.transferts_entreprises) / 1000]; })
+    .sort((a, b) => b[1] - a[1]).map(r => [r[0], ...r.slice(1).map(v => mds(v))]));
+
+  // ================= 4. Aides aux entreprises =================
+  // Code de couleur des aides (comme sur aides.html) : instrument en couleur, périmètre élargi hachuré.
+  const A = B.aides;
+  const INSTR = [[1, 'Aides budgétaires', 'a1'], [2, 'Aides fiscales', 'a2'], [3, 'Aides financières', 'a3'], [4, 'Exonérations de cotisations', 'a4']];
+  const totA = sum(A, a => a.montant) / 1000;
+  legend('leg-aides', INSTR.map(([n, l, c]) => [c, l]).concat([['op', 'hachuré : ajouté par le périmètre élargi', true]]));
+  $('aides-lead').innerHTML = `Les ${A.length} dispositifs du rapport annexé au PLF 2027, avec le code de couleur du tableau de bord des aides : le socle en aplat, ce qu'ajoute le périmètre élargi en hachuré. Les aides fiscales sont des impôts non perçus et les exonérations de cotisations des recettes en moins pour la sécurité sociale : ces ${esc(mds(totA))} ne sont donc pas une part des dépenses de la partie 1. Cliquez pour zoomer : instrument, puis ministère, puis dispositif. <a href="aides.html">Tableau de bord complet des aides</a>.`;
+  explorer('aides', () => ({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => {
+    const by = new Map();
+    for (const a of A.filter(a => a.annexe === n)) { const k = a.ministere + '|' + a.perimetre; if (!by.has(k)) by.set(k, []); by.get(k).push(a); }
+    const liste = A.filter(a => a.annexe === n);
+    return { id: 'i' + n, label: l, v: sum(liste, a => a.montant) / 1000, color: c, explication: X.instruments[n], tip: tipDe(l, sum(liste, a => a.montant) / 1000, ` · ${liste.length} dispositifs`, X.instruments[n]),
+      children: [...by].map(([k, list]) => {
+        const [m, per] = k.split('|'); const v = sum(list, a => a.montant) / 1000;
+        const perim = per === 'P1' ? 'socle' : 'élargi';
+        return { id: n + '|' + k, label: `${shortMin(m)}${per === 'P2' ? ' (élargi)' : ''}`, titre: `${l} · ${m} (${perim})`, v, color: c, hatch: per === 'P2',
+          tip: `<b>${esc(l)} · ${esc(m)}</b>périmètre ${perim}<br><span class="val">${mds(v)}</span> · ${list.length} dispositif${list.length > 1 ? 's' : ''}`,
+          children: list.filter(a => a.montant > 0).map((a, i) => ({ id: `${n}|${k}|${i}`, label: a.nom, v: a.montant / 1000, color: c, hatch: per === 'P2', cles: `${a.rattachement_rapport} ${a.numero} ${a.type || ''}`, desc: `${a.instrument}, périmètre ${perim}, page ${a.page} du rapport. ${a.justification}`,
+            tip: tipDe(a.nom, a.montant / 1000, ` · ${esc(m)} · périmètre ${perim}`) })) };
+      }) };
+  }) }), { onNode: n => panneau('p-aides', n, totA, { base: "d'aides aux entreprises" }) });
+  panneau('p-aides', relier({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => ({ id: 'i' + n, label: l, v: sum(A.filter(a => a.annexe === n), a => a.montant) / 1000, color: c })) }), totA, { base: "d'aides aux entreprises" });
+  table('tb-aides', ['Ministère', ...INSTR.map(i => i[1]), 'Total'], [...new Set(A.map(a => a.ministere))].map(m => { const l = A.filter(a => a.ministere === m); return [esc(m), ...INSTR.map(([n]) => sum(l.filter(a => a.annexe === n), a => a.montant) / 1000), sum(l, a => a.montant) / 1000]; })
+    .sort((a, b) => b[5] - a[5]).map(r => [r[0], ...r.slice(1).map(v => v ? mds(v) : '–')]));
+
+  // ================= Recherche =================
+  const SECTIONS = { dep: 'Dépenses publiques', rec: 'Recettes', imp: 'Impôts', etat: "Budget de l'État", 'etat-rec': "Financement de l'État", aides: 'Aides aux entreprises' };
+  // Sigles courants : la recherche les complète par leur nom en toutes lettres.
+  const SIGLES = { cir: "credit d'impot en faveur de la recherche", cii: "credit d'impot en faveur de l'innovation", tva: 'taxe sur la valeur ajoutee', csg: 'contribution sociale generalisee', crds: 'remboursement de la dette sociale', ir: 'impot sur le revenu', is: 'impot sur les societes',
+    ticpe: 'consommation sur les produits energetiques', cspe: 'charges de service public de l energie', pge: "prets garantis par l'etat", acre: 'acre', jei: 'jeunes entreprises innovantes', pia: 'pia', dgf: 'collectivites', opco: 'opco', lodeom: 'lodeom', cfe: 'cotisation fonciere des entreprises', cvae: 'valeur ajoutee des entreprises' };
+  const SYNONYMES = { retraite: ['vieillesse', 'pension'], pension: ['vieillesse', 'retraite'], hopital: ['hospitalier'], ecole: ['enseignement', 'scolaire'], education: ['enseignement', 'scolaire'],
+    college: ['secondaire'], lycee: ['secondaire'], universite: ['superieur'], chomage: ['chomage', 'emploi'], police: ['police', 'securite'], armee: ['defense', 'arme'], logement: ['logement', 'habitat'],
+    dette: ['dette', 'charge de la dette'], famille: ['famille'], culture: ['culture', 'culturel'], agriculteur: ['agricole', 'agriculture'], entreprise: ['entreprise'] };
+  const plat = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[’']/g, "'");
+  const chemin = n => { const l = []; for (let x = n.parent; x && x.parent; x = x.parent) l.unshift(x.label); return l; };
+  const tousLesNoeuds = () => Object.entries(explorateurs).flatMap(([k, x]) => {
+    const out = [];
+    const parcourir = n => { if (n.parent) out.push({ k, n }); (n.children || []).forEach(parcourir); };
+    parcourir(x.root());
+    return out;
+  });
+  const surligner = (texte, termes) => {
+    let h = esc(texte);
+    for (const t of termes) {
+      const i = plat(texte).indexOf(t);
+      if (i >= 0 && t.length > 1) h = esc(texte.slice(0, i)) + '<mark>' + esc(texte.slice(i, i + t.length)) + '</mark>' + esc(texte.slice(i + t.length));
+    }
+    return h;
+  };
+  let trouves = [];
+  const chercher = () => {
+    const q = plat($('q').value.trim());
+    if (q.length < 2) { $('q-res').innerHTML = ''; return; }
+    const singulier = m => m.length > 4 && /[sx]$/.test(m) ? m.slice(0, -1) : m;
+    const mots = q.split(/\s+/).filter(Boolean).map(singulier);
+    // Un sigle connu est cherché par son nom complet ; un mot du langage courant, aussi par ses équivalents officiels.
+    const variantes = SIGLES[q] ? [plat(SIGLES[q]).split(/\s+/)] : [mots, ...mots.flatMap((m, i) => (SYNONYMES[m] || []).map(sy => mots.map((x, j) => j === i ? sy : x)))];
+    const debutDeMot = (texte, m) => new RegExp('(^|[^a-z0-9])' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(texte);
+    const vus = new Set();
+    trouves = tousLesNoeuds().filter(({ n }) => {
+      const texte = plat([n.titre || n.label, n.label, ...chemin(n), n.cles || ''].join(' '));
+      if (SIGLES[q] && new RegExp('(^|[^a-z0-9])' + q + '([^a-z0-9]|$)').test(texte)) return true;
+      return variantes.some(v => v.every(m => debutDeMot(texte, m)));
+    }).filter(({ k, n }) => { const cle = k + '|' + (n.titre || n.label) + '|' + n.v.toFixed(3); if (vus.has(cle)) return false; vus.add(cle); return true; })
+      .sort((a, b) => b.n.v - a.n.v).slice(0, 12);
+    const termes = variantes.flat();
+    $('q-res').innerHTML = trouves.length ? trouves.map(({ k, n }, i) => `<li><button type="button" data-r="${i}">
+        <span class="sw" style="background:${fondSegment(n)}"></span>
+        <span class="rl">${surligner(n.titre || n.label, termes)}</span><span class="rv">${mds(n.v)}</span>
+        <span class="rp">${esc(SECTIONS[k])}${chemin(n).length ? ' · ' + esc(chemin(n).join(' › ')) : ''}</span></button></li>`).join('')
+      : `<li class="vide">Aucun résultat pour « ${esc($('q').value.trim())} ». Essayez un mot plus court ou un autre terme.</li>`;
+  };
+  $('q').addEventListener('input', chercher);
+  $('q-res').addEventListener('click', e => {
+    const b = e.target.closest('[data-r]'); if (!b) return;
+    const { k, n } = trouves[+b.dataset.r];
+    explorateurs[k].reveler(n);
+  });
+
+  // ================= 5. Sources et méthode =================
+  $('tb-src').innerHTML = `<thead><tr><th scope="col">Fichier et contenu</th><th scope="col">Producteur, licence</th><th scope="col" class="num">Téléchargé le</th><th scope="col">Empreinte SHA-256</th></tr></thead><tbody>${B.meta.sources.map(s => `<tr>
+    <th scope="row"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.fichier.split('/').pop())}</a><div class="note">${esc(s.contenu)}</div><div class="note">${esc(s.jeu_de_donnees)} · <a href="${esc(s.page_du_jeu)}" target="_blank" rel="noopener">page du jeu</a></div></th>
+    <td>${esc(s.producteur)}<div class="note">${esc(s.licence)}</div></td><td class="num">${esc(s.telecharge_le)}</td><td><span class="hash" title="${esc(s.sha256)}">${esc(s.sha256.slice(0, 16))}…</span></td></tr>`).join('')}</tbody>`;
+  const RG = B.meta.regles_aides;
+  $('method').innerHTML = [
+    `<strong>Couleurs.</strong> Une couleur par administration, sur toute la page : bleu pour l'État, violet pour la sécurité sociale, jaune pour les collectivités locales, vert pour les opérateurs de l'État. Elles viennent de la palette du tableau de bord des aides, avec le même sens quand c'est possible : le bleu des aides budgétaires (versées par l'État), le violet des exonérations de cotisations (supportées par la sécurité sociale), le vert des aides financières (versées surtout par des opérateurs comme Bpifrance). Le gris neutre désigne ce qui ne revient pas à une seule administration (autres recettes, impôts partagés, contribution à l'Union européenne), les hachures le déficit ; dans la partie 4, les hachures marquent le périmètre élargi des aides.`,
+    `<strong>Explications.</strong> Les rubriques « C'est quoi ? » et « Par exemple » sont rédigées pour ce tableau de bord, en langage courant, à partir de la nomenclature internationale des fonctions publiques (COFOG) telle que l'applique l'Insee et de l'objet des missions décrit dans les lois de finances (<code>donnees/explications.json</code>). Elles illustrent ; elles ne remplacent pas les définitions officielles. Pour un ministère, les exemples sont ses trois plus gros programmes.`,
+    `<strong>Deux comptabilités.</strong> Les parties 1 et 2 suivent la comptabilité nationale de l'Insee (compte semi-définitif 2024) : toutes les administrations publiques, dépenses consolidées, c'est-à-dire sans double compte des transferts entre elles. La partie 3 suit la comptabilité budgétaire de l'État : les crédits exécutés de la loi d'approbation des comptes 2024, dont une partie est reversée à d'autres administrations.`,
+    `<strong>Contrôles.</strong> Les quatre administrations retombent sur le total de ${nf(D, 1)} Md€, les recettes sur ${nf(R, 1)} Md€, et le solde sur le besoin de financement publié par l'Insee (${nf(S, 1)} Md€). Pour l'État, chaque total de l'équilibre est recalculé à partir des fichiers de la DGFiP et retrouve le <a href="${esc(B.meta.equilibre_officiel_url)}" target="_blank" rel="noopener">tableau de l'article 1er du projet de loi</a> : aucun écart.`,
+    `<strong>Fonctions.</strong> Nomenclature internationale COFOG. Les intérêts de la dette sont classés dans les services généraux, les retraites dans la protection sociale. Les remboursements de soins figurent en santé, les indemnités journalières en protection sociale.`,
+    `<strong>Ministères.</strong> Ceux du projet de loi de finances pour 2025 (gouvernement d'octobre 2024), le fichier d'exécution ne les donnant pas. La nature des dépenses de chaque mission (personnel, interventions, fonctionnement, investissement, dette) est donnée dans son détail.`,
+    `<strong>Aides aux entreprises.</strong> ${RG.depense_fiscale} aides fiscales rattachées par le programme de leur dépense fiscale, ${RG.programme} par le premier programme cité par le rapport, ${RG.operateur} par le ministère de tutelle de l'opérateur qui les verse (table justifiée ligne à ligne), ${RG.cotisations} exonérations de cotisations à la sécurité sociale. Aides fiscales et exonérations sont des recettes en moins, pas des dépenses.`,
+    `<strong>Anomalie signalée.</strong> Dans le fichier des recettes de l'État, la ligne « 17 (total) (total) » est en réalité la section 18 « Autres remboursements et dégrèvements d'impôts d'État », d'après la notice PDF officielle.`,
+  ].map(t => `<li>${t}</li>`).join('');
+})();
+</script>
+</body>
+</html>
