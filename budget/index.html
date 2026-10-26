@@ -71,7 +71,9 @@
   #scene text.zone { font-weight: 700; fill: var(--ink); }
   #scene text.zone .v { fill: var(--muted); font-weight: 500; }
   #scene text.fil { font-weight: 700; opacity: .9; }
-  #scene .est-col { fill: var(--panel); fill-opacity: .55; stroke: var(--control); stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+  #scene .est-col { fill: transparent; cursor: pointer; }
+  #scene .est-sep { stroke: var(--control); stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+  #scene .est-temoin { fill: none; stroke: var(--muted); stroke-width: 1px; vector-effect: non-scaling-stroke; pointer-events: none; }
   #scene .est-haut { fill: var(--ink); fill-opacity: .05; stroke: var(--ink); stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; stroke-width: 1.2px; }
   #scene .est-bas { fill: var(--hatch); fill-opacity: .7; stroke: var(--ink); stroke-width: 1px; vector-effect: non-scaling-stroke; }
   #scene .est-haut.sel, #scene .est-bas.sel, #scene .est-col.sel { stroke: var(--ink); stroke-width: 2.5px; stroke-dasharray: none; }
@@ -421,7 +423,9 @@
   function dessinerEstimations() {
     // Chaque cercle a son nom écrit dessous, sur la largeur de sa case. Si une seule file ne tient
     // pas dans la hauteur de la colonne (disposition empilée), les cercles vont deux par deux.
-    const a = zones[0].w * zones[0].h / D, ENTETE = 200, MARGE = 12;
+    // Même échelle que les blocs dessinés (leur surface réelle, une fois retirés les espaces qui
+    // les séparent), pour que 1 Md€ ait la même surface partout.
+    const a = sum(noeuds.filter(n => n.parent && !n.children?.length && racineDe(n).id === 'dep'), n => n.w * n.h) / D, ENTETE = 200, MARGE = 12;
     estim = []; colonnes = [];
     let h = '';
     [['aides', E.non_percu_aides], ['recettes', E.non_percu_recettes]].forEach(([cle, c], i) => {
@@ -430,7 +434,8 @@
       const ce = { id: 'ec-' + cle, cle, est: 'col', label: c.titre, titre: `${c.titre} (estimations)`, sous: c.sous_titre, bas, haut, quoi: c.quoi, non_chiffre: c.non_chiffre,
         x: col.x, y: col.y, w: col.w, h: col.h, enfants: [] };
       colonnes.push(ce);
-      h += `<rect class="est-col" data-e="${ce.id}" x="${col.x}" y="${col.y}" width="${col.w}" height="${col.h}" rx="18"/>`;
+      h += `<rect class="est-col" data-e="${ce.id}" x="${col.x}" y="${col.y}" width="${col.w}" height="${ENTETE - 20}"/>`;
+      h += `<line class="est-sep" x1="${i ? col.x : col.x + col.w}" y1="${col.y}" x2="${i ? col.x : col.x + col.w}" y2="${col.y + col.h}"/>`;
       h += `<text class="est-t halo" data-et="${ce.id}" display="none"></text>`;
       const rayons = postes.map(p => [Math.sqrt(p.haut * a / Math.PI), Math.sqrt(p.bas * a / Math.PI)]);
       // Place laissée aux noms : au plus 140, partagée entre les files selon la hauteur disponible.
@@ -451,6 +456,11 @@
         });
         y += hautFile + LEGENDE + MARGE;
       }
+      // Carré témoin : 10 Md€ à la même échelle que les blocs, s'il reste la place.
+      const cote = Math.sqrt(10 * a), xt = col.x + col.w / 2 - cote / 2, yt = y + 10;
+      if (yt + cote + 60 > col.y + col.h) return;
+      ce.temoin = { x: xt, y: yt, c: cote };
+      h += `<rect class="est-temoin" x="${xt}" y="${yt}" width="${cote}" height="${cote}"/><text class="est-l halo" data-tm="${ce.id}" text-anchor="middle" display="none"></text>`;
     });
     return h;
   }
@@ -483,6 +493,11 @@
         [[c.label, 11, 'n'], [f, 10, 'v']],
         [[c.label, 9.5, 'n'], [f, 9, 'v']],
         [[c.label, 9, 'n']]], kk);
+    }
+    for (const c of colonnes.filter(c => c.temoin)) {
+      const t = c.temoin;
+      ecrireAuMieux(svg.querySelector(`[data-tm="${c.id}"]`), t.x + t.c / 2, t.y + t.c + 4 / kk, c.w * kk - 6, 60 * kk, [
+        [['Repère : 10 Md€ à la même échelle', 9.5, 'v']], [['10 Md€', 9, 'v']]], kk);
     }
     for (const e of estim) {
       const f = fourchette(e.bas, e.haut);
@@ -772,7 +787,7 @@
       if (!off && avant.size && racineDe(n).id === 'dep') off = n.fonction ? !avant.has(n.fonction) : ![...(n.children || [])].some(c => avant.has(c.fonction));
       svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
     }
-    svg.querySelectorAll('[data-e], [data-el], [data-et]').forEach(el => el.classList.toggle('off', caches.has('estim')));
+    svg.querySelectorAll('[data-e], [data-el], [data-et], [data-tm], .est-sep, .est-temoin').forEach(el => el.classList.toggle('off', caches.has('estim')));
     $('hl-off').hidden = !avant.size;
   }
   $('c-admin').addEventListener('change', e => { const k = e.target.dataset.sect; e.target.checked ? caches.delete(k) : caches.add(k); appliquerFiltres(); });
