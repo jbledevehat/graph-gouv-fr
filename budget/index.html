@@ -96,6 +96,9 @@
   .figures b { font-size: 17px; }
   .figures span { font-size: 11.5px; color: var(--muted); }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+  .apropos { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+  .apropos summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+  .apropos p { margin: 6px 0 0; }
   .alerte { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid var(--m-coll); background: var(--panel-2); font-size: 12px; line-height: 1.4; }
   .search { padding: 10px 16px; border-bottom: 1px solid var(--line); position: relative; }
   .search input { width: 100%; box-sizing: border-box; min-height: 36px; padding: 6px 10px; border: 1px solid var(--control); border-radius: 8px; background: var(--panel); color: var(--ink); font: 14px var(--sans); }
@@ -193,6 +196,12 @@
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
     <p class="alerte" id="alerte" hidden></p>
+    <details class="apropos">
+      <summary>À propos de cette page</summary>
+      <p>Cette exploration montre l'argent public en France : toutes les <strong>dépenses publiques</strong> de l'État, de la sécurité sociale, des collectivités locales et des opérateurs de l'État, et ce qui les finance, <strong>impôts, cotisations sociales, autres recettes et emprunt</strong>. Chaque bloc a une surface proportionnelle à son montant, à la même échelle pour toutes les années, de 2019 à 2024.</p>
+      <p>Les dépenses se lisent par administration ou par fonction : retraites, santé, enseignement, défense, sécurité, transports… Les recettes, par administration ou impôt par impôt : TVA, CSG, impôt sur le revenu, impôt sur les sociétés, taxe foncière… Sur les côtés, des cercles montrent des <strong>estimations</strong> de ce qui échappe : fraude aux cotisations et aux prestations, TVA non déclarée, évitement fiscal des multinationales, et aides non demandées comme le RSA.</p>
+      <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>.</p>
+    </details>
   </div>
   <div class="search">
     <label for="q" class="sr-only">Rechercher une dépense, une recette, une fonction</label>

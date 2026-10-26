@@ -4,7 +4,7 @@ import { config, jsonLines, path, today, writeOut } from '../context.mjs';
 import { toCsv } from '../lib/csv.mjs';
 import { hostOf, siteKey } from '../lib/url.mjs';
 import { formerAddresses } from './duplicates.mjs';
-import { avecBandeau } from './bandeau.mjs';
+import { avecBandeau, SECTIONS } from './bandeau.mjs';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -75,15 +75,15 @@ export async function writeWeb(webData, rows) {
   // --- Section « Sites web de l'État » ---
   await writePage('web/carte.html', 'out/web/sites/index.html', {
     base, url: `${base}sites/`,
-    title: `Carte des sites web de l'État : ${counts}`,
-    description: `Tous les sites web de l'État et de ses opérateurs (${counts}), rattachés à leur ministère. Liste complète en CSV et JSON, carte en PDF, mise à jour chaque mois. Données ouvertes.`,
+    title: `Carte des sites web de l'État : ${n(sites)} sites par ministère`,
+    description: `Les ${n(sites)} sites web de l'État et de ses opérateurs, rattachés à leurs ${n(admins)} administrations : carte interactive, liste en CSV et JSON, mise à jour chaque mois.`,
     dataset: { sites, admins }, dataUrl: `${base}sites/`,
     bandeau: { racine: '../', section: 'sites', page: 'carte' },
   });
   await writePage('web/pilotage.html', 'out/web/sites/pilotage.html', {
     base, url: `${base}sites/pilotage.html`,
-    title: "Pilotage des sites web de l'État : tableau de bord et feuille de route",
-    description: `Tableau de bord des ${counts} de l'État : réponses des serveurs, sites par ministère, démarches essentielles, actions à mener et feuille de route.`,
+    title: "Pilotage des sites web de l'État : tableau de bord",
+    description: `Tableau de bord des ${n(sites)} sites web de l'État : sites qui répondent, sites par ministère, démarches essentielles, actions à mener et feuille de route.`,
     bandeau: { racine: '../', section: 'sites', page: 'pilotage' },
   });
   await writeOut('out/web/pilotage.html', redirection('sites/pilotage.html', `${base}sites/pilotage.html`));
@@ -94,6 +94,7 @@ export async function writeWeb(webData, rows) {
   const A = JSON.parse(await readFile(path('budget/donnees/annees.json'), 'utf8'));
   const toutes = [...new Set([...A.insee, ...A.etat, ...A.aides])].sort();
   const annees = page => ({ toutes, page, reference: A.reference });
+  const JEUX = jeuxBudget(base, A);
   const budget = JSON.parse(await readFile(path('budget/donnees/budget-etat-2024.json'), 'utf8'));
   const md = v => `${Math.round(v).toLocaleString('fr-FR').replace(/ /g, ' ')} Md€`;
   const depenses = md(argent.total_depenses);
@@ -101,21 +102,21 @@ export async function writeWeb(webData, rows) {
   const budgetEtat = md(budget.equilibre.depenses_nettes_hors_fdc / 1000);
   await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
     base, url: `${base}budget/`,
-    title: `Explorer l'argent public en 2024 : ${depenses} de dépenses et ce qui les finance`,
-    description: `Les dépenses publiques de 2024 (État, sécurité sociale, collectivités, opérateurs) et leurs recettes sur une même carte, à zoomer : recherche, filtres et explications en langage courant, d'après l'Insee.`,
-    bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) },
+    title: "Dépenses et recettes publiques de la France, à explorer",
+    description: `Où va l'argent public ? Les ${depenses} de dépenses publiques de 2024 et ce qui les finance, de 2019 à 2024, sur une carte à zoomer, fraude et non-recours compris.`,
+    bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
     base, url: `${base}budget/pilotage.html`,
-    title: `Pilotage du budget : ${depenses} de dépenses publiques en 2024, le budget de l'État ministère par ministère`,
-    description: `Toutes les dépenses et recettes publiques de 2024 (État, sécurité sociale, collectivités, opérateurs), le budget de l'État par ministère et les aides aux entreprises, d'après l'Insee et la DGFiP. Sources vérifiées, données ouvertes.`,
-    bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) },
+    title: "Budget de l'État par ministère et dépenses publiques",
+    description: `Tableau de bord des finances publiques : dépenses par administration et par fonction (2019-2024), budget de l'État par ministère (2023-2025), Insee et DGFiP.`,
+    bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/aides.html', 'out/web/budget/aides.html', {
     base, url: `${base}budget/aides.html`,
-    title: `Aides publiques aux entreprises : ${aides} et ${n(budget.aides.length)} dispositifs en 2024`,
-    description: `Les ${n(budget.aides.length)} aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : socle et périmètre élargi, par instrument et par ministère. Chiffres vérifiés ligne à ligne.`,
-    bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) },
+    title: `Aides publiques aux entreprises : ${aides} en 2024`,
+    description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024, du rapport annexé au PLF 2027 : par instrument, par ministère, dispositif par dispositif, vérifiées ligne à ligne.`,
+    bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) }, jsonld: [JEUX.aides],
   });
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
@@ -128,13 +129,20 @@ export async function writeWeb(webData, rows) {
   await writePage('web/accueil.html', 'out/web/index.html', {
     base, url: base, siteName: "Piloter l'action publique par les données",
     title: "Mieux piloter nos politiques publiques par la donnée",
-    description: `Deux tableaux de bord ouverts et vérifiés : les sites web de l'État (${counts}) et l'argent public (${depenses} de dépenses publiques en 2024, budget de l'État, aides aux entreprises).`,
+    description: `Tableaux de bord ouverts et vérifiés : les ${n(sites)} sites web de l'État et l'argent public, ${depenses} de dépenses publiques en 2024, budget de l'État et aides.`,
+    jsonld: [siteWeb(base)],
     vars: {
       sites: n(sites), admins: n(admins), demarches: n(demarches), depenses, budget: budgetEtat, aides,
       part_secu: secu.toFixed(1), part_reste: (argent.total_depenses - secu).toFixed(1),
       part_coll: part('S1313').toFixed(1), part_op: part('S13112').toFixed(1),
     },
     bandeau: { racine: '' },
+  });
+
+  // --- Page introuvable (servie par GitHub Pages pour toute adresse inconnue) ---
+  await writePage('web/404.html', 'out/web/404.html', {
+    base, title: 'Page introuvable', description: "Cette page n'existe pas ou plus : retrouvez les tableaux de bord du site.",
+    robots: 'noindex', bandeau: { racine: '/' },
   });
 
   // --- Référencement : image d'aperçu, robots.txt et plan du site ---
@@ -169,6 +177,55 @@ const redirection = (cible, canonique) => `<!doctype html>
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const SOURCE_DINUM = 'https://gitlab.adullact.net/dinum/noms-de-domaine-organismes-secteur-public';
 const REPO = 'https://github.com/jbledevehat/graph-gouv-fr';
+const AUTEUR = { '@type': 'Person', name: 'Jean-Baptiste Le Dévéhat', url: 'https://jbledevehat.fr' };
+const NOM_DU_SITE = "Piloter l'action publique par les données";
+
+// Le site lui-même (page d'accueil).
+const siteWeb = base => ({
+  '@type': 'WebSite', name: NOM_DU_SITE, alternateName: 'Mieux piloter nos politiques publiques par la donnée',
+  url: base, inLanguage: 'fr', author: AUTEUR, publisher: AUTEUR,
+  description: "Tableaux de bord ouverts et vérifiés sur l'action publique : sites web de l'État, budget de l'État et argent public.",
+});
+
+// Fil d'Ariane d'une page, le même que celui du bandeau.
+function filAriane(meta) {
+  const S = meta.bandeau?.section && SECTIONS[meta.bandeau.section];
+  if (!S || !meta.base) return null;
+  const page = S.pages.find(p => p[0] === meta.bandeau.page);
+  const etapes = [['Accueil', meta.base], [S.nom, meta.base + S.chemin], ...(page && page[2] !== S.chemin ? [[page[1], meta.base + page[2]]] : [])];
+  return { '@type': 'BreadcrumbList', itemListElement: etapes.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
+}
+
+// Jeux de données de la section budget, décrits pour les moteurs de recherche de données.
+function jeuxBudget(base, A) {
+  const fichier = (chemin, format, nom) => ({ '@type': 'DataDownload', name: nom, encodingFormat: format, contentUrl: `${base}budget/${chemin}` });
+  const commun = { inLanguage: 'fr', license: 'https://www.etalab.gouv.fr/licence-ouverte-open-licence/', isAccessibleForFree: true, creator: AUTEUR, dateModified: today, spatialCoverage: 'France', sameAs: REPO };
+  return {
+    argent: {
+      '@type': 'Dataset', ...commun,
+      name: 'Dépenses et recettes des administrations publiques françaises',
+      description: "Dépenses de l'État, de la sécurité sociale, des collectivités locales et des opérateurs de l'État par fonction et sous-fonction, recettes par administration et impôt par impôt, et budget de l'État ministère par ministère, construits à partir des comptes de la Nation de l'Insee et des fichiers d'exécution de la DGFiP, contrôlés contre les chiffres officiels.",
+      url: `${base}budget/`,
+      keywords: ['budget de l\'État', 'dépenses publiques', 'recettes publiques', 'impôts', 'sécurité sociale', 'collectivités locales', 'finances publiques', 'open data'],
+      temporalCoverage: `${A.insee[0]}/${A.etat[A.etat.length - 1]}`,
+      isBasedOn: ['https://www.insee.fr/fr/statistiques/8574705?sommaire=8574832', 'https://data.economie.gouv.fr/explore/dataset/plrg-2024/'],
+      distribution: [
+        ...A.insee.map(a => fichier(`donnees/argent-public-${a}.json`, 'application/json', `Administrations publiques ${a}`)),
+        ...A.etat.map(a => fichier(`donnees/depenses-${a}-par-programme.csv`, 'text/csv', `Budget de l'État ${a} par programme`)),
+      ],
+    },
+    aides: {
+      '@type': 'Dataset', ...commun,
+      name: 'Aides publiques aux entreprises en 2024',
+      description: "Les 469 aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027, avec leur montant, leur instrument, leur page dans le rapport et leur ministère de rattachement.",
+      url: `${base}budget/aides.html`,
+      keywords: ['aides aux entreprises', 'aides publiques', 'dépenses fiscales', 'crédit d\'impôt recherche', 'exonérations de cotisations', 'open data'],
+      temporalCoverage: '2024',
+      isBasedOn: 'https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f',
+      distribution: [fichier('donnees/aides-2024-rattachement-ministere.csv', 'text/csv', 'Aides et ministère de rattachement'), fichier('sources/aides-entreprises/aides-entreprises-2024.json', 'application/json', 'Aides extraites du rapport')],
+    },
+  };
+}
 
 // Fiche du jeu de données (schema.org), lue par les moteurs de recherche (Google Dataset Search).
 function datasetJsonLd({ dataUrl: base, title, description }) {
@@ -185,7 +242,7 @@ function datasetJsonLd({ dataUrl: base, title, description }) {
     inLanguage: 'fr',
     license: 'https://www.etalab.gouv.fr/licence-ouverte-open-licence/',
     isAccessibleForFree: true,
-    creator: { '@type': 'Person', name: 'Jean-Baptiste Le Dévéhat', url: 'https://jbledevehat.fr' },
+    creator: AUTEUR,
     dateModified: today,
     temporalCoverage: `2019/${today}`,
     spatialCoverage: 'France',
@@ -204,7 +261,9 @@ function headTags(meta) {
     `<link rel="icon" href="${racine}favicon.svg" type="image/svg+xml">`,
     `<link rel="apple-touch-icon" href="${racine}apple-touch-icon.png">`,
     `<meta name="description" content="${esc(meta.description)}">`,
-    `<meta name="author" content="Jean-Baptiste Le Dévéhat">`,
+    `<meta name="author" content="${AUTEUR.name}">`,
+    // Grandes images et extraits complets autorisés dans les résultats de recherche.
+    `<meta name="robots" content="${meta.robots || 'index, follow, max-image-preview:large, max-snippet:-1'}">`,
     ...(meta.url ? [`<link rel="canonical" href="${meta.url}">`] : []),
     `<meta property="og:type" content="website">`,
     `<meta property="og:locale" content="fr_FR">`,
@@ -218,6 +277,8 @@ function headTags(meta) {
     `<meta property="og:image:alt" content="Carte des sites web de l'État, regroupés par ministère">`,
     `<meta name="twitter:card" content="summary_large_image">`,
     ...(meta.dataset ? [`<script type="application/ld+json">${datasetJsonLd(meta)}</script>`] : []),
+    // Données structurées (schema.org) : fil d'Ariane, site, jeux de données.
+    ...[filAriane(meta), ...(meta.jsonld || [])].filter(Boolean).map(o => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', ...o }).replace(/</g, '\\u003c')}</script>`),
   ].join('\n');
 }
 

@@ -1,0 +1,71 @@
+<title>Page introuvable</title>
+<script>
+  // Thème choisi sur l'une des pages du site, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Page introuvable : servie par GitHub Pages pour toute adresse inconnue. Liens absolus, car
+     elle peut s'afficher à n'importe quelle profondeur. Mêmes jetons que les autres pages. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5; --panel: #FFFFFF; --panel-2: #F5F7FA; --ink: #162033; --muted: #5A6579; --line: #D6DCE6;
+    --control: #7C8699; --accent: #1F3FB5; --accent-soft: #E3E8FA;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+      --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+    --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 15px/1.55 var(--sans); }
+  a { color: var(--accent); }
+  main { max-width: 720px; margin: 48px auto; padding: 0 16px; }
+  .eyebrow { font: 500 12px/1.2 "IBM Plex Mono", ui-monospace, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 8px 0 12px; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; }
+  ul { display: grid; gap: 10px; padding: 0; list-style: none; }
+  li a { display: block; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); text-decoration: none; color: var(--ink); }
+  li a:hover { border-color: var(--accent); }
+  li b { display: block; color: var(--accent); }
+  li span { color: var(--muted); font-size: 14px; }
+</style>
+
+<!--bandeau-->
+<main>
+  <div class="eyebrow">Erreur 404</div>
+  <h1>Cette page n'existe pas, ou plus</h1>
+  <p>L'adresse a peut-être changé. Voici les pages du site :</p>
+  <ul>
+    <li><a href="/"><b>Accueil</b><span>Mieux piloter nos politiques publiques par la donnée</span></a></li>
+    <li><a href="/sites/"><b>Carte des sites web de l'État</b><span>Tous les sites de l'État et de ses opérateurs, par ministère</span></a></li>
+    <li><a href="/sites/pilotage.html"><b>Pilotage des sites web</b><span>Tableau de bord et feuille de route</span></a></li>
+    <li><a href="/budget/"><b>Explorer l'argent public</b><span>Dépenses et recettes publiques, de 2019 à 2024</span></a></li>
+    <li><a href="/budget/pilotage.html"><b>Pilotage du budget</b><span>Le budget de l'État ministère par ministère</span></a></li>
+    <li><a href="/budget/aides.html"><b>Aides aux entreprises</b><span>Les 469 dispositifs recensés en 2024</span></a></li>
+  </ul>
+</main>
+<script>
+  // Thème : même réglage sur tout le site.
+  const boutons = document.querySelectorAll('[data-theme-choice]');
+  const montrer = () => { const c = document.documentElement.dataset.theme || 'auto'; boutons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === c))); };
+  boutons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    montrer();
+  }));
+  montrer();
+</script>
