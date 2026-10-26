@@ -181,13 +181,13 @@
 <body>
 <a class="skip" href="#q">Aller à la recherche</a>
 <!--bandeau-->
-<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public en 2024 : les dépenses et ce qui les finance, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
+<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public : les dépenses et ce qui les finance, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
 <p id="status">Chargement…</p>
 
 <aside id="side" class="panel" aria-label="Recherche et options" data-repliable>
   <div class="head">
-    <div class="eyebrow">Exploration · 2024</div>
-    <div class="h-row"><h1>L'argent public en 2024</h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
+    <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
+    <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
     <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a></p>
@@ -254,8 +254,13 @@
   }));
   showTheme();
 
+  // Année affichée : adresse ?annee=…, choisie dans le bandeau ; 2024 par défaut.
+  const ANNEES = ['2020', '2021', '2022', '2023', '2024'];
+  const annee = ANNEES.includes(new URLSearchParams(location.search).get('annee')) ? new URLSearchParams(location.search).get('annee') : '2024';
+  document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
+  if (annee !== '2024') document.title = `Explorer l'argent public en ${annee}`;
   let G, X, E;
-  try { [G, X, E] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
+  try { [G, X, E] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
@@ -761,7 +766,7 @@
     const part = pb === ph ? `${pb} %` : `${pb} à ${ph} %`;
     $('d-body').innerHTML = n.est === 'col' ? `<p class="big">${fourchette(n.bas, n.haut)}</p>
       <p>${esc(n.quoi)}</p>
-      <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de 2024. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>
+      <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de ${annee}. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>
       <div class="bars">${n.enfants.map(c => `<div class="bar" style="--c:var(--hatch)"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${fourchette(c.bas, c.haut)}</span><i style="width:${Math.max(2, c.haut / n.enfants[0].haut * 100)}%"></i></div>`).join('')}</div>
       ${n.env ? `<p class="ex"><b class="acc">À part, sans s'ajouter :</b> <button type="button" class="lien" data-go="${n.env.id}">${esc(n.env.court)}</button>, ${fourchette(n.env.bas, n.env.haut)}, d'après des estimations anciennes et fragiles selon la Cour des comptes.</p>` : ''}
       <p class="ex"><b class="acc">Pas de chiffre fiable pour :</b></p><ul class="ex">${n.non_chiffre.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
@@ -770,7 +775,7 @@
       <p><b class="acc">C'est quoi ?</b> ${esc(n.quoi)}</p>
       <p><b class="acc">Comment c'est estimé :</b> ${esc(n.calcul)}</p>
       <p><b class="acc">Fiabilité :</b> ${esc(n.certitude)}</p>
-      <p class="ex">Ordre de grandeur : ${part} ${base[0]} de 2024${n.annee !== '2024' ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.${n.enveloppe ? ' Ce cercle ne s\'ajoute pas au total de la colonne.' : ''}</p>
+      <p class="ex">Ordre de grandeur : ${part} ${base[0]} de ${annee}${n.annee !== annee ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.${n.enveloppe ? ' Ce cercle ne s\'ajoute pas au total de la colonne.' : ''}</p>
       <p class="ex"><b class="acc">Source :</b> ${lien(n.url, n.source)}${n.url2 ? ` · ${lien(n.url2, 'CEPII')}` : ''}</p>
       <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-up">Voir « ${esc(col.label)} »</button></div>`;
     $('detail').hidden = false;

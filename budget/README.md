@@ -135,13 +135,23 @@ et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent)
 
 ```sh
 sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à jour sources/SOURCES.md
-python3 scripts/insee.py       # administrations publiques (Insee) -> donnees/argent-public-2024.json
+for a in 2020 2021 2022 2023 2024; do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
 python3 scripts/construire.py  # budget de l'État et aides -> donnees/budget-etat-2024.json et CSV
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
 python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
 ```
 
 Les scripts n'utilisent que la bibliothèque standard de Python 3.
+
+## Années
+
+Un bloc « Année » dans le bandeau permet de passer de 2020 à 2024 ; l'année est dans l'adresse
+(`?annee=2022`) et suit le visiteur d'une page à l'autre de la section. Les comptes de l'Insee
+(ensemble des administrations publiques : exploration, parties 1 et 2 du pilotage) existent pour
+chaque année, tirés des mêmes tableaux, vérifiés année par année par `scripts/verifier.py`. Le
+budget de l'État ministère par ministère et les aides aux entreprises ne sont disponibles que pour
+2024 : pour une autre année, le pilotage le dit à leur place, et la page des aides n'offre que 2024.
+Les estimations (fraude, non-recours) gardent leurs propres années de référence.
 
 ## Interactions
 

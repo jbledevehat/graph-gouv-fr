@@ -12,7 +12,7 @@ export const SECTIONS = {
     pages: [['carte', 'Carte', 'sites/'], ['pilotage', 'Pilotage', 'sites/pilotage.html']],
   },
   budget: {
-    nom: "Budget de l'État", chemin: 'budget/',
+    nom: "Budget de l'État", chemin: 'budget/', annees: ['2020', '2021', '2022', '2023', '2024'],
     pages: [['exploration', 'Exploration', 'budget/'], ['pilotage', 'Pilotage', 'budget/pilotage.html'], ['aides', 'Aides aux entreprises', 'budget/aides.html']],
   },
 };
@@ -51,6 +51,14 @@ const STYLE = `<style>
   .bandeau .b-pages a:hover { background: var(--panel-2); color: var(--ink); text-decoration: none; }
   .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
   .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
+  .bandeau .b-annee { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
+  .bandeau .b-annee > span:first-child { font-weight: 500; }
+  .bandeau .b-annee .b-seg { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
+  .bandeau .b-annee .b-seg > * { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; color: var(--ink); background: var(--panel); text-decoration: none; font: 500 13px "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .bandeau .b-annee .b-seg > * + * { border-left: 1px solid var(--control); }
+  .bandeau .b-annee .b-seg a:hover { background: var(--panel-2); }
+  .bandeau .b-annee .b-seg [aria-current] { background: var(--accent); color: var(--panel); }
+  .bandeau .b-annee .b-seg [aria-disabled] { color: var(--control); cursor: not-allowed; }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   /* Panneau de gauche repliable (pages plein écran). */
   .p-replier { position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--muted); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
@@ -74,6 +82,28 @@ const SCRIPT = `<script>
     const publier = () => document.documentElement.style.setProperty('--bandeau-h', b.getBoundingClientRect().height + 'px');
     publier();
     if ('ResizeObserver' in window) new ResizeObserver(publier).observe(b);
+    // Année choisie (?annee=…) : marquée dans le bloc « Année » et reportée dans les liens vers
+    // les autres pages de la section, pour comparer d'une page à l'autre la même année.
+    const choix = [...b.querySelectorAll('[data-annee-choix]')];
+    if (choix.length) {
+      const voulue = new URLSearchParams(location.search).get('annee');
+      const active = choix.find(a => a.dataset.anneeChoix === voulue) || choix[choix.length - 1];
+      active.setAttribute('aria-current', 'true');
+      // On reporte l'année demandée, même si cette page ne l'a pas (page des aides : 2024 seulement),
+      // pour la retrouver en revenant sur une autre page de la section.
+      const toutes = [...b.querySelectorAll('.b-annee .b-seg > *')].map(e => e.textContent);
+      const annee = toutes.includes(voulue) ? voulue : active.dataset.anneeChoix;
+      if (voulue) document.addEventListener('DOMContentLoaded', () => {
+        const base = new URL(b.querySelector('.b-ariane li.b-sec a').href);
+        document.querySelectorAll('a[href]').forEach(a => {
+          const u = new URL(a.href, location.href);
+          if (u.origin !== location.origin || !u.pathname.startsWith(base.pathname) || u.searchParams.has('annee') || u.hash && u.pathname === location.pathname) return;
+          if (/\.(json|csv|pdf|xlsx?)$/.test(u.pathname)) return;
+          const [chemin, ancre] = a.getAttribute('href').split('#');
+          a.setAttribute('href', chemin + (chemin.includes('?') ? '&' : '?') + 'annee=' + annee + (ancre !== undefined ? '#' + ancre : ''));
+        });
+      });
+    }
     // Panneau de gauche repliable : un bouton dans le panneau le masque, un autre le rouvre. La
     // page est prévenue par un événement « resize », pour se redessiner sur toute la largeur.
     document.addEventListener('DOMContentLoaded', () => {
@@ -105,7 +135,7 @@ const SCRIPT = `<script>
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
-export function bandeau({ racine = '', section = null, page = null } = {}) {
+export function bandeau({ racine = '', section = null, page = null, annees = null } = {}) {
   const S = section && SECTIONS[section];
   const sections = Object.entries(SECTIONS).map(([k, s]) =>
     `<a href="${racine}${s.chemin}"${k === section ? ' aria-current="true"' : ''}>${esc(s.nom)}</a>`).join('');
@@ -113,7 +143,12 @@ export function bandeau({ racine = '', section = null, page = null } = {}) {
     const onglets = S.pages.map(([k, nom, href]) => `<a href="${racine}${href}"${k === page ? ' aria-current="page"' : ''}>${esc(nom)}</a>`).join('');
     const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li class="b-sec"><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
       + `<li class="b-sel"><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
-    return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav></div></div>`;
+    // Choix de l'année (section budget) : toutes celles de la section, cliquables si la page les a.
+    const dispo = annees || S.annees || [];
+    const choixAnnee = S.annees ? `<div class="b-annee" role="group" aria-label="Année des données"><span>Année</span><span class="b-seg">${S.annees.map(a => dispo.includes(a)
+      ? `<a href="?annee=${a}" data-annee-choix="${a}">${a}</a>`
+      : `<span aria-disabled="true" title="Cette page n'existe que pour ${esc(dispo.join(', '))}">${a}</span>`).join('')}</span></div>` : '';
+    return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav>${choixAnnee}</div></div>`;
   })() : '';
   return `${STYLE}
 <header class="bandeau">

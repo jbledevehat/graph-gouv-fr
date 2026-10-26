@@ -1,14 +1,15 @@
-# Construit donnees/argent-public-2024.json à partir des comptes de la Nation de l'Insee :
+# Construit donnees/argent-public-AAAA.json à partir des comptes de la Nation de l'Insee :
 # dépenses de toutes les administrations publiques (État, opérateurs, collectivités, sécurité
 # sociale) par fonction, recettes par nature, principaux impôts.
-# Usage : python3 scripts/insee.py   (depuis la racine du projet)
+# Les tableaux de l'Insee couvrent plusieurs années : on construit un fichier par année.
+# Usage : python3 scripts/insee.py [année]   (depuis la racine du projet ; 2024 par défaut)
 import json
 import sys
 
 sys.path.insert(0, 'scripts')
 import xlsx_simple  # noqa: E402
 
-ANNEE = '2024'
+ANNEE = sys.argv[1] if len(sys.argv) > 1 else '2024'
 SECTEURS = [
     ('S13111', 'État', "L'État au sens de la comptabilité nationale : ministères, et comptes spéciaux comme les pensions des fonctionnaires."),
     ('S1314', 'Sécurité sociale', 'Retraites de base et complémentaires, assurance maladie, famille, chômage, hôpitaux publics.'),
@@ -161,9 +162,12 @@ for s in secteurs:
 
 donnees = {
     'meta': {'annee': int(ANNEE), 'unite': "milliards d'euros",
-             'note': "Comptabilité nationale (base 2020), compte semi-définitif 2024. Dépenses consolidées : un transfert d'une administration publique à une autre n'est compté qu'une fois, chez celle qui dépense en dernier."},
+             'note': "Comptabilité nationale (base 2020) ; les comptes des années récentes peuvent encore être révisés par l'Insee. Dépenses consolidées : un transfert d'une administration publique à une autre n'est compté qu'une fois, chez celle qui dépense en dernier."},
     'total_depenses': round(total_apu, 3),
     'total_recettes': round(total_recettes, 3),
+    # Total des dépenses du tableau 3.201 (par nature) : il peut différer de quelques dizaines de
+    # millions de celui du tableau 3.307 (par fonction), retenu ci-dessus, par effet d'arrondi.
+    'total_depenses_par_nature': round(ligne['Total des dépenses'], 3),
     'solde': round(ligne['Capacité (+) ou besoin (-) de financement (B9NF)'], 3),
     'part_pib': part_pib,
     'secteurs': secteurs,
@@ -173,7 +177,7 @@ donnees = {
     'detail_natures': detail_natures,
     'impots': impots,
 }
-with open('donnees/argent-public-2024.json', 'w', encoding='utf-8') as f:
+with open(f'donnees/argent-public-{ANNEE}.json', 'w', encoding='utf-8') as f:
     json.dump(donnees, f, ensure_ascii=False, separators=(',', ':'))
-print('  -> donnees/argent-public-2024.json')
+print(f'  -> donnees/argent-public-{ANNEE}.json')
 print(f"  dépenses {total_apu:.1f} ; recettes {total_recettes:.1f} ; solde {donnees['solde']:.1f} ; part du PIB {part_pib}")

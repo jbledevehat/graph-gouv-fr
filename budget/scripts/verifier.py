@@ -7,6 +7,7 @@
 # Usage : python3 scripts/verifier.py   (depuis la racine du projet) ; code de sortie 1 en cas d'écart.
 import csv
 import json
+ANNEES_INSEE = ['2020', '2021', '2022', '2023', '2024']
 from collections import defaultdict
 
 d = json.load(open('donnees/budget-etat-2024.json', encoding='utf-8'))
@@ -47,13 +48,18 @@ egal('aides : 469 dispositifs', len(A), 469, 0)
 sans = [a['nom'] for a in A if not a['ministere']]
 egal('aides sans ministère', len(sans), 0, 0)
 
-print("3. Ensemble des administrations publiques (Insee, en milliards d'euros)")
-g = json.load(open('donnees/argent-public-2024.json', encoding='utf-8'))
-egal('les quatre administrations = total des dépenses publiques', sum(x['total'] for x in g['secteurs']), g['total_depenses'], 0.01)
-for x in g['secteurs']:
-    egal(f"{x['nom']} : somme des fonctions = total", sum(f['montant'] for f in x['fonctions']), x['total'], 0.01)
-egal('somme des recettes = total des recettes', sum(r['montant'] for r in g['recettes']), g['total_recettes'], 0.01)
-egal('recettes - dépenses = besoin de financement publié', g['total_recettes'] - g['total_depenses'], g['solde'], 0.01)
+print("3. Ensemble des administrations publiques (Insee, en milliards d'euros), année par année")
+for annee in ANNEES_INSEE:
+    g = json.load(open(f'donnees/argent-public-{annee}.json', encoding='utf-8'))
+    print(f'  {annee}')
+    egal('les quatre administrations = total des dépenses publiques', sum(x['total'] for x in g['secteurs']), g['total_depenses'], 0.01)
+    for x in g['secteurs']:
+        egal(f"{x['nom']} : somme des fonctions = total", sum(f['montant'] for f in x['fonctions']), x['total'], 0.01)
+        d_ = x['recettes']['detail']
+        egal(f"{x['nom']} : détail des impôts = impôts", d_['production'] + d_['revenu'] + d_['capital'] + d_['transferts'] + d_['non_recouvrables'], x['recettes']['impots'], 0.01)
+    egal('somme des recettes = total des recettes', sum(r['montant'] for r in g['recettes']), g['total_recettes'], 0.01)
+    egal('recettes - dépenses (tableau 3.201) = besoin de financement publié', g['total_recettes'] - g['total_depenses_par_nature'], g['solde'], 0.01)
+    egal('dépenses par fonction (3.307) = dépenses par nature (3.201), à 50 M€ près', g['total_depenses'], g['total_depenses_par_nature'], 0.05)
 
 print('Résultat :', 'aucun écart' if not erreurs else f'{len(erreurs)} écart(s) : ' + ' ; '.join(erreurs))
 raise SystemExit(1 if erreurs else 0)

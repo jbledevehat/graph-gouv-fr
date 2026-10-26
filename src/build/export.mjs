@@ -111,7 +111,7 @@ export async function writeWeb(webData, rows) {
     base, url: `${base}budget/aides.html`,
     title: `Aides publiques aux entreprises : ${aides} et ${n(budget.aides.length)} dispositifs en 2024`,
     description: `Les ${n(budget.aides.length)} aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027 : socle et périmètre élargi, par instrument et par ministère. Chiffres vérifiés ligne à ligne.`,
-    bandeau: { racine: '../', section: 'budget', page: 'aides' },
+    bandeau: { racine: '../', section: 'budget', page: 'aides', annees: ['2024'] },
   });
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));

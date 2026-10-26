@@ -102,6 +102,8 @@
   .sec-head .num { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
   .sec-head h2 { margin: 0; font-size: 18px; text-wrap: balance; }
   .sec-head p { margin: 0; color: var(--muted); max-width: 84ch; }
+  .annee-note { margin: 28px 0; padding: 16px 18px; border-left: 4px solid var(--accent); }
+  .annee-note p { margin: 0; }
   .card, .panel, details.data, .mondrian { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
 
   /* Chiffres clés */
@@ -232,7 +234,7 @@
 <main id="contenu" class="wrap">
   <div class="intro">
     <span class="eyebrow">Tableau de bord</span>
-    <h1 id="h1">L'argent public en 2024</h1>
+    <h1 id="h1">L'argent public en <span data-annee>2024</span></h1>
     <p>État, sécurité sociale, collectivités locales et opérateurs : toutes les administrations publiques réunies. Où va l'argent, d'où il vient, ce que pèse le budget de l'État et la place des aides aux entreprises. Chaque rectangle est à l'échelle de son montant.</p>
     <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">comptes de la Nation de l'Insee</a> pour l'ensemble des administrations publiques, <a href="https://data.economie.gouv.fr/explore/dataset/plrg-2024/" target="_blank" rel="noopener">loi d'approbation des comptes 2024</a> (DGFiP) pour le budget de l'État, <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener">rapport annexé au PLF 2027</a> pour les aides aux entreprises. Détail et empreintes des fichiers <a href="#s-sources">en bas de page</a>.</p>
     <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
@@ -331,7 +333,7 @@
 </main>
 
 <div id="tip" role="tooltip" hidden></div>
-<footer class="wrap"><p>L'argent public en 2024 · données sous Licence Ouverte 2.0 · proposition indépendante construite à partir de documents publics.</p></footer>
+<footer class="wrap"><p>L'argent public en <span data-annee>2024</span> · données sous Licence Ouverte 2.0 · proposition indépendante construite à partir de documents publics.</p></footer>
 
 <script>
 (async () => {
@@ -353,9 +355,18 @@
   }));
   showTheme();
 
+  // Année affichée (adresse ?annee=…, choisie dans le bandeau). L'ensemble des administrations
+  // publiques (Insee) existe pour chaque année ; le budget de l'État par ministère et les aides
+  // aux entreprises, pour 2024 seulement.
+  const ANNEES = ['2020', '2021', '2022', '2023', '2024'];
+  const annee = ANNEES.includes(new URLSearchParams(location.search).get('annee')) ? new URLSearchParams(location.search).get('annee') : '2024';
+  const complet = annee === '2024';
+  if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
+  document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
+  document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   let G, B, X;
   try {
-    [G, B, X] = await Promise.all(['donnees/argent-public-2024.json', 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
+    [G, B, X] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
   } catch (e) { $('facts').textContent = 'Impossible de charger les données : ' + e.message; return; }
 
   // --- Infobulle ---
@@ -458,14 +469,15 @@
 
   // ================= Chiffres clés =================
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
-  $('h1').innerHTML = `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en 2024`;
+  $('h1').innerHTML = `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en ${annee}`;
   $('facts').innerHTML = [
     [nf(D, 1) + ' Md€', `de dépenses publiques, ${nf(G.part_pib['dépenses'], 1)} % du PIB`],
     [nf(R, 1) + ' Md€', `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
     [nf(-S, 1) + ' Md€', "de déficit public, financé par l'emprunt"],
     [nf(G.secteurs.find(s => s.code === 'S1314').total, 1) + ' Md€', 'dépensés par la sécurité sociale, premier poste', 'secu'],
-    [nf(B.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"],
-    [nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"],
+    ...(complet ? [
+      [nf(B.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"],
+      [nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"]] : []),
   ].map(([b, s, c]) => `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${b}</b><span>${s}</span></div>`).join('');
 
   // ================= Explorateur : zoom dans les compositions et barre des totaux =================
@@ -597,6 +609,12 @@
     .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
 
   // ================= 3. Budget de l'État =================
+  // Parties 3 et 4 : 2024 seulement. Pour une autre année, elles sont remplacées par un message.
+  if (!complet) {
+    ['s-etat', 's-aides'].forEach(id => { $(id).hidden = true; });
+    $('s-etat').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Pour ${annee}, cette page montre l'ensemble des administrations publiques</b> (comptes de la Nation de l'Insee, parties 1 et 2). Le budget de l'État ministère par ministère et les aides aux entreprises ne sont disponibles ici que pour 2024 : <a href="?annee=2024">voir 2024</a>.</p></section>`);
+  }
+  if (complet) {
   const E = B.equilibre;
   const P = B.programmes.filter(p => p.programme !== '200');
   const etatCN = G.secteurs.find(s => s.code === 'S13111').total;
@@ -683,6 +701,7 @@
   table('tb-aides', ['Ministère', ...INSTR.map(i => i[1]), 'Total'], [...new Set(A.map(a => a.ministere))].map(m => { const l = A.filter(a => a.ministere === m); return [esc(m), ...INSTR.map(([n]) => sum(l.filter(a => a.annexe === n), a => a.montant) / 1000), sum(l, a => a.montant) / 1000]; })
     .sort((a, b) => b[5] - a[5]).map(r => [r[0], ...r.slice(1).map(v => v ? mds(v) : '–')]));
 
+  }
   // ================= Recherche =================
   const SECTIONS = { dep: 'Dépenses publiques', rec: 'Recettes', imp: 'Impôts', etat: "Budget de l'État", 'etat-rec': "Financement de l'État", aides: 'Aides aux entreprises' };
   // Sigles courants : la recherche les complète par leur nom en toutes lettres.
@@ -745,7 +764,7 @@
   $('method').innerHTML = [
     `<strong>Couleurs.</strong> Une couleur par administration, sur toute la page : bleu pour l'État, violet pour la sécurité sociale, jaune pour les collectivités locales, vert pour les opérateurs de l'État. Elles viennent de la palette du tableau de bord des aides, avec le même sens quand c'est possible : le bleu des aides budgétaires (versées par l'État), le violet des exonérations de cotisations (supportées par la sécurité sociale), le vert des aides financières (versées surtout par des opérateurs comme Bpifrance). Le gris neutre désigne ce qui ne revient pas à une seule administration (autres recettes, impôts partagés, contribution à l'Union européenne), les hachures le déficit ; dans la partie 4, les hachures marquent le périmètre élargi des aides.`,
     `<strong>Explications.</strong> Les rubriques « C'est quoi ? » et « Par exemple » sont rédigées pour ce tableau de bord, en langage courant, à partir de la nomenclature internationale des fonctions publiques (COFOG) telle que l'applique l'Insee et de l'objet des missions décrit dans les lois de finances (<code>donnees/explications.json</code>). Elles illustrent ; elles ne remplacent pas les définitions officielles. Pour un ministère, les exemples sont ses trois plus gros programmes.`,
-    `<strong>Deux comptabilités.</strong> Les parties 1 et 2 suivent la comptabilité nationale de l'Insee (compte semi-définitif 2024) : toutes les administrations publiques, dépenses consolidées, c'est-à-dire sans double compte des transferts entre elles. La partie 3 suit la comptabilité budgétaire de l'État : les crédits exécutés de la loi d'approbation des comptes 2024, dont une partie est reversée à d'autres administrations.`,
+    `<strong>Deux comptabilités.</strong> Les parties 1 et 2 suivent la comptabilité nationale de l'Insee (base 2020 ; les années récentes peuvent encore être révisées) : toutes les administrations publiques, dépenses consolidées, c'est-à-dire sans double compte des transferts entre elles. La partie 3 suit la comptabilité budgétaire de l'État : les crédits exécutés de la loi d'approbation des comptes 2024, dont une partie est reversée à d'autres administrations.`,
     `<strong>Contrôles.</strong> Les quatre administrations retombent sur le total de ${nf(D, 1)} Md€, les recettes sur ${nf(R, 1)} Md€, et le solde sur le besoin de financement publié par l'Insee (${nf(S, 1)} Md€). Pour l'État, chaque total de l'équilibre est recalculé à partir des fichiers de la DGFiP et retrouve le <a href="${esc(B.meta.equilibre_officiel_url)}" target="_blank" rel="noopener">tableau de l'article 1er du projet de loi</a> : aucun écart.`,
     `<strong>Fonctions.</strong> Nomenclature internationale COFOG. Les intérêts de la dette sont classés dans les services généraux, les retraites dans la protection sociale. Les remboursements de soins figurent en santé, les indemnités journalières en protection sociale.`,
     `<strong>Ministères.</strong> Ceux du projet de loi de finances pour 2025 (gouvernement d'octobre 2024), le fichier d'exécution ne les donnant pas. La nature des dépenses de chaque mission (personnel, interventions, fonctionnement, investissement, dette) est donnée dans son détail.`,
