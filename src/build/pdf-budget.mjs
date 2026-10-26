@@ -1,5 +1,6 @@
-// Exploration du budget en PDF vectoriel, une page par fichier et par année
-// (out/web/budget/pdf/argent-public-AAAA.pdf) : même composition que la page web (dépenses à
+// Exploration du budget en PDF vectoriel, un fichier par année et par regroupement, comme sur la
+// page : dépenses par administration ou par fonction, recettes par administration ou par type
+// (out/web/budget/pdf/argent-public-AAAA-<dépenses>-<recettes>.pdf) : même composition que la page web (dépenses à
 // gauche, ce qui les finance à droite, estimations sur les côtés), même échelle pour toutes les
 // années, tous les noms et montants écrits (lisibles en zoomant), texte cherchable. Couleurs du
 // thème clair, adaptées à l'impression.
@@ -55,26 +56,61 @@ function placer(n, x, y, w, h, depth = 0) {
   for (const [c, cx, cy, cw, ch] of squarify(n.children, x, y, w, h)) { c.parent = n; placer(c, cx + g / 2, cy + g / 2, Math.max(0, cw - g), Math.max(0, ch - g), depth + 1); }
 }
 
-// Arbres « par administration », comme la vue par défaut de la page.
-function arbres(G) {
+// Arbres des deux moitiés, selon le regroupement choisi, comme sur la page.
+export const REGROUPEMENTS = { depenses: ['administration', 'fonction'], recettes: ['administration', 'type'] };
+function arbres(G, modeDep, modeRec) {
   const D = G.total_depenses, S = G.solde;
-  const dep = { label: 'Dépenses', v: D, children: G.secteurs.map(s => ({ label: s.nom, v: s.total, color: COUL[s.code],
-    children: s.fonctions.map(f => ({ label: f.libelle, v: f.montant, color: COUL[s.code],
-      children: f.sous.map(x => ({ label: x.libelle, v: x.montant, color: COUL[s.code] })) })) })) };
+  const sous = (s, f) => f.sous.map(x => ({ label: x.libelle, v: x.montant, color: COUL[s.code] }));
+  const dep = modeDep === 'administration'
+    ? { label: 'Dépenses', v: D, children: G.secteurs.map(s => ({ label: s.nom, v: s.total, color: COUL[s.code],
+        children: s.fonctions.map(f => ({ label: f.libelle, v: f.montant, color: COUL[s.code], children: sous(s, f) })) })) }
+    : { label: 'Dépenses', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na',
+        children: G.secteurs.map(s => ({ label: s.nom, v: s.fonctions[k].montant, color: COUL[s.code], children: sous(s, s.fonctions[k]) })) })) };
   const autres = G.recettes.filter(r => r.groupe === 'autres' && r.montant > 0);
-  const financement = [...G.secteurs.map(s => {
-    const d = s.recettes.detail, c = COUL[s.code];
-    const impots = [['production', 'Impôts sur la consommation et la production'], ['revenu', 'Impôts sur le revenu et le patrimoine'],
-      ['capital', 'Droits de succession et de donation'], ['transferts', "Impôts reversés par d'autres administrations"]]
-      .filter(([k]) => d[k] > 0).map(([k, l]) => ({ label: l, v: d[k], color: c }));
-    const cot = [['Cotisations versées', s.recettes.cotisations - d.cotisations_imputees], ['Cotisations imputées', d.cotisations_imputees]]
-      .filter(x => x[1] > 0.05).map(([l, v]) => ({ label: l, v, color: c }));
-    return { label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: c, children: [
-      { label: 'Impôts', v: s.recettes.impots, color: c, children: impots },
-      cot.length === 1 ? cot[0] : { label: 'Cotisations', v: s.recettes.cotisations, color: c, children: cot }] };
-  }),
-  { label: 'Autres recettes', v: G.autres_recettes_consolidees, color: 'na', children: autres.map(r => ({ label: r.libelle, v: r.montant, color: 'na' })) },
-  { label: 'Déficit (emprunt)', v: -S, color: 'hatch' }];
+  const blocAutres = { label: 'Autres recettes', v: G.autres_recettes_consolidees, color: 'na', children: autres.map(r => ({ label: r.libelle, v: r.montant, color: 'na' })) };
+  const blocDeficit = { label: 'Déficit (emprunt)', v: -S, color: 'hatch' };
+  let financement;
+  if (modeRec === 'administration') {
+    financement = [...G.secteurs.map(s => {
+      const d = s.recettes.detail, c = COUL[s.code];
+      const impots = [['production', 'Impôts sur la consommation et la production'], ['revenu', 'Impôts sur le revenu et le patrimoine'],
+        ['capital', 'Droits de succession et de donation'], ['transferts', "Impôts reversés par d'autres administrations"]]
+        .filter(([k]) => d[k] > 0).map(([k, l]) => ({ label: l, v: d[k], color: c }));
+      const cot = [['Cotisations versées', s.recettes.cotisations - d.cotisations_imputees], ['Cotisations imputées', d.cotisations_imputees]]
+        .filter(x => x[1] > 0.05).map(([l, v]) => ({ label: l, v, color: c }));
+      return { label: s.nom, v: s.recettes.impots + s.recettes.cotisations, color: c, children: [
+        { label: 'Impôts', v: s.recettes.impots, color: c, children: impots },
+        cot.length === 1 ? cot[0] : { label: 'Cotisations', v: s.recettes.cotisations, color: c, children: cot }] };
+    }), blocAutres, blocDeficit];
+  } else {
+    // Impôts un par un (tableau 3.217), toutes administrations confondues ; même calcul que la page.
+    const net = l => l.replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/ \(D\d+\w*\)$/, '').trim();
+    const NOMS = { 'Taxe sur la valeur ajoutée (TVA) (D211)': 'TVA', 'Impôts et droits sur les importations (D212)': 'Droits de douane (part française)',
+      'Impôts sur les produits (D214)': 'Taxes sur des produits', "Impôts sur les salaires et la main d'œuvre (D291)": 'Impôts sur les salaires',
+      'Impôts divers sur la production (D292)': 'Impôts sur la production', 'Impôts courants sur le revenu (D51)': 'Impôts sur le revenu',
+      'Autres impôts courants (D59)': 'Autres impôts courants', 'Impôts en capital (D91r)': 'Successions et donations' };
+    const familles = G.impots.filter(i => i.niveau === 1 && NOMS[i.libelle]).map(f => {
+      let enfants = G.impots.filter(i => i.niveau === 2 && i.categorie === f.libelle && !/Union Européenne/.test(i.libelle)).map(i => ({ ...i }));
+      for (const cr of enfants.filter(i => i.montant < 0)) {
+        const cible = enfants.find(i => i.montant > 0 && (/IRPP/.test(cr.libelle) ? /\(IRPP\)/ : /\(IS\)/).test(i.libelle));
+        if (cible) cible.montant += cr.montant;
+      }
+      enfants = enfants.filter(i => i.montant > 0);
+      const ue = G.impots.find(i => i.categorie === f.libelle && /Union Européenne/.test(i.libelle));
+      const v = f.montant - (ue ? ue.montant : 0);
+      const reste = v - sum(enfants, i => i.montant);
+      const ch = enfants.map(i => ({ label: net(i.libelle), v: i.montant, color: 'na' }));
+      if (ch.length && reste > 0.05) ch.push({ label: `Autres (${NOMS[f.libelle].toLowerCase()})`, v: reste, color: 'na' });
+      return { label: NOMS[f.libelle], v, color: 'na', children: ch.length ? ch : undefined };
+    });
+    const cotT = G.impots.find(i => i.niveau === 1 && i.libelle === 'Cotisations sociales');
+    const imputees = G.impots.find(i => i.categorie === 'Cotisations sociales' && /imputées/.test(i.libelle)).montant;
+    financement = [
+      { label: 'Impôts', v: sum(G.secteurs, s => s.recettes.impots), color: 'na', children: familles },
+      { label: 'Cotisations sociales', v: cotT.montant, color: 'na', children: [
+        { label: 'Cotisations versées', v: cotT.montant - imputees, color: 'na' }, { label: 'Cotisations imputées', v: imputees, color: 'na' }] },
+      blocAutres, blocDeficit];
+  }
   return [dep, { label: 'Recettes et emprunt', v: sum(financement, c => c.v), children: financement }];
 }
 
@@ -187,12 +223,12 @@ function dessinerEstimations(doc, E, annee, aire) {
   });
 }
 
-export async function writeBudgetPdf(G, E, AN, annee, file) {
+export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administration', modeRec = 'administration') {
   mkdirSync(dirname(path(file)), { recursive: true });
   const doc = new PDFDocument({
     size: [LARGEUR, HAUTEUR], margin: 0, compress: true, lang: 'fr-FR', displayTitle: true,
     info: {
-      Title: `L'argent public en ${annee}`,
+      Title: `L'argent public en ${annee} : dépenses par ${modeDep}, recettes par ${modeRec === 'type' ? 'type' : 'administration'}`,
       Author: 'Jean-Baptiste Le Dévéhat',
       Subject: `Dépenses et recettes des administrations publiques françaises en ${annee}, à la même échelle pour toutes les années`,
       Keywords: 'budget, dépenses publiques, recettes publiques, impôts, sécurité sociale, collectivités, Insee',
@@ -211,10 +247,11 @@ export async function writeBudgetPdf(G, E, AN, annee, file) {
   doc.font('Plex').fontSize(20).fillColor(MUTED).text(
     `${mds(D)} de dépenses publiques (État, sécurité sociale, collectivités locales, opérateurs de l'État) et ce qui les finance : ${mds(R)} de recettes et ${mds(-S)} de déficit, couvert par l'emprunt.`,
     60, 112, { width: LARGEUR - 120 });
-  doc.fontSize(14).text(`Surfaces proportionnelles aux montants, à la même échelle pour toutes les années (la plus grande, ${AN.echelle.insee_md.toLocaleString('fr-FR', { maximumFractionDigits: 0 }).replace(/ /g, ' ')} Md€, remplit la zone). Sur les côtés, en cercles : des estimations, pas des comptes (cercle atténué : estimation d'une autre année).`, 60, 150, { width: LARGEUR - 120 });
+  doc.font('Plex-Gras').fontSize(14).fillColor(INK).text(`Dépenses regroupées par ${modeDep} · recettes regroupées par ${modeRec === 'type' ? 'type de recette (impôt par impôt)' : 'administration'}`, 60, 150, { lineBreak: false });
+  doc.font('Plex').fontSize(14).fillColor(MUTED).text(`Surfaces proportionnelles aux montants, à la même échelle pour toutes les années (la plus grande, ${AN.echelle.insee_md.toLocaleString('fr-FR', { maximumFractionDigits: 0 }).replace(/ /g, ' ')} Md€, remplit la zone). Sur les côtés, en cercles : des estimations, pas des comptes (cercle atténué : estimation d'une autre année).`, 60, 174, { width: LARGEUR - 120 });
 
   doc.save().translate(60, HAUT_PAGE - TETE + 20);
-  const racines = arbres(G);
+  const racines = arbres(G, modeDep, modeRec);
   racines.forEach((r, i) => {
     const z = ZONES[i], f = Math.sqrt(r.v / AN.echelle.insee_md), w = z.w * f, h = z.h * f;
     const x = i === 0 ? z.x + z.w - w : z.x;
@@ -232,7 +269,7 @@ export async function writeBudgetPdf(G, E, AN, annee, file) {
   // Légende et sources.
   let lx = 60;
   const ly = HAUTEUR - 80;
-  for (const [c, l] of [['etat', 'État'], ['secu', 'Sécurité sociale'], ['coll', 'Collectivités locales'], ['op', "Opérateurs de l'État"], ['na', 'Autres recettes'], ['hatch', 'Déficit (emprunt)']]) {
+  for (const [c, l] of [['etat', 'État'], ['secu', 'Sécurité sociale'], ['coll', 'Collectivités locales'], ['op', "Opérateurs de l'État"], ['na', modeRec === 'type' ? 'Recettes par type, toutes administrations' : 'Autres recettes'], ['hatch', 'Déficit (emprunt)']]) {
     doc.rect(lx, ly, 16, 16).fill(COULEURS[c]);
     doc.font('Plex').fontSize(14).fillColor(INK).text(l, lx + 22, ly + 1, { lineBreak: false });
     lx += 40 + doc.widthOfString(l);

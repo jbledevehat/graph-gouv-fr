@@ -195,7 +195,9 @@ ce qui les finance (impôts, cotisations, autres recettes, emprunt) à droite, �
   + et −, flèches, 0. Les noms apparaissent à mesure qu'on zoome.
 - **Fiche** : un clic sur un bloc ouvre son explication, sa part sur 100 € et son détail.
 - **PDF** : le bouton de téléchargement, à côté du zoom, donne l'exploration de l'année affichée en
-  PDF vectoriel (`/budget/pdf/argent-public-AAAA.pdf`, construit par `src/build/pdf-budget.mjs`) :
+  PDF vectoriel des regroupements affichés (`/budget/pdf/argent-public-AAAA-<dépenses>-<recettes>.pdf`,
+  quatre par année : dépenses par administration ou fonction, recettes par administration ou type ;
+  construits par `src/build/pdf-budget.mjs`) :
   même composition et même échelle, tous les noms et montants, estimations, sources. Police
   IBM Plex Sans (SIL OFL, `src/build/polices/`).
 - **Recettes** : par administration, chacune avec ses impôts (consommation et production, revenu
