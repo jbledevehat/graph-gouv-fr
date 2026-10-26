@@ -1,5 +1,6 @@
 // Bandeau commun à toutes les pages du site : nom du site (vers l'accueil), sections, thème ;
-// dans une section, une seconde ligne avec le fil d'Ariane et les onglets de ses pages.
+// dans une section, une seconde ligne avec le fil d'Ariane, qui se termine par un sélecteur des
+// pages de la section (Carte | Pilotage…) : la page courante n'est nommée qu'une fois.
 // Il est inséré à la place du marqueur <!--bandeau--> de chaque page, à la construction.
 // Sa hauteur est publiée dans la variable CSS --bandeau-h, pour les pages plein écran (carte,
 // exploration du budget) dont les panneaux se placent en dessous.
@@ -40,16 +41,17 @@ const STYLE = `<style>
   .bandeau .b-ariane a { color: var(--accent); text-decoration: none; }
   .bandeau .b-ariane a:hover { text-decoration: underline; }
   .bandeau .b-ariane [aria-current] { color: var(--ink); font-weight: 500; }
-  .bandeau .b-pages { display: flex; flex-wrap: wrap; gap: 2px; margin-left: auto; }
-  .bandeau .b-pages a { display: inline-flex; align-items: center; min-height: 30px; padding: 0 12px; border-radius: 6px; color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500; border-bottom: 2px solid transparent; }
-  .bandeau .b-pages a:hover { background: var(--panel); }
-  .bandeau .b-pages a[aria-current] { color: var(--accent); border-bottom-color: var(--accent); border-radius: 6px 6px 0 0; }
+  .bandeau .b-pages { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
+  .bandeau .b-pages a { display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; color: var(--ink); background: var(--panel); text-decoration: none; font-size: 13px; font-weight: 500; }
+  .bandeau .b-pages a + a { border-left: 1px solid var(--control); }
+  .bandeau .b-pages a:hover { background: var(--panel-2); color: var(--ink); text-decoration: none; }
+  .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
+  .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   @media (max-width: 640px) {
     .bandeau .b-wrap { padding-inline: 12px; }
     .bandeau .b-eyebrow { display: none; }
     .bandeau .b-theme span { display: none; }
-    .bandeau .b-pages { margin-left: 0; }
   }
 </style>`;
 
@@ -70,11 +72,10 @@ export function bandeau({ racine = '', section = null, page = null } = {}) {
   const sections = Object.entries(SECTIONS).map(([k, s]) =>
     `<a href="${racine}${s.chemin}"${k === section ? ' aria-current="true"' : ''}>${esc(s.nom)}</a>`).join('');
   const sousLigne = S ? (() => {
-    const courante = S.pages.find(p => p[0] === page);
-    const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
-      + (courante ? `<li aria-current="page">${esc(courante[1])}</li>` : '');
     const onglets = S.pages.map(([k, nom, href]) => `<a href="${racine}${href}"${k === page ? ' aria-current="page"' : ''}>${esc(nom)}</a>`).join('');
-    return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav><nav class="b-pages" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</nav></div></div>`;
+    const ariane = `<li><a href="${racine || './'}">Accueil</a></li><li><a href="${racine}${S.chemin}">${esc(S.nom)}</a></li>`
+      + `<li><span class="b-pages" role="group" aria-label="Pages de la section ${esc(S.nom)}">${onglets}</span></li>`;
+    return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav></div></div>`;
   })() : '';
   return `${STYLE}
 <header class="bandeau">
