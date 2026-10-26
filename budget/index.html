@@ -138,9 +138,9 @@
   .bar i { grid-column: 1 / -1; display: block; height: 6px; border-radius: 3px; background: var(--c); }
 
   /* --- Zoom --- */
-  .zoom { position: fixed; z-index: 5; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; overflow: hidden; }
-  .zoom button { width: 44px; height: 44px; border: 0; border-bottom: 1px solid var(--line); background: var(--panel); color: var(--ink); font-size: 18px; cursor: pointer; }
-  .zoom button:last-child { border-bottom: 0; font-size: 12px; }
+  .zoom { position: fixed; z-index: 5; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: row; overflow: hidden; }
+  .zoom button { width: 44px; height: 40px; border: 0; border-right: 1px solid var(--line); background: var(--panel); color: var(--ink); font-size: 18px; cursor: pointer; }
+  .zoom button:last-child { border-right: 0; width: auto; padding: 0 14px; font-size: 12.5px; }
   .zoom button:hover { background: var(--panel-2); }
   .zoom button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
@@ -333,12 +333,14 @@
     const gauche = large ? $('side').getBoundingClientRect().right + 12 - r.left : 0;
     const droite = large && !$('detail').hidden ? r.right - $('detail').getBoundingClientRect().left + 12 : 0;
     const haut = large ? 0 : $('side').getBoundingClientRect().bottom + 8 - r.top;
-    return { r, gauche, droite, haut };
+    // Bande réservée en bas pour les boutons de zoom.
+    const bas = $('z-in').closest('.zoom').getBoundingClientRect().height + 20;
+    return { r, gauche, droite, haut, bas };
   };
   // L'échelle et le centre ne dépendent que du panneau de gauche : ouvrir la fiche ne fait pas
   // bouger la composition ; seul le cadrage sur un bloc tient compte de la place qu'elle prend.
-  const echelleBase = () => { const { r, gauche, haut } = marges(); return Math.min((r.width - gauche - 24) / W, (r.height - haut - 24) / H); };
-  const centreEcran = () => { const { r, gauche, haut } = marges(); return [gauche + (r.width - gauche) / 2, haut + (r.height - haut) / 2]; };
+  const echelleBase = () => { const { r, gauche, haut, bas } = marges(); return Math.min((r.width - gauche - 24) / W, (r.height - haut - bas - 12) / H); };
+  const centreEcran = () => { const { r, gauche, haut, bas } = marges(); return [gauche + (r.width - gauche) / 2, haut + (r.height - haut - bas) / 2]; };
   let s0 = 1;
   const borner = () => {
     vue.k = Math.min(3000, Math.max(1, vue.k));
