@@ -72,6 +72,9 @@
   #scene text.zone .v { fill: var(--muted); font-weight: 500; }
   #scene text.fil { font-weight: 700; opacity: .9; }
   #scene .est-col { fill: transparent; cursor: pointer; }
+  #scene .est-env { fill: var(--ink); fill-opacity: .025; stroke: var(--ink); stroke-width: 1.6px; stroke-dasharray: 0.5 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  #scene .est-env.bas { fill-opacity: .05; }
+  #scene .est-env.sel { stroke-width: 3px; }
   #scene .est-sep { stroke: var(--control); stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
   #scene .est-haut { fill: var(--ink); fill-opacity: .05; stroke: var(--ink); stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; stroke-width: 1.2px; }
   #scene .est-bas { fill: var(--hatch); fill-opacity: .7; stroke: var(--ink); stroke-width: 1px; vector-effect: non-scaling-stroke; }
@@ -124,6 +127,7 @@
   .sw.na { outline: 1px solid var(--control); outline-offset: -1px; }
   .sw.hatch { background: repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 5px); outline: 1px solid var(--control); outline-offset: -1px; }
   #opts { display: none; min-height: 30px; padding: 0 10px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel-2); color: var(--ink); font: 500 12.5px var(--sans); cursor: pointer; align-items: center; flex: none; }
+  .lien { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; }
   .tolink { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 500; }
 
   /* --- Fiche --- */
@@ -437,11 +441,25 @@
       h += `<line class="est-sep" x1="${i ? col.x : col.x + col.w}" y1="${col.y}" x2="${i ? col.x : col.x + col.w}" y2="${col.y + col.h}"/>`;
       h += `<text class="est-t halo" data-et="${ce.id}" display="none"></text>`;
       const rayons = postes.map(p => [Math.sqrt(p.haut * a / Math.PI), Math.sqrt(p.bas * a / Math.PI)]);
-      // Place laissée aux noms : au plus 140, partagée entre les files selon la hauteur disponible.
-      const cercles = n => { let t = 0, f = 0; for (let k = 0; k < postes.length; k += n, f++) t += 2 * Math.max(...rayons.slice(k, k + n).map(x => x[0])) + MARGE; return [t, f]; };
+      // Estimation d'ensemble, plus incertaine (fraude fiscale tous impôts) : un grand cercle en
+      // petits points, en tête de colonne ; elle recouvre d'autres postes et ne s'ajoute pas au total.
+      const env = c.enveloppe, Renv = env ? Math.sqrt(env.haut * a / Math.PI) : 0;
+      // Place laissée aux noms : au plus 140, partagée entre les files selon la hauteur disponible ;
+      // les cercles vont un, deux ou trois par file, au plus petit nombre qui laisse lire les noms.
+      const cercles = n => { let t = env ? 2 * Renv + MARGE : 0, f = env ? 1 : 0; for (let k = 0; k < postes.length; k += n, f++) t += 2 * Math.max(...rayons.slice(k, k + n).map(x => x[0])) + MARGE; return [t, f]; };
       const legende = n => { const [t, f] = cercles(n); return Math.min(140, (col.h - ENTETE - t) / f); };
-      const parFile = legende(1) >= 90 ? 1 : 2, largeur = (col.w - 16) / parFile, LEGENDE = legende(parFile);
+      const parFile = [1, 2, 3].find(n => legende(n) >= 90) || [1, 2, 3].reduce((m, n) => legende(n) > legende(m) ? n : m, 1);
+      const largeur = (col.w - 16) / parFile, LEGENDE = legende(parFile);
       let y = col.y + ENTETE;
+      if (env) {
+        const rb = Math.sqrt(env.bas * a / Math.PI);
+        const e = { ...env, id: `e-${cle}-${env.id}`, est: 'poste', enveloppe: true, col: ce, R: Renv, r: rb, cx: col.x + col.w / 2, cy: y + Renv,
+          x: col.x + 8, y, w: col.w - 16, h: 2 * Renv + LEGENDE, yLegende: y + 2 * Renv + 6 };
+        estim.push(e); ce.env = e;
+        h += `<circle class="est-env" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${Renv}"/><circle class="est-env bas" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${rb}"/>`;
+        h += `<text class="est-l halo" data-el="${e.id}" text-anchor="middle" display="none"></text>`;
+        y += 2 * Renv + LEGENDE + MARGE;
+      }
       for (let k = 0; k < postes.length; k += parFile) {
         const hautFile = 2 * Math.max(...rayons.slice(k, k + parFile).map(x => x[0]));
         postes.slice(k, k + parFile).forEach((p, m) => {
@@ -743,13 +761,14 @@
       <p>${esc(n.quoi)}</p>
       <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de 2024. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>
       <div class="bars">${n.enfants.map(c => `<div class="bar" style="--c:var(--hatch)"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${fourchette(c.bas, c.haut)}</span><i style="width:${Math.max(2, c.haut / n.enfants[0].haut * 100)}%"></i></div>`).join('')}</div>
+      ${n.env ? `<p class="ex"><b class="acc">À part, sans s'ajouter :</b> <button type="button" class="lien" data-go="${n.env.id}">${esc(n.env.court)}</button>, ${fourchette(n.env.bas, n.env.haut)}, d'après des estimations anciennes et fragiles selon la Cour des comptes.</p>` : ''}
       <p class="ex"><b class="acc">Pas de chiffre fiable pour :</b></p><ul class="ex">${n.non_chiffre.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
       <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button></div>`
       : `<p class="big">${fourchette(n.bas, n.haut)} <span class="ex" style="font-size:13px;font-weight:400">· année ${esc(n.annee)}</span></p>
       <p><b class="acc">C'est quoi ?</b> ${esc(n.quoi)}</p>
       <p><b class="acc">Comment c'est estimé :</b> ${esc(n.calcul)}</p>
       <p><b class="acc">Fiabilité :</b> ${esc(n.certitude)}</p>
-      <p class="ex">Ordre de grandeur : ${part} ${base[0]} de 2024${n.annee !== '2024' ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.</p>
+      <p class="ex">Ordre de grandeur : ${part} ${base[0]} de 2024${n.annee !== '2024' ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.${n.enveloppe ? ' Ce cercle ne s\'ajoute pas au total de la colonne.' : ''}</p>
       <p class="ex"><b class="acc">Source :</b> ${lien(n.url, n.source)}${n.url2 ? ` · ${lien(n.url2, 'CEPII')}` : ''}</p>
       <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-up">Voir « ${esc(col.label)} »</button></div>`;
     $('detail').hidden = false;

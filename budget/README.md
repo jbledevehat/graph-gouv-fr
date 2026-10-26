@@ -120,12 +120,16 @@ la fourchette, le cercle pointillé la borne haute, à la même échelle que les
 | Évitement fiscal des multinationales | 4,6 à 14 Md€ | 2015-2019 | CAE note n° 54 ; CEPII Lettre n° 400 |
 | RSA non demandé | ≈ 2,5 Md€ | 2021 | DREES, Études et Résultats n° 1370, 2026 |
 | Minimum vieillesse non demandé (personnes seules) | 0,79 à 1,09 Md€ | 2016 | DREES, Dossier n° 97, 2022 |
+| *À part :* fraude fiscale, tous impôts | 20,5 à 100 Md€ | 1996-2018 | Cour des comptes, 2025 (trois estimations anciennes) |
 
-Ne sont pas chiffrés, faute d'estimation publique fiable : la fraude à l'impôt sur le revenu, à
-l'impôt sur les sociétés et aux impôts sur le patrimoine ; le non-recours à l'assurance chômage,
-à la complémentaire santé solidaire et à la prime d'activité (seuls des taux existent). Les
-chiffres souvent cités de 80 à 100 Md€ de fraude fiscale ou de 10 Md€ d'aides non demandées ne
-sont pas repris, faute de méthode reprise par la statistique publique.
+La fraude fiscale tous impôts n'a pas d'estimation fiable : la Cour des comptes (décembre 2025)
+recense trois estimations anciennes, faites hors de l'administration et « fragiles et
+divergentes » (17,4 à 22,7 Md€ en 1996, 20,5 à 25,6 Md€ en 2007, 80 à 100 Md€ en 2018 selon le
+syndicat Solidaires Finances publiques). Leur fourchette est dessinée à part, en grand cercle en
+petits points, avec ces réserves ; elle recouvre en partie la TVA et l'évitement fiscal et ne
+s'ajoute pas au total. Le non-recours à l'assurance chômage, à la complémentaire santé solidaire
+et à la prime d'activité n'est pas chiffré en euros (seuls des taux existent) ; le chiffre de
+10 Md€ d'aides non demandées, souvent cité, n'a pas de source publique vérifiable.
 
 ## Refaire le travail
 

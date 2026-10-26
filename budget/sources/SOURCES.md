@@ -315,3 +315,27 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 367 647 octets
 - **SHA-256** : `b4df0471d1dc3022e68b5846edef3e1fe302d2b8ef608b1f873d4e8552f5b45a`
+
+## `sources/estimations/cour-des-comptes-2025-lutte-contre-la-fraude-fiscale.pdf`
+
+- **Contenu** : Absence d'estimation fiable de la fraude fiscale 
+- **Jeu de données** : Rapport public thématique, La lutte contre la fraude fiscale (décembre 2025)
+- **Producteur** : Cour des comptes
+- **Adresse du fichier** : <https://www.ccomptes.fr/sites/default/files/2025-12/20251216-Lutte-contre-la-fraude-fiscale.pdf>
+- **Page du jeu de données** : <https://www.ccomptes.fr/>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 1 597 203 octets
+- **SHA-256** : `5c98756648c9bd69de36ff3a8c5445d4a748de191afccbfbc826d0f7dfc789d5`
+
+## `sources/estimations/cour-des-comptes-2019-fraude-aux-prelevements-obligatoires.pdf`
+
+- **Contenu** : Fraude et irrégularités à la TVA de l'ordre d'une quinzaine de milliards d'euros (ordre de grandeur fragile) 
+- **Jeu de données** : La fraude aux prélèvements obligatoires : évaluer, prévenir, réprimer (décembre 2019)
+- **Producteur** : Cour des comptes
+- **Adresse du fichier** : <https://www.ccomptes.fr/sites/default/files/2023-10/20191202-rapport-fraude-aux-prelevements-obligatoires.pdf>
+- **Page du jeu de données** : <https://www.ccomptes.fr/>
+- **Licence** : Publication publique de l'organisme (conditions de réutilisation : voir l'éditeur)
+- **Téléchargé le** : 2026-10-26
+- **Taille** : 6 688 952 octets
+- **SHA-256** : `285f1f5c8fe095997511b2d431871f5b2fdb6bf9cc7850afd52b998420ec192e`
