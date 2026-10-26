@@ -421,6 +421,8 @@
   }
   /* Fiche ouverte : la liste s'arrête à sa gauche (bouton « Revenir à la carte » visible). */
   body.list-mode:has(#detail:not([hidden])) #list { right: 392px; }
+  /* Panneau de gauche masqué : la liste prend toute la largeur, sous le bouton qui le rouvre. */
+  body.panneau-replie #list { left: 16px; top: calc(64px + var(--bandeau-h, 0px)); }
   .list-head {
     position: sticky;
     top: 0;
@@ -598,7 +600,7 @@
 <div id="poles" aria-hidden="true"></div>
 <p id="status">Chargement de la carte…</p>
 
-<aside id="side" class="panel" aria-label="Recherche et légende">
+<aside id="side" class="panel" aria-label="Recherche et légende" data-repliable>
   <div class="head">
     <div class="eyebrow">Cartographie · V2</div>
     <h1>Sites web publics de l'État</h1>

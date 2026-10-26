@@ -14,7 +14,7 @@ vérifiés pour partager les données publiques et piloter les politiques publiq
 
 Toutes les pages portent le même bandeau (`src/build/bandeau.mjs`, inséré à la construction à la
 place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux deux sections, thème, puis fil
-d'Ariane terminé par un sélecteur des pages de la section (Carte | Pilotage…). Les anciennes adresses restent
+d'Ariane terminé par un sélecteur des pages de la section (Carte | Pilotage…). Sur les pages plein écran (carte, exploration du budget), le panneau de gauche peut être masqué ; le choix est gardé d'une visite à l'autre. Les anciennes adresses restent
 valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la racine, et
 `pilotage.html` renvoie vers `sites/pilotage.html`.
 

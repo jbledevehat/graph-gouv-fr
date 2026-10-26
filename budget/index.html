@@ -184,7 +184,7 @@
 <div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public en 2024 : les dépenses et ce qui les finance, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
 <p id="status">Chargement…</p>
 
-<aside id="side" class="panel" aria-label="Recherche et options">
+<aside id="side" class="panel" aria-label="Recherche et options" data-repliable>
   <div class="head">
     <div class="eyebrow">Exploration · 2024</div>
     <div class="h-row"><h1>L'argent public en 2024</h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
@@ -521,10 +521,12 @@
   const vue = { k: 1, cx: W / 2, cy: H / 2 };
   const marges = () => {
     const r = scene.getBoundingClientRect();
-    const large = innerWidth > 760;
-    const gauche = large ? $('side').getBoundingClientRect().right + 12 - r.left : 0;
+    const large = innerWidth > 760, replie = document.body.classList.contains('panneau-replie');
+    // Panneau masqué : on laisse seulement la place du bouton qui le rouvre.
+    const bouton = document.querySelector('.p-deplier')?.getBoundingClientRect();
+    const gauche = !large ? 0 : replie ? (bouton?.right || 0) + 12 - r.left : $('side').getBoundingClientRect().right + 12 - r.left;
     const droite = large && !$('detail').hidden ? r.right - $('detail').getBoundingClientRect().left + 12 : 0;
-    const haut = large ? 0 : $('side').getBoundingClientRect().bottom + 30 - r.top;
+    const haut = large ? 0 : replie ? 56 : $('side').getBoundingClientRect().bottom + 30 - r.top;
     // Bande réservée en bas pour les boutons de zoom.
     const bas = $('z-in').closest('.zoom').getBoundingClientRect().height + 20;
     return { r, gauche, droite, haut, bas };

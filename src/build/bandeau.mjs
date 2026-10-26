@@ -3,7 +3,8 @@
 // pages de la section (Carte | Pilotage…) : la page courante n'est nommée qu'une fois.
 // Il est inséré à la place du marqueur <!--bandeau--> de chaque page, à la construction.
 // Sa hauteur est publiée dans la variable CSS --bandeau-h, pour les pages plein écran (carte,
-// exploration du budget) dont les panneaux se placent en dessous.
+// exploration du budget) dont les panneaux se placent en dessous. Sur ces pages, le panneau de
+// gauche (marqué data-repliable) peut être masqué ; le choix est gardé d'une visite à l'autre.
 
 export const SECTIONS = {
   sites: {
@@ -51,6 +52,14 @@ const STYLE = `<style>
   .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
   .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  /* Panneau de gauche repliable (pages plein écran). */
+  .p-replier { position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--muted); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
+  .p-replier:hover { background: var(--panel-2); color: var(--ink); }
+  .p-deplier { position: fixed; z-index: 6; top: calc(16px + var(--bandeau-h, 0px)); left: 16px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--ink); box-shadow: var(--shadow); font: 500 13px "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
+  .p-deplier:hover { background: var(--panel-2); }
+  .p-replier:focus-visible, .p-deplier:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  body.panneau-replie [data-repliable] { display: none !important; }
+  body:not(.panneau-replie) .p-deplier { display: none; }
   @media (max-width: 640px) {
     .bandeau .b-wrap { padding-inline: 12px; }
     .bandeau .b-eyebrow { display: none; }
@@ -65,6 +74,32 @@ const SCRIPT = `<script>
     const publier = () => document.documentElement.style.setProperty('--bandeau-h', b.getBoundingClientRect().height + 'px');
     publier();
     if ('ResizeObserver' in window) new ResizeObserver(publier).observe(b);
+    // Panneau de gauche repliable : un bouton dans le panneau le masque, un autre le rouvre. La
+    // page est prévenue par un événement « resize », pour se redessiner sur toute la largeur.
+    document.addEventListener('DOMContentLoaded', () => {
+      const p = document.querySelector('[data-repliable]');
+      if (!p) return;
+      const CLE = 'gouvfr-panneau-replie';
+      p.id ||= 'panneau-gauche';
+      const replier = document.createElement('button'), deplier = document.createElement('button');
+      replier.type = deplier.type = 'button';
+      replier.className = 'p-replier'; replier.textContent = '‹'; replier.title = 'Masquer le panneau';
+      replier.setAttribute('aria-label', 'Masquer le panneau'); replier.setAttribute('aria-controls', p.id);
+      deplier.className = 'p-deplier'; deplier.innerHTML = '<span aria-hidden="true">›</span> Panneau';
+      deplier.title = 'Afficher le panneau : recherche et filtres'; deplier.setAttribute('aria-controls', p.id);
+      p.prepend(replier); document.body.append(deplier);
+      const regler = (replie, focus) => {
+        document.body.classList.toggle('panneau-replie', replie);
+        replier.setAttribute('aria-expanded', 'true'); deplier.setAttribute('aria-expanded', 'false');
+        try { replie ? localStorage.setItem(CLE, '1') : localStorage.removeItem(CLE); } catch (e) {}
+        window.dispatchEvent(new Event('resize'));
+        if (focus) (replie ? deplier : replier).focus();
+      };
+      let memo = false; try { memo = localStorage.getItem(CLE) === '1'; } catch (e) {}
+      regler(memo, false);
+      replier.onclick = () => regler(true, true);
+      deplier.onclick = () => regler(false, true);
+    });
   })();
 </script>`;
 
