@@ -337,8 +337,8 @@
     // à gauche et à droite côte à côte, à droite de chaque moitié une fois empilées.
     cote: { W: 2640, H: 1260, zones: [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1338, y: TETE, w: 982, h: 1190 }],
       estim: [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2360, y: TETE, w: 280, h: 1190 }] },
-    pile: { W: 1520, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }],
-      estim: [{ x: 1240, y: 210, w: 280, h: 760 }, { x: 1240, y: 2 * 210 + 760 + 70, w: 280, h: 760 }] },
+    pile: { W: 1640, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }],
+      estim: [{ x: 1240, y: 210, w: 400, h: 760 }, { x: 1240, y: 2 * 210 + 760 + 70, w: 400, h: 760 }] },
   };
   let disposition = 'cote', W = 2640, H = 1260, zones = DISPOSITIONS.cote.zones, colonnesEst = DISPOSITIONS.cote.estim;
   const choisirDisposition = () => {
@@ -419,7 +419,9 @@
     return b === h ? '≈ ' + f(b) : (b < 1) === (h < 1) ? `${f(b).replace(/ M?d?€$/, '').replace(/ M€$/, '')} à ${f(h)}` : `${f(b)} à ${f(h)}`;
   };
   function dessinerEstimations() {
-    const a = zones[0].w * zones[0].h / D, ENTETE = 240, MARGE = 26;
+    // Chaque cercle a son nom écrit dessous, sur la largeur de sa case. Si une seule file ne tient
+    // pas dans la hauteur de la colonne (disposition empilée), les cercles vont deux par deux.
+    const a = zones[0].w * zones[0].h / D, ENTETE = 200, MARGE = 12;
     estim = []; colonnes = [];
     let h = '';
     [['aides', E.non_percu_aides], ['recettes', E.non_percu_recettes]].forEach(([cle, c], i) => {
@@ -430,53 +432,66 @@
       colonnes.push(ce);
       h += `<rect class="est-col" data-e="${ce.id}" x="${col.x}" y="${col.y}" width="${col.w}" height="${col.h}" rx="18"/>`;
       h += `<text class="est-t halo" data-et="${ce.id}" display="none"></text>`;
+      const rayons = postes.map(p => [Math.sqrt(p.haut * a / Math.PI), Math.sqrt(p.bas * a / Math.PI)]);
+      // Place laissée aux noms : au plus 140, partagée entre les files selon la hauteur disponible.
+      const cercles = n => { let t = 0, f = 0; for (let k = 0; k < postes.length; k += n, f++) t += 2 * Math.max(...rayons.slice(k, k + n).map(x => x[0])) + MARGE; return [t, f]; };
+      const legende = n => { const [t, f] = cercles(n); return Math.min(140, (col.h - ENTETE - t) / f); };
+      const parFile = legende(1) >= 90 ? 1 : 2, largeur = (col.w - 16) / parFile, LEGENDE = legende(parFile);
       let y = col.y + ENTETE;
-      for (const p of postes) {
-        const R = Math.sqrt(p.haut * a / Math.PI), r = Math.sqrt(p.bas * a / Math.PI), haute = Math.max(2 * R, 64);
-        const e = { ...p, id: `e-${cle}-${p.id}`, est: 'poste', col: ce, R, r, cx: col.x + 16 + R, cy: y + haute / 2,
-          x: col.x + 16, y, w: col.w - 32, h: haute };
-        estim.push(e); ce.enfants.push(e);
-        if (R > r + 0.5) h += `<circle class="est-haut" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${R}"/>`;
-        h += `<circle class="est-bas" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${r}"/>`;
-        h += `<text class="est-l halo" data-el="${e.id}" display="none"></text>`;
-        y += haute + MARGE;
+      for (let k = 0; k < postes.length; k += parFile) {
+        const hautFile = 2 * Math.max(...rayons.slice(k, k + parFile).map(x => x[0]));
+        postes.slice(k, k + parFile).forEach((p, m) => {
+          const [R, r] = rayons[k + m], x0 = col.x + 8 + m * largeur;
+          const e = { ...p, id: `e-${cle}-${p.id}`, est: 'poste', col: ce, R, r, cx: x0 + largeur / 2, cy: y + hautFile / 2,
+            x: x0, y, w: largeur, h: hautFile + LEGENDE, yLegende: y + hautFile + 6 };
+          estim.push(e); ce.enfants.push(e);
+          if (R > r + 0.5) h += `<circle class="est-haut" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${R}"/>`;
+          h += `<circle class="est-bas" data-e="${e.id}" cx="${e.cx}" cy="${e.cy}" r="${r}"/>`;
+          h += `<text class="est-l halo" data-el="${e.id}" text-anchor="middle" display="none"></text>`;
+        });
+        y += hautFile + LEGENDE + MARGE;
       }
     });
     return h;
   }
-  // Texte replié sur plusieurs lignes dans une largeur donnée (en pixels à l'écran).
+  // Texte replié sur plusieurs lignes dans une largeur et une hauteur données (en pixels à
+  // l'écran) ; renvoie faux, sans rien afficher, s'il ne tient pas.
   function ecrire(t, x, yHaut, largeurPx, hauteurPx, lignes, kk) {
     const sortie = [];
     for (const [txt, fs, cls] of lignes) {
       const parLigne = Math.floor(largeurPx / (fs * 0.56));
-      if (parLigne < 6) { t.setAttribute('display', 'none'); return; }
+      if (parLigne < 5) { t.setAttribute('display', 'none'); return false; }
       let cour = '';
       for (const mot of txt.split(' ')) {
         if ((cour + ' ' + mot).trim().length > parLigne && cour) { sortie.push([cour, fs, cls]); cour = mot; } else cour = (cour + ' ' + mot).trim();
       }
       if (cour) sortie.push([cour, fs, cls]);
     }
-    const haut = sum(sortie, l => l[1] * 1.25);
-    if (haut > hauteurPx) { t.setAttribute('display', 'none'); return; }
+    if (sum(sortie, l => l[1] * 1.25) > hauteurPx) { t.setAttribute('display', 'none'); return false; }
     t.setAttribute('display', 'inline'); t.setAttribute('stroke-width', 3 / kk);
     let dy = yHaut;
     t.innerHTML = sortie.map(([l, fs, cls]) => { dy += fs * 1.25 / kk; return `<tspan class="${cls}" x="${x}" y="${dy - fs * 0.25 / kk}" font-size="${fs / kk}">${esc(l)}</tspan>`; }).join('');
+    return true;
   }
+  // Plusieurs versions du même texte, de la plus complète à la plus courte : la première qui tient.
+  const ecrireAuMieux = (t, x, y, l, h, versions, kk) => versions.some(v => ecrire(t, x, y, l, h, v, kk));
   function rendreEstimations(kk) {
     for (const c of colonnes) {
-      ecrire(svg.querySelector(`[data-et="${c.id}"]`), c.x + 7 / kk, c.y + 6 / kk, c.w * kk - 14, 240 * kk - 8,
-        [[c.label, 12, 'n'], [c.sous, 10, 'v'], [fourchette(c.bas, c.haut), 10.5, 'v']], kk);
+      const f = fourchette(c.bas, c.haut);
+      ecrireAuMieux(svg.querySelector(`[data-et="${c.id}"]`), c.x + 6 / kk, c.y + 6 / kk, c.w * kk - 12, 200 * kk - 6, [
+        [[c.label, 12, 'n'], [c.sous, 10, 'v'], [f, 10.5, 'v']],
+        [[c.label, 11, 'n'], [f, 10, 'v']],
+        [[c.label, 9.5, 'n'], [f, 9, 'v']],
+        [[c.label, 9, 'n']]], kk);
     }
     for (const e of estim) {
-      const x = e.cx + e.R + 10 / kk, larg = (e.col.x + e.col.w - x) * kk - 8;
-      const t = svg.querySelector(`[data-el="${e.id}"]`);
-      ecrire(t, x, e.y, larg, e.h * kk + 18, [[e.label, 12, 'n'], [fourchette(e.bas, e.haut) + ' · ' + e.annee, 10.5, 'v']], kk);
-      // Centrage vertical du texte sur le cercle.
-      if (t.getAttribute('display') !== 'none') {
-        const nb = t.children.length, hauteur = [...t.children].reduce((s, l) => s + +l.getAttribute('font-size') * 1.25, 0);
-        const decal = e.cy - hauteur / 2 - e.y;
-        [...t.children].forEach(l => l.setAttribute('y', +l.getAttribute('y') + decal));
-      }
+      const f = fourchette(e.bas, e.haut);
+      ecrireAuMieux(svg.querySelector(`[data-el="${e.id}"]`), e.cx, e.yLegende, e.w * kk - 6, (e.h - 2 * e.R) * kk - 4, [
+        [[e.label, 12, 'n'], [f + ' · ' + e.annee, 10.5, 'v']],
+        [[e.label, 10.5, 'n'], [f, 9.5, 'v']],
+        [[e.court, 10.5, 'n'], [f, 9.5, 'v']],
+        [[e.court, 9, 'n'], [f, 8.5, 'v']],
+        [[e.court, 9, 'n']]], kk);
     }
   }
 
@@ -517,13 +532,18 @@
     placerControles();
     rendreEstimations(kk);
     // Titres des deux moitiés : même taille pour les deux, assez petite pour laisser la place au
-    // sélecteur sur la même ligne ; s'il ne tient pas (mobile), le sélecteur passe dessous.
+    // sélecteur sur la même ligne ; s'il ne tient pas, le sélecteur passe dessous (empilé) ou
+    // au-dessus (côte à côte, où le haut de l'écran est libre).
     const ctl = z => $(z.id === 'dep' ? 'ctl-dep' : 'ctl-rec');
     const tailles = racines.map(z => {
       const lg = (z.label.length + mds(z.v).length + 3) * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
-      z.empile = disposition === 'pile' && place / lg < 12;
-      return Math.min(22 * Math.sqrt(vue.k), (z.empile ? z.w * kk - 8 : place) / lg, 26);
+      const serre = place / lg < 12;
+      z.empile = disposition === 'pile' && serre;
+      z.dessus = disposition === 'cote' && serre;
+      return Math.min(22 * Math.sqrt(vue.k), (serre ? z.w * kk - 8 : place) / lg, 26);
     });
+    // Côte à côte, les deux sélecteurs se placent de la même façon (sur la ligne ou au-dessus).
+    if (racines.some(z => z.dessus)) racines.forEach(z => { z.dessus = true; });
     const fsT = Math.max(9, Math.min(...tailles)) / kk;
     racines.forEach(z => {
       const t = svg.querySelector(`[data-z="${z.id}"]`);
@@ -566,6 +586,7 @@
         const zz = racines.find(q => q.id === z);
         let x = r.right + 12, y = r.top + r.height / 2 - b.height / 2;
         if (zz?.empile) { x = r.left; y = r.bottom + 4; }
+        else if (zz?.dessus) { x = r.left; y = r.top - b.height - 6; }
         else if (x + b.width > innerWidth - 8) x = innerWidth - b.width - 8;
         const sous = innerWidth > 760 ? x < panneau.right + 4 && y < panneau.bottom : y < panneau.bottom + 2;
         el.hidden = y < sc.top + 2 || y > sc.bottom - 40 || x < 0 || sous;
@@ -712,7 +733,8 @@
     const lien = (u, t) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;
     $('d-chip').innerHTML = `<span class="sw est"></span>Estimation · ${esc(col.label)}`;
     $('d-title').textContent = n.titre || n.label;
-    const part = `${nf(n.bas / base[1] * 100, 1)}${n.haut !== n.bas ? ' à ' + nf(n.haut / base[1] * 100, 1) : ''} %`;
+    const pb = nf(n.bas / base[1] * 100, 1), ph = nf(n.haut / base[1] * 100, 1);
+    const part = pb === ph ? `${pb} %` : `${pb} à ${ph} %`;
     $('d-body').innerHTML = n.est === 'col' ? `<p class="big">${fourchette(n.bas, n.haut)}</p>
       <p>${esc(n.quoi)}</p>
       <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de 2024. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>

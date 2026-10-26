@@ -7,6 +7,7 @@
   "postes": [
    {
     "id": "cotisations",
+    "court": "Fraude aux cotisations",
     "label": "Fraude aux cotisations sociales",
     "bas": 7.3, "haut": 7.3, "annee": "2024-2025",
     "quoi": "Surtout du travail dissimulé : des salaires versés sans être déclarés, donc sans cotisations pour la retraite, la santé ou le chômage. Inclut aussi les cotisations éludées par des micro-entrepreneurs.",
@@ -18,6 +19,7 @@
    },
    {
     "id": "prestations",
+    "court": "Fraude aux prestations",
     "label": "Fraude aux prestations sociales",
     "bas": 5.0, "haut": 5.0, "annee": "2024-2025",
     "quoi": "Des aides versées à tort à des personnes qui ont fraudé : ressources ou situation familiale non déclarées, par exemple. Le RSA, la prime d'activité, les aides au logement et l'allocation aux adultes handicapés font 90 % de la fraude estimée par les caisses d'allocations familiales. Ce n'est pas une recette manquante mais une dépense indue, à récupérer.",
@@ -29,6 +31,7 @@
    },
    {
     "id": "sante",
+    "court": "Professionnels de santé",
     "label": "Fraude de professionnels de santé",
     "bas": 1.7, "haut": 1.7, "annee": "2024-2025",
     "quoi": "Des soins facturés à l'assurance maladie sans avoir été faits, ou surfacturés, par des professionnels ou des établissements : infirmiers, transporteurs, centres de santé, fournisseurs de matériel médical.",
@@ -40,6 +43,7 @@
    },
    {
     "id": "tva",
+    "court": "TVA non déclarée",
     "label": "TVA non déclarée",
     "bas": 6, "haut": 10, "annee": "2019",
     "quoi": "La TVA que des entreprises auraient dû reverser et qu'elles n'ont pas déclarée, volontairement ou par erreur : ventes dissimulées, déductions abusives. Le commerce en représente 30 %.",
@@ -51,6 +55,7 @@
    },
    {
     "id": "multinationales",
+    "court": "Évitement fiscal",
     "label": "Évitement fiscal des multinationales",
     "bas": 4.6, "haut": 14, "annee": "2015-2019",
     "quoi": "L'impôt sur les sociétés que la France ne perçoit pas parce que des groupes déplacent leurs bénéfices vers des pays à faible impôt (Luxembourg, Irlande, Pays-Bas, Suisse…). C'est souvent légal : on parle d'évitement ou d'optimisation plutôt que de fraude.",
@@ -74,6 +79,7 @@
   "postes": [
    {
     "id": "rsa",
+    "court": "RSA",
     "label": "RSA non demandé",
     "bas": 2.5, "haut": 2.5, "annee": "2021",
     "quoi": "Le revenu de solidarité active complète les ressources des foyers les plus modestes. Un tiers des foyers qui y ont droit ne le demandent pas : environ 560 000 foyers, souvent proches de l'emploi et éligibles peu de temps.",
@@ -85,6 +91,7 @@
    },
    {
     "id": "minimum-vieillesse",
+    "court": "Minimum vieillesse",
     "label": "Minimum vieillesse non demandé",
     "bas": 0.79, "haut": 1.09, "annee": "2016",
     "quoi": "Le minimum vieillesse complète la retraite des personnes âgées aux revenus les plus faibles. La moitié des personnes seules qui y ont droit ne le demandent pas, notamment parce qu'il peut être récupéré sur leur héritage.",
