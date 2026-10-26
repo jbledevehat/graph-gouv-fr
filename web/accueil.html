@@ -86,8 +86,8 @@
   .door h3 a:focus-visible { outline: none; }
   .door:focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
   .door .visual { height: 190px; border-bottom: 1px solid var(--line); background: var(--panel-2); position: relative; overflow: hidden; }
-  .door .visual img { width: 100%; height: 100%; object-fit: cover; object-position: 88% 45%; display: block; }
-  @media (max-width: 640px) { .door .visual img { object-position: 100% 45%; } }
+  /* L'image d'aperçu porte un titre à gauche : on n'en montre que la carte, à droite. */
+  .door .visual img { position: absolute; top: 50%; right: 0; width: 175%; max-width: none; height: auto; transform: translateY(-50%); display: block; }
   .door .body { padding: 18px 20px 20px; display: grid; gap: 10px; align-content: start; }
   .door h3 { margin: 0; font-size: 21px; line-height: 1.2; }
   .door p { margin: 0; color: var(--muted); font-size: 14px; }
