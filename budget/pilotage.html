@@ -592,6 +592,7 @@
   // La largeur d'un bloc est proportionnelle à son montant, sur une échelle commune à tous les étages.
   function sankey(el, { etages, liens: L, H }) {
     const W = Math.max(880, el.clientWidth), pad = 18, gap = 7;
+    const bas = etages[etages.length - 1];
     const max = Math.max(...etages.map(e => e.noeuds.length));
     const total = Math.max(...etages.map(e => sum(e.noeuds, n => n.v)));
     const k = (W - 2 * pad - gap * (max - 1)) / total;
@@ -620,12 +621,19 @@
       }
       // Place disponible : jusqu'à l'étage du dessus, ou jusqu'au bas du dessin ; le montant compris.
       const prec = etages[n.row - 1], long = dessus ? n.y0 - prec.y - prec.ep - 14 : H - n.y1 - 12;
-      const txt = wrap(n.label, Math.max(6, Math.floor((long - mt.length * 6.6 - 6) / (dessus ? 6.8 : 6.3))), 1)[0];
+      const txt = wrap(n.court || n.label, Math.max(6, Math.floor((long - mt.length * 6.6 - 6) / (dessus ? 6.8 : 6.3))), 1)[0];
       return dessus
         ? `<text class="nom halo" transform="translate(${c + 4},${n.y0 - 8}) rotate(-90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`
         : `<text class="nom halo" transform="translate(${c - 4},${n.y1 + 8}) rotate(90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`;
     };
     const visibles = N.filter(n => !n.invisible && !n.tronc), troncs = N.filter(n => n.tronc);
+    // Sous le dernier étage, on ne garde que la place des étiquettes : rien de vide en bas du dessin.
+    if (bas.dessus === false) {
+      const besoin = N.filter(n => n.row === etages.length - 1 && !n.invisible).map(n => n.x1 - n.x0 < 92
+        ? 8 + ((n.court || n.label).length + mds(n.v).length + 1) * 6.6 + 12
+        : 16 + wrap(n.label, Math.max(8, Math.floor((n.x1 - n.x0 + gap) / 6.6)), 4).length * 14 + 10);
+      H = Math.min(H, Math.ceil(bas.y + bas.ep + Math.max(0, ...besoin)));
+    }
     el._liens = liens; el._noeuds = [...visibles, ...troncs];
     el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><defs><pattern id="${hach}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern></defs>
       ${liens.map((l, i) => `<path class="lien" data-l="${i}" d="${ruban(l)}" style="fill:${fill(l.color)}"/>`).join('')}
@@ -861,6 +869,8 @@
     const autresSect = SECT.filter(x => x !== ETAT);
     const versements = autresSect.filter(x => x.recuEtat > 0.0005);
     const COURT = { S1314: 'à la sécurité sociale et autres organismes', S1313: 'aux collectivités locales', S13112: 'aux opérateurs' };
+    // Noms courts des fonctions aux blocs étroits, écrits à la verticale ; l'infobulle garde le nom entier.
+    const COURT_F = { 'Ordre et sécurité': 'Sécurité', 'Logement et équipements collectifs': 'Logement', 'Culture, loisirs et culte': 'Culture' };
     const FLECHE = { S1314: '→ Sécu. sociale', S1313: '→ Collectivités', S13112: '→ Opérateurs' };
     const dessinerCircuit = () => sankey($('circuit'), { H: 1230, etages: [
       { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: ressources },
@@ -872,7 +882,7 @@
         ...autresSect.map(x => ({ id: 'g' + x.s.code, v: x.garde, invisible: true }))] },
       { y: 720, ep: 12, titre: 'Dépensées par', titreY: 558, noeuds: [...SECT.map(x => ({ id: 'd' + x.s.code, code: x.s.code, label: x.s.nom, titre: `Dépensé par : ${x.s.nom}`, v: x.s.total, color: x.c })),
         ...SECT.filter(x => x.excedent > 0.0005).map(x => ({ id: 'e' + x.s.code, label: `Excédent : ${x.s.nom}`, titre: `Excédent de ${x.s.nom} (non dépensé)`, v: x.excedent, color: x.c }))] },
-      { y: 900, ep: 12, titre: 'Pour quoi faire', titreY: 888, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, v: f.v, color: 'na' })) }],
+      { y: 900, ep: 12, titre: 'Pour quoi faire', titreY: 888, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, court: COURT_F[f.label], v: f.v, color: 'na' })) }],
       liens: [
         ...SECT.flatMap(x => [{ s: 'r-imp', t: 'p' + x.s.code, v: x.s.recettes.impots, color: x.c }, { s: 'r-cot', t: 'p' + x.s.code, v: x.s.recettes.cotisations, color: x.c }, { s: 'r-emp', t: 'p' + x.s.code, v: x.emprunt, color: 'hatch' }]),
         { s: 'r-aut', t: 'pass-aut', v: AUTRES, color: 'na' }, { s: 'pass-aut', t: 'reservoir', v: AUTRES, color: 'na' },
