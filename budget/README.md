@@ -138,6 +138,7 @@ sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à j
 for a in $(seq 2019 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
 for a in 2023 2024 2025; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
 for a in 2023 2024 2025; do python3 scripts/detail.py $a; done     # détail par programme -> donnees/detail-etat-AAAA.json
+python3 scripts/jeunesse.py      # argent public pour la jeunesse -> donnees/jeunesse.json (nécessite pdfplumber)
 python3 scripts/annees.py      # années disponibles et échelle commune -> donnees/annees.json
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
 python3 -m http.server 8767    # aperçu du seul budget : http://localhost:8767
@@ -164,6 +165,20 @@ ministère, mission ou programme). `scripts/detail.py` l'assemble dans
 - **Résultats** : indicateurs des rapports annuels de performance, avec cible, réalisé et
   appréciation officielle ; seuls les indicateurs des programmes sont comptés (ceux des missions
   les reprennent). Un bloc résume l'atteinte des cibles ministère par ministère.
+
+## Jeunesse
+
+La page `jeunesse.html` reprend le document de politique transversale « Politique en faveur de
+la jeunesse », annexé chaque année au projet de loi de finances : programme par programme et
+action par action, la part des crédits de paiement que chaque ministère consacre aux 3-30 ans.
+`scripts/jeunesse.py` lit le tableau « Récapitulation des crédits par programme » des éditions
+2025, 2026 et 2027 colonne par colonne (position des montants dans la page, avec pdfplumber) et
+s'arrête si la somme des programmes ne retombe pas sur le total imprimé, si la somme des actions
+ne retombe pas sur leur programme, ou si la part « jeunesse » d'un programme dépasse ce qu'il a
+dépensé. Il y ajoute les dépenses fiscales du document, l'enseignement par administration (Insee)
+et les repères de la synthèse du rapport sur les politiques de l'enfance 2027 (CNAF, CNAM, CNSA,
+aide sociale à l'enfance des départements). L'édition 2026 a changé certains calculs (aides au
+logement : jeunes de 30 ans et moins au lieu de moins de 25 ans) : la page signale cette rupture.
 
 ## Années
 

@@ -555,3 +555,51 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-26
 - **Taille** : 988 382 octets
 - **SHA-256** : `4d5b13587efda73edc71b0be473dd7d098b6c1685f31f1acecfeb33e7aa71400`
+
+## `sources/jeunesse/DPT-jeunesse-PLF2025.pdf`
+
+- **Contenu** : Crédits consacrés aux jeunes par programme et action : exécution 2023, LFI 2024, PLF 2025 ; dépenses fiscales (pages 15 à 21).
+- **Jeu de données** : Document de politique transversale « Politique en faveur de la jeunesse », annexe au PLF 2025
+- **Producteur** : Ministère de l'Éducation nationale, Direction du budget
+- **Adresse du fichier** : <https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Oranges/07-Orange_Jeunesse.pdf>
+- **Page du jeu de données** : <https://www.budget.gouv.fr/documentation/documents-politique-transversale/politique-en-faveur-jeunesse>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-27
+- **Taille** : 2 602 094 octets
+- **SHA-256** : `3359689636b4fb63d743dbb4827c7866c6bbc75805c05180ce19ff4354981083`
+
+## `sources/jeunesse/DPT-jeunesse-PLF2026.pdf`
+
+- **Contenu** : Crédits consacrés aux jeunes par programme et action : exécution 2024, LFI 2025, PLF 2026 ; dépenses fiscales.
+- **Jeu de données** : Document de politique transversale « Politique en faveur de la jeunesse », annexe au PLF 2026
+- **Producteur** : Ministère des Sports, de la Jeunesse et de la Vie associative, Direction du budget
+- **Adresse du fichier** : <https://www.assemblee-nationale.fr/dyn/contenu/visualisation/1090086/file/7-DPT2026_Jeunesse.pdf>
+- **Page du jeu de données** : <https://www.budget.gouv.fr/documentation/documents-politique-transversale/politique-en-faveur-jeunesse>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-27
+- **Taille** : 2 636 030 octets
+- **SHA-256** : `497ecc0d7acbb099c32cf909018d328c7ff3fb52af5bde95a1d49d50f74bb7b7`
+
+## `sources/jeunesse/DPT-jeunesse-PLF2027.pdf`
+
+- **Contenu** : Crédits consacrés aux jeunes par programme et action : exécution 2025, LFI 2026, PLF 2027 ; dépenses fiscales.
+- **Jeu de données** : Document de politique transversale « Politique en faveur de la jeunesse », annexe au PLF 2027
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://www.assemblee-nationale.fr/dyn/contenu/visualisation/1129682/file/7-DPT%202027%20-%20Politique%20en%20faveur%20de%20la%20jeunesse.pdf>
+- **Page du jeu de données** : <https://www.assemblee-nationale.fr/dyn/17/dossiers/PLF_2027>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-27
+- **Taille** : 2 594 573 octets
+- **SHA-256** : `bc7c19f8b3da01ccb0f51a38afda41189eafd1e8e0609180d2351f0164bcfc46`
+
+## `sources/jeunesse/Jaune-politiques-enfance-PLF2027.pdf`
+
+- **Contenu** : Dépenses pour les enfants de 0 à 18 ans : État (LFI 2026, PLF 2027), sécurité sociale (CNAF, CNAM, CNSA) et aide sociale à l'enfance des départements (synthèse, pages 129 à 131).
+- **Jeu de données** : Rapport relatif aux politiques de l'enfance, annexe au PLF 2027
+- **Producteur** : Direction du budget
+- **Adresse du fichier** : <https://www.assemblee-nationale.fr/dyn/contenu/visualisation/1129792/file/26-Jaune%202027%20-%20Politiques%20de%20l%27enfance.pdf>
+- **Page du jeu de données** : <https://www.assemblee-nationale.fr/dyn/17/dossiers/PLF_2027>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-27
+- **Taille** : 1 575 034 octets
+- **SHA-256** : `1d0a4482ac42dadf543319da76dacf47ba1b132eb826a8bb3ca2d64e5c135117`

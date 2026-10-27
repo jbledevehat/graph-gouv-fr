@@ -13,7 +13,7 @@ export const SECTIONS = {
   },
   budget: {
     nom: "Budget de l'État", chemin: 'budget/', annees: true,
-    pages: [['exploration', 'Exploration', 'budget/'], ['pilotage', 'Pilotage', 'budget/pilotage.html'], ['aides', 'Aides aux entreprises', 'budget/aides.html']],
+    pages: [['exploration', 'Exploration', 'budget/'], ['pilotage', 'Pilotage', 'budget/pilotage.html'], ['aides', 'Aides aux entreprises', 'budget/aides.html'], ['jeunesse', 'Jeunesse', 'budget/jeunesse.html']],
   },
 };
 

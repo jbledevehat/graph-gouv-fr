@@ -1,0 +1,6294 @@
+{
+ "meta": {
+  "sources": [
+   "DPT-jeunesse-PLF2025.pdf",
+   "DPT-jeunesse-PLF2026.pdf",
+   "DPT-jeunesse-PLF2027.pdf",
+   "Jaune-politiques-enfance-PLF2027.pdf",
+   "argent-public-AAAA.json"
+  ],
+  "unite": "millions d'euros (crédits de paiement)"
+ },
+ "etat": {
+  "DPT-jeunesse-PLF2025.pdf": {
+   "annees": [
+    "execution_2023",
+    "lfi_2024",
+    "plf_2025"
+   ],
+   "total": {
+    "execution_2023": 109774.673,
+    "lfi_2024": 115468.955,
+    "plf_2025": 116850.708
+   },
+   "programmes": [
+    {
+     "programme": "163",
+     "libelle": "Jeunesse et vie associative",
+     "cp": {
+      "execution_2023": 730.718,
+      "lfi_2024": 843.188,
+      "plf_2025": 881.713
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Actions en faveur de la jeunesse et de l'éducation populaire",
+       "cp": {
+        "execution_2023": 165.988,
+        "lfi_2024": 164.344,
+        "plf_2025": 153.466
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Développement du service civique",
+       "cp": {
+        "execution_2023": 468.45,
+        "lfi_2024": 518.796,
+        "plf_2025": 599.959
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Service National Universel",
+       "cp": {
+        "execution_2023": 96.279,
+        "lfi_2024": 160.047,
+        "plf_2025": 128.287
+       }
+      }
+     ]
+    },
+    {
+     "programme": "140",
+     "libelle": "Enseignement scolaire public du premier degré",
+     "cp": {
+      "execution_2023": 25455.709,
+      "lfi_2024": 26873.758,
+      "plf_2025": 27490.907
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2023": 6339.799,
+        "lfi_2024": 6484.941,
+        "plf_2025": 6643.422
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2023": 13174.168,
+        "lfi_2024": 13215.423,
+        "plf_2025": 13503.949
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2023": 1907.676,
+        "lfi_2024": 2255.247,
+        "plf_2025": 2310.252
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2023": 367.001,
+        "lfi_2024": 992.722,
+        "plf_2025": 1014.381
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2023": 2009.788,
+        "lfi_2024": 2211.911,
+        "plf_2025": 2265.973
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Pilotage et encadrement pédagogique",
+       "cp": {
+        "execution_2023": 1506.533,
+        "lfi_2024": 1588.366,
+        "plf_2025": 1624.97
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2023": 150.744,
+        "lfi_2024": 125.147,
+        "plf_2025": 127.961
+       }
+      }
+     ]
+    },
+    {
+     "programme": "141",
+     "libelle": "Enseignement scolaire public du second degré",
+     "cp": {
+      "execution_2023": 36252.25,
+      "lfi_2024": 38280.374,
+      "plf_2025": 39374.819
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2023": 13114.351,
+        "lfi_2024": 13450.461,
+        "plf_2025": 13920.284
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2023": 9827.912,
+        "lfi_2024": 8433.615,
+        "plf_2025": 8674.733
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2023": 4042.865,
+        "lfi_2024": 5430.079,
+        "plf_2025": 5508.66
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Apprentissage",
+       "cp": {
+        "execution_2023": 3.232,
+        "lfi_2024": 7.988,
+        "plf_2025": 8.199
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2023": 1305.242,
+        "lfi_2024": 2454.802,
+        "plf_2025": 2525.08
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2023": 1027.559,
+        "lfi_2024": 1478.467,
+        "plf_2025": 1520.674
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Aide à l'insertion professionnelle",
+       "cp": {
+        "execution_2023": 49.126,
+        "lfi_2024": 62.389,
+        "plf_2025": 64.072
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Information et orientation",
+       "cp": {
+        "execution_2023": 292.049,
+        "lfi_2024": 373.746,
+        "plf_2025": 384.393
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants et d'orientation",
+       "cp": {
+        "execution_2023": 286.724,
+        "lfi_2024": 768.655,
+        "plf_2025": 783.753
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2023": 1923.659,
+        "lfi_2024": 1676.429,
+        "plf_2025": 1724.472
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Pilotage, administration et encadrement pédagogique",
+       "cp": {
+        "execution_2023": 4157.127,
+        "lfi_2024": 4024.383,
+        "plf_2025": 4138.034
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2023": 222.404,
+        "lfi_2024": 119.359,
+        "plf_2025": 122.465
+       }
+      }
+     ]
+    },
+    {
+     "programme": "139",
+     "libelle": "Enseignement privé du premier et du second degrés",
+     "cp": {
+      "execution_2023": 8424.823,
+      "lfi_2024": 9035.305,
+      "plf_2025": 8938.184
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire 16 Annexe au projet de loi de finances : Document de politique transversale",
+       "cp": {
+        "execution_2023": 481.793,
+        "lfi_2024": 614.631,
+        "plf_2025": 605.73
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2023": 1448.449,
+        "lfi_2024": 1633.36,
+        "plf_2025": 1609.706
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2023": 2368.189,
+        "lfi_2024": 2302.946,
+        "plf_2025": 2269.594
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2023": 1758.851,
+        "lfi_2024": 1534.877,
+        "plf_2025": 1512.649
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2023": 727.672,
+        "lfi_2024": 1005.832,
+        "plf_2025": 977.974
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2023": 204.074,
+        "lfi_2024": 312.206,
+        "plf_2025": 307.685
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Dispositifs spécifiques de scolarisation",
+       "cp": {
+        "execution_2023": 201.866,
+        "lfi_2024": 201.415,
+        "plf_2025": 198.499
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Actions sociales en faveur des élèves",
+       "cp": {
+        "execution_2023": 81.709,
+        "lfi_2024": 81.239,
+        "plf_2025": 84.626
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Fonctionnement des établissements",
+       "cp": {
+        "execution_2023": 694.591,
+        "lfi_2024": 698.992,
+        "plf_2025": 736.682
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2023": 94.672,
+        "lfi_2024": 170.813,
+        "plf_2025": 162.932
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2023": 210.608,
+        "lfi_2024": 229.204,
+        "plf_2025": 225.885
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2023": 152.348,
+        "lfi_2024": 249.788,
+        "plf_2025": 246.223
+       }
+      }
+     ]
+    },
+    {
+     "programme": "230",
+     "libelle": "Vie de l'élève",
+     "cp": {
+      "execution_2023": 7468.367,
+      "lfi_2024": 8099.022,
+      "plf_2025": 8153.063
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Vie scolaire et éducation à la responsabilité",
+       "cp": {
+        "execution_2023": 2885.023,
+        "lfi_2024": 3129.704,
+        "plf_2025": 3014.537
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Santé scolaire",
+       "cp": {
+        "execution_2023": 621.354,
+        "lfi_2024": 611.673,
+        "plf_2025": 732.974
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Inclusion scolaire des élèves en situation de handicap",
+       "cp": {
+        "execution_2023": 2631.18,
+        "lfi_2024": 2949.733,
+        "plf_2025": 3010.963
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Action sociale",
+       "cp": {
+        "execution_2023": 1024.239,
+        "lfi_2024": 1010.457,
+        "plf_2025": 1076.079
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Politique de l'internat et établissements à la charge de l'Etat",
+       "cp": {
+        "execution_2023": 72.625,
+        "lfi_2024": 96.893,
+        "plf_2025": 87.432
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Actions éducatives complémentaires aux enseignements",
+       "cp": {
+        "execution_2023": 185.741,
+        "lfi_2024": 254.56,
+        "plf_2025": 185.871
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Scolarisation à 3 ans",
+       "cp": {
+        "execution_2023": 48.205,
+        "lfi_2024": 46.002,
+        "plf_2025": 45.208
+       }
+      }
+     ]
+    },
+    {
+     "programme": "214",
+     "libelle": "Soutien de la politique de l'éducation nationale",
+     "cp": {
+      "execution_2023": 2784.278,
+      "lfi_2024": 2894.285,
+      "plf_2025": 2980.819
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Pilotage et mise en oeuvre des politiques éducatives",
+       "cp": {
+        "execution_2023": 590.731,
+        "lfi_2024": 492.962,
+        "plf_2025": 521.384
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Évaluation et contrôle",
+       "cp": {
+        "execution_2023": 111.287,
+        "lfi_2024": 93.254,
+        "plf_2025": 98.086
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2023": 20.842,
+        "lfi_2024": 15.681,
+        "plf_2025": 16.307
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Expertise juridique",
+       "cp": {
+        "execution_2023": 16.534,
+        "lfi_2024": 18.414,
+        "plf_2025": 19.651
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Action internationale",
+       "cp": {
+        "execution_2023": 12.873,
+        "lfi_2024": 13.094,
+        "plf_2025": 13.042
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2023": 721.277,
+        "lfi_2024": 824.879,
+        "plf_2025": 858.78
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Établissements d'appui de la politique éducative",
+       "cp": {
+        "execution_2023": 151.689,
+        "lfi_2024": 161.087,
+        "plf_2025": 151.442
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Logistique, système d'information, immobilier",
+       "cp": {
+        "execution_2023": 811.751,
+        "lfi_2024": 826.107,
+        "plf_2025": 828.676
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Certification",
+       "cp": {
+        "execution_2023": 176.127,
+        "lfi_2024": 225.538,
+        "plf_2025": 237.501
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Transports scolaires",
+       "cp": {
+        "execution_2023": 3.143,
+        "lfi_2024": 3.323,
+        "plf_2025": 3.323
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Pilotage et mise œuvre des politiques du sport, de la jeunesse, de l'éducation populaire et de la vie associative",
+       "cp": {
+        "execution_2023": 168.024,
+        "lfi_2024": 219.947,
+        "plf_2025": 232.628
+       }
+      }
+     ]
+    },
+    {
+     "programme": "150",
+     "libelle": "Formations supérieures et recherche universitaire",
+     "cp": {
+      "execution_2023": 7234.564,
+      "lfi_2024": 7206.309,
+      "plf_2025": 7328.242
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Formation initiale et continue du baccalauréat à la licence",
+       "cp": {
+        "execution_2023": 3966.528,
+        "lfi_2024": 3920.781,
+        "plf_2025": 3956.35
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation initiale et continue de niveau master",
+       "cp": {
+        "execution_2023": 2692.061,
+        "lfi_2024": 2696.354,
+        "plf_2025": 2755.553
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Formation initiale et continue de niveau doctorat",
+       "cp": {
+        "execution_2023": 483.298,
+        "lfi_2024": 494.278,
+        "plf_2025": 521.443
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Établissements d'enseignement privés",
+       "cp": {
+        "execution_2023": 92.677,
+        "lfi_2024": 94.896,
+        "plf_2025": 94.896
+       }
+      }
+     ]
+    },
+    {
+     "programme": "231",
+     "libelle": "Vie étudiante",
+     "cp": {
+      "execution_2023": 3082.256,
+      "lfi_2024": 3326.639,
+      "plf_2025": 3249.642
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides directes",
+       "cp": {
+        "execution_2023": 2426.699,
+        "lfi_2024": 2658.635,
+        "plf_2025": 2538.438
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aides indirectes",
+       "cp": {
+        "execution_2023": 462.131,
+        "lfi_2024": 461.727,
+        "plf_2025": 500.127
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Santé des étudiants et activités associatives, culturelles et sportives",
+       "cp": {
+        "execution_2023": 83.19,
+        "lfi_2024": 93.914,
+        "plf_2025": 93.914
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Pilotage et animation du programme",
+       "cp": {
+        "execution_2023": 110.236,
+        "lfi_2024": 112.363,
+        "plf_2025": 117.163
+       }
+      }
+     ]
+    },
+    {
+     "programme": "143",
+     "libelle": "Enseignement technique agricole",
+     "cp": {
+      "execution_2023": 1531.711,
+      "lfi_2024": 1606.454,
+      "plf_2025": 1718.207
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre de l'enseignement dans les établissements publics",
+       "cp": {
+        "execution_2023": 838.079,
+        "lfi_2024": 905.669,
+        "plf_2025": 899.382
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Mise en oeuvre des enseignements dans les établissements privés",
+       "cp": {
+        "execution_2023": 610.166,
+        "lfi_2024": 621.587,
+        "plf_2025": 742.671
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Aide sociale aux élèves et santé scolaire (enseignement public et privé)",
+       "cp": {
+        "execution_2023": 79.561,
+        "lfi_2024": 73.901,
+        "plf_2025": 69.101
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Mise en œuvre de l'enseignement agricole dans les territoires",
+       "cp": {
+        "execution_2023": 3.905,
+        "lfi_2024": 5.298,
+        "plf_2025": 7.053
+       }
+      }
+     ]
+    },
+    {
+     "programme": "142",
+     "libelle": "Enseignement supérieur et recherche agricoles",
+     "cp": {
+      "execution_2023": 368.7,
+      "lfi_2024": 403.411,
+      "plf_2025": 403.411
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement supérieur",
+       "cp": {
+        "execution_2023": 368.7,
+        "lfi_2024": 403.411,
+        "plf_2025": 403.411
+       }
+      }
+     ]
+    },
+    {
+     "programme": "102",
+     "libelle": "Accès et retour à l'emploi",
+     "cp": {
+      "execution_2023": 2372.608,
+      "lfi_2024": 2514.062,
+      "plf_2025": 2189.878
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Structures de mise en oeuvre de la politique de l'emploi",
+       "cp": {
+        "execution_2023": 802.197,
+        "lfi_2024": 830.232,
+        "plf_2025": 712.25
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Accompagnement des personnes les plus éloignées du marché du travail- Fonds d'inclusion dans l'emploi",
+       "cp": {
+        "execution_2023": 514.9,
+        "lfi_2024": 596.51,
+        "plf_2025": 510.75
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Insertion des jeunes sur le marché du travail- Contrat d'engagement jeunes (CEJ)",
+       "cp": {
+        "execution_2023": 1055.511,
+        "lfi_2024": 1087.32,
+        "plf_2025": 966.878
+       }
+      }
+     ]
+    },
+    {
+     "programme": "103",
+     "libelle": "Accompagnement des mutations économiques et développement de l'emploi",
+     "cp": {
+      "execution_2023": 3687.385,
+      "lfi_2024": 3999.355,
+      "plf_2025": 3520.571
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Développement des compétences par l'alternance",
+       "cp": {
+        "execution_2023": 3536.54,
+        "lfi_2024": 3715.824,
+        "plf_2025": 3243.145
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2023": 95.935,
+        "lfi_2024": 160.312,
+        "plf_2025": 225.916
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Financement des structures de la formation professionnelle et de l'emploi",
+       "cp": {
+        "execution_2023": 20.43,
+        "lfi_2024": 59.0,
+        "plf_2025": 23.42
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Actions pour favoriser la mise en activité professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2023": 34.48,
+        "lfi_2024": 64.22,
+        "plf_2025": 28.09
+       }
+      }
+     ]
+    },
+    {
+     "programme": "155",
+     "libelle": "Soutien des ministères sociaux 18 Annexe au projet de loi de finances : Document de politique transversale",
+     "cp": {
+      "execution_2023": null,
+      "lfi_2024": null,
+      "plf_2025": 12.375
+     },
+     "actions": [
+      {
+       "code": "20",
+       "libelle": "Personnels mettant en œuvre les politiques de l'emploi et de la formation professionnelle",
+       "cp": {
+        "execution_2023": null,
+        "lfi_2024": null,
+        "plf_2025": 12.375
+       }
+      }
+     ]
+    },
+    {
+     "programme": "304",
+     "libelle": "Inclusion sociale et protection des personnes",
+     "cp": {
+      "execution_2023": 314.37,
+      "lfi_2024": 414.349,
+      "plf_2025": 448.649
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Prime d'activité et autres dispositifs",
+       "cp": {
+        "execution_2023": 2.712,
+        "lfi_2024": 2.727,
+        "plf_2025": 3.286
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Aide alimentaire",
+       "cp": {
+        "execution_2023": 6.56,
+        "lfi_2024": 6.0,
+        "plf_2025": 5.5
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Protection et accompagnement des enfants, des jeunes et des familles vulnérables",
+       "cp": {
+        "execution_2023": 262.733,
+        "lfi_2024": 307.998,
+        "plf_2025": 295.755
+       }
+      },
+      {
+       "code": "19",
+       "libelle": "Stratégie interministérielle de Prévention et de Lutte contre la Pauvreté des Enfants et des Jeunes",
+       "cp": {
+        "execution_2023": 42.365,
+        "lfi_2024": null,
+        "plf_2025": null
+       }
+      },
+      {
+       "code": "23",
+       "libelle": "Pacte des Solidarités",
+       "cp": {
+        "execution_2023": null,
+        "lfi_2024": 97.625,
+        "plf_2025": 144.107
+       }
+      }
+     ]
+    },
+    {
+     "programme": "137",
+     "libelle": "Égalité entre les femmes et les hommes",
+     "cp": {
+      "execution_2023": 67.62,
+      "lfi_2024": 62.896,
+      "plf_2025": 63.192
+     },
+     "actions": [
+      {
+       "code": "24",
+       "libelle": "Accès aux droits et égalité professionnelle",
+       "cp": {
+        "execution_2023": 24.712,
+        "lfi_2024": 24.819,
+        "plf_2025": 24.819
+       }
+      },
+      {
+       "code": "25",
+       "libelle": "Prévention et lutte contre les violences et la prostitution",
+       "cp": {
+        "execution_2023": 42.907,
+        "lfi_2024": 38.076,
+        "plf_2025": 38.372
+       }
+      }
+     ]
+    },
+    {
+     "programme": "177",
+     "libelle": "Hébergement, parcours vers le logement et insertion des personnes vulnérables",
+     "cp": {
+      "execution_2023": 3076.455,
+      "lfi_2024": 2925.669,
+      "plf_2025": 2930.899
+     },
+     "actions": []
+    },
+    {
+     "programme": "157",
+     "libelle": "Handicap et dépendance",
+     "cp": {
+      "execution_2023": 16.37,
+      "lfi_2024": 17.273,
+      "plf_2025": 17.501
+     },
+     "actions": [
+      {
+       "code": "13",
+       "libelle": "Pilotage du programme et animation des politiques inclusives",
+       "cp": {
+        "execution_2023": 16.37,
+        "lfi_2024": 17.273,
+        "plf_2025": 17.501
+       }
+      }
+     ]
+    },
+    {
+     "programme": "109",
+     "libelle": "Aide à l'accès au logement",
+     "cp": {
+      "execution_2023": 2593.0,
+      "lfi_2024": 2606.0,
+      "plf_2025": 2782.0
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides personnelles",
+       "cp": {
+        "execution_2023": 2593.0,
+        "lfi_2024": 2606.0,
+        "plf_2025": 2782.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "147",
+     "libelle": "Politique de la ville",
+     "cp": {
+      "execution_2023": 217.582,
+      "lfi_2024": 226.162,
+      "plf_2025": 256.161
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Actions territorialisées et Dispositifs spécifiques de la politique de la ville",
+       "cp": {
+        "execution_2023": 179.794,
+        "lfi_2024": 188.592,
+        "plf_2025": 215.495
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Revitalisation économique et emploi",
+       "cp": {
+        "execution_2023": 37.788,
+        "lfi_2024": 37.57,
+        "plf_2025": 40.666
+       }
+      }
+     ]
+    },
+    {
+     "programme": "123",
+     "libelle": "Conditions de vie outre-mer",
+     "cp": {
+      "execution_2023": 123.078,
+      "lfi_2024": 161.884,
+      "plf_2025": 107.845
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aménagement du territoire",
+       "cp": {
+        "execution_2023": 3.602,
+        "lfi_2024": 6.105,
+        "plf_2025": 0.73
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Continuité territoriale",
+       "cp": {
+        "execution_2023": 38.568,
+        "lfi_2024": 66.848,
+        "plf_2025": 53.448
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Sanitaire, social, culture, jeunesse et sports",
+       "cp": {
+        "execution_2023": 0.47,
+        "lfi_2024": null,
+        "plf_2025": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Collectivités territoriales",
+       "cp": {
+        "execution_2023": 61.202,
+        "lfi_2024": 88.93,
+        "plf_2025": 53.667
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Fonds exceptionnel d'investissement",
+       "cp": {
+        "execution_2023": 19.237,
+        "lfi_2024": null,
+        "plf_2025": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "138",
+     "libelle": "Emploi outre-mer",
+     "cp": {
+      "execution_2023": 312.969,
+      "lfi_2024": 309.137,
+      "plf_2025": 294.969
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aide à l'insertion et à la qualification professionnelle",
+       "cp": {
+        "execution_2023": 312.969,
+        "lfi_2024": 309.137,
+        "plf_2025": 294.969
+       }
+      }
+     ]
+    },
+    {
+     "programme": "204",
+     "libelle": "Prévention, sécurité sanitaire et offre de soins",
+     "cp": {
+      "execution_2023": 1.085,
+      "lfi_2024": 1.155,
+      "plf_2025": 1.087
+     },
+     "actions": [
+      {
+       "code": "14",
+       "libelle": "Prévention des maladies chroniques et qualité de vie des malades",
+       "cp": {
+        "execution_2023": 0.9,
+        "lfi_2024": 0.972,
+        "plf_2025": 0.957
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Prévention des risques liés à l'environnement et à l'alimentation",
+       "cp": {
+        "execution_2023": 0.185,
+        "lfi_2024": 0.183,
+        "plf_2025": 0.13
+       }
+      }
+     ]
+    },
+    {
+     "programme": "206",
+     "libelle": "Sécurité et qualité sanitaires de l'alimentation",
+     "cp": {
+      "execution_2023": 0.488,
+      "lfi_2024": 0.822,
+      "plf_2025": 0.822
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Qualité de l'alimentation et offre alimentaire",
+       "cp": {
+        "execution_2023": 0.488,
+        "lfi_2024": 0.822,
+        "plf_2025": 0.822
+       }
+      }
+     ]
+    },
+    {
+     "programme": "219",
+     "libelle": "Sport",
+     "cp": {
+      "execution_2023": 78.8,
+      "lfi_2024": 102.44,
+      "plf_2025": 88.8
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Promotion du sport pour le plus grand nombre",
+       "cp": {
+        "execution_2023": 75.346,
+        "lfi_2024": 100.04,
+        "plf_2025": 86.4
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Promotion des métiers du sport",
+       "cp": {
+        "execution_2023": 3.454,
+        "lfi_2024": 2.4,
+        "plf_2025": 2.4
+       }
+      }
+     ]
+    },
+    {
+     "programme": "361",
+     "libelle": "Transmission des savoirs et démocratisation de la culture",
+     "cp": {
+      "execution_2023": 658.006,
+      "lfi_2024": 628.926,
+      "plf_2025": 618.041
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien aux établissements d'enseignement supérieur et insertion professionnelle",
+       "cp": {
+        "execution_2023": 290.796,
+        "lfi_2024": 312.002,
+        "plf_2025": 308.862
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la démocratisation et à l'éducation artistique et culturelle",
+       "cp": {
+        "execution_2023": 367.21,
+        "lfi_2024": 316.924,
+        "plf_2025": 309.179
+       }
+      }
+     ]
+    },
+    {
+     "programme": "131",
+     "libelle": "Création",
+     "cp": {
+      "execution_2023": 285.645,
+      "lfi_2024": 299.939,
+      "plf_2025": 303.859
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien à la création, à la production et à la diffusion du spectacle vivant",
+       "cp": {
+        "execution_2023": 257.16,
+        "lfi_2024": 268.447,
+        "plf_2025": 271.077
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la création, à la production et à la diffusion des arts visuels",
+       "cp": {
+        "execution_2023": 28.485,
+        "lfi_2024": 31.492,
+        "plf_2025": 32.782
+       }
+      }
+     ]
+    },
+    {
+     "programme": "175",
+     "libelle": "Patrimoines",
+     "cp": {
+      "execution_2023": 76.48,
+      "lfi_2024": 87.238,
+      "plf_2025": 85.001
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Monuments Historiques et patrimoine monumental",
+       "cp": {
+        "execution_2023": 55.008,
+        "lfi_2024": 59.583,
+        "plf_2025": 57.382
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Architecture et sites patrimoniaux",
+       "cp": {
+        "execution_2023": 3.613,
+        "lfi_2024": 5.806,
+        "plf_2025": 5.806
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Patrimoine des musées de France",
+       "cp": {
+        "execution_2023": 9.756,
+        "lfi_2024": 11.998,
+        "plf_2025": 11.998
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Patrimoine archivistique",
+       "cp": {
+        "execution_2023": 2.631,
+        "lfi_2024": 2.781,
+        "plf_2025": 2.781
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Acquisition et enrichissement des collections publiques",
+       "cp": {
+        "execution_2023": 1.119,
+        "lfi_2024": 1.287,
+        "plf_2025": 1.287
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Patrimoine archéologique",
+       "cp": {
+        "execution_2023": 4.354,
+        "lfi_2024": 5.781,
+        "plf_2025": 5.746
+       }
+      }
+     ]
+    },
+    {
+     "programme": "334",
+     "libelle": "Livre et industries culturelles",
+     "cp": {
+      "execution_2023": 0.66,
+      "lfi_2024": 1.57,
+      "plf_2025": 1.57
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Livre et lecture",
+       "cp": {
+        "execution_2023": 0.66,
+        "lfi_2024": 1.57,
+        "plf_2025": 1.57
+       }
+      }
+     ]
+    },
+    {
+     "programme": "182",
+     "libelle": "Protection judiciaire de la jeunesse",
+     "cp": {
+      "execution_2023": 1071.712,
+      "lfi_2024": 1125.947,
+      "plf_2025": 1141.032
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre des décisions judiciaires",
+       "cp": {
+        "execution_2023": 889.316,
+        "lfi_2024": 948.973,
+        "plf_2025": 958.774
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2023": 146.463,
+        "lfi_2024": 131.521,
+        "plf_2025": 135.574
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation",
+       "cp": {
+        "execution_2023": 35.933,
+        "lfi_2024": 45.453,
+        "plf_2025": 46.684
+       }
+      }
+     ]
+    },
+    {
+     "programme": "207",
+     "libelle": "Sécurité et éducation routières",
+     "cp": {
+      "execution_2023": 4.618,
+      "lfi_2024": 7.062,
+      "plf_2025": 8.0
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Observation, prospective, réglementation et soutien au programme",
+       "cp": {
+        "execution_2023": 0.048,
+        "lfi_2024": 0.081,
+        "plf_2025": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Démarches interministérielles et communication",
+       "cp": {
+        "execution_2023": 1.053,
+        "lfi_2024": 1.081,
+        "plf_2025": 1.0
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Éducation routière",
+       "cp": {
+        "execution_2023": 3.516,
+        "lfi_2024": 5.9,
+        "plf_2025": 7.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "129",
+     "libelle": "Coordination du travail gouvernemental",
+     "cp": {
+      "execution_2023": 4.74,
+      "lfi_2024": 4.8,
+      "plf_2025": 4.8
+     },
+     "actions": [
+      {
+       "code": "15",
+       "libelle": "Mission interministérielle de lutte contre les drogues et les conduites addictives 20 Annexe au projet de loi de finances : Document de politique transversale",
+       "cp": {
+        "execution_2023": 4.74,
+        "lfi_2024": 4.8,
+        "plf_2025": 4.8
+       }
+      }
+     ]
+    },
+    {
+     "programme": "169",
+     "libelle": "Reconnaissance et réparation en faveur du monde combattant, mémoire et liens avec la Nation",
+     "cp": {
+      "execution_2023": 37.701,
+      "lfi_2024": 27.916,
+      "plf_2025": 42.927
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Liens armées-jeunesse",
+       "cp": {
+        "execution_2023": 36.396,
+        "lfi_2024": 26.086,
+        "plf_2025": 41.047
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Politique de mémoire",
+       "cp": {
+        "execution_2023": 1.304,
+        "lfi_2024": 1.83,
+        "plf_2025": 1.88
+       }
+      }
+     ]
+    },
+    {
+     "programme": "212",
+     "libelle": "Soutien de la politique de la défense",
+     "cp": {
+      "execution_2023": 128.648,
+      "lfi_2024": 145.191,
+      "plf_2025": 140.577
+     },
+     "actions": [
+      {
+       "code": "06",
+       "libelle": "Politiques des ressources humaines",
+       "cp": {
+        "execution_2023": 12.248,
+        "lfi_2024": 16.316,
+        "plf_2025": 16.218
+       }
+      },
+      {
+       "code": "65",
+       "libelle": "Journée défense et citoyenneté Personnel travaillant pour le programme \"Reconnaissance et réparation en faveur du monde combattant\"",
+       "cp": {
+        "execution_2023": 116.401,
+        "lfi_2024": 128.875,
+        "plf_2025": 124.359
+       }
+      }
+     ]
+    },
+    {
+     "programme": "152",
+     "libelle": "Gendarmerie nationale",
+     "cp": {
+      "execution_2023": 567.617,
+      "lfi_2024": 549.874,
+      "plf_2025": 601.368
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Ordre et sécurité publics",
+       "cp": {
+        "execution_2023": 287.396,
+        "lfi_2024": 278.834,
+        "plf_2025": 303.879
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Sécurité routière",
+       "cp": {
+        "execution_2023": 47.816,
+        "lfi_2024": 46.433,
+        "plf_2025": 50.948
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Missions de police judiciaire et concours à la justice",
+       "cp": {
+        "execution_2023": 142.678,
+        "lfi_2024": 137.658,
+        "plf_2025": 151.086
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Commandement, ressources humaines et logistique",
+       "cp": {
+        "execution_2023": 78.327,
+        "lfi_2024": 75.67,
+        "plf_2025": 83.156
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Exercice des missions militaires",
+       "cp": {
+        "execution_2023": 11.4,
+        "lfi_2024": 11.278,
+        "plf_2025": 12.299
+       }
+      }
+     ]
+    },
+    {
+     "programme": "176",
+     "libelle": "Police nationale",
+     "cp": {
+      "execution_2023": 384.843,
+      "lfi_2024": 302.341,
+      "plf_2025": 309.848
+     },
+     "actions": []
+    },
+    {
+     "programme": "151",
+     "libelle": "Français à l'étranger et affaires consulaires",
+     "cp": {
+      "execution_2023": 105.75,
+      "lfi_2024": 120.5,
+      "plf_2025": 113.5
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Accès des élèves français au réseau AEFE et à la langue française",
+       "cp": {
+        "execution_2023": 105.75,
+        "lfi_2024": 120.5,
+        "plf_2025": 113.5
+       }
+      }
+     ]
+    },
+    {
+     "programme": "209",
+     "libelle": "Solidarité à l'égard des pays en développement",
+     "cp": {
+      "execution_2023": 16.877,
+      "lfi_2024": 18.268,
+      "plf_2025": 19.904
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Coopération bilatérale",
+       "cp": {
+        "execution_2023": 16.877,
+        "lfi_2024": 18.268,
+        "plf_2025": 19.904
+       }
+      }
+     ]
+    },
+    {
+     "programme": "185",
+     "libelle": "Diplomatie culturelle et d'influence",
+     "cp": {
+      "execution_2023": 231.541,
+      "lfi_2024": 228.114,
+      "plf_2025": 225.744
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Coopération culturelle et promotion du français",
+       "cp": {
+        "execution_2023": 0.235,
+        "lfi_2024": 0.264,
+        "plf_2025": 0.264
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement supérieur et recherche",
+       "cp": {
+        "execution_2023": 4.157,
+        "lfi_2024": 4.184,
+        "plf_2025": 4.184
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Agence pour l'enseignement français à l'étranger",
+       "cp": {
+        "execution_2023": 227.149,
+        "lfi_2024": 223.666,
+        "plf_2025": 221.296
+       }
+      }
+     ]
+    },
+    {
+     "programme": "203",
+     "libelle": "Infrastructures et services de transports",
+     "cp": {
+      "execution_2023": 4.649,
+      "lfi_2024": 11.318,
+      "plf_2025": 0.78
+     },
+     "actions": [
+      {
+       "code": "44",
+       "libelle": "Transports collectifs",
+       "cp": {
+        "execution_2023": 4.649,
+        "lfi_2024": 11.318,
+        "plf_2025": 0.78
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "DPT-jeunesse-PLF2026.pdf": {
+   "annees": [
+    "execution_2024",
+    "lfi_2025",
+    "plf_2026"
+   ],
+   "total": {
+    "execution_2024": 117769.214,
+    "lfi_2025": 120478.933,
+    "plf_2026": 119475.921
+   },
+   "programmes": [
+    {
+     "programme": "163",
+     "libelle": "Jeunesse et vie associative",
+     "cp": {
+      "execution_2024": 688.3,
+      "lfi_2025": 799.841,
+      "plf_2026": 578.295
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Actions en faveur de la jeunesse et de l'éducation populaire",
+       "cp": {
+        "execution_2024": 148.922,
+        "lfi_2025": 154.595,
+        "plf_2026": 113.295
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Développement du service civique",
+       "cp": {
+        "execution_2024": 418.3,
+        "lfi_2025": 579.359,
+        "plf_2026": 465.0
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Service National Universel",
+       "cp": {
+        "execution_2024": 121.078,
+        "lfi_2025": 65.887,
+        "plf_2026": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "140",
+     "libelle": "Enseignement scolaire public du premier degré",
+     "cp": {
+      "execution_2024": 26685.545,
+      "lfi_2025": 27469.524,
+      "plf_2026": 27911.896
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2024": 6569.715,
+        "lfi_2025": 6647.073,
+        "plf_2026": 6947.911
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2024": 13813.377,
+        "lfi_2025": 13510.819,
+        "plf_2026": 14122.375
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2024": 2021.331,
+        "lfi_2025": 2308.563,
+        "plf_2026": 2347.354
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2024": 377.025,
+        "lfi_2025": 987.969,
+        "plf_2026": 418.263
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2024": 2120.917,
+        "lfi_2025": 2264.188,
+        "plf_2026": 2301.116
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Pilotage et encadrement pédagogique",
+       "cp": {
+        "execution_2024": 1613.539,
+        "lfi_2025": 1623.619,
+        "plf_2026": 1652.635
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2024": 169.64,
+        "lfi_2025": 127.293,
+        "plf_2026": 122.241
+       }
+      }
+     ]
+    },
+    {
+     "programme": "141",
+     "libelle": "Enseignement scolaire public du second degré",
+     "cp": {
+      "execution_2024": 38154.58,
+      "lfi_2025": 39305.488,
+      "plf_2026": 39857.528
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2024": 13707.471,
+        "lfi_2025": 13888.726,
+        "plf_2026": 14062.845
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2024": 10171.531,
+        "lfi_2025": 8670.359,
+        "plf_2026": 9313.182
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2024": 4513.517,
+        "lfi_2025": 5506.858,
+        "plf_2026": 5551.296
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Apprentissage",
+       "cp": {
+        "execution_2024": 3.184,
+        "lfi_2025": 8.196,
+        "plf_2026": 8.315
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2024": 1360.56,
+        "lfi_2025": 2523.888,
+        "plf_2026": 2563.001
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2024": 1088.455,
+        "lfi_2025": 1519.722,
+        "plf_2026": 1544.277
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Aide à l'insertion professionnelle",
+       "cp": {
+        "execution_2024": 50.988,
+        "lfi_2025": 64.03,
+        "plf_2026": 65.002
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Information et orientation",
+       "cp": {
+        "execution_2024": 301.818,
+        "lfi_2025": 384.13,
+        "plf_2026": 390.538
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants et d'orientation",
+       "cp": {
+        "execution_2024": 270.231,
+        "lfi_2025": 761.041,
+        "plf_2026": 289.901
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2024": 2157.392,
+        "lfi_2025": 1722.581,
+        "plf_2026": 1751.026
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Pilotage, administration et encadrement pédagogique",
+       "cp": {
+        "execution_2024": 4307.407,
+        "lfi_2025": 4134.268,
+        "plf_2026": 4204.963
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2024": 222.027,
+        "lfi_2025": 121.689,
+        "plf_2026": 113.181
+       }
+      }
+     ]
+    },
+    {
+     "programme": "139",
+     "libelle": "Enseignement privé du premier et du second degrés",
+     "cp": {
+      "execution_2024": 8939.359,
+      "lfi_2025": 8918.239,
+      "plf_2026": 8874.487
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2024": 508.066,
+        "lfi_2025": 606.607,
+        "plf_2026": 608.118
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2024": 1537.045,
+        "lfi_2025": 1612.361,
+        "plf_2026": 1616.054
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2024": 2523.234,
+        "lfi_2025": 2266.97,
+        "plf_2026": 2278.544
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2024": 1860.448,
+        "lfi_2025": 1510.714,
+        "plf_2026": 1518.614
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2024": 846.124,
+        "lfi_2025": 977.169,
+        "plf_2026": 983.348
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2024": 209.743,
+        "lfi_2025": 307.42,
+        "plf_2026": 306.087
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Dispositifs spécifiques de scolarisation",
+       "cp": {
+        "execution_2024": 215.734,
+        "lfi_2025": 198.227,
+        "plf_2026": 197.468
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Actions sociales en faveur des élèves",
+       "cp": {
+        "execution_2024": 80.781,
+        "lfi_2025": 84.626,
+        "plf_2026": 84.319
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Fonctionnement des établissements",
+       "cp": {
+        "execution_2024": 703.235,
+        "lfi_2025": 722.129,
+        "plf_2026": 713.66
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2024": 90.671,
+        "lfi_2025": 160.863,
+        "plf_2026": 99.101
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2024": 209.833,
+        "lfi_2025": 225.621,
+        "plf_2026": 224.712
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2024": 154.445,
+        "lfi_2025": 245.532,
+        "plf_2026": 244.463
+       }
+      }
+     ]
+    },
+    {
+     "programme": "230",
+     "libelle": "Vie de l'élève",
+     "cp": {
+      "execution_2024": 7933.874,
+      "lfi_2025": 8120.318,
+      "plf_2026": 8078.76
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Vie scolaire et éducation à la responsabilité",
+       "cp": {
+        "execution_2024": 2898.098,
+        "lfi_2025": 2988.0,
+        "plf_2026": 2865.997
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Santé scolaire",
+       "cp": {
+        "execution_2024": 677.569,
+        "lfi_2025": 731.949,
+        "plf_2026": 748.193
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Inclusion scolaire des élèves en situation de handicap",
+       "cp": {
+        "execution_2024": 2922.136,
+        "lfi_2025": 3008.767,
+        "plf_2026": 3110.816
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Action sociale",
+       "cp": {
+        "execution_2024": 1049.577,
+        "lfi_2025": 1074.391,
+        "plf_2026": 1110.692
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Politique de l'internat et établissements à la charge de l'Etat",
+       "cp": {
+        "execution_2024": 76.899,
+        "lfi_2025": 86.823,
+        "plf_2026": 83.393
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Actions éducatives complémentaires aux enseignements",
+       "cp": {
+        "execution_2024": 240.21,
+        "lfi_2025": 186.423,
+        "plf_2026": 159.67
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Scolarisation à 3 ans",
+       "cp": {
+        "execution_2024": 69.385,
+        "lfi_2025": 43.965,
+        "plf_2026": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "214",
+     "libelle": "Soutien de la politique de l'éducation nationale",
+     "cp": {
+      "execution_2024": 2909.793,
+      "lfi_2025": 2968.037,
+      "plf_2026": 3056.17
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Pilotage et mise en oeuvre des politiques éducatives",
+       "cp": {
+        "execution_2024": 618.031,
+        "lfi_2025": 520.785,
+        "plf_2026": 534.072
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Évaluation et contrôle",
+       "cp": {
+        "execution_2024": 120.303,
+        "lfi_2025": 97.979,
+        "plf_2026": 101.442
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2024": 19.247,
+        "lfi_2025": 16.293,
+        "plf_2026": 16.801
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Expertise juridique",
+       "cp": {
+        "execution_2024": 28.701,
+        "lfi_2025": 19.631,
+        "plf_2026": 21.371
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Action internationale",
+       "cp": {
+        "execution_2024": 10.328,
+        "lfi_2025": 12.906,
+        "plf_2026": 10.238
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2024": 778.125,
+        "lfi_2025": 858.155,
+        "plf_2026": 875.904
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Établissements d'appui de la politique éducative",
+       "cp": {
+        "execution_2024": 145.814,
+        "lfi_2025": 142.793,
+        "plf_2026": 141.615
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Logistique, système d'information, immobilier",
+       "cp": {
+        "execution_2024": 836.25,
+        "lfi_2025": 826.358,
+        "plf_2026": 872.631
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Certification",
+       "cp": {
+        "execution_2024": 168.574,
+        "lfi_2025": 237.362,
+        "plf_2026": 240.486
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Transports scolaires",
+       "cp": {
+        "execution_2024": 3.372,
+        "lfi_2025": 3.323,
+        "plf_2026": 3.323
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Pilotage et mise œuvre des politiques du sport, de la jeunesse, de l'éducation populaire et de la vie associative",
+       "cp": {
+        "execution_2024": 181.048,
+        "lfi_2025": 232.452,
+        "plf_2026": 238.289
+       }
+      }
+     ]
+    },
+    {
+     "programme": "150",
+     "libelle": "Formations supérieures et recherche universitaire",
+     "cp": {
+      "execution_2024": 7390.925,
+      "lfi_2025": 7410.725,
+      "plf_2026": 7484.56
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Formation initiale et continue du baccalauréat à la licence",
+       "cp": {
+        "execution_2024": 4100.827,
+        "lfi_2025": 4003.301,
+        "plf_2026": 4037.687
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation initiale et continue de niveau master 18 Annexe au projet de loi de finances : Document de politique transversale",
+       "cp": {
+        "execution_2024": 2697.158,
+        "lfi_2025": 2785.782,
+        "plf_2026": 2803.061
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Formation initiale et continue de niveau doctorat",
+       "cp": {
+        "execution_2024": 500.368,
+        "lfi_2025": 526.745,
+        "plf_2026": 548.916
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Établissements d'enseignement privés",
+       "cp": {
+        "execution_2024": 92.571,
+        "lfi_2025": 94.896,
+        "plf_2026": 94.896
+       }
+      }
+     ]
+    },
+    {
+     "programme": "231",
+     "libelle": "Vie étudiante",
+     "cp": {
+      "execution_2024": 3254.246,
+      "lfi_2025": 3249.642,
+      "plf_2026": 3223.989
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides directes",
+       "cp": {
+        "execution_2024": 2589.656,
+        "lfi_2025": 2538.438,
+        "plf_2026": 2503.773
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aides indirectes",
+       "cp": {
+        "execution_2024": 464.611,
+        "lfi_2025": 500.127,
+        "plf_2026": 507.047
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Santé des étudiants et activités associatives, culturelles et sportives",
+       "cp": {
+        "execution_2024": 88.876,
+        "lfi_2025": 93.914,
+        "plf_2026": 94.017
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Pilotage et animation du programme",
+       "cp": {
+        "execution_2024": 111.103,
+        "lfi_2025": 117.163,
+        "plf_2026": 119.152
+       }
+      }
+     ]
+    },
+    {
+     "programme": "143",
+     "libelle": "Enseignement technique agricole",
+     "cp": {
+      "execution_2024": 1675.838,
+      "lfi_2025": 1706.178,
+      "plf_2026": 1708.378
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement public",
+       "cp": {
+        "execution_2024": 882.374,
+        "lfi_2025": 942.608,
+        "plf_2026": 1574.668
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement privé",
+       "cp": {
+        "execution_2024": 641.026,
+        "lfi_2025": 645.944,
+        "plf_2026": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Aide sociale aux élèves et santé scolaire",
+       "cp": {
+        "execution_2024": 83.89,
+        "lfi_2025": 69.191,
+        "plf_2026": 80.619
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Actions pédagogiques et éducatives",
+       "cp": {
+        "execution_2024": 5.511,
+        "lfi_2025": 4.313,
+        "plf_2026": 5.313
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Moyens communs à l'enseignement technique agricole",
+       "cp": {
+        "execution_2024": 63.037,
+        "lfi_2025": 44.122,
+        "plf_2026": 47.779
+       }
+      }
+     ]
+    },
+    {
+     "programme": "142",
+     "libelle": "Enseignement supérieur et recherche agricoles",
+     "cp": {
+      "execution_2024": 384.009,
+      "lfi_2025": 386.205,
+      "plf_2026": 393.715
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement supérieur",
+       "cp": {
+        "execution_2024": 384.009,
+        "lfi_2025": 386.205,
+        "plf_2026": 393.715
+       }
+      }
+     ]
+    },
+    {
+     "programme": "102",
+     "libelle": "Accès et retour à l'emploi",
+     "cp": {
+      "execution_2024": 2116.858,
+      "lfi_2025": 1961.496,
+      "plf_2026": 1882.319
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Structures de mise en oeuvre de la politique de l'emploi",
+       "cp": {
+        "execution_2024": 599.911,
+        "lfi_2025": 491.945,
+        "plf_2026": 535.44
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Accompagnement des personnes les plus éloignées du marché du travail- Fonds d'inclusion dans l'emploi",
+       "cp": {
+        "execution_2024": 526.475,
+        "lfi_2025": 480.338,
+        "plf_2026": 409.57
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Insertion des jeunes sur le marché du travail- Contrat d'engagement jeunes (CEJ)",
+       "cp": {
+        "execution_2024": 990.472,
+        "lfi_2025": 989.212,
+        "plf_2026": 937.309
+       }
+      }
+     ]
+    },
+    {
+     "programme": "103",
+     "libelle": "Accompagnement des mutations économiques et développement de l'emploi",
+     "cp": {
+      "execution_2024": 4606.307,
+      "lfi_2025": 3991.43,
+      "plf_2026": 2694.951
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Développement des compétences par l'alternance",
+       "cp": {
+        "execution_2024": 4126.792,
+        "lfi_2025": 3458.439,
+        "plf_2026": 2368.817
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2024": 379.754,
+        "lfi_2025": 482.915,
+        "plf_2026": 286.622
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Financement des structures de la formation professionnelle et de l'emploi",
+       "cp": {
+        "execution_2024": 66.621,
+        "lfi_2025": 21.98,
+        "plf_2026": 21.98
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Actions pour favoriser la mise en activité professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2024": 33.141,
+        "lfi_2025": 28.096,
+        "plf_2026": 17.532
+       }
+      }
+     ]
+    },
+    {
+     "programme": "155",
+     "libelle": "Soutien des ministères sociaux",
+     "cp": {
+      "execution_2024": 13.175,
+      "lfi_2025": 13.175,
+      "plf_2026": 13.175
+     },
+     "actions": [
+      {
+       "code": "20",
+       "libelle": "Personnels mettant en œuvre les politiques de l'emploi et de la formation professionnelle",
+       "cp": {
+        "execution_2024": 13.175,
+        "lfi_2025": 13.175,
+        "plf_2026": 13.175
+       }
+      }
+     ]
+    },
+    {
+     "programme": "304",
+     "libelle": "Inclusion sociale et protection des personnes",
+     "cp": {
+      "execution_2024": 399.408,
+      "lfi_2025": 419.779,
+      "plf_2026": 385.653
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Prime d'activité et autres dispositifs",
+       "cp": {
+        "execution_2024": 3.251,
+        "lfi_2025": 3.286,
+        "plf_2026": 4.461
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Aide alimentaire",
+       "cp": {
+        "execution_2024": 0.23,
+        "lfi_2025": 0.23,
+        "plf_2026": 0.23
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Protection et accompagnement des enfants, des jeunes et des familles vulnérables",
+       "cp": {
+        "execution_2024": 290.479,
+        "lfi_2025": 295.755,
+        "plf_2026": 255.454
+       }
+      },
+      {
+       "code": "23",
+       "libelle": "Pacte des Solidarités",
+       "cp": {
+        "execution_2024": 105.448,
+        "lfi_2025": 120.507,
+        "plf_2026": 125.507
+       }
+      }
+     ]
+    },
+    {
+     "programme": "137",
+     "libelle": "Égalité entre les femmes et les hommes",
+     "cp": {
+      "execution_2024": 61.146,
+      "lfi_2025": 68.108,
+      "plf_2026": 71.523
+     },
+     "actions": [
+      {
+       "code": "24",
+       "libelle": "Accès aux droits et égalité professionnelle",
+       "cp": {
+        "execution_2024": 23.639,
+        "lfi_2025": 26.251,
+        "plf_2026": 23.651
+       }
+      },
+      {
+       "code": "25",
+       "libelle": "Prévention et lutte contre les violences et la prostitution",
+       "cp": {
+        "execution_2024": 37.507,
+        "lfi_2025": 41.857,
+        "plf_2026": 40.857
+       }
+      },
+      {
+       "code": "26",
+       "libelle": "Aide universelle d'urgence pour les personnes victimes de violences conjugales",
+       "cp": {
+        "execution_2024": null,
+        "lfi_2025": null,
+        "plf_2026": 7.015
+       }
+      }
+     ]
+    },
+    {
+     "programme": "177",
+     "libelle": "Hébergement, parcours vers le logement et insertion des personnes vulnérables",
+     "cp": {
+      "execution_2024": 3131.302,
+      "lfi_2025": 2961.499,
+      "plf_2026": 2961.499
+     },
+     "actions": []
+    },
+    {
+     "programme": "157",
+     "libelle": "Handicap et dépendance",
+     "cp": {
+      "execution_2024": 17.273,
+      "lfi_2025": 17.414,
+      "plf_2026": 17.661
+     },
+     "actions": [
+      {
+       "code": "13",
+       "libelle": "Pilotage du programme et animation des politiques inclusives",
+       "cp": {
+        "execution_2024": 17.273,
+        "lfi_2025": 17.414,
+        "plf_2026": 17.661
+       }
+      }
+     ]
+    },
+    {
+     "programme": "109",
+     "libelle": "Aide à l'accès au logement",
+     "cp": {
+      "execution_2024": 4921.0,
+      "lfi_2025": 6278.14,
+      "plf_2026": 5995.043
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides personnelles",
+       "cp": {
+        "execution_2024": 4921.0,
+        "lfi_2025": 6278.14,
+        "plf_2026": 5995.043
+       }
+      }
+     ]
+    },
+    {
+     "programme": "147",
+     "libelle": "Politique de la ville",
+     "cp": {
+      "execution_2024": 424.152,
+      "lfi_2025": 407.662,
+      "plf_2026": 424.995
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Actions territorialisées et Dispositifs spécifiques de la politique de la ville",
+       "cp": {
+        "execution_2024": 386.582,
+        "lfi_2025": 366.995,
+        "plf_2026": 384.328
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Revitalisation économique et emploi",
+       "cp": {
+        "execution_2024": 37.57,
+        "lfi_2025": 40.666,
+        "plf_2026": 40.666
+       }
+      }
+     ]
+    },
+    {
+     "programme": "123",
+     "libelle": "Conditions de vie outre-mer",
+     "cp": {
+      "execution_2024": 132.405,
+      "lfi_2025": 124.571,
+      "plf_2026": 114.343
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aménagement du territoire",
+       "cp": {
+        "execution_2024": 0.507,
+        "lfi_2025": 0.446,
+        "plf_2026": 1.347
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Continuité territoriale",
+       "cp": {
+        "execution_2024": 63.328,
+        "lfi_2025": 65.458,
+        "plf_2026": 65.458
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Sanitaire, social, culture, jeunesse et sports",
+       "cp": {
+        "execution_2024": 0.87,
+        "lfi_2025": null,
+        "plf_2026": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Collectivités territoriales",
+       "cp": {
+        "execution_2024": 46.716,
+        "lfi_2025": 58.667,
+        "plf_2026": 47.537
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Fonds exceptionnel d'investissement",
+       "cp": {
+        "execution_2024": 20.984,
+        "lfi_2025": null,
+        "plf_2026": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "138",
+     "libelle": "Emploi outre-mer",
+     "cp": {
+      "execution_2024": 331.255,
+      "lfi_2025": 298.044,
+      "plf_2026": 297.824
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aide à l'insertion et à la qualification professionnelle",
+       "cp": {
+        "execution_2024": 331.255,
+        "lfi_2025": 298.044,
+        "plf_2026": 297.824
+       }
+      }
+     ]
+    },
+    {
+     "programme": "204",
+     "libelle": "Prévention, sécurité sanitaire et offre de soins",
+     "cp": {
+      "execution_2024": 1.143,
+      "lfi_2025": 1.021,
+      "plf_2026": 0.979
+     },
+     "actions": [
+      {
+       "code": "14",
+       "libelle": "Prévention des maladies chroniques et qualité de vie des malades",
+       "cp": {
+        "execution_2024": 0.96,
+        "lfi_2025": 0.871,
+        "plf_2026": 0.829
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Prévention des risques liés à l'environnement et à l'alimentation",
+       "cp": {
+        "execution_2024": 0.183,
+        "lfi_2025": 0.15,
+        "plf_2026": 0.15
+       }
+      }
+     ]
+    },
+    {
+     "programme": "206",
+     "libelle": "Sécurité et qualité sanitaires de l'alimentation",
+     "cp": {
+      "execution_2024": 1.472,
+      "lfi_2025": 1.3,
+      "plf_2026": 1.3
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Politique de l'alimentation pour la Souveraineté Alimentaire",
+       "cp": {
+        "execution_2024": 1.472,
+        "lfi_2025": 1.3,
+        "plf_2026": 1.3
+       }
+      }
+     ]
+    },
+    {
+     "programme": "219",
+     "libelle": "Sport",
+     "cp": {
+      "execution_2024": 85.724,
+      "lfi_2025": 90.975,
+      "plf_2026": 48.042
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Promotion du sport pour le plus grand nombre",
+       "cp": {
+        "execution_2024": 79.078,
+        "lfi_2025": 86.4,
+        "plf_2026": 43.467
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Prévention par le sport et protection des sportifs",
+       "cp": {
+        "execution_2024": 2.32,
+        "lfi_2025": 2.175,
+        "plf_2026": 2.175
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Promotion des métiers du sport",
+       "cp": {
+        "execution_2024": 4.326,
+        "lfi_2025": 2.4,
+        "plf_2026": 2.4
+       }
+      }
+     ]
+    },
+    {
+     "programme": "361",
+     "libelle": "Transmission des savoirs et démocratisation de la culture 20 Annexe au projet de loi de finances : Document de politique transversale",
+     "cp": {
+      "execution_2024": 628.012,
+      "lfi_2025": 580.304,
+      "plf_2026": 540.581
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien aux établissements d'enseignement supérieur et insertion professionnelle",
+       "cp": {
+        "execution_2024": 288.57,
+        "lfi_2025": 319.287,
+        "plf_2026": 322.564
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la démocratisation et à l'éducation artistique et culturelle",
+       "cp": {
+        "execution_2024": 339.442,
+        "lfi_2025": 261.017,
+        "plf_2026": 218.017
+       }
+      }
+     ]
+    },
+    {
+     "programme": "131",
+     "libelle": "Création",
+     "cp": {
+      "execution_2024": 270.649,
+      "lfi_2025": 282.136,
+      "plf_2026": 284.688
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien à la création, à la production et à la diffusion du spectacle vivant",
+       "cp": {
+        "execution_2024": 257.16,
+        "lfi_2025": 268.447,
+        "plf_2026": 271.246
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la création, à la production et à la diffusion des arts visuels",
+       "cp": {
+        "execution_2024": 13.489,
+        "lfi_2025": 13.689,
+        "plf_2026": 13.442
+       }
+      }
+     ]
+    },
+    {
+     "programme": "175",
+     "libelle": "Patrimoines",
+     "cp": {
+      "execution_2024": 82.082,
+      "lfi_2025": 87.655,
+      "plf_2026": 72.019
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Monuments Historiques et patrimoine monumental",
+       "cp": {
+        "execution_2024": 60.072,
+        "lfi_2025": 58.927,
+        "plf_2026": 40.857
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Architecture et sites patrimoniaux",
+       "cp": {
+        "execution_2024": 4.245,
+        "lfi_2025": 6.194,
+        "plf_2026": 6.206
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Patrimoine des musées de France",
+       "cp": {
+        "execution_2024": 8.534,
+        "lfi_2025": 12.443,
+        "plf_2026": 14.905
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Patrimoine archivistique",
+       "cp": {
+        "execution_2024": 3.945,
+        "lfi_2025": 2.666,
+        "plf_2026": 2.671
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Acquisition et enrichissement des collections publiques",
+       "cp": {
+        "execution_2024": 0.888,
+        "lfi_2025": 1.234,
+        "plf_2026": 1.235
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Patrimoine archéologique",
+       "cp": {
+        "execution_2024": 4.397,
+        "lfi_2025": 6.192,
+        "plf_2026": 6.144
+       }
+      }
+     ]
+    },
+    {
+     "programme": "334",
+     "libelle": "Livre et industries culturelles",
+     "cp": {
+      "execution_2024": 1.57,
+      "lfi_2025": 1.6,
+      "plf_2026": 1.6
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Livre et lecture",
+       "cp": {
+        "execution_2024": 1.57,
+        "lfi_2025": 1.6,
+        "plf_2026": 1.6
+       }
+      }
+     ]
+    },
+    {
+     "programme": "182",
+     "libelle": "Protection judiciaire de la jeunesse",
+     "cp": {
+      "execution_2024": 1087.396,
+      "lfi_2025": 1140.954,
+      "plf_2026": 1140.954
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre des décisions judiciaires",
+       "cp": {
+        "execution_2024": 893.442,
+        "lfi_2025": 961.222,
+        "plf_2026": 961.222
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2024": 158.037,
+        "lfi_2025": 132.968,
+        "plf_2026": 132.968
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation",
+       "cp": {
+        "execution_2024": 35.916,
+        "lfi_2025": 46.764,
+        "plf_2026": 46.764
+       }
+      }
+     ]
+    },
+    {
+     "programme": "207",
+     "libelle": "Sécurité et éducation routières",
+     "cp": {
+      "execution_2024": 11.206,
+      "lfi_2025": 10.08,
+      "plf_2026": 10.057
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Observation, prospective, réglementation et soutien au programme",
+       "cp": {
+        "execution_2024": 0.071,
+        "lfi_2025": 0.023,
+        "plf_2026": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Démarches interministérielles et communication",
+       "cp": {
+        "execution_2024": 6.499,
+        "lfi_2025": 6.057,
+        "plf_2026": 6.057
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Éducation routière",
+       "cp": {
+        "execution_2024": 4.636,
+        "lfi_2025": 4.0,
+        "plf_2026": 4.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "129",
+     "libelle": "Coordination du travail gouvernemental",
+     "cp": {
+      "execution_2024": 4.06,
+      "lfi_2025": 4.3,
+      "plf_2026": 4.0
+     },
+     "actions": [
+      {
+       "code": "15",
+       "libelle": "Mission interministérielle de lutte contre les drogues et les conduites addictives",
+       "cp": {
+        "execution_2024": 4.06,
+        "lfi_2025": 4.3,
+        "plf_2026": 4.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "169",
+     "libelle": "Reconnaissance et réparation en faveur du monde combattant, mémoire et liens avec la Nation",
+     "cp": {
+      "execution_2024": 36.654,
+      "lfi_2025": 43.159,
+      "plf_2026": 42.883
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Liens armées-jeunesse",
+       "cp": {
+        "execution_2024": 34.878,
+        "lfi_2025": 40.114,
+        "plf_2026": 41.068
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Politique de mémoire",
+       "cp": {
+        "execution_2024": 1.776,
+        "lfi_2025": 3.045,
+        "plf_2026": 1.815
+       }
+      }
+     ]
+    },
+    {
+     "programme": "212",
+     "libelle": "Soutien de la politique de la défense",
+     "cp": {
+      "execution_2024": 143.994,
+      "lfi_2025": 139.288,
+      "plf_2026": 138.651
+     },
+     "actions": [
+      {
+       "code": "06",
+       "libelle": "Politiques des ressources humaines",
+       "cp": {
+        "execution_2024": 15.119,
+        "lfi_2025": 16.218,
+        "plf_2026": 24.118
+       }
+      },
+      {
+       "code": "65",
+       "libelle": "Journée défense et citoyenneté - Personnel travaillant pour le programme \"Reconnaissance et réparation en faveur du monde combattant\"",
+       "cp": {
+        "execution_2024": 128.875,
+        "lfi_2025": 123.07,
+        "plf_2026": 114.533
+       }
+      }
+     ]
+    },
+    {
+     "programme": "152",
+     "libelle": "Gendarmerie nationale",
+     "cp": {
+      "execution_2024": 559.273,
+      "lfi_2025": 530.92,
+      "plf_2026": 542.121
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Ordre et sécurité publics",
+       "cp": {
+        "execution_2024": 287.043,
+        "lfi_2025": 272.45,
+        "plf_2026": 276.777
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Sécurité routière",
+       "cp": {
+        "execution_2024": 46.038,
+        "lfi_2025": 43.51,
+        "plf_2026": 44.738
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Missions de police judiciaire et concours à la justice",
+       "cp": {
+        "execution_2024": 138.84,
+        "lfi_2025": 131.314,
+        "plf_2026": 135.065
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Commandement, ressources humaines et logistique",
+       "cp": {
+        "execution_2024": 76.655,
+        "lfi_2025": 73.151,
+        "plf_2026": 74.851
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Exercice des missions militaires",
+       "cp": {
+        "execution_2024": 10.697,
+        "lfi_2025": 10.496,
+        "plf_2026": 10.69
+       }
+      }
+     ]
+    },
+    {
+     "programme": "176",
+     "libelle": "Police nationale",
+     "cp": {
+      "execution_2024": 304.061,
+      "lfi_2025": 311.685,
+      "plf_2026": 281.221
+     },
+     "actions": []
+    },
+    {
+     "programme": "151",
+     "libelle": "Français à l'étranger et affaires consulaires",
+     "cp": {
+      "execution_2024": 107.61,
+      "lfi_2025": 111.5,
+      "plf_2026": 107.025
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Accès des élèves français au réseau AEFE et à la langue française",
+       "cp": {
+        "execution_2024": 107.61,
+        "lfi_2025": 111.5,
+        "plf_2026": 107.025
+       }
+      }
+     ]
+    },
+    {
+     "programme": "209",
+     "libelle": "Solidarité à l'égard des pays en développement",
+     "cp": {
+      "execution_2024": 44.547,
+      "lfi_2025": 52.255,
+      "plf_2026": 35.632
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Coopération bilatérale",
+       "cp": {
+        "execution_2024": 44.547,
+        "lfi_2025": 52.255,
+        "plf_2026": 35.632
+       }
+      }
+     ]
+    },
+    {
+     "programme": "185",
+     "libelle": "Diplomatie culturelle et d'influence",
+     "cp": {
+      "execution_2024": 227.664,
+      "lfi_2025": 213.032,
+      "plf_2026": 196.054
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Appui au réseau culturel et de coopération",
+       "cp": {
+        "execution_2024": 0.499,
+        "lfi_2025": 0.499,
+        "plf_2026": null
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Mobilité étudiante",
+       "cp": {
+        "execution_2024": 4.39,
+        "lfi_2025": 4.214,
+        "plf_2026": null
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Opérateurs",
+       "cp": {
+        "execution_2024": 222.775,
+        "lfi_2025": 208.319,
+        "plf_2026": 195.819
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Crédits centraux",
+       "cp": {
+        "execution_2024": null,
+        "lfi_2025": null,
+        "plf_2026": 0.235
+       }
+      }
+     ]
+    },
+    {
+     "programme": "203",
+     "libelle": "Infrastructures et services de transports",
+     "cp": {
+      "execution_2024": 1.348,
+      "lfi_2025": 1.253,
+      "plf_2026": 1.35
+     },
+     "actions": [
+      {
+       "code": "44",
+       "libelle": "Transports collectifs",
+       "cp": {
+        "execution_2024": 1.348,
+        "lfi_2025": 1.253,
+        "plf_2026": 1.35
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "DPT-jeunesse-PLF2027.pdf": {
+   "annees": [
+    "execution_2025",
+    "lfi_2026",
+    "plf_2027"
+   ],
+   "total": {
+    "execution_2025": 118518.082,
+    "lfi_2026": 118701.691,
+    "plf_2027": 119377.993
+   },
+   "programmes": [
+    {
+     "programme": "163",
+     "libelle": "Jeunesse et vie associative",
+     "cp": {
+      "execution_2025": 760.52,
+      "lfi_2026": 603.762,
+      "plf_2027": 595.186
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Actions en faveur de la jeunesse et de l'éducation populaire",
+       "cp": {
+        "execution_2025": 151.628,
+        "lfi_2026": 109.498,
+        "plf_2027": 110.448
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Développement du service civique",
+       "cp": {
+        "execution_2025": 548.845,
+        "lfi_2026": 494.265,
+        "plf_2027": 484.738
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Service National Universel",
+       "cp": {
+        "execution_2025": 60.048,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "140",
+     "libelle": "Enseignement scolaire public du premier degré",
+     "cp": {
+      "execution_2025": 27358.508,
+      "lfi_2026": 27912.141,
+      "plf_2027": 28524.974
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2025": 6689.891,
+        "lfi_2026": 6947.873,
+        "plf_2027": 6967.541
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2025": 14167.029,
+        "lfi_2026": 14122.164,
+        "plf_2027": 14740.923
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2025": 2103.757,
+        "lfi_2026": 2348.152,
+        "plf_2027": 2190.302
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2025": 368.839,
+        "lfi_2026": 417.977,
+        "plf_2027": 449.39
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2025": 2170.139,
+        "lfi_2026": 2301.116,
+        "plf_2027": 2260.211
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Pilotage et encadrement pédagogique",
+       "cp": {
+        "execution_2025": 1694.156,
+        "lfi_2026": 1652.625,
+        "plf_2027": 1765.944
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2025": 164.697,
+        "lfi_2026": 122.234,
+        "plf_2027": 150.662
+       }
+      }
+     ]
+    },
+    {
+     "programme": "141",
+     "libelle": "Enseignement scolaire public du second degré",
+     "cp": {
+      "execution_2025": 38881.678,
+      "lfi_2026": 39851.342,
+      "plf_2027": 40188.164
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2025": 14069.268,
+        "lfi_2026": 14061.942,
+        "plf_2027": 14495.893
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2025": 10346.484,
+        "lfi_2026": 9312.792,
+        "plf_2027": 10690.048
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2025": 4479.737,
+        "lfi_2026": 5547.219,
+        "plf_2027": 4629.213
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Apprentissage",
+       "cp": {
+        "execution_2025": 2.958,
+        "lfi_2026": 8.315,
+        "plf_2027": 3.351
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2025": 1405.849,
+        "lfi_2026": 2562.953,
+        "plf_2027": 1454.574
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2025": 1121.558,
+        "lfi_2026": 1544.277,
+        "plf_2027": 1162.484
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Aide à l'insertion professionnelle",
+       "cp": {
+        "execution_2025": 52.663,
+        "lfi_2026": 64.927,
+        "plf_2027": 54.866
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Information et orientation",
+       "cp": {
+        "execution_2025": 305.178,
+        "lfi_2026": 390.495,
+        "plf_2027": 315.42
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants et d'orientation",
+       "cp": {
+        "execution_2025": 261.905,
+        "lfi_2026": 289.451,
+        "plf_2027": 322.374
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2025": 2207.471,
+        "lfi_2026": 1751.026,
+        "plf_2027": 2281.125
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Pilotage, administration et encadrement pédagogique",
+       "cp": {
+        "execution_2025": 4416.26,
+        "lfi_2026": 4204.762,
+        "plf_2027": 4563.977
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2025": 212.346,
+        "lfi_2026": 113.181,
+        "plf_2027": 214.84
+       }
+      }
+     ]
+    },
+    {
+     "programme": "139",
+     "libelle": "Enseignement privé du premier et du second degrés",
+     "cp": {
+      "execution_2025": 8812.183,
+      "lfi_2026": 8870.629,
+      "plf_2027": 8939.649
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2025": 502.76,
+        "lfi_2026": 608.122,
+        "plf_2027": 510.296
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2025": 1525.35,
+        "lfi_2026": 1616.054,
+        "plf_2027": 1548.181
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2025": 2522.028,
+        "lfi_2026": 2278.544,
+        "plf_2027": 2559.815
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2025": 1849.178,
+        "lfi_2026": 1518.614,
+        "plf_2027": 1876.893
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2025": 816.441,
+        "lfi_2026": 983.348,
+        "plf_2027": 826.125
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2025": 212.534,
+        "lfi_2026": 306.087,
+        "plf_2027": 215.719
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Dispositifs spécifiques de scolarisation",
+       "cp": {
+        "execution_2025": 216.666,
+        "lfi_2026": 197.468,
+        "plf_2027": 219.913
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Actions sociales en faveur des élèves",
+       "cp": {
+        "execution_2025": 80.353,
+        "lfi_2026": 83.719,
+        "plf_2027": 81.625
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Fonctionnement des établissements",
+       "cp": {
+        "execution_2025": 717.138,
+        "lfi_2026": 710.897,
+        "plf_2027": 705.975
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2025": 87.004,
+        "lfi_2026": 99.101,
+        "plf_2027": 108.207
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2025": 214.428,
+        "lfi_2026": 224.712,
+        "plf_2027": 217.633
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2025": 68.304,
+        "lfi_2026": 243.963,
+        "plf_2027": 69.266
+       }
+      }
+     ]
+    },
+    {
+     "programme": "230",
+     "libelle": "Vie de l'élève",
+     "cp": {
+      "execution_2025": 7948.972,
+      "lfi_2026": 8060.719,
+      "plf_2027": 8252.517
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Vie scolaire et éducation à la responsabilité",
+       "cp": {
+        "execution_2025": 2906.927,
+        "lfi_2026": 2858.258,
+        "plf_2027": 2908.364
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Santé scolaire",
+       "cp": {
+        "execution_2025": 700.429,
+        "lfi_2026": 748.193,
+        "plf_2027": 762.043
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Inclusion scolaire des élèves en situation de handicap",
+       "cp": {
+        "execution_2025": 3008.234,
+        "lfi_2026": 3110.816,
+        "plf_2027": 3238.871
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Action sociale",
+       "cp": {
+        "execution_2025": 1057.917,
+        "lfi_2026": 1100.692,
+        "plf_2027": 1100.629
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Politique de l'internat et établissements à la charge de l'Etat",
+       "cp": {
+        "execution_2025": 88.066,
+        "lfi_2026": 83.09,
+        "plf_2027": 88.054
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Actions éducatives complémentaires aux enseignements",
+       "cp": {
+        "execution_2025": 187.227,
+        "lfi_2026": 159.67,
+        "plf_2027": 154.557
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Scolarisation à 3 ans",
+       "cp": {
+        "execution_2025": 0.173,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "214",
+     "libelle": "Conduite et soutien des politiques de l’enseignement, de la recherche, de la jeunesse, de la vie associative et des sports",
+     "cp": {
+      "execution_2025": 2963.771,
+      "lfi_2026": 3045.963,
+      "plf_2027": 3087.222
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Pilotage et mise en oeuvre des politiques éducatives",
+       "cp": {
+        "execution_2025": 639.731,
+        "lfi_2026": 534.072,
+        "plf_2027": 546.495
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Évaluation et contrôle",
+       "cp": {
+        "execution_2025": 125.913,
+        "lfi_2026": 101.442,
+        "plf_2027": 103.639
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2025": 19.31,
+        "lfi_2026": 16.801,
+        "plf_2027": 17.069
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Expertise juridique",
+       "cp": {
+        "execution_2025": 32.227,
+        "lfi_2026": 21.371,
+        "plf_2027": 21.684
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Action internationale",
+       "cp": {
+        "execution_2025": 13.159,
+        "lfi_2026": 10.238,
+        "plf_2027": 9.383
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2025": 802.274,
+        "lfi_2026": 875.904,
+        "plf_2027": 890.283
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Établissements d'appui de la politique éducative",
+       "cp": {
+        "execution_2025": 137.272,
+        "lfi_2026": 139.194,
+        "plf_2027": 130.792
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Logistique, système d'information, immobilier",
+       "cp": {
+        "execution_2025": 826.712,
+        "lfi_2026": 864.844,
+        "plf_2027": 875.273
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Certification",
+       "cp": {
+        "execution_2025": 174.947,
+        "lfi_2026": 240.486,
+        "plf_2027": 245.45
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Transports scolaires",
+       "cp": {
+        "execution_2025": 3.282,
+        "lfi_2026": 3.323,
+        "plf_2027": 3.323
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Pilotage et mise œuvre des politiques du sport, de la jeunesse, de l'éducation populaire et de la vie associative",
+       "cp": {
+        "execution_2025": 188.945,
+        "lfi_2026": 238.289,
+        "plf_2027": 243.832
+       }
+      }
+     ]
+    },
+    {
+     "programme": "150",
+     "libelle": "Formations supérieures et recherche universitaire",
+     "cp": {
+      "execution_2025": 7604.748,
+      "lfi_2026": 7571.43,
+      "plf_2027": 7534.973
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Formation initiale et continue du baccalauréat à la licence 18 Annexe au projet de loi de finances : Document de politique transversale",
+       "cp": {
+        "execution_2025": 4249.299,
+        "lfi_2026": 4094.631,
+        "plf_2027": 4073.337
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation initiale et continue de niveau master",
+       "cp": {
+        "execution_2025": 2762.835,
+        "lfi_2026": 2832.999,
+        "plf_2027": 2819.874
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Formation initiale et continue de niveau doctorat",
+       "cp": {
+        "execution_2025": 501.245,
+        "lfi_2026": 548.905,
+        "plf_2027": 546.866
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Établissements d'enseignement privés",
+       "cp": {
+        "execution_2025": 91.368,
+        "lfi_2026": 94.896,
+        "plf_2027": 94.896
+       }
+      }
+     ]
+    },
+    {
+     "programme": "231",
+     "libelle": "Vie étudiante",
+     "cp": {
+      "execution_2025": 3205.791,
+      "lfi_2026": 3273.989,
+      "plf_2027": 3330.927
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides directes",
+       "cp": {
+        "execution_2025": 2519.371,
+        "lfi_2026": 2503.773,
+        "plf_2027": 2458.92
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aides indirectes",
+       "cp": {
+        "execution_2025": 477.709,
+        "lfi_2026": 557.047,
+        "plf_2027": 635.237
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Santé des étudiants et activités associatives, culturelles et sportives",
+       "cp": {
+        "execution_2025": 92.856,
+        "lfi_2026": 94.017,
+        "plf_2027": 117.617
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Pilotage et animation du programme",
+       "cp": {
+        "execution_2025": 115.855,
+        "lfi_2026": 119.152,
+        "plf_2027": 119.152
+       }
+      }
+     ]
+    },
+    {
+     "programme": "143",
+     "libelle": "Enseignement technique agricole",
+     "cp": {
+      "execution_2025": 1682.931,
+      "lfi_2026": 1708.796,
+      "plf_2027": 1771.857
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement public",
+       "cp": {
+        "execution_2025": 902.929,
+        "lfi_2026": 920.71,
+        "plf_2027": 925.479
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement privé",
+       "cp": {
+        "execution_2025": 648.26,
+        "lfi_2026": 658.515,
+        "plf_2027": 711.429
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Aide sociale aux élèves et santé scolaire",
+       "cp": {
+        "execution_2025": 80.16,
+        "lfi_2026": 76.489,
+        "plf_2027": 78.068
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Actions pédagogiques et éducatives",
+       "cp": {
+        "execution_2025": 4.478,
+        "lfi_2026": 5.313,
+        "plf_2027": 5.313
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Moyens communs à l'enseignement technique agricole",
+       "cp": {
+        "execution_2025": 47.104,
+        "lfi_2026": 47.77,
+        "plf_2027": 51.567
+       }
+      }
+     ]
+    },
+    {
+     "programme": "142",
+     "libelle": "Enseignement supérieur et recherche agricoles",
+     "cp": {
+      "execution_2025": 382.773,
+      "lfi_2026": 393.715,
+      "plf_2027": 393.617
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement supérieur",
+       "cp": {
+        "execution_2025": 382.773,
+        "lfi_2026": 393.715,
+        "plf_2027": 393.617
+       }
+      }
+     ]
+    },
+    {
+     "programme": "192",
+     "libelle": "Recherche et enseignement supérieur en matière économique et industrielle",
+     "cp": {
+      "execution_2025": 309.79,
+      "lfi_2026": 312.567,
+      "plf_2027": 328.422
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Organismes de formation supérieure et de recherche",
+       "cp": {
+        "execution_2025": 309.79,
+        "lfi_2026": 312.567,
+        "plf_2027": 328.422
+       }
+      }
+     ]
+    },
+    {
+     "programme": "102",
+     "libelle": "Accès et retour à l'emploi",
+     "cp": {
+      "execution_2025": 1700.339,
+      "lfi_2026": 1832.237,
+      "plf_2027": 1726.56
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Structures de mise en oeuvre de la politique de l'emploi",
+       "cp": {
+        "execution_2025": 474.17,
+        "lfi_2026": 560.383,
+        "plf_2027": 525.443
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Accompagnement des personnes les plus éloignées du marché du travail- Fonds d'inclusion dans l'emploi",
+       "cp": {
+        "execution_2025": 315.842,
+        "lfi_2026": 330.653,
+        "plf_2027": 308.091
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Insertion des jeunes sur le marché du travail- Contrat d'engagement jeunes (CEJ)",
+       "cp": {
+        "execution_2025": 910.327,
+        "lfi_2026": 941.201,
+        "plf_2027": 893.026
+       }
+      }
+     ]
+    },
+    {
+     "programme": "103",
+     "libelle": "Accompagnement des mutations économiques et développement de l'emploi",
+     "cp": {
+      "execution_2025": 3956.635,
+      "lfi_2026": 2833.481,
+      "plf_2027": 2221.506
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Développement des compétences par l'alternance",
+       "cp": {
+        "execution_2025": 3491.962,
+        "lfi_2026": 2463.923,
+        "plf_2027": 2003.214
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2025": 346.34,
+        "lfi_2026": 280.043,
+        "plf_2027": 163.736
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Financement des structures de la formation professionnelle et de l'emploi",
+       "cp": {
+        "execution_2025": 30.773,
+        "lfi_2026": 33.962,
+        "plf_2027": 30.886
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Actions pour favoriser la mise en activité professionnelle des demandeurs d'emploi",
+       "cp": {
+        "execution_2025": 87.559,
+        "lfi_2026": 55.553,
+        "plf_2027": 23.67
+       }
+      }
+     ]
+    },
+    {
+     "programme": "155",
+     "libelle": "Soutien des ministères sociaux",
+     "cp": {
+      "execution_2025": 11.309,
+      "lfi_2026": 11.309,
+      "plf_2027": 11.309
+     },
+     "actions": [
+      {
+       "code": "20",
+       "libelle": "Personnels mettant en œuvre les politiques de l'emploi et de la formation professionnelle",
+       "cp": {
+        "execution_2025": 11.309,
+        "lfi_2026": 11.309,
+        "plf_2027": 11.309
+       }
+      }
+     ]
+    },
+    {
+     "programme": "304",
+     "libelle": "Inclusion sociale et protection des personnes",
+     "cp": {
+      "execution_2025": 383.756,
+      "lfi_2026": 391.682,
+      "plf_2027": 399.381
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Prime d'activité et autres dispositifs",
+       "cp": {
+        "execution_2025": 4.629,
+        "lfi_2026": 4.452,
+        "plf_2027": 4.474
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Aide alimentaire",
+       "cp": {
+        "execution_2025": 0.23,
+        "lfi_2026": 0.23,
+        "plf_2027": 0.23
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Protection et accompagnement des enfants, des jeunes et des familles vulnérables",
+       "cp": {
+        "execution_2025": 252.519,
+        "lfi_2026": 254.953,
+        "plf_2027": 248.773
+       }
+      },
+      {
+       "code": "23",
+       "libelle": "Pacte des Solidarités",
+       "cp": {
+        "execution_2025": 126.379,
+        "lfi_2026": 132.047,
+        "plf_2027": 145.905
+       }
+      }
+     ]
+    },
+    {
+     "programme": "137",
+     "libelle": "Égalité entre les femmes et les hommes",
+     "cp": {
+      "execution_2025": 67.845,
+      "lfi_2026": 74.892,
+      "plf_2027": 77.163
+     },
+     "actions": [
+      {
+       "code": "24",
+       "libelle": "Accès aux droits et égalité professionnelle",
+       "cp": {
+        "execution_2025": 26.785,
+        "lfi_2026": 23.651,
+        "plf_2027": 24.7
+       }
+      },
+      {
+       "code": "25",
+       "libelle": "Prévention et lutte contre les violences et la prostitution",
+       "cp": {
+        "execution_2025": 41.06,
+        "lfi_2026": 43.857,
+        "plf_2027": 43.148
+       }
+      },
+      {
+       "code": "26",
+       "libelle": "Aide universelle d'urgence pour les personnes victimes de violences conjugales",
+       "cp": {
+        "execution_2025": null,
+        "lfi_2026": 7.384,
+        "plf_2027": 9.315
+       }
+      }
+     ]
+    },
+    {
+     "programme": "177",
+     "libelle": "Hébergement, parcours vers le logement et insertion des personnes vulnérables",
+     "cp": {
+      "execution_2025": 3132.317,
+      "lfi_2026": 3071.443,
+      "plf_2027": 3261.443
+     },
+     "actions": []
+    },
+    {
+     "programme": "157",
+     "libelle": "Handicap et dépendance",
+     "cp": {
+      "execution_2025": 17.306,
+      "lfi_2026": 17.661,
+      "plf_2027": 17.876
+     },
+     "actions": [
+      {
+       "code": "13",
+       "libelle": "Pilotage du programme et animation des politiques inclusives",
+       "cp": {
+        "execution_2025": 17.306,
+        "lfi_2026": 17.661,
+        "plf_2027": 17.876
+       }
+      }
+     ]
+    },
+    {
+     "programme": "109",
+     "libelle": "Aide à l'accès au logement",
+     "cp": {
+      "execution_2025": 4796.0,
+      "lfi_2026": 4691.87,
+      "plf_2027": 4596.264
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides personnelles",
+       "cp": {
+        "execution_2025": 4796.0,
+        "lfi_2026": 4691.87,
+        "plf_2027": 4596.264
+       }
+      }
+     ]
+    },
+    {
+     "programme": "147",
+     "libelle": "Politique de la ville",
+     "cp": {
+      "execution_2025": 415.588,
+      "lfi_2026": 416.486,
+      "plf_2027": 413.152
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Actions territorialisées et Dispositifs spécifiques de la politique de la ville",
+       "cp": {
+        "execution_2025": 376.226,
+        "lfi_2026": 375.819,
+        "plf_2027": 373.819
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Revitalisation économique et emploi",
+       "cp": {
+        "execution_2025": 39.362,
+        "lfi_2026": 40.666,
+        "plf_2027": 39.333
+       }
+      }
+     ]
+    },
+    {
+     "programme": "123",
+     "libelle": "Conditions de vie outre-mer",
+     "cp": {
+      "execution_2025": 134.09,
+      "lfi_2026": 129.381,
+      "plf_2027": 163.841
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aménagement du territoire",
+       "cp": {
+        "execution_2025": 3.719,
+        "lfi_2026": 4.949,
+        "plf_2027": 4.734
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Continuité territoriale",
+       "cp": {
+        "execution_2025": 65.965,
+        "lfi_2026": 74.777,
+        "plf_2027": 70.811
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Sanitaire, social, culture, jeunesse et sports",
+       "cp": {
+        "execution_2025": 0.573,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Collectivités territoriales",
+       "cp": {
+        "execution_2025": 54.839,
+        "lfi_2026": 49.655,
+        "plf_2027": 88.295
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Fonds exceptionnel d'investissement",
+       "cp": {
+        "execution_2025": 8.995,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "138",
+     "libelle": "Emploi outre-mer",
+     "cp": {
+      "execution_2025": 341.696,
+      "lfi_2026": 307.399,
+      "plf_2027": 310.0
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Aide à l'insertion et à la qualification professionnelle",
+       "cp": {
+        "execution_2025": 341.696,
+        "lfi_2026": 307.399,
+        "plf_2027": 310.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "204",
+     "libelle": "Prévention, sécurité sanitaire et offre de soins",
+     "cp": {
+      "execution_2025": 0.944,
+      "lfi_2026": 0.92,
+      "plf_2027": 0.83
+     },
+     "actions": [
+      {
+       "code": "14",
+       "libelle": "Prévention des maladies chroniques et qualité de vie des malades",
+       "cp": {
+        "execution_2025": 0.854,
+        "lfi_2026": 0.745,
+        "plf_2027": 0.745
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Prévention des risques liés à l'environnement et à l'alimentation",
+       "cp": {
+        "execution_2025": 0.09,
+        "lfi_2026": 0.175,
+        "plf_2027": 0.085
+       }
+      }
+     ]
+    },
+    {
+     "programme": "206",
+     "libelle": "Sécurité et qualité sanitaires de l'alimentation",
+     "cp": {
+      "execution_2025": 0.76,
+      "lfi_2026": 1.3,
+      "plf_2027": 2.0
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Politique de l'alimentation pour la Souveraineté Alimentaire",
+       "cp": {
+        "execution_2025": 0.76,
+        "lfi_2026": 1.3,
+        "plf_2027": 2.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "219",
+     "libelle": "Sport 20 Annexe au projet de loi de finances : Document de politique transversale",
+     "cp": {
+      "execution_2025": 45.708,
+      "lfi_2026": 50.222,
+      "plf_2027": 9.274
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Promotion du sport pour le plus grand nombre",
+       "cp": {
+        "execution_2025": 37.559,
+        "lfi_2026": 40.967,
+        "plf_2027": 1.767
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Prévention par le sport et protection des sportifs",
+       "cp": {
+        "execution_2025": 3.65,
+        "lfi_2026": 3.655,
+        "plf_2027": 3.655
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Promotion des métiers du sport",
+       "cp": {
+        "execution_2025": 4.499,
+        "lfi_2026": 5.6,
+        "plf_2027": 3.852
+       }
+      }
+     ]
+    },
+    {
+     "programme": "361",
+     "libelle": "Transmission des savoirs et démocratisation de la culture",
+     "cp": {
+      "execution_2025": 687.412,
+      "lfi_2026": 666.633,
+      "plf_2027": 639.081
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien aux établissements d'enseignement supérieur et insertion professionnelle",
+       "cp": {
+        "execution_2025": 294.745,
+        "lfi_2026": 319.69,
+        "plf_2027": 310.173
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la démocratisation et à l'éducation artistique et culturelle",
+       "cp": {
+        "execution_2025": 282.287,
+        "lfi_2026": 234.53,
+        "plf_2027": 212.067
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Recherche culturelle et culture scientifique et technique",
+       "cp": {
+        "execution_2025": 110.38,
+        "lfi_2026": 112.413,
+        "plf_2027": 116.841
+       }
+      }
+     ]
+    },
+    {
+     "programme": "131",
+     "libelle": "Création",
+     "cp": {
+      "execution_2025": 275.435,
+      "lfi_2026": null,
+      "plf_2027": null
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien à la création, à la production et à la diffusion du spectacle vivant",
+       "cp": {
+        "execution_2025": 261.948,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la création, à la production et à la diffusion des arts visuels",
+       "cp": {
+        "execution_2025": 13.487,
+        "lfi_2026": null,
+        "plf_2027": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "175",
+     "libelle": "Patrimoines",
+     "cp": {
+      "execution_2025": 75.527,
+      "lfi_2026": 70.685,
+      "plf_2027": 70.563
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Monuments Historiques et patrimoine monumental",
+       "cp": {
+        "execution_2025": 54.037,
+        "lfi_2026": 40.158,
+        "plf_2027": 39.849
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Architecture et sites patrimoniaux",
+       "cp": {
+        "execution_2025": 4.181,
+        "lfi_2026": 6.149,
+        "plf_2027": 6.149
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Patrimoine des musées de France",
+       "cp": {
+        "execution_2025": 10.44,
+        "lfi_2026": 14.769,
+        "plf_2027": 15.06
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Patrimoine archivistique",
+       "cp": {
+        "execution_2025": 1.726,
+        "lfi_2026": 2.647,
+        "plf_2027": 2.647
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Acquisition et enrichissement des collections publiques",
+       "cp": {
+        "execution_2025": 0.955,
+        "lfi_2026": 1.224,
+        "plf_2027": 1.224
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Patrimoine archéologique",
+       "cp": {
+        "execution_2025": 4.188,
+        "lfi_2026": 5.739,
+        "plf_2027": 5.634
+       }
+      }
+     ]
+    },
+    {
+     "programme": "334",
+     "libelle": "Livre et industries culturelles",
+     "cp": {
+      "execution_2025": 1.365,
+      "lfi_2026": 1.127,
+      "plf_2027": 2.607
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Livre et lecture",
+       "cp": {
+        "execution_2025": 1.365,
+        "lfi_2026": 1.127,
+        "plf_2027": 2.607
+       }
+      }
+     ]
+    },
+    {
+     "programme": "182",
+     "libelle": "Protection judiciaire de la jeunesse",
+     "cp": {
+      "execution_2025": 1107.004,
+      "lfi_2026": 1149.683,
+      "plf_2027": 1173.353
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre des décisions judiciaires",
+       "cp": {
+        "execution_2025": 910.898,
+        "lfi_2026": 963.279,
+        "plf_2027": 964.766
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2025": 159.609,
+        "lfi_2026": 137.38,
+        "plf_2027": 158.604
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation",
+       "cp": {
+        "execution_2025": 36.497,
+        "lfi_2026": 49.024,
+        "plf_2027": 49.983
+       }
+      }
+     ]
+    },
+    {
+     "programme": "207",
+     "libelle": "Sécurité et éducation routières",
+     "cp": {
+      "execution_2025": 9.408,
+      "lfi_2026": 12.49,
+      "plf_2027": 11.0
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Observation, prospective, réglementation et soutien au programme",
+       "cp": {
+        "execution_2025": 0.023,
+        "lfi_2026": 0.004,
+        "plf_2027": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Démarches interministérielles et communication",
+       "cp": {
+        "execution_2025": 6.678,
+        "lfi_2026": 7.006,
+        "plf_2027": 7.0
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Éducation routière",
+       "cp": {
+        "execution_2025": 2.707,
+        "lfi_2026": 5.48,
+        "plf_2027": 4.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "129",
+     "libelle": "Coordination du travail gouvernemental",
+     "cp": {
+      "execution_2025": 3.722,
+      "lfi_2026": 3.5,
+      "plf_2027": 3.6
+     },
+     "actions": [
+      {
+       "code": "15",
+       "libelle": "Mission interministérielle de lutte contre les drogues et les conduites addictives",
+       "cp": {
+        "execution_2025": 3.722,
+        "lfi_2026": 3.5,
+        "plf_2027": 3.6
+       }
+      }
+     ]
+    },
+    {
+     "programme": "169",
+     "libelle": "Reconnaissance et réparation en faveur du monde combattant, mémoire et liens avec la Nation",
+     "cp": {
+      "execution_2025": 46.474,
+      "lfi_2026": 42.883,
+      "plf_2027": 42.263
+     },
+     "actions": [
+      {
+       "code": "08",
+       "libelle": "Liens armées-jeunesse",
+       "cp": {
+        "execution_2025": 43.862,
+        "lfi_2026": 41.068,
+        "plf_2027": 41.068
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Politique de mémoire",
+       "cp": {
+        "execution_2025": 2.612,
+        "lfi_2026": 1.815,
+        "plf_2027": 1.195
+       }
+      }
+     ]
+    },
+    {
+     "programme": "212",
+     "libelle": "Soutien de la politique de la défense",
+     "cp": {
+      "execution_2025": 144.674,
+      "lfi_2026": 138.651,
+      "plf_2027": 152.73
+     },
+     "actions": [
+      {
+       "code": "06",
+       "libelle": "Politiques des ressources humaines",
+       "cp": {
+        "execution_2025": 19.009,
+        "lfi_2026": 24.118,
+        "plf_2027": 24.802
+       }
+      },
+      {
+       "code": "65",
+       "libelle": "Journée défense et citoyenneté - Personnel travaillant pour le programme \"Reconnaissance et réparation en faveur du monde combattant\"",
+       "cp": {
+        "execution_2025": 125.665,
+        "lfi_2026": 114.533,
+        "plf_2027": 127.928
+       }
+      }
+     ]
+    },
+    {
+     "programme": "152",
+     "libelle": "Gendarmerie nationale",
+     "cp": {
+      "execution_2025": 553.382,
+      "lfi_2026": 530.915,
+      "plf_2027": 537.367
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Ordre et sécurité publics",
+       "cp": {
+        "execution_2025": 276.396,
+        "lfi_2026": 270.25,
+        "plf_2027": 274.459
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Sécurité routière",
+       "cp": {
+        "execution_2025": 45.641,
+        "lfi_2026": 44.345,
+        "plf_2027": 44.716
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Missions de police judiciaire et concours à la justice",
+       "cp": {
+        "execution_2025": 145.208,
+        "lfi_2026": 134.173,
+        "plf_2027": 135.251
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Commandement, ressources humaines et logistique",
+       "cp": {
+        "execution_2025": 75.616,
+        "lfi_2026": 71.991,
+        "plf_2027": 72.644
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Exercice des missions militaires",
+       "cp": {
+        "execution_2025": 10.522,
+        "lfi_2026": 10.156,
+        "plf_2027": 10.297
+       }
+      }
+     ]
+    },
+    {
+     "programme": "176",
+     "libelle": "Police nationale",
+     "cp": {
+      "execution_2025": 313.567,
+      "lfi_2026": 299.018,
+      "plf_2027": 243.329
+     },
+     "actions": []
+    },
+    {
+     "programme": "151",
+     "libelle": "Français à l'étranger et affaires consulaires",
+     "cp": {
+      "execution_2025": 102.888,
+      "lfi_2026": 106.145,
+      "plf_2027": 106.145
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Accès des élèves français au réseau AEFE",
+       "cp": {
+        "execution_2025": 102.888,
+        "lfi_2026": 106.145,
+        "plf_2027": 106.145
+       }
+      }
+     ]
+    },
+    {
+     "programme": "209",
+     "libelle": "Solidarité à l'égard des pays en développement",
+     "cp": {
+      "execution_2025": 65.536,
+      "lfi_2026": 40.162,
+      "plf_2027": 31.743
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Coopération bilatérale",
+       "cp": {
+        "execution_2025": 65.536,
+        "lfi_2026": 40.162,
+        "plf_2027": 31.743
+       }
+      }
+     ]
+    },
+    {
+     "programme": "185",
+     "libelle": "Diplomatie culturelle et d'influence",
+     "cp": {
+      "execution_2025": 214.368,
+      "lfi_2026": 202.762,
+      "plf_2027": 204.262
+     },
+     "actions": [
+      {
+       "code": "10",
+       "libelle": "Opérateurs",
+       "cp": {
+        "execution_2025": 208.319,
+        "lfi_2026": 199.319,
+        "plf_2027": 199.319
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Crédits centraux",
+       "cp": {
+        "execution_2025": 6.049,
+        "lfi_2026": 3.443,
+        "plf_2027": 4.943
+       }
+      }
+     ]
+    },
+    {
+     "programme": "203",
+     "libelle": "Infrastructures et services de transports",
+     "cp": {
+      "execution_2025": 1.363,
+      "lfi_2026": 1.701,
+      "plf_2027": 1.844
+     },
+     "actions": [
+      {
+       "code": "31",
+       "libelle": "Services ferroviaires",
+       "cp": {
+        "execution_2025": 1.363,
+        "lfi_2026": 1.701,
+        "plf_2027": 1.844
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "fiscal": {
+  "DPT-jeunesse-PLF2025.pdf": [
+   {
+    "code": "110215",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement secondaire",
+    "chiffrage": {
+     "2023": 218.0,
+     "2024": 224.0,
+     "2025": 224.0
+    }
+   },
+   {
+    "code": "120109",
+    "libelle": "Exonération du salaire des apprentis et des gratifications versées aux stagiaires versées à compter du 12 juillet 2014",
+    "chiffrage": {
+     "2023": 353.0,
+     "2024": 370.0,
+     "2025": 373.0
+    }
+   },
+   {
+    "code": "110242",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement supérieur",
+    "chiffrage": {
+     "2023": 212.0,
+     "2024": 218.0,
+     "2025": 218.0
+    }
+   },
+   {
+    "code": "120132",
+    "libelle": "Exonération d'impôt sur le revenu (sur option) des salaires perçus par les jeunes au titre d'une activité exercée pendant leurs études secondaires ou supérieures ou leurs congés scolaires ou universitaires",
+    "chiffrage": {
+     "2023": 305.0,
+     "2024": 312.0,
+     "2025": 320.0
+    }
+   }
+  ],
+  "DPT-jeunesse-PLF2026.pdf": [
+   {
+    "code": "110215",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement secondaire",
+    "chiffrage": {
+     "2024": 221.0,
+     "2025": 229.0,
+     "2026": null
+    }
+   },
+   {
+    "code": "120109",
+    "libelle": "Exonération du salaire des apprentis et des gratifications versées aux stagiaires versées à compter du 12 juillet 2014",
+    "chiffrage": {
+     "2024": 424.0,
+     "2025": 533.0,
+     "2026": 526.0
+    }
+   },
+   {
+    "code": "110242",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement supérieur",
+    "chiffrage": {
+     "2024": 217.0,
+     "2025": 225.0,
+     "2026": null
+    }
+   },
+   {
+    "code": "120132",
+    "libelle": "Exonération d'impôt sur le revenu (sur option) des salaires perçus par les jeunes au titre d'une activité exercée pendant leurs études secondaires ou supérieures ou leurs congés scolaires ou universitaires",
+    "chiffrage": {
+     "2024": 312.0,
+     "2025": 314.0,
+     "2026": 320.0
+    }
+   }
+  ],
+  "DPT-jeunesse-PLF2027.pdf": [
+   {
+    "code": "110215",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement secondaire",
+    "chiffrage": {
+     "2025": 226.0,
+     "2026": 229.0,
+     "2027": 229.0
+    }
+   },
+   {
+    "code": "120109",
+    "libelle": "Exonération du salaire des apprentis et des gratifications versées aux stagiaires versées à compter du 12 juillet 2014",
+    "chiffrage": {
+     "2025": 696.0,
+     "2026": 702.0,
+     "2027": 717.0
+    }
+   },
+   {
+    "code": "110242",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement supérieur",
+    "chiffrage": {
+     "2025": 225.0,
+     "2026": 228.0,
+     "2027": 228.0
+    }
+   },
+   {
+    "code": "120132",
+    "libelle": "Exonération d'impôt sur le revenu (sur option) des salaires perçus par les jeunes au titre d'une activité exercée pendant leurs études secondaires ou supérieures ou leurs congés scolaires ou universitaires",
+    "chiffrage": {
+     "2025": 338.0,
+     "2026": 350.0,
+     "2027": 358.0
+    }
+   }
+  ]
+ },
+ "ministeres": {
+  "200": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Remboursements et dégrèvements"
+  },
+  "117": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "141": {
+   "ministere": "Éducation nationale",
+   "mission": "Enseignement scolaire"
+  },
+  "140": {
+   "ministere": "Éducation nationale",
+   "mission": "Enseignement scolaire"
+  },
+  "212": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Défense"
+  },
+  "345": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "146": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Défense"
+  },
+  "150": {
+   "ministere": "Enseignement supérieur et recherche",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "304": {
+   "ministere": "Solidarités, autonomie et égalité entre les femmes et les hommes",
+   "mission": "Solidarité, insertion et égalité des chances"
+  },
+  "157": {
+   "ministere": "Solidarités, autonomie et égalité entre les femmes et les hommes",
+   "mission": "Solidarité, insertion et égalité des chances"
+  },
+  "103": {
+   "ministere": "Travail et emploi",
+   "mission": "Travail, emploi et administration des ministères sociaux"
+  },
+  "109": {
+   "ministere": "Logement et rénovation urbaine",
+   "mission": "Cohésion des territoires"
+  },
+  "178": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Défense"
+  },
+  "176": {
+   "ministere": "Intérieur",
+   "mission": "Sécurités"
+  },
+  "152": {
+   "ministere": "Intérieur",
+   "mission": "Sécurités"
+  },
+  "203": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "139": {
+   "ministere": "Éducation nationale",
+   "mission": "Enseignement scolaire"
+  },
+  "156": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Gestion des finances publiques"
+  },
+  "172": {
+   "ministere": "Enseignement supérieur et recherche",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "230": {
+   "ministere": "Éducation nationale",
+   "mission": "Enseignement scolaire"
+  },
+  "102": {
+   "ministere": "Travail et emploi",
+   "mission": "Travail, emploi et administration des ministères sociaux"
+  },
+  "369": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "201": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Remboursements et dégrèvements"
+  },
+  "174": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "107": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "119": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Relations avec les collectivités territoriales"
+  },
+  "166": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "198": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Régimes sociaux et de retraite"
+  },
+  "424": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Investir pour la France de 2030"
+  },
+  "134": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Économie"
+  },
+  "209": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Aide publique au développement"
+  },
+  "231": {
+   "ministere": "Enseignement supérieur et recherche",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "177": {
+   "ministere": "Logement et rénovation urbaine",
+   "mission": "Cohésion des territoires"
+  },
+  "217": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "149": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Agriculture, alimentation, forêt et affaires rurales"
+  },
+  "362": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Plan de relance"
+  },
+  "214": {
+   "ministere": "Éducation nationale",
+   "mission": "Enseignement scolaire"
+  },
+  "354": {
+   "ministere": "Intérieur",
+   "mission": "Administration générale et territoriale de l'État"
+  },
+  "110": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Aide publique au développement"
+  },
+  "138": {
+   "ministere": "Outre-Mer",
+   "mission": "Outre-Mer"
+  },
+  "425": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Investir pour la France de 2030"
+  },
+  "379": {
+   "ministere": "Santé et accès aux soins",
+   "mission": "Santé"
+  },
+  "190": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "105": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Action extérieure de l'État"
+  },
+  "144": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Défense"
+  },
+  "169": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Anciens combattants, mémoire et liens avec la Nation"
+  },
+  "216": {
+   "ministere": "Intérieur",
+   "mission": "Administration générale et territoriale de l'État"
+  },
+  "193": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "303": {
+   "ministere": "Intérieur",
+   "mission": "Immigration, asile et intégration"
+  },
+  "114": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "302": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Gestion des finances publiques"
+  },
+  "143": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Enseignement scolaire"
+  },
+  "124": {
+   "ministere": "Solidarités, autonomie et égalité entre les femmes et les hommes",
+   "mission": "Solidarité, insertion et égalité des chances"
+  },
+  "175": {
+   "ministere": "Culture",
+   "mission": "Culture"
+  },
+  "183": {
+   "ministere": "Santé et accès aux soins",
+   "mission": "Santé"
+  },
+  "181": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "135": {
+   "ministere": "Logement et rénovation urbaine",
+   "mission": "Cohésion des territoires"
+  },
+  "182": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "195": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Régimes sociaux et de retraite"
+  },
+  "131": {
+   "ministere": "Culture",
+   "mission": "Culture"
+  },
+  "218": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Gestion des finances publiques"
+  },
+  "355": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "361": {
+   "ministere": "Culture",
+   "mission": "Culture"
+  },
+  "192": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "123": {
+   "ministere": "Outre-Mer",
+   "mission": "Outre-Mer"
+  },
+  "224": {
+   "ministere": "Culture",
+   "mission": "Culture"
+  },
+  "197": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Régimes sociaux et de retraite"
+  },
+  "163": {
+   "ministere": "Sports, jeunesse et vie associative",
+   "mission": "Sport, jeunesse et vie associative"
+  },
+  "129": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Direction de l'action du Gouvernement"
+  },
+  "206": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Agriculture, alimentation, forêt et affaires rurales"
+  },
+  "185": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Action extérieure de l'État"
+  },
+  "305": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Économie"
+  },
+  "101": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "155": {
+   "ministere": "Travail et emploi",
+   "mission": "Travail, emploi et administration des ministères sociaux"
+  },
+  "363": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Plan de relance"
+  },
+  "161": {
+   "ministere": "Intérieur",
+   "mission": "Sécurités"
+  },
+  "310": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "364": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Plan de relance"
+  },
+  "215": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Agriculture, alimentation, forêt et affaires rurales"
+  },
+  "219": {
+   "ministere": "Sports, jeunesse et vie associative",
+   "mission": "Sport, jeunesse et vie associative"
+  },
+  "511": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "147": {
+   "ministere": "Logement et rénovation urbaine",
+   "mission": "Cohésion des territoires"
+  },
+  "104": {
+   "ministere": "Intérieur",
+   "mission": "Immigration, asile et intégration"
+  },
+  "165": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Conseil et contrôle de l'État"
+  },
+  "159": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "220": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Économie"
+  },
+  "381": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Agriculture, alimentation, forêt et affaires rurales"
+  },
+  "348": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Transformation et fonction publiques"
+  },
+  "343": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Économie"
+  },
+  "142": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "151": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Action extérieure de l'État"
+  },
+  "180": {
+   "ministere": "Culture",
+   "mission": "Médias, livre et industries culturelles"
+  },
+  "205": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "521": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "350": {
+   "ministere": "Sports, jeunesse et vie associative",
+   "mission": "Sport, jeunesse et vie associative"
+  },
+  "112": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Cohésion des territoires"
+  },
+  "113": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "204": {
+   "ministere": "Santé et accès aux soins",
+   "mission": "Santé"
+  },
+  "334": {
+   "ministere": "Culture",
+   "mission": "Médias, livre et industries culturelles"
+  },
+  "380": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "148": {
+   "ministere": "Fonction publique, simplification et transformation de l'action publique",
+   "mission": "Transformation et fonction publiques"
+  },
+  "122": {
+   "ministere": "Partenariat avec les collectivités territoriales et décentralisation",
+   "mission": "Relations avec les collectivités territoriales"
+  },
+  "164": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Conseil et contrôle de l'État"
+  },
+  "421": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Investir pour la France de 2030"
+  },
+  "349": {
+   "ministere": "Fonction publique, simplification et transformation de l'action publique",
+   "mission": "Transformation et fonction publiques"
+  },
+  "344": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "232": {
+   "ministere": "Intérieur",
+   "mission": "Administration générale et territoriale de l'État"
+  },
+  "191": {
+   "ministere": "Armées et anciens combattants",
+   "mission": "Recherche et enseignement supérieur"
+  },
+  "365": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Aide publique au développement"
+  },
+  "162": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Cohésion des territoires"
+  },
+  "308": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Direction de l'action du Gouvernement"
+  },
+  "501": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "423": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Investir pour la France de 2030"
+  },
+  "111": {
+   "ministere": "Travail et emploi",
+   "mission": "Travail, emploi et administration des ministères sociaux"
+  },
+  "158": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Anciens combattants, mémoire et liens avec la Nation"
+  },
+  "145": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "137": {
+   "ministere": "Solidarités, autonomie et égalité entre les femmes et les hommes",
+   "mission": "Solidarité, insertion et égalité des chances"
+  },
+  "207": {
+   "ministere": "Intérieur",
+   "mission": "Sécurités"
+  },
+  "126": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Conseil et contrôle de l'État"
+  },
+  "368": {
+   "ministere": "Fonction publique, simplification et transformation de l'action publique",
+   "mission": "Transformation et fonction publiques"
+  },
+  "422": {
+   "ministere": "Services du Premier ministre",
+   "mission": "Investir pour la France de 2030"
+  },
+  "541": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "531": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "352": {
+   "ministere": "Fonction publique, simplification et transformation de l'action publique",
+   "mission": "Transformation et fonction publiques"
+  },
+  "335": {
+   "ministere": "Justice",
+   "mission": "Justice"
+  },
+  "533": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Pouvoirs publics"
+  },
+  "382": {
+   "ministere": "Agriculture, souveraineté alimentaire et forêt",
+   "mission": "Agriculture, alimentation, forêt et affaires rurales"
+  },
+  "552": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Crédits non répartis"
+  },
+  "551": {
+   "ministere": "Budget et comptes publics",
+   "mission": "Crédits non répartis"
+  },
+  "367": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Économie"
+  },
+  "336": {
+   "ministere": "Économie, finances et industrie",
+   "mission": "Engagements financiers de l'État"
+  },
+  "370": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Aide publique au développement"
+  },
+  "384": {
+   "ministere": "Europe et affaires étrangères",
+   "mission": "Aide publique au développement"
+  },
+  "235": {
+   "ministere": "Transition écologique, énergie, climat et prévention des risques",
+   "mission": "Écologie, développement et mobilité durables"
+  },
+  "385": {
+   "ministere": "Sports, jeunesse et vie associative",
+   "mission": "Sport, jeunesse et vie associative"
+  }
+ },
+ "enseignement": {
+  "2019": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 72.176,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 37.975
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 22.866
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 8.205
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.414
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.702
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.59
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.424
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 37.185,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 15.819
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 10.969
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 5.893
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.737
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.501
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.266
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 13.069,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 10.063
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.791
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 1.093
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.113
+     },
+     {
+      "code": "GF0907",
+      "libelle": "R-D dans le domaine de l'enseignement",
+      "montant": 0.01
+     }
+    ]
+   }
+  ],
+  "2020": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 73.786,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 38.175
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 23.397
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 8.526
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 2.175
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.652
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.594
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.267
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 34.45,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 15.304
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 10.316
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 5.117
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.03
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.4
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.283
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 11.867,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 9.649
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.226
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 0.853
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.131
+     },
+     {
+      "code": "GF0907",
+      "libelle": "R-D dans le domaine de l'enseignement",
+      "montant": 0.006
+     }
+    ]
+   }
+  ],
+  "2021": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 76.797,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 38.847
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 23.957
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 9.055
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.517
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.618
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.569
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.234
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 37.621,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 16.63
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 11.136
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 5.797
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.277
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.512
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.269
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 12.655,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 10.498
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.253
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 0.739
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.159
+     },
+     {
+      "code": "GF0907",
+      "libelle": "R-D dans le domaine de l'enseignement",
+      "montant": 0.005
+     }
+    ]
+   }
+  ],
+  "2022": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 79.614,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 40.259
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 24.936
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 9.215
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.797
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.596
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.574
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.237
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 40.466,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 17.947
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 12.042
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 6.168
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.389
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.633
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.286
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 13.937,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 11.569
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.451
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 0.742
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.171
+     },
+     {
+      "code": "GF0907",
+      "libelle": "R-D dans le domaine de l'enseignement",
+      "montant": 0.004
+     }
+    ]
+   }
+  ],
+  "2023": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 83.592,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 42.269
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 26.252
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 10.195
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.418
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.638
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.575
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.244
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 43.31,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 19.046
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 13.065
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 6.664
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.574
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.632
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.329
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 14.653,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 12.255
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.41
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 0.788
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.189
+     },
+     {
+      "code": "GF0907",
+      "libelle": "R-D dans le domaine de l'enseignement",
+      "montant": 0.011
+     }
+    ]
+   }
+  ],
+  "2024": [
+   {
+    "secteur": "S13111",
+    "nom": "État",
+    "montant": 90.157,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 44.94
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 27.836
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 12.194
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.73
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.633
+     },
+     {
+      "code": "GF0908",
+      "libelle": "Enseignement n.c.a.",
+      "montant": 0.575
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.249
+     }
+    ]
+   },
+   {
+    "secteur": "S1314",
+    "nom": "Sécurité sociale",
+    "montant": 0.0,
+    "sous": []
+   },
+   {
+    "secteur": "S1313",
+    "nom": "Collectivités locales",
+    "montant": 44.873,
+    "sous": [
+     {
+      "code": "GF0902",
+      "libelle": "Enseignement secondaire",
+      "montant": 18.839
+     },
+     {
+      "code": "GF0901",
+      "libelle": "Enseignement préélémentaire et primaire",
+      "montant": 14.34
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 7.073
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 3.446
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.75
+     },
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 0.426
+     }
+    ]
+   },
+   {
+    "secteur": "S13112",
+    "nom": "Opérateurs de l'État",
+    "montant": 13.609,
+    "sous": [
+     {
+      "code": "GF0904",
+      "libelle": "Enseignement supérieur",
+      "montant": 11.25
+     },
+     {
+      "code": "GF0905",
+      "libelle": "Enseignement non défini par niveau",
+      "montant": 1.447
+     },
+     {
+      "code": "GF0906",
+      "libelle": "Services annexes à l'enseignement",
+      "montant": 0.756
+     },
+     {
+      "code": "GF0903",
+      "libelle": "Enseignement postsecondaire non supérieur",
+      "montant": 0.157
+     }
+    ]
+   }
+  ]
+ },
+ "personnel": {
+  "2023": {
+   "programmes": [
+    "140",
+    "141",
+    "139",
+    "230",
+    "214",
+    "143",
+    "185",
+    "151",
+    "150",
+    "231",
+    "142",
+    "192"
+   ],
+   "total": 102497.988,
+   "remunerations": 45392.863,
+   "cotisations": 30549.643
+  },
+  "2024": {
+   "programmes": [
+    "140",
+    "141",
+    "139",
+    "230",
+    "214",
+    "143",
+    "185",
+    "151",
+    "150",
+    "231",
+    "142",
+    "192"
+   ],
+   "total": 107034.191,
+   "remunerations": 49191.381,
+   "cotisations": 31752.179
+  },
+  "2025": {
+   "programmes": [
+    "140",
+    "141",
+    "139",
+    "230",
+    "214",
+    "143",
+    "185",
+    "151",
+    "150",
+    "231",
+    "142",
+    "192"
+   ],
+   "total": 107812.57,
+   "remunerations": 49393.737,
+   "cotisations": 33229.661
+  }
+ },
+ "enfance": {
+  "etat_lfi_2026": 16309.815257,
+  "etat_plf_2027": 16707.315697,
+  "cnaf_2025": 43900.0,
+  "cnam_2024": 12788.570698,
+  "cnsa_2026": 791.0,
+  "ase_2024": 11265.936
+ }
+}

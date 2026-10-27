@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="L'argent public consacré aux jeunes : crédits de l'État programme par programme (document de politique transversale jeunesse), dépenses fiscales, enseignement et protection de l'enfance des autres administrations.">
+<title>L'argent public pour la jeunesse</title>
+<script>
+  // Thème choisi par le visiteur, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Sept thèmes, palette catégorielle vérifiée pour les daltonismes sur les deux fonds
+     (validate_palette.js) ; les étiquettes restent en encre, sur une teinte claire du thème. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --ok: #17703D;
+    --warn: #8A5300;
+    --bad: #B42F29;
+    --ok-soft: #E3F1E8;
+    --warn-soft: #F6ECDD;
+    --bad-soft: #F8E4E2;
+    --t1: #2A78D6;
+    --t2: #EB6834;
+    --t3: #1BAF7A;
+    --t4: #EDA100;
+    --t5: #E87BA4;
+    --t6: #008300;
+    --t7: #6250D6;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119;
+      --panel: #141B26;
+      --panel-2: #1A2331;
+      --ink: #E4E9F1;
+      --muted: #97A2B5;
+      --line: #273142;
+      --control: #65718A;
+      --accent: #8EA6FF;
+      --accent-soft: #1E2A4A;
+      --ok: #4CC47E;
+      --warn: #E6A43A;
+      --bad: #F0706A;
+      --ok-soft: #14301F;
+      --warn-soft: #33260F;
+      --bad-soft: #3A1917;
+      --t1: #3987E5;
+      --t2: #D95926;
+      --t3: #199E70;
+      --t4: #C98500;
+      --t5: #D55181;
+      --t6: #008300;
+      --t7: #9085E9;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119;
+    --panel: #141B26;
+    --panel-2: #1A2331;
+    --ink: #E4E9F1;
+    --muted: #97A2B5;
+    --line: #273142;
+    --control: #65718A;
+    --accent: #8EA6FF;
+    --accent-soft: #1E2A4A;
+    --ok: #4CC47E;
+    --warn: #E6A43A;
+    --bad: #F0706A;
+    --ok-soft: #14301F;
+    --warn-soft: #33260F;
+    --bad-soft: #3A1917;
+    --t1: #3987E5;
+    --t2: #D95926;
+    --t3: #199E70;
+    --t4: #C98500;
+    --t5: #D55181;
+    --t6: #008300;
+    --t7: #9085E9;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip {
+    position: fixed; z-index: 10; top: 8px; left: 8px;
+    padding: 8px 12px; border-radius: 6px;
+    background: var(--panel); color: var(--ink); border: 2px solid var(--accent);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 14px/1.5 var(--sans);
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+
+  /* --- En-tête --- */
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+  .brand { display: flex; flex-direction: column; min-width: 0; margin-right: auto; }
+  .eyebrow {
+    font: 500 12px/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brand strong { font-size: 16px; }
+  /* Sur téléphone, l'en-tête défile avec la page pour laisser la place au contenu. */
+  @media (max-width: 640px) { header.top { position: static; } }
+  nav.views { display: flex; flex-wrap: wrap; gap: 6px; }
+  nav.views a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border: 1px solid var(--control); border-radius: 7px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px; }
+  nav.views a[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme span { font-size: 12px; color: var(--muted); }
+  .theme button {
+    min-height: 28px; padding: 0 10px;
+    border: 1px solid var(--control); border-radius: 999px;
+    background: transparent; color: var(--ink);
+    font: 500 12px var(--sans); cursor: pointer;
+  }
+  .theme button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+  /* --- Contenu --- */
+  main { padding-block: 24px 48px; display: grid; gap: 28px; }
+  .intro h1 { margin: 4px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  .intro p { margin: 0 0 6px; max-width: 72ch; color: var(--muted); }
+  .intro p.source { margin: 10px 0 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 8px 8px 0; color: var(--ink); max-width: 80ch; }
+  .notice {
+    display: inline-block; margin-top: 6px; padding: 4px 10px;
+    border: 1px dashed var(--control); border-radius: 6px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+  #liste { scroll-margin-top: 80px; }
+  section > h2 { margin: 0; font-size: 18px; text-wrap: balance; }
+  section > .lead { margin: -4px 0 0; color: var(--muted); max-width: 80ch; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    min-width: 0;
+  }
+  .pad { padding: 16px; }
+  .muted { color: var(--muted); }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
+  .two > .card { display: grid; gap: 10px; align-content: start; }
+  .card h3 { margin: 0; font-size: 15px; }
+  .card .sub { margin: -6px 0 0; color: var(--muted); font-size: 13px; }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi small { font: 12px var(--mono); color: var(--muted); }
+  .note-kpi { margin: 12px 0 0; font-size: 13.5px; max-width: 72ch; }
+
+  /* Légende des thèmes */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
+  [data-t="1"] { --c: var(--t1); }
+  [data-t="2"] { --c: var(--t2); }
+  [data-t="3"] { --c: var(--t3); }
+  [data-t="4"] { --c: var(--t4); }
+  [data-t="5"] { --c: var(--t5); }
+  [data-t="6"] { --c: var(--t6); }
+  [data-t="7"] { --c: var(--t7); }
+
+  /* Graphiques SVG */
+  svg text { font-family: var(--sans); }
+  .chart { width: 100%; display: block; overflow: visible; }
+  .grid line { stroke: var(--line); stroke-width: 1; }
+  .axis text { fill: var(--muted); font: 11.5px var(--mono); }
+  .halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+
+  /* Tuiles (treemap) */
+  .tm-tools { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+  .seg-ctl { display: inline-flex; border: 1px solid var(--control); border-radius: 8px; overflow: hidden; }
+  .seg-ctl button { min-height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+  .seg-ctl button + button { border-left: 1px solid var(--control); }
+  .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  #treemap { position: relative; height: 520px; }
+  @media (max-width: 640px) { #treemap { height: 440px; } }
+  #treemap svg { width: 100%; height: 100%; display: block; }
+  #treemap rect.tile { stroke: var(--panel); stroke-width: 2px; cursor: pointer; }
+  #treemap rect.tile:hover, #treemap rect.tile.sel { stroke: var(--ink); }
+  #treemap text { fill: var(--ink); font-size: 12px; pointer-events: none; }
+  #treemap text.v { font: 500 11px var(--mono); }
+  #treemap text.grp { font-weight: 700; font-size: 13px; }
+  .fiche { display: grid; gap: 4px; padding: 12px 14px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); font-size: 13px; }
+  .fiche b { font-size: 14px; }
+  .fiche dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 4px 0 0; }
+  .fiche dt { color: var(--muted); }
+  .fiche dd { margin: 0; }
+
+  /* Infobulle */
+  #tip {
+    position: fixed; z-index: 20; pointer-events: none; max-width: 320px;
+    padding: 8px 10px; border-radius: 8px;
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow);
+    font-size: 12.5px; line-height: 1.4;
+  }
+  #tip b { display: block; font-size: 13px; }
+  #tip .val { font: 600 13px var(--mono); }
+
+  /* Tableaux */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #groups-table { min-width: 820px; }
+  #aides-table { min-width: 940px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { position: sticky; top: 0; background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:hover { background: var(--panel-2); }
+  th button {
+    all: unset; cursor: pointer; display: inline-flex; gap: 4px; align-items: center;
+  }
+  th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  th[aria-sort="ascending"] button::after { content: "▲"; font-size: 9px; }
+  th[aria-sort="descending"] button::after { content: "▼"; font-size: 9px; }
+  .bar { display: flex; align-items: center; justify-content: flex-end; gap: 1px; min-width: 210px; }
+  .bar span { margin-left: 8px; min-width: 8ch; }
+  .bar i { display: block; height: 8px; border-radius: 4px; background: var(--accent); }
+  .bar i + i { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; }
+  .chip {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .chip.p1 { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .chip.p2 { color: var(--muted); border-color: var(--control); border-style: dashed; }
+  .instr { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .num-small { font: 12px var(--mono); color: var(--muted); }
+
+  /* Rectangles : le thème en aplat clair, les programmes en teinte claire du thème, texte en encre. */
+  #treemap rect.grp { fill: color-mix(in srgb, var(--c) 22%, var(--panel)); stroke: var(--c); stroke-width: 1.5px; }
+  #treemap rect.tile { fill: color-mix(in srgb, var(--c) 48%, var(--panel)); }
+  #treemap text.grp tspan.v { font-weight: 500; }
+  /* Barres horizontales (détail d'un programme, autres administrations) */
+  .hbars { display: grid; gap: 8px; }
+  .hbar { display: grid; grid-template-columns: minmax(0, 16rem) 1fr; gap: 10px; align-items: center; font-size: 13px; }
+  .hbar .track { display: flex; align-items: center; min-width: 0; }
+  .hbar .track i { display: block; height: 12px; border-radius: 0 4px 4px 0; background: var(--accent); flex: none; }
+  .hbar .track span { margin-left: 8px; white-space: nowrap; font: 12px var(--mono); color: var(--muted); }
+  .hbar .track span b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 640px) { .hbar { grid-template-columns: 1fr; gap: 2px; } }
+  .toggle-row { all: unset; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; color: var(--ink); font-weight: 600; }
+  .toggle-row::before { content: "▸"; display: inline-block; width: 1em; color: var(--accent); transition: transform .15s; }
+  .toggle-row[aria-expanded="true"]::before { transform: rotate(90deg); }
+  .toggle-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  tr.child th { padding-left: 34px; font-weight: 400; }
+  tr.child { background: var(--panel-2); }
+  tr.tot th, tr.tot td { font-weight: 700; border-top: 2px solid var(--line); }
+  #tb-evol { min-width: 760px; }
+  th.prev, td.prev { color: var(--muted); font-style: italic; }
+  th.cur { color: var(--accent); }
+  /* Dépenses fiscales */
+  .outside { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .outside li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .outside li:last-child { border-bottom: 0; }
+  .outside small { grid-column: 1 / -1; color: var(--muted); }
+  .outside b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  ul.methode { margin: 0; padding-left: 18px; display: grid; gap: 8px; max-width: 90ch; }
+  ul.methode li { font-size: 13.5px; }
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 90ch; }
+
+  @media (forced-colors: active) {
+    .seg, .sw, #treemap rect.tile { forced-color-adjust: none; }
+  }
+  /* Fil d'Ariane, commun à toutes les pages du site. */
+  nav.ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  nav.ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  nav.ariane a { color: var(--accent); text-decoration: none; }
+  nav.ariane a:hover { text-decoration: underline; }
+  nav.ariane [aria-current="page"] { color: var(--ink); font-weight: 500; }
+  main > nav.ariane { margin-bottom: -16px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<!--bandeau-->
+
+<main id="contenu" class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Tableau de bord</span>
+    <h1 id="titre">L'argent public pour la jeunesse</h1>
+    <p>Chaque année, le gouvernement joint au projet de loi de finances un document qui recense, programme par programme, ce que l'État consacre aux jeunes de 3 à 30 ans (le cœur de cible va de 6 à 25 ans) : l'école et les études d'abord, mais aussi l'apprentissage, les aides au logement, la protection judiciaire de la jeunesse, le service civique, le sport ou la culture. Cette page reprend ce document, puis montre ce que dépensent les autres administrations : les collectivités pour les écoles, les collèges et les lycées, la sécurité sociale et les départements pour les enfants.</p>
+    <p class="source">Sources : <a href="https://www.budget.gouv.fr/documentation/documents-politique-transversale/politique-en-faveur-jeunesse" target="_blank" rel="noopener"><strong>Document de politique transversale « Politique en faveur de la jeunesse »</strong></a>, annexé aux projets de loi de finances pour 2025, 2026 et 2027 (tableau « Récapitulation des crédits par programme ») ; <strong>Rapport relatif aux politiques de l'enfance</strong>, annexé au projet de loi de finances pour 2027 ; comptes de la Nation de l'Insee pour l'enseignement.</p>
+    <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <section aria-labelledby="t-synthese">
+    <h2 id="t-synthese">Synthèse</h2>
+    <div class="kpis" id="kpis"></div>
+    <p class="muted note-kpi" id="retraites"></p>
+  </section>
+
+  <section aria-labelledby="t-tuiles">
+    <h2 id="t-tuiles">Ce que l'État consacre aux jeunes, programme par programme</h2>
+    <p class="lead">Chaque rectangle est un programme du budget de l'État, rangé dans un thème ; sa surface est proportionnelle à la part de ses crédits que le document attribue aux jeunes. Survolez-le pour le lire, cliquez pour son détail par action.</p>
+    <div class="card pad" style="display:grid;gap:12px">
+      <div class="tm-tools">
+        <div class="seg-ctl" role="group" aria-label="Programmes affichés">
+          <button type="button" data-tm="tout" aria-pressed="true">Tout</button>
+          <button type="button" data-tm="hors" aria-pressed="false">Sans l'enseignement</button>
+        </div>
+        <ul class="legend" id="legend"></ul>
+      </div>
+      <div id="treemap" role="img" aria-describedby="tm-desc"></div>
+      <p id="tm-desc" class="sr-only"></p>
+      <div class="fiche" id="fiche" aria-live="polite"><span class="muted">Cliquez sur un rectangle pour afficher le détail du programme.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-evol">
+    <h2 id="t-evol">De 2023 à 2027 : réalisé, voté et proposé</h2>
+    <p class="lead" id="evol-lead"></p>
+    <div class="card">
+      <div class="table-scroll"><table id="tb-evol"></table></div>
+    </div>
+    <p class="muted" style="margin:0;font-size:12.5px;max-width:90ch"><b>Rupture entre 2023 et 2024.</b> L'exécution 2023 vient de l'édition 2025 du document, les années suivantes des éditions 2026 et 2027. L'édition 2026 a changé certains calculs : pour les aides au logement, elle compte les jeunes jusqu'à 30 ans au lieu de 25, ce qui explique l'essentiel de leur hausse de 2,6 à 4,9 Md€. Depuis 2025, ces aides sont aussi payées en partie par des taxes reversées au budget de l'État (3 Md€ en tout, qui allaient auparavant directement au Fonds national d'aide au logement) : à l'aide constante, les crédits montent mécaniquement. Ne lisez donc pas l'écart entre 2023 et 2024 comme un effort nouveau.</p>
+  </section>
+
+  <section aria-labelledby="t-fiscal">
+    <h2 id="t-fiscal">Les réductions d'impôt liées aux jeunes</h2>
+    <p class="lead">Le document y ajoute quatre dépenses fiscales : des impôts que l'État renonce à percevoir. Elles ne sont pas comptées dans les crédits ci-dessus. Montants chiffrés par l'administration fiscale.</p>
+    <div class="card"><ul class="outside" id="fiscal"></ul></div>
+  </section>
+
+  <section aria-labelledby="t-autres">
+    <h2 id="t-autres">Au-delà du budget de l'État</h2>
+    <p class="lead">L'État n'est pas seul à payer. Ces montants viennent d'autres sources, sur d'autres périmètres et parfois d'autres années : ils ne s'additionnent pas aux crédits de l'État, et en partie se recoupent.</p>
+    <div class="two">
+      <div class="card pad">
+        <h3 id="ens-titre">L'enseignement, toutes administrations</h3>
+        <p class="sub" id="ens-sub"></p>
+        <div class="hbars" id="ens"></div>
+        <p class="muted" style="margin:0;font-size:12.5px" id="ens-note"></p>
+      </div>
+      <div class="card pad">
+        <h3>Les enfants (0 à 18 ans) : sécurité sociale et départements</h3>
+        <p class="sub">Synthèse du rapport sur les politiques de l'enfance, annexé au projet de loi de finances pour 2027. Chaque organisme y donne sa dernière année connue.</p>
+        <div class="hbars" id="enfance"></div>
+        <p class="muted" style="margin:0;font-size:12.5px">Les prestations de la branche famille (allocations familiales, prestations pour la garde des jeunes enfants, allocation de rentrée scolaire…) font l'essentiel du montant de la CNAF. L'aide sociale à l'enfance est payée par les départements : accueil en foyer ou en famille d'accueil, actions éducatives, prévention spécialisée (dépenses nettes).</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-methode">
+    <h2 id="t-methode">Méthode et limites</h2>
+    <div class="card pad">
+      <ul class="methode">
+        <li><b>Ce que compte le document de l'État.</b> Pour chaque programme, la part de ses crédits que le ministère estime consacrée aux jeunes. Pour l'enseignement scolaire, c'est presque tout le programme (salaires des enseignants compris) ; pour d'autres, une estimation. Les montants sont des crédits de paiement : ce qui est payé dans l'année.</li>
+        <li><b>Réalisé, voté, proposé.</b> Chaque édition donne l'exécution de l'année passée, la loi de finances de l'année en cours et le projet pour l'année suivante. L'exécution 2023 vient de l'édition 2025, l'exécution 2024 de l'édition 2026, le reste de l'édition 2027. D'une édition à l'autre, les ministères peuvent changer leur façon d'estimer la part des jeunes : l'édition 2026 a ainsi élargi le champ des aides au logement aux 25-30 ans.</li>
+        <li><b>Contrôles.</b> Les montants sont lus colonne par colonne dans les PDF, sans saisie à la main. Pour chaque édition et chaque année, la somme des programmes retombe sur le total imprimé, celle des actions sur chaque programme, et la part « jeunesse » d'un programme ne dépasse jamais ce qu'il a dépensé selon les comptes de l'État.</li>
+        <li><b>Les thèmes</b> regroupent les programmes pour la lecture ; ils sont propres à cette page. Le ministère indiqué est celui du budget de l'État.</li>
+        <li><b>Ce qui manque.</b> Les dépenses des régions pour la formation professionnelle et l'apprentissage, celles des communes pour la petite enfance et les loisirs des jeunes, et l'argent qui ne passe pas par un budget public (associations, entreprises) ne sont pas recensés par ces documents.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<footer class="wrap">
+  <p>Données : <a href="donnees/jeunesse.json" download>JSON</a>, assemblé par <code>budget/scripts/jeunesse.py</code> à partir des documents de politique transversale « Politique en faveur de la jeunesse » 2025, 2026 et 2027, du rapport sur les politiques de l'enfance 2027 et des comptes de la Nation de l'Insee. Licence Ouverte 2.0.</p>
+</footer>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const fmt = n => Number(n).toLocaleString('fr-FR');
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const md = (v, d = 1) => (v / 1000).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
+  // Montant en M€ : en milliards au-delà de 1 000 M€.
+  const eur = v => v == null ? '–' : v >= 1000 ? md(v) + ' Md€' : fmt(Math.round(v)) + ' M€';
+  const pct = (a, b) => {
+    if (!b) return '–';
+    const v = a / b * 100;
+    return v > 0 && v < 1 ? 'moins de 1 %' : v < 10 ? v.toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' %' : Math.round(v) + ' %';
+  };
+  const sum = (l, f) => l.reduce((s, x) => s + (f(x) || 0), 0);
+
+  let D, AN;
+  try {
+    [D, AN] = await Promise.all(['donnees/jeunesse.json', 'donnees/annees.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json())));
+  } catch (e) { $('kpis').textContent = 'Impossible de charger les données (donnees/jeunesse.json) : ' + e.message; return; }
+
+  // Année : celle de l'adresse (?annee=…) si le document en donne l'exécution, sinon l'année de référence du site.
+  const EDITION = { 2023: 'DPT-jeunesse-PLF2025.pdf', 2024: 'DPT-jeunesse-PLF2026.pdf', 2025: 'DPT-jeunesse-PLF2027.pdf' };
+  const ANNEES = Object.keys(EDITION);
+  const voulue = new URLSearchParams(location.search).get('annee');
+  const annee = ANNEES.includes(voulue) ? voulue : ANNEES.includes(AN.reference) ? AN.reference : ANNEES[ANNEES.length - 1];
+  const E = D.etat[EDITION[annee]], cle = 'execution_' + annee;
+  const MIN = D.ministeres;
+
+  // Thèmes de lecture (propres à cette page) : chaque programme du document dans un seul thème.
+  const THEMES = [
+    { id: 'scolaire', nom: 'Écoles, collèges et lycées', ens: true, p: ['140', '141', '139', '230', '214', '143', '185', '151'] },
+    { id: 'sup', nom: 'Études supérieures et vie étudiante', ens: true, p: ['150', '231', '142', '192'] },
+    { id: 'emploi', nom: 'Emploi, apprentissage et insertion', p: ['102', '103', '138', '155'] },
+    { id: 'logement', nom: 'Logement et hébergement', p: ['109', '177'] },
+    { id: 'protection', nom: 'Protection, justice et santé', p: ['182', '304', '157', '137', '204', '206', '129'] },
+    { id: 'engagement', nom: 'Engagement, sport et culture', p: ['163', '219', '361', '131', '175', '334', '169', '212', '209'] },
+    { id: 'securite', nom: 'Sécurité, ville et outre-mer', p: ['152', '176', '207', '147', '123', '203'] },
+  ];
+  THEMES.forEach((t, i) => t.i = i + 1);
+  const themeDe = code => THEMES.find(t => t.p.includes(code)) || THEMES[THEMES.length - 1];
+  const nomCourt = l => l.replace(/\s*\(.*?\)\s*$/, '');
+  // Noms courts pour les rectangles ; l'infobulle et le détail gardent l'intitulé officiel.
+  const COURT = { 140: 'Écoles publiques', 141: 'Collèges et lycées publics', 139: 'Enseignement privé', 230: "Vie de l'élève", 214: "Soutien de l'Éducation nationale",
+    150: 'Universités et recherche', 231: 'Vie étudiante', 143: 'Enseignement agricole', 109: 'Aides au logement', 177: 'Hébergement et insertion',
+    103: 'Apprentissage et emploi', 102: "Accès et retour à l'emploi", 182: 'Protection judiciaire de la jeunesse', 163: 'Jeunesse et vie associative',
+    361: 'Éducation artistique et culturelle', 304: 'Inclusion sociale', 152: 'Gendarmerie', 176: 'Police', 147: 'Politique de la ville', 185: 'Lycées français à l\'étranger' };
+
+  const progs = E.programmes.map(p => ({ ...p, v: p.cp[cle] || 0, t: themeDe(p.programme), min: MIN[p.programme]?.ministere || '' })).filter(p => p.v > 0);
+  const total = sum(progs, p => p.v);
+  const ens = sum(progs.filter(p => p.t.ens), p => p.v);
+  const fiscal = D.fiscal[EDITION[annee]];
+  const totalF = sum(fiscal, f => f.chiffrage[annee]);
+  if (Math.abs(total - E.total[cle]) > 0.01) console.warn('Total des programmes différent du total publié', total, E.total[cle]);
+
+  $('titre').textContent = `L'argent public pour la jeunesse : ${md(total, 0)} milliards d'euros de l'État en ${annee}`;
+  document.querySelectorAll('[data-annee]').forEach(e => e.textContent = annee);
+
+  // --- Chiffres clés ---
+  const tuile = (b, s, sm) => `<div class="card kpi"><b>${b}</b><span>${s}</span>${sm ? `<small>${sm}</small>` : ''}</div>`;
+  $('kpis').innerHTML = [
+    tuile(eur(total), `crédits de l'État pour les jeunes en ${annee}`, `${progs.length} programmes, ${new Set(progs.map(p => p.min)).size} ministères`),
+    tuile(eur(ens), `pour l'école et les études`, `${pct(ens, total)} du total`),
+    tuile(eur(total - ens), `pour tout le reste`, `emploi, logement, protection, engagement…`),
+    tuile(eur(totalF), `de réductions d'impôt`, `${fiscal.length} dépenses fiscales, en plus des crédits`),
+  ].join('');
+
+  // Retraites des fonctionnaires : comprises dans les cotisations de l'État employeur (catégorie 22).
+  const P = D.personnel && D.personnel[annee];
+  $('retraites').innerHTML = P ? `<b>Les retraites des enseignants y sont en partie.</b> Quand l'État paie un fonctionnaire, il verse en plus une cotisation de retraite d'environ 78 % du traitement de base à un compte de son budget qui paie les pensions des fonctionnaires retraités. En ${annee}, les programmes de l'école et des études ont dépensé ${eur(P.total)}, dont ${eur(P.remunerations)} de salaires bruts et ${eur(P.cotisations)} de cotisations de l'État employeur (${pct(P.cotisations, P.total)}), pour la plus grande part des cotisations de retraite : les comptes ne séparent pas, par programme, la retraite de la maladie ou de la famille. Pour les universités, ces cotisations sont comprises dans la subvention de l'État et ne peuvent pas être isolées.` : '';
+
+  // --- Rectangles (algorithme « squarified ») ---
+  const legend = $('legend');
+  legend.innerHTML = THEMES.map(t => `<li data-t="${t.i}"><span class="sw"></span>${esc(t.nom)}</li>`).join('');
+  function squarify(items, x, y, w, h) {
+    const out = [], tot = sum(items, d => d.v);
+    if (!tot || w < 1 || h < 1) return out;
+    let rest = items.slice().sort((a, b) => b.v - a.v).map(d => ({ d, a: d.v / tot * w * h }));
+    while (rest.length) {
+      const court = Math.min(w, h);
+      let row = [rest[0]], best = Infinity, k = 1;
+      const pire = r => { const s = sum(r, e => e.a), mx = Math.max(...r.map(e => e.a)), mn = Math.min(...r.map(e => e.a)); return Math.max(court * court * mx / (s * s), s * s / (court * court * mn)); };
+      best = pire(row);
+      while (k < rest.length) { const r2 = rest.slice(0, k + 1), w2 = pire(r2); if (w2 > best) break; row = r2; best = w2; k++; }
+      const s = sum(row, e => e.a);
+      if (w >= h) { const ww = s / h; let yy = y; for (const e of row) { const hh = e.a / ww; out.push({ ...e.d, x, y: yy, w: ww, h: hh }); yy += hh; } x += ww; w -= ww; }
+      else { const hh = s / w; let xx = x; for (const e of row) { const ww = e.a / hh; out.push({ ...e.d, x: xx, y, w: ww, h: hh }); xx += ww; } y += hh; h -= hh; }
+      rest = rest.slice(row.length);
+    }
+    return out;
+  }
+  const tip = $('tip');
+  const montrerTip = (ev, html) => { tip.innerHTML = html; tip.hidden = false; const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14; if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14; if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14; tip.style.left = x + 'px'; tip.style.top = y + 'px'; };
+  let mode = 'tout', choisi = null;
+  function dessiner() {
+    const el = $('treemap'), W = el.clientWidth, H = el.clientHeight;
+    const vis = progs.filter(p => mode === 'tout' || !p.t.ens);
+    const tot = sum(vis, p => p.v);
+    const groupes = THEMES.map(t => ({ t, v: sum(vis.filter(p => p.t === t), p => p.v) })).filter(g => g.v > 0);
+    const cadres = squarify(groupes, 0, 0, W, H);
+    let svg = '';
+    for (const g of cadres) {
+      const entete = g.h > 60 && g.w > 90 ? 20 : 0;
+      const tiles = squarify(vis.filter(p => p.t === g.t), g.x + 2, g.y + entete + 2, Math.max(0, g.w - 4), Math.max(0, g.h - entete - 4));
+      svg += `<g data-t="${g.t.i}"><rect class="grp" x="${g.x}" y="${g.y}" width="${g.w}" height="${g.h}"/>`;
+      if (entete) svg += `<text class="grp" x="${g.x + 6}" y="${g.y + 14}">${esc(coupe(g.t.nom, g.w - 70))} <tspan class="v">${esc(eur(g.v))}</tspan></text>`;
+      for (const p of tiles) {
+        svg += `<rect class="tile${choisi === p.programme ? ' sel' : ''}" data-p="${p.programme}" x="${p.x}" y="${p.y}" width="${Math.max(0, p.w)}" height="${Math.max(0, p.h)}" tabindex="0" role="button" aria-label="${esc(nomCourt(p.libelle))} : ${esc(eur(p.v))}"/>`;
+        if (p.w > 64 && p.h > 34) {
+          const l = coupe(COURT[p.programme] || nomCourt(p.libelle), p.w - 10);
+          svg += `<text x="${p.x + 5}" y="${p.y + 15}">${esc(l)}</text><text class="v" x="${p.x + 5}" y="${p.y + 29}">${esc(eur(p.v))}</text>`;
+        }
+      }
+      svg += '</g>';
+    }
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${svg}</svg>`;
+    $('tm-desc').textContent = `${vis.length} programmes, ${eur(tot)} au total en ${annee}. Le détail figure dans le tableau « De 2023 à 2027 ».`;
+    el.querySelectorAll('rect.tile').forEach(r => {
+      const p = progs.find(x => x.programme === r.dataset.p);
+      r.addEventListener('mousemove', ev => montrerTip(ev, `<b>${esc(nomCourt(p.libelle))}</b>${esc(p.min)} · programme ${p.programme}<br><span class="val">${eur(p.v)}</span> · ${pct(p.v, total)} des crédits pour les jeunes`));
+      r.addEventListener('mouseleave', () => tip.hidden = true);
+      const ouvrir = () => { choisi = p.programme; fiche(p); el.querySelectorAll('rect.tile').forEach(t => t.classList.toggle('sel', t === r)); };
+      r.addEventListener('click', ouvrir);
+      r.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ouvrir(); } });
+    });
+  }
+  // Texte raccourci à la largeur disponible (environ 6,4 px par caractère).
+  function coupe(t, w) { const n = Math.max(3, Math.floor(w / 6.4)); return t.length > n ? t.slice(0, n - 1).trimEnd() + '…' : t; }
+
+  // Série d'un programme sur les cinq colonnes (exécution 2023 à 2025, loi de finances 2026, projet 2027).
+  const COLS = [['2023', 'DPT-jeunesse-PLF2025.pdf', 'execution_2023', 'Réalisé'], ['2024', 'DPT-jeunesse-PLF2026.pdf', 'execution_2024', 'Réalisé'], ['2025', 'DPT-jeunesse-PLF2027.pdf', 'execution_2025', 'Réalisé'],
+    ['2026', 'DPT-jeunesse-PLF2027.pdf', 'lfi_2026', 'Voté'], ['2027', 'DPT-jeunesse-PLF2027.pdf', 'plf_2027', 'Proposé']];
+  const serie = code => COLS.map(([, f, k]) => D.etat[f].programmes.find(p => p.programme === code)?.cp[k] ?? null);
+
+  function fiche(p) {
+    const acts = p.actions.map(a => ({ ...a, v: a.cp[cle] || 0 })).filter(a => a.v > 0).sort((a, b) => b.v - a.v);
+    const mx = Math.max(...acts.map(a => a.v), 1);
+    const s = serie(p.programme);
+    $('fiche').innerHTML = `<b>Programme ${p.programme} · ${esc(p.libelle)}</b>
+      <span class="muted">${esc(p.min)}${MIN[p.programme]?.mission ? ' · mission ' + esc(MIN[p.programme].mission) : ''} · thème « ${esc(p.t.nom)} »</span>
+      <span>En ${annee} : <b>${eur(p.v)}</b> pour les jeunes, soit ${pct(p.v, total)} du total.</span>
+      ${acts.length > 1 ? `<div class="hbars" style="margin-top:6px">${acts.map(a => `<div class="hbar"><span>${esc(a.libelle)}</span><span class="track"><i style="width:calc((100% - 6rem) * ${Math.max(0.02, a.v / mx)});background:var(--t${p.t.i})"></i><span><b>${eur(a.v)}</b></span></span></div>`).join('')}</div>` : ''}
+      <dl>${COLS.map(([an, , , etat], i) => `<dt>${etat} ${an}</dt><dd>${eur(s[i])}</dd>`).join('')}</dl>
+      ${p.programme === '109' ? `<span class="muted">Depuis l'édition 2026, les jeunes sont comptés jusqu'à 30 ans (25 ans auparavant) ; à partir de 2025, 3 Md€ de taxes passent par ce programme au lieu d'aller directement au Fonds national d'aide au logement.</span>` : ''}`;
+  }
+  document.querySelectorAll('[data-tm]').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.tm;
+    document.querySelectorAll('[data-tm]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    dessiner();
+  }));
+  dessiner();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(dessiner, 150); });
+
+  // --- Évolution par thème, programmes repliés ---
+  const tousProgs = [...new Set(COLS.flatMap(([, f]) => D.etat[f].programmes.map(p => p.programme)))];
+  const libelleDe = code => (D.etat['DPT-jeunesse-PLF2027.pdf'].programmes.find(p => p.programme === code) || E.programmes.find(p => p.programme === code) || {}).libelle || code;
+  const parTheme = THEMES.map(t => ({ t, progs: tousProgs.filter(c => themeDe(c) === t).map(c => ({ code: c, s: serie(c) })) }));
+  const totCol = i => sum(parTheme, g => sum(g.progs, p => p.s[i]));
+  const cell = (v, i) => `<td class="num${i >= 3 ? ' prev' : ''}">${eur(v)}</td>`;
+  $('tb-evol').innerHTML = `<thead><tr><th>Thème et programme</th>${COLS.map(([an, , , etat], i) => `<th class="num${i >= 3 ? ' prev' : ''}${an === annee ? ' cur' : ''}">${etat}<br>${an}</th>`).join('')}</tr></thead><tbody>
+    ${parTheme.map(g => `<tr><th><button class="toggle-row" aria-expanded="false" data-g="${g.t.id}"><span class="sw" data-t="${g.t.i}"></span>${esc(g.t.nom)}</button></th>${COLS.map((c, i) => cell(sum(g.progs, p => p.s[i]), i)).join('')}</tr>
+      ${g.progs.sort((a, b) => (b.s[2] || 0) - (a.s[2] || 0)).map(p => `<tr class="child" data-de="${g.t.id}" hidden><th>${p.code} · ${esc(nomCourt(libelleDe(p.code)))}</th>${p.s.map(cell).join('')}</tr>`).join('')}`).join('')}
+    <tr class="tot"><th>Total</th>${COLS.map((c, i) => cell(totCol(i), i)).join('')}</tr></tbody>`;
+  $('tb-evol').querySelectorAll('.toggle-row').forEach(b => b.addEventListener('click', () => {
+    const ouvert = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', String(ouvert));
+    $('tb-evol').querySelectorAll(`tr[data-de="${b.dataset.g}"]`).forEach(r => r.hidden = !ouvert);
+  }));
+  const t25 = totCol(2), t27 = totCol(4);
+  $('evol-lead').textContent = `Crédits de paiement attribués aux jeunes, par thème. Les trois premières colonnes sont des dépenses réalisées ; 2026 est le budget voté, 2027 le projet du gouvernement, encore débattu au Parlement (${t27 >= t25 ? '+' : '−'}${md(Math.abs(t27 - t25))} Md€ par rapport au réalisé 2025, sans tenir compte de l'inflation). Cliquez sur un thème pour voir ses programmes.`;
+
+  // --- Dépenses fiscales ---
+  $('fiscal').innerHTML = fiscal.map(f => `<li><span>${esc(f.libelle)}</span><b>${eur(f.chiffrage[annee])}</b><small>Dépense fiscale n° ${f.code} · chiffrage ${annee}</small></li>`).join('')
+    + `<li><span><b>Total</b></span><b>${eur(totalF)}</b></li>`;
+
+  // --- Au-delà de l'État ---
+  const anI = D.enseignement[annee] ? annee : Object.keys(D.enseignement).pop();
+  const ensI = D.enseignement[anI].filter(s => s.montant > 0);
+  const mxI = Math.max(...ensI.map(s => s.montant));
+  const totI = sum(ensI, s => s.montant);
+  $('ens-sub').textContent = `Dépenses d'enseignement de chaque administration en ${anI}, de la maternelle à l'université, selon les comptes de la Nation de l'Insee : ${md(totI * 1000)} Md€ au total.`;
+  $('ens').innerHTML = ensI.map(s => `<div class="hbar"><span>${esc(s.nom)}</span><span class="track"><i style="width:calc((100% - 9rem) * ${s.montant / mxI})"></i><span><b>${md(s.montant * 1000)} Md€</b> · ${pct(s.montant, totI)}</span></span></div>`).join('');
+  const coll = ensI.find(s => s.secteur === 'S1313');
+  $('ens-note').innerHTML = (anI !== annee ? `Les comptes de l'Insee s'arrêtent à ${anI}. ` : '') + (coll ? `Les collectivités paient surtout les bâtiments, la cantine, le transport scolaire et les agents non enseignants : les communes pour les écoles, les départements pour les collèges, les régions pour les lycées (${coll.sous.slice(0, 3).map(x => `${esc(x.libelle.toLowerCase())} ${md(x.montant * 1000)} Md€`).join(', ')}). ` : '') + `Les opérateurs de l'État sont surtout les universités. Les enseignants des écoles, collèges et lycées publics sont payés par l'État.`;
+  const EF = D.enfance;
+  const lignesE = [['Branche famille (CNAF), 2025', EF.cnaf_2025], ['Assurance maladie (CNAM), 2024', EF.cnam_2024], ['État, loi de finances 2026', EF.etat_lfi_2026], ["Aide sociale à l'enfance (départements), 2024", EF.ase_2024], ['Autonomie (CNSA), 2026', EF.cnsa_2026]];
+  const mxE = Math.max(...lignesE.map(l => l[1]));
+  $('enfance').innerHTML = lignesE.map(([l, v]) => `<div class="hbar"><span>${esc(l)}</span><span class="track"><i style="width:calc((100% - 6rem) * ${v / mxE})"></i><span><b>${eur(v)}</b></span></span></div>`).join('');
+})();
+</script>
+</body>
+</html>

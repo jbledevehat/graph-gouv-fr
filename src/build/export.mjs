@@ -119,6 +119,14 @@ export async function writeWeb(webData, rows) {
     description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024, du rapport annexé au PLF 2027 : par instrument, par ministère, dispositif par dispositif, vérifiées ligne à ligne.`,
     bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) }, jsonld: [JEUX.aides],
   });
+  const jeunesse = JSON.parse(await readFile(path('budget/donnees/jeunesse.json'), 'utf8'));
+  const jeunesseMd = md(jeunesse.etat['DPT-jeunesse-PLF2027.pdf'].total.execution_2025 / 1000);
+  await writeBudgetPage('budget/jeunesse.html', 'out/web/budget/jeunesse.html', {
+    base, url: `${base}budget/jeunesse.html`,
+    title: "L'argent public pour la jeunesse",
+    description: `Ce que l'État consacre aux jeunes, programme par programme (${jeunesseMd} en 2025), de 2023 au projet de budget 2027, et ce que paient les collectivités et la sécurité sociale.`,
+    bandeau: { racine: '../', section: 'budget', page: 'jeunesse', annees: annees(['2023', '2024', '2025']) },
+  });
   // Arbres des dépenses et des recettes, communs aux deux pages (et aux PDF).
   await writeOut('out/web/budget/arbres.js', await readFile(path('budget/arbres.js')));
   for (const f of await readdir(path('budget/donnees'))) {
@@ -166,7 +174,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
