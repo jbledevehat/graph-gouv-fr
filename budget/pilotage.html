@@ -118,6 +118,7 @@
   .seg-ctl button { min-height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
   .seg-ctl button + button { border-left: 1px solid var(--control); }
   .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  .seg-ctl button:disabled { color: var(--muted); cursor: not-allowed; text-decoration: line-through; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
   .legend li { display: inline-flex; align-items: center; gap: 6px; }
   .sw { display: inline-block; width: 14px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
@@ -278,13 +279,7 @@
   table.ind .ap .ic { margin-right: 5px; vertical-align: -3px; }
   table.ind .mes { color: var(--muted); }
   @media (forced-colors: active) { .stbar, .ic, .casc i { forced-color-adjust: none; } }
-  /* Circuit de l'argent de l'État (diagramme de Sankey, vertical, à la manière d'une affiche) :
-     ménages en bleu-vert et entreprises en orange s'ajoutent aux couleurs des administrations ;
-     ordre des destinataires choisi pour que deux couleurs voisines restent distinctes (palette
-     vérifiée pour les daltonismes, en clair et en sombre). Chaque bloc porte son nom. */
-  :root { --m-men: #0E8FA3; --m-ent: #EB6834; }
-  :root[data-theme="dark"] { --m-men: #1BA3B3; --m-ent: #D95926; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --m-men: #1BA3B3; --m-ent: #D95926; } }
+  /* Circuit de l'argent public (diagramme de Sankey vertical, à la manière d'une affiche). */
   .flux-wrap { overflow-x: auto; margin-inline: -4px; }
   .sankey { min-width: 880px; }
   .sankey svg { display: block; width: 100%; height: auto; }
@@ -394,17 +389,6 @@
       <p id="etat-lead"></p>
     </div>
     <div class="bridge" id="bridge"></div>
-    <div class="panel" id="p-flux">
-      <h3>D'où vient l'argent du budget de l'État voté par le Parlement, et où il va</h3>
-      <p class="sub" id="flux-sub"></p>
-      <div class="seg-ctl" role="group" aria-label="Niveau de détail du circuit">
-        <button type="button" data-flux="ensemble" aria-pressed="true">Vue d'ensemble</button>
-        <button type="button" data-flux="ministeres" aria-pressed="false">Par ministère</button>
-      </div>
-      <div class="flux-wrap"><div class="sankey" id="flux" role="img"></div></div>
-      <p class="note" id="flux-note"></p>
-      <details class="data"><summary>Voir les flux en tableau</summary><div class="scroll"><table id="tb-flux"></table></div></details>
-    </div>
     <ul class="legend" id="leg-etat"></ul>
     <div class="mondrian h-a" id="m-etat" role="img"></div>
     <div class="panel" id="p-etat" aria-live="polite"></div>
@@ -824,18 +808,43 @@
     .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
 
   // ================= Vue d'ensemble : le circuit de l'argent public (Sankey) =================
-  // Cinq étages de même total, tous tirés des comptes de l'Insee : ressources → administration qui
-  // les perçoit → passage entre administrations → administration qui dépense → fonction. L'Insee ne
-  // publie pas qui verse à qui : ce qu'une administration perçoit en plus de ce qu'elle dépense, et
-  // les autres recettes, passent par un réservoir commun qui finance les autres. Chaque administration
-  // est calculée exactement : dépense = impôts + cotisations + emprunt + reçu du réservoir − excédent.
+  // Cinq étages de même total : ressources → administration qui les perçoit → passage d'une
+  // administration à l'autre → administration qui dépense → fonction. Comptes de l'Insee, sauf les
+  // versements de l'État aux autres administrations, tirés de son budget (loi d'approbation des
+  // comptes, catégories de dépenses) quand l'année est disponible : l'Insee ne publie pas qui verse à
+  // qui. Le reste (autres recettes, transferts non détaillés) passe par un réservoir commun. Chaque
+  // administration est calculée exactement : dépense = perçu + reçu − versé − excédent.
   {
+    const DDc = etatDispo ? await DE : null;
+    // Versements de l'État, d'après son budget : collectivités (transferts et prélèvements sur
+    // recettes), sécurité sociale et autres organismes publics, opérateurs (subventions).
+    const direct = {};
+    if (DDc) {
+      const PB = BE.programmes.filter(p => p.programme !== '200');
+      const cat = ks => sum(PB, p => sum(ks, k => DDc.programmes[p.programme]?.categories?.[k])) / 1000;
+      direct.S1313 = cat(['63']) - BE.recettes.sections.find(x => x.section.startsWith('31')).net / 1000;
+      direct.S1314 = cat(['64']);
+      direct.S13112 = cat(['32', '53']);
+    }
     const SECT = G.secteurs.map(s => {
       const emprunt = Math.max(0, -s.recettes.solde), excedent = Math.max(0, s.recettes.solde);
       const percu = s.recettes.impots + s.recettes.cotisations + emprunt;
-      const net = s.total + excedent - percu; // > 0 : reçoit du réservoir ; < 0 : y verse
-      return { s, c: COUL[s.code], emprunt, excedent, percu, recoit: Math.max(0, net), verse: Math.max(0, -net) };
+      return { s, c: COUL[s.code], emprunt, excedent, percu, recuEtat: 0, versEtat: 0 };
     });
+    const ETAT = SECT.find(x => x.s.code === 'S13111');
+    for (const x of SECT) {
+      // Ce que l'administration reçoit d'ailleurs que de ses impôts, cotisations et emprunt.
+      const besoin = x.s.total + x.excedent - x.percu;
+      if (x !== ETAT && direct[x.s.code] > 0) x.recuEtat = Math.max(0, Math.min(direct[x.s.code], besoin));
+      x.besoin = besoin;
+    }
+    ETAT.versEtat = sum(SECT, x => x.recuEtat);
+    for (const x of SECT) {
+      // Solde avec le réservoir, une fois comptés les versements directs de l'État.
+      const net = x === ETAT ? x.besoin + x.versEtat : x.besoin - x.recuEtat;
+      x.recoit = Math.max(0, net); x.verse = Math.max(0, -net);
+      x.garde = x.percu - x.verse - (x === ETAT ? x.versEtat : 0);
+    }
     const AUTRES = G.autres_recettes_consolidees;
     const reservoir = AUTRES + sum(SECT, x => x.verse);
     const FONCTIONS = G.secteurs[0].fonctions.map((f, i) => ({ id: 'f' + f.code, code: f.code, label: f.libelle, v: sum(G.secteurs, s => s.fonctions[i].montant) }));
@@ -849,26 +858,29 @@
       { id: 'r-imp', label: 'Impôts', titre: 'Impôts, nets des impôts non recouvrables', v: sum(SECT, x => x.s.recettes.impots), color: 'na' },
       { id: 'r-cot', label: 'Cotisations sociales', v: sum(SECT, x => x.s.recettes.cotisations), color: 'na' },
       { id: 'r-aut', label: 'Autres recettes', titre: 'Autres recettes : ventes, revenus de la propriété, transferts reçus de l\'extérieur', v: AUTRES, color: 'na' }];
-    const [x0, ...autresSect] = SECT; // l'État d'abord, le réservoir juste après lui
-    // L'État de l'Insee (comptabilité nationale) n'est pas le budget voté de la partie 3 : on le nomme.
-    for (const x of SECT) x.nom = x.s.code === 'S13111' ? "État, selon l'Insee" : x.s.nom;
-    const dessinerCircuit = () => sankey($('circuit'), { H: 1150, etages: [
+    const autresSect = SECT.filter(x => x !== ETAT);
+    const versements = autresSect.filter(x => x.recuEtat > 0.0005);
+    const COURT = { S1314: 'à la sécurité sociale et autres organismes', S1313: 'aux collectivités locales', S13112: 'aux opérateurs' };
+    const FLECHE = { S1314: '→ Sécu. sociale', S1313: '→ Collectivités', S13112: '→ Opérateurs' };
+    const dessinerCircuit = () => sankey($('circuit'), { H: 1230, etages: [
       { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: ressources },
-      { y: 280, ep: 12, titre: 'Perçues par', titreY: 168, noeuds: [{ id: 'p' + x0.s.code, label: x0.nom, titre: `Perçu par : ${x0.nom} (comptabilité nationale)`, v: x0.percu, color: x0.c }, { id: 'pass-aut', v: AUTRES, invisible: true },
-        ...autresSect.map(x => ({ id: 'p' + x.s.code, label: x.nom, titre: `Perçu par : ${x.nom}`, v: x.percu, color: x.c }))] },
-      { y: 440, ep: 14, titre: 'Passent d\'une administration à l\'autre', titreY: 318, noeuds: [{ id: 'g' + x0.s.code, v: x0.percu - x0.verse, invisible: true },
-        { id: 'reservoir', label: 'Transferts entre administrations et autres recettes', titre: "Réservoir commun : ce qu'une administration perçoit en plus de ce qu'elle dépense, et les autres recettes ; il finance les autres administrations", v: reservoir, color: 'na' },
-        ...autresSect.map(x => ({ id: 'g' + x.s.code, v: x.percu - x.verse, invisible: true }))] },
-      { y: 640, ep: 12, titre: 'Dépensées par', titreY: 478, noeuds: [...SECT.map(x => ({ id: 'd' + x.s.code, code: x.s.code, label: x.nom, titre: `Dépensé par : ${x.nom}`, v: x.s.total, color: x.c })),
+      { y: 280, ep: 12, titre: 'Perçues par', titreY: 168, noeuds: [{ id: 'p' + ETAT.s.code, code: ETAT.s.code, label: ETAT.s.nom, titre: `Perçu par : ${ETAT.s.nom} (impôts, cotisations et emprunt, selon l'Insee)`, v: ETAT.percu, color: ETAT.c }, { id: 'pass-aut', v: AUTRES, invisible: true },
+        ...autresSect.map(x => ({ id: 'p' + x.s.code, code: x.s.code, label: x.s.nom, titre: `Perçu par : ${x.s.nom}`, v: x.percu, color: x.c }))] },
+      { y: 520, ep: 14, titre: 'Passent d\'une administration à l\'autre', titreY: 318, noeuds: [{ id: 'g' + ETAT.s.code, v: ETAT.garde, invisible: true },
+        ...versements.map(x => ({ id: 'v' + x.s.code, label: `État ${FLECHE[x.s.code]}`, titre: `Versé par l'État ${COURT[x.s.code]} (budget de l'État ${annee})`, v: x.recuEtat, color: 'etat' })),
+        { id: 'reservoir', label: 'Réservoir commun', titre: DDc ? "Réservoir commun : autres recettes (ventes, revenus, dividendes…) et transferts entre administrations que les comptes publiés ne détaillent pas" : "Réservoir commun : ce qu'une administration perçoit en plus de ce qu'elle dépense, et les autres recettes ; il finance les autres administrations", v: reservoir, color: 'na' },
+        ...autresSect.map(x => ({ id: 'g' + x.s.code, v: x.garde, invisible: true }))] },
+      { y: 720, ep: 12, titre: 'Dépensées par', titreY: 558, noeuds: [...SECT.map(x => ({ id: 'd' + x.s.code, code: x.s.code, label: x.s.nom, titre: `Dépensé par : ${x.s.nom}`, v: x.s.total, color: x.c })),
         ...SECT.filter(x => x.excedent > 0.0005).map(x => ({ id: 'e' + x.s.code, label: `Excédent : ${x.s.nom}`, titre: `Excédent de ${x.s.nom} (non dépensé)`, v: x.excedent, color: x.c }))] },
-      { y: 820, ep: 12, titre: 'Pour quoi faire', titreY: 808, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, v: f.v, color: 'na' })) }],
+      { y: 900, ep: 12, titre: 'Pour quoi faire', titreY: 888, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, v: f.v, color: 'na' })) }],
       liens: [
         ...SECT.flatMap(x => [{ s: 'r-imp', t: 'p' + x.s.code, v: x.s.recettes.impots, color: x.c }, { s: 'r-cot', t: 'p' + x.s.code, v: x.s.recettes.cotisations, color: x.c }, { s: 'r-emp', t: 'p' + x.s.code, v: x.emprunt, color: 'hatch' }]),
         { s: 'r-aut', t: 'pass-aut', v: AUTRES, color: 'na' }, { s: 'pass-aut', t: 'reservoir', v: AUTRES, color: 'na' },
-        ...SECT.flatMap(x => [{ s: 'p' + x.s.code, t: 'g' + x.s.code, v: x.percu - x.verse, color: x.c }, { s: 'p' + x.s.code, t: 'reservoir', v: x.verse, color: x.c },
-          { s: 'g' + x.s.code, t: 'd' + x.s.code, v: x.percu - x.verse - x.excedent, color: x.c }, { s: 'g' + x.s.code, t: 'e' + x.s.code, v: x.excedent, color: x.c },
+        ...versements.flatMap(x => [{ s: 'p' + ETAT.s.code, t: 'v' + x.s.code, v: x.recuEtat, color: 'etat' }, { s: 'v' + x.s.code, t: 'd' + x.s.code, v: x.recuEtat, color: 'etat' }]),
+        ...SECT.flatMap(x => [{ s: 'p' + x.s.code, t: 'g' + x.s.code, v: x.garde, color: x.c }, { s: 'p' + x.s.code, t: 'reservoir', v: x.verse, color: x.c },
+          { s: 'g' + x.s.code, t: 'd' + x.s.code, v: x.garde - x.excedent, color: x.c }, { s: 'g' + x.s.code, t: 'e' + x.s.code, v: x.excedent, color: x.c },
           { s: 'reservoir', t: 'd' + x.s.code, v: x.recoit, color: x.c }]),
-        ...SECT.flatMap(x => x.s.fonctions.map((f, i) => ({ s: 'd' + x.s.code, t: 'f' + f.code, v: f.montant, color: x.c })))] });
+        ...SECT.flatMap(x => x.s.fonctions.map(f => ({ s: 'd' + x.s.code, t: 'f' + f.code, v: f.montant, color: x.c })))] });
     charts.push(dessinerCircuit);
     dessinerCircuit();
     const totalC = sum(ressources, r => r.v);
@@ -876,15 +888,17 @@
       tipNoeud: n => `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, totalC)} du total${n.code ? '<br><span class="tq">Cliquer pour ouvrir le détail ci-dessous.</span>' : ''}`,
       onPick: n => {
         if (!n.code) return;
-        if (n.id.startsWith('d')) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (s) explorateurs.dep.reveler(s); }
+        if (n.code === 'S13111' && etatDispo) return $('s-etat').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (n.id.startsWith('d') || n.id.startsWith('p')) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (s) explorateurs.dep.reveler(s); }
         else { document.querySelector('[data-dep="fonction"]').click(); const f = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (f) explorateurs.dep.reveler(f); }
       } });
-    const etat = SECT.find(x => x.s.code === 'S13111');
-    $('circuit-lead').textContent = `Les ${nf(D, 0)} milliards d'euros dépensés en ${annee} par l'ensemble des administrations publiques, suivis de leur source à leur usage. En haut, les ressources ; puis l'administration qui les perçoit ; au milieu, ce qui passe de l'une à l'autre ; puis l'administration qui dépense ; en bas, la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur une administration ou une fonction pour ouvrir son détail plus bas.`;
-    $('circuit-note').textContent = `L'État, selon l'Insee, perçoit ${mds(etat.percu)} (impôts, cotisations et emprunt) et en dépense lui-même ${mds(etat.s.total)} : les ${mds(etat.verse)} de différence financent les autres administrations, avec les ${mds(AUTRES)} d'autres recettes. ${autresSect.filter(x => x.recoit > 0.0005).map(x => `${x.s.nom} : ${mds(x.recoit)} reçus`).join(' ; ')}. L'Insee publie ce que chaque administration perçoit et dépense, mais pas le détail de qui verse à qui : ces montants passent donc par un réservoir commun, qui mêle transferts entre administrations et recettes propres (ventes, loyers, revenus). Pour l'argent qui part de l'État, la partie 3 donne le détail exact. Les impôts ne sont pas détaillés par administration, l'Insee ne publiant pas ce partage impôt par impôt. Le budget de l'État voté par le Parlement (partie 3) se compte autrement : ses ressources y sont plus élevées, car les impôts y figurent avant remboursements.`;
-    table('tb-circuit', ['Administration', 'Impôts', 'Cotisations', 'Emprunt', 'Versé aux autres', 'Reçu des autres et autres recettes', 'Excédent', 'Dépensé'],
-      SECT.map(x => [esc(x.s.nom), mds(x.s.recettes.impots), mds(x.s.recettes.cotisations), x.emprunt ? mds(x.emprunt) : '–', x.verse ? mds(x.verse) : '–', x.recoit ? mds(x.recoit) : '–', x.excedent ? mds(x.excedent) : '–', mds(x.s.total)])
-        .concat([['<b>Total</b>', mds(sum(SECT, x => x.s.recettes.impots)), mds(sum(SECT, x => x.s.recettes.cotisations)), mds(sum(SECT, x => x.emprunt)), mds(sum(SECT, x => x.verse)), mds(sum(SECT, x => x.recoit)), mds(sum(SECT, x => x.excedent)), `<b>${mds(D)}</b>`]]));
+    $('circuit-lead').textContent = `Les ${nf(D, 0)} milliards d'euros dépensés en ${annee} par l'ensemble des administrations publiques, suivis de leur source à leur usage. En haut, les ressources ; puis l'administration qui les perçoit ; au milieu, ce qui passe de l'une à l'autre${DDc ? ", dont ce que l'État verse directement aux autres administrations" : ''} ; puis l'administration qui dépense ; en bas, la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur une administration ou une fonction pour ouvrir son détail plus bas${etatDispo ? ", sur l'État pour ouvrir son budget ministère par ministère" : ''}.`;
+    $('circuit-note').textContent = (DDc
+      ? `Ce que l'État verse aux autres administrations vient de son budget ${annee} (dépenses classées par destinataire) : ${versements.map(x => `${mds(x.recuEtat)} ${COURT[x.s.code]}`).join(', ')}. Le reste de ce qu'elles reçoivent, et les autres recettes de chacune (ventes, loyers, dividendes…), passent par un réservoir commun : les comptes publiés ne disent pas qui verse à qui entre les autres administrations. « Sécurité sociale et autres organismes » regroupe les transferts du budget aux « autres collectivités », dont la sécurité sociale. `
+      : `Pour ${annee}, le budget de l'État n'est pas détaillé par destinataire sur ce site : ce que l'État perçoit sans le dépenser lui-même, et les autres recettes, passent par un réservoir commun qui finance les autres administrations, l'Insee ne publiant pas qui verse à qui. `)
+      + `Les autres montants sont ceux des comptes de l'Insee (État en comptabilité nationale, ${mds(ETAT.percu)} perçus) ; le budget de l'État voté par le Parlement, en partie 3, se compte autrement. Les impôts ne sont pas détaillés par administration, l'Insee ne publiant pas ce partage impôt par impôt.`;
+    table('tb-circuit', ['Administration', 'Impôts', 'Cotisations', 'Emprunt', ...(DDc ? ["Versé par l'État (budget)"] : []), 'Réservoir : reçu', 'Réservoir : versé', 'Excédent', 'Dépensé'],
+      SECT.map(x => [esc(x.s.nom), mds(x.s.recettes.impots), mds(x.s.recettes.cotisations), x.emprunt ? mds(x.emprunt) : '–', ...(DDc ? [x === ETAT ? `− ${mds(x.versEtat)}` : x.recuEtat ? mds(x.recuEtat) : '–'] : []), x.recoit ? mds(x.recoit) : '–', x.verse ? mds(x.verse) : '–', x.excedent ? mds(x.excedent) : '–', mds(x.s.total)]));
   }
 
   }
@@ -1051,83 +1065,6 @@
     { id: 'def', label: 'Déficit du budget général', v: -E.solde_budget_general / 1000, color: 'hatch', explication: X.recettes.deficit, tip: tipDe('Déficit du budget général', -E.solde_budget_general / 1000) },
   ] }));
 
-  // ================= Circuit de l'argent de l'État (Sankey vertical) =================
-  // Quatre étages de même total : ressources (impôts bruts, autres recettes, emprunt) → budget de
-  // l'État → ce qui est rendu ou reversé d'office, et chaque ministère → destinataires, d'après la
-  // catégorie de chaque dépense (loi organique, article 5). Tous les montants viennent des fichiers
-  // de la loi d'approbation des comptes ; aucun n'est estimé.
-  if (DD) {
-    const DEST = [
-      ['ue', "Union européenne", 'na'], ['coll', 'Collectivités locales', 'coll'], ['men', 'Ménages', 'men'], ['ent', 'Entreprises', 'ent'],
-      ['secu', 'Sécurité sociale et autres organismes', 'secu'], ['op', "Opérateurs de l'État", 'op'],
-      ['agents', "Agents de l'État : salaires et cotisations", 'etat'], ['fonct', "Fonctionnement et investissement de l'État", 'etat'],
-      ['dette', 'Intérêts et frais de la dette', 'etat'], ['fin', 'Prêts, participations et garanties', 'na']];
-    const CAT_DEST = { 10: 'fonct', 21: 'agents', 22: 'agents', 23: 'men', 31: 'fonct', 32: 'op', 41: 'dette', 42: 'dette', 43: 'dette', 51: 'fonct', 52: 'fonct', 53: 'op',
-      61: 'men', 62: 'ent', 63: 'coll', 64: 'secu', 65: 'fin', 71: 'fin', 72: 'fin', 73: 'fin' };
-    const parDest = ps => { const o = {}; for (const p of ps) for (const [k, v] of Object.entries(DET[p.programme]?.categories || {})) o[CAT_DEST[k]] = (o[CAT_DEST[k]] || 0) + v / 1000; return o; };
-    // Étage 1 : ressources brutes.
-    const fiscB = BE.recettes.sections.filter(s => s.categorie === 'Recettes fiscales');
-    const brut = re => sum(fiscB.filter(s => re.test(s.section)), s => s.brut) / 1000;
-    const def = -E.solde_budget_general / 1000;
-    const sources = [
-      ['tva', 'TVA', brut(/^16 /)], ['ir', 'Impôt sur le revenu', brut(/^11 /)], ['is', 'Impôt sur les sociétés', brut(/^13 /)],
-      ['autres', 'Autres impôts', E.recettes_fiscales_brutes / 1000 - brut(/^1[136] /)],
-      ['nf', 'Autres recettes', (E.recettes_non_fiscales + E.fonds_de_concours) / 1000, 'Autres recettes : dividendes, amendes, ventes, fonds de concours'],
-      ['def', 'Emprunt (déficit)', def]];
-    // Étage 3 : ce qui ne passe pas par un ministère, puis les ministères (les plus petits regroupés).
-    const P200 = BE.programmes.filter(p => p.programme === '200');
-    const mins = [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return { id: 'm:' + m, label: shortMin(m), titre: m, v: sum(ps, p => p.depenses) / 1000, d: parDest(ps), min: m }; }).sort((a, b) => b.v - a.v);
-    const NB = 11, gros = mins.slice(0, NB), petits = mins.slice(NB);
-    const autresMin = petits.length ? [{ id: 'm:autres', label: `${petits.length} autres ministères`, titre: `Autres ministères : ${petits.map(x => x.titre).join(', ')}`, v: sum(petits, x => x.v), d: petits.reduce((o, x) => { for (const [k, v] of Object.entries(x.d)) o[k] = (o[k] || 0) + v; return o; }, {}) }] : [];
-    // Vue d'ensemble : les ministères forment un seul bloc ; vue par ministère : un bloc chacun.
-    let fluxMode = 'ensemble';
-    const horsMin = [
-      { id: 'psr', label: "Reversé d'office", titre: "Reversé d'office aux collectivités et à l'Union européenne (prélèvements sur recettes)", v: psrC + psrUE, color: 'coll', d: { coll: psrC, ue: psrUE } },
-      { id: 'rd', label: 'Impôts remboursés ou dégrevés', titre: "Impôts remboursés ou dégrevés (remboursements de crédits d'impôt, de TVA, dégrèvements)", v: E.programme_200 / 1000, color: 'na', d: parDest(P200) }];
-    const etage3 = [...horsMin, ...gros, ...autresMin];
-    const etage3Ens = [...horsMin, { id: 'mins', label: 'Dépensé par les ministères', titre: "Dépensé par les ministères (budget général, hors remboursements d'impôts)", v: sum(etage3.slice(2), n => n.v), d: parDest(P) }];
-    const total = sum(sources, s => s[2]);
-    const totalBas = sum(etage3, n => n.v);
-    // Destinataires : montant reçu par chacun.
-    const recu = Object.fromEntries(DEST.map(([k]) => [k, sum(etage3, n => n.d[k] || 0)]));
-    const flux = () => {
-      // Ministères rangés selon la position moyenne de leurs destinataires, pour limiter les croisements.
-      const rang = Object.fromEntries(DEST.map(([d], i) => [d, i]));
-      const bary = n => sum(Object.entries(n.d), ([d, v]) => rang[d] * v) / (sum(Object.values(n.d), v => v) || 1);
-      const E3 = fluxMode === 'ensemble' ? etage3Ens : etage3;
-      const N2 = [...E3.slice(0, 2), ...E3.slice(2).sort((a, b) => bary(a) - bary(b))].map(n => ({ color: 'etat', ...n }));
-      const N3 = DEST.map(([id, label, color]) => ({ id, label, v: recu[id], color })).filter(n => n.v > 0.0005);
-      sankey($('flux'), { H: 1070, etages: [
-        { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: sources.map(([id, label, v, titre]) => ({ id, label, titre, v, color: id === 'def' ? 'hatch' : 'etat' })) },
-        { y: 272, ep: 26, noeuds: [{ id: 'budget', label: "Ressources du budget de l'État voté par le Parlement", v: total, color: 'etat', tronc: `Budget de l'État voté par le Parlement, ${annee} : ${mds(total)} de ressources` }] },
-        { y: 506, ep: 12, titre: 'Qui les dépense, ou les rend', titreY: 320, noeuds: N2 },
-        { y: 740, ep: 12, titre: 'Qui les reçoit', titreY: 728, dessus: false, noeuds: N3 }],
-        liens: [...sources.map(([id, , v]) => ({ s: id, t: 'budget', v, color: id === 'def' ? 'hatch' : 'etat' })),
-          ...N2.map(n => ({ s: 'budget', t: n.id, v: n.v, color: n.color })),
-          ...N2.flatMap(n => N3.map(d => ({ s: n.id, t: d.id, v: n.d[d.id] || 0, color: d.color })))] });
-    };
-    // Infobulles et liens vers les autres parties.
-    const tipNoeud = n => `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, total)} des ressources${n.min ? '<br><span class="tq">Cliquer pour ouvrir ce ministère ci-dessous.</span>' : n.id === 'mins' ? '<br><span class="tq">Cliquer pour voir chaque ministère.</span>' : ''}`;
-    const SECTEUR = { secu: 'S1314', coll: 'S1313', op: 'S13112' };
-    sankeyInteractif($('flux'), { tipNoeud, onPick: n => {
-      if (n.id === 'mins') document.querySelector('[data-flux="ministeres"]').click();
-      else if (n.min) { const m = noeudEtat(n.min); if (m) xEtat.reveler(m); }
-      else if (SECTEUR[n.id] && explorateurs.dep) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + SECTEUR[n.id]); if (s) explorateurs.dep.reveler(s); }
-    } });
-    charts.push(flux);
-    flux();
-    document.querySelectorAll('[data-flux]').forEach(b => b.addEventListener('click', () => {
-      fluxMode = b.dataset.flux; document.querySelectorAll('[data-flux]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); flux();
-    }));
-    $('flux-sub').textContent = `En haut, les ressources de l'État en ${annee} : impôts avant remboursements, autres recettes et emprunt. Au milieu, ce qu'il rend aux contribuables ou reverse d'office aux collectivités et à l'Union européenne, puis ce que dépense chaque ministère. En bas, qui reçoit l'argent. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire. Dans la vue par ministère, cliquez sur un ministère pour l'ouvrir dans la composition ci-dessous, ou sur les collectivités, la sécurité sociale et les opérateurs pour retrouver leur bloc dans la partie 1.`;
-    // Pourquoi ce total diffère de celui de l'État dans le circuit d'ouverture (Insee).
-    const etatInsee = G && G.secteurs.find(s => s.code === 'S13111');
-    const pourquoi = etatInsee ? `<span style="display:block;margin-bottom:8px"><b>Pourquoi ${mds(total)} ici et ${mds(etatInsee.recettes.impots + etatInsee.recettes.cotisations + Math.max(0, -etatInsee.recettes.solde))} pour l'État dans le circuit d'ouverture ?</b> Ce ne sont pas les mêmes comptes. Le budget voté compte les impôts avant les ${mds(E.programme_200 / 1000)} de remboursements et dégrèvements (crédits d'impôt, remboursements de TVA…), qu'il inscrit ensuite en dépense ; l'Insee les compte après. L'Insee ajoute en revanche ${mds(etatInsee.recettes.cotisations)} de cotisations, surtout pour les retraites des fonctionnaires, que le budget gère à part, hors du budget général ; et il range les ${mds((E.recettes_non_fiscales + E.fonds_de_concours) / 1000)} d'autres recettes dans le réservoir commun à toutes les administrations. Le reste de l'écart tient à la contribution à l'Union européenne et à des différences de périmètre et de date d'enregistrement, qu'aucun document public ne détaille ligne à ligne.</span>` : '';
-    $('flux-note').innerHTML = pourquoi + `Ce qui est versé aux collectivités, à la sécurité sociale et aux opérateurs (${mds(recu.coll + recu.secu + recu.op)}) y est dépensé : c'est pourquoi, dans la partie 1, l'Insee le compte chez eux et non chez l'État. « Sécurité sociale et autres organismes » regroupe les transferts aux « autres collectivités » de la loi organique, dont la sécurité sociale. ${Math.abs(total - totalBas) > 0.01 ? `Écart entre les étages : ${mds(Math.abs(total - totalBas))}.` : `Les quatre étages font le même total, au million d'euros près.`}`;
-    table('tb-flux', ['De', 'Vers', 'Montant'], [
-      ...sources.map(([, l, v]) => [esc(l), "Budget de l'État", mds(v)]),
-      ...etage3.flatMap(n => DEST.filter(([d]) => n.d[d] > 0.0005).map(([d, l]) => [esc(n.titre || n.label), esc(l), mds(n.d[d])]))]);
-  } else $('p-flux').hidden = true;
   table('tb-etat', ['Ministère', `Dépenses ${annee}`, 'Votés (LFI)', ...(DD ? ['Crédits disponibles', 'Dépensé / disponible'] : []), 'Personnel', 'Transferts aux entreprises', ...(DD ? ['Cibles atteintes'] : [])],
     [...ministres].map(([m, mis]) => { const ps = [...mis.values()].flat(); return { m, ps, dep: sum(ps, p => p.depenses) / 1000 }; }).sort((a, b) => b.dep - a.dep).map(({ m, ps, dep }) => {
       const k = DD && compter(mesures(ps)), ouv = DD && detCp(ps, 'ouverts');
