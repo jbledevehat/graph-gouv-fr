@@ -159,7 +159,7 @@ def recapitulatif(fichier, annees):
     return out, tot, fiscal
 
 
-resultat = {'meta': {'sources': [d[0] for d in DOCS] + ['Jaune-politiques-enfance-PLF2027.pdf', 'argent-public-AAAA.json'],
+resultat = {'meta': {'sources': [d[0] for d in DOCS] + ['Jaune-politiques-enfance-PLF2027.pdf', 'argent-public-AAAA.json', 'collectivites/balances-fonction-AAAA.json'],
                      'unite': "millions d'euros (crédits de paiement)"}, 'etat': {}, 'fiscal': {}}
 for fichier, annees in DOCS:
     progs, tot, fiscal = recapitulatif(fichier, annees)
@@ -202,6 +202,55 @@ for an in ('2023', '2024', '2025'):
                                  'remunerations': round(sum(cats[c].get('21', 0) for c in pr), 3),
                                  'cotisations': round(sum(cats[c].get('22', 0) for c in pr), 3)}
 print('Personnel :', ', '.join(f"{an} cotisations {v['cotisations'] / 1000:.1f} / {v['total'] / 1000:.1f} Md€" for an, v in resultat['personnel'].items()))
+
+# Collectivités : dépenses par fonction (balances comptables de la DGFiP, sommes préparées par
+# scripts/collectivites.py), en millions d'euros, par domaine et par catégorie de collectivité.
+sys.path.insert(0, 'scripts')
+from collectivites import fonction  # noqa: E402
+
+def domaine(nomen, code):
+    """Domaine « jeunesse » d'un code de fonction, selon la nomenclature (M57, M52 ou M14), ou None."""
+    f = fonction(code)
+    if not f:
+        return None
+    if nomen == 'M14':
+        if f.startswith('252'): return 'transport_scolaire'
+        regles = [('20', 'ens_communs'), ('21', 'primaire'), ('22', 'secondaire'), ('23', 'superieur'),
+                  ('24', 'formation_pro'), ('25', 'periscolaire'), ('42', 'jeunesse'), ('64', 'petite_enfance')]
+    elif nomen == 'M52':
+        regles = [('20', 'ens_communs'), ('21', 'primaire'), ('22', 'secondaire'), ('23', 'superieur'),
+                  ('24', 'formation_pro'), ('28', 'periscolaire'), ('2', 'ens_communs'), ('33', 'jeunesse'),
+                  ('41', 'pmi'), ('51', 'famille_enfance'), ('81', 'transport_scolaire')]
+    else:  # M57 et M57 abrégée
+        regles = [('20', 'ens_communs'), ('21', 'primaire'), ('22', 'secondaire'), ('24', 'secondaire'), ('23', 'superieur'),
+                  ('25', 'formation_pro'), ('26', 'apprentissage'), ('27', 'sanitaire_social'), ('28', 'periscolaire'),
+                  ('2', 'ens_communs'), ('33', 'jeunesse'), ('411', 'pmi'), ('421', 'famille_enfance'),
+                  ('422', 'petite_enfance'), ('81', 'transport_scolaire')]
+    return next((d for p, d in regles if f.startswith(p)), None)
+
+resultat['collectivites'] = {}
+for an in ('2024', '2025'):
+    bal = json.load(open(f'sources/collectivites/balances-fonction-{an}.json', encoding='utf-8'))
+    dom = defaultdict(lambda: defaultdict(float))
+    for categ, nomen, code, fonc, inv in bal['lignes']:
+        d = domaine(nomen, code)
+        if d:
+            dom[d][categ] += (fonc + inv) / EUR
+    resultat['collectivites'][an] = {d: {c: round(v, 1) for c, v in sorted(cs.items()) if abs(v) >= 0.05} for d, cs in sorted(dom.items())}
+# Contrôles : les sommes retombent sur les bulletins de la DGCL pour 2024 (BIS 203 et 205, fonctionnement
+# seul) ; ici fonctionnement et investissement, donc au moins ces montants.
+c24 = resultat['collectivites']['2024']
+assert 9_800 < c24['primaire']['Commune'] + c24['periscolaire']['Commune'] + c24['ens_communs']['Commune'] + c24['secondaire'].get('Commune', 0) + c24['superieur'].get('Commune', 0) < 14_000
+assert 1_700 < c24['jeunesse']['Commune'] < 3_500
+assert 4_200 < c24['secondaire']['REG'] < 7_500
+# L'aide sociale à l'enfance, la petite enfance et la PMI retombent sur la fonction « famille et enfants » de l'Insee (2024).
+insee_fe = next(f for s in json.load(open('donnees/argent-public-2024.json', encoding='utf-8'))['secteurs'] if s['code'] == 'S1313'
+                for f in s['fonctions'] if f['code'] == 'GF10')
+insee_fe = next(x['montant'] for x in insee_fe['sous'] if x['code'] == 'GF1004') * 1000
+dgfip_fe = sum(sum(c24[d].values()) for d in ('famille_enfance', 'petite_enfance', 'pmi'))
+assert abs(dgfip_fe / insee_fe - 1) < 0.08, (dgfip_fe, insee_fe)
+print('Collectivités :', ', '.join(f"{an} {sum(sum(v.values()) for v in c.values()) / 1000:.1f} Md€ (tous domaines)" for an, c in resultat['collectivites'].items()),
+      f'; famille et enfants DGFiP {dgfip_fe / 1000:.1f} / Insee {insee_fe / 1000:.1f} Md€')
 
 # Repères du rapport sur les politiques de l'enfance (0 à 18 ans), annexe au PLF 2027, synthèse
 # (pages 129 à 131) : lus dans le texte du PDF, en millions d'euros.

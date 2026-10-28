@@ -603,3 +603,51 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-27
 - **Taille** : 1 575 034 octets
 - **SHA-256** : `1d0a4482ac42dadf543319da76dacf47ba1b132eb826a8bb3ca2d64e5c135117`
+
+## `sources/collectivites/balances-fonction-2024.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2024 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 145 966 octets
+- **SHA-256** : `0ba44df55707b405d4da0f2bb2c8dc92b8fcca474ff94b9998adc28183529a5c`
+
+## `sources/collectivites/balances-fonction-2025.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2025 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2025/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 133 539 octets
+- **SHA-256** : `bed3c56320e93c2afa2ab353ed726c8cd0fc6fbcd829995e0523fb1f3d3251de`
+
+## `sources/collectivites/BIS203-fonction-regions-2024.pdf`
+
+- **Contenu** : Contrôle des sommes des régions : lycées 4,3 Md€, enseignement supérieur, professionnel et continu 4,2 Md€, transports scolaires 1,6 Md€ (fonctionnement 2024).
+- **Jeu de données** : BIS n° 203, Les dépenses par fonction des régions et des collectivités territoriales uniques en 2024 (novembre 2025)
+- **Producteur** : DGCL
+- **Adresse du fichier** : <https://www.collectivites-locales.gouv.fr/files/files/Etudes-et-statistiques/BIS/2025/BIS%20203%20-%20Fonction%20des%20r%C3%A9gions_2.pdf>
+- **Page du jeu de données** : <https://www.collectivites-locales.gouv.fr/etudes-et-statistiques/acces-par-thematique/general/bulletin-dinformation-statistique-bis>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 478 103 octets
+- **SHA-256** : `a95f36069a37c612946e1bf441d97e848f3b713524ea9d93200bba9463187c97`
+
+## `sources/collectivites/BIS205-fonction-communes-2024.pdf`
+
+- **Contenu** : Contrôle des sommes des communes : enseignement 9,9 Md€, restauration scolaire 2,9 Md€, centres de loisirs 1,8 Md€, crèches et garderies 2,4 Md€ (fonctionnement 2024).
+- **Jeu de données** : BIS n° 205, Les dépenses par fonction des communes de plus de 3 500 habitants en 2024 (décembre 2025)
+- **Producteur** : DGCL
+- **Adresse du fichier** : <https://www.collectivites-locales.gouv.fr/files/files/Etudes-et-statistiques/BIS/2025/BIS%20205%20-%20Fonction%20des%20communes%20V4.pdf>
+- **Page du jeu de données** : <https://www.collectivites-locales.gouv.fr/etudes-et-statistiques/acces-par-thematique/general/bulletin-dinformation-statistique-bis>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 549 419 octets
+- **SHA-256** : `ed0473a4db40b4af595d88d4054b89add1abeb33a9b010cd854cfd1c516d9e3f`

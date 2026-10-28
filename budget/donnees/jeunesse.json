@@ -5,7 +5,8 @@
    "DPT-jeunesse-PLF2026.pdf",
    "DPT-jeunesse-PLF2027.pdf",
    "Jaune-politiques-enfance-PLF2027.pdf",
-   "argent-public-AAAA.json"
+   "argent-public-AAAA.json",
+   "collectivites/balances-fonction-AAAA.json"
   ],
   "unite": "millions d'euros (crédits de paiement)"
  },
@@ -6281,6 +6282,239 @@
    "total": 107812.57,
    "remunerations": 49393.737,
    "cotisations": 33229.661
+  }
+ },
+ "collectivites": {
+  "2024": {
+   "apprentissage": {
+    "CTU": 3.2,
+    "Commune": 1.6,
+    "DEPT": 0.5,
+    "GFP": 2.4,
+    "PARIS": 16.2,
+    "REG": 260.4
+   },
+   "ens_communs": {
+    "CTU": 9.4,
+    "Commune": 1656.2,
+    "DEPT": 635.9,
+    "EPT": 0.2,
+    "GFP": 160.5,
+    "PARIS": 75.6,
+    "REG": 80.1
+   },
+   "famille_enfance": {
+    "CTU": 154.8,
+    "Commune": 183.0,
+    "DEPT": 10707.5,
+    "GFP": 74.1,
+    "ML": 246.5,
+    "PARIS": 459.2,
+    "REG": 0.2
+   },
+   "formation_pro": {
+    "CTU": 41.6,
+    "Commune": 55.5,
+    "DEPT": 26.7,
+    "EPT": 4.3,
+    "GFP": 32.9,
+    "PARIS": 9.7,
+    "REG": 2530.7
+   },
+   "jeunesse": {
+    "CTU": 2.4,
+    "Commune": 3310.5,
+    "DEPT": 103.5,
+    "GFP": 754.4,
+    "ML": 0.4,
+    "PARIS": 22.6,
+    "REG": 63.1
+   },
+   "periscolaire": {
+    "CTU": 7.0,
+    "Commune": 3660.3,
+    "DEPT": 129.0,
+    "EPT": 13.8,
+    "GFP": 380.9,
+    "PARIS": 160.4,
+    "REG": 291.1
+   },
+   "petite_enfance": {
+    "CTU": 1.2,
+    "Commune": 3268.8,
+    "DEPT": 358.0,
+    "GFP": 1126.5,
+    "ML": 0.2,
+    "PARIS": 462.3,
+    "REG": 0.4
+   },
+   "pmi": {
+    "CTU": 13.0,
+    "Commune": 9.7,
+    "DEPT": 460.7,
+    "GFP": 4.1,
+    "ML": 6.6,
+    "PARIS": 47.0
+   },
+   "primaire": {
+    "CTU": 1.2,
+    "Commune": 7770.2,
+    "DEPT": 81.5,
+    "GFP": 383.4,
+    "ML": 4.6,
+    "PARIS": 525.8,
+    "REG": 2.2
+   },
+   "sanitaire_social": {
+    "CTU": 16.4,
+    "Commune": 0.1,
+    "DEPT": 2.2,
+    "REG": 1485.7
+   },
+   "secondaire": {
+    "CTU": 277.6,
+    "Commune": 34.1,
+    "DEPT": 5621.2,
+    "GFP": 11.8,
+    "ML": 150.7,
+    "PARIS": 106.5,
+    "REG": 6794.2
+   },
+   "superieur": {
+    "CTU": 42.5,
+    "Commune": 64.7,
+    "DEPT": 164.0,
+    "GFP": 258.6,
+    "ML": 12.5,
+    "PARIS": 40.7,
+    "REG": 290.3
+   },
+   "transport_scolaire": {
+    "CTU": 59.8,
+    "Commune": 75.2,
+    "DEPT": 274.7,
+    "EPT": 0.5,
+    "GFP": 209.2,
+    "ML": 11.4,
+    "REG": 1583.1
+   }
+  },
+  "2025": {
+   "apprentissage": {
+    "CTU": 4.3,
+    "Commune": 1.9,
+    "DEPT": 0.5,
+    "GFP": 4.0,
+    "PARIS": 17.2,
+    "REG": 245.7
+   },
+   "ens_communs": {
+    "CTU": 12.8,
+    "Commune": 1717.0,
+    "DEPT": 585.8,
+    "EPT": 0.1,
+    "GFP": 160.1,
+    "PARIS": 80.0,
+    "REG": 70.4
+   },
+   "famille_enfance": {
+    "CTU": 156.4,
+    "Commune": 180.3,
+    "DEPT": 11020.8,
+    "GFP": 73.9,
+    "ML": 239.0,
+    "PARIS": 489.2,
+    "REG": 0.3
+   },
+   "formation_pro": {
+    "CTU": 43.9,
+    "Commune": 49.1,
+    "DEPT": 26.0,
+    "EPT": 3.8,
+    "GFP": 34.9,
+    "PARIS": 10.8,
+    "REG": 2294.6
+   },
+   "jeunesse": {
+    "CTU": 1.4,
+    "Commune": 3407.1,
+    "DEPT": 88.4,
+    "GFP": 788.9,
+    "ML": 0.7,
+    "PARIS": 21.6,
+    "REG": 55.8
+   },
+   "periscolaire": {
+    "CTU": 5.9,
+    "Commune": 3765.5,
+    "DEPT": 120.2,
+    "EPT": 19.2,
+    "GFP": 393.7,
+    "ML": 0.1,
+    "PARIS": 170.7,
+    "REG": 271.1
+   },
+   "petite_enfance": {
+    "CTU": 1.0,
+    "Commune": 3348.1,
+    "DEPT": 361.1,
+    "GFP": 1185.4,
+    "ML": 0.1,
+    "PARIS": 472.2,
+    "REG": 1.0
+   },
+   "pmi": {
+    "CTU": 12.7,
+    "Commune": 8.7,
+    "DEPT": 446.6,
+    "GFP": 0.8,
+    "ML": 6.8,
+    "PARIS": 47.0
+   },
+   "primaire": {
+    "CTU": 0.7,
+    "Commune": 7857.9,
+    "DEPT": 88.3,
+    "GFP": 411.0,
+    "ML": 7.2,
+    "PARIS": 542.3,
+    "REG": 0.9
+   },
+   "sanitaire_social": {
+    "CTU": 18.5,
+    "Commune": 0.1,
+    "DEPT": 5.8,
+    "GFP": 0.3,
+    "REG": 1498.3
+   },
+   "secondaire": {
+    "CTU": 257.2,
+    "Commune": 39.8,
+    "DEPT": 5539.1,
+    "GFP": 4.6,
+    "ML": 121.5,
+    "PARIS": 114.5,
+    "REG": 6774.0
+   },
+   "superieur": {
+    "CTU": 41.8,
+    "Commune": 60.4,
+    "DEPT": 134.4,
+    "EPT": 0.1,
+    "GFP": 256.5,
+    "ML": 9.3,
+    "PARIS": 37.8,
+    "REG": 284.1
+   },
+   "transport_scolaire": {
+    "CTU": 71.1,
+    "Commune": 69.3,
+    "DEPT": 262.0,
+    "EPT": 0.4,
+    "GFP": 209.0,
+    "ML": 11.6,
+    "REG": 1549.6
+   }
   }
  },
  "enfance": {

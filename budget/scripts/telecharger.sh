@@ -59,4 +59,11 @@ recuperer "$AN/1090086/file/7-DPT2026_Jeunesse.pdf" sources/jeunesse/DPT-jeuness
 recuperer "$AN/1129682/file/7-DPT%202027%20-%20Politique%20en%20faveur%20de%20la%20jeunesse.pdf" sources/jeunesse/DPT-jeunesse-PLF2027.pdf
 recuperer "$AN/1129792/file/26-Jaune%202027%20-%20Politiques%20de%20l%27enfance.pdf" sources/jeunesse/Jaune-politiques-enfance-PLF2027.pdf
 
+echo "Collectivités : dépenses par fonction (DGFiP) et bulletins de contrôle (DGCL) :"
+mkdir -p sources/collectivites
+python3 scripts/collectivites.py --refaire
+BIS=https://www.collectivites-locales.gouv.fr/files/files/Etudes-et-statistiques/BIS/2025
+recuperer "$BIS/BIS%20203%20-%20Fonction%20des%20r%C3%A9gions_2.pdf" sources/collectivites/BIS203-fonction-regions-2024.pdf
+recuperer "$BIS/BIS%20205%20-%20Fonction%20des%20communes%20V4.pdf" sources/collectivites/BIS205-fonction-communes-2024.pdf
+
 python3 scripts/registre.py

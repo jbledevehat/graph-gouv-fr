@@ -124,8 +124,8 @@ export async function writeWeb(webData, rows) {
   await writeBudgetPage('budget/jeunesse.html', 'out/web/budget/jeunesse.html', {
     base, url: `${base}budget/jeunesse.html`,
     title: "L'argent public pour la jeunesse",
-    description: `Ce que l'État consacre aux jeunes, programme par programme (${jeunesseMd} en 2025), de 2023 au projet de budget 2027, et ce que paient les collectivités et la sécurité sociale.`,
-    bandeau: { racine: '../', section: 'budget', page: 'jeunesse', annees: annees(['2023', '2024', '2025']) },
+    description: `L'argent public pour les jeunes de 3 à 30 ans : ce que l'État consacre aux jeunes, programme par programme (${jeunesseMd} en 2025), et ce que paient les communes, les départements et les régions, d'après leurs comptes.`,
+    bandeau: { racine: '../', section: 'budget', page: 'jeunesse', annees: annees(['2024', '2025']) },
   });
   // Arbres des dépenses et des recettes, communs aux deux pages (et aux PDF).
   await writeOut('out/web/budget/arbres.js', await readFile(path('budget/arbres.js')));
