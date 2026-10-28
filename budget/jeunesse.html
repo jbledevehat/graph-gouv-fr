@@ -216,6 +216,10 @@
   .seg-ctl button { min-height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
   .seg-ctl button + button { border-left: 1px solid var(--control); }
   .seg-ctl button[aria-pressed="true"] { background: var(--accent); color: var(--panel); }
+  .dl { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border: 1px solid var(--control); border-radius: 8px; background: transparent; color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+  .dl:hover { background: var(--accent-soft); border-color: var(--accent); }
+  .dl svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .dl[aria-busy="true"] { opacity: .6; cursor: progress; }
   #treemap { position: relative; height: 520px; }
   @media (max-width: 640px) { #treemap { height: 440px; } }
   #treemap svg { width: 100%; height: 100%; display: block; }
@@ -397,6 +401,7 @@
           <button type="button" data-qui="etat" aria-pressed="false">État</button>
           <button type="button" data-qui="coll" aria-pressed="false">Collectivités</button>
         </div>
+        <button type="button" class="dl" id="exporter" title="Image PNG du titre, des chiffres clés et des rectangles, dans le thème affiché"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m-3.5-3.5L8 10l3.5-3.5M3 13h10"/></svg>Télécharger l'image</button>
         <ul class="legend" id="legend"></ul>
       </div>
       <div id="treemap" role="img" aria-describedby="tm-desc"></div>
@@ -587,14 +592,15 @@
 
   // --- Chiffres clés ---
   const tuile = (b, s, sm) => `<div class="card kpi"><b>${b}</b><span>${s}</span>${sm ? `<small>${sm}</small>` : ''}</div>`;
-  $('kpis').innerHTML = [
-    tuile((minimum ? '≥ ' : '') + eur(totalPub), `d'argent public pour les jeunes en ${annee}`, `État et collectivités locales`),
-    tuile(eur(total), `de l'État`, `${progs.length} programmes, ${new Set(progs.map(p => p.min)).size} ministères · ${pct(total, totalPub)}`),
-    tuile((minimum ? '≥ ' : '') + eur(totalC), `des collectivités locales`, minimum ? `comptes 2025 incomplets : un minimum` : `communes, départements, régions · ${pct(totalC, totalPub)}`),
-    tuile(eur(ens + ensC), `pour l'école et les études`, `${pct(ens + ensC, totalPub)} du total`),
-    tuile(eur(totalF), `de réductions d'impôt`, `${fiscal.length} dépenses fiscales, en plus`),
-    tuile(eur(D.enfance.cnaf_2025), `de la branche famille`, `sécurité sociale, 2025 : à part`),
-  ].join('');
+  const KPIS = [
+    [(minimum ? '≥ ' : '') + eur(totalPub), `d'argent public pour les jeunes en ${annee}`, `État et collectivités locales`],
+    [eur(total), `de l'État`, `${progs.length} programmes, ${new Set(progs.map(p => p.min)).size} ministères · ${pct(total, totalPub)}`],
+    [(minimum ? '≥ ' : '') + eur(totalC), `des collectivités locales`, minimum ? `comptes 2025 incomplets : un minimum` : `communes, départements, régions · ${pct(totalC, totalPub)}`],
+    [eur(ens + ensC), `pour l'école et les études`, `${pct(ens + ensC, totalPub)} du total`],
+    [eur(totalF), `de réductions d'impôt`, `${fiscal.length} dépenses fiscales, en plus`],
+    [eur(D.enfance.cnaf_2025), `de la branche famille`, `sécurité sociale, 2025 : à part`],
+  ];
+  $('kpis').innerHTML = KPIS.map(k => tuile(...k)).join('');
 
   // Retraites des fonctionnaires : comprises dans les cotisations de l'État employeur (catégorie 22).
   const P = D.personnel && D.personnel[annee];
@@ -638,19 +644,23 @@
   const tip = $('tip');
   const montrerTip = (ev, html) => { tip.innerHTML = html; tip.hidden = false; const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14; if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14; if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14; tip.style.left = x + 'px'; tip.style.top = y + 'px'; };
   let mode = 'tout', qui = 'tous', choisi = null;
-  function dessiner() {
-    const el = $('treemap'), W = el.clientWidth, H = el.clientHeight;
-    const vis = items.filter(p => (mode === 'tout' || !p.t.ens) && (qui === 'tous' || (qui === 'coll') === !!p.coll));
-    const tot = sum(vis, p => p.v);
+  // Position des cadres de thème, des sujets et des rectangles dans une surface W × H : sert à la page et à l'image.
+  function disposer(vis, W, H) {
     const groupes = THEMES.map(t => ({ t, v: sum(vis.filter(p => p.t === t), p => p.v) })).filter(g => g.v > 0);
-    const cadres = squarify(groupes, 0, 0, W, H);
-    let svg = '';
-    for (const g of cadres) {
+    return squarify(groupes, 0, 0, W, H).map(g => {
       const entete = g.h > 60 && g.w > 90 ? 20 : 0;
       const dans = vis.filter(p => p.t === g.t);
       const sujets = [...new Set(dans.map(p => sujetDe(p.id)))].map(k => ({ k, membres: dans.filter(p => sujetDe(p.id) === k) })).map(x => ({ ...x, v: sum(x.membres, p => p.v) }));
       const cadresS = squarify(sujets, g.x + 2, g.y + entete + 2, Math.max(0, g.w - 4), Math.max(0, g.h - entete - 4));
-      const tiles = cadresS.flatMap(c => squarify(c.membres, c.x, c.y, c.w, c.h));
+      return { ...g, entete, cadresS, tiles: cadresS.flatMap(c => squarify(c.membres, c.x, c.y, c.w, c.h)) };
+    });
+  }
+  function dessiner() {
+    const el = $('treemap'), W = el.clientWidth, H = el.clientHeight;
+    const vis = items.filter(p => (mode === 'tout' || !p.t.ens) && (qui === 'tous' || (qui === 'coll') === !!p.coll));
+    const tot = sum(vis, p => p.v);
+    let svg = '';
+    for (const { entete, cadresS, tiles, ...g } of disposer(vis, W, H)) {
       svg += `<g data-t="${g.t.i}"><rect class="grp" x="${g.x}" y="${g.y}" width="${g.w}" height="${g.h}"/>`;
       if (entete) svg += `<rect class="entete" data-th="${g.t.i}" x="${g.x}" y="${g.y}" width="${g.w}" height="${entete + 2}" tabindex="0" role="button" aria-label="Détail du thème ${esc(g.t.nom)}"/><text class="grp" x="${g.x + 6}" y="${g.y + 14}">${esc(coupe(g.t.nom, g.w - 80))} <tspan class="v">${esc(eur(g.v))} ›</tspan></text>`;
       for (const p of tiles) {
@@ -755,6 +765,111 @@
   }));
   dessiner();
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(dessiner, 150); });
+
+  // --- Image à télécharger : titre, chiffres clés et rectangles de l'année, dans le thème affiché ---
+  // Dessinée sur un canevas à largeur fixe (1200 px, en double définition), quel que soit l'écran du visiteur.
+  async function exporter() {
+    await document.fonts.ready;
+    const css = getComputedStyle(document.documentElement), V = n => css.getPropertyValue(n).trim();
+    const hex = c => { const m = c.replace('#', ''); return [0, 2, 4].map(i => parseInt(m.slice(i, i + 2), 16)); };
+    // Même mélange que color-mix(in srgb, a p, b).
+    const mix = (a, b, p) => { const x = hex(a), y = hex(b); return `rgb(${x.map((v, i) => Math.round(v * p + y[i] * (1 - p))).join(',')})`; };
+    const K = { ground: V('--ground'), panel: V('--panel'), ink: V('--ink'), muted: V('--muted'), line: V('--line'), control: V('--control'), accent: V('--accent') };
+    const sombre = hex(K.ground)[0] < 128;
+    const SANS = '"IBM Plex Sans", system-ui, sans-serif', MONO = '"IBM Plex Mono", ui-monospace, monospace';
+    const L = 1200, PAD = 40, IN = L - 2 * PAD, ECH = 2;
+    const cv = document.createElement('canvas'), c = cv.getContext('2d');
+    cv.width = L * ECH; cv.height = 1400 * ECH; c.scale(ECH, ECH);
+    const police = f => { c.font = f; };
+    const lignes = (t, larg) => { const out = []; let l = ''; for (const m of String(t).split(' ')) { const e = l ? l + ' ' + m : m; if (l && c.measureText(e).width > larg) { out.push(l); l = m; } else l = e; } if (l) out.push(l); return out; };
+    const texte = (t, x, y, larg, h) => { const ls = lignes(t, larg); ls.forEach((l, i) => c.fillText(l, x, y + i * h)); return ls.length * h; };
+    const carte = (x, y, w, h) => {
+      c.save(); c.shadowColor = sombre ? 'rgba(0,0,0,.35)' : 'rgba(22,32,51,.08)'; c.shadowBlur = 18; c.shadowOffsetY = 6;
+      c.fillStyle = K.panel; c.beginPath(); c.roundRect(x, y, w, h, 10); c.fill(); c.restore();
+      c.strokeStyle = K.line; c.lineWidth = 1; c.beginPath(); c.roundRect(x + .5, y + .5, w - 1, h - 1, 10); c.stroke();
+    };
+    c.fillStyle = K.ground; c.fillRect(0, 0, L, 1400);
+    c.textBaseline = 'top';
+    let y = PAD;
+    // En-tête.
+    police(`500 12px ${MONO}`); c.fillStyle = K.accent; c.letterSpacing = '1px'; c.fillText('TABLEAU DE BORD', PAD, y); c.letterSpacing = '0px'; y += 22;
+    police(`700 30px ${SANS}`); c.fillStyle = K.ink; y += texte($('titre').textContent, PAD, y, IN, 38) + 22;
+    // Chiffres clés : six tuiles de même hauteur.
+    const G = 12, TW = (IN - G * (KPIS.length - 1)) / KPIS.length, TP = 16, TL = TW - 2 * TP;
+    const haut = KPIS.map(([, sp, sm]) => { police(`12.5px ${SANS}`); let h = 32 + 6 + lignes(sp, TL).length * 18; police(`12px ${MONO}`); return h + (sm ? lignes(sm, TL).length * 17 + 2 : 0); });
+    const TH = Math.max(...haut) + 2 * 14;
+    KPIS.forEach(([b, sp, sm], i) => {
+      const x = PAD + i * (TW + G); carte(x, y, TW, TH);
+      let yy = y + 14;
+      police(`700 26px ${SANS}`); c.fillStyle = K.ink; c.fillText(b, x + TP, yy); yy += 38;
+      police(`12.5px ${SANS}`); c.fillStyle = K.muted; yy += texte(sp, x + TP, yy, TL, 18) + 2;
+      if (sm) { police(`12px ${MONO}`); texte(sm, x + TP, yy, TL, 17); }
+    });
+    y += TH + 30;
+    police(`600 18px ${SANS}`); c.fillStyle = K.ink; c.fillText("Ce que l'argent public consacre aux jeunes, thème par thème", PAD, y); y += 34;
+    // Cadre : légende puis rectangles.
+    const CP = 16, CW = IN - 2 * CP, TMH = 560;
+    police(`12.5px ${SANS}`);
+    const leg = [...THEMES.map(t => ({ nom: t.nom, coul: V('--t' + t.i) })), { nom: 'Hachuré : collectivités locales', hach: true }];
+    let lx = 0, ly = 0; const pos = leg.map(e => { const w = 20 + c.measureText(e.nom).width; if (lx && lx + w > CW) { lx = 0; ly += 22; } const p = { ...e, x: lx, y: ly }; lx += w + 16; return p; });
+    const LH = ly + 18, CH = CP + LH + 12 + TMH + CP;
+    carte(PAD, y, IN, CH);
+    const hachurer = (x, yy, w, h) => {
+      c.save(); c.beginPath(); c.rect(x, yy, w, h); c.clip();
+      c.strokeStyle = K.ink; c.globalAlpha = .28; c.lineWidth = 1.5; c.beginPath();
+      for (let d = -h; d < w + h; d += 7 * Math.SQRT2) { c.moveTo(x + d, yy + h); c.lineTo(x + d + h, yy); }
+      c.stroke(); c.restore();
+    };
+    for (const e of pos) {
+      const ex = PAD + CP + e.x, ey = y + CP + e.y;
+      if (e.hach) { c.fillStyle = K.panel; c.fillRect(ex, ey + 4, 14, 10); hachurer(ex, ey + 4, 14, 10); c.strokeStyle = K.control; c.lineWidth = 1; c.strokeRect(ex + .5, ey + 4.5, 13, 9); }
+      else { c.fillStyle = e.coul; c.beginPath(); c.roundRect(ex, ey + 4, 14, 10, 3); c.fill(); }
+      c.fillStyle = K.muted; c.fillText(e.nom, ex + 20, ey + 2);
+    }
+    const ox = PAD + CP, oy = y + CP + LH + 12;
+    c.textBaseline = 'alphabetic';
+    for (const g of disposer(items, CW, TMH)) {
+      const tc = V('--t' + g.t.i);
+      c.fillStyle = mix(tc, K.panel, .22); c.fillRect(ox + g.x, oy + g.y, g.w, g.h);
+      c.strokeStyle = tc; c.lineWidth = 1.5; c.strokeRect(ox + g.x, oy + g.y, g.w, g.h);
+      if (g.entete) {
+        police(`700 13px ${SANS}`); c.fillStyle = K.ink;
+        const nom = coupe(g.t.nom, g.w - 80) + ' '; c.fillText(nom, ox + g.x + 6, oy + g.y + 14);
+        const dx = c.measureText(nom).width; police(`500 13px ${SANS}`); c.fillText(eur(g.v) + ' ›', ox + g.x + 6 + dx, oy + g.y + 14);
+      }
+      for (const p of g.tiles) {
+        const x = ox + p.x, yy = oy + p.y, w = Math.max(0, p.w), h = Math.max(0, p.h);
+        c.fillStyle = mix(tc, K.panel, .48); c.fillRect(x, yy, w, h);
+        c.strokeStyle = K.panel; c.lineWidth = 2; c.strokeRect(x, yy, w, h);
+        if (p.coll) hachurer(x, yy, w, h);
+        if (p.w > 64 && p.h > 34) {
+          police(`12px ${SANS}`); c.fillStyle = K.ink; c.fillText(coupe(nomItem(p), p.w - 10), x + 5, yy + 15);
+          police(`500 11px ${MONO}`); c.fillText(eur(p.v), x + 5, yy + 29);
+        }
+      }
+      for (const s of g.cadresS) if (s.membres.some(p => p.coll) && s.membres.some(p => !p.coll)) {
+        c.strokeStyle = mix(tc, K.ink, .55); c.lineWidth = 2; c.strokeRect(ox + s.x + 1, oy + s.y + 1, Math.max(0, s.w - 2), Math.max(0, s.h - 2));
+      }
+    }
+    y += CH + 18;
+    // Pied : sources et adresse.
+    c.textBaseline = 'top'; police(`12px ${SANS}`); c.fillStyle = K.muted;
+    y += texte(`Sources : document de politique transversale « Politique en faveur de la jeunesse » (État) et balances comptables des collectivités par fonction (DGFiP), ${annee}. Proposition indépendante, ce n'est pas un outil officiel.`, PAD, y, IN, 17);
+    police(`500 12px ${MONO}`); c.fillStyle = K.accent; c.fillText('gouvfr.jbledevehat.fr/budget/jeunesse.html', PAD, y + 4); y += 22 + PAD - 8;
+    // Canevas final à la hauteur exacte.
+    const fin = document.createElement('canvas'); fin.width = L * ECH; fin.height = Math.ceil(y * ECH);
+    fin.getContext('2d').drawImage(cv, 0, 0);
+    const blob = await new Promise(r => fin.toBlob(r, 'image/png'));
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = `argent-public-jeunesse-${annee}-${sombre ? 'sombre' : 'clair'}.png`;
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  }
+  $('exporter').addEventListener('click', async ev => {
+    const b = ev.currentTarget; if (b.getAttribute('aria-busy') === 'true') return;
+    b.setAttribute('aria-busy', 'true');
+    try { await exporter(); } catch (e) { alert("L'image n'a pas pu être créée : " + e.message); } finally { b.removeAttribute('aria-busy'); }
+  });
 
   // --- Évolution par thème, programmes repliés ---
   const tousProgs = [...new Set(COLS.filter(c => c[1]).flatMap(([, f]) => D.etat[f].programmes.map(p => p.programme)))];
