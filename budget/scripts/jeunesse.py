@@ -23,6 +23,9 @@ SRC = 'sources/jeunesse'
 EUR = 1e6
 DOCS = [
     # fichier, colonnes du tableau (dans l'ordre : AE puis CP pour chacune des trois années)
+    # Le document a été supprimé par la loi de finances pour 2022 (art. 171) et rétabli pour 2025 :
+    # il n'y a pas d'édition 2023 ni 2024, donc pas d'exécution 2021 ni 2022.
+    ('DPT-jeunesse-PLF2022.pdf', ['execution_2020', 'lfi_2021', 'plf_2022']),
     ('DPT-jeunesse-PLF2025.pdf', ['execution_2023', 'lfi_2024', 'plf_2025']),
     ('DPT-jeunesse-PLF2026.pdf', ['execution_2024', 'lfi_2025', 'plf_2026']),
     ('DPT-jeunesse-PLF2027.pdf', ['execution_2025', 'lfi_2026', 'plf_2027']),
@@ -71,7 +74,10 @@ def montants(ligne, centres, xmin):
 
 def recapitulatif(fichier, annees):
     pdf = pdfplumber.open(f'{SRC}/{fichier}')
-    pages = [i for i, p in enumerate(pdf.pages) if 'RECAPITULATION DES CREDITS PAR PROGRAMME' in (p.extract_text() or '')]
+    # Le tableau s'intitule « Récapitulation des crédits par programme » depuis 2025, « Évaluation des crédits
+    # consacrés à la politique transversale » auparavant.
+    TITRES = ('RECAPITULATION DES CREDITS PAR PROGRAMME', 'ÉVALUATION DES CRÉDITS CONSACRÉS À LA POLITIQUE TRANSVERSALE')
+    pages = [i for i, p in enumerate(pdf.pages) if any(t in (p.extract_text() or '') for t in TITRES)]
     assert pages, f'{fichier} : tableau récapitulatif introuvable'
     lignes_tab, total, fini = [], None, False
     i = pages[0]
@@ -83,8 +89,11 @@ def recapitulatif(fichier, annees):
         dedans = i != pages[0]
         for l in lignes(page):
             t = texte(' '.join(w['text'] for w in l))
-            if t.startswith('RECAPITULATION DES CREDITS'):
+            if t.startswith(('RECAPITULATION DES CREDITS', 'ÉVALUATION DES CRÉDITS CONSACRÉS')):
                 dedans = True
+                continue
+            # En-têtes de page des éditions anciennes : « PLF 2022 130 », titre du document, titre de partie.
+            if re.fullmatch(r'PLF \d{4} \d+', t) or t in ('Politique en faveur de la jeunesse', 'PRÉSENTATION DES CRÉDITS PAR PROGRAMME DPT', 'PRÉSENTATION DES CRÉDITS PAR PROGRAMME'):
                 continue
             if not dedans or t.startswith(('Numéro et intitulé', 'ou du PSR', 'Exécution 20', 'Annexe au projet')) or re.fullmatch(r'\d+', t):
                 continue
@@ -131,7 +140,7 @@ def recapitulatif(fichier, annees):
     # Dépenses fiscales (en millions d'euros), d'après les colonnes « Chiffrage ».
     fiscal, total_f = [], None
     for page in pdf.pages:
-        if 'PRESENTATION DES PRINCIPALES DEPENSES FISCALES' not in (page.extract_text() or ''):
+        if not any(t in (page.extract_text() or '') for t in ('PRESENTATION DES PRINCIPALES DEPENSES FISCALES', 'PRÉSENTATION DES PRINCIPALES DÉPENSES FISCALES')):
             continue
         centres = colonnes(page, ('Chiffrage',))
         assert len(centres) == 3
@@ -213,7 +222,11 @@ def domaine(nomen, code):
     f = fonction(code)
     if not f:
         return None
-    if nomen == 'M14':
+    if nomen == 'M71':  # régions jusqu'en 2023 (fonction 1 : formation professionnelle et apprentissage)
+        regles = [('11', 'formation_pro'), ('12', 'apprentissage'), ('13', 'sanitaire_social'), ('20', 'ens_communs'),
+                  ('21', 'primaire'), ('22', 'secondaire'), ('23', 'superieur'), ('28', 'periscolaire'), ('2', 'ens_communs'),
+                  ('33', 'jeunesse'), ('813', 'transport_scolaire')]
+    elif nomen in ('M14', 'M14A'):
         if f.startswith('252'): return 'transport_scolaire'
         regles = [('20', 'ens_communs'), ('21', 'primaire'), ('22', 'secondaire'), ('23', 'superieur'),
                   ('24', 'formation_pro'), ('25', 'periscolaire'), ('42', 'jeunesse'), ('64', 'petite_enfance')]
@@ -229,7 +242,7 @@ def domaine(nomen, code):
     return next((d for p, d in regles if f.startswith(p)), None)
 
 resultat['collectivites'] = {}
-for an in ('2024', '2025'):
+for an in ('2019', '2020', '2021', '2022', '2023', '2024', '2025'):
     bal = json.load(open(f'sources/collectivites/balances-fonction-{an}.json', encoding='utf-8'))
     dom = defaultdict(lambda: defaultdict(float))
     for categ, nomen, code, fonc, inv in bal['lignes']:

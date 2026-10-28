@@ -54,6 +54,7 @@ recuperer "$API/performance-de-la-depense-rap-2025/exports/csv?delimiter=%3B" so
 echo "Politique en faveur de la jeunesse et politiques de l'enfance (annexes aux PLF 2025 à 2027) :"
 AN=https://www.assemblee-nationale.fr/dyn/contenu/visualisation
 mkdir -p sources/jeunesse
+recuperer "https://www.jeunes.gouv.fr/media/5072/download" sources/jeunesse/DPT-jeunesse-PLF2022.pdf
 recuperer "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Oranges/07-Orange_Jeunesse.pdf" sources/jeunesse/DPT-jeunesse-PLF2025.pdf
 recuperer "$AN/1090086/file/7-DPT2026_Jeunesse.pdf" sources/jeunesse/DPT-jeunesse-PLF2026.pdf
 recuperer "$AN/1129682/file/7-DPT%202027%20-%20Politique%20en%20faveur%20de%20la%20jeunesse.pdf" sources/jeunesse/DPT-jeunesse-PLF2027.pdf

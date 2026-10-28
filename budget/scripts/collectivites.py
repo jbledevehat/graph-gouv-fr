@@ -19,6 +19,11 @@ Usage (depuis budget/) : python3 scripts/collectivites.py [--refaire]
 import json, os, sys, urllib.parse, urllib.request
 
 ANNEES = {
+    '2019': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec6',
+    '2020': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec7',
+    '2021': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec8',
+    '2022': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-2022',
+    '2023': 'balances-comptables-des-collectivites-et-des-epl-avec-fonction-2023',
     '2024': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024',
     '2025': 'balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2025',
 }
@@ -61,7 +66,8 @@ def telecharger(an, refaire=False):
 
 
 def fonction(code):
-    """Code de fonction M57 sans le chapitre de vote : 93222 (fonctionnement) ou 90222 (investissement) -> 222.
+    """Code de fonction (M57, ou M71 des régions jusqu'en 2023) sans le chapitre de vote : 93222 (fonctionnement)
+    ou 90222 (investissement) -> 222.
     Les chapitres 92, 94 et 95 (opérations non ventilées) et les codes vides donnent None."""
     code = str(code or '')
     if code[:2] in ('90', '93') and len(code) > 2:

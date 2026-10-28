@@ -339,6 +339,7 @@
   #tb-evol { min-width: 760px; }
   th.prev, td.prev { color: var(--muted); font-style: italic; }
   th.cur { color: var(--accent); }
+  td.nd { color: var(--muted); }
   /* Dépenses fiscales */
   .outside { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
   .outside li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
@@ -372,7 +373,7 @@
     <span class="eyebrow">Tableau de bord</span>
     <h1 id="titre">L'argent public pour la jeunesse</h1>
     <p>Ce que l'argent public consacre aux jeunes de 3 à 30 ans, qu'il vienne de l'État ou des collectivités locales : l'école et les études d'abord, mais aussi l'apprentissage, les aides au logement, l'aide sociale à l'enfance, la protection judiciaire de la jeunesse, les centres de loisirs, le service civique, le sport ou la culture. Pour l'État, la page reprend le document que le gouvernement joint chaque année au projet de loi de finances et qui recense, programme par programme, la part de ses crédits consacrée aux jeunes. Pour les communes, les intercommunalités, les départements et les régions, elle additionne leurs comptes, rangés par fonction. La sécurité sociale (allocations familiales, aides à la garde des enfants) est montrée à part.</p>
-    <p class="source">Sources : <a href="https://www.budget.gouv.fr/documentation/documents-politique-transversale/politique-en-faveur-jeunesse" target="_blank" rel="noopener"><strong>Document de politique transversale « Politique en faveur de la jeunesse »</strong></a>, annexé aux projets de loi de finances pour 2025, 2026 et 2027 ; <a href="https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/" target="_blank" rel="noopener"><strong>balances comptables des collectivités par fonction</strong></a> (DGFiP), 2024 et 2025 ; comptes de la Nation de l'Insee pour l'enseignement ; rapport relatif aux politiques de l'enfance, annexé au projet de loi de finances pour 2027.</p>
+    <p class="source">Sources : <a href="https://www.budget.gouv.fr/documentation/documents-politique-transversale/politique-en-faveur-jeunesse" target="_blank" rel="noopener"><strong>Document de politique transversale « Politique en faveur de la jeunesse »</strong></a>, annexé aux projets de loi de finances pour 2022, 2025, 2026 et 2027 ; <a href="https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/" target="_blank" rel="noopener"><strong>balances comptables des collectivités par fonction</strong></a> (DGFiP), de 2019 à 2025 ; comptes de la Nation de l'Insee pour l'enseignement ; rapport relatif aux politiques de l'enfance, annexé au projet de loi de finances pour 2027.</p>
     <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
   </div>
 
@@ -422,7 +423,7 @@
   </section>
 
   <section aria-labelledby="t-evol">
-    <h2 id="t-evol">De 2023 à 2027 : réalisé, voté et proposé</h2>
+    <h2 id="t-evol">De 2019 à 2027 : réalisé, voté et proposé</h2>
     <p class="lead" id="evol-lead"></p>
     <div class="card">
       <div class="table-scroll"><table id="tb-evol"></table></div>
@@ -477,7 +478,7 @@
 <div id="tip" role="tooltip" hidden></div>
 
 <footer class="wrap">
-  <p>Données : <a href="donnees/jeunesse.json" download>JSON</a>, assemblé par <code>budget/scripts/jeunesse.py</code> à partir des documents de politique transversale « Politique en faveur de la jeunesse » 2025, 2026 et 2027, des balances comptables des collectivités (DGFiP), du rapport sur les politiques de l'enfance 2027 et des comptes de la Nation de l'Insee. Licence Ouverte 2.0.</p>
+  <p>Données : <a href="donnees/jeunesse.json" download>JSON</a>, assemblé par <code>budget/scripts/jeunesse.py</code> à partir des documents de politique transversale « Politique en faveur de la jeunesse » 2022, 2025, 2026 et 2027, des balances comptables des collectivités (DGFiP), du rapport sur les politiques de l'enfance 2027 et des comptes de la Nation de l'Insee. Licence Ouverte 2.0.</p>
 </footer>
 
 <script>
@@ -515,7 +516,7 @@
   } catch (e) { $('kpis').textContent = 'Impossible de charger les données (donnees/jeunesse.json) : ' + e.message; return; }
 
   // Année : celle de l'adresse (?annee=…) si le document en donne l'exécution, sinon l'année de référence du site.
-  const EDITION = { 2023: 'DPT-jeunesse-PLF2025.pdf', 2024: 'DPT-jeunesse-PLF2026.pdf', 2025: 'DPT-jeunesse-PLF2027.pdf' };
+  const EDITION = { 2020: 'DPT-jeunesse-PLF2022.pdf', 2023: 'DPT-jeunesse-PLF2025.pdf', 2024: 'DPT-jeunesse-PLF2026.pdf', 2025: 'DPT-jeunesse-PLF2027.pdf' };
   // Les collectivités ne sont détaillées par fonction, dans un même plan comptable, qu'à partir de 2024.
   const ANNEES = Object.keys(D.collectivites).filter(a => EDITION[a]);
   const voulue = new URLSearchParams(location.search).get('annee');
@@ -527,11 +528,11 @@
   const THEMES = [
     { id: 'scolaire', nom: 'Écoles, collèges et lycées', ens: true, p: ['140', '141', '139', '230', '214', '143', '185', '151'] },
     { id: 'sup', nom: 'Études supérieures et vie étudiante', ens: true, p: ['150', '231', '142', '192'] },
-    { id: 'emploi', nom: 'Emploi, apprentissage et insertion', p: ['102', '103', '138', '155'] },
+    { id: 'emploi', nom: 'Emploi, apprentissage et insertion', p: ['102', '103', '138', '155', '364'] },
     { id: 'logement', nom: 'Logement et hébergement', p: ['109', '177'] },
     { id: 'protection', nom: 'Protection, justice et santé', p: ['182', '304', '157', '137', '204', '206', '129'] },
     { id: 'engagement', nom: 'Engagement, sport et culture', p: ['163', '219', '361', '131', '175', '334', '169', '212', '209'] },
-    { id: 'securite', nom: 'Sécurité, ville et outre-mer', p: ['152', '176', '207', '147', '123', '203'] },
+    { id: 'securite', nom: 'Sécurité, ville et outre-mer', p: ['152', '176', '207', '147', '123', '203', '751'] },
   ];
   THEMES.forEach((t, i) => t.i = i + 1);
   const themeDe = code => THEMES.find(t => t.p.includes(code)) || THEMES[THEMES.length - 1];
@@ -539,7 +540,7 @@
   // Noms courts pour les rectangles ; l'infobulle et le détail gardent l'intitulé officiel.
   const COURT = { 140: 'Écoles publiques', 141: 'Collèges et lycées publics', 139: 'Enseignement privé', 230: "Vie de l'élève", 214: "Soutien de l'Éducation nationale",
     150: 'Universités et recherche', 231: 'Vie étudiante', 143: 'Enseignement agricole', 109: 'Aides au logement', 177: 'Hébergement et insertion',
-    103: 'Apprentissage et emploi', 102: "Accès et retour à l'emploi", 182: 'Protection judiciaire de la jeunesse', 163: 'Jeunesse et vie associative',
+    103: 'Apprentissage et emploi', 364: 'Plan de relance : cohésion', 102: "Accès et retour à l'emploi", 182: 'Protection judiciaire de la jeunesse', 163: 'Jeunesse et vie associative',
     361: 'Éducation artistique et culturelle', 304: 'Inclusion sociale', 152: 'Gendarmerie', 176: 'Police', 147: 'Politique de la ville', 185: 'Lycées français à l\'étranger' };
 
   const progs = E.programmes.map(p => ({ ...p, v: p.cp[cle] || 0, t: themeDe(p.programme), min: MIN[p.programme]?.ministere || '' })).filter(p => p.v > 0);
@@ -688,10 +689,14 @@
   // Texte raccourci à la largeur disponible (environ 6,4 px par caractère).
   function coupe(t, w) { const n = Math.max(3, Math.floor(w / 6.4)); return t.length > n ? t.slice(0, n - 1).trimEnd() + '…' : t; }
 
-  // Série d'un programme sur les cinq colonnes (exécution 2023 à 2025, loi de finances 2026, projet 2027).
-  const COLS = [['2023', 'DPT-jeunesse-PLF2025.pdf', 'execution_2023', 'Réalisé'], ['2024', 'DPT-jeunesse-PLF2026.pdf', 'execution_2024', 'Réalisé'], ['2025', 'DPT-jeunesse-PLF2027.pdf', 'execution_2025', 'Réalisé'],
+  // Série d'un programme par colonne : exécution 2019 à 2025, loi de finances 2026, projet 2027. Le document de l'État
+  // n'existe pas pour 2021 et 2022 (supprimé par la loi de finances pour 2022, rétabli en 2025) ; l'édition 2021, qui
+  // donnerait 2019, n'est pas reprise. Ces colonnes n'ont que les collectivités.
+  const COLS = [['2019', null, null, 'Réalisé'], ['2020', 'DPT-jeunesse-PLF2022.pdf', 'execution_2020', 'Réalisé'], ['2021', null, null, 'Réalisé'], ['2022', null, null, 'Réalisé'],
+    ['2023', 'DPT-jeunesse-PLF2025.pdf', 'execution_2023', 'Réalisé'], ['2024', 'DPT-jeunesse-PLF2026.pdf', 'execution_2024', 'Réalisé'], ['2025', 'DPT-jeunesse-PLF2027.pdf', 'execution_2025', 'Réalisé'],
     ['2026', 'DPT-jeunesse-PLF2027.pdf', 'lfi_2026', 'Voté'], ['2027', 'DPT-jeunesse-PLF2027.pdf', 'plf_2027', 'Proposé']];
-  const serie = code => COLS.map(([, f, k]) => D.etat[f].programmes.find(p => p.programme === code)?.cp[k] ?? null);
+  const serie = code => COLS.map(([, f, k]) => f ? D.etat[f].programmes.find(p => p.programme === code)?.cp[k] ?? null : null);
+  const iCol = an => COLS.findIndex(c => c[0] === an);
 
   function fiche(p) {
     const acts = p.actions.map(a => ({ ...a, v: a.cp[cle] || 0 })).filter(a => a.v > 0).sort((a, b) => b.v - a.v);
@@ -701,7 +706,7 @@
       <span class="muted">${esc(p.min)}${MIN[p.programme]?.mission ? ' · mission ' + esc(MIN[p.programme].mission) : ''} · thème « ${esc(p.t.nom)} »</span>
       <span>En ${annee} : <b>${eur(p.v)}</b> pour les jeunes, soit ${pct(p.v, total)} des crédits de l'État et ${pct(p.v, totalPub)} de l'argent public pour les jeunes.</span>
       ${acts.length > 1 ? `<div class="hbars" style="margin-top:6px">${acts.map(a => `<div class="hbar"><span>${esc(a.libelle)}</span><span class="track"><i style="width:calc((100% - 6rem) * ${Math.max(0.02, a.v / mx)});background:var(--t${p.t.i})"></i><span><b>${eur(a.v)}</b></span></span></div>`).join('')}</div>` : ''}
-      <dl>${COLS.map(([an, , , etat], i) => `<dt>${etat} ${an}</dt><dd>${eur(s[i])}</dd>`).join('')}</dl>
+      <dl>${COLS.map(([an, f, , etat], i) => f ? `<dt>${etat} ${an}</dt><dd>${eur(s[i])}</dd>` : '').join('')}</dl>
       ${p.programme === '109' ? `<span class="muted">Depuis l'édition 2026, les jeunes sont comptés jusqu'à 30 ans (25 ans auparavant) ; à partir de 2025, 3 Md€ de taxes passent par ce programme au lieu d'aller directement au Fonds national d'aide au logement.</span>` : ''}`;
   }
   // Détail d'un thème : ses sujets, du plus gros au plus petit, chacun partagé entre l'État et les collectivités.
@@ -752,11 +757,12 @@
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(dessiner, 150); });
 
   // --- Évolution par thème, programmes repliés ---
-  const tousProgs = [...new Set(COLS.flatMap(([, f]) => D.etat[f].programmes.map(p => p.programme)))];
-  const libelleDe = code => (D.etat['DPT-jeunesse-PLF2027.pdf'].programmes.find(p => p.programme === code) || E.programmes.find(p => p.programme === code) || {}).libelle || code;
+  const tousProgs = [...new Set(COLS.filter(c => c[1]).flatMap(([, f]) => D.etat[f].programmes.map(p => p.programme)))];
+  const libelleDe = code => (['DPT-jeunesse-PLF2027.pdf', 'DPT-jeunesse-PLF2026.pdf', 'DPT-jeunesse-PLF2025.pdf', 'DPT-jeunesse-PLF2022.pdf'].map(f => D.etat[f].programmes.find(p => p.programme === code)).find(Boolean) || {}).libelle || code;
   const parTheme = THEMES.map(t => ({ t, progs: tousProgs.filter(c => themeDe(c) === t).map(c => ({ code: c, s: serie(c) })) }));
-  const totCol = i => sum(parTheme, g => sum(g.progs, p => p.s[i]));
-  const cell = (v, i) => `<td class="num${i >= 3 ? ' prev' : ''}">${eur(v)}</td>`;
+  const totCol = i => COLS[i][1] ? sum(parTheme, g => sum(g.progs, p => p.s[i])) : null;
+  const prev = i => COLS[i][3] !== 'Réalisé';
+  const cell = (v, i) => `<td class="num${prev(i) ? ' prev' : ''}${COLS[i][1] ? '' : ' nd'}">${eur(v)}</td>`;
   // Collectivités : seulement les années dont les comptes par fonction sont publiés.
   const domAn = (an, d) => D.collectivites[an] ? sum(Object.values(D.collectivites[an][d] || {}), v => v) : null;
   const complAn = an => {
@@ -765,20 +771,20 @@
   };
   const collLignes = DOMAINES.map(([d, , nom]) => [nom, COLS.map(([an]) => domAn(an, d))]).concat([["Enseignement, part non répartie (Insee)", COLS.map(([an]) => complAn(an))]]);
   const collTot = an => D.collectivites[an] ? sum(DOMAINES, ([d]) => domAn(an, d)) + (complAn(an) || 0) : null;
-  $('tb-evol').innerHTML = `<thead><tr><th>Thème et programme</th>${COLS.map(([an, , , etat], i) => `<th class="num${i >= 3 ? ' prev' : ''}${an === annee ? ' cur' : ''}">${etat}<br>${an}</th>`).join('')}</tr></thead><tbody>
-    ${parTheme.map(g => `<tr><th><button class="toggle-row" aria-expanded="false" data-g="${g.t.id}"><span class="sw" data-t="${g.t.i}"></span>${esc(g.t.nom)}</button></th>${COLS.map((c, i) => cell(sum(g.progs, p => p.s[i]), i)).join('')}</tr>
-      ${g.progs.sort((a, b) => (b.s[2] || 0) - (a.s[2] || 0)).map(p => `<tr class="child" data-de="${g.t.id}" hidden><th>${p.code} · ${esc(nomCourt(libelleDe(p.code)))}</th>${p.s.map(cell).join('')}</tr>`).join('')}`).join('')}
+  $('tb-evol').innerHTML = `<thead><tr><th>Thème et programme</th>${COLS.map(([an, , , etat], i) => `<th class="num${prev(i) ? ' prev' : ''}${an === annee ? ' cur' : ''}">${etat}<br>${an}</th>`).join('')}</tr></thead><tbody>
+    ${parTheme.map(g => `<tr><th><button class="toggle-row" aria-expanded="false" data-g="${g.t.id}"><span class="sw" data-t="${g.t.i}"></span>${esc(g.t.nom)}</button></th>${COLS.map((c, i) => cell(c[1] ? sum(g.progs, p => p.s[i]) : null, i)).join('')}</tr>
+      ${g.progs.sort((a, b) => (b.s[iCol('2025')] || 0) - (a.s[iCol('2025')] || 0)).map(p => `<tr class="child" data-de="${g.t.id}" hidden><th>${p.code} · ${esc(nomCourt(libelleDe(p.code)))}</th>${p.s.map(cell).join('')}</tr>`).join('')}`).join('')}
     <tr class="tot"><th>Total de l'État</th>${COLS.map((c, i) => cell(totCol(i), i)).join('')}</tr>
     <tr><th><button class="toggle-row" aria-expanded="false" data-g="coll"><span class="sw hach"></span>Collectivités locales</button></th>${COLS.map((c, i) => cell(collTot(c[0]), i)).join('')}</tr>
       ${collLignes.map(([nom, s]) => `<tr class="child" data-de="coll" hidden><th>${esc(nom)}</th>${s.map(cell).join('')}</tr>`).join('')}
-    <tr class="tot"><th>Total de l'argent public</th>${COLS.map((c, i) => cell(collTot(c[0]) == null ? null : totCol(i) + collTot(c[0]), i)).join('')}</tr></tbody>`;
+    <tr class="tot"><th>Total de l'argent public</th>${COLS.map((c, i) => cell(collTot(c[0]) == null || totCol(i) == null ? null : totCol(i) + collTot(c[0]), i)).join('')}</tr></tbody>`;
   $('tb-evol').querySelectorAll('.toggle-row').forEach(b => b.addEventListener('click', () => {
     const ouvert = b.getAttribute('aria-expanded') !== 'true';
     b.setAttribute('aria-expanded', String(ouvert));
     $('tb-evol').querySelectorAll(`tr[data-de="${b.dataset.g}"]`).forEach(r => r.hidden = !ouvert);
   }));
-  const t25 = totCol(2), t27 = totCol(4);
-  $('evol-lead').textContent = `Crédits de paiement attribués aux jeunes, par thème. Les trois premières colonnes sont des dépenses réalisées ; 2026 est le budget voté, 2027 le projet du gouvernement, encore débattu au Parlement (${t27 >= t25 ? '+' : '−'}${md(Math.abs(t27 - t25))} Md€ par rapport au réalisé 2025, sans tenir compte de l'inflation). Cliquez sur un thème pour voir ses programmes.`;
+  const t25 = totCol(iCol('2025')), t27 = totCol(iCol('2027'));
+  $('evol-lead').textContent = `Crédits de paiement attribués aux jeunes, par thème. Les colonnes « Réalisé » sont des dépenses réalisées ; 2026 est le budget voté, 2027 le projet du gouvernement, encore débattu au Parlement (${t27 >= t25 ? '+' : '−'}${md(Math.abs(t27 - t25))} Md€ par rapport au réalisé 2025, sans tenir compte de l'inflation). Pour 2021 et 2022, l'État n'a pas publié de document sur la jeunesse : la loi de finances pour 2022 l'avait supprimé, avant qu'il soit rétabli pour 2025. Pour 2019, l'édition qui en donne l'exécution n'est pas encore reprise. Ces années n'ont donc que les collectivités. Cliquez sur un thème pour voir ses programmes.`;
 
   // --- Collectivités, niveau par niveau ---
   const celC = v => `<td class="num">${v > 0.5 ? eur(v) : '–'}</td>`;
