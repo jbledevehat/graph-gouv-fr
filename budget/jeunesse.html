@@ -410,6 +410,20 @@
   const $ = id => document.getElementById(id);
   const fmt = n => Number(n).toLocaleString('fr-FR');
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // Thème.
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
   const md = (v, d = 1) => (v / 1000).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
   // Montant en M€ : en milliards au-delà de 1 000 M€.
   const eur = v => v == null ? '–' : v >= 1000 ? md(v) + ' Md€' : fmt(Math.round(v)) + ' M€';
