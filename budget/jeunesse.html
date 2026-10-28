@@ -286,6 +286,29 @@
   #treemap pattern line { stroke: var(--ink); stroke-opacity: .28; stroke-width: 1.5px; }
   .sw.hach { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--ink) 30%, transparent) 0 2px, transparent 2px 5px); border: 1px solid var(--control); }
   #tb-coll { min-width: 760px; }
+  /* Barres empilées des collectivités : un ton du bleu d'accent par niveau, du plus local au plus large. */
+  :root { --n1: var(--accent); --n2: color-mix(in srgb, var(--accent) 70%, var(--panel)); --n3: color-mix(in srgb, var(--accent) 45%, var(--panel)); --n4: color-mix(in srgb, var(--accent) 25%, var(--panel)); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --n2: color-mix(in srgb, var(--accent) 75%, var(--panel)); --n3: color-mix(in srgb, var(--accent) 56%, var(--panel)); --n4: color-mix(in srgb, var(--accent) 40%, var(--panel)); } }
+  :root[data-theme="dark"] { --n2: color-mix(in srgb, var(--accent) 75%, var(--panel)); --n3: color-mix(in srgb, var(--accent) 56%, var(--panel)); --n4: color-mix(in srgb, var(--accent) 40%, var(--panel)); }
+  .sw.n1 { background: var(--n1); } .sw.n2 { background: var(--n2); } .sw.n3 { background: var(--n3); } .sw.n4 { background: var(--n4); }
+  .sbars { display: grid; gap: 12px; }
+  .sbar { display: grid; grid-template-columns: minmax(0, 17rem) 1fr; gap: 14px; align-items: center; }
+  .sbar .nom b { display: block; font-size: 13.5px; font-weight: 600; }
+  .sbar .nom small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
+  .sbar .piste { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .sbar .segs { display: flex; gap: 2px; height: 18px; flex: none; }
+  .sbar .segs i { display: block; height: 100%; min-width: 1px; cursor: default; }
+  .sbar .segs i:last-child { border-radius: 0 4px 4px 0; }
+  .sbar .segs i.nr { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--ink) 30%, transparent) 0 2px, transparent 2px 5px); outline: 1px solid var(--control); outline-offset: -1px; }
+  .sbar .tot { font: 600 12.5px var(--mono); white-space: nowrap; }
+  .sbar.ensemble .segs { height: 28px; }
+  .sbar.ensemble .segs i { display: flex; align-items: center; padding-left: 6px; font: 600 11.5px var(--mono); color: var(--ink); overflow: hidden; white-space: nowrap; }
+  .sbar.ensemble .segs i.n1 { color: var(--panel); }
+  .sbars.hors .sbar { opacity: .7; }
+  .sbars-titre { margin: 6px 0 -4px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  details.voir-table summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+  details.voir-table[open] summary { margin-bottom: 8px; }
+  @media (max-width: 640px) { .sbar { grid-template-columns: 1fr; gap: 4px; } }
   #tb-coll tr.hors th, #tb-coll tr.hors td { color: var(--muted); font-style: italic; }
   /* Barres horizontales (détail d'un programme, autres administrations) */
   .hbars { display: grid; gap: 8px; }
@@ -373,8 +396,16 @@
   <section aria-labelledby="t-coll">
     <h2 id="t-coll">Les collectivités, niveau par niveau</h2>
     <p class="lead" id="coll-lead"></p>
-    <div class="card">
-      <div class="table-scroll"><table id="tb-coll"></table></div>
+    <div class="card pad" style="display:grid;gap:14px">
+      <ul class="legend" id="coll-legende"></ul>
+      <div class="sbars" id="coll-ensemble"></div>
+      <div class="sbars" id="coll-barres"></div>
+      <h3 class="sbars-titre">Non comptés dans le total</h3>
+      <div class="sbars hors" id="coll-hors"></div>
+      <details class="voir-table">
+        <summary>Voir les montants en tableau</summary>
+        <div class="table-scroll"><table id="tb-coll"></table></div>
+      </details>
     </div>
     <p class="muted" style="margin:0;font-size:12.5px;max-width:90ch" id="coll-note"></p>
   </section>
@@ -713,10 +744,35 @@
     ${complement > 0 ? `<tr><th>Enseignement, part non répartie<br><small class="muted">écart avec les comptes de l'Insee, qui couvrent toutes les collectivités</small></th><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td>${celC(complement)}</tr>
     <tr class="tot"><th>Total des collectivités pour les jeunes</th><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td>${celC(totalC)}</tr>` : ''}
     ${HORS.map(([d, nom, sous]) => ligneC(d, nom + ' (non compté)', sous, 'hors')).join('')}</tbody>`;
+  // Barres empilées : une par domaine, segments par niveau de collectivité.
+  const NCLS = ['n1', 'n2', 'n3', 'n4'];
+  const partsDe = d => NIVCOL.map(([, cs]) => sum(cs, c => dom(d)[c] || 0));
+  const lignesB = DOMAINES.map(([d, , nom, sous]) => ({ nom, sous, parts: partsDe(d) }));
+  if (complement > 0) lignesB.push({ nom: 'Enseignement, part non répartie', sous: "écart avec l'Insee : petites communes, syndicats scolaires, caisses des écoles, personnel non réparti", parts: [], nr: complement });
+  const totB = l => sum(l.parts, v => v) + (l.nr || 0);
+  lignesB.sort((a, b) => totB(b) - totB(a));
+  const horsB = HORS.map(([d, nom, sous]) => ({ nom, sous, parts: partsDe(d) }));
+  const mxB = Math.max(...lignesB.concat(horsB).map(totB));
+  const barre = (l, cls = '') => {
+    const t = totB(l);
+    const segs = l.parts.map((v, i) => v > 0.5 ? `<i class="${NCLS[i]}" style="width:${v / t * 100}%;background:var(--${NCLS[i]})" data-tip="${esc(NIVCOL[i][0])} : ${eur(v)} (${pct(v, t)})"></i>` : '').join('')
+      + (l.nr ? `<i class="nr" style="width:${l.nr / t * 100}%" data-tip="Non réparti par les comptes : ${eur(l.nr)}"></i>` : '');
+    return `<div class="sbar ${cls}"><div class="nom"><b>${esc(l.nom)}</b><small>${esc(l.sous)}</small></div><div class="piste"><span class="segs" style="width:calc((100% - 5.5rem) * ${Math.max(0.004, t / mxB)})">${segs}</span><span class="tot">${eur(t)}</span></div></div>`;
+  };
+  // Ensemble : la part de chaque niveau dans le total des collectivités pour les jeunes.
+  const parNiv = NIVCOL.map((n, i) => sum(lignesB, l => l.parts[i] || 0));
+  $('coll-legende').innerHTML = NIVCOL.map(([n], i) => `<li><span class="sw ${NCLS[i]}"></span>${n} · ${eur(parNiv[i])}</li>`).join('') + (complement > 0 ? `<li><span class="sw hach"></span>Non réparti · ${eur(complement)}</li>` : '');
+  $('coll-ensemble').innerHTML = `<div class="sbar ensemble"><div class="nom"><b>Ensemble des collectivités</b><small>${eur(totalC)}${minimum ? ' au moins' : ''} pour les jeunes en ${annee}</small></div><div class="piste"><span class="segs" style="width:calc(100% - 5.5rem)">${parNiv.map((v, i) => v > 0.5 ? `<i class="${NCLS[i]}" style="width:${v / totalC * 100}%;background:var(--${NCLS[i]})" data-tip="${esc(NIVCOL[i][0])} : ${eur(v)} (${pct(v, totalC)})">${v / totalC > 0.08 ? pct(v, totalC) : ''}</i>` : '').join('')}${complement > 0 ? `<i class="nr" style="width:${complement / totalC * 100}%" data-tip="Non réparti par les comptes : ${eur(complement)}">${complement / totalC > 0.08 ? pct(complement, totalC) : ''}</i>` : ''}</span><span class="tot">${eur(totalC)}</span></div></div>`;
+  $('coll-barres').innerHTML = lignesB.map(l => barre(l)).join('');
+  $('coll-hors').innerHTML = horsB.map(l => barre(l)).join('');
+  document.querySelectorAll('#t-coll ~ * [data-tip], #coll-ensemble [data-tip], #coll-barres [data-tip], #coll-hors [data-tip]').forEach(el => {
+    el.addEventListener('mousemove', ev => montrerTip(ev, el.dataset.tip));
+    el.addEventListener('mouseleave', () => tip.hidden = true);
+  });
   $('coll-lead').textContent = `Ce que paient les collectivités locales pour les jeunes en ${annee}, d'après leurs comptes rangés par fonction : ${eur(totalC)}${minimum ? ' au moins' : ''}. Les communes paient les écoles et le périscolaire, les départements les collèges et l'aide sociale à l'enfance, les régions les lycées, le transport scolaire et l'apprentissage. Les enseignants, eux, sont payés par l'État.`;
   $('coll-note').innerHTML = minimum
     ? `Les comptes de l'Insee pour 2025, qui couvrent toutes les collectivités, seront publiés en décembre 2026. En attendant, le total ne compte que ce que les comptes rangés par fonction identifient : il manque surtout l'enseignement payé par les communes de moins de 3 500 habitants, les syndicats scolaires et les caisses des écoles (${eur(complAn('2024'))} en 2024).`
-    : `Fonctionnement et investissement des budgets principaux. Paris est compté avec les communes, la métropole de Lyon avec les départements, la Corse, la Martinique et la Guyane avec les régions. Les lignes en italique ne sont pas comptées dans le total de la page : la formation professionnelle des régions s'adresse surtout aux adultes, la petite enfance et la protection maternelle et infantile aux moins de 3 ans.`;
+    : `Fonctionnement et investissement des budgets principaux. Paris est compté avec les communes, la métropole de Lyon avec les départements, la Corse, la Martinique et la Guyane avec les régions. Les barres « non comptés » ne sont pas dans le total de la page : la formation professionnelle des régions s'adresse surtout aux adultes, la petite enfance et la protection maternelle et infantile aux moins de 3 ans.`;
 
   // --- Dépenses fiscales ---
   $('fiscal').innerHTML = fiscal.map(f => `<li><span>${esc(f.libelle)}</span><b>${eur(f.chiffrage[annee])}</b><small>Dépense fiscale n° ${f.code} · chiffrage ${annee}</small></li>`).join('')
