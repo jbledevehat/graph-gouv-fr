@@ -1,15 +1,2906 @@
 {
  "meta": {
   "sources": [
+   "DPT-jeunesse-PLF2022.pdf",
    "DPT-jeunesse-PLF2025.pdf",
    "DPT-jeunesse-PLF2026.pdf",
    "DPT-jeunesse-PLF2027.pdf",
    "Jaune-politiques-enfance-PLF2027.pdf",
-   "argent-public-AAAA.json"
+   "argent-public-AAAA.json",
+   "collectivites/balances-fonction-AAAA.json"
   ],
   "unite": "millions d'euros (crédits de paiement)"
  },
  "etat": {
+  "DPT-jeunesse-PLF2022.pdf": {
+   "annees": [
+    "execution_2020",
+    "lfi_2021",
+    "plf_2022"
+   ],
+   "total": {
+    "execution_2020": 97431.833,
+    "lfi_2021": 102955.313,
+    "plf_2022": 105800.997
+   },
+   "programmes": [
+    {
+     "programme": "163",
+     "libelle": "Jeunesse et vie associative",
+     "cp": {
+      "execution_2020": 644.657,
+      "lfi_2021": 638.148,
+      "plf_2022": 713.092
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Développement de la vie associative",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Actions en faveur de la jeunesse et de l'éducation populaire",
+       "cp": {
+        "execution_2020": 121.19,
+        "lfi_2021": 77.096,
+        "plf_2022": 104.248
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Développement du service civique",
+       "cp": {
+        "execution_2020": 519.76,
+        "lfi_2021": 498.796,
+        "plf_2022": 498.796
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Service National Universel",
+       "cp": {
+        "execution_2020": 3.708,
+        "lfi_2021": 62.255,
+        "plf_2022": 110.047
+       }
+      }
+     ]
+    },
+    {
+     "programme": "124",
+     "libelle": "Conduite et soutien des politiques sanitaires et sociales",
+     "cp": {
+      "execution_2020": null,
+      "lfi_2021": null,
+      "plf_2022": null
+     },
+     "actions": [
+      {
+       "code": "10",
+       "libelle": "Fonctionnement des services",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Systèmes d'information",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Affaires immobilières",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Affaires européennes et internationales",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "16",
+       "libelle": "Statistiques, études et recherche",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Financement des agences régionales de santé",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "18",
+       "libelle": "Personnels mettant en oeuvre les politiques sociales et de la santé",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "20",
+       "libelle": "Personnels mettant en oeuvre les politiques pour les droits des femmes",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "21",
+       "libelle": "Personnels mettant en œuvre les politiques de la ville, du logement et de l'hébergement",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "22",
+       "libelle": "Personnels transversaux et de soutien",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "23",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "140",
+     "libelle": "Enseignement scolaire public du premier degré",
+     "cp": {
+      "execution_2020": 23101.344,
+      "lfi_2021": 23655.986,
+      "plf_2022": 24204.647
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2020": 5681.544,
+        "lfi_2021": 5719.718,
+        "plf_2022": 5852.304
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2020": 11840.585,
+        "lfi_2021": 11623.083,
+        "plf_2022": 11892.274
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2020": 1725.851,
+        "lfi_2021": 1989.145,
+        "plf_2022": 2035.162
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2020": 660.821,
+        "lfi_2021": 870.746,
+        "plf_2022": 891.734
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2020": 1782.36,
+        "lfi_2021": 1950.884,
+        "plf_2022": 1996.112
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Pilotage et encadrement pédagogique",
+       "cp": {
+        "execution_2020": 1299.052,
+        "lfi_2021": 1400.851,
+        "plf_2022": 1433.147
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Personnels en situations diverses 130 PLF 2022 DPT PRÉSENTATION DES CRÉDITS PAR PROGRAMME",
+       "cp": {
+        "execution_2020": 111.131,
+        "lfi_2021": 101.558,
+        "plf_2022": 103.913
+       }
+      }
+     ]
+    },
+    {
+     "programme": "141",
+     "libelle": "Enseignement scolaire public du second degré",
+     "cp": {
+      "execution_2020": 33368.03,
+      "lfi_2021": 33959.962,
+      "plf_2022": 34476.652
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2020": 11967.384,
+        "lfi_2021": 12038.791,
+        "plf_2022": 12220.056
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2020": 9176.295,
+        "lfi_2021": 7551.275,
+        "plf_2022": 7664.923
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2020": 3855.781,
+        "lfi_2021": 4565.558,
+        "plf_2022": 4634.261
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Apprentissage",
+       "cp": {
+        "execution_2020": 5.391,
+        "lfi_2021": 7.216,
+        "plf_2022": 7.316
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2020": 1211.849,
+        "lfi_2021": 2195.766,
+        "plf_2022": 2234.034
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Besoins éducatifs particuliers",
+       "cp": {
+        "execution_2020": 919.336,
+        "lfi_2021": 1324.197,
+        "plf_2022": 1344.136
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Aide à l'insertion professionnelle",
+       "cp": {
+        "execution_2020": 47.265,
+        "lfi_2021": 55.985,
+        "plf_2022": 57.034
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Information et orientation",
+       "cp": {
+        "execution_2020": 279.2,
+        "lfi_2021": 334.656,
+        "plf_2022": 339.599
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Formation continue des adultes et validation des acquis de l'expérience",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants et d'orientation",
+       "cp": {
+        "execution_2020": 457.989,
+        "lfi_2021": 686.09,
+        "plf_2022": 696.705
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2020": 1524.84,
+        "lfi_2021": 1500.824,
+        "plf_2022": 1523.521
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Pilotage, administration et encadrement pédagogique",
+       "cp": {
+        "execution_2020": 3743.26,
+        "lfi_2021": 3602.595,
+        "plf_2022": 3656.59
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Personnels en situations diverses",
+       "cp": {
+        "execution_2020": 179.441,
+        "lfi_2021": 97.009,
+        "plf_2022": 98.476
+       }
+      }
+     ]
+    },
+    {
+     "programme": "139",
+     "libelle": "Enseignement privé du premier et du second degrés",
+     "cp": {
+      "execution_2020": 7721.62,
+      "lfi_2021": 7766.203,
+      "plf_2022": 7996.968
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement pré-élémentaire",
+       "cp": {
+        "execution_2020": 441.063,
+        "lfi_2021": 509.728,
+        "plf_2022": 542.243
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Enseignement élémentaire",
+       "cp": {
+        "execution_2020": 1283.079,
+        "lfi_2021": 1344.096,
+        "plf_2022": 1440.993
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Enseignement en collège",
+       "cp": {
+        "execution_2020": 2099.125,
+        "lfi_2021": 1994.358,
+        "plf_2022": 2031.718
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement général et technologique en lycée",
+       "cp": {
+        "execution_2020": 1576.893,
+        "lfi_2021": 1331.304,
+        "plf_2022": 1354.108
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Enseignement professionnel sous statut scolaire",
+       "cp": {
+        "execution_2020": 671.148,
+        "lfi_2021": 805.556,
+        "plf_2022": 819.439
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Enseignement post-baccalauréat en lycée",
+       "cp": {
+        "execution_2020": 187.0,
+        "lfi_2021": 270.44,
+        "plf_2022": 275.436
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Dispositifs spécifiques de scolarisation",
+       "cp": {
+        "execution_2020": 179.774,
+        "lfi_2021": 173.01,
+        "plf_2022": 177.694
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Actions sociales en faveur des élèves",
+       "cp": {
+        "execution_2020": 83.994,
+        "lfi_2021": 84.363,
+        "plf_2022": 86.568
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Fonctionnement des établissements",
+       "cp": {
+        "execution_2020": 684.256,
+        "lfi_2021": 688.495,
+        "plf_2022": 693.053
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Formation des personnels enseignants",
+       "cp": {
+        "execution_2020": 123.692,
+        "lfi_2021": 149.809,
+        "plf_2022": 152.978
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Remplacement",
+       "cp": {
+        "execution_2020": 183.296,
+        "lfi_2021": 194.335,
+        "plf_2022": 202.21
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2020": 208.301,
+        "lfi_2021": 220.71,
+        "plf_2022": 220.527
+       }
+      }
+     ]
+    },
+    {
+     "programme": "230",
+     "libelle": "Vie de l'élève",
+     "cp": {
+      "execution_2020": 6041.215,
+      "lfi_2021": 6428.308,
+      "plf_2022": 6859.816
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Vie scolaire et éducation à la responsabilité",
+       "cp": {
+        "execution_2020": 2432.723,
+        "lfi_2021": 2589.052,
+        "plf_2022": 2722.986
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Santé scolaire",
+       "cp": {
+        "execution_2020": 573.389,
+        "lfi_2021": 529.318,
+        "plf_2022": 544.577
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Inclusion scolaire des élèves en situation de handicap",
+       "cp": {
+        "execution_2020": 1845.706,
+        "lfi_2021": 2023.287,
+        "plf_2022": 2222.385
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Action sociale",
+       "cp": {
+        "execution_2020": 949.321,
+        "lfi_2021": 961.906,
+        "plf_2022": 998.749
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Politique de l'internat et établissements à la charge de l'État",
+       "cp": {
+        "execution_2020": 72.939,
+        "lfi_2021": 80.288,
+        "plf_2022": 82.223
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Actions éducatives complémentaires aux enseignements",
+       "cp": {
+        "execution_2020": 167.138,
+        "lfi_2021": 144.457,
+        "plf_2022": 188.896
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Scolarisation à 3 ans",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": 100.0,
+        "plf_2022": 100.0
+       }
+      }
+     ]
+    },
+    {
+     "programme": "214",
+     "libelle": "Soutien de la politique de l'éducation nationale",
+     "cp": {
+      "execution_2020": 2188.047,
+      "lfi_2021": 2492.813,
+      "plf_2022": 2599.553
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Pilotage et mise en oeuvre des politiques éducatives",
+       "cp": {
+        "execution_2020": 501.144,
+        "lfi_2021": 432.63,
+        "plf_2022": 441.654
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Évaluation et contrôle",
+       "cp": {
+        "execution_2020": 101.735,
+        "lfi_2021": 82.584,
+        "plf_2022": 84.18
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2020": 15.92,
+        "lfi_2021": 13.941,
+        "plf_2022": 14.551
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Expertise juridique",
+       "cp": {
+        "execution_2020": 25.153,
+        "lfi_2021": 16.892,
+        "plf_2022": 17.12
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Action internationale",
+       "cp": {
+        "execution_2020": 8.128,
+        "lfi_2021": 11.298,
+        "plf_2022": 11.654
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2020": 577.91,
+        "lfi_2021": 698.626,
+        "plf_2022": 716.958
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Établissements d'appui de la politique éducative",
+       "cp": {
+        "execution_2020": 150.704,
+        "lfi_2021": 149.403,
+        "plf_2022": 149.649
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Logistique, système d'information, immobilier",
+       "cp": {
+        "execution_2020": 699.581,
+        "lfi_2021": 688.627,
+        "plf_2022": 757.344
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Certification",
+       "cp": {
+        "execution_2020": 104.571,
+        "lfi_2021": 202.459,
+        "plf_2022": 206.065
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Transports scolaires",
+       "cp": {
+        "execution_2020": 3.199,
+        "lfi_2021": 3.323,
+        "plf_2022": 3.323
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Pilotage et mise œuvre des politiques du sport, de la jeunesse, de l'éducation populaire et de la vie associative",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": 193.028,
+        "plf_2022": 197.054
+       }
+      }
+     ]
+    },
+    {
+     "programme": "150",
+     "libelle": "Formations supérieures et recherche universitaire",
+     "cp": {
+      "execution_2020": 6132.537,
+      "lfi_2021": 6588.281,
+      "plf_2022": 6754.178
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Formation initiale et continue du baccalauréat à la licence",
+       "cp": {
+        "execution_2020": 3143.851,
+        "lfi_2021": 3534.159,
+        "plf_2022": 3699.677
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Formation initiale et continue de niveau master",
+       "cp": {
+        "execution_2020": 2509.857,
+        "lfi_2021": 2578.587,
+        "plf_2022": 2558.757
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Formation initiale et continue de niveau doctorat",
+       "cp": {
+        "execution_2020": 397.079,
+        "lfi_2021": 381.639,
+        "plf_2022": 401.849
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Établissements d'enseignement privés",
+       "cp": {
+        "execution_2020": 81.75,
+        "lfi_2021": 93.896,
+        "plf_2022": 93.896
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Bibliothèques et documentation",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Diffusion des savoirs et musées",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Immobilier",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Pilotage et support du programme",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Recherche",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "231",
+     "libelle": "Vie étudiante",
+     "cp": {
+      "execution_2020": 3004.82,
+      "lfi_2021": 2901.849,
+      "plf_2022": 3079.96
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides directes",
+       "cp": {
+        "execution_2020": 2471.397,
+        "lfi_2021": 2372.826,
+        "plf_2022": 2534.886
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aides indirectes",
+       "cp": {
+        "execution_2020": 372.79,
+        "lfi_2021": 366.948,
+        "plf_2022": 371.898
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Santé des étudiants et activités associatives, culturelles et sportives",
+       "cp": {
+        "execution_2020": 59.91,
+        "lfi_2021": 61.187,
+        "plf_2022": 72.287
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Pilotage et animation du programme",
+       "cp": {
+        "execution_2020": 100.722,
+        "lfi_2021": 100.888,
+        "plf_2022": 100.888
+       }
+      }
+     ]
+    },
+    {
+     "programme": "143",
+     "libelle": "Enseignement technique agricole",
+     "cp": {
+      "execution_2020": 1463.579,
+      "lfi_2021": 1482.562,
+      "plf_2022": 1523.261
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre de l'enseignement dans les établissements publics",
+       "cp": {
+        "execution_2020": 783.929,
+        "lfi_2021": 790.238,
+        "plf_2022": 806.639
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Mise en oeuvre des enseignements dans les établissements privés",
+       "cp": {
+        "execution_2020": 586.652,
+        "lfi_2021": 590.39,
+        "plf_2022": 598.347
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Aide sociale aux élèves (enseignement public et privé)",
+       "cp": {
+        "execution_2020": 86.607,
+        "lfi_2021": 92.21,
+        "plf_2022": 108.482
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Évolution des compétences et dynamique territoriale",
+       "cp": {
+        "execution_2020": 4.661,
+        "lfi_2021": 4.634,
+        "plf_2022": 4.634
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Moyens communs à l'enseignement technique agricole, public et privé 132 PLF 2022 DPT PRÉSENTATION DES CRÉDITS PAR PROGRAMME",
+       "cp": {
+        "execution_2020": 1.73,
+        "lfi_2021": 5.09,
+        "plf_2022": 5.16
+       }
+      }
+     ]
+    },
+    {
+     "programme": "142",
+     "libelle": "Enseignement supérieur et recherche agricoles",
+     "cp": {
+      "execution_2020": 311.784,
+      "lfi_2021": 327.114,
+      "plf_2022": 341.095
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Enseignement supérieur",
+       "cp": {
+        "execution_2020": 311.784,
+        "lfi_2021": 327.114,
+        "plf_2022": 341.095
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Recherche, développement et transfert de technologie",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "192",
+     "libelle": "Recherche et enseignement supérieur en matière économique et industrielle",
+     "cp": {
+      "execution_2020": 313.236,
+      "lfi_2021": 321.779,
+      "plf_2022": 327.561
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Organismes de formation supérieure et de recherche",
+       "cp": {
+        "execution_2020": 313.236,
+        "lfi_2021": 321.779,
+        "plf_2022": 327.561
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien et diffusion de l'innovation technologique",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien de la recherche industrielle stratégique",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "102",
+     "libelle": "Accès et retour à l'emploi",
+     "cp": {
+      "execution_2020": 1137.059,
+      "lfi_2021": 1409.333,
+      "plf_2022": 1943.345
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Amélioration de l'efficacité du service public de l'emploi",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Amélioration des dispositifs en faveur de l'emploi des personnes les plus éloignées du marché du travail",
+       "cp": {
+        "execution_2020": 484.999,
+        "lfi_2021": 690.626,
+        "plf_2022": 951.243
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Plan d'investissement des compétences",
+       "cp": {
+        "execution_2020": 652.06,
+        "lfi_2021": 718.707,
+        "plf_2022": 992.103
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Aide exceptionnelle contrat pro",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "103",
+     "libelle": "Accompagnement des mutations économiques et développement de l'emploi",
+     "cp": {
+      "execution_2020": 1415.404,
+      "lfi_2021": 2179.904,
+      "plf_2022": 2247.114
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Anticipation et accompagnement des conséquences des mutations économiques sur l'emploi",
+       "cp": {
+        "execution_2020": 2.061,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Amélioration de l'insertion dans l'emploi par l'adaptation des qualifications et la reconnaissance des compétences",
+       "cp": {
+        "execution_2020": 988.828,
+        "lfi_2021": 1424.743,
+        "plf_2022": 1466.171
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Développement de l'emploi",
+       "cp": {
+        "execution_2020": 104.849,
+        "lfi_2021": 54.114,
+        "plf_2022": 65.494
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Plan d'investissement des compétences",
+       "cp": {
+        "execution_2020": 319.666,
+        "lfi_2021": 701.047,
+        "plf_2022": 715.448
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Aide exceptionnelle apprentissage",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "364",
+     "libelle": "Cohésion",
+     "cp": {
+      "execution_2020": 951.975,
+      "lfi_2021": 3535.229,
+      "plf_2022": 2587.212
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Sauvegarde de l'emploi",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Jeunes",
+       "cp": {
+        "execution_2020": 951.975,
+        "lfi_2021": 3535.229,
+        "plf_2022": 2587.212
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Handicap",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation professionnelle",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Recherche",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Coopération sanitaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Cohésion territoriale",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Soutien aux personnes précaires",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "155",
+     "libelle": "Conception, gestion et évaluation des politiques de l'emploi et du travail",
+     "cp": {
+      "execution_2020": 15.591,
+      "lfi_2021": 17.184,
+      "plf_2022": 15.433
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien au plan d'investissement dans les compétences",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Fonds social européen - Assistance technique",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Fonctionnement des services",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Systèmes d'information",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Communication",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Etudes, statistiques évaluation et recherche",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Politique des ressources humaines",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Personnels mettant en oeuvre les politiques d'accès et retour à l'emploi",
+       "cp": {
+        "execution_2020": 14.903,
+        "lfi_2021": 16.236,
+        "plf_2022": 14.481
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Personnels mettant en oeuvre les politiques d'accompagnement des mutations économiques et développement de l'emploi",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "16",
+       "libelle": "Personnels mettant en oeuvre les politiques d'amélioration de la qualité de l'emploi et des relations du travail",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Personnels de statistiques, études et recherche",
+       "cp": {
+        "execution_2020": 0.688,
+        "lfi_2021": 0.948,
+        "plf_2022": 0.952
+       }
+      },
+      {
+       "code": "18",
+       "libelle": "Personnels transversaux et de soutien",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "304",
+     "libelle": "Inclusion sociale et protection des personnes",
+     "cp": {
+      "execution_2020": 99.069,
+      "lfi_2021": 162.842,
+      "plf_2022": 165.948
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Prime d'activité et autres dispositifs",
+       "cp": {
+        "execution_2020": 4.87,
+        "lfi_2021": 3.774,
+        "plf_2022": 4.386
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Ingénierie, outils de la gouvernance et expérimentations",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Aide alimentaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Qualification en travail social",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "16",
+       "libelle": "Protection juridique des majeurs",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Protection et accompagnement des enfants, des jeunes et des familles vulnérables",
+       "cp": {
+        "execution_2020": 68.863,
+        "lfi_2021": 122.88,
+        "plf_2022": 95.438
+       }
+      },
+      {
+       "code": "18",
+       "libelle": "Aide à la vie familiale et sociale des anciens migrants dans leur pays d'origine (AVFS)",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "19",
+       "libelle": "Stratégie interministérielle de Prévention et de Lutte contre la Pauvreté des Enfants et des Jeunes",
+       "cp": {
+        "execution_2020": 25.336,
+        "lfi_2021": 36.188,
+        "plf_2022": 66.124
+       }
+      },
+      {
+       "code": "21",
+       "libelle": "Allocations et dépenses d'aide sociale",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "137",
+     "libelle": "Égalité entre les femmes et les hommes",
+     "cp": {
+      "execution_2020": null,
+      "lfi_2021": null,
+      "plf_2022": 50.609
+     },
+     "actions": [
+      {
+       "code": "23",
+       "libelle": "Soutien du programme égalité entre les femmes et les hommes",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": 1.56
+       }
+      },
+      {
+       "code": "24",
+       "libelle": "Accès aux droits et égalité professionnelle",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": 20.967
+       }
+      },
+      {
+       "code": "25",
+       "libelle": "Prévention et lutte contre les violences et la prostitution",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": 28.082
+       }
+      }
+     ]
+    },
+    {
+     "programme": "177",
+     "libelle": "Hébergement, parcours vers le logement et insertion des personnes vulnérables",
+     "cp": {
+      "execution_2020": 2433.959,
+      "lfi_2021": 2200.0,
+      "plf_2022": 2677.5
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Prévention de l'exclusion",
+       "cp": {
+        "execution_2020": 54.881,
+        "lfi_2021": 52.361,
+        "plf_2022": 19.861
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Hébergement et logement adapté",
+       "cp": {
+        "execution_2020": 2367.702,
+        "lfi_2021": 2138.506,
+        "plf_2022": 2648.507
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Conduite et animation des politiques de l'hébergement et de l'inclusion sociale",
+       "cp": {
+        "execution_2020": 11.376,
+        "lfi_2021": 9.133,
+        "plf_2022": 9.132
+       }
+      }
+     ]
+    },
+    {
+     "programme": "157",
+     "libelle": "Handicap et dépendance",
+     "cp": {
+      "execution_2020": 15.554,
+      "lfi_2021": 16.05,
+      "plf_2022": 16.125
+     },
+     "actions": [
+      {
+       "code": "12",
+       "libelle": "Allocations et aides en faveur des personnes handicapées",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Pilotage du programme et animation des politiques inclusives",
+       "cp": {
+        "execution_2020": 15.554,
+        "lfi_2021": 16.05,
+        "plf_2022": 16.125
+       }
+      }
+     ]
+    },
+    {
+     "programme": "109",
+     "libelle": "Aide à l'accès au logement",
+     "cp": {
+      "execution_2020": 3425.657,
+      "lfi_2021": 3216.04,
+      "plf_2022": 3233.04
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Aides personnelles 134 PLF 2022 DPT PRÉSENTATION DES CRÉDITS PAR PROGRAMME",
+       "cp": {
+        "execution_2020": 3425.0,
+        "lfi_2021": 3215.0,
+        "plf_2022": 3233.0
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Information relative au logement et accompagnement des publics en difficulté",
+       "cp": {
+        "execution_2020": 0.03,
+        "lfi_2021": 0.04,
+        "plf_2022": 0.04
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Sécurisation des risques locatifs",
+       "cp": {
+        "execution_2020": 0.627,
+        "lfi_2021": 1.0,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "147",
+     "libelle": "Politique de la ville",
+     "cp": {
+      "execution_2020": 195.44,
+      "lfi_2021": 183.6,
+      "plf_2022": 215.05
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Actions territorialisées et Dispositifs spécifiques de la politique de la ville",
+       "cp": {
+        "execution_2020": 168.021,
+        "lfi_2021": 151.6,
+        "plf_2022": 183.05
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Revitalisation économique et emploi",
+       "cp": {
+        "execution_2020": 27.419,
+        "lfi_2021": 32.0,
+        "plf_2022": 32.0
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Stratégie, ressources et évaluation",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Rénovation urbaine et amélioration du cadre de vie",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "123",
+     "libelle": "Conditions de vie outre-mer",
+     "cp": {
+      "execution_2020": 112.417,
+      "lfi_2021": 108.887,
+      "plf_2022": 136.851
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Logement",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aménagement du territoire",
+       "cp": {
+        "execution_2020": 13.762,
+        "lfi_2021": 11.762,
+        "plf_2022": 22.593
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Continuité territoriale",
+       "cp": {
+        "execution_2020": 20.579,
+        "lfi_2021": 31.997,
+        "plf_2022": 35.539
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Sanitaire, social, culture, jeunesse et sports",
+       "cp": {
+        "execution_2020": 0.649,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Collectivités territoriales",
+       "cp": {
+        "execution_2020": 74.036,
+        "lfi_2021": 61.268,
+        "plf_2022": 78.719
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Insertion économique et coopération régionales",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Fonds exceptionnel d'investissement",
+       "cp": {
+        "execution_2020": 3.391,
+        "lfi_2021": 3.86,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Appui à l'accès aux financements bancaires",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "138",
+     "libelle": "Emploi outre-mer",
+     "cp": {
+      "execution_2020": 257.585,
+      "lfi_2021": 251.353,
+      "plf_2022": 268.023
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien aux entreprises",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Aide à l'insertion et à la qualification professionnelle",
+       "cp": {
+        "execution_2020": 257.585,
+        "lfi_2021": 251.353,
+        "plf_2022": 268.023
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Pilotage des politiques des outre- mer",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Financement de l'économie",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "204",
+     "libelle": "Prévention, sécurité sanitaire et offre de soins",
+     "cp": {
+      "execution_2020": 6.797,
+      "lfi_2021": 6.893,
+      "plf_2022": 7.484
+     },
+     "actions": [
+      {
+       "code": "11",
+       "libelle": "Pilotage de la politique de santé publique",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "12",
+       "libelle": "Santé des populations",
+       "cp": {
+        "execution_2020": 0.39,
+        "lfi_2021": 0.39,
+        "plf_2022": 0.32
+       }
+      },
+      {
+       "code": "14",
+       "libelle": "Prévention des maladies chroniques et qualité de vie des malades",
+       "cp": {
+        "execution_2020": 5.595,
+        "lfi_2021": 5.5,
+        "plf_2022": 5.5
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Prévention des risques liés à l'environnement et à l'alimentation",
+       "cp": {
+        "execution_2020": 0.811,
+        "lfi_2021": 1.003,
+        "plf_2022": 1.664
+       }
+      },
+      {
+       "code": "16",
+       "libelle": "Veille et sécurité sanitaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "17",
+       "libelle": "Politique des produits de santé et de la qualité des pratiques et des soins",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "18",
+       "libelle": "Projets régionaux de santé",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "19",
+       "libelle": "Modernisation de l'offre de soins",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "206",
+     "libelle": "Sécurité et qualité sanitaires de l'alimentation",
+     "cp": {
+      "execution_2020": 1.28,
+      "lfi_2021": 1.504,
+      "plf_2022": 1.637
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Santé, qualité et protection des végétaux",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Santé et protection des animaux",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Sécurité sanitaire de l'alimentation",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Actions transversales",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Elimination des cadavres et des sous-produits animaux",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Mise en oeuvre de la politique de sécurité et de qualité sanitaires de l'alimentation",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Qualité de l'alimentation et offre alimentaire",
+       "cp": {
+        "execution_2020": 1.28,
+        "lfi_2021": 1.504,
+        "plf_2022": 1.637
+       }
+      }
+     ]
+    },
+    {
+     "programme": "219",
+     "libelle": "Sport",
+     "cp": {
+      "execution_2020": 3.604,
+      "lfi_2021": 3.604,
+      "plf_2022": 3.604
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Promotion du sport pour le plus grand nombre",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Développement du sport de haut niveau",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Prévention par le sport et protection des sportifs",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Promotion des métiers du sport",
+       "cp": {
+        "execution_2020": 3.604,
+        "lfi_2021": 3.604,
+        "plf_2022": 3.604
+       }
+      }
+     ]
+    },
+    {
+     "programme": "361",
+     "libelle": "Transmission des savoirs et démocratisation de la culture",
+     "cp": {
+      "execution_2020": 468.153,
+      "lfi_2021": 500.853,
+      "plf_2022": 664.089
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien aux établissements d'enseignement supérieur et insertion professionnelle",
+       "cp": {
+        "execution_2020": 230.89,
+        "lfi_2021": 241.185,
+        "plf_2022": 262.461
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la démocratisation et à l'éducation artistique et culturelle",
+       "cp": {
+        "execution_2020": 138.945,
+        "lfi_2021": 158.075,
+        "plf_2022": 299.535
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Langue française et langues de France",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Recherche culturelle et culture scientifique et technique",
+       "cp": {
+        "execution_2020": 98.318,
+        "lfi_2021": 101.594,
+        "plf_2022": 102.094
+       }
+      }
+     ]
+    },
+    {
+     "programme": "131",
+     "libelle": "Création",
+     "cp": {
+      "execution_2020": 266.539,
+      "lfi_2021": 261.09,
+      "plf_2022": 270.046
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Soutien à la création, à la production et à la diffusion du spectacle vivant",
+       "cp": {
+        "execution_2020": 251.784,
+        "lfi_2021": 247.717,
+        "plf_2022": 256.159
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Soutien à la création, à la production et à la diffusion des arts visuels",
+       "cp": {
+        "execution_2020": 14.755,
+        "lfi_2021": 13.373,
+        "plf_2022": 13.888
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Soutien à l'emploi et structurations des professions",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "175",
+     "libelle": "Patrimoines",
+     "cp": {
+      "execution_2020": 63.7,
+      "lfi_2021": 81.423,
+      "plf_2022": 82.67
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Monuments Historiques et patrimoine monumental",
+       "cp": {
+        "execution_2020": 46.292,
+        "lfi_2021": 57.225,
+        "plf_2022": 57.522
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Architecture et sites patrimoniaux",
+       "cp": {
+        "execution_2020": 3.21,
+        "lfi_2021": 4.562,
+        "plf_2022": 5.512
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Patrimoine des musées de France",
+       "cp": {
+        "execution_2020": 7.365,
+        "lfi_2021": 11.741,
+        "plf_2022": 11.741
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Patrimoine archivistique",
+       "cp": {
+        "execution_2020": 2.008,
+        "lfi_2021": 2.798,
+        "plf_2022": 2.798
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Acquisition et enrichissement des collections publiques",
+       "cp": {
+        "execution_2020": 0.908,
+        "lfi_2021": 1.295,
+        "plf_2022": 1.295
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Patrimoine archéologique",
+       "cp": {
+        "execution_2020": 3.915,
+        "lfi_2021": 3.801,
+        "plf_2022": 3.801
+       }
+      }
+     ]
+    },
+    {
+     "programme": "334",
+     "libelle": "Livre et industries culturelles",
+     "cp": {
+      "execution_2020": 0.266,
+      "lfi_2021": 0.41,
+      "plf_2022": 0.41
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Livre et lecture",
+       "cp": {
+        "execution_2020": 0.266,
+        "lfi_2021": 0.41,
+        "plf_2022": 0.41
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Industries culturelles",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "182",
+     "libelle": "Protection judiciaire de la jeunesse",
+     "cp": {
+      "execution_2020": 862.282,
+      "lfi_2021": 944.543,
+      "plf_2022": 984.827
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Mise en oeuvre des décisions judiciaires",
+       "cp": {
+        "execution_2020": 708.458,
+        "lfi_2021": 792.587,
+        "plf_2022": 830.459
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2020": 123.597,
+        "lfi_2021": 112.493,
+        "plf_2022": 114.359
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Formation",
+       "cp": {
+        "execution_2020": 30.228,
+        "lfi_2021": 39.463,
+        "plf_2022": 40.008
+       }
+      }
+     ]
+    },
+    {
+     "programme": "207",
+     "libelle": "Sécurité et éducation routières 136 PLF 2022 DPT PRÉSENTATION DES CRÉDITS PAR PROGRAMME",
+     "cp": {
+      "execution_2020": 5.204,
+      "lfi_2021": 7.422,
+      "plf_2022": 8.825
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Observation, prospective, réglementation et soutien au programme",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Démarches interministérielles et communication",
+       "cp": {
+        "execution_2020": 3.1,
+        "lfi_2021": 4.7,
+        "plf_2022": 4.7
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Éducation routière",
+       "cp": {
+        "execution_2020": 2.104,
+        "lfi_2021": 2.722,
+        "plf_2022": 4.125
+       }
+      }
+     ]
+    },
+    {
+     "programme": "129",
+     "libelle": "Coordination du travail gouvernemental",
+     "cp": {
+      "execution_2020": 4.942,
+      "lfi_2021": 5.41,
+      "plf_2022": 5.41
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Coordination du travail gouvernemental",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Coordination de la sécurité et de la défense",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Coordination de la politique européenne",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Soutien",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Stratégie et prospective",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "13",
+       "libelle": "Ordre de la Légion d'honneur",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "15",
+       "libelle": "Mission interministérielle de lutte contre les drogues et les conduites addictives",
+       "cp": {
+        "execution_2020": 4.942,
+        "lfi_2021": 5.41,
+        "plf_2022": 5.41
+       }
+      },
+      {
+       "code": "16",
+       "libelle": "Coordination de la politique numérique",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "169",
+     "libelle": "Reconnaissance et réparation en faveur du monde combattant, mémoire et liens avec la Nation",
+     "cp": {
+      "execution_2020": 15.436,
+      "lfi_2021": 22.551,
+      "plf_2022": 25.258
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Administration de la dette viagère",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Gestion des droits liés aux pensions militaires d'invalidité",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Solidarité",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Actions en faveur des rapatriés",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Liens armées-jeunesse",
+       "cp": {
+        "execution_2020": 14.63,
+        "lfi_2021": 20.809,
+        "plf_2022": 23.588
+       }
+      },
+      {
+       "code": "09",
+       "libelle": "Politique de mémoire",
+       "cp": {
+        "execution_2020": 0.806,
+        "lfi_2021": 1.742,
+        "plf_2022": 1.67
+       }
+      }
+     ]
+    },
+    {
+     "programme": "212",
+     "libelle": "Soutien de la politique de la défense",
+     "cp": {
+      "execution_2020": 116.884,
+      "lfi_2021": 92.891,
+      "plf_2022": 136.544
+     },
+     "actions": [
+      {
+       "code": "04",
+       "libelle": "Politique immobilière",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Systèmes d'information, d'administration et de gestion",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Politiques des ressources humaines",
+       "cp": {
+        "execution_2020": 8.182,
+        "lfi_2021": 4.605,
+        "plf_2022": 9.539
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Politique culturelle et éducative",
+       "cp": {
+        "execution_2020": 0.238,
+        "lfi_2021": 0.115,
+        "plf_2022": 0.134
+       }
+      },
+      {
+       "code": "10",
+       "libelle": "Restructurations",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "11",
+       "libelle": "Pilotage, soutien et communication",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "50",
+       "libelle": "Recherche et exploitation du renseignement intéressant la sécurité de la France - Personnel travaillant pour le programme \"Environnement et prospective de la politique de défense\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "51",
+       "libelle": "Prospective de défense - Personnel travaillant pour le programme \"Environnement et prospective de la politique de défense\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "52",
+       "libelle": "Relations internationales",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "53",
+       "libelle": "Préparation et conduite des opérations d'armement - Personnel travaillant pour le programme \"Équipement des forces \"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "54",
+       "libelle": "Planification des moyens et conduite des opérations - Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "55",
+       "libelle": "Préparation des forces terrestres - Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "56",
+       "libelle": "Préparation des forces navales Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "57",
+       "libelle": "Préparation des forces aériennes- Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "58",
+       "libelle": "Logistique et soutien interarmées - Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "59",
+       "libelle": "Surcoûts liés aux opérations - Personnel travaillant pour le programme \"Préparation et emploi des forces\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "60",
+       "libelle": "Politique immobilière - Personnel travaillant pour l'action \"Politique immobilière\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "61",
+       "libelle": "Action sociale, chômage et pensions",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "62",
+       "libelle": "Politique culturelle et éducative gestion et communication des archives historiques de la défense - Personnel travaillant pour l'action \"Politique culturelle et éducative\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "63",
+       "libelle": "Restructurations - RH",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "64",
+       "libelle": "Pilotage, soutien - Personnel travaillant pour l'action \" Pilotage, soutien \"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "65",
+       "libelle": "Journée défense et citoyenneté Personnel travaillant pour le programme \"Reconnaissance et réparation en faveur du monde combattant\"",
+       "cp": {
+        "execution_2020": 108.465,
+        "lfi_2021": 88.172,
+        "plf_2022": 126.871
+       }
+      },
+      {
+       "code": "66",
+       "libelle": "Rayonnement et contribution extérieure",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "67",
+       "libelle": "Pilotage, soutien et communication - dépenses de personnel des cabinets et des organismes rattachés / RH",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "152",
+     "libelle": "Gendarmerie nationale",
+     "cp": {
+      "execution_2020": 570.471,
+      "lfi_2021": 549.891,
+      "plf_2022": 543.603
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Ordre et sécurité publics",
+       "cp": {
+        "execution_2020": 271.839,
+        "lfi_2021": 260.299,
+        "plf_2022": 245.142
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Sécurité routière",
+       "cp": {
+        "execution_2020": 55.943,
+        "lfi_2021": 50.582,
+        "plf_2022": 53.046
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Missions de police judiciaire et concours à la justice",
+       "cp": {
+        "execution_2020": 147.936,
+        "lfi_2021": 146.745,
+        "plf_2022": 154.665
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Commandement, ressources humaines et logistique",
+       "cp": {
+        "execution_2020": 84.739,
+        "lfi_2021": 81.527,
+        "plf_2022": 79.458
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Exercice des missions militaires",
+       "cp": {
+        "execution_2020": 10.013,
+        "lfi_2021": 10.737,
+        "plf_2022": 11.293
+       }
+      }
+     ]
+    },
+    {
+     "programme": "176",
+     "libelle": "Police nationale",
+     "cp": {
+      "execution_2020": 350.534,
+      "lfi_2021": 336.244,
+      "plf_2022": 344.22
+     },
+     "actions": []
+    },
+    {
+     "programme": "151",
+     "libelle": "Français à l'étranger et affaires consulaires",
+     "cp": {
+      "execution_2020": 140.798,
+      "lfi_2021": 104.754,
+      "plf_2022": 95.754
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Offre d'un service public de qualité aux Français à l'étranger",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Accès des élèves français au réseau AEFE 138 PLF 2022 DPT PRÉSENTATION DES CRÉDITS PAR PROGRAMME",
+       "cp": {
+        "execution_2020": 140.798,
+        "lfi_2021": 104.754,
+        "plf_2022": 95.754
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Instruction des demandes de visa",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "209",
+     "libelle": "Solidarité à l'égard des pays en développement",
+     "cp": {
+      "execution_2020": 15.161,
+      "lfi_2021": 17.384,
+      "plf_2022": 18.778
+     },
+     "actions": [
+      {
+       "code": "02",
+       "libelle": "Coopération bilatérale",
+       "cp": {
+        "execution_2020": 15.161,
+        "lfi_2021": 17.384,
+        "plf_2022": 18.778
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Coopération multilatérale",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Coopération communautaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "08",
+       "libelle": "Dépenses de personnels concourant au programme \"Solidarité à l'égard des pays en développement\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "185",
+     "libelle": "Diplomatie culturelle et d'influence",
+     "cp": {
+      "execution_2020": 186.218,
+      "lfi_2021": 171.163,
+      "plf_2022": 171.163
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Appui au réseau",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Coopération culturelle et promotion du français",
+       "cp": {
+        "execution_2020": 0.235,
+        "lfi_2021": 0.235,
+        "plf_2022": 0.235
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Objectifs de développement durable",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Enseignement supérieur et recherche",
+       "cp": {
+        "execution_2020": 4.157,
+        "lfi_2021": 4.157,
+        "plf_2022": 4.157
+       }
+      },
+      {
+       "code": "05",
+       "libelle": "Agence pour l'enseignement français à l'étranger",
+       "cp": {
+        "execution_2020": 181.826,
+        "lfi_2021": 166.771,
+        "plf_2022": 166.771
+       }
+      },
+      {
+       "code": "06",
+       "libelle": "Dépenses de personnel concourant au programme \"Diplomatie culturelle et d'influence\"",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "07",
+       "libelle": "Diplomatie économique et développement du tourisme",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "203",
+     "libelle": "Infrastructures et services de transports",
+     "cp": {
+      "execution_2020": 2.776,
+      "lfi_2021": 3.255,
+      "plf_2022": 3.04
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Routes - Développement",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Routes - Entretien",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "41",
+       "libelle": "Ferroviaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "42",
+       "libelle": "Voies navigables",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "43",
+       "libelle": "Ports",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "44",
+       "libelle": "Transports collectifs",
+       "cp": {
+        "execution_2020": 2.776,
+        "lfi_2021": 3.255,
+        "plf_2022": 3.04
+       }
+      },
+      {
+       "code": "45",
+       "libelle": "Transports combinés",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "47",
+       "libelle": "Fonctions support",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "50",
+       "libelle": "Transport routier",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "51",
+       "libelle": "Sécurité ferroviaire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "52",
+       "libelle": "Transport aérien",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "53",
+       "libelle": "Dotation exceptionnelle à l'AFITF",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    },
+    {
+     "programme": "751",
+     "libelle": "Structures et dispositifs de sécurité routière",
+     "cp": {
+      "execution_2020": 0.21,
+      "lfi_2021": 0.6,
+      "plf_2022": 0.6
+     },
+     "actions": [
+      {
+       "code": "01",
+       "libelle": "Dispositifs de contrôle",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "02",
+       "libelle": "Centre national de traitement",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      },
+      {
+       "code": "03",
+       "libelle": "Soutien au programme",
+       "cp": {
+        "execution_2020": 0.21,
+        "lfi_2021": 0.6,
+        "plf_2022": 0.6
+       }
+      },
+      {
+       "code": "04",
+       "libelle": "Système d'information Éducation routière et permis de conduire",
+       "cp": {
+        "execution_2020": null,
+        "lfi_2021": null,
+        "plf_2022": null
+       }
+      }
+     ]
+    }
+   ]
+  },
   "DPT-jeunesse-PLF2025.pdf": {
    "annees": [
     "execution_2023",
@@ -4856,6 +7747,44 @@
   }
  },
  "fiscal": {
+  "DPT-jeunesse-PLF2022.pdf": [
+   {
+    "code": "110215",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement secondaire",
+    "chiffrage": {
+     "2020": 204.0,
+     "2021": 210.0,
+     "2022": 210.0
+    }
+   },
+   {
+    "code": "120109",
+    "libelle": "Exonération du salaire des apprentis et des gratifications versées aux stagiaires versées à compter du 12 juillet 2014",
+    "chiffrage": {
+     "2020": 540.0,
+     "2021": 540.0,
+     "2022": 540.0
+    }
+   },
+   {
+    "code": "110242",
+    "libelle": "Réduction d'impôt pour frais de scolarité dans l'enseignement supérieur",
+    "chiffrage": {
+     "2020": 197.0,
+     "2021": 200.0,
+     "2022": 200.0
+    }
+   },
+   {
+    "code": "120132",
+    "libelle": "Exonération d'impôt sur le revenu (sur option) des salaires perçus par les jeunes au titre d'une activité exercée pendant leurs études secondaires ou supérieures ou leurs congés scolaires ou universitaires",
+    "chiffrage": {
+     "2020": 340.0,
+     "2021": 350.0,
+     "2022": 360.0
+    }
+   }
+  ],
   "DPT-jeunesse-PLF2025.pdf": [
    {
     "code": "110215",
@@ -6281,6 +9210,774 @@
    "total": 107812.57,
    "remunerations": 49393.737,
    "cotisations": 33229.661
+  }
+ },
+ "collectivites": {
+  "2019": {
+   "apprentissage": {
+    "CTU": 28.8,
+    "Commune": 0.4,
+    "GFP": 1.0,
+    "PARIS": 22.7,
+    "REG": 1742.4
+   },
+   "ens_communs": {
+    "CTU": 12.8,
+    "Commune": 1300.3,
+    "DEPT": 656.5,
+    "GFP": 35.4,
+    "PARIS": 58.1,
+    "REG": 25.7
+   },
+   "famille_enfance": {
+    "CTU": 115.3,
+    "Commune": 1.4,
+    "DEPT": 8156.1,
+    "GFP": 0.7,
+    "ML": 171.4,
+    "PARIS": 348.0
+   },
+   "formation_pro": {
+    "CTU": 58.9,
+    "Commune": 13.3,
+    "DEPT": 17.2,
+    "GFP": 10.9,
+    "PARIS": 5.5,
+    "REG": 2268.1
+   },
+   "jeunesse": {
+    "CTU": 1.3,
+    "Commune": 2639.7,
+    "DEPT": 104.7,
+    "GFP": 474.7,
+    "ML": 0.1,
+    "PARIS": 24.8,
+    "REG": 46.4
+   },
+   "periscolaire": {
+    "CTU": 4.7,
+    "Commune": 2787.1,
+    "DEPT": 105.1,
+    "EPT": 9.2,
+    "GFP": 233.2,
+    "PARIS": 115.9,
+    "REG": 253.9
+   },
+   "petite_enfance": {
+    "CTU": 0.3,
+    "Commune": 2779.3,
+    "DEPT": 0.7,
+    "GFP": 778.1,
+    "PARIS": 459.0
+   },
+   "pmi": {
+    "CTU": 11.4,
+    "DEPT": 367.7,
+    "ML": 5.6,
+    "PARIS": 45.4
+   },
+   "primaire": {
+    "CTU": 0.1,
+    "Commune": 5833.8,
+    "DEPT": 74.9,
+    "GFP": 291.2,
+    "PARIS": 501.9,
+    "REG": 14.2
+   },
+   "sanitaire_social": {
+    "CTU": 12.7,
+    "REG": 1126.2
+   },
+   "secondaire": {
+    "CTU": 188.8,
+    "Commune": 26.7,
+    "DEPT": 4384.3,
+    "GFP": 12.0,
+    "ML": 93.4,
+    "PARIS": 126.4,
+    "REG": 5822.3
+   },
+   "superieur": {
+    "CTU": 36.2,
+    "Commune": 54.5,
+    "DEPT": 118.5,
+    "EPT": 0.3,
+    "GFP": 195.4,
+    "ML": 4.3,
+    "PARIS": 38.3,
+    "REG": 258.9
+   },
+   "transport_scolaire": {
+    "CTU": 49.3,
+    "Commune": 59.3,
+    "DEPT": 376.4,
+    "EPT": 0.3,
+    "GFP": 166.0,
+    "ML": 6.4,
+    "REG": 1314.6
+   }
+  },
+  "2020": {
+   "apprentissage": {
+    "CTU": 7.7,
+    "Commune": 0.3,
+    "GFP": 0.9,
+    "PARIS": 21.1,
+    "REG": 365.1
+   },
+   "ens_communs": {
+    "CTU": 15.8,
+    "Commune": 1274.6,
+    "DEPT": 662.6,
+    "GFP": 37.7,
+    "PARIS": 66.0,
+    "REG": 26.4
+   },
+   "famille_enfance": {
+    "CTU": 119.1,
+    "Commune": 4.7,
+    "DEPT": 8410.0,
+    "GFP": 0.9,
+    "ML": 176.4,
+    "PARIS": 375.7
+   },
+   "formation_pro": {
+    "CTU": 35.9,
+    "Commune": 12.4,
+    "DEPT": 17.7,
+    "GFP": 9.8,
+    "PARIS": 5.4,
+    "REG": 2393.1
+   },
+   "jeunesse": {
+    "CTU": 1.7,
+    "Commune": 2513.9,
+    "DEPT": 113.0,
+    "GFP": 457.0,
+    "ML": 0.3,
+    "PARIS": 24.0,
+    "REG": 34.2
+   },
+   "periscolaire": {
+    "CTU": 5.6,
+    "Commune": 2535.7,
+    "DEPT": 105.5,
+    "EPT": 8.7,
+    "GFP": 220.6,
+    "PARIS": 110.2,
+    "REG": 217.6
+   },
+   "petite_enfance": {
+    "CTU": 1.4,
+    "Commune": 2707.3,
+    "DEPT": 1.0,
+    "GFP": 765.5,
+    "PARIS": 443.4
+   },
+   "pmi": {
+    "CTU": 11.4,
+    "Commune": 0.6,
+    "DEPT": 360.5,
+    "GFP": 0.1,
+    "ML": 4.9,
+    "PARIS": 47.2
+   },
+   "primaire": {
+    "CTU": 0.1,
+    "Commune": 5474.0,
+    "DEPT": 65.8,
+    "GFP": 292.0,
+    "PARIS": 486.0,
+    "REG": 13.8
+   },
+   "sanitaire_social": {
+    "CTU": 16.4,
+    "REG": 1229.7
+   },
+   "secondaire": {
+    "CTU": 205.7,
+    "Commune": 55.9,
+    "DEPT": 4440.2,
+    "GFP": 13.3,
+    "ML": 116.6,
+    "PARIS": 117.0,
+    "REG": 5785.3
+   },
+   "superieur": {
+    "CTU": 46.7,
+    "Commune": 61.2,
+    "DEPT": 103.0,
+    "EPT": 0.3,
+    "GFP": 187.5,
+    "ML": 10.6,
+    "PARIS": 51.4,
+    "REG": 240.0
+   },
+   "transport_scolaire": {
+    "CTU": 59.3,
+    "Commune": 43.7,
+    "DEPT": 300.8,
+    "EPT": 0.3,
+    "GFP": 125.6,
+    "ML": 5.6,
+    "REG": 1283.7
+   }
+  },
+  "2021": {
+   "apprentissage": {
+    "CTU": 6.4,
+    "DEPT": 0.1,
+    "GFP": 0.8,
+    "PARIS": 21.6,
+    "REG": 288.0
+   },
+   "ens_communs": {
+    "CTU": 11.2,
+    "Commune": 1367.6,
+    "DEPT": 682.8,
+    "GFP": 58.7,
+    "PARIS": 68.4,
+    "REG": 55.0
+   },
+   "famille_enfance": {
+    "CTU": 124.5,
+    "Commune": 13.3,
+    "DEPT": 8691.0,
+    "GFP": 2.6,
+    "ML": 191.3,
+    "PARIS": 381.6
+   },
+   "formation_pro": {
+    "CTU": 48.0,
+    "Commune": 12.4,
+    "DEPT": 23.8,
+    "GFP": 11.7,
+    "PARIS": 6.7,
+    "REG": 2729.8
+   },
+   "jeunesse": {
+    "CTU": 2.0,
+    "Commune": 2687.7,
+    "DEPT": 106.6,
+    "GFP": 497.3,
+    "ML": 0.4,
+    "PARIS": 19.9,
+    "REG": 49.3
+   },
+   "periscolaire": {
+    "CTU": 5.0,
+    "Commune": 2843.8,
+    "DEPT": 103.9,
+    "EPT": 9.7,
+    "GFP": 252.9,
+    "PARIS": 114.8,
+    "REG": 225.0
+   },
+   "petite_enfance": {
+    "CTU": 1.0,
+    "Commune": 2831.2,
+    "DEPT": 1.2,
+    "GFP": 833.0,
+    "PARIS": 438.3
+   },
+   "pmi": {
+    "CTU": 12.8,
+    "Commune": 0.6,
+    "DEPT": 348.4,
+    "ML": 6.2,
+    "PARIS": 45.3
+   },
+   "primaire": {
+    "CTU": 0.2,
+    "Commune": 5942.7,
+    "DEPT": 66.6,
+    "GFP": 315.8,
+    "PARIS": 480.1,
+    "REG": 11.8
+   },
+   "sanitaire_social": {
+    "CTU": 13.9,
+    "REG": 1235.5
+   },
+   "secondaire": {
+    "CTU": 234.2,
+    "Commune": 32.8,
+    "DEPT": 4928.1,
+    "GFP": 11.4,
+    "ML": 110.7,
+    "PARIS": 103.9,
+    "REG": 6303.2
+   },
+   "superieur": {
+    "CTU": 40.3,
+    "Commune": 55.6,
+    "DEPT": 115.2,
+    "EPT": 0.4,
+    "GFP": 199.2,
+    "ML": 12.0,
+    "PARIS": 68.0,
+    "REG": 255.8
+   },
+   "transport_scolaire": {
+    "CTU": 50.0,
+    "Commune": 51.7,
+    "DEPT": 266.6,
+    "EPT": 0.4,
+    "GFP": 143.4,
+    "ML": 7.9,
+    "REG": 1575.8
+   }
+  },
+  "2022": {
+   "apprentissage": {
+    "CTU": 6.0,
+    "Commune": 0.1,
+    "DEPT": 0.1,
+    "GFP": 1.7,
+    "PARIS": 21.0,
+    "REG": 287.6
+   },
+   "ens_communs": {
+    "CTU": 32.0,
+    "Commune": 1416.5,
+    "DEPT": 705.9,
+    "EPT": 0.9,
+    "GFP": 61.4,
+    "PARIS": 63.8,
+    "REG": 38.6
+   },
+   "famille_enfance": {
+    "CTU": 128.4,
+    "Commune": 25.5,
+    "DEPT": 9319.7,
+    "GFP": 8.5,
+    "ML": 198.5,
+    "PARIS": 420.5
+   },
+   "formation_pro": {
+    "CTU": 49.9,
+    "Commune": 20.9,
+    "DEPT": 26.8,
+    "GFP": 13.8,
+    "PARIS": 6.7,
+    "REG": 2924.3
+   },
+   "jeunesse": {
+    "CTU": 1.9,
+    "Commune": 2900.5,
+    "DEPT": 109.1,
+    "GFP": 559.3,
+    "ML": 0.3,
+    "PARIS": 22.4,
+    "REG": 52.1
+   },
+   "periscolaire": {
+    "CTU": 5.1,
+    "Commune": 3067.7,
+    "DEPT": 103.0,
+    "EPT": 11.0,
+    "GFP": 284.4,
+    "PARIS": 124.5,
+    "REG": 208.6
+   },
+   "petite_enfance": {
+    "CTU": 1.0,
+    "Commune": 2975.3,
+    "DEPT": 4.7,
+    "GFP": 889.4,
+    "PARIS": 446.7
+   },
+   "pmi": {
+    "CTU": 13.2,
+    "Commune": 2.5,
+    "DEPT": 363.9,
+    "GFP": 0.1,
+    "ML": 6.1,
+    "PARIS": 44.5
+   },
+   "primaire": {
+    "CTU": 0.8,
+    "Commune": 6560.1,
+    "DEPT": 64.8,
+    "GFP": 333.7,
+    "ML": 0.4,
+    "PARIS": 483.8,
+    "REG": 8.1
+   },
+   "sanitaire_social": {
+    "CTU": 15.8,
+    "REG": 1305.4
+   },
+   "secondaire": {
+    "CTU": 224.6,
+    "Commune": 26.8,
+    "DEPT": 5233.4,
+    "GFP": 13.4,
+    "ML": 125.4,
+    "PARIS": 95.4,
+    "REG": 6531.5
+   },
+   "superieur": {
+    "CTU": 37.3,
+    "Commune": 56.1,
+    "DEPT": 114.5,
+    "EPT": 0.3,
+    "GFP": 214.8,
+    "ML": 8.3,
+    "PARIS": 48.4,
+    "REG": 288.1
+   },
+   "transport_scolaire": {
+    "CTU": 52.9,
+    "Commune": 59.9,
+    "DEPT": 254.2,
+    "EPT": 0.4,
+    "GFP": 165.3,
+    "ML": 9.0,
+    "REG": 1392.5
+   }
+  },
+  "2023": {
+   "apprentissage": {
+    "CTU": 2.4,
+    "Commune": 0.5,
+    "DEPT": 0.2,
+    "GFP": 1.8,
+    "PARIS": 15.5,
+    "REG": 298.3
+   },
+   "ens_communs": {
+    "CTU": 3.4,
+    "Commune": 1532.5,
+    "DEPT": 609.4,
+    "EPT": 0.2,
+    "GFP": 79.5,
+    "PARIS": 70.0,
+    "REG": 40.8
+   },
+   "famille_enfance": {
+    "CTU": 144.7,
+    "Commune": 99.0,
+    "DEPT": 10288.6,
+    "GFP": 35.7,
+    "ML": 240.4,
+    "PARIS": 441.8
+   },
+   "formation_pro": {
+    "CTU": 50.9,
+    "Commune": 32.1,
+    "DEPT": 29.5,
+    "GFP": 24.0,
+    "PARIS": 7.8,
+    "REG": 2856.0
+   },
+   "jeunesse": {
+    "CTU": 2.0,
+    "Commune": 3107.9,
+    "DEPT": 108.0,
+    "GFP": 629.1,
+    "ML": 0.4,
+    "PARIS": 23.5,
+    "REG": 61.8
+   },
+   "periscolaire": {
+    "CTU": 5.2,
+    "Commune": 3399.9,
+    "DEPT": 119.8,
+    "EPT": 11.7,
+    "GFP": 321.4,
+    "PARIS": 146.3,
+    "REG": 210.7
+   },
+   "petite_enfance": {
+    "CTU": 0.8,
+    "Commune": 3118.7,
+    "DEPT": 17.0,
+    "GFP": 982.6,
+    "PARIS": 454.1,
+    "REG": 1.1
+   },
+   "pmi": {
+    "CTU": 15.5,
+    "Commune": 5.1,
+    "DEPT": 421.3,
+    "GFP": -3.5,
+    "ML": 6.3,
+    "PARIS": 47.6
+   },
+   "primaire": {
+    "CTU": 0.7,
+    "Commune": 7153.8,
+    "DEPT": 64.6,
+    "GFP": 352.1,
+    "ML": 2.4,
+    "PARIS": 510.4,
+    "REG": 13.3
+   },
+   "sanitaire_social": {
+    "CTU": 14.9,
+    "Commune": 0.1,
+    "REG": 1393.0
+   },
+   "secondaire": {
+    "CTU": 289.3,
+    "Commune": 29.6,
+    "DEPT": 5660.2,
+    "GFP": 9.5,
+    "ML": 111.3,
+    "PARIS": 101.5,
+    "REG": 6962.8
+   },
+   "superieur": {
+    "CTU": 41.5,
+    "Commune": 56.3,
+    "DEPT": 130.7,
+    "EPT": 0.2,
+    "GFP": 214.1,
+    "ML": 9.7,
+    "PARIS": 31.1,
+    "REG": 286.9
+   },
+   "transport_scolaire": {
+    "CTU": 59.6,
+    "Commune": 70.8,
+    "DEPT": 269.9,
+    "EPT": 0.5,
+    "GFP": 223.7,
+    "ML": 11.0,
+    "REG": 1490.4
+   }
+  },
+  "2024": {
+   "apprentissage": {
+    "CTU": 3.2,
+    "Commune": 1.6,
+    "DEPT": 0.5,
+    "GFP": 2.4,
+    "PARIS": 16.2,
+    "REG": 260.4
+   },
+   "ens_communs": {
+    "CTU": 9.4,
+    "Commune": 1656.2,
+    "DEPT": 635.9,
+    "EPT": 0.2,
+    "GFP": 160.5,
+    "PARIS": 75.6,
+    "REG": 80.1
+   },
+   "famille_enfance": {
+    "CTU": 154.8,
+    "Commune": 183.0,
+    "DEPT": 10707.5,
+    "GFP": 74.1,
+    "ML": 246.5,
+    "PARIS": 459.2,
+    "REG": 0.2
+   },
+   "formation_pro": {
+    "CTU": 41.6,
+    "Commune": 55.5,
+    "DEPT": 26.7,
+    "EPT": 4.3,
+    "GFP": 32.9,
+    "PARIS": 9.7,
+    "REG": 2530.7
+   },
+   "jeunesse": {
+    "CTU": 2.4,
+    "Commune": 3310.5,
+    "DEPT": 103.5,
+    "GFP": 754.4,
+    "ML": 0.4,
+    "PARIS": 22.6,
+    "REG": 63.1
+   },
+   "periscolaire": {
+    "CTU": 7.0,
+    "Commune": 3660.3,
+    "DEPT": 129.0,
+    "EPT": 13.8,
+    "GFP": 380.9,
+    "PARIS": 160.4,
+    "REG": 291.1
+   },
+   "petite_enfance": {
+    "CTU": 1.2,
+    "Commune": 3268.8,
+    "DEPT": 358.0,
+    "GFP": 1126.5,
+    "ML": 0.2,
+    "PARIS": 462.3,
+    "REG": 0.4
+   },
+   "pmi": {
+    "CTU": 13.0,
+    "Commune": 9.7,
+    "DEPT": 460.7,
+    "GFP": 4.1,
+    "ML": 6.6,
+    "PARIS": 47.0
+   },
+   "primaire": {
+    "CTU": 1.2,
+    "Commune": 7770.2,
+    "DEPT": 81.5,
+    "GFP": 383.4,
+    "ML": 4.6,
+    "PARIS": 525.8,
+    "REG": 2.2
+   },
+   "sanitaire_social": {
+    "CTU": 16.4,
+    "Commune": 0.1,
+    "DEPT": 2.2,
+    "REG": 1485.7
+   },
+   "secondaire": {
+    "CTU": 277.6,
+    "Commune": 34.1,
+    "DEPT": 5621.2,
+    "GFP": 11.8,
+    "ML": 150.7,
+    "PARIS": 106.5,
+    "REG": 6794.2
+   },
+   "superieur": {
+    "CTU": 42.5,
+    "Commune": 64.7,
+    "DEPT": 164.0,
+    "GFP": 258.6,
+    "ML": 12.5,
+    "PARIS": 40.7,
+    "REG": 290.3
+   },
+   "transport_scolaire": {
+    "CTU": 59.8,
+    "Commune": 75.2,
+    "DEPT": 274.7,
+    "EPT": 0.5,
+    "GFP": 209.2,
+    "ML": 11.4,
+    "REG": 1583.1
+   }
+  },
+  "2025": {
+   "apprentissage": {
+    "CTU": 4.3,
+    "Commune": 1.9,
+    "DEPT": 0.5,
+    "GFP": 4.0,
+    "PARIS": 17.2,
+    "REG": 245.7
+   },
+   "ens_communs": {
+    "CTU": 12.8,
+    "Commune": 1717.0,
+    "DEPT": 585.8,
+    "EPT": 0.1,
+    "GFP": 160.1,
+    "PARIS": 80.0,
+    "REG": 70.4
+   },
+   "famille_enfance": {
+    "CTU": 156.4,
+    "Commune": 180.3,
+    "DEPT": 11020.8,
+    "GFP": 73.9,
+    "ML": 239.0,
+    "PARIS": 489.2,
+    "REG": 0.3
+   },
+   "formation_pro": {
+    "CTU": 43.9,
+    "Commune": 49.1,
+    "DEPT": 26.0,
+    "EPT": 3.8,
+    "GFP": 34.9,
+    "PARIS": 10.8,
+    "REG": 2294.6
+   },
+   "jeunesse": {
+    "CTU": 1.4,
+    "Commune": 3407.1,
+    "DEPT": 88.4,
+    "GFP": 788.9,
+    "ML": 0.7,
+    "PARIS": 21.6,
+    "REG": 55.8
+   },
+   "periscolaire": {
+    "CTU": 5.9,
+    "Commune": 3765.5,
+    "DEPT": 120.2,
+    "EPT": 19.2,
+    "GFP": 393.7,
+    "ML": 0.1,
+    "PARIS": 170.7,
+    "REG": 271.1
+   },
+   "petite_enfance": {
+    "CTU": 1.0,
+    "Commune": 3348.1,
+    "DEPT": 361.1,
+    "GFP": 1185.4,
+    "ML": 0.1,
+    "PARIS": 472.2,
+    "REG": 1.0
+   },
+   "pmi": {
+    "CTU": 12.7,
+    "Commune": 8.7,
+    "DEPT": 446.6,
+    "GFP": 0.8,
+    "ML": 6.8,
+    "PARIS": 47.0
+   },
+   "primaire": {
+    "CTU": 0.7,
+    "Commune": 7857.9,
+    "DEPT": 88.3,
+    "GFP": 411.0,
+    "ML": 7.2,
+    "PARIS": 542.3,
+    "REG": 0.9
+   },
+   "sanitaire_social": {
+    "CTU": 18.5,
+    "Commune": 0.1,
+    "DEPT": 5.8,
+    "GFP": 0.3,
+    "REG": 1498.3
+   },
+   "secondaire": {
+    "CTU": 257.2,
+    "Commune": 39.8,
+    "DEPT": 5539.1,
+    "GFP": 4.6,
+    "ML": 121.5,
+    "PARIS": 114.5,
+    "REG": 6774.0
+   },
+   "superieur": {
+    "CTU": 41.8,
+    "Commune": 60.4,
+    "DEPT": 134.4,
+    "EPT": 0.1,
+    "GFP": 256.5,
+    "ML": 9.3,
+    "PARIS": 37.8,
+    "REG": 284.1
+   },
+   "transport_scolaire": {
+    "CTU": 71.1,
+    "Commune": 69.3,
+    "DEPT": 262.0,
+    "EPT": 0.4,
+    "GFP": 209.0,
+    "ML": 11.6,
+    "REG": 1549.6
+   }
   }
  },
  "enfance": {

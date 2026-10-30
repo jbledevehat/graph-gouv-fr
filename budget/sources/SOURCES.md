@@ -556,6 +556,18 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Taille** : 988 382 octets
 - **SHA-256** : `4d5b13587efda73edc71b0be473dd7d098b6c1685f31f1acecfeb33e7aa71400`
 
+## `sources/jeunesse/DPT-jeunesse-PLF2022.pdf`
+
+- **Contenu** : Crédits consacrés aux jeunes par programme et action : exécution 2020, LFI 2021, PLF 2022 ; dépenses fiscales (page 256). Dernière édition avant la suppression du document par la loi de finances pour 2022 (art. 171) ; rétabli pour 2025.
+- **Jeu de données** : Document de politique transversale « Politique en faveur de la jeunesse », annexe au PLF 2022
+- **Producteur** : Ministère de l'Éducation nationale, de la Jeunesse et des Sports, Direction du budget
+- **Adresse du fichier** : <https://www.jeunes.gouv.fr/media/5072/download>
+- **Page du jeu de données** : <https://www.budget.gouv.fr/documentation/documents-budgetaires/exercice-2022/le-projet-de-loi-de-finances-et-les-documents-annexes-pour-2022/documents-de-politique-transversale-2022>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 1 711 123 octets
+- **SHA-256** : `16cbca8d00e717b71f6ba69e016ae02d71837d8198a480bb5fc15844ed56894f`
+
 ## `sources/jeunesse/DPT-jeunesse-PLF2025.pdf`
 
 - **Contenu** : Crédits consacrés aux jeunes par programme et action : exécution 2023, LFI 2024, PLF 2025 ; dépenses fiscales (pages 15 à 21).
@@ -603,3 +615,111 @@ Ce registre est produit par `scripts/registre.py` à partir de `config/sources.c
 - **Téléchargé le** : 2026-10-27
 - **Taille** : 1 575 034 octets
 - **SHA-256** : `1d0a4482ac42dadf543319da76dacf47ba1b132eb826a8bb3ca2d64e5c135117`
+
+## `sources/collectivites/balances-fonction-2019.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2019 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec6/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec6/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 169 802 octets
+- **SHA-256** : `7471870b485013e0dd86a703f01d88c663dad3d1b99657decfe39c4628400a36`
+
+## `sources/collectivites/balances-fonction-2020.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2020 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec7/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec7/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 157 843 octets
+- **SHA-256** : `bed8bc8d6a1ecc4ce2fb37ac509ba4f3b1d519030b72106ac7957dac74cfa39f`
+
+## `sources/collectivites/balances-fonction-2021.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2021 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec8/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec8/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 163 902 octets
+- **SHA-256** : `da6f2c3dc1ab41f511e97020d2c03cfef763da70fec404e303f52cfc35722d19`
+
+## `sources/collectivites/balances-fonction-2022.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2022 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-2022/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-2022/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 174 714 octets
+- **SHA-256** : `9eab93d5426efa81be01a1ebc20cc1603b2a4b7906ef2037710bc184160eced1`
+
+## `sources/collectivites/balances-fonction-2023.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2023 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-epl-avec-fonction-2023/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-epl-avec-fonction-2023/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 172 136 octets
+- **SHA-256** : `95750ccc6000f2b90d8024b1d140ab5cccd306f6a5b9fc1d28a7783bbd6a904f`
+
+## `sources/collectivites/balances-fonction-2024.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2024 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2024/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 145 966 octets
+- **SHA-256** : `0ba44df55707b405d4da0f2bb2c8dc92b8fcca474ff94b9998adc28183529a5c`
+
+## `sources/collectivites/balances-fonction-2025.json`
+
+- **Contenu** : Sommes par catégorie de collectivité, nomenclature et code de fonction : budgets principaux, opérations réelles, fonctionnement et investissement, en euros. Produit par scripts/collectivites.py.
+- **Jeu de données** : Balances comptables des collectivités et des établissements publics locaux avec la présentation croisée nature-fonction 2025 (sommes demandées au portail)
+- **Producteur** : DGFiP
+- **Adresse du fichier** : <https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2025/records>
+- **Page du jeu de données** : <https://data.economie.gouv.fr/explore/dataset/balances-comptables-des-collectivites-et-des-etablissements-publics-locaux-avec-la-presentation-croisee-nature-fonction-2025/>
+- **Licence** : Licence Ouverte 2.0
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 133 539 octets
+- **SHA-256** : `bed3c56320e93c2afa2ab353ed726c8cd0fc6fbcd829995e0523fb1f3d3251de`
+
+## `sources/collectivites/BIS203-fonction-regions-2024.pdf`
+
+- **Contenu** : Contrôle des sommes des régions : lycées 4,3 Md€, enseignement supérieur, professionnel et continu 4,2 Md€, transports scolaires 1,6 Md€ (fonctionnement 2024).
+- **Jeu de données** : BIS n° 203, Les dépenses par fonction des régions et des collectivités territoriales uniques en 2024 (novembre 2025)
+- **Producteur** : DGCL
+- **Adresse du fichier** : <https://www.collectivites-locales.gouv.fr/files/files/Etudes-et-statistiques/BIS/2025/BIS%20203%20-%20Fonction%20des%20r%C3%A9gions_2.pdf>
+- **Page du jeu de données** : <https://www.collectivites-locales.gouv.fr/etudes-et-statistiques/acces-par-thematique/general/bulletin-dinformation-statistique-bis>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 478 103 octets
+- **SHA-256** : `a95f36069a37c612946e1bf441d97e848f3b713524ea9d93200bba9463187c97`
+
+## `sources/collectivites/BIS205-fonction-communes-2024.pdf`
+
+- **Contenu** : Contrôle des sommes des communes : enseignement 9,9 Md€, restauration scolaire 2,9 Md€, centres de loisirs 1,8 Md€, crèches et garderies 2,4 Md€ (fonctionnement 2024).
+- **Jeu de données** : BIS n° 205, Les dépenses par fonction des communes de plus de 3 500 habitants en 2024 (décembre 2025)
+- **Producteur** : DGCL
+- **Adresse du fichier** : <https://www.collectivites-locales.gouv.fr/files/files/Etudes-et-statistiques/BIS/2025/BIS%20205%20-%20Fonction%20des%20communes%20V4.pdf>
+- **Page du jeu de données** : <https://www.collectivites-locales.gouv.fr/etudes-et-statistiques/acces-par-thematique/general/bulletin-dinformation-statistique-bis>
+- **Licence** : Information publique, réutilisation libre (code des relations entre le public et l'administration, art. L. 321-1)
+- **Téléchargé le** : 2026-10-28
+- **Taille** : 549 419 octets
+- **SHA-256** : `ed0473a4db40b4af595d88d4054b89add1abeb33a9b010cd854cfd1c516d9e3f`

@@ -138,6 +138,7 @@ sh scripts/telecharger.sh      # télécharge les fichiers officiels et met à j
 for a in $(seq 2019 2024); do python3 scripts/insee.py $a; done   # administrations publiques (Insee) -> donnees/argent-public-AAAA.json
 for a in 2023 2024 2025; do python3 scripts/construire.py $a; done  # budget de l'État (et aides en 2024) -> donnees/budget-etat-AAAA.json et CSV
 for a in 2023 2024 2025; do python3 scripts/detail.py $a; done     # détail par programme -> donnees/detail-etat-AAAA.json
+python3 scripts/collectivites.py # dépenses des collectivités par fonction -> sources/collectivites/
 python3 scripts/jeunesse.py      # argent public pour la jeunesse -> donnees/jeunesse.json (nécessite pdfplumber)
 python3 scripts/annees.py      # années disponibles et échelle commune -> donnees/annees.json
 python3 scripts/verifier.py    # compare les totaux au tableau officiel ; échoue en cas d'écart
@@ -179,6 +180,17 @@ dépensé. Il y ajoute les dépenses fiscales du document, l'enseignement par ad
 et les repères de la synthèse du rapport sur les politiques de l'enfance 2027 (CNAF, CNAM, CNSA,
 aide sociale à l'enfance des départements). L'édition 2026 a changé certains calculs (aides au
 logement : jeunes de 30 ans et moins au lieu de moins de 25 ans) : la page signale cette rupture.
+
+La page ajoute l'argent des collectivités. `scripts/collectivites.py` demande au portail de la
+DGFiP les sommes des balances comptables par fonction (2024 et 2025) : budgets principaux,
+opérations réelles, fonctionnement et investissement, par catégorie de collectivité. `jeunesse.py`
+les range par domaine (écoles, collèges et lycées, cantine et périscolaire, transport scolaire,
+supérieur, apprentissage, aide sociale à l'enfance, jeunesse) et vérifie qu'elles retombent sur
+les bulletins n° 203 et 205 de la DGCL, et sur la fonction « famille et enfants » de l'Insee. Pour
+l'enseignement, l'écart avec l'Insee (petites communes, syndicats scolaires, caisses des écoles,
+personnel non réparti) est ajouté en une ligne, pour 2024 ; les comptes de l'Insee 2025 ne sont pas
+encore publiés. La formation professionnelle des adultes, la petite enfance et la sécurité sociale
+sont montrées à part, hors du total.
 
 ## Années
 
