@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Qui fait le service public ? Les organismes de l'Annuaire de l'administration rangés comme l'argent public, par administration et par fonction, sur un organigramme zoomable, avec la mission de chacun résumée simplement.">
+<title>Les acteurs publics</title>
+<script>
+  // Thème choisi par le visiteur, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Mêmes jetons que la carte des sites et les pages du budget ; les administrations ont les
+     couleurs de la page budget (bleu État, violet sécurité sociale, jaune collectivités, vert
+     opérateurs), gris pour les partenaires hors administrations publiques. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --mur: #F7F8FB;
+    --point: rgba(22, 32, 51, .10);
+    --m-etat: #2A78D6;
+    --m-secu: #4A3AA7;
+    --m-coll: #D99A00;
+    --m-op: #1BAF7A;
+    --m-hors: #8A94A6;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --shadow-s: 0 1px 2px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119;
+      --panel: #141B26;
+      --panel-2: #1A2331;
+      --ink: #E4E9F1;
+      --muted: #97A2B5;
+      --line: #273142;
+      --control: #65718A;
+      --accent: #8EA6FF;
+      --accent-soft: #1E2A4A;
+      --mur: #0F151F;
+      --point: rgba(228, 233, 241, .09);
+      --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-hors: #6B7588;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+      --shadow-s: 0 1px 2px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119;
+    --panel: #141B26;
+    --panel-2: #1A2331;
+    --ink: #E4E9F1;
+    --muted: #97A2B5;
+    --line: #273142;
+    --control: #65718A;
+    --accent: #8EA6FF;
+    --accent-soft: #1E2A4A;
+    --mur: #0F151F;
+    --point: rgba(228, 233, 241, .09);
+      --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-hors: #6B7588;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    --shadow-s: 0 1px 2px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip {
+    position: fixed; z-index: 30; top: 8px; left: 8px;
+    padding: 8px 12px; border-radius: 6px;
+    background: var(--panel); color: var(--ink); border: 2px solid var(--accent);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.45 var(--sans); overflow: hidden; }
+  a { color: var(--accent); }
+
+  /* Une couleur par administration, comme sur la page budget. */
+  [data-a="etat"] { --c: var(--m-etat); }
+  [data-a="secu"] { --c: var(--m-secu); }
+  [data-a="coll"] { --c: var(--m-coll); }
+  [data-a="op"] { --c: var(--m-op); }
+  [data-a="hors"] { --c: var(--m-hors); }
+
+  /* --- Le mur : plein écran sous le bandeau, déplacé et zoomé à la souris ou au doigt --- */
+  #mur {
+    position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; overflow: hidden;
+    background-color: var(--mur);
+    background-image: radial-gradient(var(--point) 1.2px, transparent 1.4px);
+    touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
+  }
+  #mur.saisi { cursor: grabbing; }
+  #mur.sans-points { background-image: none; }
+  #monde { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  #liens { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+  #liens path { fill: none; stroke: var(--control); stroke-width: 1.5px; vector-effect: non-scaling-stroke; opacity: .7; }
+
+  /* Une zone par administration (ou par fonction). */
+  /* Bandeau sous un bloc ouvert : ce qu'il contient, avec son nom en tête. Les bandeaux
+     s'emboîtent, teintés de la couleur de l'administration. */
+  .bande {
+    position: absolute; box-sizing: border-box; cursor: pointer;
+    border: 2px solid color-mix(in srgb, var(--c, var(--control)) 70%, var(--line)); border-radius: 18px;
+    background: color-mix(in srgb, var(--c, var(--control)) 12%, color-mix(in srgb, var(--panel) 55%, var(--mur)));
+  }
+  .bande .tete {
+    position: absolute; left: 22px; top: 12px; right: 22px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    font: 600 14px/1.2 var(--sans); color: var(--ink);
+  }
+  .bande .tete::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 2px; background: var(--c, var(--control)); }
+  .bande.choisie { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  #monde.loin .bande .tete { visibility: hidden; }
+  /* Blocs fermés : cachés, sauf le temps de mesurer leur taille. */
+  #monde .cache { display: none; }
+  #monde.mesure .carte.cache { display: flex; visibility: hidden; }
+  /* Pastille sous un bloc : ouvre ou ferme ce qu'il contient. */
+  .bascule {
+    position: absolute; z-index: 1; transform: translate(-50%, -50%); box-sizing: border-box;
+    min-width: 52px; height: 34px; padding: 0 12px; border: 1.5px solid var(--control); border-radius: 999px;
+    background: var(--panel); color: var(--ink); box-shadow: var(--shadow-s);
+    font: 600 15px/1 var(--mono); font-variant-numeric: tabular-nums; cursor: pointer; white-space: nowrap;
+  }
+  .bascule:hover, .bascule:focus-visible { border-color: var(--accent); color: var(--accent); }
+  .bascule[aria-expanded="true"] { min-width: 34px; padding: 0; font-size: 20px; }
+  #monde.loin .bascule { visibility: hidden; }
+
+  .carte {
+    position: absolute; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px;
+    text-align: left; font: inherit; color: var(--ink); cursor: pointer;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-s);
+    padding: 12px 14px;
+  }
+  .carte:hover { border-color: var(--control); }
+  .carte.choisie { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent), var(--shadow); }
+  .carte .n { font: 12.5px/1.3 var(--mono); color: var(--muted); }
+  .carte .m { font: 600 15px/1.3 var(--mono); font-variant-numeric: tabular-nums; }
+  .carte .m.hors { font: italic 400 13px/1.3 var(--sans); color: var(--muted); }
+  .carte.n1 .m { font-size: 19px; }
+
+  .carte.n1 { width: 320px; padding: 20px 22px; gap: 8px; border-radius: 16px; border-width: 2px; border-top: 8px solid var(--c, var(--control)); }
+  .carte.n1 .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .carte.n1 b { font-size: 28px; line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
+  .carte.n1 .n { font-size: 14px; }
+  .compo { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .compo i { display: block; background: var(--c); }
+
+  .carte.n2 { width: 300px; padding-left: 22px; gap: 5px; }
+  .carte.n2::before { content: ""; position: absolute; left: 8px; top: 12px; bottom: 12px; width: 5px; border-radius: 3px; background: var(--c, var(--control)); }
+  .carte.n2 b { font-size: 18px; line-height: 1.25; }
+  .carte.n2 small { color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+  .carte.org { width: 340px; border-left: 5px solid var(--c); }
+  .carte.org b { font-size: 15px; line-height: 1.3; font-weight: 600; }
+  .carte.org .mission { font-size: 13px; line-height: 1.45; }
+  .carte.org .n { font-size: 11.5px; }
+  /* Encarts identiques à chaque niveau : textes coupés sur le mur (entiers dans la fiche), même
+     hauteur pour tous (fixée par disposer()), dernière ligne calée en bas. */
+  .carte b, .carte .mission, .carte small { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+  .carte.org b { -webkit-line-clamp: 2; }
+  .carte.org .mission { -webkit-line-clamp: 4; }
+  .carte.n2 b { -webkit-line-clamp: 2; }
+  .carte.n2 small { -webkit-line-clamp: 4; }
+  .carte.n1 b { -webkit-line-clamp: 3; }
+  .carte.org > :last-child, .carte.n1 > :last-child { margin-top: auto; }
+  /* Services rattachés (directions, sous-directions, bureaux…) : plus petits, taille fixe. */
+  .carte.svc { width: 260px; height: 112px; padding: 10px 12px; gap: 3px; border-left: 4px solid var(--c); background: var(--panel-2); }
+  .carte.svc b { -webkit-line-clamp: 3; font-size: 13.5px; line-height: 1.3; font-weight: 600; }
+  .carte.svc .n { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: none; }
+  .carte.svc b { flex: none; }
+  .carte.svc > :last-child { margin-top: auto; }
+  #monde.moyen .carte.svc .n { visibility: hidden; }
+
+  /* De loin, les textes illisibles disparaissent : restent les formes et les couleurs, et le nom
+     des zones en surimpression. */
+  #monde.loin .carte > *, #monde.loin .carte.n2 small { visibility: hidden; }
+  #monde.loin .carte .compo { visibility: visible; }
+  #monde.loin .carte { background: color-mix(in srgb, var(--c, var(--accent)) 45%, var(--panel)); border-color: var(--c, var(--accent)); }
+  #monde.loin .carte.n2:not([data-a]), #monde.loin .carte.n1:not([data-a]) { background: var(--panel-2); border-color: var(--control); }
+  #monde.moyen .carte.org .mission, #monde.moyen .carte.org .n, #monde.moyen .carte.n2 small { visibility: hidden; }
+
+  /* Noms des zones, vus de loin (en coordonnées d'écran, comme les pôles de la carte des sites). */
+  #etiquettes { position: absolute; inset: 0; pointer-events: none; }
+  #etiquettes button {
+    position: absolute; transform: translateX(-50%); pointer-events: auto;
+    box-sizing: border-box; max-width: 260px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 12px;
+    background: color-mix(in srgb, var(--panel) 92%, transparent); color: var(--ink); box-shadow: var(--shadow);
+    font: 600 14px/1.25 var(--sans); text-align: center; text-wrap: balance; cursor: pointer;
+  }
+  #etiquettes button span { display: block; font: 500 11.5px/1.3 var(--mono); color: var(--muted); white-space: nowrap; }
+  /* Étiquette étroite : le nombre d'organisations ne tient pas, il reste dans la fiche. */
+  #etiquettes button.etroite { padding: 5px 8px; font-size: 13px; }
+  #etiquettes button.etroite .nb { display: none; }
+  #etiquettes button:hover { border-color: var(--accent); }
+
+  /* --- Panneaux, comme sur la carte des sites --- */
+  .panel {
+    position: fixed; z-index: 2;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow);
+  }
+  #side {
+    top: calc(16px + var(--bandeau-h, 0px)); left: 16px; width: 320px;
+    max-height: calc(100% - 32px - var(--bandeau-h, 0px) - env(safe-area-inset-bottom, 0px));
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .head { padding: 16px 16px 12px; border-bottom: 1px solid var(--line); overflow-y: auto; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 6px 0 4px; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+  .sub { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .figures { display: flex; gap: 14px; margin-top: 10px; font-variant-numeric: tabular-nums; }
+  .figures div { display: flex; flex-direction: column; }
+  .figures b { font-size: 16px; font-weight: 600; }
+  .figures span { font-size: 12px; color: var(--muted); }
+  .howto { margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .howto summary { cursor: pointer; color: var(--accent); }
+  .howto ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+  .howto strong { color: var(--ink); font-weight: 600; }
+  .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+  .notice { margin: 8px 0 0; font-size: 12px; color: var(--muted); font-style: italic; }
+
+  .search { position: relative; padding: 12px 16px; }
+  .search input {
+    width: 100%; box-sizing: border-box; padding: 8px 10px;
+    border: 1px solid var(--control); border-radius: 7px; background: var(--panel-2); color: var(--ink); font: inherit;
+  }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #results { list-style: none; margin: 6px 0 0; padding: 0; max-height: 240px; overflow-y: auto; }
+  .liste button {
+    display: flex; align-items: center; gap: 8px; width: 100%; min-height: 32px; padding: 5px 8px;
+    border: 0; border-radius: 6px; background: transparent; color: var(--ink);
+    font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+  }
+  .liste button:hover { background: var(--accent-soft); }
+  .liste button:focus-visible { background: var(--accent-soft); outline: 2px solid var(--accent); outline-offset: -2px; }
+  .liste .txt { flex: 1; min-width: 0; }
+  .liste .via { display: block; color: var(--muted); font-size: 12px; }
+  .liste .count { margin-left: auto; }
+  .count { font: 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .sw { flex: none; width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
+
+  .goto { padding: 0 16px 12px; border-bottom: 1px solid var(--line); }
+  .goto select {
+    width: 100%; padding: 7px 8px; border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel-2); color: var(--ink); font: inherit; font-size: 13px;
+  }
+  /* Filtres : cases à cocher, comme sur la page budget. */
+  .filtres { padding: 4px 16px 14px; }
+  /* Un seul défilement pour tout le panneau. */
+  #side { overflow-y: auto; }
+  #side .head { overflow: visible; }
+  .filtres .sec + .sec { margin-top: 6px; }
+  .filtres h2 { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 6px; font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .filtres .tout { padding: 0; border: 0; background: none; color: var(--accent); font: 500 12px var(--sans); letter-spacing: 0; text-transform: none; cursor: pointer; }
+  .filtres .tout:hover { text-decoration: underline; }
+  .checks { display: grid; gap: 2px; }
+  .checks label { display: grid; grid-template-columns: auto auto 1fr auto; gap: 8px; align-items: center; padding: 4px 2px; font-size: 13px; cursor: pointer; border-radius: 6px; }
+  #c-fonction label { grid-template-columns: auto 1fr auto; }
+  .checks label:hover { background: var(--panel-2); }
+  .checks input { accent-color: var(--accent); margin: 0; }
+  .checks .count { text-align: right; }
+  .checks label:has(input:not(:checked)) > span:not(.sw) { color: var(--muted); }
+  .checks label:has(input:not(:checked)) .sw { opacity: .35; }
+  #vide { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; pointer-events: none; }
+  .views { display: flex; gap: 6px; margin-top: 12px; }
+  .views button { flex: 1; min-height: 36px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel-2); color: var(--ink); font: 500 13px var(--sans); cursor: pointer; }
+  .views button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+  .views.ouvrir { margin-top: 6px; }
+  .views button:disabled { opacity: .45; cursor: default; }
+  .views-titre { margin: 12px 0 0; font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  #d-corps .montant { font: 600 22px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+  #d-corps .montant small { display: block; margin-top: 2px; font: 400 12.5px/1.4 var(--sans); color: var(--muted); }
+  #d-corps ul.ex { margin: 0; padding-left: 18px; list-style: disc; color: var(--muted); }
+
+  /* Fiche de l'encart choisi. */
+  #detail {
+    z-index: 4; top: calc(16px + var(--bandeau-h, 0px)); right: 16px; width: 380px;
+    max-height: calc(100% - 32px - var(--bandeau-h, 0px) - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+  }
+  .detail-head {
+    position: sticky; top: 0; z-index: 1; display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 14px 12px 16px; background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  .detail-head > div { flex: 1; min-width: 0; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  #d-title { margin: 6px 0 0; font-size: 17px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+  #d-title:focus { outline: none; }
+  .close {
+    flex: none; width: 36px; height: 36px; border: 1px solid var(--control); border-radius: 7px;
+    background: var(--panel-2); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer;
+  }
+  #d-corps { padding: 12px 16px 16px; display: grid; gap: 12px; font-size: 13.5px; }
+  #d-corps p { margin: 0; }
+  #d-corps .mission { font-size: 14.5px; line-height: 1.5; }
+  #d-corps dl { display: grid; grid-template-columns: minmax(96px, 38%) 1fr; gap: 6px 12px; margin: 0; padding: 10px 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; font-size: 13px; }
+  #d-corps dt { color: var(--muted); }
+  #d-corps dd { margin: 0; overflow-wrap: anywhere; }
+  #d-corps .attente { color: var(--muted); font-style: italic; }
+  #d-corps h3 { margin: 4px 0 0; font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  #d-corps ul { list-style: none; margin: 0 0 0 -8px; padding: 0; }
+  #d-corps details summary { cursor: pointer; color: var(--accent); }
+  #d-corps details p { margin-top: 6px; color: var(--muted); white-space: pre-line; }
+  #d-corps .note { color: var(--muted); font-size: 12.5px; }
+  .lien-inline { border: 0; padding: 0; background: none; color: var(--accent); font: inherit; text-align: left; text-decoration: underline; cursor: pointer; }
+  /* Rattachement d'un service : un parent par ligne, en retrait à chaque niveau. */
+  .chemin { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .chemin li { display: flex; gap: 6px; padding-left: calc(var(--niv, 0) * 12px); }
+  .chemin li + li::before { content: "↳"; flex: none; color: var(--muted); }
+
+  /* --- Zoom --- */
+  .zoom { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; overflow: hidden; }
+  .zoom button {
+    width: 44px; height: 44px; border: 0; border-bottom: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); font-size: 18px; cursor: pointer;
+  }
+  .zoom button:last-child { border-bottom: 0; font-size: 15px; }
+  .zoom button:hover { background: var(--panel-2); }
+  .zoom button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  body:has(#detail:not([hidden])) .zoom { right: 412px; }
+
+  #status { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; pointer-events: none; }
+
+  @media (max-width: 760px) {
+    #side { left: 16px; right: 16px; width: auto; max-height: 46%; }
+    .figures { display: none; }
+    #detail { top: auto; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 45%; }
+    body:has(#detail:not([hidden])) .zoom { right: 16px; display: none; }
+  }
+  /* Fil d'Ariane, commun à toutes les pages du site. */
+  nav.ariane ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  nav.ariane li + li::before { content: "›"; margin-right: 6px; color: var(--control); }
+  nav.ariane a { color: var(--accent); text-decoration: none; }
+  nav.ariane a:hover { text-decoration: underline; }
+  @media (forced-colors: active) { .sw, .compo i, .carte.n1, .carte.n2::before, .carte.org { forced-color-adjust: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#q">Aller à la recherche</a>
+
+<!--bandeau-->
+
+<div id="mur" role="region" aria-roledescription="organigramme zoomable" aria-label="Organigramme des acteurs publics. Faites glisser pour vous déplacer, molette ou pincement pour zoomer ; chaque encart est un bouton qui zoome dessus et ouvre sa fiche." tabindex="-1">
+  <div id="monde">
+    <svg id="liens" aria-hidden="true"></svg>
+  </div>
+  <div id="etiquettes"></div>
+</div>
+<p id="announce" class="sr-only" aria-live="polite"></p>
+<p id="status">Chargement de l'organigramme…</p>
+<p id="vide" hidden>Aucune organisation ne correspond aux filtres choisis.</p>
+
+<aside id="side" class="panel" aria-label="Présentation, recherche et légende" data-repliable>
+  <div class="head">
+    <div class="eyebrow">Organigramme</div>
+    <h1>Les acteurs publics</h1>
+    <p class="sub">Qui fait le service public ? Les organismes de l'Annuaire de l'administration rangés comme l'argent public sur la page <a href="../budget/pilotage.html">Pilotage du budget</a> : par administration, puis par fonction, avec la mission de chacun en une ou deux phrases.</p>
+    <div class="figures" id="figures"></div>
+    <p class="views-titre" id="ranger-titre">Ranger par</p>
+    <div class="views" role="group" aria-labelledby="ranger-titre">
+      <button type="button" data-mode="a" aria-pressed="true">Administration</button>
+      <button type="button" data-mode="f" aria-pressed="false">Fonction</button>
+    </div>
+    <div class="views ouvrir" role="group" aria-label="Ouvrir ou fermer tous les blocs">
+      <button type="button" id="tout-ouvrir">Tout ouvrir</button>
+      <button type="button" id="tout-fermer">Tout fermer</button>
+    </div>
+    <details class="howto">
+      <summary>Comment lire l'organigramme</summary>
+      <ul>
+        <li>En haut, les <strong>administrations</strong> : l'État en bleu, la sécurité sociale en violet, les collectivités en jaune, les opérateurs de l'État en vert, et en gris les partenaires qui ne sont pas des administrations publiques. L'organigramme se lit de haut en bas : l'administration, ses <strong>fonctions</strong> (santé, enseignement, ordre et sécurité…), puis les <strong>organisations</strong>. « Ranger par fonction » inverse les deux premiers niveaux.</li>
+        <li>La pastille <strong>+</strong> sous un bloc ouvre ce qu'il contient dans un <strong>bandeau</strong>, juste sous sa rangée, avec son nom en tête ; <strong>−</strong> le referme. Les bandeaux s'emboîtent à chaque niveau. « Tout ouvrir » et « Tout fermer » agissent sur les administrations et les fonctions.</li>
+        <li>Sous les ministères, les institutions et les autorités indépendantes, l'organigramme descend dans leurs <strong>services</strong> : directions, sous-directions, bureaux… La recherche les trouve aussi (DGPN, Dsaf…).</li>
+        <li>Les <strong>montants</strong> sont les dépenses de l'année, les mêmes que sur la page budget.</li>
+        <li>Les <strong>cases à cocher</strong>, sous la recherche, masquent des administrations ou des fonctions ; les montants des blocs ne comptent alors que ce qui reste affiché.</li>
+        <li>Faites glisser pour vous déplacer ; molette, pincement ou boutons + et − pour zoomer.</li>
+        <li>Cliquez sur un bloc pour l'ouvrir, zoomer dessus et afficher sa fiche : mission, statut, nombre d'implantations, thèmes de l'annuaire.</li>
+      </ul>
+    </details>
+    <details class="howto">
+      <summary>Méthode et prochaines étapes</summary>
+      <ul>
+        <li>On décrit un <em>type</em> d'organisme (les agences régionales de santé), pas chacune de ses implantations.</li>
+        <li><strong>Services rattachés</strong> : pour les fiches nationales (ministères, institutions et juridictions, autorités indépendantes), les « services fils » publiés par l'annuaire, niveau par niveau, jusqu'aux bureaux. Les réseaux locaux (ARS, Caf…) n'ont pas encore ce détail : chaque implantation a sa propre organisation.</li>
+        <li><strong>Administration et fonction</strong> : chaque organisation est rangée à la main selon les règles de la comptabilité nationale (Insee), celles de la page budget. Les hôpitaux publics relèvent ainsi de la sécurité sociale, les autorités indépendantes dotées de la personnalité morale (AMF, HAS, Arcom…) des opérateurs, la recherche fondamentale (CNRS) des services généraux. Une organisation n'a qu'une fonction : la principale.</li>
+        <li><strong>Montants</strong> : dépenses consolidées de chaque administration par fonction (Insee, tableau 3.307), reprises de la page budget. Les partenaires hors administrations publiques n'y sont pas comptés.</li>
+        <li><strong>Missions</strong> : quand l'annuaire publie un texte de mission, le résumé s'en inspire et le texte d'origine est dans la fiche ; sinon (environ un type sur trois, et tous les ministères), il est rédigé pour cette page, et la fiche le signale.</li>
+        <li><strong>Implantations</strong> : nombre de fiches de ce type dans l'annuaire, un ordre de grandeur du maillage du territoire, pas un nombre d'agents.</li>
+        <li><strong>À venir : le montant de chaque organisation</strong> (programmes du budget de l'État, annexe « jaune » des opérateurs, comptes de la sécurité sociale et des collectivités), avec une vue en rectangles à l'échelle, puis les effectifs.</li>
+      </ul>
+    </details>
+    <p class="updated">Source : <a href="https://lannuaire.service-public.gouv.fr/themes" target="_blank" rel="noopener">Annuaire de l'administration</a> (DILA), lu le <span id="lu-le">…</span> · Données : <a href="donnees/acteurs.json" download>JSON</a> · Licence Ouverte 2.0</p>
+    <p class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</p>
+  </div>
+  <div class="search">
+    <label for="q" class="sr-only">Chercher une organisation</label>
+    <input id="q" type="search" placeholder="Chercher : ARS, Caf, tribunal, mission locale…" autocomplete="off" aria-controls="results" aria-describedby="q-count">
+    <p id="q-count" class="sr-only" aria-live="polite"></p>
+    <ul id="results" class="liste" aria-label="Résultats de la recherche"></ul>
+  </div>
+  <div class="goto">
+    <label for="aller" class="sr-only">Aller à une zone</label>
+    <select id="aller"></select>
+  </div>
+  <div class="filtres">
+    <div class="sec">
+      <h2 id="t-admin">Administrations <button type="button" class="tout" id="tout-admin" hidden>Tout afficher</button></h2>
+      <div class="checks" id="c-admin" role="group" aria-labelledby="t-admin"></div>
+    </div>
+    <div class="sec">
+      <h2 id="t-fonction">Fonctions <button type="button" class="tout" id="tout-fonction" hidden>Tout afficher</button></h2>
+      <div class="checks" id="c-fonction" role="group" aria-labelledby="t-fonction"></div>
+    </div>
+  </div>
+</aside>
+
+<aside id="detail" class="panel" aria-labelledby="d-title" hidden>
+  <div class="detail-head">
+    <div>
+      <span class="chip" id="d-chip"></span>
+      <h2 id="d-title" tabindex="-1"></h2>
+    </div>
+    <button type="button" class="close" id="d-close" aria-label="Fermer la fiche" title="Fermer la fiche"><span aria-hidden="true">×</span></button>
+  </div>
+  <div id="d-corps"></div>
+</aside>
+
+<div class="zoom panel" role="group" aria-label="Commandes de l'organigramme">
+  <button type="button" id="z-in" aria-label="Zoomer" title="Zoomer"><span aria-hidden="true">+</span></button>
+  <button type="button" id="z-out" aria-label="Dézoomer" title="Dézoomer"><span aria-hidden="true">−</span></button>
+  <button type="button" id="z-reset" aria-label="Voir tout l'organigramme" title="Voir tout l'organigramme"><span aria-hidden="true">⟲</span></button>
+</div>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const fmt = n => Number(n).toLocaleString('fr-FR');
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const pluriel = (n, un, plusieurs) => `${fmt(n)} ${n > 1 ? plusieurs : un}`;
+  const sansAccent = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)');
+  const dur = ms => reduit.matches ? 0 : ms;
+  // Milliards d'euros, comme la page budget.
+  const mds = v => v == null ? null : v < 0.05 ? "moins de 0,1 Md€" : v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' Md€';
+
+  // Thème clair, sombre ou système (boutons du bandeau).
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+
+  let D;
+  // Services rattachés aux fiches nationales : chargés en même temps ; sans eux, la page reste utilisable.
+  const chargeS = fetch('donnees/services.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => null);
+  try { D = await fetch('donnees/acteurs.json', { cache: 'no-cache' }).then(r => r.json()); }
+  catch (e) { $('status').textContent = 'Impossible de charger les données (donnees/acteurs.json) : ' + e.message; return; }
+  const S = await chargeS || { site: '', types: [], sections: [], services: [], racines: {} };
+  $('status').remove();
+  // Dans les chemins, un service est désigné par le début de son identifiant.
+  const court = id => id.slice(0, 8);
+  const urlSvc = i => { const [, , , sec, id] = S.services[i]; return sec >= 0 ? `${S.site}/${S.sections[sec]}/${id}` : null; };
+  const nomSvc = i => { const [nom, sigle] = S.services[i]; return sigle ? `${nom} (${sigle})` : nom; };
+  // Organisation et chemin de chaque service (le premier trouvé s'il est rattaché à deux parents).
+  const orgDeSvc = [], cheminDeSvc = [], parentDeSvc = [];
+  for (const [cle, l] of Object.entries(S.racines)) {
+    const pile = l.map(i => [i, [court(S.services[i][4])], null]);
+    while (pile.length) {
+      const [i, ch, parent] = pile.pop();
+      if (orgDeSvc[i] != null) continue;
+      orgDeSvc[i] = cle; cheminDeSvc[i] = ch; parentDeSvc[i] = parent;
+      for (const f of S.services[i][5]) pile.push([f, [...ch, court(S.services[f][4])], i]);
+    }
+  }
+  const ADM = Object.fromEntries(D.administrations.map(a => [a.id, a]));
+  const FCT = Object.fromEntries(D.fonctions.map(f => [f.code, f]));
+  // Ordre alphabétique des organisations et des services (sans tenir compte de la casse, des
+  // accents ni d'un article en tête ; « 2 » avant « 10 »).
+  const tri = new Intl.Collator('fr', { sensitivity: 'base', numeric: true });
+  const cleTri = n => n.replace(/^(le|la|les|l['’])\s*/i, '');
+  const ORGS = [...D.organisations].sort((a, b) => tri.compare(cleTri(a.nom), cleTri(b.nom)));
+  const parNom = (i, j) => tri.compare(cleTri(S.services[i][0]), cleTri(S.services[j][0]));
+  S.services.forEach(v => v[5].sort(parNom));
+  Object.values(S.racines).forEach(l => l.sort(parNom));
+  const AN = D.montants.annee;
+  const nomOrg = o => o.sigle ? `${o.nom} (${o.sigle})` : o.nom;
+  const implantations = l => l.reduce((s, o) => s + (o.implantations || 0), 0);
+  const depense = (a, f) => ADM[a].depense_par_fonction?.[f] ?? null;
+  $('lu-le').textContent = new Date(D.lu_le).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  $('figures').innerHTML = [
+    [fmt(ORGS.length), "types d'organismes"],
+    [fmt(D.administrations.length - 1), 'administrations'],
+    [fmt(D.fonctions.length), 'fonctions'],
+  ].map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('');
+  // Filtres : administrations et fonctions décochées. Les montants des blocs ne comptent que ce
+  // qui reste affiché, comme sur la page budget.
+  const masquesA = new Set(), masquesF = new Set();
+  const affichee = o => !masquesA.has(o.administration) && !masquesF.has(o.fonction);
+  const fonctionsVues = () => D.fonctions.filter(f => !masquesF.has(f.code)).map(f => f.code);
+  const adminsVues = () => D.administrations.filter(a => !masquesA.has(a.id)).map(a => a.id);
+  const somme = l => l.some(v => v != null) ? l.reduce((s, v) => s + (v || 0), 0) : null;
+  const depenseAdmin = a => a === 'hors' ? null : somme(fonctionsVues().map(f => depense(a, f)));
+  const depenseFonction = f => somme(adminsVues().map(a => depense(a, f)));
+  $('c-admin').innerHTML = D.administrations.map(a => `<label data-a="${a.id}"><input type="checkbox" data-filtre-a="${a.id}" checked><span class="sw" aria-hidden="true"></span><span>${esc(a.nom)}</span><span class="count"></span></label>`).join('');
+  $('c-fonction').innerHTML = D.fonctions.map(f => `<label><input type="checkbox" data-filtre-f="${f.code}" checked><span>${esc(f.libelle)}</span><span class="count"></span></label>`).join('');
+  // Nombre d'organisations de chaque case, compte tenu de l'autre filtre.
+  function compterFiltres() {
+    $('c-admin').querySelectorAll('input').forEach(i => { i.parentElement.querySelector('.count').textContent = ORGS.filter(o => o.administration === i.dataset.filtreA && !masquesF.has(o.fonction)).length; });
+    $('c-fonction').querySelectorAll('input').forEach(i => { i.parentElement.querySelector('.count').textContent = ORGS.filter(o => o.fonction === i.dataset.filtreF && !masquesA.has(o.administration)).length; });
+    $('tout-admin').hidden = !masquesA.size; $('tout-fonction').hidden = !masquesF.size;
+  }
+  compterFiltres();
+
+  // --- Le mur : deux rangements possibles ---
+  // « a » : administration → fonction → organisations ; « f » : fonction → administration → organisations.
+  // Un encart est désigné par son chemin : a/etat, a/etat/GF03, a/etat/GF03/gendarmerie…
+  const monde = $('monde'), mur = $('mur'), svg = $('liens');
+  let mode = 'a', encarts = new Map(), zones = [], etiquettes = [];
+  const libelle = (genre, k) => genre === 'a' ? ADM[k].nom : FCT[k].libelle;
+
+  function creer(type, html, chemin, attrs = {}) {
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'carte ' + type; el.innerHTML = html;
+    el.dataset.id = chemin.join('/');
+    for (const [k, v] of Object.entries(attrs)) if (v != null) el.dataset[k] = v;
+    monde.append(el);
+    const e = { el, type, chemin };
+    encarts.set(el.dataset.id, e);
+    return e;
+  }
+  const ligneMontant = (v, hors) => hors ? '<span class="m hors">Hors dépense publique</span>' : v != null ? `<span class="m">${mds(v)}</span>` : '';
+
+  // Blocs ouverts (leurs chemins). Au départ, tout est fermé : on ne voit que les administrations
+  // (ou les fonctions).
+  const ouverts = new Set();
+  function ajouterBascule(e, n, quoi) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'bascule'; b.dataset.pour = e.el.dataset.id;
+    monde.append(b);
+    Object.assign(e, { bascule: b, nEnfants: n, quoiEnfants: quoi });
+  }
+  const SERVICES = ['service', 'services'];
+  const lierEnfants = (parent, enfants) => { parent.enfants = enfants; enfants.forEach(c => { c.parent = parent; }); };
+
+  // Services rattachés à une organisation nationale ou à un service : créés à la première
+  // ouverture (il y en a près de 8 000).
+  function creerServices(e) {
+    if (e.enfants || !e.filsSvc?.length) return;
+    lierEnfants(e, e.filsSvc.map(i => {
+      const [nom, sigle, type, , id, fils] = S.services[i];
+      const c = creer('svc', `<b>${esc(nom)}${sigle ? ` (${esc(sigle)})` : ''}</b>`
+        + `<span class="n">${esc((S.types[type] || '').replace(' (ou Ministère)', ''))}</span>`
+        + (fils.length ? `<span class="n">${pluriel(fils.length, ...SERVICES)}</span>` : ''), [...e.chemin, court(id)], { a: e.el.dataset.a });
+      Object.assign(c, { svc: i, filsSvc: fils, w: W_SVC, h: H_SVC });
+      if (fils.length) ajouterBascule(c, fils.length, SERVICES);
+      return c;
+    }));
+  }
+  // Encart désigné par son chemin, en créant au besoin les services qui y mènent.
+  function trouver(id) {
+    if (!id || encarts.has(id)) return encarts.get(id);
+    const parts = id.split('/');
+    for (let n = 4; n < parts.length; n++) {
+      const p = encarts.get(parts.slice(0, n).join('/'));
+      if (!p) return null;
+      creerServices(p);
+    }
+    return encarts.get(id);
+  }
+
+  function construire() {
+    monde.querySelectorAll('.carte, .bande, .bascule').forEach(e => e.remove());
+    $('etiquettes').innerHTML = '';
+    encarts = new Map(); zones = [];
+    const [g1, g2] = mode === 'a' ? ['a', 'f'] : ['f', 'a'];
+    const cle = (o, g) => g === 'a' ? o.administration : o.fonction;
+    const premiers = mode === 'a' ? D.administrations.map(a => a.id) : D.fonctions.map(f => f.code);
+    const seconds = mode === 'a' ? D.fonctions.map(f => f.code) : D.administrations.map(a => a.id);
+    for (const k1 of premiers) {
+      const l1 = ORGS.filter(o => affichee(o) && cle(o, g1) === k1);
+      if (!l1.length) continue;
+      const z = { id: mode + '/' + k1, k1, groupes: [] };
+      // Niveau 1 : l'administration ou la fonction, avec sa dépense.
+      const v1 = g1 === 'a' ? depenseAdmin(k1) : depenseFonction(k1);
+      const compo = g1 === 'f' ? `<span class="compo" aria-hidden="true">${D.administrations.filter(a => !masquesA.has(a.id) && depense(a.id, k1)).map(a => `<i data-a="${a.id}" style="flex:${depense(a.id, k1)}"></i>`).join('')}</span>` : '';
+      z.carte = creer('n1', `<span class="eyebrow">${g1 === 'a' ? 'Administration' : 'Fonction'}</span><b>${esc(libelle(g1, k1))}</b>`
+        + ligneMontant(v1, g1 === 'a' && k1 === 'hors') + (v1 != null ? `<span class="n">dépensés en ${AN}</span>` : '')
+        + compo + `<span class="n">${pluriel(l1.length, 'organisation', 'organisations')}</span>`, [mode, k1], { a: g1 === 'a' ? k1 : null });
+      for (const k2 of seconds) {
+        const l2 = l1.filter(o => cle(o, g2) === k2);
+        if (!l2.length) continue;
+        const [a, f] = g1 === 'a' ? [k1, k2] : [k2, k1];
+        const imp = implantations(l2);
+        const n2 = creer('n2', `<b>${esc(libelle(g2, k2))}</b>${ligneMontant(depense(a, f), a === 'hors')}`
+          + `<span class="n">${pluriel(l2.length, 'organisation', 'organisations')}${imp ? ' · ' + pluriel(imp, 'implantation', 'implantations') : ''}</span>`
+          + `<small>${esc(g2 === 'f' ? FCT[k2].quoi : ADM[k2].quoi)}</small>`, [mode, k1, k2], { a: g2 === 'a' ? k2 : null });
+        ajouterBascule(n2, l2.length, ['organisation', 'organisations']);
+        const orgs = l2.map(o => {
+          const fils = S.racines[o.cle] || [];
+          const meta = [o.implantations != null ? pluriel(o.implantations, 'implantation', 'implantations') : null, fils.length ? pluriel(fils.length, ...SERVICES) : null, D.natures[o.nature]].filter(Boolean).join(' · ');
+          const e = creer('org', `<b>${esc(nomOrg(o))}</b><span class="mission">${esc(o.resume)}</span><span class="n">${esc(meta)}</span>`, [mode, k1, k2, o.cle], { a: o.administration });
+          Object.assign(e, { o, filsSvc: fils });
+          if (fils.length) ajouterBascule(e, fils.length, SERVICES);
+          return e;
+        });
+        lierEnfants(n2, orgs);
+        z.groupes.push({ k2, carte: n2, orgs });
+      }
+      ajouterBascule(z.carte, z.groupes.length, mode === 'a' ? ['fonction', 'fonctions'] : ['administration', 'administrations']);
+      lierEnfants(z.carte, z.groupes.map(g => g.carte));
+      zones.push(z);
+    }
+    for (const e of encarts.values()) e.zone = zones.find(z => z.k1 === e.chemin[1]);
+    etiquettes = zones.map(z => {
+      const el = document.createElement('button');
+      el.type = 'button'; el.tabIndex = -1;
+      const v = mode === 'a' ? depenseAdmin(z.k1) : depenseFonction(z.k1);
+      el.innerHTML = `${esc(libelle(mode, z.k1))}${v != null ? `<span>${mds(v)}</span>` : ''}<span class="nb">${pluriel(z.groupes.reduce((s, g) => s + g.orgs.length, 0), 'organisation', 'organisations')}</span>`;
+      el.addEventListener('click', () => choisir(z.id));
+      $('etiquettes').append(el);
+      return { z, el };
+    });
+    // « Aller à » : les blocs du premier niveau.
+    const aller = $('aller');
+    aller.innerHTML = `<option value="">Aller à ${mode === 'a' ? 'une administration' : 'une fonction'}…</option>`;
+    zones.forEach(z => aller.add(new Option(libelle(mode, z.k1), z.id)));
+    document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+  }
+
+  // --- Tailles : tous les encarts d'un même niveau ont la taille du plus grand (mesurée une fois,
+  // y compris pour les encarts cachés). Les services ont une taille fixe, donnée par la feuille de style.
+  const W = {}, H = {}, W_SVC = 260, H_SVC = 112;
+  function mesurer() {
+    monde.classList.add('mesure');
+    const liste = [...encarts.values()].filter(e => e.type !== 'svc');
+    for (const e of liste) e.el.style.height = '';
+    for (const e of liste) { W[e.type] = e.el.offsetWidth; H[e.type] = Math.max(H[e.type] || 0, e.el.offsetHeight); }
+    for (const e of liste) { e.w = W[e.type]; e.h = H[e.type]; e.el.style.height = e.h + 'px'; }
+    monde.classList.remove('mesure');
+  }
+
+  // --- Disposition : les blocs du premier niveau côte à côte ; dessous, chaque niveau est une
+  // grille compacte (4 colonnes au plus). Ce que contient un bloc ouvert s'insère dans un bandeau
+  // sous la rangée de ce bloc, sur toute la largeur de la grille, et repousse les rangées suivantes
+  // vers le bas. Les bandeaux s'emboîtent : l'arbre descend sans s'étaler en largeur.
+  const PAD = 40, GAP = 16, ENTRE_RACINES = 40, ENTRE_RANGEES = 24, VERS_BANDE = 40, BPAD = 22, BTETE = 40;
+  const colonnes = n => n <= 3 ? n : Math.min(4, Math.ceil(Math.sqrt(n * 1.5)));
+  const estOuvert = e => ouverts.has(e.el.dataset.id) && e.nEnfants > 0;
+  function bandeDe(e) {
+    if (!e.bandeEl) {
+      const b = document.createElement('div');
+      b.className = 'bande'; b.dataset.pour = e.el.dataset.id;
+      if (e.el.dataset.a) b.dataset.a = e.el.dataset.a;
+      b.innerHTML = `<span class="tete">${esc(e.el.querySelector('b').textContent)} · ${pluriel(e.nEnfants, ...e.quoiEnfants)}</span>`;
+      monde.insertBefore(b, svg); // les traits et les encarts passent au-dessus
+      e.bandeEl = b;
+    }
+    return e.bandeEl;
+  }
+  let monde_w = 0, monde_h = 0;
+  function disposer() {
+    $('vide').hidden = zones.length > 0;
+    if (!zones.length) {
+      monde_w = monde_h = 0; svg.innerHTML = '';
+      $('tout-ouvrir').disabled = $('tout-fermer').disabled = true;
+      return;
+    }
+    const traits = [], vus = new Set(), bandesVues = new Set();
+    let droite = 0;
+    const poser = (e, x, y) => {
+      e.x = x; e.y = y; e.visible = true; vus.add(e);
+      e.el.style.left = x + 'px'; e.el.style.top = y + 'px';
+      droite = Math.max(droite, x + e.w);
+      if (e.bascule) {
+        const ouvert = ouverts.has(e.el.dataset.id);
+        e.bascule.textContent = ouvert ? '−' : '+ ' + e.nEnfants;
+        e.bascule.setAttribute('aria-expanded', String(ouvert));
+        const nom = e.el.querySelector('b').textContent;
+        e.bascule.setAttribute('aria-label', `${ouvert ? 'Fermer' : 'Ouvrir'} : ${nom} (${pluriel(e.nEnfants, ...e.quoiEnfants)})`);
+        e.bascule.title = ouvert ? 'Refermer' : `Voir ${e.nEnfants > 1 ? 'les ' : ''}${pluriel(e.nEnfants, ...e.quoiEnfants)}`;
+        e.bascule.style.left = (x + e.w / 2) + 'px'; e.bascule.style.top = (y + e.h) + 'px';
+      }
+    };
+    // Une grille d'encarts frères, bord gauche en x, haut en y ; renvoie sa largeur et sa hauteur.
+    const grille = (items, k, x, y, ecart) => {
+      const wc = items[0].w, hc = items[0].h, largeurRangee = k * wc + (k - 1) * ecart;
+      let yy = y, w = largeurRangee;
+      for (let i = 0; i < items.length; i += k) {
+        const rangee = items.slice(i, i + k);
+        rangee.forEach((c, j) => poser(c, x + j * (wc + ecart), yy));
+        yy += hc;
+        for (const c of rangee.filter(estOuvert)) {
+          yy += VERS_BANDE;
+          traits.push(`M${c.x + c.w / 2},${c.y + c.h} V${yy}`);
+          const b = bande(c, x, yy, largeurRangee);
+          w = Math.max(w, b.w); yy += b.h;
+        }
+        if (i + k < items.length) yy += ENTRE_RANGEES;
+      }
+      return { w, h: yy - y };
+    };
+    // Le bandeau d'un bloc ouvert : ses enfants en grille, au moins aussi large que la rangée du bloc.
+    const bande = (e, x, y, largeurMini) => {
+      creerServices(e);
+      // Créé avant ceux de ses enfants, le bandeau est dessiné sous eux.
+      const el = bandeDe(e);
+      const g = grille(e.enfants, colonnes(e.enfants.length), x + BPAD, y + BTETE, GAP);
+      const w = Math.max(largeurMini, g.w + 2 * BPAD), h = g.h + BTETE + BPAD;
+      Object.assign(el.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' });
+      bandesVues.add(el);
+      e.bandeBox = { x, y, w, h };
+      return { w, h };
+    };
+    for (const e of encarts.values()) e.bandeBox = null;
+    // Premier niveau : une colonne par bloc, côte à côte, chacune avec son bandeau dessous. Les
+    // administrations se lisent de gauche à droite, leur contenu de haut en bas.
+    let x = PAD, basMax = 0;
+    for (const z of zones) {
+      const e = z.carte;
+      poser(e, x, PAD);
+      let largeur = e.w, bas = PAD + e.h;
+      if (estOuvert(e)) {
+        traits.push(`M${e.x + e.w / 2},${bas} V${bas + VERS_BANDE}`);
+        const b = bande(e, x, bas + VERS_BANDE, e.w);
+        largeur = b.w; bas += VERS_BANDE + b.h;
+      }
+      basMax = Math.max(basMax, bas);
+      x += largeur + ENTRE_RACINES;
+    }
+    // Encarts, pastilles et bandeaux qui ne sont plus visibles.
+    for (const e of encarts.values()) {
+      const v = vus.has(e);
+      if (!v) e.visible = false;
+      e.el.classList.toggle('cache', !v);
+      e.bascule?.classList.toggle('cache', !v);
+      if (e.bandeEl) e.bandeEl.classList.toggle('cache', !bandesVues.has(e.bandeEl));
+    }
+    for (const z of zones) Object.assign(z, z.carte.bandeBox ? union([boite(z.carte), z.carte.bandeBox]) : boite(z.carte));
+    monde_w = Math.max(droite, x - ENTRE_RACINES) + PAD; monde_h = basMax + PAD;
+    Object.assign(monde.style, { width: monde_w + 'px', height: monde_h + 'px' });
+    svg.setAttribute('width', monde_w); svg.setAttribute('height', monde_h);
+    svg.innerHTML = `<path d="${traits.join(' ')}"/>`;
+    etiquettes.forEach(({ z, el }) => { el.dataset.cx = z.x + z.w / 2; el.dataset.cy = z.y; el.dataset.w = z.w; });
+    const groupes = [...encarts.values()].filter(e => e.type === 'n1' || e.type === 'n2');
+    $('tout-ouvrir').disabled = groupes.every(e => ouverts.has(e.el.dataset.id));
+    $('tout-fermer').disabled = !ouverts.size;
+  }
+
+  // Ouvre ou ferme un bloc sans qu'il bouge à l'écran, puis montre ce qui s'est ouvert.
+  function basculer(id, ouvrir = !ouverts.has(id)) {
+    const e = encarts.get(id), sx = e.x * cam.k + cam.x, sy = e.y * cam.k + cam.y;
+    if (ouvrir) ouverts.add(id); else ouverts.delete(id);
+    disposer(); calerBornes();
+    cam.x = sx - e.x * cam.k; cam.y = sy - e.y * cam.k; appliquer();
+    touche = true;
+    if (ouvrir) cadrer(boiteGroupe(e), { kMaxi: cam.k, kMini: Math.min(cam.k, 0.5), ancre: haut(e) });
+  }
+  // Ouvre les blocs qui mènent à un encart, et l'encart lui-même s'il a des enfants ; vrai si
+  // quelque chose a changé.
+  function ouvrirChemin(e) {
+    const avant = ouverts.size;
+    for (let p = e.parent; p; p = p.parent) ouverts.add(p.el.dataset.id);
+    if (e.nEnfants) ouverts.add(e.el.dataset.id);
+    return ouverts.size !== avant;
+  }
+  // « Tout ouvrir » ouvre les administrations et les fonctions, pas les milliers de services.
+  function toutOuvrir(ouvrir) {
+    ouverts.clear();
+    if (ouvrir) for (const e of encarts.values()) if (e.type === 'n1' || e.type === 'n2') ouverts.add(e.el.dataset.id);
+    touche = true;
+    choisir(null, { cadrer: false });
+    disposer(); calerBornes(); toutVoir(400);
+  }
+
+  // --- Caméra : translation (x, y) et échelle k ; écran = monde × k + (x, y) ---
+  const cam = { x: 0, y: 0, k: 1 };
+  let kMin = 0.02, kMax = 2.2, anim = null, touche = false;
+  const SEUIL_LOIN = 0.3, SEUIL_MOYEN = 0.5;
+  function appliquer() {
+    monde.style.transform = `translate(${cam.x}px, ${cam.y}px) scale(${cam.k})`;
+    monde.classList.toggle('loin', cam.k < SEUIL_LOIN);
+    monde.classList.toggle('moyen', cam.k >= SEUIL_LOIN && cam.k < SEUIL_MOYEN);
+    const pas = 24 * cam.k;
+    mur.classList.toggle('sans-points', pas < 8);
+    mur.style.backgroundSize = `${pas}px ${pas}px`;
+    mur.style.backgroundPosition = `${cam.x}px ${cam.y}px`;
+    const loin = cam.k < SEUIL_LOIN;
+    // En haut de chaque zone, sans dépasser sa largeur.
+    for (const { el } of etiquettes) {
+      const largeur = el.dataset.w * cam.k - 12;
+      el.hidden = !loin || largeur < 70;
+      if (!el.hidden) {
+        el.style.left = (el.dataset.cx * cam.k + cam.x) + 'px'; el.style.top = (el.dataset.cy * cam.k + cam.y + 8) + 'px';
+        el.style.maxWidth = Math.min(260, largeur) + 'px';
+        el.classList.toggle('etroite', largeur < 140);
+      }
+    }
+  }
+  const borner = k => Math.min(kMax, Math.max(kMin, k));
+  function zoomer(px, py, facteur) {
+    const k = borner(cam.k * facteur), r = k / cam.k;
+    cam.x = px - (px - cam.x) * r; cam.y = py - (py - cam.y) * r; cam.k = k;
+    appliquer();
+  }
+  function animer(cible, ms = 500) {
+    if (anim) cancelAnimationFrame(anim);
+    ms = dur(ms);
+    const de = { ...cam }, t0 = performance.now();
+    const pas = now => {
+      const p = ms ? Math.min(1, (now - t0) / ms) : 1, e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      // Échelle interpolée en logarithme : le zoom paraît régulier.
+      cam.k = Math.exp(Math.log(de.k) + (Math.log(cible.k) - Math.log(de.k)) * e);
+      cam.x = de.x + (cible.x - de.x) * e; cam.y = de.y + (cible.y - de.y) * e;
+      appliquer();
+      anim = p < 1 ? requestAnimationFrame(pas) : null;
+    };
+    anim = requestAnimationFrame(pas);
+  }
+  // Partie du mur visible, hors panneaux (à gauche ou en haut, à droite ou en bas sur téléphone).
+  function zone() {
+    const m = mur.getBoundingClientRect(), r = { l: 0, t: 0, r: m.width, b: m.height };
+    for (const [p, cote] of [[$('side'), 'debut'], [$('detail'), 'fin']]) {
+      if (!p || p.hidden || getComputedStyle(p).display === 'none') continue;
+      const q = p.getBoundingClientRect();
+      if (q.width < m.width * 0.6) { if (cote === 'debut') r.l = Math.max(r.l, q.right - m.left + 8); else r.r = Math.min(r.r, q.left - m.left - 8); }
+      else if (cote === 'debut') r.t = Math.max(r.t, q.bottom - m.top + 8); else r.b = Math.min(r.b, q.top - m.top - 8);
+    }
+    if (r.r - r.l < 160) { r.l = 0; r.r = m.width; }
+    if (r.b - r.t < 110) { r.t = 0; r.b = m.height; }
+    return r;
+  }
+  // Cadre la boîte b ; si elle ne tient qu'à une échelle illisible (sous kMini), zoome à kMini en
+  // plaçant le point « ancre » en haut, au milieu.
+  function cadrer(b, { kMaxi = kMax, kMini = 0, ancre = null, marge = 32, ms = 550 } = {}) {
+    const z = zone(), w = z.r - z.l - 2 * marge, h = z.b - z.t - 2 * marge;
+    const k = borner(Math.min(w / b.w, h / b.h, kMaxi));
+    if (k < kMini && ancre) animer({ k: kMini, x: z.l + (z.r - z.l) / 2 - ancre.x * kMini, y: z.t + marge - ancre.y * kMini }, ms);
+    else animer({ k, x: z.l + (z.r - z.l) / 2 - (b.x + b.w / 2) * k, y: z.t + (z.b - z.t) / 2 - (b.y + b.h / 2) * k }, ms);
+  }
+  const toutVoir = ms => cadrer({ x: 0, y: 0, w: monde_w, h: monde_h }, { marge: 24, kMaxi: 1, ms });
+  function calerBornes() {
+    if (!monde_w) return;
+    const z = zone();
+    kMin = Math.min((z.r - z.l) / monde_w, (z.b - z.t) / monde_h) * 0.6;
+  }
+
+  // Molette : zoom autour du pointeur (le pincement d'un pavé tactile arrive avec ctrlKey).
+  mur.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (anim) { cancelAnimationFrame(anim); anim = null; }
+    touche = true;
+    const m = mur.getBoundingClientRect();
+    const d = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+    zoomer(e.clientX - m.left, e.clientY - m.top, Math.exp(-Math.max(-100, Math.min(100, d)) * (e.ctrlKey ? 0.01 : 0.002)));
+  }, { passive: false });
+
+  // Glisser pour se déplacer, pincer à deux doigts pour zoomer. Un geste qui a bougé n'est pas un clic.
+  const pointeurs = new Map();
+  let glisse = false, depart = null;
+  mur.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || e.target.closest('#etiquettes button')) return;
+    pointeurs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointeurs.size === 1) { glisse = false; depart = { x: e.clientX, y: e.clientY }; }
+    if (anim) { cancelAnimationFrame(anim); anim = null; }
+  });
+  mur.addEventListener('pointermove', e => {
+    const p = pointeurs.get(e.pointerId);
+    if (!p) return;
+    const m = mur.getBoundingClientRect();
+    if (!glisse && Math.hypot(e.clientX - depart.x, e.clientY - depart.y) > 6) {
+      glisse = true; touche = true; mur.classList.add('saisi');
+      try { mur.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+    if (pointeurs.size === 2) {
+      const [a, b] = [...pointeurs.values()];
+      const avant = { d: Math.hypot(a.x - b.x, a.y - b.y), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      p.x = e.clientX; p.y = e.clientY;
+      const apres = { d: Math.hypot(a.x - b.x, a.y - b.y), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      glisse = true;
+      cam.x += apres.x - avant.x; cam.y += apres.y - avant.y;
+      if (avant.d > 0) zoomer(apres.x - m.left, apres.y - m.top, apres.d / avant.d); else appliquer();
+      return;
+    }
+    if (glisse) { cam.x += e.clientX - p.x; cam.y += e.clientY - p.y; appliquer(); }
+    p.x = e.clientX; p.y = e.clientY;
+  });
+  const lacher = e => { pointeurs.delete(e.pointerId); if (!pointeurs.size) mur.classList.remove('saisi'); };
+  mur.addEventListener('pointerup', lacher);
+  mur.addEventListener('pointercancel', lacher);
+  mur.addEventListener('click', e => { if (glisse) { e.stopPropagation(); e.preventDefault(); glisse = false; } }, true);
+
+  // Clic sur un encart : zoom dessus et fiche. De loin, un clic vise la zone entière.
+  monde.addEventListener('click', e => {
+    const b = e.target.closest('.bascule');
+    if (b) { basculer(b.dataset.pour); return; }
+    const c = e.target.closest('.carte'), bd = e.target.closest('.bande');
+    if (c) choisir(monde.classList.contains('loin') ? encarts.get(c.dataset.id).zone.id : c.dataset.id, { focus: e.detail === 0 });
+    else if (bd) choisir(bd.dataset.pour);
+  });
+  // Clavier : l'encart qui reçoit le focus est ramené à l'écran.
+  monde.addEventListener('focusin', e => {
+    const c = e.target.closest('.carte');
+    if (!c || !c.matches(':focus-visible')) return;
+    const x = encarts.get(c.dataset.id), z = zone();
+    const sx = x.x * cam.k + cam.x, sy = x.y * cam.k + cam.y;
+    if (cam.k < SEUIL_MOYEN || sx < z.l || sy < z.t || sx + x.w * cam.k > z.r || sy + x.h * cam.k > z.b)
+      cadrer({ x: x.x - 200, y: x.y - 120, w: x.w + 400, h: x.h + 240 }, { kMaxi: 1, ms: 300 });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input, select, textarea')) return;
+    const m = mur.getBoundingClientRect(), cx = m.width / 2, cy = m.height / 2;
+    if (e.key === '+' || e.key === '=') zoomer(cx, cy, 1.25);
+    else if (e.key === '-') zoomer(cx, cy, 0.8);
+    else if (e.key === 'Escape' && !$('detail').hidden) choisir(null);
+    else return;
+    touche = true;
+  });
+  const zoomBouton = f => { touche = true; const m = mur.getBoundingClientRect(); const c = { k: borner(cam.k * f) }; c.x = m.width / 2 - (m.width / 2 - cam.x) * c.k / cam.k; c.y = m.height / 2 - (m.height / 2 - cam.y) * c.k / cam.k; animer(c, 250); };
+  $('z-in').onclick = () => zoomBouton(1.5);
+  $('z-out').onclick = () => zoomBouton(1 / 1.5);
+  $('z-reset').onclick = () => { choisir(null, { cadrer: false }); toutVoir(400); };
+
+  // --- Choix d'un encart : surbrillance, zoom, fiche, adresse ---
+  const detail = $('detail'), corps = $('d-corps'), announce = $('announce');
+  let choisi = null;
+  const boite = e => ({ x: e.x, y: e.y, w: e.w, h: e.h });
+  const union = l => {
+    const x = Math.min(...l.map(b => b.x)), y = Math.min(...l.map(b => b.y));
+    return { x, y, w: Math.max(...l.map(b => b.x + b.w)) - x, h: Math.max(...l.map(b => b.y + b.h)) - y };
+  };
+  // Un bloc et tout ce qui est ouvert dessous ; haut(e) : le milieu de son bord supérieur.
+  const boiteGroupe = e => e.bandeBox ? union([boite(e), e.bandeBox]) : boite(e);
+  const haut = e => ({ x: e.x + e.w / 2, y: e.y - 24 });
+  const bouton = (id, html, a) => `<li${a ? ` data-a="${a}"` : ''}><button type="button" data-aller="${esc(id)}">${a ? '<span class="sw" aria-hidden="true"></span>' : ''}${html}</button></li>`;
+  // Chemin d'une organisation dans le rangement courant.
+  const cheminOrg = o => mode === 'a' ? `a/${o.administration}/${o.fonction}/${o.cle}` : `f/${o.fonction}/${o.administration}/${o.cle}`;
+  const cheminSvc = i => cheminOrg(ORGS.find(o => o.cle === orgDeSvc[i])) + '/' + cheminDeSvc[i].join('/');
+
+  function choisir(id, { focus = false, cadrer: zoom = true } = {}) {
+    monde.querySelectorAll('.choisie').forEach(e => e.classList.remove('choisie'));
+    const e = id && trouver(id);
+    if (!e) {
+      choisi = null; detail.hidden = true;
+      history.replaceState(null, '', location.pathname + location.search + (mode === 'f' ? '#f' : ''));
+      requestAnimationFrame(calerBornes);
+      return;
+    }
+    choisi = id; touche = true;
+    if (ouvrirChemin(e)) { disposer(); calerBornes(); }
+    e.el.classList.add('choisie');
+    e.bandeEl?.classList.add('choisie');
+    remplirFiche(e);
+    detail.hidden = false; detail.scrollTop = 0;
+    // Écran étroit : si la fiche et le panneau de gauche ne laissent presque plus de mur, on replie
+    // le panneau (le bouton « Panneau » le rouvre).
+    const side = $('side');
+    if (getComputedStyle(side).display !== 'none') {
+      const a = side.getBoundingClientRect(), b = detail.getBoundingClientRect();
+      if (b.left - a.right < 300 && a.bottom > b.top - 160) document.body.classList.add('panneau-replie');
+    }
+    history.replaceState(null, '', '#' + id);
+    if (focus) $('d-title').focus({ preventScroll: true });
+    // La fiche ouverte réduit la place : le cadrage se fait une fois la fiche affichée.
+    if (zoom) requestAnimationFrame(() => {
+      calerBornes();
+      if (!e.nEnfants) cadrer(boite(e), { kMaxi: 1.15, marge: 64 });
+      else cadrer(boiteGroupe(e), { kMaxi: 1, kMini: 0.6, ancre: haut(e) });
+    });
+  }
+
+  const blocMontant = (v, legende) => v == null ? '' : `<p class="montant">${mds(v)}<small>${legende}</small></p>`;
+  const exemples = l => l?.length ? `<ul class="ex">${l.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
+  function remplirFiche(e) {
+    const [m, k1, k2] = e.chemin, chip = $('d-chip'), titre = $('d-title');
+    const [a, f] = m === 'a' ? [k1, k2] : [k2, k1];
+    const orgsDe = (a, f) => ORGS.filter(o => (a == null || o.administration === a) && (f == null || o.fonction === f));
+    const lienBudget = `<p class="note">Montants : ${esc(D.montants.source)}. Voir aussi la page <a href="../budget/pilotage.html">Pilotage du budget</a>.</p>`;
+    if (e.type === 'n1' && m === 'a') {
+      const A = ADM[a], l = orgsDe(a, null);
+      chip.dataset.a = a; chip.innerHTML = '<span class="sw" aria-hidden="true"></span>Administration';
+      titre.textContent = A.nom;
+      const fs = D.fonctions.filter(x => orgsDe(a, x.code).length);
+      corps.innerHTML = `${a === 'hors' ? '' : blocMontant(A.depense, `dépensés en ${AN}`)}<p>${esc(A.quoi)}</p>${exemples(A.exemples)}
+        <h3>Ses fonctions</h3>
+        <ul class="liste">${fs.map(x => bouton(`a/${a}/${x.code}`, `<span class="txt">${esc(x.libelle)}<span class="via">${pluriel(orgsDe(a, x.code).length, 'organisation', 'organisations')}</span></span><span class="count">${a === 'hors' ? '' : mds(depense(a, x.code))}</span>`)).join('')}</ul>
+        ${a === 'hors' ? '' : lienBudget}`;
+      announce.textContent = `${A.nom}, ${l.length} organisations. Fiche ouverte.`;
+    } else if (e.type === 'n1') {
+      const F = FCT[f], l = orgsDe(null, f);
+      chip.removeAttribute('data-a'); chip.innerHTML = 'Fonction';
+      titre.textContent = F.libelle;
+      const as = D.administrations.filter(x => orgsDe(x.id, f).length);
+      corps.innerHTML = `${blocMontant(F.depense, `dépensés en ${AN} par l'ensemble des administrations publiques`)}<p>${esc(F.quoi)}</p>${exemples(F.exemples)}
+        <h3>Qui l'exerce</h3>
+        <ul class="liste">${as.map(x => bouton(`f/${f}/${x.id}`, `<span class="txt">${esc(x.nom)}<span class="via">${pluriel(orgsDe(x.id, f).length, 'organisation', 'organisations')}</span></span><span class="count">${x.id === 'hors' ? '' : mds(depense(x.id, f))}</span>`, x.id)).join('')}</ul>
+        ${lienBudget}`;
+      announce.textContent = `Fonction ${F.libelle}, ${l.length} organisations. Fiche ouverte.`;
+    } else if (e.type === 'n2') {
+      const A = ADM[a], F = FCT[f], l = orgsDe(a, f), imp = implantations(l);
+      if (m === 'a') { chip.dataset.a = a; chip.innerHTML = `<span class="sw" aria-hidden="true"></span>${esc(A.nom)}`; titre.textContent = F.libelle; }
+      else { chip.removeAttribute('data-a'); chip.innerHTML = esc(F.libelle); titre.textContent = A.nom; }
+      corps.innerHTML = `${a === 'hors' ? '' : blocMontant(depense(a, f), `dépensés en ${AN} par ${A.nom === 'État' ? "l'État" : A.nom.toLowerCase().replace(/^opérateurs/, 'les opérateurs').replace(/^sécurité/, 'la sécurité').replace(/^collectivités/, 'les collectivités')} pour cette fonction`)}
+        <p>${esc(m === 'a' ? F.quoi : A.quoi)}</p>
+        <p class="note">${pluriel(l.length, 'organisation', 'organisations')}${imp ? ` · ${pluriel(imp, 'implantation', 'implantations')}` : ''}.</p>
+        <h3>Organisations</h3>
+        <ul class="liste">${l.map(x => bouton(cheminOrg(x), `<span class="txt">${esc(nomOrg(x))}</span>`)).join('')}</ul>
+        <p><button type="button" class="lien-inline" data-aller="${esc(m + '/' + k1)}">Revenir à : ${esc(m === 'a' ? A.nom : F.libelle)}</button></p>`;
+      announce.textContent = `${titre.textContent}, ${l.length} organisations. Fiche ouverte.`;
+    } else if (e.type === 'svc') {
+      const [nom, sigle, type, , , fils] = S.services[e.svc], parent = e.parent;
+      let org = e; while (org.type !== 'org') org = org.parent;
+      const o = org.o, A = ADM[o.administration];
+      chip.dataset.a = o.administration; chip.innerHTML = `<span class="sw" aria-hidden="true"></span>${esc(nomOrg(o))}`;
+      titre.textContent = nomSvc(e.svc);
+      // Chemin depuis l'organisation : Ministère › Direction › Sous-direction…
+      const ascendants = []; for (let p = parent; p && p.type !== 'n2'; p = p.parent) ascendants.unshift(p);
+      const url = urlSvc(e.svc);
+      corps.innerHTML = `<dl>
+          ${S.types[type] ? `<dt>Type (annuaire)</dt><dd>${esc(S.types[type])}</dd>` : ''}
+          <dt>Rattachement</dt><dd><ol class="chemin">${ascendants.map((p, n) => `<li style="--niv:${Math.max(0, n - 1)}"><button type="button" class="lien-inline" data-aller="${esc(p.el.dataset.id)}">${esc(p.el.querySelector('b').textContent)}</button></li>`).join('')}</ol></dd>
+          <dt>Administration</dt><dd>${esc(A.nom)}</dd>
+          <dt>Montant</dt><dd class="attente">à venir</dd>
+          <dt>Effectifs</dt><dd class="attente">à venir</dd>
+        </dl>
+        ${fils.length ? `<h3>Services rattachés</h3><ul class="liste">${e.enfants.map(c => bouton(c.el.dataset.id, `<span class="txt">${esc(nomSvc(c.svc))}</span>${c.nEnfants ? `<span class="count">${c.nEnfants}</span>` : ''}`)).join('')}</ul>` : ''}
+        ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">Voir dans l'Annuaire de l'administration</a>` : ''}
+        <p><button type="button" class="lien-inline" data-aller="${esc(parent.el.dataset.id)}">Revenir à : ${esc(parent.el.querySelector('b').textContent)}</button></p>`;
+      announce.textContent = `${nomSvc(e.svc)}, rattaché à ${parent.el.querySelector('b').textContent}. Fiche ouverte.`;
+    } else {
+      const o = e.o, A = ADM[o.administration], F = FCT[o.fonction];
+      chip.dataset.a = o.administration; chip.innerHTML = `<span class="sw" aria-hidden="true"></span>${esc(A.nom)} · ${esc(F.libelle)}`;
+      titre.textContent = nomOrg(o);
+      corps.innerHTML = `<p class="mission">${esc(o.resume)}</p>
+        <dl>
+          <dt>Administration</dt><dd>${esc(A.nom)}</dd>
+          <dt>Fonction</dt><dd>${esc(F.libelle)}</dd>
+          <dt>Nature</dt><dd>${esc(D.natures[o.nature])}</dd>
+          ${o.type_organisme ? `<dt>Statut (annuaire)</dt><dd>${esc(o.type_organisme)}</dd>` : ''}
+          ${o.implantations != null ? `<dt>Implantations</dt><dd>${fmt(o.implantations)} dans l'annuaire</dd>` : ''}
+          <dt>Thème${o.themes.length > 1 ? 's' : ''} de l'annuaire</dt><dd>${esc(o.themes.join(', '))}</dd>
+          <dt>Montant</dt><dd class="attente">à venir</dd>
+          <dt>Effectifs</dt><dd class="attente">à venir</dd>
+        </dl>
+        ${o.mission_annuaire
+          ? `<details><summary>Texte de mission de l'annuaire</summary><p>${esc(o.mission_annuaire)}</p></details>`
+          : `<p class="note">Résumé rédigé pour cette page : l'annuaire ne publie pas de texte de mission général pour cette organisation.</p>`}
+        ${e.enfants?.length ? `<h3>Services rattachés</h3><ul class="liste">${e.enfants.map(c => bouton(c.el.dataset.id, `<span class="txt">${esc(nomSvc(c.svc))}</span>${c.nEnfants ? `<span class="count">${c.nEnfants}</span>` : ''}`)).join('')}</ul>` : ''}
+        ${o.url ? `<a href="${esc(o.url)}" target="_blank" rel="noopener">Voir dans l'Annuaire de l'administration</a>` : ''}
+        <p><button type="button" class="lien-inline" data-aller="${esc(e.chemin.slice(0, 3).join('/'))}">Revenir à : ${esc(m === 'a' ? F.libelle : A.nom)}</button></p>`;
+      announce.textContent = `${nomOrg(o)}. ${o.resume} Fiche ouverte.`;
+    }
+  }
+  detail.addEventListener('click', e => { const b = e.target.closest('[data-aller]'); if (b) choisir(b.dataset.aller, { focus: true }); });
+  $('d-close').addEventListener('click', () => choisir(null));
+
+  // --- Recherche : nom, sigle et mission ---
+  const q = $('q'), results = $('results');
+  const index = ORGS.map(o => ({ o, txt: sansAccent([o.nom, o.sigle, o.resume].join(' ')), nom: sansAccent(nomOrg(o)) }))
+    .concat(S.services.map((v, i) => orgDeSvc[i] == null ? null : { s: i, txt: sansAccent(v[0] + ' ' + (v[1] || '')), nom: sansAccent(nomSvc(i)) }).filter(Boolean));
+  let trouves = [];
+  q.addEventListener('input', () => {
+    const mots = sansAccent(q.value.trim()).split(/\s+/).filter(Boolean);
+    // Les organisations d'abord, puis les services ; un sigle exact passe devant.
+    const profondeur = x => x.s == null ? 0 : cheminDeSvc[x.s].length;
+    const rang = x => (x.s != null) * 2 - (x.nom.includes(mots[0]) || (x.s != null && sansAccent(S.services[x.s][1] || '') === mots.join(' ')));
+    trouves = mots.length ? index.filter(x => mots.every(m => x.txt.includes(m)))
+      .sort((a, b) => (rang(a) - rang(b)) || profondeur(a) - profondeur(b) || a.nom.length - b.nom.length || a.nom.localeCompare(b.nom)).slice(0, 30) : [];
+    results.innerHTML = trouves.map(x => {
+      if (x.s == null) {
+        const o = x.o;
+        return `<li data-a="${o.administration}"><button type="button" data-org="${esc(o.cle)}"><span class="sw" aria-hidden="true"></span>`
+          + `<span class="txt">${esc(nomOrg(o))}<span class="via">${esc(ADM[o.administration].nom)} · ${esc(FCT[o.fonction].libelle)}${affichee(o) ? '' : ' · masquée par les filtres'}</span></span></button></li>`;
+      }
+      const o = ORGS.find(y => y.cle === orgDeSvc[x.s]), p = parentDeSvc[x.s];
+      return `<li data-a="${o.administration}"><button type="button" data-svc="${x.s}"><span class="sw" aria-hidden="true"></span>`
+        + `<span class="txt">${esc(nomSvc(x.s))}<span class="via">${esc(nomOrg(o))}${p != null ? ' › ' + esc(S.services[p][0]) : ''}${affichee(o) ? '' : ' · masquée par les filtres'}</span></span></button></li>`;
+    }).join('')
+      + (mots.length && !trouves.length ? '<li class="sub" style="padding:6px 8px">Aucune organisation trouvée.</li>' : '');
+    $('q-count').textContent = mots.length ? (trouves.length ? `${trouves.length} résultat${trouves.length > 1 ? 's' : ''}, flèche bas pour les parcourir.` : 'Aucun résultat.') : '';
+  });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'Enter') results.querySelector('button')?.click();
+    if (e.key === 'ArrowDown') { e.preventDefault(); results.querySelector('button')?.focus(); }
+  });
+  results.addEventListener('keydown', e => {
+    const l = [...results.querySelectorAll('button')], i = l.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown' && i < l.length - 1) { e.preventDefault(); l[i + 1].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); (i > 0 ? l[i - 1] : q).focus(); }
+  });
+  results.addEventListener('click', e => {
+    const b = e.target.closest('[data-org], [data-svc]');
+    if (!b) return;
+    const i = b.dataset.svc != null ? Number(b.dataset.svc) : null;
+    const o = ORGS.find(x => x.cle === (i != null ? orgDeSvc[i] : b.dataset.org));
+    // Une organisation masquée par les filtres : on réaffiche son administration et sa fonction.
+    if (!affichee(o)) { masquesA.delete(o.administration); masquesF.delete(o.fonction); filtrer({ cadrer: false }); }
+    choisir(i != null ? cheminSvc(i) : cheminOrg(o));
+  });
+  // Filtres : on reconstruit l'arbre en gardant les blocs ouverts et l'encart choisi s'il reste.
+  function filtrer({ cadrer: voir = true } = {}) {
+    $('c-admin').querySelectorAll('input').forEach(i => { i.checked = !masquesA.has(i.dataset.filtreA); });
+    $('c-fonction').querySelectorAll('input').forEach(i => { i.checked = !masquesF.has(i.dataset.filtreF); });
+    compterFiltres();
+    const avant = choisi;
+    construire(); mesurer(); disposer(); calerBornes();
+    if (avant && trouver(avant)) choisir(avant, { cadrer: voir });
+    else { choisir(null, { cadrer: false }); if (voir) toutVoir(300); }
+  }
+  $('c-admin').addEventListener('change', e => { const k = e.target.dataset.filtreA; e.target.checked ? masquesA.delete(k) : masquesA.add(k); filtrer(); });
+  $('c-fonction').addEventListener('change', e => { const k = e.target.dataset.filtreF; e.target.checked ? masquesF.delete(k) : masquesF.add(k); filtrer(); });
+  $('tout-admin').addEventListener('click', () => { masquesA.clear(); filtrer(); });
+  $('tout-fonction').addEventListener('click', () => { masquesF.clear(); filtrer(); });
+  $('tout-ouvrir').addEventListener('click', () => toutOuvrir(true));
+  $('tout-fermer').addEventListener('click', () => toutOuvrir(false));
+  $('aller').addEventListener('change', e => { if (e.target.value) choisir(e.target.value); e.target.value = ''; });
+
+  // --- Rangement : par administration ou par fonction. L'organisation choisie le reste. ---
+  function changerMode(m, { garder = true } = {}) {
+    if (m === mode && encarts.size) return;
+    const avant = garder && choisi && encarts.get(choisi);
+    const groupes = () => [...encarts.values()].filter(e => e.type === 'n1' || e.type === 'n2');
+    const toutOuvert = encarts.size && groupes().every(e => ouverts.has(e.el.dataset.id));
+    mode = m;
+    ouverts.clear();
+    construire(); mesurer();
+    if (toutOuvert) for (const e of groupes()) ouverts.add(e.el.dataset.id);
+    disposer(); calerBornes();
+    if (avant?.svc != null) choisir(cheminSvc(avant.svc));
+    else if (avant?.o) choisir(cheminOrg(avant.o));
+    else if (avant) choisir(avant.type === 'n2' ? [mode, avant.chemin[2], avant.chemin[1]].join('/') : mode + '/' + avant.chemin[1]);
+    else { choisir(null, { cadrer: false }); toutVoir(0); }
+  }
+  document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => changerMode(b.dataset.mode)));
+
+  // --- Démarrage ---
+  // Adresse : #a/etat/GF03/cle (par administration) ou #f/GF03/etat/cle (par fonction).
+  const depuisAdresse = () => {
+    const id = decodeURIComponent(location.hash.slice(1)), m = id.startsWith('f') ? 'f' : 'a';
+    if (m !== mode || !encarts.size) changerMode(m, { garder: false });
+    if (trouver(id)) choisir(id); else if (choisi) choisir(null);
+  };
+  depuisAdresse();
+  addEventListener('hashchange', depuisAdresse);
+  // Polices chargées : les hauteurs changent, on redispose (sans bouger la vue si le visiteur a agi).
+  document.fonts?.ready.then(() => {
+    mesurer(); disposer(); calerBornes();
+    if (choisi) choisir(choisi); else if (!touche) toutVoir(0); else appliquer();
+  });
+  let attente;
+  addEventListener('resize', () => {
+    clearTimeout(attente);
+    attente = setTimeout(() => { calerBornes(); if (!touche) toutVoir(0); else appliquer(); }, 120);
+  });
+})();
+</script>
+</body>
+</html>

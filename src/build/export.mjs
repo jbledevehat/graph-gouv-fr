@@ -54,10 +54,11 @@ export async function writeSiteLists(rows, dir) {
   await writeOut(`${dir}/sites.json`, jsonLines(rows));
 }
 
-// Le site gouvfr.jbledevehat.fr : une page d'accueil, puis deux sections.
+// Le site gouvfr.jbledevehat.fr : une page d'accueil, puis trois sections.
 //   /                      accueil : partager les données pour piloter les politiques publiques
 //   /sites/                carte des sites web de l'État, et /sites/pilotage.html
 //   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides.html
+//   /acteurs/              organigramme des acteurs publics (pages et données de acteurs/)
 // Toutes les pages portent le même bandeau (src/build/bandeau.mjs).
 // Les anciennes adresses (sites.csv, sites.json, carte.pdf, pilotage.html) restent valides.
 export async function writeWeb(webData, rows) {
@@ -144,6 +145,18 @@ export async function writeWeb(webData, rows) {
   console.log(`  -> out/web/budget/pdf/argent-public-{${A.insee[0]}…${A.insee[A.insee.length - 1]}}-{administration,fonction}-{administration,type}.pdf`);
   await writeOut('out/web/budget/sources/aides-entreprises/aides-entreprises-2024.json', await readFile(path('budget/sources/aides-entreprises/aides-entreprises-2024.json')));
 
+  // --- Section « Acteurs publics » (page et données de acteurs/, construites à part) ---
+  const acteurs = JSON.parse(await readFile(path('acteurs/donnees/acteurs.json'), 'utf8'));
+  const implantations = acteurs.organisations.reduce((s, o) => s + (o.implantations || 0), 0);
+  await writeBudgetPage('acteurs/index.html', 'out/web/acteurs/index.html', {
+    base, url: `${base}acteurs/`,
+    title: 'Les acteurs publics : qui fait le service public ?',
+    description: `Les ${n(acteurs.organisations.length)} types d'organismes publics de l'Annuaire de l'administration, rangés comme l'argent public, par administration et par fonction, avec la mission de chacun résumée simplement.`,
+    bandeau: { racine: '../', section: 'acteurs', page: 'organigramme' },
+  });
+  await writeOut('out/web/acteurs/donnees/acteurs.json', await readFile(path('acteurs/donnees/acteurs.json')));
+  await writeOut('out/web/acteurs/donnees/services.json', await readFile(path('acteurs/donnees/services.json')));
+
   // --- Accueil ---
   const secu = argent.secteurs.find(x => x.code === 'S1314').total;
   const part = code => argent.secteurs.find(x => x.code === code).total;
@@ -156,6 +169,7 @@ export async function writeWeb(webData, rows) {
       sites: n(sites), admins: n(admins), demarches: n(demarches), depenses, budget: budgetEtat, aides,
       part_secu: secu.toFixed(1), part_reste: (argent.total_depenses - secu).toFixed(1),
       part_coll: part('S1313').toFixed(1), part_op: part('S13112').toFixed(1),
+      acteurs_fonctions: n(acteurs.fonctions.length), acteurs_orgs: n(acteurs.organisations.length), acteurs_implantations: n(implantations),
     },
     bandeau: { racine: '' },
   });
@@ -174,7 +188,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html', 'acteurs/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }

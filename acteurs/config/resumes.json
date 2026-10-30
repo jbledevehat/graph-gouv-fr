@@ -1,0 +1,2414 @@
+{
+ "ambassades": {
+  "nom": "Ambassade de France",
+  "sigle": null,
+  "famille": "ambassade",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Représente la France auprès d'un pays étranger : entretient les relations politiques, économiques et culturelles, et protège les Français sur place, avec ses consulats qui délivrent passeports, visas et actes d'état civil.",
+  "source": "redaction"
+ },
+ "b75b5492-adde-4bb0-a0bd-864f826fc5b9": {
+  "nom": "Agence française de lutte contre le dopage",
+  "sigle": "AFLD",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF08",
+  "resume": "Prévient et combat le dopage des sportifs et des animaux de compétition dans toute la France : éducation, contrôles et enquêtes, autorisations de médicaments pour raison médicale et poursuites disciplinaires.",
+  "source": "annuaire"
+ },
+ "3f2b1594-e8af-41a6-a470-80c97f7b40be": {
+  "nom": "Autorité de contrôle des nuisances aéroportuaires",
+  "sigle": "Acnusa",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Contrôle les mesures de lutte contre le bruit et la pollution autour des aéroports civils, informe les riverains, émet des recommandations et peut sanctionner les compagnies aériennes qui ne respectent pas les règles.",
+  "source": "annuaire"
+ },
+ "dcb1b07e-82e0-4ac9-809e-eff760af96e3": {
+  "nom": "Autorité de régulation des communications électroniques, des postes et de la distribution de la presse",
+  "sigle": "Arcep",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Régule les télécommunications, la poste et la distribution de la presse : veille à la concurrence entre opérateurs, à la couverture du territoire en internet et en mobile, et au service postal universel.",
+  "source": "annuaire"
+ },
+ "9c7e6b7c-b793-40b2-a19b-a7dfeaa4792e": {
+  "nom": "Autorité de la concurrence",
+  "sigle": null,
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Veille au libre jeu de la concurrence dans toute l'économie : sanctionne les ententes et les abus de position dominante, contrôle les fusions d'entreprises et conseille les pouvoirs publics, au bénéfice des consommateurs.",
+  "source": "annuaire"
+ },
+ "a35d5a8a-7f19-44c6-8db0-bf0281456100": {
+  "nom": "Autorité de régulation des transports",
+  "sigle": "ART",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Veille au bon fonctionnement des marchés du transport (ferroviaire, autoroutes, cars, aéroports, transports en Île-de-France) : garantit une concurrence loyale entre opérateurs et protège les intérêts des usagers.",
+  "source": "annuaire"
+ },
+ "5d844ebb-0278-47d1-875c-9381dd02e445": {
+  "nom": "Autorité nationale des jeux",
+  "sigle": "ANJ",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Régule les jeux d'argent et de hasard en France, en ligne comme en point de vente : agrée et contrôle les opérateurs, protège les joueurs, prévient l'addiction et le jeu des mineurs, et lutte contre la fraude.",
+  "source": "annuaire"
+ },
+ "b34412d8-8ae3-42df-8805-a20c32bc8584": {
+  "nom": "Autorité des marchés financiers",
+  "sigle": "AMF",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Régule la Bourse et les produits d'épargne financière : protège l'argent des épargnants, veille à la bonne information des investisseurs, surveille les marchés et sanctionne les manquements des professionnels.",
+  "source": "annuaire"
+ },
+ "01883cad-3b59-4e61-a7af-778c6ade7748": {
+  "nom": "Autorité de sûreté nucléaire et de radioprotection",
+  "sigle": "ASNR",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF05",
+  "resume": "Contrôle au nom de l'État la sûreté des installations nucléaires et l'usage des rayonnements, notamment en médecine, mène l'expertise et la recherche associées, et informe le public pour protéger la population et l'environnement.",
+  "source": "annuaire"
+ },
+ "d3bb7765-389c-488f-8f39-9a30f005c15b": {
+  "nom": "Autorité de régulation de la communication audiovisuelle et numérique",
+  "sigle": "Arcom",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF08",
+  "resume": "Régule la télévision, la radio et les grandes plateformes en ligne : veille au pluralisme et à la protection des publics, notamment des mineurs, attribue les fréquences et lutte contre le piratage des œuvres.",
+  "source": "annuaire"
+ },
+ "1221a8d4-a524-42ef-9767-add4d2b0cde5": {
+  "nom": "Comité d'indemnisation des victimes des essais nucléaires",
+  "sigle": "Civen",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF10",
+  "resume": "Examine les demandes d'indemnisation des personnes tombées malades après les essais nucléaires français au Sahara et en Polynésie : militaires, personnels civils et populations locales.",
+  "source": "annuaire"
+ },
+ "08dc354d-87d2-4b70-9fe3-044969aab4fa": {
+  "nom": "Commission d'accès aux documents administratifs",
+  "sigle": "Cada",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Garantit le droit de chacun d'obtenir les documents détenus par l'administration : donne un avis quand une demande a été refusée, étape obligatoire avant d'aller devant le juge, et conseille les administrations.",
+  "source": "annuaire"
+ },
+ "1dc7dfec-59f1-4b5d-8590-148802439fe5": {
+  "nom": "Commission du secret de la défense nationale",
+  "sigle": "CSDN",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF02",
+  "resume": "Donne un avis sur la levée du secret de la défense nationale lorsqu'un juge ou une commission parlementaire demande à consulter des informations classifiées, et sur l'accès à certains lieux protégés.",
+  "source": "annuaire"
+ },
+ "ef9e5e6e-5937-4509-98b6-e2365166537c": {
+  "nom": "Contrôleur général des lieux de privation de liberté",
+  "sigle": "CGLPL",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Visite prisons, centres de rétention, locaux de garde à vue et hôpitaux psychiatriques pour vérifier que les personnes enfermées sont traitées avec dignité, et adresse ses recommandations aux pouvoirs publics.",
+  "source": "annuaire"
+ },
+ "9bee7a63-09e4-4d69-b38f-324208a86086": {
+  "nom": "Commission nationale des comptes de campagne et des financements politiques",
+  "sigle": "CNCCFP",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Contrôle les comptes de campagne des candidats aux élections et les comptes des partis politiques, pour faire respecter les plafonds de dépenses et les règles de financement de la vie politique.",
+  "source": "annuaire"
+ },
+ "e5c7226e-a87e-4b1d-8c32-eb3aadecb213": {
+  "nom": "Commission nationale de contrôle des techniques de renseignement",
+  "sigle": "CNCTR",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Contrôle l'usage des moyens de surveillance par les services de renseignement : donne un avis avant chaque autorisation d'écoute ou de surveillance, et vérifie ensuite que la loi et la vie privée sont respectées.",
+  "source": "annuaire"
+ },
+ "e63f08bc-532f-4afd-8fcc-adb0e6965980": {
+  "nom": "Commission nationale du débat public",
+  "sigle": "CNDP",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Organise et garantit la participation du public aux grands projets d'aménagement ou d'équipement (autoroutes, lignes ferroviaires ou électriques…) ayant de forts effets sur l'environnement ou l'économie.",
+  "source": "annuaire"
+ },
+ "785c85d5-8400-4545-9a0b-9fa47b23ef6e": {
+  "nom": "Commission nationale de l'informatique et des libertés",
+  "sigle": "Cnil",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Protège les données personnelles : aide les particuliers à exercer leurs droits, accompagne les entreprises et administrations dans leur mise en conformité, contrôle les fichiers et sanctionne les abus.",
+  "source": "annuaire"
+ },
+ "088a9028-dfcd-431b-acf8-2e99d70d0c65": {
+  "nom": "Commission de régulation de l'énergie",
+  "sigle": "CRE",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Régule les marchés de l'électricité et du gaz : veille à la concurrence entre fournisseurs, fixe les tarifs d'utilisation des réseaux, propose les tarifs réglementés et contrôle l'accès équitable aux réseaux.",
+  "source": "annuaire"
+ },
+ "1867f065-c823-4362-8d0f-8ca6b011a10f": {
+  "nom": "Défenseur des droits",
+  "sigle": null,
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Aide gratuitement toute personne dont les droits ne sont pas respectés : litiges avec un service public, discriminations, droits de l'enfant, comportement des forces de sécurité, protection des lanceurs d'alerte.",
+  "source": "annuaire"
+ },
+ "df118fe7-bb5e-49f9-8ff0-3fdcaa4011f1": {
+  "nom": "Haute Autorité de santé",
+  "sigle": "HAS",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF07",
+  "resume": "Évalue l'intérêt médical des médicaments, actes et dispositifs pour éclairer leur remboursement, publie des recommandations pour les soignants et les patients, et certifie la qualité des hôpitaux et cliniques.",
+  "source": "annuaire"
+ },
+ "eaac22f0-39f1-450b-939a-398c2bda95f5": {
+  "nom": "Haut Conseil de l'évaluation de la recherche et de l'enseignement supérieur",
+  "sigle": "Hcéres",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Évalue les universités et écoles, les organismes et laboratoires de recherche, ainsi que les formations et diplômes de l'enseignement supérieur, pour éclairer leurs choix et ceux de l'État.",
+  "source": "annuaire"
+ },
+ "5ab11965-858e-4fb3-8240-bb9b0d5591d0": {
+  "nom": "Haute Autorité de l'audit",
+  "sigle": "H2A",
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Régule la profession de commissaire aux comptes, qui certifie les comptes des entreprises : inscrit les professionnels, fixe les normes, contrôle leur travail et sanctionne les manquements.",
+  "source": "annuaire"
+ },
+ "6b3a3ea8-2808-4246-9be8-61ce80e569fd": {
+  "nom": "Haute Autorité pour la transparence de la vie publique",
+  "sigle": "HATVP",
+  "famille": "aai",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Contrôle et publie les déclarations de patrimoine et d'intérêts des ministres, élus et hauts responsables publics, prévient les conflits d'intérêts et tient le registre des représentants d'intérêts (lobbyistes).",
+  "source": "annuaire"
+ },
+ "8ba3f5d5-74ab-48aa-afe6-04aba6fd2d2b": {
+  "nom": "Médiateur national de l'énergie",
+  "sigle": null,
+  "famille": "aai",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Aide gratuitement les consommateurs à régler à l'amiable leurs litiges avec un fournisseur ou un distributeur d'électricité ou de gaz, et les informe sur leurs droits, notamment grâce à un comparateur d'offres.",
+  "source": "annuaire"
+ },
+ "1ad32e5b-c83c-472d-b3cc-6d7453f88b36": {
+  "nom": "Présidence de la République",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Entoure le chef de l'État, garant de la Constitution, de l'indépendance nationale et de la continuité de l'État : il nomme le Premier ministre, préside le Conseil des ministres, promulgue les lois et dirige les armées.",
+  "source": "annuaire"
+ },
+ "33090c40-44e9-45f2-aace-1682c73e2048": {
+  "nom": "Conseil constitutionnel",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Vérifie que les lois respectent la Constitution, avant leur promulgation ou à la demande d'un justiciable par une question prioritaire de constitutionnalité, et veille à la régularité des élections nationales et des référendums.",
+  "source": "annuaire"
+ },
+ "f354c570-1a88-478c-8637-6f2e4f44e83b": {
+  "nom": "Conseil supérieur de la magistrature",
+  "sigle": "CSM",
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Garantit l'indépendance des juges et procureurs : donne son avis ou décide sur leurs nominations, se prononce sur les sanctions disciplinaires et reçoit les plaintes des justiciables contre un magistrat.",
+  "source": "annuaire"
+ },
+ "bffc950d-cc09-4a75-abab-97f7350a05d7": {
+  "nom": "Assemblée nationale",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Réunit les 577 députés élus au suffrage universel direct : vote les lois et le budget, contrôle l'action du Gouvernement, qu'elle peut renverser par une motion de censure, et évalue les politiques publiques.",
+  "source": "annuaire"
+ },
+ "59003280-8fff-4bc0-b5df-a27299c4d588": {
+  "nom": "Sénat",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Réunit les sénateurs élus par les élus locaux : vote les lois et le budget avec l'Assemblée nationale, contrôle le Gouvernement et représente les collectivités territoriales et les Français de l'étranger.",
+  "source": "redaction"
+ },
+ "6d3b7be4-3b13-45da-9836-4766e37bc569": {
+  "nom": "Cour des comptes",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Contrôle le bon emploi de l'argent public par l'État, la Sécurité sociale et les organismes publics, certifie leurs comptes, évalue les politiques publiques et publie ses constats pour informer les citoyens.",
+  "source": "annuaire"
+ },
+ "f15a80e8-f453-4745-a03e-6aeabc998e2c": {
+  "nom": "Conseil économique, social et environnemental",
+  "sigle": "CESE",
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Assemblée de la société civile (syndicats, employeurs, associations) : rend des avis au Gouvernement et au Parlement sur les questions économiques, sociales et environnementales, reçoit des pétitions et organise des conventions citoyennes.",
+  "source": "annuaire"
+ },
+ "003022d4-6d9c-450d-a4a3-4a3c43c4a340": {
+  "nom": "Conseil d'État",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Conseille le Gouvernement sur ses projets de loi et de décret, et juge en dernier ressort les litiges entre les citoyens et l'administration, à la tête des tribunaux administratifs et des cours administratives d'appel.",
+  "source": "annuaire"
+ },
+ "c67a8733-b51c-49c4-9b5f-d319ddcb5df6": {
+  "nom": "Cour de cassation",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Plus haute juridiction de la justice civile et pénale : vérifie que les tribunaux et cours d'appel ont correctement appliqué le droit, sans rejuger les faits, pour que la loi soit interprétée partout de la même façon.",
+  "source": "annuaire"
+ },
+ "4fa84ef9-e65b-4b8a-87f0-58567eaaed22": {
+  "nom": "Tribunal des conflits",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Désigne, en cas de désaccord, qui de la justice judiciaire ou de la justice administrative doit juger une affaire, et évite qu'une personne se retrouve sans juge à cause de décisions contradictoires.",
+  "source": "annuaire"
+ },
+ "c24a4549-49a3-45bd-be9c-ea08266cabd9": {
+  "nom": "Cour de justice de la République",
+  "sigle": "CJR",
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge les ministres et secrétaires d'État pour les crimes et délits commis dans l'exercice de leurs fonctions ; toute personne qui s'estime lésée par un tel acte peut la saisir par une plainte.",
+  "source": "redaction"
+ },
+ "20b442d5-1447-44db-a2f9-e7f7462e804d": {
+  "nom": "Caisse des dépôts et consignations",
+  "sigle": "CDC",
+  "famille": "institution",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Groupe public placé sous le contrôle du Parlement : gère l'épargne réglementée et des retraites publiques, finance le logement social, les collectivités et les entreprises, et soutient la transition écologique.",
+  "source": "annuaire"
+ },
+ "15c373bd-3034-4296-a990-533d0238a6ab": {
+  "nom": "Banque de France",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "hors",
+  "fonction": "GF01",
+  "resume": "Banque centrale française, membre de l'Eurosystème : contribue à la politique monétaire de l'euro, surveille les banques et assureurs, et rend des services de proximité comme le traitement du surendettement et le droit au compte.",
+  "source": "annuaire"
+ },
+ "f1455abd-1242-4112-8ba5-04bb19e5ca1a": {
+  "nom": "Institut de France",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Réunit les cinq académies, dont l'Académie française et l'Académie des sciences, pour faire progresser les lettres, les sciences et les arts ; gère des fondations, des prix et un important patrimoine de musées et bibliothèques.",
+  "source": "annuaire"
+ },
+ "9b240c4d-14e3-4066-8f14-de09c687d63a": {
+  "nom": "Cour nationale du droit d'asile",
+  "sigle": "CNDA",
+  "famille": "institution",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge, pour toute la France, les recours des demandeurs d'asile contre les décisions de l'office chargé des réfugiés (Ofpra) ; elle peut elle-même accorder le statut de réfugié ou la protection subsidiaire.",
+  "source": "annuaire"
+ },
+ "a515667c-6dc0-4544-a1a8-2cf13d7da23b": {
+  "nom": "Premier ministre",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Regroupe les services qui aident le chef du Gouvernement à coordonner l'action des ministères : secrétariat général du Gouvernement pour les textes et les arbitrages, défense et sécurité nationale, numérique de l'État, planification.",
+  "source": "redaction"
+ },
+ "9f101ac7-9a0e-4d62-8b27-8109876dff94": {
+  "nom": "Ministère de l'Action et des Comptes publics",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Prépare et exécute le budget de l'État et suit les comptes publics ; pilote la collecte des impôts, la gestion des finances publiques et les douanes, ainsi que la transformation de l'administration.",
+  "source": "redaction"
+ },
+ "45e488a2-c977-487f-b62f-19b4d6504d9c": {
+  "nom": "Ministère de l'Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Conduit la politique agricole, alimentaire, forestière et de la pêche : aides aux agriculteurs avec l'Union européenne, sécurité sanitaire des aliments, des animaux et des végétaux, enseignement agricole.",
+  "source": "redaction"
+ },
+ "7b9ab6ab-c8e4-4cfd-a63b-02416d0d5551": {
+  "nom": "Ministère de l'Aménagement du Territoire et de la Décentralisation",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Organise les relations entre l'État et les collectivités locales (compétences, finances locales, décentralisation) et soutient l'équilibre des territoires : ruralité, villes moyennes, accès aux services publics.",
+  "source": "redaction"
+ },
+ "d24d1af2-c506-4b10-82e8-ab92b8e959d2": {
+  "nom": "Ministère des Armées et des Anciens combattants",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF02",
+  "resume": "Prépare et emploie les armées de terre, de l'air et de l'espace et la Marine pour défendre le pays et ses intérêts, conduit les programmes d'armement et veille à la reconnaissance et aux droits des anciens combattants.",
+  "source": "redaction"
+ },
+ "da1d6275-6710-485d-a249-282cac69dfe7": {
+  "nom": "Ministère de la Culture",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Protège et fait connaître le patrimoine, soutient la création artistique, le livre, le cinéma, les médias et la presse, et favorise l'accès de tous à la culture, avec les directions régionales des affaires culturelles.",
+  "source": "redaction"
+ },
+ "c4195774-f535-4d82-b03f-d5f0c6b08635": {
+  "nom": "Ministère de l'Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Conduit la politique économique et financière du pays : croissance, emploi industriel, énergie, numérique, protection des consommateurs, financement de l'économie et gestion de la dette de l'État.",
+  "source": "redaction"
+ },
+ "3ed2f725-e077-4973-a531-498e13fc7861": {
+  "nom": "Ministère de l'Éducation nationale",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Organise l'enseignement de la maternelle au lycée : programmes, diplômes, recrutement et formation des enseignants ; s'appuie sur les rectorats et les services départementaux pour faire fonctionner les écoles, collèges et lycées.",
+  "source": "redaction"
+ },
+ "4ca60afd-3886-434c-80bb-f6bc55581323": {
+  "nom": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Espace",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Pilote les universités et écoles, la vie étudiante avec les Crous, les organismes de recherche comme le CNRS, et la politique spatiale ; finance la recherche publique et encourage l'innovation.",
+  "source": "redaction"
+ },
+ "ac1a7fdb-50f4-4599-b306-ec06b7250965": {
+  "nom": "Ministère de l'Europe et des Affaires étrangères",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Conduit la diplomatie de la France et sa politique européenne, pilote le réseau des ambassades et consulats, protège les Français à l'étranger et porte l'aide au développement et l'influence culturelle française.",
+  "source": "redaction"
+ },
+ "fa33b07a-3f71-46d4-b682-569c9faf211e": {
+  "nom": "Ministère de l'Intérieur",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Assure la sécurité intérieure avec la police et la gendarmerie, gère les secours et la sécurité civile, l'immigration, les élections et les titres d'identité, et représente l'État dans les territoires par les préfectures.",
+  "source": "redaction"
+ },
+ "7bc12104-b232-46a6-a6d7-85bcf2dfccf1": {
+  "nom": "Ministère de la Justice",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Fait fonctionner la justice : moyens des tribunaux, politique pénale, prisons et suivi des personnes condamnées, protection judiciaire des mineurs, accès au droit et aide aux victimes ; prépare les grandes lois civiles et pénales.",
+  "source": "redaction"
+ },
+ "0dd547d8-44fb-4af8-8768-dc8a95614f0d": {
+  "nom": "Ministère des Outre-mer",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Coordonne l'action de l'État dans les départements, régions et collectivités d'outre-mer : développement économique, emploi, logement, égalité avec l'Hexagone et adaptation des politiques nationales à chaque territoire.",
+  "source": "redaction"
+ },
+ "d2d5b079-abd0-441a-8abc-cea5a569c15c": {
+  "nom": "Ministère des petites et moyennes Entreprises, du Commerce, de l'Artisanat, du Tourisme et du Pouvoir d'achat",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Soutient les petites et moyennes entreprises, les commerçants, les artisans et les acteurs du tourisme, simplifie leurs démarches et conduit les mesures en faveur du pouvoir d'achat des ménages.",
+  "source": "redaction"
+ },
+ "d46810a3-6ed7-4a94-b950-1be135e43ad3": {
+  "nom": "Ministère de la Santé, des Familles, de l'Autonomie et des Personnes handicapées",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF07",
+  "resume": "Conduit les politiques de santé (hôpitaux, soins, prévention), de la famille et de l'enfance, du grand âge et du handicap ; s'appuie sur les agences régionales de santé et veille à l'équilibre de l'Assurance maladie.",
+  "source": "redaction"
+ },
+ "2fd089d2-669f-4a91-80b2-b345db391349": {
+  "nom": "Ministère des Sports, de la Jeunesse et de la Vie associative",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Développe la pratique sportive pour tous et le sport de haut niveau avec les fédérations, soutient l'engagement des jeunes, dont le service civique, et accompagne les associations et les bénévoles.",
+  "source": "redaction"
+ },
+ "05f90b6a-e3d9-4a41-a919-2e2f2d77e517": {
+  "nom": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Conduit la lutte contre le changement climatique et la protection de la nature : biodiversité, eau, prévention des risques et des pollutions, économie circulaire ; représente la France dans les négociations internationales sur le climat.",
+  "source": "redaction"
+ },
+ "0c78ef90-614a-4fcb-b7af-449f6c66f6b6": {
+  "nom": "Ministère des Transports",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Organise les transports terrestres, aériens et maritimes : réseaux routier et ferroviaire, sécurité routière, aviation civile, ports et voies navigables, mobilités du quotidien et réduction de leur impact sur le climat.",
+  "source": "redaction"
+ },
+ "f130ad96-4a81-4eb4-a40c-0539edad5fff": {
+  "nom": "Ministère du Travail et des Solidarités",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF10",
+  "resume": "Conduit les politiques du travail, de l'emploi et de la formation professionnelle avec France Travail, veille au droit du travail par l'inspection du travail, et pilote la lutte contre la pauvreté et les minima sociaux.",
+  "source": "redaction"
+ },
+ "051be6c4-2693-45e0-9644-b84049e57f02": {
+  "nom": "Ministère de la Ville et du Logement",
+  "sigle": null,
+  "famille": "ministere",
+  "administration": "etat",
+  "fonction": "GF06",
+  "resume": "Conduit la politique du logement (construction, logement social, aides au logement, rénovation, hébergement des sans-abri) et la politique de la ville en faveur des quartiers prioritaires.",
+  "source": "redaction"
+ },
+ "cdg": {
+  "nom": "Centre de gestion de la fonction publique territoriale",
+  "sigle": "CDG",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Aide les communes et autres collectivités du département à gérer leurs agents : organise les concours et examens, publie les postes à pourvoir et veille à une application égale des règles du statut des fonctionnaires territoriaux.",
+  "source": "annuaire"
+ },
+ "cnfpt": {
+  "nom": "Centre national de la fonction publique territoriale",
+  "sigle": "CNFPT",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Forme les agents des communes, départements et régions tout au long de leur carrière, à travers ses délégations régionales et antennes. Organise aussi certains concours de cadres territoriaux, dont ceux des administrateurs et ingénieurs en chef.",
+  "source": "redaction"
+ },
+ "cg": {
+  "nom": "Conseil départemental",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Administre le département avec des élus choisis par canton. Gère surtout l'action sociale (protection de l'enfance, RSA, aide aux personnes âgées et handicapées), les routes départementales, les collèges et le financement des pompiers.",
+  "source": "annuaire"
+ },
+ "cesr": {
+  "nom": "Conseil économique, social et environnemental régional",
+  "sigle": "Ceser",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Représente la société civile de la région : syndicats, entreprises, associations. Donne des avis et des études au conseil régional sur ses projets, en matière d'économie, de transports, de formation ou d'aménagement, avant qu'il ne décide.",
+  "source": "annuaire"
+ },
+ "cr": {
+  "nom": "Conseil régional",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Administre la région avec des élus au suffrage direct. Organise les transports régionaux, construit et entretient les lycées, finance la formation professionnelle et l'apprentissage, soutient l'économie et aménage le territoire.",
+  "source": "annuaire"
+ },
+ "france_services": {
+  "nom": "France services",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Accompagne les habitants près de chez eux dans leurs démarches courantes : Caf, impôts, retraite, assurance maladie, France Travail, papiers d'identité. Prête des ordinateurs et aide à les utiliser. Portée par une commune, une intercommunalité, La Poste ou une association.",
+  "source": "annuaire"
+ },
+ "epci": {
+  "nom": "Intercommunalité",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Regroupe plusieurs communes (communauté de communes, d'agglomération, urbaine ou métropole) pour gérer ensemble des services comme la collecte des déchets, l'eau, le développement économique, l'urbanisme ou les transports locaux.",
+  "source": "redaction"
+ },
+ "mairie": {
+  "nom": "Mairie",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Gère la commune sous l'autorité du maire et du conseil municipal : état civil, écoles primaires, voirie communale, urbanisme et permis de construire, action sociale de proximité. Le maire y agit aussi au nom de l'État, par exemple pour les élections.",
+  "source": "redaction"
+ },
+ "mr": {
+  "nom": "Maison de la région",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Antenne locale du conseil régional. Informe sur les aides et services de la région (formation, emploi, transports, aides aux entreprises, bourses) et aide à monter les dossiers. Fait le lien entre la région et les acteurs du territoire.",
+  "source": "annuaire"
+ },
+ "md": {
+  "nom": "Maison du département",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF01",
+  "resume": "Antenne locale du conseil départemental. Accueille et informe les habitants sur les services et aides du département, notamment les aides sociales, les transports, la culture et la formation, sans avoir à se rendre au chef-lieu.",
+  "source": "annuaire"
+ },
+ "point_accueil_numerique": {
+  "nom": "Point d'accueil numérique",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Met à disposition, en préfecture ou sous-préfecture, un ordinateur, un scanner et une imprimante pour faire ses démarches en ligne (titres de séjour, permis, carte grise), avec l'aide d'un médiateur numérique si besoin.",
+  "source": "annuaire"
+ },
+ "prefecture": {
+  "nom": "Préfecture",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Représente l'État dans le département sous l'autorité du préfet. Maintient l'ordre public et la sécurité, gère les crises, contrôle la légalité des décisions des collectivités et délivre certains titres, comme ceux des étrangers.",
+  "source": "annuaire"
+ },
+ "prefecture_region": {
+  "nom": "Préfecture de région",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Représente l'État dans la région. Coordonne l'action des préfets de département et des services régionaux de l'État, répartit les crédits de l'État en région et gère une partie des fonds européens.",
+  "source": "redaction"
+ },
+ "sous_pref": {
+  "nom": "Sous-préfecture",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Représente l'État dans un arrondissement, sous l'autorité du préfet. Contribue à l'ordre public et à la sécurité, conseille les communes et intercommunalités, et accompagne les projets locaux. Délivre ou aide à obtenir certains titres.",
+  "source": "annuaire"
+ },
+ "arlci": {
+  "nom": "Coordination régionale de l'Agence nationale de lutte contre l'illettrisme",
+  "sigle": "ANLCI",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Coordonne dans la région les actions contre l'illettrisme : repère les besoins, fixe les priorités, diffuse les bonnes pratiques et mobilise les partenaires pour que chacun maîtrise la lecture, l'écriture et le calcul de base.",
+  "source": "annuaire"
+ },
+ "ars": {
+  "nom": "Agence régionale de santé",
+  "sigle": "ARS",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF07",
+  "resume": "Pilote la politique de santé dans la région : organise l'offre de soins (hôpitaux, médecins de ville), les établissements pour personnes âgées et handicapées, la prévention, et surveille les risques sanitaires comme les épidémies.",
+  "source": "annuaire"
+ },
+ "ars_antenne": {
+  "nom": "Délégation départementale de l'Agence régionale de santé",
+  "sigle": "ARS",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF07",
+  "resume": "Relaie l'agence régionale de santé dans le département : suit au plus près les hôpitaux, établissements médico-sociaux et professionnels de santé, contrôle la qualité de l'eau et l'hygiène, et gère les alertes sanitaires locales.",
+  "source": "redaction"
+ },
+ "agefiph": {
+  "nom": "Association de gestion du fonds pour l'insertion professionnelle des personnes handicapées",
+  "sigle": "Agefiph",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Aide les personnes handicapées à trouver ou garder un emploi dans le secteur privé. Informe, conseille et finance les salariés, les demandeurs d'emploi, les entreprises et les organismes de formation, dans chaque région.",
+  "source": "annuaire"
+ },
+ "caf": {
+  "nom": "Caisse d'allocations familiales",
+  "sigle": "Caf",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF10",
+  "resume": "Verse dans chaque département les prestations familiales et sociales : allocations familiales, aides au logement, prime d'activité, RSA, aides à la garde d'enfants. Finance aussi des crèches et des centres sociaux.",
+  "source": "redaction"
+ },
+ "carsat": {
+  "nom": "Caisse d'assurance retraite et de la santé au travail",
+  "sigle": "Carsat",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF10",
+  "resume": "Calcule et verse dans la région les retraites des salariés du privé. Aide aussi les entreprises à prévenir les accidents du travail et les maladies professionnelles, et accompagne les assurés fragilisés par la maladie.",
+  "source": "redaction"
+ },
+ "cpam": {
+  "nom": "Caisse primaire d'assurance maladie",
+  "sigle": "CPAM",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF07",
+  "resume": "Rembourse les soins et verse les indemnités journalières aux assurés du département, gère la carte Vitale et la complémentaire santé solidaire. Outre-mer, ce rôle revient à la caisse générale de sécurité sociale.",
+  "source": "redaction"
+ },
+ "ccas": {
+  "nom": "Centre communal ou intercommunal d'action sociale",
+  "sigle": "CCAS/CIAS",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Aide les habitants de la commune en difficulté : personnes âgées, handicapées, familles ou personnes précaires. Informe sur les aides, oriente vers les bons services, aide à monter les dossiers et peut accorder des aides d'urgence.",
+  "source": "annuaire"
+ },
+ "cicas": {
+  "nom": "Centre d'information de conseil et d'accueil des salariés",
+  "sigle": "Cicas",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF10",
+  "resume": "Accueille dans le département les salariés et anciens salariés du privé pour leur retraite complémentaire Agirc-Arrco : informe sur les droits, aide à préparer la demande de retraite et à reconstituer sa carrière.",
+  "source": "redaction"
+ },
+ "cidf": {
+  "nom": "Centre d'information sur les droits des femmes et des familles",
+  "sigle": "CIDFF",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF10",
+  "resume": "Informe et accompagne gratuitement les femmes et les familles sur leurs droits : droit de la famille, violences, emploi, formation, création d'entreprise, santé. Association présente dans la plupart des départements, avec une mission confiée par l'État.",
+  "source": "annuaire"
+ },
+ "pmi": {
+  "nom": "Centre de protection maternelle et infantile",
+  "sigle": "PMI",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF07",
+  "resume": "Suit gratuitement la santé des femmes enceintes et des enfants de moins de 6 ans : consultations, vaccinations, conseils aux parents, planification familiale. Agrée et contrôle les assistantes maternelles et les crèches. Relève du département.",
+  "source": "annuaire"
+ },
+ "chu": {
+  "nom": "Centre hospitalier universitaire",
+  "sigle": "CHU",
+  "famille": "operateur",
+  "administration": "secu",
+  "fonction": "GF07",
+  "resume": "Hôpital public de référence de sa région : soigne les patients, y compris pour les cas les plus graves ou rares, forme les futurs médecins et soignants avec l'université et mène des travaux de recherche médicale.",
+  "source": "redaction"
+ },
+ "crpv": {
+  "nom": "Centre régional de pharmacovigilance",
+  "sigle": "CRPV",
+  "famille": "operateur",
+  "administration": "secu",
+  "fonction": "GF07",
+  "resume": "Recueille dans sa région les effets indésirables des médicaments signalés par les soignants, les patients ou les industriels, les analyse et les transmet à l'agence nationale du médicament (ANSM). Renseigne aussi les professionnels sur les risques.",
+  "source": "annuaire"
+ },
+ "medecins_dpt": {
+  "nom": "Conseil départemental de l'ordre des médecins",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF07",
+  "resume": "Inscrit les médecins du département, vérifie leurs diplômes et leur droit d'exercer, et veille au respect de la déontologie. Reçoit les plaintes contre un médecin, propose une conciliation et, à défaut, saisit la chambre disciplinaire.",
+  "source": "annuaire"
+ },
+ "medecins_reg": {
+  "nom": "Conseil régional de l'ordre des médecins",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF07",
+  "resume": "Coordonne les conseils départementaux de l'ordre des médecins dans la région et représente la profession auprès des autorités de santé régionales. Accueille la chambre disciplinaire qui juge en première instance les manquements des médecins.",
+  "source": "annuaire"
+ },
+ "veterinaire_reg": {
+  "nom": "Conseil régional de l'ordre des vétérinaires",
+  "sigle": "CROV",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Tient le tableau des vétérinaires autorisés à exercer dans la région, veille au respect de la déontologie et de la qualité des soins aux animaux, examine les litiges et manquements, et accompagne les praticiens.",
+  "source": "annuaire"
+ },
+ "ddcspp": {
+  "nom": "Direction départementale de l'emploi, du travail, des solidarités et de la protection des populations",
+  "sigle": "DDETSPP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Service de l'État dans les départements peu peuplés qui réunit emploi, insertion, hébergement et logement des plus fragiles, égalité femmes-hommes, sécurité des aliments, santé animale et protection des consommateurs.",
+  "source": "annuaire"
+ },
+ "ddpp": {
+  "nom": "Direction départementale de la protection des populations",
+  "sigle": "DDPP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Protège les habitants du département : contrôle l'hygiène des aliments et des restaurants, la santé et le bien-être des animaux, la loyauté des commerces et la sécurité des produits, et surveille certaines installations à risque.",
+  "source": "annuaire"
+ },
+ "rrc": {
+  "nom": "Dispositif spécifique régional du cancer",
+  "sigle": "DSRC",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF07",
+  "resume": "Coordonne dans la région les hôpitaux, cliniques et soignants qui traitent le cancer, pour une prise en charge de qualité, sûre et lisible. Diffuse les bonnes pratiques, soutient les projets innovants et informe patients et professionnels.",
+  "source": "annuaire"
+ },
+ "laboratoire_departemental": {
+  "nom": "Laboratoire départemental d'analyses",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF07",
+  "resume": "Réalise pour le département des analyses de sécurité des aliments et de santé animale. Travaille pour les restaurateurs, producteurs, industriels, éleveurs, vétérinaires et chasseurs, mais aussi pour les particuliers.",
+  "source": "annuaire"
+ },
+ "mda": {
+  "nom": "Maison départementale de l'autonomie",
+  "sigle": "MDA",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Guichet du département pour les personnes âgées et les personnes handicapées : informe, évalue les besoins et instruit les demandes d'aide, comme l'allocation personnalisée d'autonomie. Réunit souvent les services de la MDPH.",
+  "source": "redaction"
+ },
+ "maison_handicapees": {
+  "nom": "Maison départementale des personnes handicapées",
+  "sigle": "MDPH",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Guichet unique du département pour les enfants et adultes handicapés et leur famille : accueille, informe, évalue les besoins avec une équipe de spécialistes et ouvre l'accès aux droits et prestations, comme l'allocation adulte handicapé.",
+  "source": "annuaire"
+ },
+ "mds": {
+  "nom": "Maison départementale des solidarités",
+  "sigle": "MDS",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Antenne sociale du département au plus près des habitants : travailleurs sociaux, protection maternelle et infantile, aide sociale à l'enfance, insertion et RSA, soutien aux personnes âgées ou handicapées. Accueille, conseille et accompagne.",
+  "source": "redaction"
+ },
+ "msa": {
+  "nom": "Mutualité sociale agricole",
+  "sigle": "MSA",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF10",
+  "resume": "Assure toute la protection sociale du monde agricole : exploitants, salariés et employeurs. Verse en un seul lieu les prestations santé, famille, retraite et accidents du travail, et collecte les cotisations sociales.",
+  "source": "annuaire"
+ },
+ "accompagnement_personnes_agees": {
+  "nom": "Plateforme d'accompagnement et de répit pour les aidants de personnes âgées",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF10",
+  "resume": "Soutient les proches qui aident une personne âgée en perte d'autonomie, malade ou handicapée : écoute, information, formation, groupes de parole et solutions de répit pour souffler. Aide aussi dans les démarches.",
+  "source": "annuaire"
+ },
+ "clic": {
+  "nom": "Point d'information local dédié aux personnes âgées",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Accueille les personnes âgées, leurs proches et les professionnels pour trouver les aides et droits adaptés : maintien à domicile, retour après une hospitalisation, demande d'aide à l'autonomie ou entrée en établissement.",
+  "source": "annuaire"
+ },
+ "pif": {
+  "nom": "Point info famille",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF10",
+  "resume": "Accueille gratuitement toute personne pour l'informer et l'orienter sur la vie familiale : santé, logement, travail, médiation familiale, prestations, démarches. Organise aussi des ateliers et rencontres pour les parents.",
+  "source": "annuaire"
+ },
+ "ssti": {
+  "nom": "Service de prévention et de santé au travail interentreprises",
+  "sigle": "SPSTI",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF07",
+  "resume": "Association d'employeurs agréée par l'État qui assure la médecine du travail des salariés du privé : visites médicales, prévention des risques et conseils aux entreprises pour éviter que le travail n'abîme la santé.",
+  "source": "annuaire"
+ },
+ "samu": {
+  "nom": "Service d'aide médicale urgente",
+  "sigle": "Samu",
+  "famille": "operateur",
+  "administration": "secu",
+  "fonction": "GF07",
+  "resume": "Répond jour et nuit aux appels d'urgence médicale du 15 dans le département. Un médecin évalue la situation, envoie la réponse adaptée (conseil, médecin, ambulance, équipe mobile d'urgence) et prépare l'accueil du patient à l'hôpital.",
+  "source": "annuaire"
+ },
+ "urssaf": {
+  "nom": "Union de recouvrement des cotisations de sécurité sociale et d'allocations familiales",
+  "sigle": "Urssaf",
+  "famille": "secu",
+  "administration": "secu",
+  "fonction": "GF10",
+  "resume": "Collecte les cotisations et contributions sociales des entreprises, des indépendants et des particuliers employeurs, qui financent la sécurité sociale. Accompagne aussi les créateurs d'entreprise et lutte contre le travail dissimulé.",
+  "source": "redaction"
+ },
+ "afpa": {
+  "nom": "Agence nationale pour la formation professionnelle des adultes",
+  "sigle": "Afpa",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Forme les adultes à un métier dans ses centres partout en France : demandeurs d'emploi, salariés en reconversion, jeunes sans diplôme. Accompagne aussi l'orientation, la validation des acquis de l'expérience et l'insertion.",
+  "source": "annuaire"
+ },
+ "aract": {
+  "nom": "Agence régionale pour l'amélioration des conditions de travail",
+  "sigle": "Aract",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Aide les petites et moyennes entreprises de la région à améliorer les conditions et l'organisation du travail, avec des méthodes et outils partagés par les salariés et les dirigeants. Association gérée par les syndicats et le patronat, financée par l'État et la région.",
+  "source": "annuaire"
+ },
+ "apec": {
+  "nom": "Association pour l'emploi des cadres",
+  "sigle": "Apec",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Accompagne les cadres dans leur recherche d'emploi ou leur évolution professionnelle, ainsi que les jeunes diplômés du supérieur. Publie des offres et des études sur l'emploi des cadres. Association financée par les cotisations des cadres et des entreprises.",
+  "source": "annuaire"
+ },
+ "apecita": {
+  "nom": "Association pour l'emploi des cadres, ingénieurs et techniciens de l'agriculture et de l'agroalimentaire",
+  "sigle": "Apecita",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Met en relation employeurs et candidats dans l'agriculture, l'agroalimentaire et l'environnement : conseille et oriente les candidats, aide les entreprises à recruter et soutient l'insertion professionnelle avec les organismes de formation.",
+  "source": "annuaire"
+ },
+ "cap_emploi": {
+  "nom": "Cap emploi",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Accompagne vers l'emploi et dans l'emploi les personnes handicapées ou ayant des problèmes de santé. Conseille aussi les employeurs pour recruter et garder des salariés handicapés. Réseau départemental travaillant avec France Travail.",
+  "source": "annuaire"
+ },
+ "carif_oref": {
+  "nom": "Centre d'animation, de ressources et d'information sur les formations et observatoire régional emploi formation",
+  "sigle": "Carif-Oref",
+  "famille": "operateur",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Recense l'offre de formation de la région et analyse l'emploi et les métiers. Met ces informations à disposition des conseillers en orientation, des entreprises et du public pour rapprocher formations et besoins des employeurs. Porté par l'État et la région.",
+  "source": "annuaire"
+ },
+ "chambre_agriculture": {
+  "nom": "Chambre d'agriculture",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Représente les agriculteurs du département ou de la région auprès des pouvoirs publics. Les conseille sur la gestion, l'installation et les pratiques agricoles, et soutient le développement durable des territoires ruraux.",
+  "source": "annuaire"
+ },
+ "cci": {
+  "nom": "Chambre de commerce et d'industrie",
+  "sigle": "CCI",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Représente les entreprises du commerce, de l'industrie et des services de son territoire. Les conseille pour créer, développer ou exporter, forme salariés et apprentis, et travaille avec les collectivités au développement économique local.",
+  "source": "annuaire"
+ },
+ "chambre_metier": {
+  "nom": "Chambre de métiers et de l'artisanat",
+  "sigle": "CMA",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Accompagne les artisans du département à chaque étape : apprentissage, création ou reprise d'entreprise, formation, développement et transmission. Représente les intérêts de l'artisanat auprès des pouvoirs publics.",
+  "source": "annuaire"
+ },
+ "chambre_metier_reg": {
+  "nom": "Chambre de métiers et de l'artisanat de région",
+  "sigle": "CMA",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Pilote à l'échelle de la région le réseau des chambres de métiers : représente l'artisanat auprès de la région et de l'État, coordonne l'apprentissage, la formation et l'appui aux artisans assurés dans les départements.",
+  "source": "annuaire"
+ },
+ "artisanat_dpt": {
+  "nom": "Confédération départementale de l'artisanat et des petites entreprises du bâtiment",
+  "sigle": "Capeb",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Syndicat professionnel qui représente et défend les artisans et petites entreprises du bâtiment du département. Les informe sur la réglementation, les techniques et la gestion, et les accompagne dans leur activité et leur formation.",
+  "source": "redaction"
+ },
+ "artisanat_reg": {
+  "nom": "Confédération régionale de l'artisanat et des petites entreprises du bâtiment",
+  "sigle": "Capeb",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Syndicat professionnel qui représente les artisans et petites entreprises du bâtiment à l'échelle de la région, auprès de la région et des services de l'État. Coordonne l'action des confédérations départementales, notamment sur la formation.",
+  "source": "redaction"
+ },
+ "ddets": {
+  "nom": "Direction départementale de l'emploi, du travail et des solidarités",
+  "sigle": "DDETS",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Met en œuvre dans le département la politique de l'État pour l'emploi, l'insertion, le droit du travail, l'hébergement et l'accès au logement des plus fragiles. Soutient aussi l'égalité entre les femmes et les hommes et la lutte contre l'exclusion.",
+  "source": "annuaire"
+ },
+ "direccte": {
+  "nom": "Direction régionale de l'économie, de l'emploi, du travail et des solidarités",
+  "sigle": "Dreets",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Service régional de l'État pour l'économie, l'emploi, le travail et les solidarités. Appuie les entreprises, contrôle le droit du travail, finance la formation et l'insertion, protège les consommateurs et soutient les personnes vulnérables.",
+  "source": "annuaire"
+ },
+ "epide": {
+  "nom": "Établissement pour l'insertion dans l'emploi",
+  "sigle": "Epide",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Accueille en internat, dans des centres en France, des jeunes de 17 à 25 ans sans diplôme ou sans emploi, volontaires. Leur propose un parcours de plusieurs mois mêlant remise à niveau, vie collective et projet professionnel pour trouver un emploi ou une formation.",
+  "source": "redaction"
+ },
+ "batiment_dpt": {
+  "nom": "Fédération départementale du bâtiment",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Organisation professionnelle qui représente les entreprises du bâtiment du département auprès des acteurs locaux. Les informe sur la réglementation, soutient la formation et la qualité de la construction. Relais local de la Fédération française du bâtiment.",
+  "source": "annuaire"
+ },
+ "batiment_reg": {
+  "nom": "Fédération régionale du bâtiment",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Représente les entreprises du bâtiment à l'échelle de la région, auprès de la région et des services de l'État. Coordonne les fédérations départementales sur la formation, la réglementation et l'innovation. Relais régional de la Fédération française du bâtiment.",
+  "source": "annuaire"
+ },
+ "france_travail": {
+  "nom": "France Travail",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Inscrit et accompagne les demandeurs d'emploi, verse les allocations chômage pour le compte de l'assurance chômage et aide les entreprises à recruter. Réseau d'agences locales dans toute la France, à la tête d'un réseau qui associe les partenaires de l'emploi.",
+  "source": "redaction"
+ },
+ "dr_france_travail": {
+  "nom": "Direction régionale de France Travail",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Pilote les agences France Travail de la région : organise l'accompagnement des demandeurs d'emploi et l'aide au recrutement des entreprises, et travaille avec la région et l'État sur la formation et l'emploi local.",
+  "source": "annuaire"
+ },
+ "maison_emploi": {
+  "nom": "Maison de l'emploi",
+  "sigle": "MDE",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Réunit sur un bassin d'emploi les acteurs locaux de l'emploi, de la formation et de l'insertion autour d'actions communes. Informe le public et appuie les entreprises, en lien avec les collectivités et France Travail.",
+  "source": "redaction"
+ },
+ "mediateur_france_travail": {
+  "nom": "Médiateur régional de France Travail",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Aide gratuitement les demandeurs d'emploi et les entreprises en désaccord avec France Travail, lorsqu'une réclamation n'a pas suffi. Examine le dossier dans la région et cherche une solution à l'amiable.",
+  "source": "annuaire"
+ },
+ "mission_locale": {
+  "nom": "Mission locale",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Accompagne les jeunes de 16 à 25 ans sortis de l'école vers l'emploi ou la formation, en tenant compte aussi de leurs difficultés de logement, de santé ou de mobilité. Met en œuvre notamment le Contrat d'engagement jeune. Présente dans chaque bassin de vie.",
+  "source": "redaction"
+ },
+ "pro_regl": {
+  "nom": "Ordre ou instance d'une profession réglementée",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Encadre une profession dont l'exercice est réglementé (médecins, avocats, architectes...) : tient la liste des professionnels autorisés, veille au respect de la déontologie, sanctionne les manquements et représente la profession auprès des pouvoirs publics.",
+  "source": "annuaire"
+ },
+ "droit_travail": {
+  "nom": "Service de renseignement en droit du travail",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Répond gratuitement aux questions des salariés et des employeurs sur le droit du travail : contrat, salaire, durée du travail, congés, licenciement. Service de l'État rattaché à la direction départementale de l'emploi, du travail et des solidarités.",
+  "source": "redaction"
+ },
+ "bdf": {
+  "nom": "Banque de France",
+  "sigle": null,
+  "famille": "institution",
+  "administration": "hors",
+  "fonction": "GF01",
+  "resume": "Reçoit le public dans les départements pour les difficultés d'argent : dépôt d'un dossier de surendettement, droit au compte, consultation des fichiers bancaires. Accompagne aussi les entreprises et les très petites entreprises en difficulté.",
+  "source": "redaction"
+ },
+ "bureau_de_douane": {
+  "nom": "Bureau de douane",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Réalise les formalités de dédouanement des marchandises importées ou exportées, perçoit les droits et taxes et conseille les entreprises sur le commerce international. Contrôle aussi les flux de marchandises pour lutter contre la fraude et les trafics.",
+  "source": "redaction"
+ },
+ "centre_impots_fonciers": {
+  "nom": "Centre des impôts foncier",
+  "sigle": "CDIF",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Tient à jour le cadastre et la valeur locative des propriétés du département, qui servent à calculer les taxes foncières. Renseigne les particuliers et professionnels sur les plans et les informations cadastrales.",
+  "source": "redaction"
+ },
+ "ctrc": {
+  "nom": "Centre technique régional de la consommation",
+  "sigle": "CTRC",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Apporte une aide juridique et technique aux associations de consommateurs de la région et coordonne leurs actions communes. Informe le public sur ses droits de consommateur et l'oriente vers les permanences des associations du département.",
+  "source": "annuaire"
+ },
+ "codefi": {
+  "nom": "Comité départemental d'examen des difficultés des entreprises",
+  "sigle": "Codefi",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Aide les entreprises de moins de 400 salariés en difficulté financière ou structurelle, de façon confidentielle. Placé auprès du préfet, il mobilise les services de l'État pour proposer des solutions : délais, prêts, audit ou appui à la restructuration.",
+  "source": "annuaire"
+ },
+ "ccsf": {
+  "nom": "Commission des chefs des services financiers",
+  "sigle": "CCSF",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Accorde aux entreprises en difficulté des délais de paiement pour leurs impôts et cotisations sociales, en un seul plan d'étalement. Réunit dans le département les services des finances publiques, des Urssaf et des autres organismes concernés, de façon confidentielle.",
+  "source": "redaction"
+ },
+ "conciliateur_fiscal": {
+  "nom": "Conciliateur fiscal départemental",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Examine gratuitement le recours d'un contribuable en désaccord avec la réponse de son service des impôts sur son impôt, une pénalité ou un paiement. Recherche une solution amiable avant toute saisie du tribunal.",
+  "source": "redaction"
+ },
+ "comptables_reg": {
+  "nom": "Conseil régional de l'ordre des experts-comptables",
+  "sigle": "CROEC",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Inscrit les experts-comptables de la région au tableau de l'ordre, veille au respect de leur déontologie et organise leur formation continue. Lutte contre l'exercice illégal de la profession et la représente auprès des acteurs économiques locaux.",
+  "source": "annuaire"
+ },
+ "crc": {
+  "nom": "Chambre régionale ou territoriale des comptes",
+  "sigle": "CRC",
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Contrôle les comptes et la gestion des collectivités de la région et de leurs établissements : juge les comptes, examine la bonne utilisation de l'argent public et contrôle les budgets. Publie des rapports et contribue à l'évaluation des politiques locales.",
+  "source": "annuaire"
+ },
+ "credit_municipal": {
+  "nom": "Crédit municipal",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF10",
+  "resume": "Établissement public communal de crédit et d'aide sociale. Prête de l'argent rapidement contre le dépôt d'un objet de valeur en gage, et propose des microcrédits et un accompagnement aux personnes en difficulté financière.",
+  "source": "redaction"
+ },
+ "dd_fip": {
+  "nom": "Direction départementale des finances publiques",
+  "sigle": "DDFiP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Calcule et encaisse les impôts, tient le cadastre, paie les dépenses de l'État et tient les comptes des collectivités du département. Gère aussi les biens immobiliers de l'État et conseille les élus locaux sur leurs finances.",
+  "source": "annuaire"
+ },
+ "draf": {
+  "nom": "Direction régionale de l'alimentation, de l'agriculture et de la forêt",
+  "sigle": "Draaf",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Met en œuvre dans la région la politique de l'État pour l'agriculture, l'alimentation et la forêt : soutien aux filières, sécurité sanitaire des aliments et des végétaux, gestion des forêts. Pilote aussi l'enseignement agricole.",
+  "source": "annuaire"
+ },
+ "dr_insee": {
+  "nom": "Direction régionale de l'Insee",
+  "sigle": "Insee",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Réalise dans la région les enquêtes et le recensement de la population de l'institut national de la statistique. Produit et publie des chiffres et des études sur l'économie et la société locales, utiles au public, aux entreprises et aux collectivités.",
+  "source": "annuaire"
+ },
+ "dr_fip": {
+  "nom": "Direction régionale des finances publiques",
+  "sigle": "DRFiP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Assure dans le département chef-lieu de région les mêmes missions qu'une direction départementale : impôts, cadastre, dépenses de l'État, comptes des collectivités. Coordonne en plus les finances publiques de la région et tient les comptes de l'État en région.",
+  "source": "annuaire"
+ },
+ "drddi": {
+  "nom": "Direction régionale ou interrégionale des douanes et droits indirects",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Dirige les services des douanes de la région : perception des droits et taxes sur les marchandises et les carburants, contrôle des échanges internationaux, conseil aux entreprises et lutte contre les trafics de drogue, d'armes et de contrefaçons.",
+  "source": "annuaire"
+ },
+ "dcf": {
+  "nom": "Direction spécialisée du contrôle fiscal",
+  "sigle": "Dircofi",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Contrôle sur place la situation fiscale des entreprises moyennes et des contribuables à fort enjeu sur plusieurs départements. Vérifie leurs déclarations et lutte contre la fraude fiscale, en appui des directions départementales des finances publiques.",
+  "source": "annuaire"
+ },
+ "inpi": {
+  "nom": "Délégation régionale de l'Institut national de la propriété industrielle",
+  "sigle": "INPI",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Aide les entreprises et les inventeurs de la région à protéger leurs créations par un brevet, une marque ou un dessin et modèle. Forme et sensibilise à la propriété industrielle. L'institut gère aussi le guichet unique des formalités d'entreprise.",
+  "source": "annuaire"
+ },
+ "paierie_departementale": {
+  "nom": "Paierie départementale",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Service des finances publiques qui tient la comptabilité du conseil départemental : paie ses dépenses après contrôle, encaisse ses recettes et conseille ses services financiers. Comptable public indépendant de l'ordonnateur.",
+  "source": "redaction"
+ },
+ "paierie_regionale": {
+  "nom": "Paierie régionale",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Service des finances publiques qui tient la comptabilité du conseil régional : paie ses dépenses après contrôle, encaisse ses recettes et conseille ses services financiers, notamment pour les fonds européens gérés par la région.",
+  "source": "redaction"
+ },
+ "pcb": {
+  "nom": "Point conseil budget",
+  "sigle": "PCB",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF10",
+  "resume": "Aide gratuitement toute personne qui a du mal à gérer son budget ou à payer ses dettes : bilan de situation, conseils, négociation avec les créanciers, aide au dossier de surendettement. Labellisé par l'État, porté surtout par des associations.",
+  "source": "redaction"
+ },
+ "prs": {
+  "nom": "Pôle de recouvrement spécialisé",
+  "sigle": "PRS",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Service des finances publiques qui récupère dans le département les impôts impayés les plus complexes, auprès des particuliers et des entreprises. Engage les poursuites nécessaires, notamment en cas de fraude ou de procédure collective.",
+  "source": "annuaire"
+ },
+ "hypotheque": {
+  "nom": "Service de la publicité foncière",
+  "sigle": "SPF",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Enregistre les ventes, donations et autres actes portant sur des biens immobiliers, et tient le fichier de qui possède quoi. Délivre ces informations aux notaires et au public et perçoit les taxes liées. Garantit la sécurité juridique des propriétés.",
+  "source": "annuaire"
+ },
+ "sde": {
+  "nom": "Service départemental de l'enregistrement",
+  "sigle": "SDE",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Enregistre les actes et déclarations qui donnent lieu à des droits : successions, donations, cessions de parts sociales ou de fonds de commerce. Perçoit les droits correspondants pour le département et renseigne les usagers et les notaires.",
+  "source": "redaction"
+ },
+ "sie": {
+  "nom": "Service des impôts des entreprises",
+  "sigle": "SIE",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Interlocuteur fiscal des entreprises et professionnels du secteur, quelles que soient leur activité et leur forme : reçoit leurs déclarations, encaisse la TVA, l'impôt sur les sociétés et la cotisation foncière, et traite leurs demandes de remboursement.",
+  "source": "annuaire"
+ },
+ "sip": {
+  "nom": "Service des impôts des particuliers",
+  "sigle": "SIP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Répond aux particuliers sur leur impôt sur le revenu, la taxe d'habitation des résidences secondaires et les taxes foncières : déclaration, calcul, réclamation, paiement et délais. Accueil sur place, par téléphone ou par messagerie sécurisée.",
+  "source": "redaction"
+ },
+ "tresorerie": {
+  "nom": "Trésorerie",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Service local des finances publiques qui tient les comptes des communes et de leurs établissements, paie leurs dépenses et encaisse leurs recettes (cantine, eau, loyers). Remplacé progressivement par les services de gestion comptable.",
+  "source": "redaction"
+ },
+ "cio": {
+  "nom": "Centre d'information et d'orientation",
+  "sigle": "CIO",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Informe gratuitement les élèves, les jeunes non scolarisés, les parents et les adultes sur les études, les formations et les métiers. Propose des rendez-vous avec des psychologues de l'Éducation nationale spécialisés dans l'orientation.",
+  "source": "annuaire"
+ },
+ "creps": {
+  "nom": "Centre de ressources, d'expertise et de performance sportive",
+  "sigle": "Creps",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF08",
+  "resume": "Accueille et entraîne les sportifs de haut niveau de la région, avec hébergement et suivi scolaire. Forme les éducateurs sportifs, entraîneurs et animateurs, et appuie les politiques du sport, de la santé et de la citoyenneté avec les collectivités.",
+  "source": "annuaire"
+ },
+ "cnrs": {
+  "nom": "Délégation régionale du Centre national de la recherche scientifique",
+  "sigle": "CNRS",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF01",
+  "resume": "Gère pour la région le personnel, le budget et les moyens des laboratoires du principal organisme public de recherche française, souvent communs avec les universités. Accompagne aussi les partenariats et la valorisation de la recherche.",
+  "source": "annuaire"
+ },
+ "crous": {
+  "nom": "Centre régional des œuvres universitaires et scolaires",
+  "sigle": "Crous",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Améliore la vie quotidienne des étudiants de l'académie : verse les bourses, gère les logements et les restaurants universitaires, propose des aides sociales, des activités culturelles, des jobs étudiants et l'accueil des étudiants étrangers.",
+  "source": "annuaire"
+ },
+ "drari": {
+  "nom": "Délégation régionale académique à la recherche et à l'innovation",
+  "sigle": "Drari",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Représente l'État dans la région pour la recherche, l'innovation et la culture scientifique. Soutient les laboratoires et les entreprises innovantes, et suit les financements publics de la recherche avec la région.",
+  "source": "annuaire"
+ },
+ "inspection_academique": {
+  "nom": "Direction des services départementaux de l'Éducation nationale",
+  "sigle": "DSDEN",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Organise l'école dans le département : répartit les postes d'enseignants et les classes, gère les inscriptions et l'affectation des élèves, l'école inclusive et les enseignants du premier degré. Dirigée par le directeur académique.",
+  "source": "annuaire"
+ },
+ "greta": {
+  "nom": "Groupement d'établissements pour la formation continue",
+  "sigle": "Greta",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Regroupe des collèges et lycées publics pour former les adultes : salariés, demandeurs d'emploi, personnes en reconversion. Propose des formations qualifiantes et diplômantes, la validation des acquis de l'expérience et des formations sur mesure pour les entreprises.",
+  "source": "redaction"
+ },
+ "espe": {
+  "nom": "Institut national supérieur du professorat et de l'éducation",
+  "sigle": "Inspé",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Forme au sein des universités les futurs professeurs et conseillers principaux d'éducation, notamment par le master des métiers de l'enseignement. Assure aussi la formation continue des enseignants et des recherches en sciences de l'éducation.",
+  "source": "annuaire"
+ },
+ "dronisep": {
+  "nom": "Délégation régionale de l'Office national d'information sur les enseignements et les professions",
+  "sigle": "Onisep",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Recense l'offre de formation des établissements de la région et publie des guides sur les études et les métiers. Aide les équipes éducatives et les familles à accompagner l'orientation des élèves, avec les services académiques.",
+  "source": "annuaire"
+ },
+ "rectorat": {
+  "nom": "Rectorat",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF09",
+  "resume": "Dirige l'Éducation nationale dans l'académie sous l'autorité du recteur : gère les enseignants et les moyens, organise les examens comme le baccalauréat et le brevet, et applique la politique éducative dans les écoles, collèges et lycées.",
+  "source": "annuaire"
+ },
+ "canope_atelier": {
+  "nom": "Atelier Canopé",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Forme et accompagne les enseignants et les acteurs de l'éducation du département, notamment sur le numérique, l'éducation aux médias et l'école inclusive. Prête des ressources pédagogiques et propose un lieu d'échange et d'expérimentation.",
+  "source": "annuaire"
+ },
+ "canope_dt": {
+  "nom": "Direction territoriale de Réseau Canopé",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Pilote dans la région les ateliers Canopé et organise la formation continue des enseignants, en particulier au numérique éducatif. Produit et diffuse des ressources pédagogiques en lien avec les académies.",
+  "source": "annuaire"
+ },
+ "suio": {
+  "nom": "Service universitaire d'information et d'orientation",
+  "sigle": "Suio",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF09",
+  "resume": "Aide les lycéens et étudiants d'une université à choisir leurs études, à changer de voie et à préparer leur insertion professionnelle. Propose documentation, entretiens individuels et ateliers sur les stages et la recherche d'emploi.",
+  "source": "redaction"
+ },
+ "ademe": {
+  "nom": "Agence de l'environnement et de la maîtrise de l'énergie",
+  "sigle": "Ademe",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF05",
+  "resume": "Conseille et finance les entreprises, les collectivités et les particuliers pour réduire leurs déchets, économiser l'énergie, développer les énergies renouvelables et améliorer la qualité de l'air, avec des directions dans chaque région.",
+  "source": "annuaire"
+ },
+ "adil": {
+  "nom": "Agence départementale d'information sur le logement",
+  "sigle": "Adil",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF06",
+  "resume": "Informe gratuitement locataires, propriétaires et futurs acheteurs sur leurs droits en matière de logement : bail, charges, copropriété, achat, rénovation énergétique. Des juristes y donnent dans chaque département des conseils neutres et sans but commercial.",
+  "source": "annuaire"
+ },
+ "anah": {
+  "nom": "Agence nationale de l'habitat",
+  "sigle": "Anah",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF06",
+  "resume": "Accorde dans chaque département des aides aux propriétaires pour rénover leur logement, le rendre économe en énergie ou adapté à la perte d'autonomie, et aide les collectivités à lutter contre l'habitat indigne et les copropriétés en difficulté.",
+  "source": "annuaire"
+ },
+ "asn": {
+  "nom": "Autorité de sûreté nucléaire et de radioprotection - division régionale",
+  "sigle": "ASNR",
+  "famille": "etat",
+  "administration": "op",
+  "fonction": "GF05",
+  "resume": "Contrôle dans la région la sûreté des installations nucléaires, la protection contre les rayonnements dans les hôpitaux et l'industrie, et le transport des matières radioactives, au nom d'une autorité indépendante du gouvernement.",
+  "source": "annuaire"
+ },
+ "ber": {
+  "nom": "Bureau de l'éducation routière",
+  "sigle": "BER",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Organise dans le département les examens du permis de conduire, encadre les auto-écoles et les centres de formation à la conduite, mène des actions de prévention routière et adapte les examens pour les candidats qui ont des besoins particuliers.",
+  "source": "annuaire"
+ },
+ "cerema": {
+  "nom": "Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement",
+  "sigle": "Cerema",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF06",
+  "resume": "Apporte aux services de l'État et aux collectivités une expertise technique pour leurs projets : bâtiments, routes et ouvrages d'art, mobilités, risques naturels, mer et littoral. Ses directions territoriales interviennent à l'échelle de plusieurs régions.",
+  "source": "annuaire"
+ },
+ "cnra": {
+  "nom": "Centre en route de la navigation aérienne",
+  "sigle": "CRNA",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Assure le contrôle aérien des avions en vol au-dessus d'une grande partie du territoire : les contrôleurs guident les appareils entre les aéroports pour garantir leur sécurité et la fluidité du trafic. Il dépend de la direction générale de l'aviation civile.",
+  "source": "redaction"
+ },
+ "architectes_reg": {
+  "nom": "Conseil régional de l'ordre des architectes",
+  "sigle": "CROA",
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF06",
+  "resume": "Inscrit les architectes autorisés à exercer dans la région, veille au respect de leurs règles professionnelles et peut sanctionner les manquements. Il informe aussi le public et les collectivités sur le rôle de l'architecte et la qualité des constructions.",
+  "source": "redaction"
+ },
+ "dml": {
+  "nom": "Délégation à la mer et au littoral",
+  "sigle": "DML",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Met en oeuvre dans les départements côtiers la politique de l'État pour la mer et le littoral : gestion du rivage public, pêche et cultures marines, plaisance, gens de mer et sécurité maritime. Elle fait partie de la direction départementale des territoires et de la mer.",
+  "source": "redaction"
+ },
+ "dac": {
+  "nom": "Direction de la sécurité de l'aviation civile",
+  "sigle": "DSAC",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Contrôle dans chaque grande région la sécurité et la sûreté du transport aérien : compagnies, aéroports, écoles de pilotage. Délivre les licences des pilotes, autorise certaines opérations aériennes et veille au respect des règles qui protègent les passagers.",
+  "source": "annuaire"
+ },
+ "ddt": {
+  "nom": "Direction départementale des territoires (et de la mer)",
+  "sigle": "DDT / DDTM",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Applique dans le département, sous l'autorité du préfet, la politique de l'État en urbanisme, logement, agriculture, eau, biodiversité, risques naturels et routes. Dans les départements côtiers, elle gère aussi la mer et le littoral et prend alors le nom de DDTM.",
+  "source": "annuaire"
+ },
+ "did_routes": {
+  "nom": "Direction interdépartementale des routes",
+  "sigle": "DIR",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Entretient, exploite et surveille les autoroutes non concédées et les routes nationales de l'État sur plusieurs départements : viabilité hivernale, interventions sur accidents, travaux, information des usagers sur la circulation.",
+  "source": "redaction"
+ },
+ "dir_mer": {
+  "nom": "Direction interrégionale de la mer",
+  "sigle": "DIRM",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF04",
+  "resume": "Coordonne sur une façade maritime la politique de l'État pour la mer : surveillance des pêches, sécurité de la navigation, signalisation maritime, formation des marins et planification des usages de la mer, sur deux régions ou plus.",
+  "source": "redaction"
+ },
+ "dir_meteo": {
+  "nom": "Direction interrégionale de Météo-France",
+  "sigle": null,
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Observe le temps et produit les prévisions et les vigilances météo pour plusieurs régions. Elle alerte les préfets et les services de secours en cas de phénomène dangereux et fournit des données aux collectivités, à l'aviation et aux entreprises.",
+  "source": "redaction"
+ },
+ "dreal": {
+  "nom": "Direction régionale de l'environnement, de l'aménagement et du logement",
+  "sigle": "Dreal",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Porte dans la région la politique de l'État pour l'environnement, le climat, la biodiversité, le logement et les transports. Elle contrôle les usines à risque, prévient les risques naturels et autorise les grands projets d'aménagement.",
+  "source": "annuaire"
+ },
+ "dreal_ut": {
+  "nom": "Unité départementale de la Dreal",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Relaie la Dreal au plus près du terrain, dans un ou deux départements : inspecte les installations industrielles et agricoles à risque, contrôle les véhicules et transports routiers, et suit sur place les dossiers d'environnement et de prévention des risques.",
+  "source": "annuaire"
+ },
+ "drieat": {
+  "nom": "Direction régionale et interdépartementale de l'environnement, de l'aménagement et des transports d'Île-de-France",
+  "sigle": "Drieat",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Joue en Île-de-France le rôle de la Dreal : met en oeuvre la politique de l'État pour l'environnement, l'énergie, l'urbanisme et les transports, prévient les risques et les pollutions, et gère le réseau routier national de la région.",
+  "source": "annuaire"
+ },
+ "drieat_ut": {
+  "nom": "Unité départementale de la Drieat",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF05",
+  "resume": "Représente la Drieat dans un département d'Île-de-France : inspecte les sites industriels à risque, suit les dossiers d'environnement, d'aménagement et de transports, et conseille le préfet et les collectivités du département.",
+  "source": "annuaire"
+ },
+ "drihl": {
+  "nom": "Direction régionale et interdépartementale de l'hébergement et du logement d'Île-de-France",
+  "sigle": "Drihl",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF06",
+  "resume": "Conduit en Île-de-France la politique de l'État pour le logement et l'hébergement : soutient la construction de logements sociaux et abordables, et organise et finance l'hébergement des personnes qui ne peuvent pas encore être logées.",
+  "source": "annuaire"
+ },
+ "drihl_ut": {
+  "nom": "Unité départementale de la Drihl",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF06",
+  "resume": "Applique dans un département de la petite couronne la politique de la Drihl : attribution de logements sociaux aux ménages prioritaires, droit au logement opposable, hébergement d'urgence et prévention des expulsions.",
+  "source": "redaction"
+ },
+ "fr_renov": {
+  "nom": "Espace conseil France Rénov'",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF06",
+  "resume": "Répond gratuitement et sans démarche commerciale aux particuliers qui veulent rénover leur logement : travaux utiles, économies d'énergie, aides financières. Ces espaces de proximité sont portés par des collectivités ou des associations, avec l'appui de l'Anah.",
+  "source": "annuaire"
+ },
+ "ofb": {
+  "nom": "Office français de la biodiversité",
+  "sigle": "OFB",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF05",
+  "resume": "Protège la nature dans chaque région : ses inspecteurs contrôlent le respect des règles sur l'eau, la chasse et les espèces protégées. Il gère des espaces naturels, étudie la faune et la flore, et aide les acteurs publics à préserver le vivant.",
+  "source": "annuaire"
+ },
+ "onf": {
+  "nom": "Office national des forêts",
+  "sigle": "ONF",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Gère les forêts publiques de l'État et des communes sur plusieurs régions : plantation et entretien, vente du bois, protection contre les risques naturels, préservation de la biodiversité et accueil du public en forêt.",
+  "source": "annuaire"
+ },
+ "parc_naturel_regional": {
+  "nom": "Parc naturel régional",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF05",
+  "resume": "Protège les paysages et le patrimoine naturel et culturel d'un territoire rural tout en y soutenant l'économie locale, le tourisme et l'éducation à l'environnement. Il est géré par un syndicat des collectivités qui ont adopté sa charte.",
+  "source": "annuaire"
+ },
+ "safer": {
+  "nom": "Société d'aménagement foncier et d'établissement rural",
+  "sigle": "Safer",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF04",
+  "resume": "Achète et revend des terres agricoles et rurales pour faciliter l'installation des agriculteurs, protéger les espaces naturels et soutenir les projets locaux. Société sans but lucratif placée sous la tutelle de l'État, elle surveille aussi les ventes de terres.",
+  "source": "annuaire"
+ },
+ "service_navigation": {
+  "nom": "Voies navigables de France - direction territoriale",
+  "sigle": "VNF",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF04",
+  "resume": "Entretient, exploite et modernise les canaux et rivières navigables d'un grand territoire : écluses, barrages, berges. Elle gère l'eau de ces voies et développe le transport de marchandises et le tourisme fluvial.",
+  "source": "annuaire"
+ },
+ "gendarmerie": {
+  "nom": "Brigade de gendarmerie",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Assure la sécurité au quotidien dans les communes rurales et périurbaines : patrouilles, intervention en urgence, accueil des victimes et prise de plainte, enquêtes sur les délits. C'est le premier point de contact avec la gendarmerie nationale.",
+  "source": "redaction"
+ },
+ "gendarmerie_moto": {
+  "nom": "Brigade motorisée de gendarmerie",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Surveille les routes du département à moto ou en voiture : contrôle de la vitesse, de l'alcool et des stupéfiants, constat des accidents et aide aux usagers, afin de réduire le nombre de victimes de la route.",
+  "source": "redaction"
+ },
+ "cirgn": {
+  "nom": "Centre d'information et de recrutement de la gendarmerie nationale",
+  "sigle": "CIR",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Informe les jeunes et les adultes sur les métiers de la gendarmerie, dans la région, et les accompagne dans leur candidature : gendarme adjoint volontaire, sous-officier, officier, réserviste ou personnel civil.",
+  "source": "redaction"
+ },
+ "cirfa": {
+  "nom": "Centre d'information et de recrutement des forces armées",
+  "sigle": "Cirfa",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF02",
+  "resume": "Informe sur les métiers de l'armée de Terre, de la Marine nationale et de l'armée de l'Air et de l'Espace, et accompagne les candidats jusqu'à leur engagement, qu'il s'agisse d'un contrat de militaire ou d'une réserve.",
+  "source": "redaction"
+ },
+ "bsn": {
+  "nom": "Centre du service national et de la jeunesse",
+  "sigle": "CSNJ",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF02",
+  "resume": "Organise pour les jeunes de son territoire la Journée défense et citoyenneté, obligatoire, et délivre le certificat qui la prouve, demandé pour les examens et le permis de conduire. Il répond aussi aux questions sur le recensement et le service national.",
+  "source": "redaction"
+ },
+ "commissariat_police": {
+  "nom": "Commissariat de police",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Assure la sécurité dans les villes : patrouilles, intervention en urgence, accueil des victimes et prise de plainte, enquêtes sur les délits. C'est le point d'accueil local de la police nationale.",
+  "source": "redaction"
+ },
+ "dmd": {
+  "nom": "Délégation militaire départementale",
+  "sigle": "DMD",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF02",
+  "resume": "Représente les armées dans le département et conseille le préfet pour la défense et la gestion des crises. Elle mobilise si besoin les moyens militaires, organise les cérémonies nationales et entretient le lien entre les armées et la population.",
+  "source": "annuaire"
+ },
+ "ddpn_dipn": {
+  "nom": "Direction départementale ou interdépartementale de la police nationale",
+  "sigle": "DDPN / DIPN",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Dirige dans le département tous les services de la police nationale : sécurité du quotidien, enquêtes, renseignement, contrôle des frontières et lutte contre l'immigration irrégulière. Elle rend compte au préfet de l'ordre public.",
+  "source": "annuaire"
+ },
+ "dir_pj": {
+  "nom": "Direction territoriale de la police judiciaire",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Mène, sous la direction des magistrats, les enquêtes sur la criminalité grave dans plusieurs départements : homicides, trafics de drogue, vols à main armée, escroqueries et criminalité organisée.",
+  "source": "redaction"
+ },
+ "dzpn": {
+  "nom": "Direction zonale de la police nationale",
+  "sigle": "DZPN",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Coordonne et contrôle l'action des directions départementales de police d'une grande zone de plusieurs régions, et y dirige les services spécialisés de police judiciaire, de police aux frontières, de renseignement et de formation.",
+  "source": "annuaire"
+ },
+ "emzpn": {
+  "nom": "État-major zonal de la police nationale",
+  "sigle": "EMZPN",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Suit en continu la situation sur une grande zone de plusieurs régions et organise le renfort des forces de police lors des événements importants, des crises ou des troubles graves à l'ordre public.",
+  "source": "redaction"
+ },
+ "gendarmerie_departementale": {
+  "nom": "Groupement de gendarmerie départementale",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Dirige l'ensemble des unités de gendarmerie du département, brigades, pelotons routiers et enquêteurs, et organise la sécurité publique, la sécurité routière et les enquêtes judiciaires sur la majeure partie du territoire, surtout rural et périurbain.",
+  "source": "redaction"
+ },
+ "onac": {
+  "nom": "Office national des combattants et des victimes de guerre",
+  "sigle": "ONaCVG",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF10",
+  "resume": "Accompagne dans chaque département les anciens combattants, les victimes de guerre et du terrorisme et les pupilles de la Nation : reconnaissance de leurs droits, cartes et titres, aides sociales. Il fait aussi vivre la mémoire des conflits.",
+  "source": "annuaire"
+ },
+ "gendarmerie_montagne": {
+  "nom": "Peloton de gendarmerie de haute montagne",
+  "sigle": "PGHM",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Porte secours aux randonneurs, alpinistes et skieurs en difficulté en montagne, souvent avec l'hélicoptère, recherche les personnes disparues et mène des actions de prévention des accidents en montagne.",
+  "source": "annuaire"
+ },
+ "police_municipale": {
+  "nom": "Police municipale",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF03",
+  "resume": "Veille, sous l'autorité du maire, à la sécurité et à la tranquillité de la commune : surveillance des écoles et des lieux publics, circulation et stationnement, lutte contre le bruit et les dépôts sauvages, en lien avec la police et la gendarmerie.",
+  "source": "annuaire"
+ },
+ "paris_ppp": {
+  "nom": "Préfecture de police de Paris",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Dirige la police et assure l'ordre public à Paris et dans les départements de la petite couronne. Elle délivre aussi des titres comme les titres de séjour, gère la sécurité civile avec les pompiers de Paris et veille à la sécurité des bâtiments.",
+  "source": "redaction"
+ },
+ "paris_ppp_gesvres": {
+  "nom": "Préfecture de police de Paris - site de Gesvres",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Accueille le public de la préfecture de police dans le centre de Paris pour certaines démarches administratives, notamment celles liées au séjour des étrangers, à la circulation et à certaines autorisations délivrées par le préfet de police.",
+  "source": "redaction"
+ },
+ "pp_marseille": {
+  "nom": "Préfecture de police des Bouches-du-Rhône",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Dirige sous l'autorité du préfet de police l'action de la police et de la gendarmerie dans les Bouches-du-Rhône : ordre public, lutte contre la délinquance et les trafics, sécurité des grands événements et gestion des crises.",
+  "source": "redaction"
+ },
+ "sgami": {
+  "nom": "Secrétariat général pour l'administration du ministère de l'Intérieur",
+  "sigle": "Sgami",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Gère pour la police, la gendarmerie et les autres services du ministère de l'Intérieur d'une grande zone le personnel, le budget, les achats, les bâtiments, les véhicules et l'informatique. À Paris, ce rôle revient au secrétariat de la préfecture de police.",
+  "source": "annuaire"
+ },
+ "sdis": {
+  "nom": "Service départemental d'incendie et de secours",
+  "sigle": "SDIS",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF03",
+  "resume": "Organise les sapeurs-pompiers du département : lutte contre les incendies, secours aux personnes, accidents et catastrophes, prévention des risques. Il dépend du département pour sa gestion et du préfet pour les opérations.",
+  "source": "annuaire"
+ },
+ "dz_paf": {
+  "nom": "Service zonal de la police aux frontières",
+  "sigle": "SZPAF",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Contrôle les personnes aux frontières, ports et aéroports d'une grande zone, lutte contre l'immigration irrégulière et les filières de passeurs, contre le travail illégal des étrangers, et organise l'éloignement des personnes en situation irrégulière.",
+  "source": "annuaire"
+ },
+ "sz_pj": {
+  "nom": "Service zonal de police judiciaire",
+  "sigle": "SZPJ",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Enquête, sous la direction des magistrats, sur la grande criminalité et la délinquance organisée dans une zone de plusieurs régions : trafics, crimes violents, criminalité financière, et appuie les enquêteurs des départements.",
+  "source": "redaction"
+ },
+ "crfpn": {
+  "nom": "Service zonal du recrutement et de la formation de la police nationale",
+  "sigle": "SZRF",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Organise dans une grande zone les concours et le recrutement des policiers, informe les candidats sur les métiers de la police nationale et assure la formation continue des agents en poste.",
+  "source": "redaction"
+ },
+ "sz_rt": {
+  "nom": "Service zonal du renseignement territorial",
+  "sigle": "SZRT",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Recueille et analyse des informations sur une zone de plusieurs régions pour prévenir les troubles à l'ordre public, les violences, les dérives sectaires ou la radicalisation, et informe le préfet et le gouvernement.",
+  "source": "redaction"
+ },
+ "aav": {
+  "nom": "Association d'aide aux victimes",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Accueille gratuitement les victimes d'infractions dans le département : écoute, soutien psychologique, information sur leurs droits et accompagnement tout au long de la procédure judiciaire, souvent sur mandat de la justice.",
+  "source": "redaction"
+ },
+ "bav": {
+  "nom": "Bureau d'aide aux victimes du tribunal judiciaire",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Reçoit les victimes au sein du tribunal judiciaire, souvent le jour de l'audience : explique la procédure, aide à demander une indemnisation et oriente vers un avocat ou un soutien. Il est tenu par une association d'aide aux victimes.",
+  "source": "redaction"
+ },
+ "chambre_notaires": {
+  "nom": "Chambre départementale des notaires",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Représente et contrôle les notaires d'un ou plusieurs départements : veille au respect des règles de la profession, traite les réclamations des clients, forme les notaires et organise des consultations gratuites pour informer le public.",
+  "source": "annuaire"
+ },
+ "huissiers_justice": {
+  "nom": "Chambre régionale des commissaires de justice",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Représente et contrôle les commissaires de justice de la région, qui réunissent les anciens huissiers et commissaires-priseurs : veille au respect des règles de la profession, mène les enquêtes disciplinaires et traite les réclamations du public.",
+  "source": "annuaire"
+ },
+ "commission_conciliation": {
+  "nom": "Commission départementale de conciliation",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF06",
+  "resume": "Aide gratuitement bailleurs et locataires à régler un litige sans passer par le juge : loyer, charges, dépôt de garantie, état des lieux, réparations. Elle réunit à égalité des représentants des propriétaires et des locataires du département.",
+  "source": "annuaire"
+ },
+ "prudhommes": {
+  "nom": "Conseil de prud'hommes",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Règle les litiges individuels entre salariés et employeurs nés du contrat de travail : licenciement, salaires, heures supplémentaires. Il cherche d'abord un accord, puis juge, avec des juges élus issus à parts égales des salariés et des employeurs.",
+  "source": "redaction"
+ },
+ "cdad": {
+  "nom": "Conseil départemental d'accès au droit",
+  "sigle": "CDAD",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Organise dans le département l'accès gratuit à l'information juridique : crée et finance les points-justice, organise des consultations avec avocats, notaires ou juristes et coordonne les acteurs de la justice, les collectivités et les associations.",
+  "source": "redaction"
+ },
+ "caa": {
+  "nom": "Cour administrative d'appel",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Réexamine, sur appel, les jugements des tribunaux administratifs de son ressort, qui couvre plusieurs départements : litiges entre particuliers ou entreprises et administrations (impôts, urbanisme, droit des étrangers, fonction publique).",
+  "source": "annuaire"
+ },
+ "cour_appel": {
+  "nom": "Cour d'appel",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Rejuge les affaires civiles, commerciales, sociales et pénales déjà jugées en premier ressort par les tribunaux de son ressort, souvent plusieurs départements, lorsqu'une partie conteste la décision. Elle se prononce à nouveau sur les faits et le droit.",
+  "source": "redaction"
+ },
+ "dd_femmes": {
+  "nom": "Délégation départementale aux droits des femmes et à l'égalité",
+  "sigle": "DDDFE",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF10",
+  "resume": "Applique dans le département la politique de l'État pour l'égalité entre femmes et hommes : lutte contre les violences faites aux femmes, accès à l'emploi et égalité professionnelle, lutte contre les stéréotypes. Elle soutient les associations du secteur.",
+  "source": "annuaire"
+ },
+ "dr_femmes": {
+  "nom": "Direction régionale aux droits des femmes et à l'égalité",
+  "sigle": "DRDFE",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF10",
+  "resume": "Pilote dans la région la politique de l'État pour l'égalité entre femmes et hommes et contre les violences faites aux femmes. Elle anime les délégations départementales, répartit les crédits et finance les associations qui agissent sur ces sujets.",
+  "source": "redaction"
+ },
+ "drpjj": {
+  "nom": "Direction interrégionale de la protection judiciaire de la jeunesse",
+  "sigle": "DIRPJJ",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Pilote sur plusieurs régions l'action éducative de la justice auprès des mineurs poursuivis ou en danger : répartit les moyens, contrôle les services et foyers publics ou associatifs et anime les directions territoriales.",
+  "source": "redaction"
+ },
+ "drsp": {
+  "nom": "Direction interrégionale des services pénitentiaires",
+  "sigle": "DISP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Dirige sur plusieurs régions les prisons et les services d'insertion et de probation : affecte les détenus, gère les moyens et le personnel, et veille à l'exécution des peines et à la préparation de la réinsertion des personnes condamnées.",
+  "source": "annuaire"
+ },
+ "ofii": {
+  "nom": "Direction territoriale de l'Office français de l'immigration et de l'intégration",
+  "sigle": "OFII",
+  "famille": "operateur",
+  "administration": "op",
+  "fonction": "GF10",
+  "resume": "Accueille les étrangers autorisés à s'installer en France dans un ou plusieurs départements : contrat d'intégration, cours de français, formation civique, visite médicale. Elle gère aussi l'accueil et l'allocation des demandeurs d'asile et l'aide au retour.",
+  "source": "redaction"
+ },
+ "ddpjj": {
+  "nom": "Direction territoriale de la protection judiciaire de la jeunesse",
+  "sigle": "DTPJJ",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Met en œuvre dans le département les décisions des juges concernant les mineurs : suivi éducatif des jeunes délinquants, enquêtes sur leur situation, placements en foyer et insertion, avec des services publics et des associations habilitées.",
+  "source": "redaction"
+ },
+ "centre_detention": {
+  "nom": "Centre de détention",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Prison qui accueille des personnes condamnées à des peines de plus de deux ans jugées aptes à se réinsérer. Le régime de détention y est plus ouvert qu'en maison d'arrêt et met l'accent sur le travail, la formation et la préparation de la sortie.",
+  "source": "redaction"
+ },
+ "csl": {
+  "nom": "Centre de semi-liberté",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Accueille des personnes condamnées qui sortent la journée pour travailler, se former ou se soigner et reviennent le soir et le week-end. Ce régime prépare leur retour à une vie normale en fin de peine ou remplace une incarcération classique.",
+  "source": "redaction"
+ },
+ "centre_penitentiaire": {
+  "nom": "Centre pénitentiaire",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Prison qui regroupe plusieurs quartiers aux régimes différents, par exemple une maison d'arrêt pour les prévenus et les courtes peines et un centre de détention pour les peines plus longues, afin d'adapter la prise en charge à chaque détenu.",
+  "source": "redaction"
+ },
+ "maison_centrale": {
+  "nom": "Maison centrale",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Prison à haut niveau de sécurité qui accueille les personnes condamnées aux plus longues peines ou présentant les risques d'évasion les plus élevés. Elle organise aussi pour eux le travail, les soins et les activités pendant la détention.",
+  "source": "redaction"
+ },
+ "maison_arret": {
+  "nom": "Maison d'arrêt",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Prison qui reçoit les personnes en attente de jugement, placées en détention provisoire, et les condamnés à de courtes peines, en général deux ans au plus. Elle est souvent proche d'un tribunal et prépare l'orientation ou la sortie des détenus.",
+  "source": "redaction"
+ },
+ "esm": {
+  "nom": "Établissement pénitentiaire pour mineurs",
+  "sigle": "EPM",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Prison réservée aux mineurs de 13 à 18 ans placés en détention. Surveillants, éducateurs de la protection judiciaire de la jeunesse et enseignants y assurent ensemble la scolarité, les activités et la préparation de la sortie de chaque jeune.",
+  "source": "redaction"
+ },
+ "ordre_avocats": {
+  "nom": "Ordre des avocats",
+  "sigle": null,
+  "famille": "consulaire",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Regroupe les avocats inscrits auprès d'un tribunal judiciaire, appelés le barreau : veille au respect de leur déontologie, traite les réclamations, organise les permanences d'avocats commis d'office et des consultations juridiques gratuites.",
+  "source": "redaction"
+ },
+ "plateforme_naturalisation": {
+  "nom": "Plateforme de naturalisation",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF01",
+  "resume": "Instruit, pour plusieurs départements, les demandes d'acquisition de la nationalité française : examen du dossier, entretien d'assimilation avec le demandeur, puis avis transmis au ministère de l'Intérieur, qui prend la décision.",
+  "source": "redaction"
+ },
+ "point_justice": {
+  "nom": "Point-justice",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF03",
+  "resume": "Offre près de chez soi une information juridique gratuite et confidentielle : droits, démarches, conflits de voisinage, de famille ou de travail. Des juristes, avocats ou associations y tiennent des permanences, en mairie ou dans d'autres lieux d'accueil.",
+  "source": "redaction"
+ },
+ "mjd": {
+  "nom": "Maison de justice et du droit",
+  "sigle": "MJD",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Rapproche la justice des habitants d'une ville ou d'un quartier : information juridique gratuite, consultations d'avocats, aide aux victimes, conciliation et médiation, et suivi de certaines mesures pénales. Elle fonctionne avec le tribunal et la commune.",
+  "source": "redaction"
+ },
+ "vif_ca": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales de la cour d'appel",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Coordonne à la cour d'appel le traitement des violences conjugales et familiales en appel : il rapproche les volets civil et pénal des dossiers, pour mieux protéger les victimes et les enfants et accélérer les décisions.",
+  "source": "redaction"
+ },
+ "vif_tj": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales du tribunal judiciaire",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Réunit au tribunal judiciaire des juges et procureurs spécialisés dans les violences conjugales et familiales. Il traite ensemble les volets civil et pénal, comme l'ordonnance de protection et les poursuites, pour protéger plus vite les victimes.",
+  "source": "redaction"
+ },
+ "spip": {
+  "nom": "Service pénitentiaire d'insertion et de probation",
+  "sigle": "SPIP",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Suit dans le département les personnes condamnées, en prison ou en dehors : contrôle les obligations fixées par le juge, comme le bracelet électronique ou le travail d'intérêt général, et prépare leur réinsertion pour éviter la récidive.",
+  "source": "redaction"
+ },
+ "ta": {
+  "nom": "Tribunal administratif",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge en premier ressort les litiges entre les particuliers ou les entreprises et les administrations de son ressort : impôts, permis de construire, titres de séjour, fonction publique, marchés publics, décisions des collectivités.",
+  "source": "redaction"
+ },
+ "tribunal_commerce": {
+  "nom": "Tribunal de commerce",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge les litiges entre commerçants et entre sociétés commerciales et traite les entreprises en difficulté : prévention, sauvegarde, redressement ou liquidation. Ses juges sont des chefs d'entreprise bénévoles élus par leurs pairs.",
+  "source": "redaction"
+ },
+ "ti": {
+  "nom": "Tribunal de proximité",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Implantation locale d'un tribunal judiciaire qui traite les affaires du quotidien : petits litiges civils, loyers impayés, surendettement, tutelles des personnes vulnérables et certaines infractions. Il évite aux habitants de se déplacer au siège du tribunal.",
+  "source": "redaction"
+ },
+ "tae": {
+  "nom": "Tribunal des activités économiques",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Remplace, à titre expérimental dans quelques villes, le tribunal de commerce. Il juge les litiges entre commerçants et traite les difficultés de presque toutes les entreprises : sociétés, artisans, agriculteurs, associations et la plupart des professions libérales.",
+  "source": "redaction"
+ },
+ "tgi": {
+  "nom": "Tribunal judiciaire",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge en premier ressort la plupart des litiges civils (famille, divorce, logement, dettes, héritage) et les infractions pénales, des délits jugés en correctionnelle aux crimes jugés par la cour criminelle. Son ressort couvre une partie d'un département.",
+  "source": "redaction"
+ },
+ "te": {
+  "nom": "Tribunal pour enfants",
+  "sigle": null,
+  "famille": "juridiction",
+  "administration": "etat",
+  "fonction": "GF03",
+  "resume": "Juge les mineurs auteurs de délits ou de crimes les moins graves, en privilégiant les mesures éducatives. Le juge des enfants y protège aussi les mineurs en danger dans leur famille, par exemple en ordonnant un suivi éducatif ou un placement.",
+  "source": "redaction"
+ },
+ "ad": {
+  "nom": "Archives départementales",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF08",
+  "resume": "Collectent, classent et conservent les archives publiques du département (État, collectivités, notaires…) et conseillent ceux qui les produisent. Elles ouvrent ces documents au public, en salle de lecture et en ligne, pour l'histoire et la généalogie.",
+  "source": "annuaire"
+ },
+ "bibli": {
+  "nom": "Bibliothèque départementale de prêt",
+  "sigle": null,
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF08",
+  "resume": "Service du département qui développe la lecture publique : prête livres et autres supports aux bibliothèques des petites communes, conseille et forme leurs équipes, souvent bénévoles, et prête des expositions et des outils d'animation.",
+  "source": "annuaire"
+ },
+ "crib": {
+  "nom": "Centre de ressources et d'information des bénévoles",
+  "sigle": "Crib",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF08",
+  "resume": "Informe et conseille gratuitement les bénévoles et dirigeants d'associations sur la gestion courante : statuts, comptabilité, emploi, fiscalité, assurances. Il est labellisé par l'État et souvent porté par une association du département.",
+  "source": "redaction"
+ },
+ "caue": {
+  "nom": "Conseil d'architecture, d'urbanisme et de l'environnement",
+  "sigle": "CAUE",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF06",
+  "resume": "Conseille gratuitement les particuliers, les élus et les professionnels du département sur leurs projets de construction, d'aménagement ou de paysage, sans réaliser les travaux. Il sensibilise aussi le public à la qualité du cadre de vie.",
+  "source": "annuaire"
+ },
+ "conseil_culture": {
+  "nom": "Conseil de la culture, de l'éducation et de l'environnement",
+  "sigle": "CCEE",
+  "famille": "collectivite",
+  "administration": "coll",
+  "fonction": "GF08",
+  "resume": "Assemblée consultative de la collectivité dans certains territoires d'outre-mer : donne son avis sur les plans et budgets dans la culture, les langues régionales, le patrimoine, l'éducation, le sport, l'environnement et le tourisme.",
+  "source": "annuaire"
+ },
+ "drajes": {
+  "nom": "Délégation régionale académique à la jeunesse, à l'engagement et aux sports",
+  "sigle": "Drajes",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Pilote dans la région les politiques de l'État pour la jeunesse, la vie associative et le sport : soutient l'engagement des jeunes, finance les associations, coordonne le service civique et veille à la sécurité des activités sportives.",
+  "source": "annuaire"
+ },
+ "ddva": {
+  "nom": "Délégué départemental à la vie associative",
+  "sigle": "DDVA",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Anime et soutient la vie associative dans le département pour l'État : coordonne les points d'accueil et d'information des associations, recueille leurs besoins et suit l'évolution du tissu associatif local.",
+  "source": "annuaire"
+ },
+ "drva": {
+  "nom": "Délégué régional à la vie associative",
+  "sigle": "DRVA",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Coordonne pour l'État la politique de soutien aux associations dans la région : anime le réseau des délégués départementaux, suit les financements publics destinés aux associations et favorise le bénévolat et l'engagement.",
+  "source": "redaction"
+ },
+ "drac": {
+  "nom": "Direction régionale des affaires culturelles",
+  "sigle": "Drac",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Représente le ministère de la Culture dans la région : protège les monuments historiques et le patrimoine, contrôle l'archéologie, soutient les musées, le spectacle vivant, le livre et la création, et développe l'éducation artistique.",
+  "source": "redaction"
+ },
+ "fdapp": {
+  "nom": "Fédération départementale pour la pêche et la protection du milieu aquatique",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF05",
+  "resume": "Regroupe les associations de pêche du département : protège et restaure les rivières et les plans d'eau, gère les populations de poissons, surveille la pêche avec ses gardes et développe la pratique, notamment auprès des jeunes.",
+  "source": "redaction"
+ },
+ "fdc": {
+  "nom": "Fédération départementale des chasseurs",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF05",
+  "resume": "Organise la chasse dans le département : forme les candidats au permis de chasser, valide les permis, participe à la gestion de la faune sauvage et indemnise les agriculteurs pour les dégâts causés aux cultures par le grand gibier.",
+  "source": "redaction"
+ },
+ "prefecture_greffe_associations": {
+  "nom": "Greffe des associations",
+  "sigle": null,
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Enregistre en préfecture ou sous-préfecture les déclarations de création, de modification et de dissolution des associations et tient à jour le répertoire national des associations. Il aide aussi les associations dans ces démarches.",
+  "source": "annuaire"
+ },
+ "cij": {
+  "nom": "Information jeunesse",
+  "sigle": null,
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF08",
+  "resume": "Informe gratuitement et sans rendez-vous les jeunes sur les études, l'emploi, le logement, la santé, les loisirs ou les séjours à l'étranger. Ces lieux Info Jeunes sont labellisés par l'État et portés par des communes ou des associations.",
+  "source": "redaction"
+ },
+ "maia": {
+  "nom": "Mission d'accueil et d'information des associations",
+  "sigle": "Maia",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Réseau départemental animé par l'État qui réunit les points d'appui aux associations : il oriente et informe bénévoles et porteurs de projets associatifs et leur propose des formations pour créer, gérer et développer leur association.",
+  "source": "annuaire"
+ },
+ "sdjes": {
+  "nom": "Service départemental à la jeunesse, à l'engagement et aux sports",
+  "sigle": "SDJES",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Met en œuvre dans le département la politique de l'État pour la jeunesse, le sport et la vie associative : service civique, accueils collectifs de mineurs, contrôle des établissements sportifs, soutien aux associations et à l'éducation populaire.",
+  "source": "annuaire"
+ },
+ "urcaue": {
+  "nom": "Union régionale des conseils d'architecture, d'urbanisme et de l'environnement",
+  "sigle": "URCAUE",
+  "famille": "association",
+  "administration": "hors",
+  "fonction": "GF06",
+  "resume": "Coordonne à l'échelle de la région les conseils d'architecture, d'urbanisme et de l'environnement des départements : mène des actions communes d'information et de sensibilisation du public et noue des partenariats régionaux.",
+  "source": "annuaire"
+ },
+ "sdac": {
+  "nom": "Unité départementale de l'architecture et du patrimoine",
+  "sigle": "Udap",
+  "famille": "etat",
+  "administration": "etat",
+  "fonction": "GF08",
+  "resume": "Veille dans le département à la qualité de l'architecture et des paysages : ses architectes des bâtiments de France donnent leur avis sur les travaux près des monuments ou dans les sites protégés et suivent la conservation des monuments historiques.",
+  "source": "annuaire"
+ }
+}
