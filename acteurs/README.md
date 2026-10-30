@@ -33,6 +33,7 @@ administrations ou des fonctions ; les montants des blocs ne comptent alors que 
 | `scripts/hierarchie.mjs` | Suit, dans l'API de l'annuaire, les « services fils » de chaque fiche nationale, niveau par niveau |
 | `sources/hierarchie.json` | Résultat brut : chaque service (nom, sigle, type, lien) et ses services fils |
 | `config/resumes.json` | Pour chaque organisation : nom usuel, sigle, nature (`famille`), `administration` (`etat`, `secu`, `coll`, `op`, `hors`) et `fonction` (code COFOG `GF01` à `GF10`) selon les règles de la comptabilité nationale, résumé, et `source` (`annuaire` si le résumé s'appuie sur le texte de l'annuaire, `redaction` sinon) |
+| `config/budget-etat.json` | Pour chaque service de l'État : les programmes du budget général qui le financent (`P156`), ou l'action qui lui correspond (`P308/02` pour la CNIL) ; pour un ministère, ses libellés de ministère dans le budget (tous ses programmes, hors pouvoirs publics) ; ou une `note` quand il n'a pas de ligne propre (budget annexe, autofinancement, moyens de la préfecture). Écrit à la main |
 | `scripts/construire.mjs` | Assemble `donnees/acteurs.json`, avec les dépenses par administration et par fonction de la page budget (`budget/donnees/argent-public-AAAA.json`, dernière année Insee) ; s'arrête si une organisation n'a pas de résumé ou de classement, ou si un résumé ne correspond plus à rien |
 | `donnees/acteurs.json` | Données de la page, publiées à côté |
 | `donnees/services.json` | Services rattachés, sous forme compacte (un service par ligne, ses fils désignés par leur numéro) ; la page en crée les encarts à l'ouverture |
@@ -58,11 +59,21 @@ de l'énergie) des opérateurs ; la Banque de France et la Caisse des dépôts n
 administrations publiques. Chaque organisation n'a qu'une fonction, la principale ; la recherche
 fondamentale (CNRS) est dans les services généraux, comme dans la COFOG.
 
+## Budget de l'État
+
+146 des 151 services de l'État ont un montant, tiré de `budget/donnees/budget-etat-AAAA.json` et
+`detail-etat-AAAA.json` (même année que les dépenses Insee). Un programme entier compte pour sa
+dépense exécutée ; une action, pour le montant prévu par la loi de finances (l'exécution n'est
+publiée que par programme). Quand plusieurs réseaux se partagent les mêmes crédits (programme 156
+pour les impôts, 176 pour la police, 152 pour la gendarmerie, 166 pour les tribunaux…), le montant
+est marqué « partagé » et la fiche liste les autres réseaux : il ne leur est pas propre. Le montant
+d'un ministère comprend ceux de ses services et les subventions à ses opérateurs : les montants ne
+s'additionnent pas.
+
 ## À venir
 
-- **Montant de chaque organisation**, avec une vue en rectangles à l'échelle (bascule avec le
-  mur) : programmes et actions du budget de l'État (déjà dans `budget/donnees/detail-etat-AAAA.json`),
-  annexe « jaune » des opérateurs, comptes de la sécurité sociale et des collectivités.
+- **Montants hors État**, avec une vue en rectangles à l'échelle (bascule avec le mur) : annexe
+  « jaune » des opérateurs, comptes de la sécurité sociale et des collectivités.
 - **Effectifs** de chaque organisation : emplois des opérateurs (annexe « jaune » du PLF),
   plafonds d'emplois des ministères, fonction publique territoriale et hospitalière (Insee,
   Siasp), organismes de sécurité sociale (Ucanss).

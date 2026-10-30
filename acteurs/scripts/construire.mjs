@@ -75,7 +75,8 @@ function ajouter(cle, brut, theme) {
     // d'une autre structure (Maison départementale de l'autonomie, aide aux victimes…).
     mission_annuaire: r.source === 'annuaire' ? brut.mission || null : null,
     themes: [theme],
-    montant: null, // à venir
+    montant: null, // millions d'euros, pour les services de l'État (voir plus bas)
+    budget: null,
     effectifs: null, // à venir
   });
 }
@@ -87,6 +88,46 @@ for (const t of A.themes) for (const ty of t.types) {
   }
 }
 for (const cle of Object.keys(R)) if (!orgs.has(cle)) erreurs.push(`résumé sans organisation dans l'annuaire : ${cle}`);
+
+// Budget de l'État (config/budget-etat.json) : chaque service de l'État est rattaché à des
+// programmes du budget général, ou à des actions quand l'une lui correspond (CNIL, tribunaux
+// administratifs…) ; un ministère reçoit tous ses programmes, hors pouvoirs publics (5xx), qui vont
+// aux institutions. Programme entier : dépense exécutée ; action : montant prévu par la loi de
+// finances (l'exécution n'est publiée que par programme). Une ligne utilisée par plusieurs services
+// est signalée comme partagée.
+const BE = await lire(`../budget/donnees/budget-etat-${annee}.json`);
+const DE = await lire(`../budget/donnees/detail-etat-${annee}.json`);
+const CB = await lire('config/budget-etat.json');
+const programmeDe = Object.fromEntries(BE.programmes.map(p => [p.programme, p]));
+for (const [cle, c] of Object.entries(CB)) {
+  const o = orgs.get(cle);
+  if (!o) { erreurs.push(`budget de l'État : organisation inconnue ${cle}`); continue; }
+  if (o.administration !== 'etat') erreurs.push(`budget de l'État : ${cle} n'est pas un service de l'État`);
+  const lignes = [];
+  for (const m of c.ministere || []) {
+    const ps = BE.programmes.filter(p => p.ministere === m && !p.programme.startsWith('5'));
+    if (!ps.length) erreurs.push(`${cle} : ministère inconnu dans le budget « ${m} »`);
+    for (const p of ps) lignes.push({ programme: p.programme, libelle: p.libelle, montant: DE.programmes[p.programme]?.cp.depenses ?? p.depenses, base: 'execution' });
+  }
+  for (const l of c.lignes || []) {
+    const [, pr, ac] = l.match(/^P(\d+)(?:\/(\w+))?$/) || [];
+    const p = programmeDe[pr], d = DE.programmes[pr];
+    if (!p || !d) { erreurs.push(`${cle} : programme inconnu ${l}`); continue; }
+    if (!ac) { lignes.push({ programme: pr, libelle: p.libelle, montant: d.cp.depenses, base: 'execution' }); continue; }
+    const a = d.actions.find(x => x.code === ac);
+    if (!a) { erreurs.push(`${cle} : action inconnue ${l}`); continue; }
+    lignes.push({ programme: pr, libelle: p.libelle, action: ac, action_libelle: a.libelle, montant: a.cp, base: 'prevision' });
+  }
+  o.budget = { ministere: Boolean(c.ministere), note: c.note || null, lignes, partage_avec: [] };
+  o.montant = lignes.length ? Math.round(lignes.reduce((s, l) => s + l.montant, 0) * 1000) / 1000 : null;
+}
+// Lignes partagées entre services (hors ministères) : même programme, et l'un des deux le prend
+// entier ou les deux la même action.
+const servicesEtat = [...orgs.values()].filter(o => o.budget?.lignes.length && !o.budget.ministere);
+const recoupe = (a, b) => a.programme === b.programme && (!a.action || !b.action || a.action === b.action);
+for (const o of servicesEtat) {
+  o.budget.partage_avec = servicesEtat.filter(x => x !== o && x.budget.lignes.some(l => o.budget.lignes.some(m => recoupe(l, m)))).map(x => x.cle);
+}
 if (erreurs.length) { console.error(erreurs.join('\n')); process.exit(1); }
 
 // Administrations avec leur dépense totale et par fonction (milliards d'euros, comme la page budget).
@@ -108,7 +149,8 @@ const sortie = join(RACINE, 'donnees/acteurs.json');
 await mkdir(dirname(sortie), { recursive: true });
 await writeFile(sortie, JSON.stringify({
   lu_le: A.lu_le, source: A.source,
-  montants: { annee: Number(annee), unite: "milliards d'euros", source: `Insee, comptes de la Nation ${annee} : dépenses consolidées des administrations publiques par fonction (tableau 3.307), reprises de la page budget` },
+  montants: { annee: Number(annee), unite: "milliards d'euros", source: `Insee, comptes de la Nation ${annee} : dépenses consolidées des administrations publiques par fonction (tableau 3.307), reprises de la page budget`,
+    budget_etat: { unite: "millions d'euros", source: `Budget général de l'État ${annee} : dépenses exécutées par programme (loi d'approbation des comptes) et répartition par action prévue par le projet de loi de finances, reprises de la page budget` } },
   administrations, fonctions, natures: NATURES,
   organisations: [...orgs.values()],
 }) + '\n');

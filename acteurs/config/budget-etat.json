@@ -1,0 +1,865 @@
+{
+ "ambassades": {
+  "nom": "Ambassade de France",
+  "lignes": [
+   "P105/07"
+  ]
+ },
+ "3f2b1594-e8af-41a6-a470-80c97f7b40be": {
+  "nom": "Autorité de contrôle des nuisances aéroportuaires",
+  "lignes": [
+   "P217/26"
+  ]
+ },
+ "dcb1b07e-82e0-4ac9-809e-eff760af96e3": {
+  "nom": "Autorité de régulation des communications électroniques, des postes et de la distribution de la presse",
+  "lignes": [
+   "P134/13"
+  ]
+ },
+ "9c7e6b7c-b793-40b2-a19b-a7dfeaa4792e": {
+  "nom": "Autorité de la concurrence",
+  "lignes": [
+   "P134/15"
+  ]
+ },
+ "08dc354d-87d2-4b70-9fe3-044969aab4fa": {
+  "nom": "Commission d'accès aux documents administratifs",
+  "lignes": [
+   "P308/06"
+  ]
+ },
+ "1dc7dfec-59f1-4b5d-8590-148802439fe5": {
+  "nom": "Commission du secret de la défense nationale",
+  "lignes": [
+   "P308/13"
+  ]
+ },
+ "ef9e5e6e-5937-4509-98b6-e2365166537c": {
+  "nom": "Contrôleur général des lieux de privation de liberté",
+  "lignes": [
+   "P308/05"
+  ]
+ },
+ "9bee7a63-09e4-4d69-b38f-324208a86086": {
+  "nom": "Commission nationale des comptes de campagne et des financements politiques",
+  "lignes": [
+   "P232/03"
+  ]
+ },
+ "e5c7226e-a87e-4b1d-8c32-eb3aadecb213": {
+  "nom": "Commission nationale de contrôle des techniques de renseignement",
+  "lignes": [
+   "P308/12"
+  ]
+ },
+ "e63f08bc-532f-4afd-8fcc-adb0e6965980": {
+  "nom": "Commission nationale du débat public",
+  "lignes": [
+   "P217/25"
+  ]
+ },
+ "785c85d5-8400-4545-9a0b-9fa47b23ef6e": {
+  "nom": "Commission nationale de l'informatique et des libertés",
+  "lignes": [
+   "P308/02"
+  ]
+ },
+ "088a9028-dfcd-431b-acf8-2e99d70d0c65": {
+  "nom": "Commission de régulation de l'énergie",
+  "lignes": [
+   "P217/27"
+  ]
+ },
+ "1867f065-c823-4362-8d0f-8ca6b011a10f": {
+  "nom": "Défenseur des droits",
+  "lignes": [
+   "P308/09"
+  ]
+ },
+ "6b3a3ea8-2808-4246-9be8-61ce80e569fd": {
+  "nom": "Haute Autorité pour la transparence de la vie publique",
+  "lignes": [
+   "P308/10"
+  ]
+ },
+ "1ad32e5b-c83c-472d-b3cc-6d7453f88b36": {
+  "nom": "Présidence de la République",
+  "lignes": [
+   "P501"
+  ]
+ },
+ "33090c40-44e9-45f2-aace-1682c73e2048": {
+  "nom": "Conseil constitutionnel",
+  "lignes": [
+   "P531"
+  ]
+ },
+ "f354c570-1a88-478c-8637-6f2e4f44e83b": {
+  "nom": "Conseil supérieur de la magistrature",
+  "lignes": [
+   "P335"
+  ]
+ },
+ "bffc950d-cc09-4a75-abab-97f7350a05d7": {
+  "nom": "Assemblée nationale",
+  "lignes": [
+   "P511"
+  ]
+ },
+ "59003280-8fff-4bc0-b5df-a27299c4d588": {
+  "nom": "Sénat",
+  "lignes": [
+   "P521"
+  ]
+ },
+ "6d3b7be4-3b13-45da-9836-4766e37bc569": {
+  "nom": "Cour des comptes",
+  "lignes": [
+   "P164"
+  ]
+ },
+ "f15a80e8-f453-4745-a03e-6aeabc998e2c": {
+  "nom": "Conseil économique, social et environnemental",
+  "lignes": [
+   "P126"
+  ]
+ },
+ "003022d4-6d9c-450d-a4a3-4a3c43c4a340": {
+  "nom": "Conseil d'État",
+  "lignes": [
+   "P165/01"
+  ]
+ },
+ "c67a8733-b51c-49c4-9b5f-d319ddcb5df6": {
+  "nom": "Cour de cassation",
+  "lignes": [
+   "P166/03"
+  ]
+ },
+ "c24a4549-49a3-45bd-be9c-ea08266cabd9": {
+  "nom": "Cour de justice de la République",
+  "lignes": [
+   "P533"
+  ]
+ },
+ "9b240c4d-14e3-4066-8f14-de09c687d63a": {
+  "nom": "Cour nationale du droit d'asile",
+  "lignes": [
+   "P165/07"
+  ]
+ },
+ "a515667c-6dc0-4544-a1a8-2cf13d7da23b": {
+  "nom": "Premier ministre",
+  "ministere": [
+   "Services du Premier ministre"
+  ]
+ },
+ "9f101ac7-9a0e-4d62-8b27-8109876dff94": {
+  "nom": "Ministère de l'Action et des Comptes publics",
+  "ministere": [
+   "Budget et comptes publics"
+  ]
+ },
+ "45e488a2-c977-487f-b62f-19b4d6504d9c": {
+  "nom": "Ministère de l'Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire",
+  "ministere": [
+   "Agriculture, souveraineté alimentaire et forêt"
+  ]
+ },
+ "7b9ab6ab-c8e4-4cfd-a63b-02416d0d5551": {
+  "nom": "Ministère de l'Aménagement du Territoire et de la Décentralisation",
+  "ministere": [
+   "Partenariat avec les collectivités territoriales et décentralisation"
+  ]
+ },
+ "d24d1af2-c506-4b10-82e8-ab92b8e959d2": {
+  "nom": "Ministère des Armées et des Anciens combattants",
+  "ministere": [
+   "Armées et anciens combattants"
+  ]
+ },
+ "da1d6275-6710-485d-a249-282cac69dfe7": {
+  "nom": "Ministère de la Culture",
+  "ministere": [
+   "Culture"
+  ]
+ },
+ "c4195774-f535-4d82-b03f-d5f0c6b08635": {
+  "nom": "Ministère de l'Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique",
+  "ministere": [
+   "Économie, finances et industrie"
+  ]
+ },
+ "3ed2f725-e077-4973-a531-498e13fc7861": {
+  "nom": "Ministère de l'Éducation nationale",
+  "ministere": [
+   "Éducation nationale"
+  ]
+ },
+ "4ca60afd-3886-434c-80bb-f6bc55581323": {
+  "nom": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Espace",
+  "ministere": [
+   "Enseignement supérieur et recherche"
+  ]
+ },
+ "ac1a7fdb-50f4-4599-b306-ec06b7250965": {
+  "nom": "Ministère de l'Europe et des Affaires étrangères",
+  "ministere": [
+   "Europe et affaires étrangères"
+  ]
+ },
+ "fa33b07a-3f71-46d4-b682-569c9faf211e": {
+  "nom": "Ministère de l'Intérieur",
+  "ministere": [
+   "Intérieur"
+  ]
+ },
+ "7bc12104-b232-46a6-a6d7-85bcf2dfccf1": {
+  "nom": "Ministère de la Justice",
+  "ministere": [
+   "Justice"
+  ]
+ },
+ "0dd547d8-44fb-4af8-8768-dc8a95614f0d": {
+  "nom": "Ministère des Outre-mer",
+  "ministere": [
+   "Outre-Mer"
+  ]
+ },
+ "d46810a3-6ed7-4a94-b950-1be135e43ad3": {
+  "nom": "Ministère de la Santé, des Familles, de l'Autonomie et des Personnes handicapées",
+  "ministere": [
+   "Santé et accès aux soins",
+   "Solidarités, autonomie et égalité entre les femmes et les hommes"
+  ]
+ },
+ "2fd089d2-669f-4a91-80b2-b345db391349": {
+  "nom": "Ministère des Sports, de la Jeunesse et de la Vie associative",
+  "ministere": [
+   "Sports, jeunesse et vie associative"
+  ]
+ },
+ "05f90b6a-e3d9-4a41-a919-2e2f2d77e517": {
+  "nom": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
+  "ministere": [
+   "Transition écologique, énergie, climat et prévention des risques"
+  ]
+ },
+ "0c78ef90-614a-4fcb-b7af-449f6c66f6b6": {
+  "nom": "Ministère des Transports",
+  "lignes": [
+   "P203"
+  ]
+ },
+ "f130ad96-4a81-4eb4-a40c-0539edad5fff": {
+  "nom": "Ministère du Travail et des Solidarités",
+  "ministere": [
+   "Travail et emploi"
+  ]
+ },
+ "051be6c4-2693-45e0-9644-b84049e57f02": {
+  "nom": "Ministère de la Ville et du Logement",
+  "ministere": [
+   "Logement et rénovation urbaine"
+  ]
+ },
+ "point_accueil_numerique": {
+  "nom": "Point d'accueil numérique",
+  "lignes": [
+   "P354/02"
+  ]
+ },
+ "prefecture": {
+  "nom": "Préfecture",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "prefecture_region": {
+  "nom": "Préfecture de région",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "sous_pref": {
+  "nom": "Sous-préfecture",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "ddcspp": {
+  "nom": "Direction départementale de l'emploi, du travail, des solidarités et de la protection des populations",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "ddpp": {
+  "nom": "Direction départementale de la protection des populations",
+  "lignes": [
+   "P206/06"
+  ]
+ },
+ "ddets": {
+  "nom": "Direction départementale de l'emploi, du travail et des solidarités",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "direccte": {
+  "nom": "Direction régionale de l'économie, de l'emploi, du travail et des solidarités",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "droit_travail": {
+  "nom": "Service de renseignement en droit du travail",
+  "lignes": [
+   "P155/16"
+  ]
+ },
+ "bureau_de_douane": {
+  "nom": "Bureau de douane",
+  "lignes": [
+   "P302"
+  ]
+ },
+ "centre_impots_fonciers": {
+  "nom": "Centre des impôts foncier",
+  "lignes": [
+   "P156/03"
+  ]
+ },
+ "codefi": {
+  "nom": "Comité départemental d'examen des difficultés des entreprises",
+  "note": "Comité réuni par le préfet avec les services des finances publiques et de la Banque de France, sans budget propre."
+ },
+ "ccsf": {
+  "nom": "Commission des chefs des services financiers",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "conciliateur_fiscal": {
+  "nom": "Conciliateur fiscal départemental",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "crc": {
+  "nom": "Chambre régionale ou territoriale des comptes",
+  "lignes": [
+   "P164"
+  ]
+ },
+ "dd_fip": {
+  "nom": "Direction départementale des finances publiques",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "draf": {
+  "nom": "Direction régionale de l'alimentation, de l'agriculture et de la forêt",
+  "lignes": [
+   "P215/03"
+  ]
+ },
+ "dr_insee": {
+  "nom": "Direction régionale de l'Insee",
+  "lignes": [
+   "P220/06"
+  ]
+ },
+ "dr_fip": {
+  "nom": "Direction régionale des finances publiques",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "drddi": {
+  "nom": "Direction régionale ou interrégionale des douanes et droits indirects",
+  "lignes": [
+   "P302"
+  ]
+ },
+ "dcf": {
+  "nom": "Direction spécialisée du contrôle fiscal",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "paierie_departementale": {
+  "nom": "Paierie départementale",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "paierie_regionale": {
+  "nom": "Paierie régionale",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "prs": {
+  "nom": "Pôle de recouvrement spécialisé",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "hypotheque": {
+  "nom": "Service de la publicité foncière",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "sde": {
+  "nom": "Service départemental de l'enregistrement",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "sie": {
+  "nom": "Service des impôts des entreprises",
+  "lignes": [
+   "P156/02"
+  ]
+ },
+ "sip": {
+  "nom": "Service des impôts des particuliers",
+  "lignes": [
+   "P156/03"
+  ]
+ },
+ "tresorerie": {
+  "nom": "Trésorerie",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "cio": {
+  "nom": "Centre d'information et d'orientation",
+  "lignes": [
+   "P141/08"
+  ]
+ },
+ "inspection_academique": {
+  "nom": "Direction des services départementaux de l'Éducation nationale",
+  "lignes": [
+   "P214"
+  ]
+ },
+ "greta": {
+  "nom": "Groupement d'établissements pour la formation continue",
+  "note": "Financés surtout par la vente de formations (entreprises, régions, France Travail), pas par une ligne du budget de l'État."
+ },
+ "rectorat": {
+  "nom": "Rectorat",
+  "lignes": [
+   "P214"
+  ]
+ },
+ "ber": {
+  "nom": "Bureau de l'éducation routière",
+  "lignes": [
+   "P207/03"
+  ]
+ },
+ "cnra": {
+  "nom": "Centre en route de la navigation aérienne",
+  "note": "Financé par le budget annexe « Contrôle et exploitation aériens » (redevances de navigation aérienne), hors budget général de l'État."
+ },
+ "dml": {
+  "nom": "Délégation à la mer et au littoral",
+  "lignes": [
+   "P217/11"
+  ]
+ },
+ "dac": {
+  "nom": "Direction de la sécurité de l'aviation civile",
+  "note": "Financée par le budget annexe « Contrôle et exploitation aériens » (taxes et redevances du transport aérien), hors budget général de l'État."
+ },
+ "ddt": {
+  "nom": "Direction départementale des territoires (et de la mer)",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "did_routes": {
+  "nom": "Direction interdépartementale des routes",
+  "lignes": [
+   "P217/08"
+  ]
+ },
+ "dir_mer": {
+  "nom": "Direction interrégionale de la mer",
+  "lignes": [
+   "P205"
+  ]
+ },
+ "dreal": {
+  "nom": "Direction régionale de l'environnement, de l'aménagement et du logement",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "dreal_ut": {
+  "nom": "Unité départementale de la Dreal",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drieat": {
+  "nom": "Direction régionale et interdépartementale de l'environnement, de l'aménagement et des transports d'Île-de-France",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drieat_ut": {
+  "nom": "Unité départementale de la Drieat",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drihl": {
+  "nom": "Direction régionale et interdépartementale de l'hébergement et du logement d'Île-de-France",
+  "lignes": [
+   "P177"
+  ]
+ },
+ "drihl_ut": {
+  "nom": "Unité départementale de la Drihl",
+  "lignes": [
+   "P177"
+  ]
+ },
+ "gendarmerie": {
+  "nom": "Brigade de gendarmerie",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "gendarmerie_moto": {
+  "nom": "Brigade motorisée de gendarmerie",
+  "lignes": [
+   "P152/02"
+  ]
+ },
+ "cirgn": {
+  "nom": "Centre d'information et de recrutement de la gendarmerie nationale",
+  "lignes": [
+   "P152/04"
+  ]
+ },
+ "cirfa": {
+  "nom": "Centre d'information et de recrutement des forces armées",
+  "lignes": [
+   "P212/06"
+  ]
+ },
+ "bsn": {
+  "nom": "Centre du service national et de la jeunesse",
+  "lignes": [
+   "P212/65"
+  ]
+ },
+ "commissariat_police": {
+  "nom": "Commissariat de police",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "dmd": {
+  "nom": "Délégation militaire départementale",
+  "lignes": [
+   "P212/11"
+  ]
+ },
+ "ddpn_dipn": {
+  "nom": "Direction départementale ou interdépartementale de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "dir_pj": {
+  "nom": "Direction territoriale de la police judiciaire",
+  "lignes": [
+   "P176/05"
+  ]
+ },
+ "dzpn": {
+  "nom": "Direction zonale de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "emzpn": {
+  "nom": "État-major zonal de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "gendarmerie_departementale": {
+  "nom": "Groupement de gendarmerie départementale",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "gendarmerie_montagne": {
+  "nom": "Peloton de gendarmerie de haute montagne",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "paris_ppp": {
+  "nom": "Préfecture de police de Paris",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "paris_ppp_gesvres": {
+  "nom": "Préfecture de police de Paris - site de Gesvres",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "pp_marseille": {
+  "nom": "Préfecture de police des Bouches-du-Rhône",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "sgami": {
+  "nom": "Secrétariat général pour l'administration du ministère de l'Intérieur",
+  "lignes": [
+   "P176/06"
+  ]
+ },
+ "dz_paf": {
+  "nom": "Service zonal de la police aux frontières",
+  "lignes": [
+   "P176/04"
+  ]
+ },
+ "sz_pj": {
+  "nom": "Service zonal de police judiciaire",
+  "lignes": [
+   "P176/05"
+  ]
+ },
+ "crfpn": {
+  "nom": "Service zonal du recrutement et de la formation de la police nationale",
+  "lignes": [
+   "P176/06"
+  ]
+ },
+ "sz_rt": {
+  "nom": "Service zonal du renseignement territorial",
+  "lignes": [
+   "P176/01"
+  ]
+ },
+ "commission_conciliation": {
+  "nom": "Commission départementale de conciliation",
+  "note": "Commission placée auprès du préfet : ses moyens sont ceux de la préfecture (programme 354)."
+ },
+ "prudhommes": {
+  "nom": "Conseil de prud'hommes",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "cdad": {
+  "nom": "Conseil départemental d'accès au droit",
+  "lignes": [
+   "P101/02"
+  ]
+ },
+ "caa": {
+  "nom": "Cour administrative d'appel",
+  "lignes": [
+   "P165/02"
+  ]
+ },
+ "cour_appel": {
+  "nom": "Cour d'appel",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "dd_femmes": {
+  "nom": "Délégation départementale aux droits des femmes et à l'égalité",
+  "lignes": [
+   "P124/20"
+  ]
+ },
+ "dr_femmes": {
+  "nom": "Direction régionale aux droits des femmes et à l'égalité",
+  "lignes": [
+   "P124/20"
+  ]
+ },
+ "drpjj": {
+  "nom": "Direction interrégionale de la protection judiciaire de la jeunesse",
+  "lignes": [
+   "P182"
+  ]
+ },
+ "drsp": {
+  "nom": "Direction interrégionale des services pénitentiaires",
+  "lignes": [
+   "P107/04"
+  ]
+ },
+ "ddpjj": {
+  "nom": "Direction territoriale de la protection judiciaire de la jeunesse",
+  "lignes": [
+   "P182"
+  ]
+ },
+ "centre_detention": {
+  "nom": "Centre de détention",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "csl": {
+  "nom": "Centre de semi-liberté",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "centre_penitentiaire": {
+  "nom": "Centre pénitentiaire",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "maison_centrale": {
+  "nom": "Maison centrale",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "maison_arret": {
+  "nom": "Maison d'arrêt",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "esm": {
+  "nom": "Établissement pénitentiaire pour mineurs",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "plateforme_naturalisation": {
+  "nom": "Plateforme de naturalisation",
+  "lignes": [
+   "P354/02"
+  ]
+ },
+ "mjd": {
+  "nom": "Maison de justice et du droit",
+  "lignes": [
+   "P101/02"
+  ]
+ },
+ "vif_ca": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales de la cour d'appel",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "vif_tj": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales du tribunal judiciaire",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "spip": {
+  "nom": "Service pénitentiaire d'insertion et de probation",
+  "lignes": [
+   "P107/02"
+  ]
+ },
+ "ta": {
+  "nom": "Tribunal administratif",
+  "lignes": [
+   "P165/03"
+  ]
+ },
+ "tribunal_commerce": {
+  "nom": "Tribunal de commerce",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "ti": {
+  "nom": "Tribunal de proximité",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "tae": {
+  "nom": "Tribunal des activités économiques",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "tgi": {
+  "nom": "Tribunal judiciaire",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "te": {
+  "nom": "Tribunal pour enfants",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "drajes": {
+  "nom": "Délégation régionale académique à la jeunesse, à l'engagement et aux sports",
+  "lignes": [
+   "P214/11"
+  ]
+ },
+ "ddva": {
+  "nom": "Délégué départemental à la vie associative",
+  "lignes": [
+   "P163/01"
+  ]
+ },
+ "drva": {
+  "nom": "Délégué régional à la vie associative",
+  "lignes": [
+   "P163/01"
+  ]
+ },
+ "drac": {
+  "nom": "Direction régionale des affaires culturelles",
+  "lignes": [
+   "P224"
+  ]
+ },
+ "prefecture_greffe_associations": {
+  "nom": "Greffe des associations",
+  "note": "Service de la préfecture ou de la sous-préfecture : ses moyens sont ceux du programme 354."
+ },
+ "maia": {
+  "nom": "Mission d'accueil et d'information des associations",
+  "note": "Mission assurée par les services départementaux de la jeunesse, de l'engagement et des sports, sans budget propre."
+ },
+ "sdjes": {
+  "nom": "Service départemental à la jeunesse, à l'engagement et aux sports",
+  "lignes": [
+   "P214/11"
+  ]
+ },
+ "sdac": {
+  "nom": "Unité départementale de l'architecture et du patrimoine",
+  "lignes": [
+   "P175/02"
+  ]
+ }
+}
