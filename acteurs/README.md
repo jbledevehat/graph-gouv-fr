@@ -33,7 +33,9 @@ administrations ou des fonctions ; les montants des blocs ne comptent alors que 
 | `scripts/hierarchie.mjs` | Suit, dans l'API de l'annuaire, les « services fils » de chaque fiche nationale, niveau par niveau |
 | `sources/hierarchie.json` | Résultat brut : chaque service (nom, sigle, type, lien) et ses services fils |
 | `config/resumes.json` | Pour chaque organisation : nom usuel, sigle, nature (`famille`), `administration` (`etat`, `secu`, `coll`, `op`, `hors`) et `fonction` (code COFOG `GF01` à `GF10`) selon les règles de la comptabilité nationale, résumé, et `source` (`annuaire` si le résumé s'appuie sur le texte de l'annuaire, `redaction` sinon) |
-| `config/budget-etat.json` | Pour chaque service de l'État : les programmes du budget général qui le financent (`P156`), ou l'action qui lui correspond (`P308/02` pour la CNIL) ; pour un ministère, ses libellés de ministère dans le budget (tous ses programmes, hors pouvoirs publics) ; ou une `note` quand il n'a pas de ligne propre (budget annexe, autofinancement, moyens de la préfecture). Écrit à la main |
+| `config/argent-public.json` | Pour chaque organisation, les lignes d'argent public qui la financent : programme (`P156`) ou action (`P308/02`) du budget de l'État, ou tous les programmes d'un ministère ; catégorie de collectivités (`ofgl`) ou fonction départementale (`ofgl_fonctions`) ; fonction des balances DGFiP (`balances`) ; montant tiré d'un rapport officiel (`montant`, `source`, `url`) ; ou une `note` quand il n'y a pas d'argent public propre. Écrit à la main |
+| `scripts/ofgl.mjs` | Lit sur le portail de l'OFGL les dépenses d'une année des collectivités (communes, départements, régions, intercommunalités, SDIS, CCAS, MDPH) et des départements par fonction |
+| `sources/ofgl-AAAA.json` | Résultat brut, en euros |
 | `scripts/construire.mjs` | Assemble `donnees/acteurs.json`, avec les dépenses par administration et par fonction de la page budget (`budget/donnees/argent-public-AAAA.json`, dernière année Insee) ; s'arrête si une organisation n'a pas de résumé ou de classement, ou si un résumé ne correspond plus à rien |
 | `donnees/acteurs.json` | Données de la page, publiées à côté |
 | `donnees/services.json` | Services rattachés, sous forme compacte (un service par ligne, ses fils désignés par leur numéro) ; la page en crée les encarts à l'ouverture |
@@ -43,6 +45,7 @@ administrations ou des fonctions ; les montants des blocs ne comptent alors que 
 ```bash
 node acteurs/scripts/annuaire.mjs
 node acteurs/scripts/hierarchie.mjs
+node acteurs/scripts/ofgl.mjs 2024
 node acteurs/scripts/construire.mjs
 ```
 
@@ -59,21 +62,27 @@ de l'énergie) des opérateurs ; la Banque de France et la Caisse des dépôts n
 administrations publiques. Chaque organisation n'a qu'une fonction, la principale ; la recherche
 fondamentale (CNRS) est dans les services généraux, comme dans la COFOG.
 
-## Budget de l'État
+## Argent public
 
-146 des 151 services de l'État ont un montant, tiré de `budget/donnees/budget-etat-AAAA.json` et
-`detail-etat-AAAA.json` (même année que les dépenses Insee). Un programme entier compte pour sa
-dépense exécutée ; une action, pour le montant prévu par la loi de finances (l'exécution n'est
-publiée que par programme). Quand plusieurs réseaux se partagent les mêmes crédits (programme 156
-pour les impôts, 176 pour la police, 152 pour la gendarmerie, 166 pour les tribunaux…), le montant
-est marqué « partagé » et la fiche liste les autres réseaux : il ne leur est pas propre. Le montant
-d'un ministère comprend ceux de ses services et les subventions à ses opérateurs : les montants ne
-s'additionnent pas.
+Chaque organisation reçoit un montant d'argent public de l'année des dépenses Insee, avec sa source :
+
+- **État** : programmes du budget général (`budget/donnees/budget-etat-AAAA.json` et
+  `detail-etat-AAAA.json`) ; un programme compte pour sa dépense exécutée, une action pour le montant
+  prévu par la loi de finances (l'exécution n'est publiée que par programme) ; un ministère reçoit
+  tous ses programmes, hors pouvoirs publics.
+- **Collectivités** : dépenses totales hors remboursements d'emprunts, budgets principaux (OFGL),
+  par catégorie ou, pour les départements, par fonction (PMI, autonomie, archives…).
+- **Sécurité sociale, opérateurs, partenaires** : montants des rapports officiels, avec leur adresse.
+
+Un montant couvre tout le réseau (toutes les Caf, toutes les mairies). Quand plusieurs
+organisations se partagent le même argent (programme 156 pour les impôts, 176 pour la police…), il
+est marqué « partagé » et la fiche liste les autres. Les montants ne s'additionnent pas : celui d'un
+ministère comprend ceux de ses services. Les organisations sans argent public propre (ordres
+professionnels financés par leurs membres, Banque de France…) ont une explication à la place.
 
 ## À venir
 
-- **Montants hors État**, avec une vue en rectangles à l'échelle (bascule avec le mur) : annexe
-  « jaune » des opérateurs, comptes de la sécurité sociale et des collectivités.
+- **Vue en rectangles** à l'échelle des montants (bascule avec le mur).
 - **Effectifs** de chaque organisation : emplois des opérateurs (annexe « jaune » du PLF),
   plafonds d'emplois des ministères, fonction publique territoriale et hospitalière (Insee,
   Siasp), organismes de sécurité sociale (Ucanss).

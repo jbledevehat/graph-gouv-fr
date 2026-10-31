@@ -410,7 +410,7 @@
         <li><strong>Montants</strong> : dépenses consolidées de chaque administration par fonction (Insee, tableau 3.307), reprises de la page budget. Les partenaires hors administrations publiques n'y sont pas comptés.</li>
         <li><strong>Missions</strong> : quand l'annuaire publie un texte de mission, le résumé s'en inspire et le texte d'origine est dans la fiche ; sinon (environ un type sur trois, et tous les ministères), il est rédigé pour cette page, et la fiche le signale.</li>
         <li><strong>Implantations</strong> : nombre de fiches de ce type dans l'annuaire, un ordre de grandeur du maillage du territoire, pas un nombre d'agents.</li>
-        <li><strong>Budget de l'État</strong> : chaque service de l'État est rattaché à un ou plusieurs programmes du budget général, ou à une action quand l'une lui correspond (CNIL, tribunaux administratifs…) ; un ministère reçoit tous ses programmes. Programme : dépense exécutée ; action : montant prévu par la loi de finances. Quand plusieurs réseaux se partagent les mêmes crédits (impôts, police, gendarmerie…), le montant est marqué « partagé » : il ne leur est pas propre.</li>
+        <li><strong>Argent public de chaque organisation</strong>, avec sa source : pour les services de l'État, les programmes du budget général (dépense exécutée), ou l'action qui leur correspond (montant prévu) ; un ministère reçoit tous ses programmes. Pour les collectivités, leurs dépenses totales (Observatoire des finances et de la gestion publique locales), ou celles d'une fonction (PMI, autonomie, archives…). Pour la sécurité sociale, les opérateurs et les partenaires, les montants des rapports officiels (comptes de la sécurité sociale, annexe « jaune » des opérateurs, taxes affectées…). Un montant couvre tout le réseau (toutes les Caf, toutes les mairies). Quand plusieurs organisations se partagent le même argent (impôts, police, tribunaux…), il est marqué « partagé ». Les montants ne s'additionnent pas : celui d'un ministère comprend ceux de ses services.</li>
         <li><strong>À venir</strong> : les montants des opérateurs (annexe « jaune »), de la sécurité sociale et des collectivités, une vue en rectangles à l'échelle, puis les effectifs.</li>
       </ul>
     </details>
@@ -466,7 +466,7 @@
   const reduit = matchMedia('(prefers-reduced-motion: reduce)');
   const dur = ms => reduit.matches ? 0 : ms;
   // Milliards d'euros, comme la page budget.
-  // Millions d'euros (budget de l'État) : en milliards au-delà de 1 000.
+  // Millions d'euros (argent public de chaque organisation) : en milliards au-delà de 1 000.
   const meur = v => v == null ? null : v >= 999.5 ? mds(v / 1000) : v < 0.5 ? 'moins de 1 M€' : Math.round(v).toLocaleString('fr-FR') + ' M€';
   const mds = v => v == null ? null : v < 0.05 ? "moins de 0,1 Md€" : v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' Md€';
 
@@ -632,7 +632,7 @@
         const orgs = l2.map(o => {
           const fils = S.racines[o.cle] || [];
           const meta = [o.implantations != null ? pluriel(o.implantations, 'implantation', 'implantations') : null, fils.length ? pluriel(fils.length, ...SERVICES) : null, D.natures[o.nature]].filter(Boolean).join(' · ');
-          const montant = o.montant != null ? `<span class="m">${meur(o.montant)}${o.budget.ministere ? ' <small>ses programmes</small>' : o.budget.partage_avec.length ? ' <small>partagé</small>' : ''}</span>` : '';
+          const montant = o.montant != null ? `<span class="m">${meur(o.montant)}${o.argent.ministere ? ' <small>ses programmes</small>' : o.argent.partage_avec.length ? ' <small>partagé</small>' : ''}</span>` : o.argent?.note ? '<span class="m hors">Pas d\'argent public propre</span>' : '';
           const e = creer('org', `<b>${esc(nomOrg(o))}</b>${montant}<span class="mission">${esc(o.resume)}</span><span class="n">${esc(meta)}</span>`, [mode, k1, k2, o.cle], { a: o.administration });
           Object.assign(e, { o, filsSvc: fils });
           if (fils.length) ajouterBascule(e, fils.length, SERVICES);
@@ -1003,23 +1003,29 @@
     });
   }
 
-  // Budget de l'État d'une organisation : ses programmes ou actions, et ce qu'ils financent d'autre.
-  function blocBudget(o) {
-    const b = o.budget;
+  // Argent public d'une organisation : ses lignes (budget de l'État, comptes des collectivités,
+  // rapports officiels), chacune avec sa source, et les autres organisations qui les partagent.
+  const SOURCES = { etat: "Budget de l'État", ofgl: 'Comptes des collectivités (OFGL)', balances: 'Balances des collectivités (DGFiP)' };
+  const BASES = { execution: 'dépensés', prevision: 'prévus', budget: 'budget' };
+  function blocArgent(o) {
+    const b = o.argent;
     if (!b) return '';
-    if (!b.lignes.length) return `<h3>Budget de l'État</h3><p class="note">${esc(b.note)}</p>`;
+    if (!b.lignes.length) return `<h3>Argent public</h3><p class="note">${esc(b.note)}</p>`;
     const lignes = [...b.lignes].sort((x, y) => y.montant - x.montant);
     const autres = b.partage_avec.map(cle => ORGS.find(x => x.cle === cle)).filter(Boolean);
     const explication = b.ministere
-      ? `Somme des ${lignes.length} programmes du budget général rattachés au ministère (dépenses exécutées), hors pouvoirs publics. Elle comprend les crédits de ses services dans les territoires et les subventions aux opérateurs qu'il finance.`
-      : autres.length ? `Ce montant n'est pas propre à ce service : le budget de l'État ne distingue pas les réseaux qui se partagent ces crédits.`
-      : `Crédits propres à cette organisation.`;
-    return `<h3>Budget de l'État en ${AN}</h3>
-      <p class="note">${explication}</p>
-      <ul class="liste budget">${lignes.map(l => `<li><span class="txt">Programme ${esc(l.programme)} · ${esc(l.libelle)}${l.action ? `<span class="via">Action ${esc(l.action)} · ${esc(l.action_libelle)}</span>` : ''}</span><span class="count">${meur(l.montant)}<br><small>${l.base === 'prevision' ? 'prévus' : 'dépensés'}</small></span></li>`).join('')}</ul>
+      ? `Somme des ${lignes.length} programmes du budget de l'État rattachés au ministère (dépenses exécutées), hors pouvoirs publics. Elle comprend les crédits de ses services dans les territoires et les subventions aux opérateurs qu'il finance.`
+      : autres.length ? `Ce montant n'est pas propre à cette organisation : il finance aussi d'autres organisations, que les comptes ne distinguent pas.`
+      : o.implantations > 1 ? `Montant pour l'ensemble du réseau (${pluriel(o.implantations, 'implantation', 'implantations')}).` : '';
+    const source = l => l.source === 'rapport'
+      ? (l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.reference)}</a>` : esc(l.reference)) + (l.annee && l.annee !== AN ? ` (${l.annee})` : '')
+      : esc(SOURCES[l.source]);
+    return `<h3>Argent public en ${AN}</h3>
+      ${explication ? `<p class="note">${explication}</p>` : ''}
+      <ul class="liste budget">${lignes.map(l => `<li><span class="txt">${esc(l.libelle)}${l.detail ? `<span class="via">${esc(l.detail)}</span>` : ''}<span class="via">Source : ${source(l)}</span>${l.remarque ? `<span class="via">${esc(l.remarque)}</span>` : ''}</span><span class="count">${meur(l.montant)}<br><small>${BASES[l.base] || ''}${l.hors_total ? '<br>hors total' : ''}</small></span></li>`).join('')}</ul>
       ${lignes.length > 1 ? `<p class="note">Total : ${meur(o.montant)}.</p>` : ''}
-      ${lignes.some(l => l.base === 'prevision') ? `<p class="note">Une action est comptée pour le montant prévu par la loi de finances : l'exécution n'est publiée que par programme.</p>` : ''}
-      ${autres.length ? `<h3>Ces crédits financent aussi</h3><ul class="liste">${autres.map(x => bouton(cheminOrg(x), `<span class="txt">${esc(nomOrg(x))}</span><span class="count">${meur(x.montant)}</span>`, x.administration)).join('')}</ul>` : ''}`;
+      ${lignes.some(l => l.base === 'prevision') ? `<p class="note">Une action du budget de l'État est comptée pour le montant prévu par la loi de finances : l'exécution n'est publiée que par programme.</p>` : ''}
+      ${autres.length ? `<h3>Cet argent finance aussi</h3><ul class="liste">${autres.map(x => bouton(cheminOrg(x), `<span class="txt">${esc(nomOrg(x))}</span><span class="count">${meur(x.montant)}</span>`, x.administration)).join('')}</ul>` : ''}`;
   }
   const blocMontant = (v, legende) => v == null ? '' : `<p class="montant">${mds(v)}<small>${legende}</small></p>`;
   const exemples = l => l?.length ? `<ul class="ex">${l.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
@@ -1091,10 +1097,10 @@
           ${o.type_organisme ? `<dt>Statut (annuaire)</dt><dd>${esc(o.type_organisme)}</dd>` : ''}
           ${o.implantations != null ? `<dt>Implantations</dt><dd>${fmt(o.implantations)} dans l'annuaire</dd>` : ''}
           <dt>Thème${o.themes.length > 1 ? 's' : ''} de l'annuaire</dt><dd>${esc(o.themes.join(', '))}</dd>
-          <dt>Budget de l'État</dt>${o.montant != null ? `<dd>${meur(o.montant)} en ${AN}</dd>` : o.budget?.note ? '<dd class="attente">pas de ligne propre</dd>' : '<dd class="attente">à venir</dd>'}
+          <dt>Argent public</dt>${o.montant != null ? `<dd>${meur(o.montant)} en ${AN}</dd>` : o.argent?.note ? '<dd class="attente">pas de montant propre</dd>' : '<dd class="attente">à venir</dd>'}
           <dt>Effectifs</dt><dd class="attente">à venir</dd>
         </dl>
-        ${blocBudget(o)}
+        ${blocArgent(o)}
         ${o.mission_annuaire
           ? `<details><summary>Texte de mission de l'annuaire</summary><p>${esc(o.mission_annuaire)}</p></details>`
           : `<p class="note">Résumé rédigé pour cette page : l'annuaire ne publie pas de texte de mission général pour cette organisation.</p>`}

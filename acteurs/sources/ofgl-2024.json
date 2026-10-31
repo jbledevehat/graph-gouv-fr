@@ -1,0 +1,1613 @@
+{
+ "lu_le": "2026-10-30",
+ "annee": 2024,
+ "source": "https://data.ofgl.fr",
+ "definition": "Dépenses totales hors remboursements d'emprunts, budgets principaux, en euros",
+ "communes": {
+  "Commune": 103441409598.31,
+  "PARIS": 9202896527.78
+ },
+ "departements": {
+  "DEPT": 77971067152.74,
+  "ML": 2890108014.96,
+  "PARIS": 9202896527.78
+ },
+ "regions": {
+  "CTU": 3229296395.14,
+  "REG": 36423245530.02
+ },
+ "gfp": {
+  "EPT": 2147175891.3000002,
+  "GFP": 41740919493.55,
+  "ML": 2890108014.96
+ },
+ "sdis": 6044575923.65,
+ "ccas": 3910739268.09,
+ "syndicats": {
+  "null": 36160795.42,
+  "Maison départementale des personnes handicapées (MDPH)": 286392812.94,
+  "Pôle d'équilibre territorial et rural (PETR)": 85360156.09,
+  "Pôle métropolitain": 16449755.2,
+  "Syndicat (SIVU, SIVOM, SMF, SMO), entente et commission syndicale": 18086100198.37
+ },
+ "fonctions_departements": {
+  "0": {
+   "libelles": [
+    "SERVICES GÉNÉRAUX",
+    "Services généraux"
+   ],
+   "montant": 9556062856.05
+  },
+  "1": {
+   "libelles": [
+    "Sécurité"
+   ],
+   "montant": 3999878455.98
+  },
+  "2": {
+   "libelles": [
+    "Enseignement",
+    "Enseignement, formation professionnelle et apprentissage"
+   ],
+   "montant": 7780332450.08
+  },
+  "3": {
+   "libelles": [
+    "Culture, vie sociale, jeunesse, sports et loisirs"
+   ],
+   "montant": 3247996816.83
+  },
+  "4": {
+   "libelles": [
+    "Prévention médico-sociale",
+    "Santé et action sociale (hors APA, RSA et régularisations RMI)"
+   ],
+   "montant": 47331123922.649994
+  },
+  "5": {
+   "libelles": [
+    "Action sociale",
+    "Aménagement des territoires et habitat"
+   ],
+   "montant": 6310951556.120001
+  },
+  "6": {
+   "libelles": [
+    "Action économique",
+    "Réseaux et infrastructures"
+   ],
+   "montant": 1382925186.84
+  },
+  "7": {
+   "libelles": [
+    "Aménagement et environnement",
+    "Environnement"
+   ],
+   "montant": 2230471489.42
+  },
+  "8": {
+   "libelles": [
+    "Transports"
+   ],
+   "montant": 8172696396.73
+  },
+  "9": {
+   "libelles": [
+    "Développement économique"
+   ],
+   "montant": 51632564.78
+  },
+  "10": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 23323414.09
+  },
+  "11": {
+   "libelles": [
+    "Gendarmerie, police, sécurité, justice",
+    "Police, sécurité, justice"
+   ],
+   "montant": 276528690.05
+  },
+  "12": {
+   "libelles": [
+    "Incendie et Secours",
+    "Incendie et secours"
+   ],
+   "montant": 3512837971.91
+  },
+  "13": {
+   "libelles": [
+    "Hygiène et salubrité publique"
+   ],
+   "montant": 6625051.32
+  },
+  "18": {
+   "libelles": [
+    "Autres interventions de protections des personnes et des biens"
+   ],
+   "montant": 180563328.61
+  },
+  "20": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 711546379.88
+  },
+  "21": {
+   "libelles": [
+    "Enseignement du premier degré"
+   ],
+   "montant": 613916861.17
+  },
+  "22": {
+   "libelles": [
+    "Enseignement du second degré"
+   ],
+   "montant": 5860889574.030001
+  },
+  "23": {
+   "libelles": [
+    "Enseignement supérieur"
+   ],
+   "montant": 219923318.53
+  },
+  "24": {
+   "libelles": [
+    "Cités scolaires"
+   ],
+   "montant": 29328130.59
+  },
+  "25": {
+   "libelles": [
+    "Formation professionnelle"
+   ],
+   "montant": 36424461.62
+  },
+  "26": {
+   "libelles": [
+    "Apprentissage"
+   ],
+   "montant": 16745632.42
+  },
+  "27": {
+   "libelles": [
+    "Formation sanitaire et sociale"
+   ],
+   "montant": 2177909.76
+  },
+  "28": {
+   "libelles": [
+    "Autres services périscolaires et annexes"
+   ],
+   "montant": 289342188.08000004
+  },
+  "29": {
+   "libelles": [
+    "Sécurité"
+   ],
+   "montant": 37994
+  },
+  "30": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 451677932.37
+  },
+  "31": {
+   "libelles": [
+    "Culture"
+   ],
+   "montant": 1583779531.81
+  },
+  "32": {
+   "libelles": [
+    "Sports",
+    "Sports (autres que scolaires)"
+   ],
+   "montant": 965331882.39
+  },
+  "33": {
+   "libelles": [
+    "Jeunesse (action socio-éducative...) et loisirs",
+    "Jeunesse (action socio-éducative…) et loisirs"
+   ],
+   "montant": 126483644.62
+  },
+  "34": {
+   "libelles": [
+    "Vie sociale et citoyenne"
+   ],
+   "montant": 120715894.14
+  },
+  "39": {
+   "libelles": [
+    "Sécurité"
+   ],
+   "montant": 7931.5
+  },
+  "40": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 109306773.63000001
+  },
+  "41": {
+   "libelles": [
+    "PMI et planification familiale",
+    "Santé"
+   ],
+   "montant": 1133081945.72
+  },
+  "42": {
+   "libelles": [
+    "Action sociale",
+    "Prévention et éducation pour la santé"
+   ],
+   "montant": 28562698895.67
+  },
+  "43": {
+   "libelles": [
+    "APA"
+   ],
+   "montant": 6958904255.81
+  },
+  "44": {
+   "libelles": [
+    "RSA - Régularisations de RMI"
+   ],
+   "montant": 10565501364.2
+  },
+  "48": {
+   "libelles": [
+    "Autres actions"
+   ],
+   "montant": 1630687.6199999999
+  },
+  "50": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 531820623.22
+  },
+  "51": {
+   "libelles": [
+    "Aménagement et services urbains",
+    "Famille et enfance"
+   ],
+   "montant": 1823429871.62
+  },
+  "52": {
+   "libelles": [
+    "Personnes handicapées",
+    "Politique de la ville"
+   ],
+   "montant": 647443227.15
+  },
+  "53": {
+   "libelles": [
+    "Agglomérations et villes moyennes",
+    "Personnes âgées"
+   ],
+   "montant": 125199792.87
+  },
+  "54": {
+   "libelles": [
+    "Espace rural et autres espaces de développement",
+    "Revenu minimum d'insertion"
+   ],
+   "montant": 511304777.67999995
+  },
+  "55": {
+   "libelles": [
+    "Habitat (Logement)",
+    "Personnes dépendantes (APA)"
+   ],
+   "montant": 1285665140.61
+  },
+  "56": {
+   "libelles": [
+    "Actions en faveur du littoral",
+    "Revenu de solidarité active"
+   ],
+   "montant": 729868122.1600001
+  },
+  "57": {
+   "libelles": [
+    "Technologies de l'information et de la communication"
+   ],
+   "montant": 127342488.69999999
+  },
+  "58": {
+   "libelles": [
+    "Autres actions",
+    "Autres interventions sociales"
+   ],
+   "montant": 523321671.08000004
+  },
+  "59": {
+   "libelles": [
+    "Sécurité"
+   ],
+   "montant": 5555841.03
+  },
+  "60": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 143280939.54
+  },
+  "61": {
+   "libelles": [
+    "Eaux et assainissement",
+    "Interventions économiques transversales"
+   ],
+   "montant": 21739889.71
+  },
+  "62": {
+   "libelles": [
+    "Routes et voirie",
+    "Structure d'animation et de développement économique"
+   ],
+   "montant": 337372842.66
+  },
+  "63": {
+   "libelles": [
+    "Actions sectorielles"
+   ],
+   "montant": 717438846.52
+  },
+  "64": {
+   "libelles": [
+    "Infrastructures fluviales, maritimes et portuaires",
+    "Rayonnement et attractivité du territoire"
+   ],
+   "montant": 57372449.1
+  },
+  "65": {
+   "libelles": [
+    "Insertion économique et économie sociale et solidaire"
+   ],
+   "montant": 30448594.85
+  },
+  "66": {
+   "libelles": [
+    "Maintien et développement des services publics"
+   ],
+   "montant": 36862041.14
+  },
+  "67": {
+   "libelles": [
+    "Recherche et innovation"
+   ],
+   "montant": 21140583.6
+  },
+  "68": {
+   "libelles": [
+    "Autres actions",
+    "Autres réseaux"
+   ],
+   "montant": 17268999.720000003
+  },
+  "70": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 400337779.37
+  },
+  "71": {
+   "libelles": [
+    "Actions transversales",
+    "Aménagement et développement urbain"
+   ],
+   "montant": 296867454.57
+  },
+  "72": {
+   "libelles": [
+    "Actions en matière de déchets et de propreté urbaine",
+    "Logement"
+   ],
+   "montant": 826768152.0600001
+  },
+  "73": {
+   "libelles": [
+    "Actions en matière de gestion des eaux",
+    "Environnement"
+   ],
+   "montant": 366191244.01
+  },
+  "74": {
+   "libelles": [
+    "Aménagement et développement rural",
+    "Politique de l'air"
+   ],
+   "montant": 13993433.01
+  },
+  "75": {
+   "libelles": [
+    "Politique de l'énergie"
+   ],
+   "montant": 76118419.41
+  },
+  "76": {
+   "libelles": [
+    "Préservation du patrimoine naturel et gestion des risques technologiques"
+   ],
+   "montant": 166041776.44
+  },
+  "77": {
+   "libelles": [
+    "Environnement des infrastructures de transports"
+   ],
+   "montant": 1019359.4400000001
+  },
+  "78": {
+   "libelles": [
+    "Autres actions"
+   ],
+   "montant": 83133871.11
+  },
+  "80": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 587598562.75
+  },
+  "81": {
+   "libelles": [
+    "Transports scolaires"
+   ],
+   "montant": 286062035.71
+  },
+  "82": {
+   "libelles": [
+    "Transports publics de voyageurs"
+   ],
+   "montant": 1462809775.3600001
+  },
+  "83": {
+   "libelles": [
+    "Transports de marchandises"
+   ],
+   "montant": 475097.46
+  },
+  "84": {
+   "libelles": [
+    "Voirie"
+   ],
+   "montant": 5414817439.28
+  },
+  "85": {
+   "libelles": [
+    "Infrastructures"
+   ],
+   "montant": 287415502.43
+  },
+  "86": {
+   "libelles": [
+    "Liaisons multimodales"
+   ],
+   "montant": 9842012.69
+  },
+  "87": {
+   "libelles": [
+    "Circulations douces"
+   ],
+   "montant": 122455675.75
+  },
+  "88": {
+   "libelles": [
+    "Autres"
+   ],
+   "montant": 52400
+  },
+  "89": {
+   "libelles": [
+    "Sécurité"
+   ],
+   "montant": 1167895.3
+  },
+  "90": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 156808.81
+  },
+  "91": {
+   "libelles": [
+    "Structures d'animation et de développement économique"
+   ],
+   "montant": 274297.71
+  },
+  "92": {
+   "libelles": [
+    "Agriculture et pêche"
+   ],
+   "montant": 7275071.7
+  },
+  "94": {
+   "libelles": [
+    "Développement touristique"
+   ],
+   "montant": 43926386.56
+  },
+  "201": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 677567782.25
+  },
+  "211": {
+   "libelles": [
+    "Écoles maternelles"
+   ],
+   "montant": 195937263.79000002
+  },
+  "212": {
+   "libelles": [
+    "Écoles primaires"
+   ],
+   "montant": 268394709.74
+  },
+  "213": {
+   "libelles": [
+    "Classes regroupées"
+   ],
+   "montant": 149584887.64000002
+  },
+  "221": {
+   "libelles": [
+    "Collèges"
+   ],
+   "montant": 5851752941.71
+  },
+  "222": {
+   "libelles": [
+    "Lycées",
+    "Lycées publics"
+   ],
+   "montant": 8889015.790000001
+  },
+  "223": {
+   "libelles": [
+    "Lycées privés"
+   ],
+   "montant": 247616.53
+  },
+  "251": {
+   "libelles": [
+    "Insertion sociale et professionnelle des personnes en recherche d'emploi"
+   ],
+   "montant": 659739.3300000001
+  },
+  "252": {
+   "libelles": [
+    "Formation professionnalisante des personnes en recherche d'emploi"
+   ],
+   "montant": 25222553.19
+  },
+  "253": {
+   "libelles": [
+    "Formation certifiante des personnes en recherche d'emploi"
+   ],
+   "montant": 1663
+  },
+  "254": {
+   "libelles": [
+    "Formation des actifs occupés"
+   ],
+   "montant": 113938.29
+  },
+  "255": {
+   "libelles": [
+    "Rémunération des stagiaires"
+   ],
+   "montant": 25936.89
+  },
+  "281": {
+   "libelles": [
+    "Hébergement et restauration scolaires"
+   ],
+   "montant": 194543199.92000002
+  },
+  "282": {
+   "libelles": [
+    "Sport scolaire"
+   ],
+   "montant": 21042314.02
+  },
+  "283": {
+   "libelles": [
+    "Médecine scolaire"
+   ],
+   "montant": 102818.63
+  },
+  "284": {
+   "libelles": [
+    "Classes de découverte"
+   ],
+   "montant": 11335667.02
+  },
+  "288": {
+   "libelles": [
+    "Autres services annexes de l'enseignement"
+   ],
+   "montant": 50305882.38
+  },
+  "311": {
+   "libelles": [
+    "Activités artistiques et action culturelle",
+    "Activités artistiques, actions et manifestations culturelles"
+   ],
+   "montant": 600631721.5200001
+  },
+  "312": {
+   "libelles": [
+    "Patrimoine",
+    "Patrimoine (musées, monuments...)"
+   ],
+   "montant": 268612906.95
+  },
+  "313": {
+   "libelles": [
+    "Bibliothèques et médiathèques",
+    "Bibliothèques, médiathèques"
+   ],
+   "montant": 188812651.23000002
+  },
+  "314": {
+   "libelles": [
+    "Musées"
+   ],
+   "montant": 261602983.89999998
+  },
+  "315": {
+   "libelles": [
+    "Services d'archives"
+   ],
+   "montant": 140002005.18
+  },
+  "316": {
+   "libelles": [
+    "Théâtres et spectacles vivants"
+   ],
+   "montant": 106257963.58
+  },
+  "317": {
+   "libelles": [
+    "Cinémas et autres salles de spectacles"
+   ],
+   "montant": 14246394.459999999
+  },
+  "318": {
+   "libelles": [
+    "Archéologie préventive"
+   ],
+   "montant": 3612904.99
+  },
+  "321": {
+   "libelles": [
+    "Salles de sport, gymnases"
+   ],
+   "montant": 173998887.07
+  },
+  "322": {
+   "libelles": [
+    "Stades"
+   ],
+   "montant": 69959671.49000001
+  },
+  "323": {
+   "libelles": [
+    "Piscines"
+   ],
+   "montant": 91161126.72000001
+  },
+  "324": {
+   "libelles": [
+    "Centres de formation sportifs"
+   ],
+   "montant": 44748758.53
+  },
+  "325": {
+   "libelles": [
+    "Autres équipements sportifs ou de loisirs"
+   ],
+   "montant": 217285480.39
+  },
+  "326": {
+   "libelles": [
+    "Manifestations sportives"
+   ],
+   "montant": 346534454.06
+  },
+  "331": {
+   "libelles": [
+    "Centres de loisirs"
+   ],
+   "montant": 16110169.18
+  },
+  "332": {
+   "libelles": [
+    "Colonies de vacances"
+   ],
+   "montant": 19315384.38
+  },
+  "338": {
+   "libelles": [
+    "Autres activités pour les jeunes"
+   ],
+   "montant": 90672107.06
+  },
+  "341": {
+   "libelles": [
+    "Egalité entre les femmes et les hommes"
+   ],
+   "montant": 5630942.98
+  },
+  "348": {
+   "libelles": [
+    "Autres"
+   ],
+   "montant": 115084951.16
+  },
+  "410": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 448925292.61
+  },
+  "411": {
+   "libelles": [
+    "PMI et planification familiale"
+   ],
+   "montant": 504959801.76
+  },
+  "412": {
+   "libelles": [
+    "Prévention et éducation pour la santé"
+   ],
+   "montant": 111129282.03
+  },
+  "413": {
+   "libelles": [
+    "Sécurité alimentaire"
+   ],
+   "montant": 22230.670000000002
+  },
+  "414": {
+   "libelles": [
+    "Dispensaires et autres établissements sanitaires"
+   ],
+   "montant": 42691864.12
+  },
+  "418": {
+   "libelles": [
+    "Autres actions"
+   ],
+   "montant": 16006674.92
+  },
+  "420": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 2894821519.67
+  },
+  "421": {
+   "libelles": [
+    "Famille et enfance"
+   ],
+   "montant": 10667983310.94
+  },
+  "422": {
+   "libelles": [
+    "Petite enfance"
+   ],
+   "montant": 820797650.9399999
+  },
+  "423": {
+   "libelles": [
+    "Personnes âgées"
+   ],
+   "montant": 2667331195.77
+  },
+  "424": {
+   "libelles": [
+    "Personnes en difficulté"
+   ],
+   "montant": 127123569.41
+  },
+  "425": {
+   "libelles": [
+    "Personnes handicapées"
+   ],
+   "montant": 10347877284.119999
+  },
+  "428": {
+   "libelles": [
+    "Autres interventions sociales"
+   ],
+   "montant": 1033036699.59
+  },
+  "430": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 146521245.82
+  },
+  "431": {
+   "libelles": [
+    "APA à domicile"
+   ],
+   "montant": 4180023855.87
+  },
+  "432": {
+   "libelles": [
+    "APA versée aux bénéficiaires en établissement"
+   ],
+   "montant": 231012593.36
+  },
+  "433": {
+   "libelles": [
+    "APA versée à l'établissement"
+   ],
+   "montant": 2401346560.76
+  },
+  "441": {
+   "libelles": [
+    "Insertion sociale"
+   ],
+   "montant": 585206749.74
+  },
+  "442": {
+   "libelles": [
+    "Santé"
+   ],
+   "montant": 12186963.32
+  },
+  "443": {
+   "libelles": [
+    "Logement"
+   ],
+   "montant": 17718817.080000002
+  },
+  "444": {
+   "libelles": [
+    "Insertion professionnelle"
+   ],
+   "montant": 577347022.9300001
+  },
+  "445": {
+   "libelles": [
+    "Évaluation des dépenses engagées"
+   ],
+   "montant": 414729.45
+  },
+  "446": {
+   "libelles": [
+    "Dépenses de structure"
+   ],
+   "montant": 278432630.64
+  },
+  "447": {
+   "libelles": [
+    "RSA allocations"
+   ],
+   "montant": 9037161115.99
+  },
+  "448": {
+   "libelles": [
+    "Autres dépenses au titre du RSA"
+   ],
+   "montant": 57033335.05
+  },
+  "501": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 303989998.27
+  },
+  "510": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 140576155.54
+  },
+  "511": {
+   "libelles": [
+    "Espaces verts urbains"
+   ],
+   "montant": 227537314.16
+  },
+  "512": {
+   "libelles": [
+    "Éclairage public"
+   ],
+   "montant": 83106343.12
+  },
+  "514": {
+   "libelles": [
+    "Électrification"
+   ],
+   "montant": 4864228.649999999
+  },
+  "515": {
+   "libelles": [
+    "Opérations d'aménagement"
+   ],
+   "montant": 465187878.64
+  },
+  "518": {
+   "libelles": [
+    "Autres actions d'aménagement urbain"
+   ],
+   "montant": 153472585.92000002
+  },
+  "531": {
+   "libelles": [
+    "Forfait autonomie"
+   ],
+   "montant": 2030753.52
+  },
+  "532": {
+   "libelles": [
+    "Autres actions de préventions"
+   ],
+   "montant": 6251779.97
+  },
+  "538": {
+   "libelles": [
+    "autres"
+   ],
+   "montant": 108732435.31
+  },
+  "541": {
+   "libelles": [
+    "Insertion sociale"
+   ],
+   "montant": 125863.38
+  },
+  "547": {
+   "libelles": [
+    "Revenu minimum d'insertion - Revenu minimum d'activité"
+   ],
+   "montant": 240595.2
+  },
+  "548": {
+   "libelles": [
+    "Autres dépenses au titre du RMI"
+   ],
+   "montant": 7487.25
+  },
+  "550": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 4099563.8800000004
+  },
+  "551": {
+   "libelles": [
+    "APA à domicile",
+    "Parc privé de la collectivité"
+   ],
+   "montant": 297526733.63
+  },
+  "552": {
+   "libelles": [
+    "APA versée au bénéficiaire en établissement",
+    "Aide au secteur locatif"
+   ],
+   "montant": 205327382.4
+  },
+  "553": {
+   "libelles": [
+    "APA versée à l'établissement",
+    "Aide à l'accession à la propriété"
+   ],
+   "montant": 136693313.82
+  },
+  "554": {
+   "libelles": [
+    "Aire d'accueil des gens du voyage"
+   ],
+   "montant": 4993134.82
+  },
+  "555": {
+   "libelles": [
+    "Logement social"
+   ],
+   "montant": 637025012.0600001
+  },
+  "561": {
+   "libelles": [
+    "Insertion sociale"
+   ],
+   "montant": 17782831.27
+  },
+  "562": {
+   "libelles": [
+    "Santé"
+   ],
+   "montant": 992.04
+  },
+  "563": {
+   "libelles": [
+    "Logement"
+   ],
+   "montant": 123800
+  },
+  "564": {
+   "libelles": [
+    "Insertion professionnelle"
+   ],
+   "montant": 21029692.53
+  },
+  "566": {
+   "libelles": [
+    "Dépenses de structure"
+   ],
+   "montant": 2206288.7199999997
+  },
+  "567": {
+   "libelles": [
+    "Allocations RSA"
+   ],
+   "montant": 681100743.11
+  },
+  "568": {
+   "libelles": [
+    "Autres dépenses au titre du RSA"
+   ],
+   "montant": 656416.17
+  },
+  "581": {
+   "libelles": [
+    "Réserves Foncières"
+   ],
+   "montant": 294767011.72
+  },
+  "588": {
+   "libelles": [
+    "Autres actions d'aménagement"
+   ],
+   "montant": 192372377.27
+  },
+  "621": {
+   "libelles": [
+    "Réseau routier départemental"
+   ],
+   "montant": 180659882.32999998
+  },
+  "622": {
+   "libelles": [
+    "Viabilité hivernale et aléas climatiques"
+   ],
+   "montant": 5880501.87
+  },
+  "628": {
+   "libelles": [
+    "Autres réseaux de voirie"
+   ],
+   "montant": 27425134.72
+  },
+  "631": {
+   "libelles": [
+    "Agriculture, pêche et agro-alimentaire"
+   ],
+   "montant": 309874139.84000003
+  },
+  "632": {
+   "libelles": [
+    "Industrie, commerce et artisanat"
+   ],
+   "montant": 90052597.9
+  },
+  "633": {
+   "libelles": [
+    "Développement touristique"
+   ],
+   "montant": 317512108.78
+  },
+  "720": {
+   "libelles": [
+    "Services communs de la collecte et de la propreté"
+   ],
+   "montant": 377595741.93
+  },
+  "721": {
+   "libelles": [
+    "Collecte et traitement des déchets"
+   ],
+   "montant": 253340009.35
+  },
+  "722": {
+   "libelles": [
+    "Propreté urbaine"
+   ],
+   "montant": 178121700.95000002
+  },
+  "731": {
+   "libelles": [
+    "Politique de l'eau"
+   ],
+   "montant": 120182916.48
+  },
+  "732": {
+   "libelles": [
+    "Eau potable"
+   ],
+   "montant": 57388730.21
+  },
+  "733": {
+   "libelles": [
+    "Assainissement"
+   ],
+   "montant": 86140069.35000001
+  },
+  "734": {
+   "libelles": [
+    "Eaux pluviales"
+   ],
+   "montant": 62833163.059999995
+  },
+  "735": {
+   "libelles": [
+    "Lutte contre les inondations"
+   ],
+   "montant": 18794595.78
+  },
+  "738": {
+   "libelles": [
+    "Autres actions en faveur du milieu naturel"
+   ],
+   "montant": 20851769.13
+  },
+  "751": {
+   "libelles": [
+    "Réseaux de chaleur et de froid"
+   ],
+   "montant": 5987873.66
+  },
+  "752": {
+   "libelles": [
+    "Énergie photovoltaïque"
+   ],
+   "montant": 16911831.64
+  },
+  "754": {
+   "libelles": [
+    "Énergie hydraulique"
+   ],
+   "montant": 63676.35
+  },
+  "758": {
+   "libelles": [
+    "Autres actions"
+   ],
+   "montant": 53155037.76
+  },
+  "820": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 3808650.63
+  },
+  "821": {
+   "libelles": [
+    "Routier",
+    "Transport sur route"
+   ],
+   "montant": 534763400.33
+  },
+  "822": {
+   "libelles": [
+    "Ferroviaire",
+    "Transport ferroviaire"
+   ],
+   "montant": 199778174.06
+  },
+  "823": {
+   "libelles": [
+    "Transport fluvial"
+   ],
+   "montant": 9235093.4
+  },
+  "824": {
+   "libelles": [
+    "Transport maritime"
+   ],
+   "montant": 103319967.1
+  },
+  "825": {
+   "libelles": [
+    "Aérien",
+    "Transport aérien"
+   ],
+   "montant": 10540712.1
+  },
+  "828": {
+   "libelles": [
+    "Autres transports"
+   ],
+   "montant": 601363777.74
+  },
+  "830": {
+   "libelles": [
+    "Services communs"
+   ],
+   "montant": 114.29
+  },
+  "831": {
+   "libelles": [
+    "Fret routier"
+   ],
+   "montant": 95227.66
+  },
+  "832": {
+   "libelles": [
+    "Fret ferroviaire"
+   ],
+   "montant": 66250
+  },
+  "834": {
+   "libelles": [
+    "Fret maritime"
+   ],
+   "montant": 116.78
+  },
+  "838": {
+   "libelles": [
+    "Autres transports"
+   ],
+   "montant": 313388.73
+  },
+  "841": {
+   "libelles": [
+    "Voirie nationale"
+   ],
+   "montant": 26663040.049999997
+  },
+  "842": {
+   "libelles": [
+    "Voirie régionale"
+   ],
+   "montant": 9679660.68
+  },
+  "843": {
+   "libelles": [
+    "Voirie départementale"
+   ],
+   "montant": 4559962367.54
+  },
+  "844": {
+   "libelles": [
+    "Voirie métropolitaine"
+   ],
+   "montant": 279472827.2
+  },
+  "845": {
+   "libelles": [
+    "Voirie communale"
+   ],
+   "montant": 318606744.52000004
+  },
+  "846": {
+   "libelles": [
+    "Viabilité hivernale et aléas climatiques"
+   ],
+   "montant": 80367051.53
+  },
+  "847": {
+   "libelles": [
+    "Équipements de voirie"
+   ],
+   "montant": 96287785.07
+  },
+  "849": {
+   "libelles": [
+    "Sécurité routière"
+   ],
+   "montant": 43777962.69
+  },
+  "851": {
+   "libelles": [
+    "Gares routières et autres infrastructures routières"
+   ],
+   "montant": 23167089.179999996
+  },
+  "852": {
+   "libelles": [
+    "Gares et autres infrastructures ferroviaires"
+   ],
+   "montant": 34054824.55
+  },
+  "853": {
+   "libelles": [
+    "Haltes fluviales et autres infrastructures fluviales"
+   ],
+   "montant": 59187321.13
+  },
+  "854": {
+   "libelles": [
+    "Ports et autres infrastructures portuaires"
+   ],
+   "montant": 137297038.69
+  },
+  "855": {
+   "libelles": [
+    "Aéroports et autres infrastructures aéroportuaires"
+   ],
+   "montant": 33709228.88
+  },
+  "928": {
+   "libelles": [
+    "Autres"
+   ],
+   "montant": 7275071.7
+  },
+  "4211": {
+   "libelles": [
+    "Actions en faveur de la maternité"
+   ],
+   "montant": 21058021.43
+  },
+  "4212": {
+   "libelles": [
+    "Aides à la famille"
+   ],
+   "montant": 594995259.12
+  },
+  "4213": {
+   "libelles": [
+    "Aides sociales à l'enfance"
+   ],
+   "montant": 8748676696.81
+  },
+  "4214": {
+   "libelles": [
+    "Adolescence"
+   ],
+   "montant": 1303253333.58
+  },
+  "4221": {
+   "libelles": [
+    "Crèches et garderies"
+   ],
+   "montant": 522103227.52000004
+  },
+  "4222": {
+   "libelles": [
+    "Multi accueil"
+   ],
+   "montant": 11022269.73
+  },
+  "4228": {
+   "libelles": [
+    "Autres actions en faveur de la petite enfance"
+   ],
+   "montant": 287672153.69
+  },
+  "4231": {
+   "libelles": [
+    "Forfait autonomie"
+   ],
+   "montant": 109709349.61
+  },
+  "4232": {
+   "libelles": [
+    "Autres actions de prévention"
+   ],
+   "montant": 130073324.92
+  },
+  "4238": {
+   "libelles": [
+    "Autres actions en faveur des personnes âgées"
+   ],
+   "montant": 2427548521.24
+  },
+  "5471": {
+   "libelles": [
+    "Revenu minimum d'insertion - Allocations"
+   ],
+   "montant": 240595.2
+  },
+  "6311": {
+   "libelles": [
+    "Laboratoire"
+   ],
+   "montant": 98718720.52
+  },
+  "6312": {
+   "libelles": [
+    "Autres"
+   ],
+   "montant": 211155419.32000002
+  },
+  "7211": {
+   "libelles": [
+    "Actions de prévention et de sensibilisation"
+   ],
+   "montant": 1269499.47
+  },
+  "7212": {
+   "libelles": [
+    "Collecte des déchets"
+   ],
+   "montant": 108530913.99
+  },
+  "7213": {
+   "libelles": [
+    "Tri, valorisation et traitement des déchets"
+   ],
+   "montant": 143539595.89
+  },
+  "7221": {
+   "libelles": [
+    "Actions de prévention et de sensibilisation"
+   ],
+   "montant": 779261.14
+  },
+  "7222": {
+   "libelles": [
+    "Action en matière de propreté urbaine et de nettoiement"
+   ],
+   "montant": 177342439.81
+  },
+  "01": {
+   "libelles": [
+    "Opérations non ventilables"
+   ],
+   "montant": 1637966583.6
+  },
+  "02": {
+   "libelles": [
+    "Administration générale"
+   ],
+   "montant": 7463948630.09
+  },
+  "020": {
+   "libelles": [
+    "Administration générale de la collectivité"
+   ],
+   "montant": 3306683598.76
+  },
+  "0201": {
+   "libelles": [
+    "Administration générale de la collectivité (personnel non ventilable)"
+   ],
+   "montant": 117894258.24000001
+  },
+  "0202": {
+   "libelles": [
+    "Administration générale de la collectivité (autres moyens généraux)"
+   ],
+   "montant": 90353066.53999999
+  },
+  "021": {
+   "libelles": [
+    "Assemblée locale",
+    "Personnel non ventilé"
+   ],
+   "montant": 3077686519.2
+  },
+  "022": {
+   "libelles": [
+    "Information, communication, publicité"
+   ],
+   "montant": 195182829.41
+  },
+  "023": {
+   "libelles": [
+    "Fêtes et cérémonies",
+    "Information, communication, publicité"
+   ],
+   "montant": 21870613.99
+  },
+  "024": {
+   "libelles": [
+    "Aide aux associations (non classées ailleurs)"
+   ],
+   "montant": 17123373.6
+  },
+  "025": {
+   "libelles": [
+    "Cimetières et pompes funèbres"
+   ],
+   "montant": 34979530.55
+  },
+  "026": {
+   "libelles": [
+    "Administration générale de l'Etat"
+   ],
+   "montant": 24339533.77
+  },
+  "028": {
+   "libelles": [
+    "Autres moyens généraux"
+   ],
+   "montant": 786082630.8100001
+  },
+  "03": {
+   "libelles": [
+    "Conseils"
+   ],
+   "montant": 333677096.75
+  },
+  "031": {
+   "libelles": [
+    "Assemblée délibérante"
+   ],
+   "montant": 266948476.79000002
+  },
+  "032": {
+   "libelles": [
+    "Conseil économique et social régional ou Conseil de développement"
+   ],
+   "montant": 61576.490000000005
+  },
+  "038": {
+   "libelles": [
+    "Autres instances"
+   ],
+   "montant": 66667043.47
+  },
+  "04": {
+   "libelles": [
+    "Coopération décentralisée et actions interrégionales, européennes et internationales",
+    "Coopération décentralisée, action européenne et internationale"
+   ],
+   "montant": 71840538.74000001
+  },
+  "041": {
+   "libelles": [
+    "Actions relevant de la subvention globale",
+    "Subvention globale"
+   ],
+   "montant": 37055250.089999996
+  },
+  "042": {
+   "libelles": [
+    "Actions interrégionales"
+   ],
+   "montant": 1713496.81
+  },
+  "043": {
+   "libelles": [
+    "Actions européennes"
+   ],
+   "montant": 4447272.97
+  },
+  "044": {
+   "libelles": [
+    "Aide publique au développement"
+   ],
+   "montant": 4686521.99
+  },
+  "048": {
+   "libelles": [
+    "Autres",
+    "Autres actions"
+   ],
+   "montant": 23937996.88
+  },
+  "05": {
+   "libelles": [
+    "Gestion des fonds européens"
+   ],
+   "montant": 48630006.87
+  },
+  "051": {
+   "libelles": [
+    "FSE"
+   ],
+   "montant": 48295295.55
+  },
+  "052": {
+   "libelles": [
+    "FEDER"
+   ],
+   "montant": 334711.32
+  }
+ }
+}

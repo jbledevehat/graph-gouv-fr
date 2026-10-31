@@ -1,0 +1,2037 @@
+{
+ "ambassades": {
+  "nom": "Ambassade de France",
+  "lignes": [
+   "P105/07"
+  ]
+ },
+ "3f2b1594-e8af-41a6-a470-80c97f7b40be": {
+  "nom": "Autorité de contrôle des nuisances aéroportuaires",
+  "lignes": [
+   "P217/26"
+  ]
+ },
+ "dcb1b07e-82e0-4ac9-809e-eff760af96e3": {
+  "nom": "Autorité de régulation des communications électroniques, des postes et de la distribution de la presse",
+  "lignes": [
+   "P134/13"
+  ]
+ },
+ "9c7e6b7c-b793-40b2-a19b-a7dfeaa4792e": {
+  "nom": "Autorité de la concurrence",
+  "lignes": [
+   "P134/15"
+  ]
+ },
+ "08dc354d-87d2-4b70-9fe3-044969aab4fa": {
+  "nom": "Commission d'accès aux documents administratifs",
+  "lignes": [
+   "P308/06"
+  ]
+ },
+ "1dc7dfec-59f1-4b5d-8590-148802439fe5": {
+  "nom": "Commission du secret de la défense nationale",
+  "lignes": [
+   "P308/13"
+  ]
+ },
+ "ef9e5e6e-5937-4509-98b6-e2365166537c": {
+  "nom": "Contrôleur général des lieux de privation de liberté",
+  "lignes": [
+   "P308/05"
+  ]
+ },
+ "9bee7a63-09e4-4d69-b38f-324208a86086": {
+  "nom": "Commission nationale des comptes de campagne et des financements politiques",
+  "lignes": [
+   "P232/03"
+  ]
+ },
+ "e5c7226e-a87e-4b1d-8c32-eb3aadecb213": {
+  "nom": "Commission nationale de contrôle des techniques de renseignement",
+  "lignes": [
+   "P308/12"
+  ]
+ },
+ "e63f08bc-532f-4afd-8fcc-adb0e6965980": {
+  "nom": "Commission nationale du débat public",
+  "lignes": [
+   "P217/25"
+  ]
+ },
+ "785c85d5-8400-4545-9a0b-9fa47b23ef6e": {
+  "nom": "Commission nationale de l'informatique et des libertés",
+  "lignes": [
+   "P308/02"
+  ]
+ },
+ "088a9028-dfcd-431b-acf8-2e99d70d0c65": {
+  "nom": "Commission de régulation de l'énergie",
+  "lignes": [
+   "P217/27"
+  ]
+ },
+ "1867f065-c823-4362-8d0f-8ca6b011a10f": {
+  "nom": "Défenseur des droits",
+  "lignes": [
+   "P308/09"
+  ]
+ },
+ "6b3a3ea8-2808-4246-9be8-61ce80e569fd": {
+  "nom": "Haute Autorité pour la transparence de la vie publique",
+  "lignes": [
+   "P308/10"
+  ]
+ },
+ "1ad32e5b-c83c-472d-b3cc-6d7453f88b36": {
+  "nom": "Présidence de la République",
+  "lignes": [
+   "P501"
+  ]
+ },
+ "33090c40-44e9-45f2-aace-1682c73e2048": {
+  "nom": "Conseil constitutionnel",
+  "lignes": [
+   "P531"
+  ]
+ },
+ "f354c570-1a88-478c-8637-6f2e4f44e83b": {
+  "nom": "Conseil supérieur de la magistrature",
+  "lignes": [
+   "P335"
+  ]
+ },
+ "bffc950d-cc09-4a75-abab-97f7350a05d7": {
+  "nom": "Assemblée nationale",
+  "lignes": [
+   "P511"
+  ]
+ },
+ "59003280-8fff-4bc0-b5df-a27299c4d588": {
+  "nom": "Sénat",
+  "lignes": [
+   "P521"
+  ]
+ },
+ "6d3b7be4-3b13-45da-9836-4766e37bc569": {
+  "nom": "Cour des comptes",
+  "lignes": [
+   "P164"
+  ]
+ },
+ "f15a80e8-f453-4745-a03e-6aeabc998e2c": {
+  "nom": "Conseil économique, social et environnemental",
+  "lignes": [
+   "P126"
+  ]
+ },
+ "003022d4-6d9c-450d-a4a3-4a3c43c4a340": {
+  "nom": "Conseil d'État",
+  "lignes": [
+   "P165/01"
+  ]
+ },
+ "c67a8733-b51c-49c4-9b5f-d319ddcb5df6": {
+  "nom": "Cour de cassation",
+  "lignes": [
+   "P166/03"
+  ]
+ },
+ "c24a4549-49a3-45bd-be9c-ea08266cabd9": {
+  "nom": "Cour de justice de la République",
+  "lignes": [
+   "P533"
+  ]
+ },
+ "9b240c4d-14e3-4066-8f14-de09c687d63a": {
+  "nom": "Cour nationale du droit d'asile",
+  "lignes": [
+   "P165/07"
+  ]
+ },
+ "a515667c-6dc0-4544-a1a8-2cf13d7da23b": {
+  "nom": "Premier ministre",
+  "ministere": [
+   "Services du Premier ministre"
+  ]
+ },
+ "9f101ac7-9a0e-4d62-8b27-8109876dff94": {
+  "nom": "Ministère de l'Action et des Comptes publics",
+  "ministere": [
+   "Budget et comptes publics"
+  ]
+ },
+ "45e488a2-c977-487f-b62f-19b4d6504d9c": {
+  "nom": "Ministère de l'Agriculture, de l'Agro-alimentaire et de la Souveraineté alimentaire",
+  "ministere": [
+   "Agriculture, souveraineté alimentaire et forêt"
+  ]
+ },
+ "7b9ab6ab-c8e4-4cfd-a63b-02416d0d5551": {
+  "nom": "Ministère de l'Aménagement du Territoire et de la Décentralisation",
+  "ministere": [
+   "Partenariat avec les collectivités territoriales et décentralisation"
+  ]
+ },
+ "d24d1af2-c506-4b10-82e8-ab92b8e959d2": {
+  "nom": "Ministère des Armées et des Anciens combattants",
+  "ministere": [
+   "Armées et anciens combattants"
+  ]
+ },
+ "da1d6275-6710-485d-a249-282cac69dfe7": {
+  "nom": "Ministère de la Culture",
+  "ministere": [
+   "Culture"
+  ]
+ },
+ "c4195774-f535-4d82-b03f-d5f0c6b08635": {
+  "nom": "Ministère de l'Économie, des Finances et de la Souveraineté industrielle, énergétique et numérique",
+  "ministere": [
+   "Économie, finances et industrie"
+  ]
+ },
+ "3ed2f725-e077-4973-a531-498e13fc7861": {
+  "nom": "Ministère de l'Éducation nationale",
+  "ministere": [
+   "Éducation nationale"
+  ]
+ },
+ "4ca60afd-3886-434c-80bb-f6bc55581323": {
+  "nom": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Espace",
+  "ministere": [
+   "Enseignement supérieur et recherche"
+  ]
+ },
+ "ac1a7fdb-50f4-4599-b306-ec06b7250965": {
+  "nom": "Ministère de l'Europe et des Affaires étrangères",
+  "ministere": [
+   "Europe et affaires étrangères"
+  ]
+ },
+ "fa33b07a-3f71-46d4-b682-569c9faf211e": {
+  "nom": "Ministère de l'Intérieur",
+  "ministere": [
+   "Intérieur"
+  ]
+ },
+ "7bc12104-b232-46a6-a6d7-85bcf2dfccf1": {
+  "nom": "Ministère de la Justice",
+  "ministere": [
+   "Justice"
+  ]
+ },
+ "0dd547d8-44fb-4af8-8768-dc8a95614f0d": {
+  "nom": "Ministère des Outre-mer",
+  "ministere": [
+   "Outre-Mer"
+  ]
+ },
+ "d46810a3-6ed7-4a94-b950-1be135e43ad3": {
+  "nom": "Ministère de la Santé, des Familles, de l'Autonomie et des Personnes handicapées",
+  "ministere": [
+   "Santé et accès aux soins",
+   "Solidarités, autonomie et égalité entre les femmes et les hommes"
+  ]
+ },
+ "2fd089d2-669f-4a91-80b2-b345db391349": {
+  "nom": "Ministère des Sports, de la Jeunesse et de la Vie associative",
+  "ministere": [
+   "Sports, jeunesse et vie associative"
+  ]
+ },
+ "05f90b6a-e3d9-4a41-a919-2e2f2d77e517": {
+  "nom": "Ministère de la Transition écologique, de la Biodiversité et des Négociations internationales sur le Climat et la Nature",
+  "ministere": [
+   "Transition écologique, énergie, climat et prévention des risques"
+  ]
+ },
+ "0c78ef90-614a-4fcb-b7af-449f6c66f6b6": {
+  "nom": "Ministère des Transports",
+  "lignes": [
+   "P203"
+  ]
+ },
+ "f130ad96-4a81-4eb4-a40c-0539edad5fff": {
+  "nom": "Ministère du Travail et des Solidarités",
+  "ministere": [
+   "Travail et emploi"
+  ]
+ },
+ "051be6c4-2693-45e0-9644-b84049e57f02": {
+  "nom": "Ministère de la Ville et du Logement",
+  "ministere": [
+   "Logement et rénovation urbaine"
+  ]
+ },
+ "point_accueil_numerique": {
+  "nom": "Point d'accueil numérique",
+  "lignes": [
+   "P354/02"
+  ]
+ },
+ "prefecture": {
+  "nom": "Préfecture",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "prefecture_region": {
+  "nom": "Préfecture de région",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "sous_pref": {
+  "nom": "Sous-préfecture",
+  "lignes": [
+   "P354"
+  ]
+ },
+ "ddcspp": {
+  "nom": "Direction départementale de l'emploi, du travail, des solidarités et de la protection des populations",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "ddpp": {
+  "nom": "Direction départementale de la protection des populations",
+  "lignes": [
+   "P206/06"
+  ]
+ },
+ "ddets": {
+  "nom": "Direction départementale de l'emploi, du travail et des solidarités",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "direccte": {
+  "nom": "Direction régionale de l'économie, de l'emploi, du travail et des solidarités",
+  "lignes": [
+   "P155"
+  ]
+ },
+ "droit_travail": {
+  "nom": "Service de renseignement en droit du travail",
+  "lignes": [
+   "P155/16"
+  ]
+ },
+ "bureau_de_douane": {
+  "nom": "Bureau de douane",
+  "lignes": [
+   "P302"
+  ]
+ },
+ "centre_impots_fonciers": {
+  "nom": "Centre des impôts foncier",
+  "lignes": [
+   "P156/03"
+  ]
+ },
+ "codefi": {
+  "nom": "Comité départemental d'examen des difficultés des entreprises",
+  "note": "Comité réuni par le préfet avec les services des finances publiques et de la Banque de France, sans budget propre."
+ },
+ "ccsf": {
+  "nom": "Commission des chefs des services financiers",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "conciliateur_fiscal": {
+  "nom": "Conciliateur fiscal départemental",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "crc": {
+  "nom": "Chambre régionale ou territoriale des comptes",
+  "lignes": [
+   "P164"
+  ]
+ },
+ "dd_fip": {
+  "nom": "Direction départementale des finances publiques",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "draf": {
+  "nom": "Direction régionale de l'alimentation, de l'agriculture et de la forêt",
+  "lignes": [
+   "P215/03"
+  ]
+ },
+ "dr_insee": {
+  "nom": "Direction régionale de l'Insee",
+  "lignes": [
+   "P220/06"
+  ]
+ },
+ "dr_fip": {
+  "nom": "Direction régionale des finances publiques",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "drddi": {
+  "nom": "Direction régionale ou interrégionale des douanes et droits indirects",
+  "lignes": [
+   "P302"
+  ]
+ },
+ "dcf": {
+  "nom": "Direction spécialisée du contrôle fiscal",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "paierie_departementale": {
+  "nom": "Paierie départementale",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "paierie_regionale": {
+  "nom": "Paierie régionale",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "prs": {
+  "nom": "Pôle de recouvrement spécialisé",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "hypotheque": {
+  "nom": "Service de la publicité foncière",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "sde": {
+  "nom": "Service départemental de l'enregistrement",
+  "lignes": [
+   "P156"
+  ]
+ },
+ "sie": {
+  "nom": "Service des impôts des entreprises",
+  "lignes": [
+   "P156/02"
+  ]
+ },
+ "sip": {
+  "nom": "Service des impôts des particuliers",
+  "lignes": [
+   "P156/03"
+  ]
+ },
+ "tresorerie": {
+  "nom": "Trésorerie",
+  "lignes": [
+   "P156/07"
+  ]
+ },
+ "cio": {
+  "nom": "Centre d'information et d'orientation",
+  "lignes": [
+   "P141/08"
+  ]
+ },
+ "inspection_academique": {
+  "nom": "Direction des services départementaux de l'Éducation nationale",
+  "lignes": [
+   "P214"
+  ]
+ },
+ "greta": {
+  "nom": "Groupement d'établissements pour la formation continue",
+  "note": "Financés surtout par la vente de formations (entreprises, régions, France Travail), pas par une ligne du budget de l'État."
+ },
+ "rectorat": {
+  "nom": "Rectorat",
+  "lignes": [
+   "P214"
+  ]
+ },
+ "ber": {
+  "nom": "Bureau de l'éducation routière",
+  "lignes": [
+   "P207/03"
+  ]
+ },
+ "cnra": {
+  "nom": "Centre en route de la navigation aérienne",
+  "note": "Financé par le budget annexe « Contrôle et exploitation aériens » (redevances de navigation aérienne), hors budget général de l'État."
+ },
+ "dml": {
+  "nom": "Délégation à la mer et au littoral",
+  "lignes": [
+   "P217/11"
+  ]
+ },
+ "dac": {
+  "nom": "Direction de la sécurité de l'aviation civile",
+  "note": "Financée par le budget annexe « Contrôle et exploitation aériens » (taxes et redevances du transport aérien), hors budget général de l'État."
+ },
+ "ddt": {
+  "nom": "Direction départementale des territoires (et de la mer)",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "did_routes": {
+  "nom": "Direction interdépartementale des routes",
+  "lignes": [
+   "P217/08"
+  ]
+ },
+ "dir_mer": {
+  "nom": "Direction interrégionale de la mer",
+  "lignes": [
+   "P205"
+  ]
+ },
+ "dreal": {
+  "nom": "Direction régionale de l'environnement, de l'aménagement et du logement",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "dreal_ut": {
+  "nom": "Unité départementale de la Dreal",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drieat": {
+  "nom": "Direction régionale et interdépartementale de l'environnement, de l'aménagement et des transports d'Île-de-France",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drieat_ut": {
+  "nom": "Unité départementale de la Drieat",
+  "lignes": [
+   "P217"
+  ]
+ },
+ "drihl": {
+  "nom": "Direction régionale et interdépartementale de l'hébergement et du logement d'Île-de-France",
+  "lignes": [
+   "P177"
+  ]
+ },
+ "drihl_ut": {
+  "nom": "Unité départementale de la Drihl",
+  "lignes": [
+   "P177"
+  ]
+ },
+ "gendarmerie": {
+  "nom": "Brigade de gendarmerie",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "gendarmerie_moto": {
+  "nom": "Brigade motorisée de gendarmerie",
+  "lignes": [
+   "P152/02"
+  ]
+ },
+ "cirgn": {
+  "nom": "Centre d'information et de recrutement de la gendarmerie nationale",
+  "lignes": [
+   "P152/04"
+  ]
+ },
+ "cirfa": {
+  "nom": "Centre d'information et de recrutement des forces armées",
+  "lignes": [
+   "P212/06"
+  ]
+ },
+ "bsn": {
+  "nom": "Centre du service national et de la jeunesse",
+  "lignes": [
+   "P212/65"
+  ]
+ },
+ "commissariat_police": {
+  "nom": "Commissariat de police",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "dmd": {
+  "nom": "Délégation militaire départementale",
+  "lignes": [
+   "P212/11"
+  ]
+ },
+ "ddpn_dipn": {
+  "nom": "Direction départementale ou interdépartementale de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "dir_pj": {
+  "nom": "Direction territoriale de la police judiciaire",
+  "lignes": [
+   "P176/05"
+  ]
+ },
+ "dzpn": {
+  "nom": "Direction zonale de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "emzpn": {
+  "nom": "État-major zonal de la police nationale",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "gendarmerie_departementale": {
+  "nom": "Groupement de gendarmerie départementale",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "gendarmerie_montagne": {
+  "nom": "Peloton de gendarmerie de haute montagne",
+  "lignes": [
+   "P152"
+  ]
+ },
+ "paris_ppp": {
+  "nom": "Préfecture de police de Paris",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "paris_ppp_gesvres": {
+  "nom": "Préfecture de police de Paris - site de Gesvres",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "pp_marseille": {
+  "nom": "Préfecture de police des Bouches-du-Rhône",
+  "lignes": [
+   "P176"
+  ]
+ },
+ "sgami": {
+  "nom": "Secrétariat général pour l'administration du ministère de l'Intérieur",
+  "lignes": [
+   "P176/06"
+  ]
+ },
+ "dz_paf": {
+  "nom": "Service zonal de la police aux frontières",
+  "lignes": [
+   "P176/04"
+  ]
+ },
+ "sz_pj": {
+  "nom": "Service zonal de police judiciaire",
+  "lignes": [
+   "P176/05"
+  ]
+ },
+ "crfpn": {
+  "nom": "Service zonal du recrutement et de la formation de la police nationale",
+  "lignes": [
+   "P176/06"
+  ]
+ },
+ "sz_rt": {
+  "nom": "Service zonal du renseignement territorial",
+  "lignes": [
+   "P176/01"
+  ]
+ },
+ "commission_conciliation": {
+  "nom": "Commission départementale de conciliation",
+  "note": "Commission placée auprès du préfet : ses moyens sont ceux de la préfecture (programme 354)."
+ },
+ "prudhommes": {
+  "nom": "Conseil de prud'hommes",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "cdad": {
+  "nom": "Conseil départemental d'accès au droit",
+  "lignes": [
+   "P101/02"
+  ]
+ },
+ "caa": {
+  "nom": "Cour administrative d'appel",
+  "lignes": [
+   "P165/02"
+  ]
+ },
+ "cour_appel": {
+  "nom": "Cour d'appel",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "dd_femmes": {
+  "nom": "Délégation départementale aux droits des femmes et à l'égalité",
+  "lignes": [
+   "P124/20"
+  ]
+ },
+ "dr_femmes": {
+  "nom": "Direction régionale aux droits des femmes et à l'égalité",
+  "lignes": [
+   "P124/20"
+  ]
+ },
+ "drpjj": {
+  "nom": "Direction interrégionale de la protection judiciaire de la jeunesse",
+  "lignes": [
+   "P182"
+  ]
+ },
+ "drsp": {
+  "nom": "Direction interrégionale des services pénitentiaires",
+  "lignes": [
+   "P107/04"
+  ]
+ },
+ "ddpjj": {
+  "nom": "Direction territoriale de la protection judiciaire de la jeunesse",
+  "lignes": [
+   "P182"
+  ]
+ },
+ "centre_detention": {
+  "nom": "Centre de détention",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "csl": {
+  "nom": "Centre de semi-liberté",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "centre_penitentiaire": {
+  "nom": "Centre pénitentiaire",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "maison_centrale": {
+  "nom": "Maison centrale",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "maison_arret": {
+  "nom": "Maison d'arrêt",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "esm": {
+  "nom": "Établissement pénitentiaire pour mineurs",
+  "lignes": [
+   "P107/01"
+  ]
+ },
+ "plateforme_naturalisation": {
+  "nom": "Plateforme de naturalisation",
+  "lignes": [
+   "P354/02"
+  ]
+ },
+ "mjd": {
+  "nom": "Maison de justice et du droit",
+  "lignes": [
+   "P101/02"
+  ]
+ },
+ "vif_ca": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales de la cour d'appel",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "vif_tj": {
+  "nom": "Pôle spécialisé en matière de violences intrafamiliales du tribunal judiciaire",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "spip": {
+  "nom": "Service pénitentiaire d'insertion et de probation",
+  "lignes": [
+   "P107/02"
+  ]
+ },
+ "ta": {
+  "nom": "Tribunal administratif",
+  "lignes": [
+   "P165/03"
+  ]
+ },
+ "tribunal_commerce": {
+  "nom": "Tribunal de commerce",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "ti": {
+  "nom": "Tribunal de proximité",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "tae": {
+  "nom": "Tribunal des activités économiques",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "tgi": {
+  "nom": "Tribunal judiciaire",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "te": {
+  "nom": "Tribunal pour enfants",
+  "lignes": [
+   "P166"
+  ]
+ },
+ "drajes": {
+  "nom": "Délégation régionale académique à la jeunesse, à l'engagement et aux sports",
+  "lignes": [
+   "P214/11"
+  ]
+ },
+ "ddva": {
+  "nom": "Délégué départemental à la vie associative",
+  "lignes": [
+   "P163/01"
+  ]
+ },
+ "drva": {
+  "nom": "Délégué régional à la vie associative",
+  "lignes": [
+   "P163/01"
+  ]
+ },
+ "drac": {
+  "nom": "Direction régionale des affaires culturelles",
+  "lignes": [
+   "P224"
+  ]
+ },
+ "prefecture_greffe_associations": {
+  "nom": "Greffe des associations",
+  "note": "Service de la préfecture ou de la sous-préfecture : ses moyens sont ceux du programme 354."
+ },
+ "maia": {
+  "nom": "Mission d'accueil et d'information des associations",
+  "note": "Mission assurée par les services départementaux de la jeunesse, de l'engagement et des sports, sans budget propre."
+ },
+ "sdjes": {
+  "nom": "Service départemental à la jeunesse, à l'engagement et aux sports",
+  "lignes": [
+   "P214/11"
+  ]
+ },
+ "sdac": {
+  "nom": "Unité départementale de l'architecture et du patrimoine",
+  "lignes": [
+   "P175/02"
+  ]
+ },
+ "mairie": {
+  "nom": "Mairie",
+  "lignes": [
+   {
+    "ofgl": [
+     "Commune",
+     "PARIS"
+    ]
+   }
+  ]
+ },
+ "cg": {
+  "nom": "Conseil départemental",
+  "lignes": [
+   {
+    "ofgl": [
+     "DEPT"
+    ]
+   }
+  ]
+ },
+ "md": {
+  "nom": "Maison du département",
+  "lignes": [
+   {
+    "ofgl": [
+     "DEPT"
+    ]
+   }
+  ]
+ },
+ "cr": {
+  "nom": "Conseil régional",
+  "lignes": [
+   {
+    "ofgl": [
+     "REG",
+     "CTU"
+    ]
+   }
+  ]
+ },
+ "mr": {
+  "nom": "Maison de la région",
+  "lignes": [
+   {
+    "ofgl": [
+     "REG",
+     "CTU"
+    ]
+   }
+  ]
+ },
+ "cesr": {
+  "nom": "Conseil économique, social et environnemental régional",
+  "lignes": [
+   {
+    "ofgl": [
+     "REG",
+     "CTU"
+    ],
+    "remarque": "Le Ceser n'a pas de budget propre : ses moyens sont votés par la région."
+   }
+  ]
+ },
+ "conseil_culture": {
+  "nom": "Conseil de la culture, de l'éducation et de l'environnement",
+  "lignes": [
+   {
+    "ofgl": [
+     "REG",
+     "CTU"
+    ],
+    "remarque": "Conseil consultatif des régions et collectivités d'outre-mer, sans budget propre."
+   }
+  ]
+ },
+ "epci": {
+  "nom": "Intercommunalité",
+  "lignes": [
+   {
+    "ofgl": [
+     "GFP",
+     "EPT",
+     "ML"
+    ]
+   }
+  ]
+ },
+ "sdis": {
+  "nom": "Service départemental d'incendie et de secours",
+  "lignes": [
+   {
+    "ofgl": [
+     "SDIS"
+    ]
+   }
+  ]
+ },
+ "ccas": {
+  "nom": "Centre communal ou intercommunal d'action sociale",
+  "lignes": [
+   {
+    "ofgl": [
+     "CCAS"
+    ]
+   }
+  ]
+ },
+ "maison_handicapees": {
+  "nom": "Maison départementale des personnes handicapées",
+  "lignes": [
+   {
+    "ofgl": [
+     "MDPH"
+    ]
+   }
+  ]
+ },
+ "pmi": {
+  "nom": "Centre de protection maternelle et infantile",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "411"
+    ],
+    "libelle": "Dépenses des départements pour la PMI et la planification familiale"
+   }
+  ]
+ },
+ "mda": {
+  "nom": "Maison départementale de l'autonomie",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "423",
+     "431",
+     "432",
+     "433"
+    ],
+    "libelle": "Dépenses des départements pour les personnes âgées, dont l'allocation personnalisée d'autonomie (APA)"
+   }
+  ]
+ },
+ "clic": {
+  "nom": "Point d'information local dédié aux personnes âgées",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "423",
+     "431",
+     "432",
+     "433"
+    ],
+    "libelle": "Dépenses des départements pour les personnes âgées, dont l'allocation personnalisée d'autonomie (APA)"
+   }
+  ]
+ },
+ "mds": {
+  "nom": "Maison départementale des solidarités",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "421",
+     "424",
+     "428"
+    ],
+    "libelle": "Dépenses des départements pour la famille et l'enfance (dont l'aide sociale à l'enfance) et les personnes en difficulté"
+   }
+  ]
+ },
+ "ad": {
+  "nom": "Archives départementales",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "315"
+    ],
+    "libelle": "Dépenses des départements pour leurs services d'archives"
+   }
+  ]
+ },
+ "bibli": {
+  "nom": "Bibliothèque départementale de prêt",
+  "lignes": [
+   {
+    "ofgl_fonctions": [
+     "313"
+    ],
+    "libelle": "Dépenses des départements pour les bibliothèques et médiathèques"
+   }
+  ]
+ },
+ "police_municipale": {
+  "nom": "Police municipale",
+  "lignes": [
+   {
+    "balances": [
+     "11"
+    ],
+    "categories": [
+     "Commune",
+     "PARIS"
+    ],
+    "libelle": "Dépenses des communes pour la police, la sécurité et la justice",
+    "remarque": "Communes de 3 500 habitants et plus seulement : les plus petites ne présentent pas leurs dépenses par fonction."
+   }
+  ]
+ },
+ "france_services": {
+  "nom": "France services",
+  "lignes": [
+   {
+    "montant": 113,
+    "libelle": "Crédits de l'État pour les France services",
+    "annee": 2024,
+    "source": "Cour des comptes, « Programme France services (2020-2023) », septembre 2024",
+    "url": "https://www.ccomptes.fr/sites/default/files/2024-08/20240904-synthese-Programme-France-Services.pdf",
+    "remarque": "Le coût total est d'environ 350 M€ : les collectivités, La Poste et les caisses de sécurité sociale financent le reste."
+   }
+  ]
+ },
+ "laboratoire_departemental": {
+  "nom": "Laboratoire départemental d'analyses",
+  "note": "Souvent un budget annexe du département ou un groupement d'intérêt public, financé en partie par ses analyses : les comptes ne l'isolent pas."
+ },
+ "credit_municipal": {
+  "nom": "Crédit municipal",
+  "note": "Établissement public de crédit financé par son activité de prêt sur gage, pas par de l'argent public."
+ },
+ "fr_renov": {
+  "nom": "Espace conseil France Rénov'",
+  "note": "Espaces animés par les collectivités avec l'Agence nationale de l'habitat (Anah) : leur coût n'est pas isolé dans les comptes."
+ },
+ "parc_naturel_regional": {
+  "nom": "Parc naturel régional",
+  "note": "Syndicats mixtes financés par les régions, les départements, les communes et l'État : les comptes ne les isolent pas parmi les autres syndicats."
+ },
+ "ordre_avocats": {
+  "nom": "Ordre des avocats",
+  "lignes": [
+   {
+    "etat": "P101/01",
+    "remarque": "L'aide juridictionnelle rémunère les avocats (et d'autres auxiliaires de justice) qui défendent les personnes aux revenus modestes ; l'ordre lui-même est financé par les cotisations des avocats."
+   }
+  ]
+ },
+ "aav": {
+  "nom": "Association d'aide aux victimes",
+  "lignes": [
+   "P101/03"
+  ]
+ },
+ "bav": {
+  "nom": "Bureau d'aide aux victimes du tribunal judiciaire",
+  "lignes": [
+   "P101/03"
+  ]
+ },
+ "point_justice": {
+  "nom": "Point-justice",
+  "lignes": [
+   "P101/02"
+  ]
+ },
+ "cidf": {
+  "nom": "Centre d'information sur les droits des femmes et des familles",
+  "lignes": [
+   "P137/24"
+  ]
+ },
+ "mission_locale": {
+  "nom": "Mission locale",
+  "lignes": [
+   "P102/02",
+   "P102/04"
+  ]
+ },
+ "maison_emploi": {
+  "nom": "Maison de l'emploi",
+  "lignes": [
+   "P102/02"
+  ]
+ },
+ "cap_emploi": {
+  "nom": "Cap emploi",
+  "lignes": [
+   "P102/02"
+  ]
+ },
+ "cij": {
+  "nom": "Information jeunesse",
+  "lignes": [
+   "P163/02"
+  ]
+ },
+ "crib": {
+  "nom": "Centre de ressources et d'information des bénévoles",
+  "lignes": [
+   "P163/01"
+  ]
+ },
+ "aract": {
+  "nom": "Agence régionale pour l'amélioration des conditions de travail",
+  "lignes": [
+   "P111/01"
+  ]
+ },
+ "pcb": {
+  "nom": "Point conseil budget",
+  "lignes": [
+   {
+    "etat": "P304/23",
+    "remarque": "Les points conseil budget sont financés par le Pacte des solidarités, avec d'autres actions de lutte contre la pauvreté."
+   }
+  ]
+ },
+ "medecins_dpt": {
+  "nom": "Conseil départemental de l'ordre des médecins",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "medecins_reg": {
+  "nom": "Conseil régional de l'ordre des médecins",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "veterinaire_reg": {
+  "nom": "Conseil régional de l'ordre des vétérinaires",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "pro_regl": {
+  "nom": "Ordre ou instance d'une profession réglementée",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "comptables_reg": {
+  "nom": "Conseil régional de l'ordre des experts-comptables",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "architectes_reg": {
+  "nom": "Conseil régional de l'ordre des architectes",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "chambre_notaires": {
+  "nom": "Chambre départementale des notaires",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "huissiers_justice": {
+  "nom": "Chambre régionale des commissaires de justice",
+  "note": "Financé par les cotisations obligatoires de ses membres, pas par de l'argent public."
+ },
+ "artisanat_dpt": {
+  "nom": "Confédération départementale de l'artisanat et des petites entreprises du bâtiment",
+  "note": "Organisation professionnelle financée par ses adhérents, pas par de l'argent public."
+ },
+ "artisanat_reg": {
+  "nom": "Confédération régionale de l'artisanat et des petites entreprises du bâtiment",
+  "note": "Organisation professionnelle financée par ses adhérents, pas par de l'argent public."
+ },
+ "batiment_dpt": {
+  "nom": "Fédération départementale du bâtiment",
+  "note": "Organisation professionnelle financée par ses adhérents, pas par de l'argent public."
+ },
+ "batiment_reg": {
+  "nom": "Fédération régionale du bâtiment",
+  "note": "Organisation professionnelle financée par ses adhérents, pas par de l'argent public."
+ },
+ "bdf": {
+  "nom": "Banque de France",
+  "note": "La Banque de France se finance par ses propres revenus (politique monétaire, services) : ce n'est pas de la dépense publique."
+ },
+ "safer": {
+  "nom": "Société d'aménagement foncier et d'établissement rural",
+  "note": "Sociétés anonymes financées par leur activité (vente de terres, études), sous le contrôle de l'État."
+ },
+ "pif": {
+  "nom": "Point info famille",
+  "note": "Points d'information animés par des associations, des Caf ou des communes : leur financement n'est pas isolé dans les comptes."
+ },
+ "accompagnement_personnes_agees": {
+  "nom": "Plateforme d'accompagnement et de répit pour les aidants de personnes âgées",
+  "note": "Plateformes financées par les agences régionales de santé et la Caisse nationale de solidarité pour l'autonomie : leur coût n'est pas isolé dans les comptes publiés."
+ },
+ "rrc": {
+  "nom": "Dispositif spécifique régional du cancer",
+  "note": "Dispositifs financés par les agences régionales de santé et l'Institut national du cancer : leur coût n'est pas isolé dans les comptes publiés."
+ },
+ "adil": {
+  "nom": "Agence départementale d'information sur le logement",
+  "note": "Associations financées par l'Anah, les départements, Action Logement et les caisses d'allocations familiales : pas de total national publié."
+ },
+ "urcaue": {
+  "nom": "Union régionale des conseils d'architecture, d'urbanisme et de l'environnement",
+  "note": "Unions financées par leurs CAUE membres."
+ },
+ "carif_oref": {
+  "nom": "Centre d'animation, de ressources et d'information sur les formations et observatoire régional emploi formation",
+  "note": "Associations financées surtout par les régions et l'État (contrats de plan) : pas de total national publié."
+ },
+ "ctrc": {
+  "nom": "Centre technique régional de la consommation",
+  "note": "Associations de consommateurs financées par l'Institut national de la consommation et les régions : pas de total national publié."
+ },
+ "apecita": {
+  "nom": "Association pour l'emploi des cadres, ingénieurs et techniciens de l'agriculture et de l'agroalimentaire",
+  "note": "Association financée surtout par les cotisations des employeurs et des cadres du secteur agricole."
+ },
+ "20b442d5-1447-44db-a2f9-e7f7462e804d": {
+  "nom": "Caisse des dépôts et consignations",
+  "note": "La Caisse des dépôts se finance par ses propres revenus (fonds d'épargne, placements) : ce n'est pas de la dépense publique."
+ },
+ "15c373bd-3034-4296-a990-533d0238a6ab": {
+  "nom": "Banque de France",
+  "note": "La Banque de France se finance par ses propres revenus (politique monétaire, services) : ce n'est pas de la dépense publique."
+ },
+ "1221a8d4-a524-42ef-9767-add4d2b0cde5": {
+  "nom": "Comité d'indemnisation des victimes des essais nucléaires",
+  "note": "Les indemnisations accordées par le comité sont payées sur le budget des services du Premier ministre, sans action budgétaire propre."
+ },
+ "4fa84ef9-e65b-4b8a-87f0-58567eaaed22": {
+  "nom": "Tribunal des conflits",
+  "note": "Juridiction aux moyens très réduits, assurés par le Conseil d'État et la Cour de cassation."
+ },
+ "f1455abd-1242-4112-8ba5-04bb19e5ca1a": {
+  "nom": "Institut de France",
+  "note": "Établissement public financé surtout par les revenus de ses fondations et de son patrimoine."
+ },
+ "d2d5b079-abd0-441a-8abc-cea5a569c15c": {
+  "nom": "Ministère des petites et moyennes Entreprises, du Commerce, de l'Artisanat, du Tourisme et du Pouvoir d'achat",
+  "note": "Ministère délégué auprès du ministre de l'Économie : ses crédits sont comptés dans les programmes de ce ministère."
+ },
+ "drari": {
+  "nom": "Délégation régionale académique à la recherche et à l'innovation",
+  "lignes": [
+   "P214"
+  ]
+ },
+ "cci": {
+  "nom": "Chambre de commerce et d'industrie",
+  "lignes": [
+   {
+    "montant": 525,
+    "libelle": "Taxe affectée aux chambres de commerce et d'industrie (taxes additionnelles à la CFE et à la CVAE), plafond 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Assemblée nationale, rapport sur le projet de loi de finances pour 2026, annexe 19 (Économie), p. 15",
+    "url": "https://www.assemblee-nationale.fr/dyn/17/rapports/cion_fin/l17b1996-tiii-a19_rapport-fond.pdf",
+    "remarque": "Montant plafond fixé par la loi de finances ; le budget total du réseau (environ 2,3 Md€ selon la Cour des comptes) comprend aussi les recettes de ses services et de ses écoles."
+   }
+  ]
+ },
+ "chambre_agriculture": {
+  "nom": "Chambre d'agriculture",
+  "lignes": [
+   {
+    "montant": 322.1,
+    "libelle": "Taxe additionnelle à la taxe foncière sur les propriétés non bâties",
+    "annee": 2024,
+    "source": "Cour des comptes, « Le réseau des chambres d'agriculture depuis leur régionalisation », octobre 2025, annexe 9",
+    "url": "https://www.ccomptes.fr/sites/default/files/2025-10/20251001-S2025-1229-Regionalisation-des-chambres-d-agriculture.pdf",
+    "remarque": "En 2023, le réseau a reçu 598 M€ de ressources publiques au total (taxe, subventions de l'État, des régions, de l'Europe), sur 793 M€ de produits."
+   }
+  ]
+ },
+ "chambre_metier": {
+  "nom": "Chambre de métiers et de l'artisanat",
+  "lignes": [
+   {
+    "montant": 182.9,
+    "libelle": "Taxe pour frais de chambres de métiers et de l'artisanat, plafond 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Assemblée nationale, amendement au projet de loi de finances pour 2024 (plafond 2023 de 196,1 M€ diminué de 13,25 M€)",
+    "url": "https://www.assemblee-nationale.fr/dyn/16/amendements/1680A/AN/379.pdf",
+    "remarque": "Plafond reconstitué à partir du plafond 2023 et de la baisse votée ; il est cohérent avec le plafond 2025 de 169,6 M€ indiqué par le Sénat."
+   }
+  ]
+ },
+ "agefiph": {
+  "nom": "Association de gestion du fonds pour l'insertion professionnelle des personnes handicapées",
+  "lignes": [
+   {
+    "montant": 556.1,
+    "libelle": "Contributions des entreprises au titre de l'obligation d'emploi des travailleurs handicapés",
+    "annee": 2024,
+    "source": "Agefiph, rapport d'activité 2024, p. 6-7",
+    "url": "https://www.agefiph.fr/sites/default/files/medias/fichiers/2025-05/Agefiph_RA2024.pdf",
+    "remarque": "Contribution obligatoire versée par les entreprises qui n'emploient pas assez de personnes handicapées ; elle n'est pas comptée comme dépense publique par l'Insee."
+   }
+  ]
+ },
+ "cnfpt": {
+  "nom": "Centre national de la fonction publique territoriale",
+  "lignes": [
+   {
+    "montant": 427,
+    "libelle": "Cotisation obligatoire des collectivités (part de leur masse salariale)",
+    "annee": 2024,
+    "source": "CNFPT, « L'essentiel de l'activité 2024 »",
+    "url": "https://www.cnfpt.fr/sites/default/files/document_ba/1751441103/synthese-activite-2024.pdf"
+   }
+  ]
+ },
+ "apec": {
+  "nom": "Association pour l'emploi des cadres",
+  "lignes": [
+   {
+    "montant": 184.6,
+    "libelle": "Cotisations obligatoires des cadres et de leurs employeurs",
+    "annee": 2024,
+    "source": "Apec, rapport financier 2025, p. 14",
+    "url": "https://corporate.apec.fr/files/live/sites/corporate/files/Nos%20resultats/pdf/rapport-financier-de-l-Apec-2025",
+    "remarque": "Cotisation prélevée sur les salaires des cadres ; elle n'est pas comptée comme dépense publique par l'Insee."
+   }
+  ]
+ },
+ "ssti": {
+  "nom": "Service de prévention et de santé au travail interentreprises",
+  "note": "Financés par les cotisations obligatoires des employeurs adhérents, que les comptes publics ne recensent pas ; leur fédération, Présanse, les évalue à environ 1,8 Md€ en 2023."
+ },
+ "fdc": {
+  "nom": "Fédération départementale des chasseurs",
+  "note": "Financées surtout par les cotisations des chasseurs ; l'Office français de la biodiversité leur verse une écocontribution (environ 44 M€ de 2019 à 2023)."
+ },
+ "fdapp": {
+  "nom": "Fédération départementale pour la pêche et la protection du milieu aquatique",
+  "note": "Financées surtout par les cartes de pêche ; pas de total national publié d'argent public."
+ },
+ "caue": {
+  "nom": "Conseil d'architecture, d'urbanisme et de l'environnement",
+  "note": "Financés par une part de la taxe d'aménagement que leur reversent les départements : pas de total national publié."
+ },
+ "cdg": {
+  "nom": "Centre de gestion de la fonction publique territoriale",
+  "note": "Financés par les cotisations obligatoires des collectivités affiliées : pas de total national publié."
+ },
+ "chambre_metier_reg": {
+  "nom": "Chambre de métiers et de l'artisanat de région",
+  "lignes": [
+   {
+    "montant": 182.9,
+    "libelle": "Taxe pour frais de chambres de métiers et de l'artisanat, plafond 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Assemblée nationale, amendement au projet de loi de finances pour 2024 (plafond 2023 de 196,1 M€ diminué de 13,25 M€)",
+    "url": "https://www.assemblee-nationale.fr/dyn/16/amendements/1680A/AN/379.pdf",
+    "remarque": "Plafond reconstitué à partir du plafond 2023 et de la baisse votée ; il est cohérent avec le plafond 2025 de 169,6 M€ indiqué par le Sénat."
+   }
+  ]
+ },
+ "cpam": {
+  "nom": "Caisse primaire d'assurance maladie",
+  "lignes": [
+   {
+    "montant": 251361,
+    "libelle": "Charges nettes de la branche maladie du régime général",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, annexe 1, tableau 15",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf"
+   }
+  ]
+ },
+ "caf": {
+  "nom": "Caisse d'allocations familiales",
+  "lignes": [
+   {
+    "montant": 57848,
+    "libelle": "Charges nettes de la branche famille du régime général",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, annexe 1, tableau 15",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf"
+   },
+   {
+    "montant": 51600,
+    "libelle": "Prestations versées pour le compte de l'État et des départements (AAH, prime d'activité, aides au logement, RSA)",
+    "annee": 2024,
+    "source": "Cour des comptes, certification des comptes du régime général de sécurité sociale, exercice 2024, p. 61",
+    "url": "https://www.ccomptes.fr/sites/default/files/2025-05/20250516-certification-comptes-securite-sociale-2024.pdf",
+    "remarque": "Les Caf paient ces aides, mais l'argent vient du budget de l'État et des départements, où il est déjà compté.",
+    "hors_total": true
+   }
+  ]
+ },
+ "carsat": {
+  "nom": "Caisse d'assurance retraite et de la santé au travail",
+  "lignes": [
+   {
+    "montant": 172186,
+    "libelle": "Charges nettes de la branche vieillesse du régime général",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, annexe 1, tableau 15",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf"
+   },
+   {
+    "montant": 14594,
+    "libelle": "Charges nettes de la branche accidents du travail et maladies professionnelles",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, annexe 1, tableau 15",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf",
+    "remarque": "Branche pilotée par l'Assurance maladie ; les Carsat en fixent les taux pour les entreprises et mènent la prévention."
+   }
+  ]
+ },
+ "msa": {
+  "nom": "Mutualité sociale agricole",
+  "lignes": [
+   {
+    "montant": 32960,
+    "libelle": "Dépenses du régime agricole, salariés (16,6 Md€) et non-salariés (16,4 Md€)",
+    "annee": 2024,
+    "source": "MSA, bilans démographiques et financiers 2024 des salariés et des non-salariés agricoles",
+    "url": "https://statistiques.msa.fr/wp-content/uploads/2025/09/Bilan-demographique-et-financier-NSA-2024.pdf",
+    "remarque": "Une partie est financée par le régime général (maladie des salariés agricoles, équilibre de leur retraite)."
+   }
+  ]
+ },
+ "cicas": {
+  "nom": "Centre d'information de conseil et d'accueil des salariés",
+  "lignes": [
+   {
+    "montant": 97848,
+    "libelle": "Pensions de retraite complémentaire versées par l'Agirc-Arrco",
+    "annee": 2024,
+    "source": "Agirc-Arrco, Chiffr'Agirc-Arrco, édition 2025, p. 108",
+    "url": "https://www.agirc-arrco.fr/storage/2025/04/chiffrAA_2025.pdf",
+    "remarque": "Régime complémentaire géré par les partenaires sociaux, compté dans la sécurité sociale par l'Insee."
+   }
+  ]
+ },
+ "urssaf": {
+  "nom": "Union de recouvrement des cotisations de sécurité sociale et d'allocations familiales",
+  "lignes": [
+   {
+    "montant": 1804,
+    "libelle": "Dépenses de gestion de l'Urssaf (hors investissement)",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, octobre 2025, fiche 2.7, tableau 1",
+    "url": "https://www.securite-sociale.fr/files/live/sites/SSFR/files/CCSS-octobre%202025.pdf",
+    "remarque": "L'Urssaf ne verse pas de prestations : elle collecte les cotisations et la CSG (588 Md€ encaissés en 2024, selon la Direction de la sécurité sociale) pour les reverser aux autres caisses."
+   }
+  ]
+ },
+ "chu": {
+  "nom": "Centre hospitalier universitaire",
+  "lignes": [
+   {
+    "montant": 105500,
+    "libelle": "Ondam « établissements de santé » réalisé (hôpitaux publics et cliniques privées)",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, fiche 2.2, tableau 2",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf",
+    "remarque": "Dépenses de l'assurance maladie pour l'ensemble des établissements de santé ; la part des seuls hôpitaux publics n'est pas publiée en euros."
+   }
+  ]
+ },
+ "samu": {
+  "nom": "Service d'aide médicale urgente",
+  "lignes": [
+   {
+    "montant": 105500,
+    "libelle": "Ondam « établissements de santé » réalisé (hôpitaux publics et cliniques privées)",
+    "annee": 2024,
+    "source": "Rapport à la Commission des comptes de la sécurité sociale, juin 2025, fiche 2.2, tableau 2",
+    "url": "https://www.vie-publique.fr/files/rapport/pdf/299158.pdf",
+    "remarque": "Dépenses de l'assurance maladie pour l'ensemble des établissements de santé ; la part des seuls hôpitaux publics n'est pas publiée en euros."
+   }
+  ]
+ },
+ "crpv": {
+  "nom": "Centre régional de pharmacovigilance",
+  "lignes": [
+   {
+    "montant": 21.45,
+    "libelle": "Financement par l'ANSM des réseaux de vigilance, dont les centres régionaux de pharmacovigilance",
+    "annee": 2024,
+    "source": "ANSM, rapport d'activité 2024, annexes (budget), p. 52",
+    "url": "https://ansm.sante.fr/uploads/2025/08/04/20250626-ca-delib-2025-09-rapport-activite-ansm-2024.pdf",
+    "remarque": "Montant pour l'ensemble des réseaux de vigilance ; la part des seuls CRPV n'est pas publiée."
+   }
+  ]
+ },
+ "arlci": {
+  "nom": "Coordination régionale de l'Agence nationale de lutte contre l'illettrisme",
+  "lignes": [
+   {
+    "montant": 3.1,
+    "libelle": "Crédits de l'État versés à l'Agence nationale de lutte contre l'illettrisme",
+    "base": "execution",
+    "annee": 2024,
+    "source": "Rapport annuel de performances 2024, « Travail et emploi », programme 103",
+    "url": "https://questions.assemblee-nationale.fr/dyn/contenu/visualisation/907015/file/Travail_emploi.pdf",
+    "remarque": "Seuls les crédits de l'État sont publiés ; le budget total du groupement d'intérêt public ne l'est pas."
+   }
+  ]
+ },
+ "afpa": {
+  "nom": "Agence nationale pour la formation professionnelle des adultes",
+  "lignes": [
+   {
+    "montant": 779.276,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 234-235",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "epide": {
+  "nom": "Établissement pour l'insertion dans l'emploi",
+  "lignes": [
+   {
+    "montant": 159.997,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 438-439",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 100,059 M€ CP, dotations en fonds propres 8,266, transferts 13,941, subvention d'investissement 1,996, soit 124,262 M€."
+   }
+  ]
+ },
+ "inpi": {
+  "nom": "Délégation régionale de l'Institut national de la propriété industrielle",
+  "lignes": [
+   {
+    "montant": 139.596,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 525-527",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Aucune SCSP : l'INPI est financé par des redevances de propriété industrielle traitées comme taxe affectée (prévision 2024 : 94,0 M€, jaune PLF 2025 p. 66). Le jaune PLF 2026 indique une ligne SCSP 2024 de 1 k€ en AE et 0 en CP."
+   }
+  ]
+ },
+ "cnrs": {
+  "nom": "Délégation régionale du Centre national de la recherche scientifique",
+  "lignes": [
+   {
+    "montant": 4101.778,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 353-354",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 2 959,338 M€ CP, transferts 108,873, dotations 5,596, subvention d'investissement 33,776, soit 3 107,583 M€. Budget initial 2024 en AE : 4 128,511 M€."
+   }
+  ]
+ },
+ "crous": {
+  "nom": "Centre régional des œuvres universitaires et scolaires",
+  "lignes": [
+   {
+    "montant": 1673.943,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 633-635",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "dronisep": {
+  "nom": "Délégation régionale de l'Office national d'information sur les enseignements et les professions",
+  "lignes": [
+   {
+    "montant": 34.043,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 616-617",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 21,790 M€ CP."
+   }
+  ]
+ },
+ "canope_atelier": {
+  "nom": "Atelier Canopé",
+  "lignes": [
+   {
+    "montant": 131.613,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 631-632",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 81,836 M€ CP + transferts 1,676 = 83,512 M€."
+   }
+  ]
+ },
+ "canope_dt": {
+  "nom": "Direction territoriale de Réseau Canopé",
+  "lignes": [
+   {
+    "montant": 131.613,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 631-632",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 81,836 M€ CP + transferts 1,676 = 83,512 M€."
+   }
+  ]
+ },
+ "ademe": {
+  "nom": "Agence de l'environnement et de la maîtrise de l'énergie",
+  "lignes": [
+   {
+    "montant": 1214.891,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 226-228",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 792,230 M€ CP + transferts 1 000,883 M€ CP = 1 793,113 M€ versés par l'État. Les AE du budget initial 2024 atteignent 1 884,596 M€."
+   }
+  ]
+ },
+ "anah": {
+  "nom": "Agence nationale de l'habitat",
+  "lignes": [
+   {
+    "montant": 3995.66,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 246-248",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "cerema": {
+  "nom": "Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement",
+  "lignes": [
+   {
+    "montant": 325.718,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 311-312",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Exécution 2024 (jaune PLF 2026) : SCSP 193,291 M€ CP, transferts 16,100, dotations 0,125, subvention d'investissement 1,207, soit 210,723 M€."
+   }
+  ]
+ },
+ "dir_meteo": {
+  "nom": "Direction interrégionale de Météo-France",
+  "lignes": [
+   {
+    "montant": 420.677,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 567-569",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "ofb": {
+  "nom": "Office français de la biodiversité",
+  "lignes": [
+   {
+    "montant": 623.485,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 599-601",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "onf": {
+  "nom": "Office national des forêts",
+  "lignes": [
+   {
+    "montant": 923.597,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 614-615",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "service_navigation": {
+  "nom": "Voies navigables de France - direction territoriale",
+  "lignes": [
+   {
+    "montant": 740.079,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 657-658",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "onac": {
+  "nom": "Office national des combattants et des victimes de guerre",
+  "lignes": [
+   {
+    "montant": 215.856,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 609-611",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Budget initial 2024 : subventions de l'État 205,572 M€, dont SCSP 61,702 et crédits d'intervention (action sociale, rentes, etc.). Exécution 2024 (jaune PLF 2026) : SCSP 62,632 M€ CP + transferts 216,939 = 279,571 M€."
+   }
+  ]
+ },
+ "ofii": {
+  "nom": "Direction territoriale de l'Office français de l'immigration et de l'intégration",
+  "lignes": [
+   {
+    "montant": 335.151,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 604-606",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   }
+  ]
+ },
+ "asn": {
+  "nom": "Autorité de sûreté nucléaire et de radioprotection - division régionale",
+  "lignes": [
+   {
+    "montant": 365.194224,
+    "libelle": "Crédits prévus pour 2025, première année de l'ASNR (ASN et IRSN réunis)",
+    "base": "prevision",
+    "annee": 2025,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section ASNR, p. 50, tableau des crédits par titre",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf"
+   }
+  ]
+ },
+ "france_travail": {
+  "nom": "France Travail",
+  "lignes": [
+   {
+    "montant": 7032.6,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 472",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Financé surtout par l'Unédic (4 820 M€, part des contributions d'assurance chômage) et par une subvention de l'État (1 354 M€ versés en 2024)."
+   }
+  ]
+ },
+ "dr_france_travail": {
+  "nom": "Direction régionale de France Travail",
+  "lignes": [
+   {
+    "montant": 7032.6,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 472",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Financé surtout par l'Unédic (4 820 M€, part des contributions d'assurance chômage) et par une subvention de l'État (1 354 M€ versés en 2024)."
+   }
+  ]
+ },
+ "mediateur_france_travail": {
+  "nom": "Médiateur régional de France Travail",
+  "lignes": [
+   {
+    "montant": 7032.6,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 472",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf",
+    "remarque": "Financé surtout par l'Unédic (4 820 M€, part des contributions d'assurance chômage) et par une subvention de l'État (1 354 M€ versés en 2024)."
+   }
+  ]
+ },
+ "ars": {
+  "nom": "Agence régionale de santé",
+  "lignes": [
+   {
+    "montant": 831.988,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 278-279",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   },
+   {
+    "montant": 5714.1,
+    "libelle": "Fonds d'intervention régional, géré par les ARS",
+    "annee": 2024,
+    "source": "Rapport d'activité 2024 du Fonds d'intervention régional",
+    "url": "https://www.ars.sante.fr/media/146095/download",
+    "remarque": "Crédits de l'assurance maladie et de l'État que les ARS attribuent aux hôpitaux, aux associations et aux professionnels de santé de leur région."
+   }
+  ]
+ },
+ "ars_antenne": {
+  "nom": "Délégation départementale de l'Agence régionale de santé",
+  "lignes": [
+   {
+    "montant": 831.988,
+    "libelle": "Charges prévues au budget initial 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025, « Opérateurs de l'État », Fiche opérateur p. 278-279",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/22-Jaune_operateurs.pdf"
+   },
+   {
+    "montant": 5714.1,
+    "libelle": "Fonds d'intervention régional, géré par les ARS",
+    "annee": 2024,
+    "source": "Rapport d'activité 2024 du Fonds d'intervention régional",
+    "url": "https://www.ars.sante.fr/media/146095/download",
+    "remarque": "Crédits de l'assurance maladie et de l'État que les ARS attribuent aux hôpitaux, aux associations et aux professionnels de santé de leur région."
+   }
+  ]
+ },
+ "b75b5492-adde-4bb0-a0bd-864f826fc5b9": {
+  "nom": "Agence française de lutte contre le dopage",
+  "lignes": [
+   {
+    "montant": 15.3788,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section AFLD, p. 11-12, tableaux Ressources et Dépenses",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 : dépenses 13,057150 M€. Prévision 2025 : 14,1833 M€. Hausse de 2024 liée aux Jeux de Paris (recettes propres de prestations). Dépenses exécutées 2024 non trouvées (le jaune AAPI du PLF 2026, qui les présenterait, n'a pas pu être récupéré)."
+   }
+  ]
+ },
+ "a35d5a8a-7f19-44c6-8db0-bf0281456100": {
+  "nom": "Autorité de régulation des transports",
+  "lignes": [
+   {
+    "montant": 19.599905,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section ART, p. 43-44",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 : dépenses 15,822101 M€. Écart entre dépenses et subvention couvert par un prélèvement sur le fonds de roulement."
+   }
+  ]
+ },
+ "5d844ebb-0278-47d1-875c-9381dd02e445": {
+  "nom": "Autorité nationale des jeux",
+  "lignes": [
+   {
+    "montant": 11.990904,
+    "libelle": "Crédits votés en loi de finances 2024",
+    "base": "budget",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section ANJ, p. 68",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 (RAP 2023) : 11,263381 M€ CP. PLF 2025 : 12,351637 M€. L'ANJ est présentée par des crédits budgétaires de l'État (titres 2 et 3), donc pas de SCSP distincte."
+   }
+  ]
+ },
+ "b34412d8-8ae3-42df-8805-a20c32bc8584": {
+  "nom": "Autorité des marchés financiers",
+  "lignes": [
+   {
+    "montant": 133.282899,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section AMF, p. 55-57",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Aucune subvention de l'État : l'AMF vit de taxes et contributions des acteurs financiers (ressources propres 134,475597 M€ prévues en 2024, moins un écrêtement reversé de 11,875597 M€, soit 122,6 M€). Exécution 2023 : dépenses 129,156486 M€."
+   }
+  ]
+ },
+ "d3bb7765-389c-488f-8f39-9a30f005c15b": {
+  "nom": "Autorité de régulation de la communication audiovisuelle et numérique",
+  "lignes": [
+   {
+    "montant": 52.3,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section Arcom, p. 27-28",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 : dépenses 47,923 M€, subvention 47,858371 M€."
+   }
+  ]
+ },
+ "df118fe7-bb5e-49f9-8ff0-3fdcaa4011f1": {
+  "nom": "Haute Autorité de santé",
+  "lignes": [
+   {
+    "montant": 76.109143,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section HAS, p. 145-146",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Pas de subvention de l'État : la HAS est financée surtout par une dotation de l'assurance maladie (« autres ressources publiques » : 71,9 M€ prévus en 2024). Exécution 2023 : dépenses 72,531426 M€."
+   }
+  ]
+ },
+ "eaac22f0-39f1-450b-939a-398c2bda95f5": {
+  "nom": "Haut Conseil de l'évaluation de la recherche et de l'enseignement supérieur",
+  "lignes": [
+   {
+    "montant": 24.11,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section Hcéres, p. 128-129",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 : dépenses 24,084943 M€, subvention 21,45858 M€."
+   }
+  ]
+ },
+ "5ab11965-858e-4fb3-8240-bb9b0d5591d0": {
+  "nom": "Haute Autorité de l'audit",
+  "lignes": [
+   {
+    "montant": 18.86935,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section H2A, p. 138-139",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Pas de subvention : la H2A est financée par des contributions des commissaires aux comptes classées en ressources fiscales affectées (15,98 M€ prévus en 2024). Exécution 2023 : dépenses 17,044391 M€."
+   }
+  ]
+ },
+ "8ba3f5d5-74ab-48aa-afe6-04aba6fd2d2b": {
+  "nom": "Médiateur national de l'énergie",
+  "lignes": [
+   {
+    "montant": 5.508674,
+    "libelle": "Dépenses prévues en 2024",
+    "base": "prevision",
+    "annee": 2024,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section MNE, p. 162-163",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf",
+    "remarque": "Exécution 2023 : dépenses 4,877676 M€, subvention 3,81 M€."
+   }
+  ]
+ },
+ "creps": {
+  "nom": "Centre de ressources, d'expertise et de performance sportive",
+  "note": "Établissements publics locaux financés par l'État et les régions : pas de budget consolidé publié pour l'ensemble des Creps."
+ },
+ "espe": {
+  "nom": "Institut national supérieur du professorat et de l'éducation",
+  "note": "Instituts internes aux universités : leurs moyens ne sont pas isolés dans les comptes publiés."
+ },
+ "suio": {
+  "nom": "Service universitaire d'information et d'orientation",
+  "note": "Services internes aux universités : leurs moyens ne sont pas isolés dans les comptes publiés."
+ },
+ "01883cad-3b59-4e61-a7af-778c6ade7748": {
+  "nom": "Autorité de sûreté nucléaire et de radioprotection",
+  "lignes": [
+   {
+    "montant": 365.194224,
+    "libelle": "Crédits prévus pour 2025, première année de l'ASNR (ASN et IRSN réunis)",
+    "base": "prevision",
+    "annee": 2025,
+    "source": "Annexe au projet de loi de finances pour 2025 sur les autorités administratives et publiques indépendantes, Section ASNR, p. 50, tableau des crédits par titre",
+    "url": "https://www2.assemblee-nationale.fr/static/17/Annexes-DL/PLF2025-Jaunes/23-Jaune_AAPI.pdf"
+   }
+  ]
+ }
+}

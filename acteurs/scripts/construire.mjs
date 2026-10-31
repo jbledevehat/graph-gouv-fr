@@ -6,6 +6,8 @@
 // Entrées : acteurs/sources/annuaire.json (scripts/annuaire.mjs), acteurs/config/resumes.json
 // (résumés et classement écrits à la main) et, pour les montants par administration et par
 // fonction, budget/donnees/argent-public-AAAA.json et explications.json (page budget).
+// Argent public : config/argent-public.json, avec le budget de l'État (page budget), les comptes des
+// collectivités (sources/ofgl-AAAA.json, scripts/ofgl.mjs) et des montants de rapports officiels.
 // Sortie : acteurs/donnees/acteurs.json, et acteurs/donnees/services.json pour les services
 // rattachés aux fiches nationales (sources/hierarchie.json, scripts/hierarchie.mjs).
 // Une organisation sans résumé ou sans classement, ou un résumé qui ne correspond plus à rien,
@@ -75,8 +77,8 @@ function ajouter(cle, brut, theme) {
     // d'une autre structure (Maison départementale de l'autonomie, aide aux victimes…).
     mission_annuaire: r.source === 'annuaire' ? brut.mission || null : null,
     themes: [theme],
-    montant: null, // millions d'euros, pour les services de l'État (voir plus bas)
-    budget: null,
+    montant: null, // argent public, en millions d'euros (voir plus bas)
+    argent: null,
     effectifs: null, // à venir
   });
 }
@@ -89,44 +91,87 @@ for (const t of A.themes) for (const ty of t.types) {
 }
 for (const cle of Object.keys(R)) if (!orgs.has(cle)) erreurs.push(`résumé sans organisation dans l'annuaire : ${cle}`);
 
-// Budget de l'État (config/budget-etat.json) : chaque service de l'État est rattaché à des
-// programmes du budget général, ou à des actions quand l'une lui correspond (CNIL, tribunaux
-// administratifs…) ; un ministère reçoit tous ses programmes, hors pouvoirs publics (5xx), qui vont
-// aux institutions. Programme entier : dépense exécutée ; action : montant prévu par la loi de
-// finances (l'exécution n'est publiée que par programme). Une ligne utilisée par plusieurs services
-// est signalée comme partagée.
+// Argent public (config/argent-public.json) : pour chaque organisation, les lignes qui le
+// financent, en millions d'euros, chacune avec sa source :
+// - "P156" ou "P308/02" : programme ou action du budget général de l'État. Programme : dépense
+//   exécutée ; action : montant prévu par la loi de finances (l'exécution n'est publiée que par
+//   programme). « ministere » : tous les programmes d'un ministère, hors pouvoirs publics (5xx).
+// - { ofgl: ["Commune", "PARIS"] } : dépenses d'une catégorie de collectivités (OFGL, sources/ofgl-AAAA.json) ;
+//   { ofgl_fonctions: ["411"] } : dépenses des départements pour ces fonctions ;
+//   { balances: ["11"], categories: [...] } : dépenses par fonction des balances de la DGFiP (collectivités
+//   de 3 500 habitants et plus), celles de la page budget.
+// - { montant, libelle, source, url } : montant tiré d'un rapport officiel.
+// « hors_total » : ligne montrée dans la fiche mais non additionnée (argent déjà compté ailleurs).
+// Une « note » remplace le montant quand il n'y a pas d'argent public propre à l'organisation.
+// Une ligne utilisée par plusieurs organisations (hors ministères) est signalée comme partagée.
 const BE = await lire(`../budget/donnees/budget-etat-${annee}.json`);
 const DE = await lire(`../budget/donnees/detail-etat-${annee}.json`);
-const CB = await lire('config/budget-etat.json');
+const OF = await lire(`sources/ofgl-${annee}.json`);
+const BAL = await lire(`../budget/sources/collectivites/balances-fonction-${annee}.json`);
+const CA = await lire('config/argent-public.json');
 const programmeDe = Object.fromEntries(BE.programmes.map(p => [p.programme, p]));
-for (const [cle, c] of Object.entries(CB)) {
+const CATEGORIES = {
+  Commune: ['communes', OF.communes.Commune], PARIS: ['Ville de Paris', OF.communes.PARIS], DEPT: ['départements', OF.departements.DEPT],
+  REG: ['régions', OF.regions.REG], CTU: ['collectivités uniques de Corse, Guyane et Martinique', OF.regions.CTU],
+  GFP: ['intercommunalités à fiscalité propre', OF.gfp.GFP], EPT: ['établissements publics territoriaux du Grand Paris', OF.gfp.EPT], ML: ['Métropole de Lyon', OF.gfp.ML],
+  SDIS: ["services départementaux d'incendie et de secours", OF.sdis], CCAS: ["centres communaux et intercommunaux d'action sociale", OF.ccas],
+  MDPH: ['maisons départementales des personnes handicapées', OF.syndicats['Maison départementale des personnes handicapées (MDPH)']],
+};
+const OFGL = `Comptes des collectivités ${annee} (OFGL) : dépenses totales hors remboursements d'emprunts, budgets principaux`;
+// Code de fonction des balances sans le chapitre de vote (93222 ou 90222 -> 222), comme la page budget.
+const fonctionBal = c => { c = String(c || ''); return c.slice(0, 2) === '90' || c.slice(0, 2) === '93' ? c.slice(2) : c[0] === '9' ? null : c; };
+const arrondi = v => Math.round(v * 1000) / 1000;
+for (const [cle, c] of Object.entries(CA)) {
   const o = orgs.get(cle);
-  if (!o) { erreurs.push(`budget de l'État : organisation inconnue ${cle}`); continue; }
-  if (o.administration !== 'etat') erreurs.push(`budget de l'État : ${cle} n'est pas un service de l'État`);
+  if (!o) { erreurs.push(`argent public : organisation inconnue ${cle}`); continue; }
   const lignes = [];
   for (const m of c.ministere || []) {
     const ps = BE.programmes.filter(p => p.ministere === m && !p.programme.startsWith('5'));
     if (!ps.length) erreurs.push(`${cle} : ministère inconnu dans le budget « ${m} »`);
-    for (const p of ps) lignes.push({ programme: p.programme, libelle: p.libelle, montant: DE.programmes[p.programme]?.cp.depenses ?? p.depenses, base: 'execution' });
+    for (const p of ps) lignes.push({ source: 'etat', cle: `etat:${p.programme}`, programme: p.programme, libelle: `Programme ${p.programme} · ${p.libelle}`, montant: DE.programmes[p.programme]?.cp.depenses ?? p.depenses, base: 'execution' });
   }
   for (const l of c.lignes || []) {
-    const [, pr, ac] = l.match(/^P(\d+)(?:\/(\w+))?$/) || [];
-    const p = programmeDe[pr], d = DE.programmes[pr];
-    if (!p || !d) { erreurs.push(`${cle} : programme inconnu ${l}`); continue; }
-    if (!ac) { lignes.push({ programme: pr, libelle: p.libelle, montant: d.cp.depenses, base: 'execution' }); continue; }
-    const a = d.actions.find(x => x.code === ac);
-    if (!a) { erreurs.push(`${cle} : action inconnue ${l}`); continue; }
-    lignes.push({ programme: pr, libelle: p.libelle, action: ac, action_libelle: a.libelle, montant: a.cp, base: 'prevision' });
+    const ligne = { remarque: l.remarque || null, hors_total: Boolean(l.hors_total) };
+    if (typeof l === 'string' || l.etat) {
+      const [, pr, ac] = (typeof l === 'string' ? l : l.etat).match(/^P(\d+)(?:\/(\w+))?$/) || [];
+      const p = programmeDe[pr], d = DE.programmes[pr];
+      if (!p || !d) { erreurs.push(`${cle} : programme inconnu ${JSON.stringify(l)}`); continue; }
+      Object.assign(ligne, { source: 'etat', programme: pr, libelle: `Programme ${pr} · ${p.libelle}` });
+      if (!ac) Object.assign(ligne, { cle: `etat:${pr}`, montant: d.cp.depenses, base: 'execution' });
+      else {
+        const a = d.actions.find(x => x.code === ac);
+        if (!a) { erreurs.push(`${cle} : action inconnue ${JSON.stringify(l)}`); continue; }
+        Object.assign(ligne, { cle: `etat:${pr}/${ac}`, action: ac, detail: `Action ${ac} · ${a.libelle}`, montant: a.cp, base: 'prevision' });
+      }
+    } else if (l.ofgl) {
+      const inconnues = l.ofgl.filter(k => CATEGORIES[k]?.[1] == null);
+      if (inconnues.length) { erreurs.push(`${cle} : catégorie OFGL inconnue ${inconnues}`); continue; }
+      Object.assign(ligne, { source: 'ofgl', cle: `ofgl:${l.ofgl.join('+')}`, libelle: l.libelle || `Dépenses des ${l.ofgl.map(k => CATEGORIES[k][0]).join(', ')}`,
+        montant: l.ofgl.reduce((s, k) => s + CATEGORIES[k][1], 0) / 1e6, base: 'execution', reference: OFGL });
+    } else if (l.ofgl_fonctions) {
+      const F = l.ofgl_fonctions.map(k => OF.fonctions_departements[k]);
+      if (F.some(f => !f)) { erreurs.push(`${cle} : fonction départementale inconnue ${l.ofgl_fonctions}`); continue; }
+      Object.assign(ligne, { source: 'ofgl', cle: `ofglf:${l.ofgl_fonctions.join('+')}`, libelle: l.libelle, detail: `Fonctions ${l.ofgl_fonctions.map((k, i) => `${k} (${F[i].libelles[0]})`).join(', ')}`,
+        montant: F.reduce((s, f) => s + f.montant, 0) / 1e6, base: 'execution', reference: `${OFGL}, par fonction (départements en nomenclature M57)` });
+    } else if (l.balances) {
+      const v = BAL.lignes.filter(([cat, , f]) => l.categories.includes(cat) && l.balances.some(p => (fonctionBal(f) || '').startsWith(p))).reduce((s, [, , , fo, inv]) => s + fo + inv, 0);
+      Object.assign(ligne, { source: 'balances', cle: `bal:${l.categories}:${l.balances}`, libelle: l.libelle, montant: v / 1e6, base: 'execution',
+        reference: `Balances comptables ${annee} des collectivités (DGFiP), par fonction : collectivités de 3 500 habitants et plus, budgets principaux, opérations réelles` });
+    } else if (l.montant != null) {
+      Object.assign(ligne, { source: 'rapport', cle: `m:${l.libelle}`, libelle: l.libelle, detail: l.detail || null, montant: l.montant, base: l.base || 'execution', annee: l.annee || null, reference: l.source, url: l.url || null });
+    } else { erreurs.push(`${cle} : ligne incomprise ${JSON.stringify(l)}`); continue; }
+    ligne.montant = arrondi(ligne.montant);
+    lignes.push(ligne);
   }
-  o.budget = { ministere: Boolean(c.ministere), note: c.note || null, lignes, partage_avec: [] };
-  o.montant = lignes.length ? Math.round(lignes.reduce((s, l) => s + l.montant, 0) * 1000) / 1000 : null;
+  o.argent = { ministere: Boolean(c.ministere), note: c.note || null, lignes, partage_avec: [] };
+  // Une ligne « hors_total » (argent déjà compté ailleurs) est montrée dans la fiche sans être additionnée.
+  o.montant = lignes.length ? arrondi(lignes.filter(l => !l.hors_total).reduce((s, l) => s + l.montant, 0)) : null;
 }
-// Lignes partagées entre services (hors ministères) : même programme, et l'un des deux le prend
-// entier ou les deux la même action.
-const servicesEtat = [...orgs.values()].filter(o => o.budget?.lignes.length && !o.budget.ministere);
-const recoupe = (a, b) => a.programme === b.programme && (!a.action || !b.action || a.action === b.action);
-for (const o of servicesEtat) {
-  o.budget.partage_avec = servicesEtat.filter(x => x !== o && x.budget.lignes.some(l => o.budget.lignes.some(m => recoupe(l, m)))).map(x => x.cle);
+// Lignes partagées (hors ministères) : même programme de l'État pris entier par l'un, ou même ligne.
+const finances = [...orgs.values()].filter(o => o.argent?.lignes.length && !o.argent.ministere);
+const recoupe = (a, b) => a.cle === b.cle || (a.source === 'etat' && b.source === 'etat' && a.programme === b.programme && (!a.action || !b.action));
+for (const o of finances) {
+  o.argent.partage_avec = finances.filter(x => x !== o && x.argent.lignes.some(l => o.argent.lignes.some(m => recoupe(l, m)))).map(x => x.cle);
 }
 if (erreurs.length) { console.error(erreurs.join('\n')); process.exit(1); }
 
@@ -150,7 +195,7 @@ await mkdir(dirname(sortie), { recursive: true });
 await writeFile(sortie, JSON.stringify({
   lu_le: A.lu_le, source: A.source,
   montants: { annee: Number(annee), unite: "milliards d'euros", source: `Insee, comptes de la Nation ${annee} : dépenses consolidées des administrations publiques par fonction (tableau 3.307), reprises de la page budget`,
-    budget_etat: { unite: "millions d'euros", source: `Budget général de l'État ${annee} : dépenses exécutées par programme (loi d'approbation des comptes) et répartition par action prévue par le projet de loi de finances, reprises de la page budget` } },
+    argent_public: { unite: "millions d'euros", etat: `Budget général de l'État ${annee} : dépenses exécutées par programme (loi d'approbation des comptes) et répartition par action prévue par le projet de loi de finances, reprises de la page budget`, collectivites: OFGL } },
   administrations, fonctions, natures: NATURES,
   organisations: [...orgs.values()],
 }) + '\n');
