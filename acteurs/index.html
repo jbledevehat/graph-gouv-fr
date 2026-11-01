@@ -411,7 +411,16 @@
         <li><strong>Missions</strong> : quand l'annuaire publie un texte de mission, le résumé s'en inspire et le texte d'origine est dans la fiche ; sinon (environ un type sur trois, et tous les ministères), il est rédigé pour cette page, et la fiche le signale.</li>
         <li><strong>Implantations</strong> : nombre de fiches de ce type dans l'annuaire, un ordre de grandeur du maillage du territoire, pas un nombre d'agents.</li>
         <li><strong>Argent public de chaque organisation</strong>, avec sa source : pour les services de l'État, les programmes du budget général (dépense exécutée), ou l'action qui leur correspond (montant prévu) ; un ministère reçoit tous ses programmes. Pour les collectivités, leurs dépenses totales (Observatoire des finances et de la gestion publique locales), ou celles d'une fonction (PMI, autonomie, archives…). Pour la sécurité sociale, les opérateurs et les partenaires, les montants des rapports officiels (comptes de la sécurité sociale, annexe « jaune » des opérateurs, taxes affectées…). Un montant couvre tout le réseau (toutes les Caf, toutes les mairies). Quand plusieurs organisations se partagent le même argent (impôts, police, tribunaux…), il est marqué « partagé ». Les montants ne s'additionnent pas : celui d'un ministère comprend ceux de ses services.</li>
-        <li><strong>À venir</strong> : les montants des opérateurs (annexe « jaune »), de la sécurité sociale et des collectivités, une vue en rectangles à l'échelle, puis les effectifs.</li>
+        <li><strong>Pourquoi la somme des organisations ne donne pas le total de la page budget</strong> : les blocs d'administration et de fonction reprennent exactement les dépenses de la page <a href="../budget/pilotage.html">Pilotage du budget</a> (1 671,8 Md€ en 2024). Le montant d'une organisation dit autre chose : combien d'argent public passe par elle. Les additionner compterait plusieurs fois le même argent, ou en oublierait :
+          <ul>
+            <li>l'Insee compte un transfert entre administrations une seule fois, chez celle qui dépense en dernier ; le budget de l'État, lui, comprend aussi ce qu'il verse aux collectivités, à la sécurité sociale et aux opérateurs (ses ministères totalisent 583 Md€, pour 469 Md€ de dépenses de l'État) ;</li>
+            <li>certains montants en contiennent d'autres : les hôpitaux sont payés en grande partie par l'Assurance maladie, la PMI ou l'autonomie font partie des dépenses des départements, et ce qu'une commune verse à son intercommunalité est compté chez les deux ;</li>
+            <li>un même programme de l'État peut financer plusieurs organisations (« partagé ») ;</li>
+            <li>la page ne montre que les types d'organismes de l'annuaire : de nombreux opérateurs (les universités, par exemple) et des organismes comme l'Unédic n'y sont pas ;</li>
+            <li>enfin, pour les opérateurs, ce sont des budgets initiaux, pas des dépenses constatées.</li>
+          </ul>
+        </li>
+        <li><strong>À venir</strong> : une vue en rectangles à l'échelle des montants, puis les effectifs et le détail des réseaux locaux.</li>
       </ul>
     </details>
     <p class="updated">Source : <a href="https://lannuaire.service-public.gouv.fr/themes" target="_blank" rel="noopener">Annuaire de l'administration</a> (DILA), lu le <span id="lu-le">…</span> · Données : <a href="donnees/acteurs.json" download>JSON</a> · Licence Ouverte 2.0</p>

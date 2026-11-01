@@ -80,6 +80,12 @@ est marqué « partagé » et la fiche liste les autres. Les montants ne s'addit
 ministère comprend ceux de ses services. Les organisations sans argent public propre (ordres
 professionnels financés par leurs membres, Banque de France…) ont une explication à la place.
 
+La somme des organisations ne redonne donc pas le total de la page budget (1 671,8 Md€ en 2024),
+que seuls les blocs d'administration et de fonction reprennent. L'Insee consolide les transferts
+entre administrations, alors que le budget de l'État et les comptes OFGL ne le font pas.
+Certains montants en contiennent d'autres (hôpitaux et Assurance maladie, PMI et départements). Et
+la page ne montre que les types d'organismes de l'annuaire. La méthode de la page l'explique.
+
 ## À venir
 
 - **Vue en rectangles** à l'échelle des montants (bascule avec le mur).
