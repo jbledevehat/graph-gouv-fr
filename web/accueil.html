@@ -77,8 +77,8 @@
   section > .lead { margin: -6px 0 0; color: var(--muted); max-width: 80ch; }
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); min-width: 0; }
 
-  /* Les deux sections du site */
-  .doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; }
+  /* Les trois sections du site */
+  .doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
   .door { position: relative; display: grid; grid-template-rows: auto 1fr; overflow: hidden; transition: transform .15s; }
   .door:hover { transform: translateY(-2px); }
   .door h3 a { color: inherit; text-decoration: none; }
@@ -105,6 +105,16 @@
   .mini b { position: absolute; left: 8px; right: 6px; top: 6px; font: 600 12px var(--sans); color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mini .coll b, .mini .op b { color: #162033; }
   .mini .secu { background: var(--m-secu); } .mini .etat { background: var(--m-etat); } .mini .coll { background: var(--m-coll); } .mini .op { background: var(--m-op); }
+  /* Aperçu des acteurs publics : un petit organigramme horizontal, du thème aux organisations. */
+  .arbre { position: absolute; inset: 18px 22px; display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 26px; align-items: center; }
+  .arbre div { display: grid; gap: 6px; position: relative; }
+  .arbre i { display: block; height: 18px; border-radius: 4px; background: var(--panel); border: 1px solid var(--line); }
+  .arbre i.on { border-color: var(--accent); background: var(--accent-soft); }
+  .arbre div:last-child i { height: 22px; border-left: 4px solid var(--m-etat); }
+  /* Première colonne : les administrations, aux couleurs de la page budget. */
+  .arbre div:first-child i:nth-child(1) { border-left: 4px solid var(--m-etat); } .arbre div:first-child i:nth-child(2) { border-left: 4px solid var(--m-secu); } .arbre div:first-child i:nth-child(3) { border-left: 4px solid var(--m-coll); } .arbre div:first-child i:nth-child(4) { border-left: 4px solid var(--m-op); } .arbre div:first-child i:nth-child(5) { border-left: 4px solid var(--control); }
+  .arbre div:not(:last-child) i.on::after { content: ""; position: absolute; left: 100%; width: 26px; border-top: 1.5px solid var(--control); margin-top: 8px; }
+  .arbre i { position: relative; }
   :root[data-theme="dark"] .mini b { color: #0C1119; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mini b { color: #0C1119; } }
 
@@ -137,7 +147,7 @@
   </div>
 
   <section aria-labelledby="t-sections">
-    <h2 id="t-sections">Deux tableaux de bord</h2>
+    <h2 id="t-sections">Trois tableaux de bord</h2>
     <div class="doors">
       <div class="card door">
         <div class="visual"><img src="apercu.jpg" alt="Carte des sites web de l'État : chaque ministère est un grand cercle, chaque site une bulle" width="1200" height="630" loading="lazy"></div>
@@ -171,6 +181,26 @@
             <div><b>{{aides}}</b><span>d'aides aux entreprises</span></div>
           </div>
           <div class="go"><a href="budget/">L'exploration</a><a href="budget/pilotage.html">Le pilotage</a><a href="budget/aides.html">Les aides aux entreprises</a></div>
+        </div>
+      </div>
+      <div class="card door">
+        <div class="visual" aria-hidden="true">
+          <div class="arbre">
+            <div><i></i><i class="on"></i><i></i><i></i><i></i></div>
+            <div><i></i><i class="on"></i><i></i></div>
+            <div><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="eyebrow">Organisation publique</span>
+          <h3><a href="acteurs/">Les acteurs publics</a></h3>
+          <p>Qui fait le service public ? Les organismes de l'Annuaire de l'administration rangés comme l'argent public : par administration, puis par fonction, avec la mission de chacun en quelques mots.</p>
+          <div class="figs">
+            <div><b>{{acteurs_fonctions}}</b><span>fonctions</span></div>
+            <div><b>{{acteurs_orgs}}</b><span>types d'organismes décrits</span></div>
+            <div><b>{{acteurs_implantations}}</b><span>implantations locales</span></div>
+          </div>
+          <div class="go"><a href="acteurs/">L'organigramme</a></div>
         </div>
       </div>
     </div>

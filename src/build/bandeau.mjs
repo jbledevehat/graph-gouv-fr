@@ -15,6 +15,10 @@ export const SECTIONS = {
     nom: "Budget de l'État", chemin: 'budget/', annees: true,
     pages: [['exploration', 'Exploration', 'budget/'], ['pilotage', 'Pilotage', 'budget/pilotage.html'], ['aides', 'Aides aux entreprises', 'budget/aides.html'], ['jeunesse', 'Jeunesse', 'budget/jeunesse.html']],
   },
+  acteurs: {
+    nom: 'Acteurs publics', chemin: 'acteurs/',
+    pages: [['organigramme', 'Organigramme', 'acteurs/']],
+  },
 };
 
 const STYLE = `<style>

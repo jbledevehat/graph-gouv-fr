@@ -11,16 +11,18 @@ vérifiés pour partager les données publiques et piloter les politiques publiq
 | [`/budget/`](https://gouvfr.jbledevehat.fr/budget/) | Exploration de l'argent public en 2024 (dépenses et recettes, à zoomer) | `budget/index.html` |
 | [`/budget/pilotage.html`](https://gouvfr.jbledevehat.fr/budget/pilotage.html) | Pilotage du budget : argent public et budget de l'État | `budget/pilotage.html` |
 | [`/budget/aides.html`](https://gouvfr.jbledevehat.fr/budget/aides.html) | Les aides aux entreprises | `budget/aides.html` |
+| [`/acteurs/`](https://gouvfr.jbledevehat.fr/acteurs/) | Les acteurs publics : organigramme par thème, avec la mission de chaque organisme | `acteurs/index.html` |
 
 Toutes les pages portent le même bandeau (`src/build/bandeau.mjs`, inséré à la construction à la
-place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux deux sections, thème, puis fil
+place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux trois sections, thème, puis fil
 d'Ariane terminé par un sélecteur des pages de la section (Carte | Pilotage…). Sur les pages plein écran (carte, exploration du budget), le panneau de gauche peut être masqué ; le choix est gardé d'une visite à l'autre. Les anciennes adresses restent
 valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la racine, et
 `pilotage.html` renvoie vers `sites/pilotage.html`.
 
 Le budget et les aides ont leurs propres données, scripts et sources, décrits dans
 [`budget/README.md`](budget/README.md) ; la construction du site se contente de copier leurs
-pages et leurs données dans `out/web/budget/`. La suite de ce document porte sur la carte des
+pages et leurs données dans `out/web/budget/`. De même pour les acteurs publics ([`acteurs/README.md`](acteurs/README.md)), copiés dans
+`out/web/acteurs/`. La suite de ce document porte sur la carte des
 sites web.
 
 # Carte des sites web publics de l'État
