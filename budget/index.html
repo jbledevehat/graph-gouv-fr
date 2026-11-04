@@ -64,7 +64,13 @@
   #scene rect.leaf.sel, #scene rect.cadre.sel { stroke: var(--ink); stroke-width: 2.5px; }
   #scene rect.cadre { fill: none; stroke: none; vector-effect: non-scaling-stroke; pointer-events: none; }
   #scene .off { opacity: .12; }
-  #scene text { pointer-events: none; font-family: var(--sans); }
+  #scene text { pointer-events: none; font-family: var(--sans); transition: opacity .3s; }
+  /* Changement d'année : les noms s'effacent pendant que les blocs changent de taille. */
+  #scene.anime text { opacity: 0; transition: none; }
+  #scene rect.repere { fill: none; stroke: var(--ink); stroke-width: 1.5px; stroke-dasharray: 7 6; vector-effect: non-scaling-stroke; opacity: .6; pointer-events: none; }
+  #apercu { position: fixed; z-index: 6; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); width: max-content; max-width: min(560px, calc(100vw - 24px)); padding: 8px 14px; font-size: 13px; text-align: center; pointer-events: none; }
+  #apercu b { font-weight: 600; }
+  #apercu .ex { color: var(--muted); font-size: 12px; }
   #scene text .n { font-weight: 600; }
   #scene text .v { font-family: var(--mono); font-weight: 500; }
   #scene text.halo { paint-order: stroke; stroke: var(--panel); stroke-linejoin: round; fill: var(--ink); }
@@ -98,6 +104,7 @@
   .figures div { display: flex; flex-direction: column; }
   .figures b { font-size: 17px; }
   .figures span { font-size: 11.5px; color: var(--muted); }
+  .figures span.evo { font-family: var(--mono); font-size: 11px; }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
   .apropos { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
   .apropos summary { cursor: pointer; color: var(--accent); font-weight: 500; }
@@ -250,6 +257,7 @@
   <button type="button" id="z-fit" aria-label="Revenir à la vue d'ensemble" title="Vue d'ensemble">Tout</button>
 </div>
 <div id="tip" role="tooltip" hidden></div>
+<div id="apercu" class="panel" aria-live="polite" hidden></div>
 
 <script>
 (async () => {
@@ -277,33 +285,60 @@
   let AN;
   try { AN = await fetch('donnees/annees.json', { cache: 'no-cache' }).then(r => r.json()); } catch (e) { AN = { insee: ['2024'], insee_ecart: [], reference: '2024', echelle: { insee_md: 1671.794 } }; }
   const voulue = new URLSearchParams(location.search).get('annee');
-  const annee = AN.insee.includes(voulue) ? voulue : AN.reference;
-  document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
-  if (annee !== '2024') document.title = `Explorer l'argent public en ${annee}`;
+  // annee : l'année dessinée (celle d'un aperçu, au survol du bandeau) ; anneeValidee : celle choisie.
+  let annee = AN.insee.includes(voulue) ? voulue : AN.reference, anneeValidee = annee;
   // PDF de l'année et des regroupements affichés (mis à jour quand on change de regroupement).
   const majPdf = () => {
-    const fichier = `pdf/argent-public-${annee}-${mode === 'admin' ? 'administration' : 'fonction'}-${modeRec === 'admin' ? 'administration' : 'type'}.pdf`;
+    const fichier = `pdf/argent-public-${anneeValidee}-${mode === 'admin' ? 'administration' : 'fonction'}-${modeRec === 'admin' ? 'administration' : 'type'}.pdf`;
     $('z-pdf').href = $('lien-pdf').href = fichier;
   };
-  $('lien-pdf').textContent = `Exploration ${annee} en PDF`;
-  let G, X, E;
+  let G, X, E, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
-  try { [G, X, E] = await Promise.all([`donnees/argent-public-${annee}.json`, 'donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))); }
+  // Comptes de chaque année, chargés une seule fois (dès le survol d'une année dans le bandeau).
+  const CACHE = new Map();
+  const charger = an => {
+    if (!CACHE.has(an)) CACHE.set(an, fetch(`donnees/argent-public-${an}.json`, { cache: 'no-cache' })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .catch(e => { CACHE.delete(an); throw e; }));
+    return CACHE.get(an);
+  };
+  try { [G, GREF, X, E] = await Promise.all([charger(annee), charger(AN.reference), ...['donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))]); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
-  const D = G.total_depenses, R = G.total_recettes, S = G.solde;
-  if (AN.insee_ecart.includes(annee)) {
-    $('alerte').hidden = false;
-    $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné à gauche, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, à droite. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
-  }
+  let D, R, S, Gvalide = G;
+  // Évolution de chaque bloc : par rapport à l'année précédente ou, pendant un aperçu, à l'année choisie.
+  const precedente = an => AN.insee[AN.insee.indexOf(an) - 1] || null;
+  let anneeComp = null, GCOMP = null, EVO = new Map();
+  const majEvo = () => { EVO = new Map(); if (!GCOMP) return; const tour = n => { EVO.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GCOMP, X, mode, modeRec).forEach(tour); };
+  const variation = (v, b) => { if (!(b > 0) || !(v > 0)) return ''; const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
+  const evo = n => variation(n.v, EVO.get(n.id));
+  const depuis = () => +anneeComp < +annee ? `depuis ${anneeComp}` : `par rapport à ${anneeComp}`;
+  const installer = (an, g) => { annee = an; G = g; D = g.total_depenses; R = g.total_recettes; S = g.solde; };
+  installer(annee, G);
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
-  $('figures').innerHTML = [[mds(D), 'dépensés'], [mds(R), 'de recettes'], [mds(-S), 'de déficit']].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+  const TITRE = document.title;
+  // Textes du panneau qui dépendent de l'année choisie.
+  function majPanneau() {
+    document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
+    document.title = annee !== '2024' ? `Explorer l'argent public en ${annee}` : TITRE;
+    $('lien-pdf').textContent = `Exploration ${annee} en PDF`;
+    $('alerte').hidden = !AN.insee_ecart.includes(annee);
+    if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné à gauche, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, à droite. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
+    $('figures').innerHTML = [[mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
+      .map(([b, s, e]) => `<div><b>${b}</b><span>${s}</span>${e ? `<span class="evo" title="Évolution ${depuis()}">${e} ${depuis()}</span>` : ''}</div>`).join('');
+    remplirCases();
+  }
 
   // ================= Les deux arbres =================
   let mode = 'admin', modeRec = 'admin';
   const relier = (n, parent = null, depth = 0) => { n.parent = parent; n.depth = depth; (n.children || []).forEach(c => relier(c, n, depth + 1)); return n; };
   // Arbres communs à la page de pilotage et aux PDF (arbres.js) : les mêmes blocs partout.
   const arbres = () => arbresArgentPublic(G, X, mode, modeRec).map(r => relier(r));
+  // Les blocs sont rangés selon leur montant de l'année de référence, et non de l'année affichée :
+  // d'une année à l'autre, chacun reste à sa place et ne fait que grandir ou rétrécir.
+  let REF = new Map();
+  const majRef = () => { REF = new Map(); const tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GREF, X, mode, modeRec).forEach(tour); };
+  const rang = d => REF.get(d.id) ?? d.v;
 
   // ================= Mise en page (coordonnées « monde ») =================
   // Deux dispositions : dépenses et financement côte à côte (écran large) ou l'un au-dessus de
@@ -326,7 +361,7 @@
   function squarify(items, x, y, w, h) {
     if (!(w > 0 && h > 0)) return items.filter(d => d.v > 0).map(d => [d, x, y, 0, 0]);
     const tot = sum(items, d => d.v);
-    const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => b.a - a.a);
+    const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => rang(b.d) - rang(a.d));
     const out = [];
     const worst = (row, s) => { const t = sum(row, r => r.a), mx = Math.max(...row.map(r => r.a)), mn = Math.min(...row.map(r => r.a)); return Math.max(s * s * mx / (t * t), t * t / (s * s * mn)); };
     const place = row => {
@@ -552,7 +587,7 @@
     // au-dessus (côte à côte, où le haut de l'écran est libre).
     const ctl = z => $(z.id === 'dep' ? 'ctl-dep' : 'ctl-rec');
     const tailles = racines.map(z => {
-      const lg = (z.label.length + mds(z.v).length + 3) * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
+      const lg = (z.label.length + mds(z.v).length + (evo(z) ? evo(z).length + 3 : 0) + 3) * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
       const serre = place / lg < 12;
       z.empile = disposition === 'pile' && serre;
       z.dessus = disposition === 'cote' && serre;
@@ -563,6 +598,7 @@
     const fsT = Math.max(9, Math.min(...tailles)) / kk;
     racines.forEach(z => {
       const t = svg.querySelector(`[data-z="${z.id}"]`);
+      t.querySelector('.v').textContent = ` · ${mds(z.v)}${evo(z) ? ' · ' + evo(z) : ''}`;
       t.setAttribute('x', z.x); t.setAttribute('y', z.y - (z.empile ? ctl(z).offsetHeight + 16 : 16) / kk); t.setAttribute('font-size', fsT);
     });
     for (const n of noeuds) {
@@ -577,7 +613,9 @@
         t.setAttribute('display', 'inline'); t.setAttribute('x', n.x + 7 / kk); t.setAttribute('y', n.y + (6 + fs) / kk); t.setAttribute('font-size', fs / kk);
         if (t.classList.contains('halo')) t.setAttribute('stroke-width', 3 / kk);
         const [tn, tv] = t.children;
-        tn.textContent = nom; tv.textContent = mds(n.v); tv.setAttribute('x', n.x + 7 / kk); tv.setAttribute('dy', fs * 1.25 / kk); tv.setAttribute('font-size', (fs - 2) / kk);
+        // Évolution à côté du montant, si elle tient sur la ligne.
+        const e = evo(n), avecEvo = e && (mds(n.v).length + e.length + 3) * (fs - 2) * 0.6 < sw - 14;
+        tn.textContent = nom; tv.textContent = avecEvo ? `${mds(n.v)} · ${e}` : mds(n.v); tv.setAttribute('x', n.x + 7 / kk); tv.setAttribute('dy', fs * 1.25 / kk); tv.setAttribute('font-size', (fs - 2) / kk);
       }
       if (n.depth <= 2 && n.children?.length) {
         // Deuxième niveau (famille d'impôts, fonction) : plus petit, et jamais dans le coin du parent.
@@ -709,7 +747,7 @@
     const f = sousPointeur(e); if (!f) return cacherTip();
     if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
     else { const n = designe(f), z = racineDe(n);
-    tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
+    tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span>${evo(n) ? ` (${evo(n)} ${depuis()})` : ''} · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
     tip.hidden = false;
     const t = tip.getBoundingClientRect();
     tip.style.left = Math.max(8, Math.min(innerWidth - t.width - 8, e.clientX + 14)) + 'px';
@@ -729,6 +767,7 @@
     $('d-chip').innerHTML = `<span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span>${esc(z.id === 'dep' ? 'Dépense' : 'Financement')}${parent ? ' · ' + esc(parent.label) : ''}`;
     $('d-title').textContent = n.titre || n.label;
     $('d-body').innerHTML = `<p class="big">${mds(n.v)}</p>
+      ${evo(n) ? `<p class="ex"><b>${evo(n)}</b> ${depuis()} (${mds(EVO.get(n.id))} en ${anneeComp}).</p>` : ''}
       ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b class="acc">Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}` : ''}
       ${n.note ? `<p class="ex">${esc(n.note)}</p>` : ''}
       <p>Sur 100 € ${z.id === 'dep' ? "d'argent public dépensés" : 'qui financent la dépense publique'}, <b>${nf(n.v / z.v * 100, 2)} €</b> vont ici.${parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}</p>
@@ -776,12 +815,15 @@
 
   // ================= Cases à cocher =================
   const caches = new Set(), avant = new Set();
-  const lignesAdmin = [...G.secteurs.map(s => [s.code, s.nom, COUL[s.code], s.total]), ['autres', 'Autres recettes', 'na', G.autres_recettes_consolidees], ['deficit', 'Déficit (emprunt)', 'hatch', -S]];
-  $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}" checked><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${mds(v)}</span></label>`).join('');
-  // Fonctions de la plus grosse à la plus petite, sans pastille : elles n'ont pas de couleur propre.
-  $('c-admin').insertAdjacentHTML('beforeend', `<label><input type="checkbox" data-sect="estim" checked><span class="sw est"></span><span>Estimations : fraude, non-recours</span><span class="num"></span></label>`);
-  $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => [f, sum(G.secteurs, s => s.fonctions[k].montant)]).sort((a, b) => b[1] - a[1])
-    .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
+  // Montants de l'année affichés à côté de chaque case ; les cases gardent leur état d'une année à l'autre.
+  function remplirCases() {
+    const lignesAdmin = [...G.secteurs.map(s => [s.code, s.nom, COUL[s.code], s.total]), ['autres', 'Autres recettes', 'na', G.autres_recettes_consolidees], ['deficit', 'Déficit (emprunt)', 'hatch', -S]];
+    $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}"${caches.has(k) ? '' : ' checked'}><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${mds(v)}</span></label>`).join('');
+    $('c-admin').insertAdjacentHTML('beforeend', `<label><input type="checkbox" data-sect="estim"${caches.has('estim') ? '' : ' checked'}><span class="sw est"></span><span>Estimations : fraude, non-recours</span><span class="num"></span></label>`);
+    // Fonctions de la plus grosse à la plus petite, sans pastille : elles n'ont pas de couleur propre.
+    $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => [f, sum(G.secteurs, s => s.fonctions[k].montant)]).sort((a, b) => b[1] - a[1])
+      .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"${avant.has(f.code) ? ' checked' : ''}><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
+  }
   function appliquerFiltres() {
     for (const n of noeuds) {
       if (!n.parent) continue;
@@ -799,11 +841,11 @@
   $('hl-off').onclick = () => { avant.clear(); $('c-fonction').querySelectorAll('input').forEach(i => i.checked = false); appliquerFiltres(); };
   document.querySelectorAll('[data-mode-rec]').forEach(b => b.onclick = () => {
     modeRec = b.dataset.modeRec; document.querySelectorAll('[data-mode-rec]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); $('detail').hidden = true; choisi = null; majVue();
+    majRef(); majEvo(); dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); $('detail').hidden = true; choisi = null; majVue();
   });
   document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => {
     mode = b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    const id = choisi?.id; dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); $('detail').hidden = true; choisi = null; if (id && parId.has(id)) ouvrir(parId.get(id));
+    const id = choisi?.id; majRef(); majEvo(); dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); $('detail').hidden = true; choisi = null; if (id && parId.has(id)) ouvrir(parId.get(id));
   });
 
   // ================= Recherche =================
@@ -838,7 +880,116 @@
 
   // Sur mobile, le panneau est replié : le bouton « Options » déplie filtres et regroupements.
   $('opts').onclick = () => { const o = $('side').classList.toggle('ouvert'); $('opts').setAttribute('aria-expanded', String(o)); majVue(); };
+  // ================= Changer d'année sans recharger la page =================
+  // Chaque bloc garde son identifiant d'une année à l'autre : on relève sa géométrie avant de
+  // redessiner, puis on l'anime vers la nouvelle. Les blocs qui apparaissent partent de leur
+  // centre ; ceux qui disparaissent s'y réduisent.
+  const GEO = { rect: ['x', 'y', 'width', 'height'], circle: ['cx', 'cy', 'r'] };
+  const cleDe = el => `${el.tagName}|${el.dataset.id || el.dataset.e}|${[...el.classList].filter(c => !['sel', 'off', 'decale'].includes(c)).join('.')}`;
+  const releve = () => new Map([...svg.querySelectorAll('#monde rect[data-id], #monde [data-e]')].map(el => [cleDe(el), { el, v: GEO[el.tagName].map(a => +el.getAttribute(a)) }]));
+  const centre = (tag, v) => tag === 'rect' ? [v[0] + v[2] / 2, v[1] + v[3] / 2, 0, 0] : [v[0], v[1], 0];
+  // Contours de l'année choisie, en pointillés, pendant un aperçu : on voit l'enveloppe grandir ou rétrécir.
+  let zonesValidees = [];
+  let jeton = 0, animAn = 0, enCours = false;
+  const ecart = (v, b) => { const p = (v / b - 1) * 100; return (p > 0 ? '+' : p < 0 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
+  async function basculer(an, { apercu = false } = {}) {
+    const moi = ++jeton;
+    const comp = apercu ? anneeValidee : precedente(an);
+    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null]);
+    if (moi !== jeton) return false;
+    const changeComp = comp !== anneeComp;
+    anneeComp = comp; GCOMP = gc; majEvo();
+    const badge = $('apercu');
+    badge.hidden = !apercu;
+    if (apercu) {
+      // Au milieu de la place laissée libre par les panneaux, sans toucher les boutons de zoom.
+      const { r, gauche, droite } = marges(), libre = r.width - gauche - droite, zoom = $('z-in').closest('.zoom').getBoundingClientRect().width;
+      badge.style.left = r.left + gauche + libre / 2 + 'px'; badge.style.maxWidth = Math.max(220, Math.min(560, libre - 2 * zoom - 40)) + 'px';
+    }
+    if (apercu) badge.innerHTML = `<b>Aperçu ${an}</b> · dépenses ${mds(g.total_depenses)} (${ecart(g.total_depenses, Gvalide.total_depenses)} par rapport à ${anneeValidee}) · recettes ${mds(g.total_recettes)} (${ecart(g.total_recettes, Gvalide.total_recettes)})<br><span class="ex">Pointillés : ${anneeValidee}. Cliquez sur l'année pour l'afficher.</span>`;
+    const ajouterReperes = () => {
+      svg.querySelectorAll('.repere').forEach(x => x.remove());
+      if (apercu) svg.querySelector('#monde').insertAdjacentHTML('beforeend', zonesValidees.map(z => `<rect class="repere" x="${z.x}" y="${z.y}" width="${z.w}" height="${z.h}"/>`).join(''));
+    };
+    if (an === annee) { ajouterReperes(); if (changeComp) majVue(); return true; }
+    const avantGeo = releve();
+    cancelAnimationFrame(animAn);
+    installer(an, g);
+    dessiner();
+    ajouterReperes();
+    if (reduit) return true;
+    const apres = releve(), pistes = [];
+    for (const [k, { el, v }] of apres) {
+      const de = avantGeo.get(k)?.v || centre(el.tagName, v);
+      GEO[el.tagName].forEach((a, i) => el.setAttribute(a, de[i]));
+      pistes.push([el, GEO[el.tagName], de, v]);
+    }
+    const monde = svg.querySelector('#monde'), texte = monde.querySelector('text');
+    for (const [k, { el, v }] of avantGeo) if (!apres.has(k)) {
+      const c = el.cloneNode(); c.classList.add('partant'); c.classList.remove('sel'); monde.insertBefore(c, texte);
+      pistes.push([c, GEO[c.tagName], v, centre(c.tagName, v)]);
+    }
+    scene.classList.add('anime'); enCours = true;
+    const t0 = performance.now(), duree = 700;
+    const pas = t => {
+      const p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 3);
+      for (const [el, at, a, b] of pistes) at.forEach((n, i) => { const v = a[i] + (b[i] - a[i]) * e; el.setAttribute(n, i >= 2 ? Math.max(0, v) : v); });
+      if (p < 1) { animAn = requestAnimationFrame(pas); return; }
+      svg.querySelectorAll('.partant').forEach(x => x.remove());
+      scene.classList.remove('anime'); enCours = false; majVue();
+    };
+    animAn = requestAnimationFrame(pas);
+    return true;
+  }
+  // Liens du site : ils emportent l'année choisie (comme le fait le bandeau au chargement).
+  const majLiens = an => {
+    const base = document.querySelector('.bandeau .b-ariane li.b-sec a');
+    if (!base) return;
+    const chemin = new URL(base.href).pathname;
+    document.querySelectorAll('a[href]:not([data-annee-choix])').forEach(a => {
+      const u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || !u.pathname.startsWith(chemin) || /\.(json|csv|pdf|xlsx?)$/.test(u.pathname) || u.hash && u.pathname === location.pathname) return;
+      u.searchParams.set('annee', an); a.href = u.pathname + u.search + u.hash;
+    });
+  };
+  const liensAnnee = [...document.querySelectorAll('.bandeau [data-annee-choix]')];
+  async function valider(an, { historique = true } = {}) {
+    if (!AN.insee.includes(an)) return;
+    let ok;
+    try { ok = await basculer(an); } catch (e) { location.href = '?annee=' + an; return; }
+    if (!ok) return;
+    anneeValidee = an; Gvalide = G; zonesValidees = racines.map(r => r.zone);
+    svg.querySelectorAll('.repere').forEach(x => x.remove()); $('apercu').hidden = true;
+    majPanneau(); majPdf(); majLiens(an);
+    liensAnnee.forEach(a => { if (a.dataset.anneeChoix === an) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    if (historique) { const u = new URL(location.href); u.searchParams.set('annee', an); history.pushState({ annee: an }, '', u); }
+    // La fiche ouverte suit l'année, si le bloc existe encore.
+    if (choisi) { const n = choisi.est ? estParId(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
+  }
+  // Survol d'une année : aperçu animé ; en quittant les années sans cliquer, retour à l'année choisie.
+  let tempo = 0;
+  const revenir = () => { if (annee !== anneeValidee || !$('apercu').hidden) basculer(anneeValidee).catch(() => {}); };
+  liensAnnee.forEach(a => {
+    const an = a.dataset.anneeChoix;
+    a.addEventListener('pointerenter', e => {
+      if (e.pointerType !== 'mouse') return;
+      charger(an).catch(() => {});
+      clearTimeout(tempo);
+      tempo = setTimeout(() => an === anneeValidee ? revenir() : basculer(an, { apercu: true }).catch(() => {}), 90);
+    });
+    a.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+      e.preventDefault(); clearTimeout(tempo); valider(an);
+    });
+  });
+  document.querySelector('.bandeau .b-annee .b-pages')?.addEventListener('pointerleave', () => { clearTimeout(tempo); tempo = setTimeout(revenir, 150); });
+  addEventListener('popstate', () => { const a = new URLSearchParams(location.search).get('annee'); valider(AN.insee.includes(a) ? a : AN.reference, { historique: false }); });
+
+  majRef();
+  anneeComp = precedente(annee); GCOMP = anneeComp ? await charger(anneeComp).catch(() => null) : null; majEvo();
+  majPanneau();
   dessiner();
+  zonesValidees = racines.map(r => r.zone);
   Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 });
   new ResizeObserver(majVue).observe($('side'));
   new ResizeObserver(majVue).observe(document.querySelector('.bandeau') || document.body);

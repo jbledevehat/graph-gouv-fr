@@ -4,7 +4,7 @@
 // gauche, ce qui les finance à droite, estimations sur les côtés), même échelle pour toutes les
 // années, tous les noms et montants écrits (lisibles en zoomant), texte cherchable. Couleurs du
 // thème clair, adaptées à l'impression.
-import { createWriteStream, mkdirSync } from 'node:fs';
+import { createWriteStream, mkdirSync, readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import PDFDocument from 'pdfkit';
 import { path } from '../context.mjs';
@@ -32,11 +32,16 @@ const fourchette = (b, h) => {
   return b === h ? 'env. ' + f(b) : (b < 1) === (h < 1) ? `${f(b).replace(/ M?d?€$/, '')} à ${f(h)}` : `${f(b)} à ${f(h)}`;
 };
 
+// Blocs rangés selon leur montant de l'année de référence, comme sur la page : d'une année à
+// l'autre, chacun reste à sa place (rempli pour chaque PDF par writeBudgetPdf).
+let REF = new Map();
+const rang = d => REF.get(d.id) ?? d.v;
+
 // Treemap « squarified », comme sur la page.
 function squarify(items, x, y, w, h) {
   if (!(w > 0 && h > 0)) return items.filter(d => d.v > 0).map(d => [d, x, y, 0, 0]);
   const tot = sum(items, d => d.v);
-  const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => b.a - a.a);
+  const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => rang(b.d) - rang(a.d));
   const out = [];
   const worst = (row, s) => { const t = sum(row, r => r.a), mx = Math.max(...row.map(r => r.a)), mn = Math.min(...row.map(r => r.a)); return Math.max(s * s * mx / (t * t), t * t / (s * s * mn)); };
   const place = row => {
@@ -173,6 +178,10 @@ function dessinerEstimations(doc, E, annee, aire) {
 
 export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administration', modeRec = 'administration') {
   mkdirSync(dirname(path(file)), { recursive: true });
+  const GREF = JSON.parse(readFileSync(path(`budget/donnees/argent-public-${AN.reference}.json`), 'utf8'));
+  REF = new Map();
+  const tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); };
+  arbres(GREF, modeDep, modeRec).forEach(tour);
   const doc = new PDFDocument({
     size: [LARGEUR, HAUTEUR], margin: 0, compress: true, lang: 'fr-FR', displayTitle: true,
     info: {
