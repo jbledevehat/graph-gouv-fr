@@ -486,8 +486,10 @@
   <p>Données : <a href="donnees/jeunesse.json" download>JSON</a>, assemblé par <code>budget/scripts/jeunesse.py</code> à partir des documents de politique transversale « Politique en faveur de la jeunesse » 2022, 2025, 2026 et 2027, des balances comptables des collectivités (DGFiP), du rapport sur les politiques de l'enfance 2027 et des comptes de la Nation de l'Insee. Licence Ouverte 2.0.</p>
 </footer>
 
+<script src="annee-vive.js"></script>
 <script>
-(async () => {
+// Changement d'année sans recharger la page, animé, avec les évolutions : annee-vive.js.
+AnneeVive.page(async () => {
   const $ = id => document.getElementById(id);
   const fmt = n => Number(n).toLocaleString('fr-FR');
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -498,7 +500,7 @@
     const current = document.documentElement.dataset.theme || 'auto';
     themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
   };
-  themeButtons.forEach(b => b.addEventListener('click', () => {
+  if (AnneeVive.premiere) themeButtons.forEach(b => b.addEventListener('click', () => {
     const c = b.dataset.themeChoice;
     if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
     try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
@@ -524,8 +526,9 @@
   const EDITION = { 2020: 'DPT-jeunesse-PLF2022.pdf', 2023: 'DPT-jeunesse-PLF2025.pdf', 2024: 'DPT-jeunesse-PLF2026.pdf', 2025: 'DPT-jeunesse-PLF2027.pdf' };
   // Les collectivités ne sont détaillées par fonction, dans un même plan comptable, qu'à partir de 2024.
   const ANNEES = Object.keys(D.collectivites).filter(a => EDITION[a]);
-  const voulue = new URLSearchParams(location.search).get('annee');
+  const voulue = AnneeVive.voulue();
   const annee = ANNEES.includes(voulue) ? voulue : ANNEES.includes(AN.reference) ? AN.reference : ANNEES[ANNEES.length - 1];
+  AnneeVive.annees = ANNEES; AnneeVive.affichee = annee;
   const E = D.etat[EDITION[annee]], cle = 'execution_' + annee;
   const MIN = D.ministeres;
 
@@ -591,7 +594,7 @@
   document.querySelectorAll('[data-annee]').forEach(e => e.textContent = annee);
 
   // --- Chiffres clés ---
-  const tuile = (b, s, sm) => `<div class="card kpi"><b>${b}</b><span>${s}</span>${sm ? `<small>${sm}</small>` : ''}</div>`;
+  const tuile = (b, s, sm, e) => `<div class="card kpi"><b>${b}</b><span>${s}</span>${sm ? `<small>${sm}</small>` : ''}${e ? `<small class="evo">${e} ${AnneeVive.depuis()}</small>` : ''}</div>`;
   const KPIS = [
     [(minimum ? '≥ ' : '') + eur(totalPub), `d'argent public pour les jeunes en ${annee}`, `État et collectivités locales`],
     [eur(total), `de l'État`, `${progs.length} programmes, ${new Set(progs.map(p => p.min)).size} ministères · ${pct(total, totalPub)}`],
@@ -600,7 +603,11 @@
     [eur(totalF), `de réductions d'impôt`, `${fiscal.length} dépenses fiscales, en plus`],
     [eur(D.enfance.cnaf_2025), `de la branche famille`, `sécurité sociale, 2025 : à part`],
   ];
-  $('kpis').innerHTML = KPIS.map(k => tuile(...k)).join('');
+  // Montants des chiffres clés, pour leur évolution (la branche famille, une seule année, n'en a pas).
+  const VKPI = [totalPub, total, totalC, ens + ensC, totalF];
+  VKPI.forEach((v, i) => AnneeVive.noter('kpi', i, v));
+  const ecrireKpis = () => { $('kpis').innerHTML = KPIS.map((k, i) => tuile(...k, VKPI[i] ? AnneeVive.evo('kpi', i, VKPI[i]) : '')).join(''); };
+  ecrireKpis();
 
   // Retraites des fonctionnaires : comprises dans les cotisations de l'État employeur (catégorie 22).
   const P = D.personnel && D.personnel[annee];
@@ -655,25 +662,30 @@
       return { ...g, entete, cadresS, tiles: cadresS.flatMap(c => squarify(c.membres, c.x, c.y, c.w, c.h)) };
     });
   }
+  // Évolution d'un thème et d'un rectangle, si elle tient sur sa ligne (6,6 px par caractère environ).
+  THEMES.forEach(t => AnneeVive.noter('treemap', 't' + t.i, sum(items.filter(p => p.t === t), p => p.v)));
+  items.forEach(p => AnneeVive.noter('treemap', p.id, p.v));
+  const evoT = g => g.v === sum(items.filter(p => p.t === g.t), p => p.v) ? AnneeVive.evo('treemap', 't' + g.t.i, g.v) : '';
+  const evoP = (p, w) => { const e = AnneeVive.evo('treemap', p.id, p.v); return e && (eur(p.v).length + e.length + 3) * 6.6 < w - 10 ? e : ''; };
   function dessiner() {
     const el = $('treemap'), W = el.clientWidth, H = el.clientHeight;
     const vis = items.filter(p => (mode === 'tout' || !p.t.ens) && (qui === 'tous' || (qui === 'coll') === !!p.coll));
     const tot = sum(vis, p => p.v);
     let svg = '';
     for (const { entete, cadresS, tiles, ...g } of disposer(vis, W, H)) {
-      svg += `<g data-t="${g.t.i}"><rect class="grp" x="${g.x}" y="${g.y}" width="${g.w}" height="${g.h}"/>`;
-      if (entete) svg += `<rect class="entete" data-th="${g.t.i}" x="${g.x}" y="${g.y}" width="${g.w}" height="${entete + 2}" tabindex="0" role="button" aria-label="Détail du thème ${esc(g.t.nom)}"/><text class="grp" x="${g.x + 6}" y="${g.y + 14}">${esc(coupe(g.t.nom, g.w - 80))} <tspan class="v">${esc(eur(g.v))} ›</tspan></text>`;
+      svg += `<g data-t="${g.t.i}"><rect class="grp" data-k="t${g.t.i}" x="${g.x}" y="${g.y}" width="${g.w}" height="${g.h}"/>`;
+      if (entete) svg += `<rect class="entete" data-th="${g.t.i}" data-k="t${g.t.i}" x="${g.x}" y="${g.y}" width="${g.w}" height="${entete + 2}" tabindex="0" role="button" aria-label="Détail du thème ${esc(g.t.nom)}"/><text class="grp" x="${g.x + 6}" y="${g.y + 14}">${esc(coupe(g.t.nom, g.w - 80))} <tspan class="v">${esc(eur(g.v))}${evoT(g) ? ' · ' + evoT(g) : ''} ›</tspan></text>`;
       for (const p of tiles) {
         const nomT = p.coll ? p.nom : nomCourt(p.libelle);
-        svg += `<rect class="tile${choisi === p.id ? ' sel' : ''}" data-p="${p.id}" x="${p.x}" y="${p.y}" width="${Math.max(0, p.w)}" height="${Math.max(0, p.h)}" tabindex="0" role="button" aria-label="${p.coll ? 'Collectivités locales, ' : ''}${esc(nomT)} : ${esc(eur(p.v))}"/>`;
-        if (p.coll) svg += `<rect class="hach" x="${p.x}" y="${p.y}" width="${Math.max(0, p.w)}" height="${Math.max(0, p.h)}"/>`;
+        svg += `<rect class="tile${choisi === p.id ? ' sel' : ''}" data-p="${p.id}" data-k="${esc(p.id)}" x="${p.x}" y="${p.y}" width="${Math.max(0, p.w)}" height="${Math.max(0, p.h)}" tabindex="0" role="button" aria-label="${p.coll ? 'Collectivités locales, ' : ''}${esc(nomT)} : ${esc(eur(p.v))}"/>`;
+        if (p.coll) svg += `<rect class="hach" data-k="${esc(p.id)}" x="${p.x}" y="${p.y}" width="${Math.max(0, p.w)}" height="${Math.max(0, p.h)}"/>`;
         if (p.w > 64 && p.h > 34) {
           const l = coupe(p.coll ? p.nom : COURT[p.programme] || nomCourt(p.libelle), p.w - 10);
-          svg += `<text x="${p.x + 5}" y="${p.y + 15}">${esc(l)}</text><text class="v" x="${p.x + 5}" y="${p.y + 29}">${esc(eur(p.v))}</text>`;
+          svg += `<text x="${p.x + 5}" y="${p.y + 15}">${esc(l)}</text><text class="v" x="${p.x + 5}" y="${p.y + 29}">${esc(eur(p.v))}${evoP(p, p.w) ? ' · ' + evoP(p, p.w) : ''}</text>`;
         }
       }
       // Cadre autour des sujets qui réunissent l'État et les collectivités.
-      for (const c of cadresS) if (c.membres.some(p => p.coll) && c.membres.some(p => !p.coll)) svg += `<rect class="sujet" x="${c.x + 1}" y="${c.y + 1}" width="${Math.max(0, c.w - 2)}" height="${Math.max(0, c.h - 2)}"/>`;
+      for (const c of cadresS) if (c.membres.some(p => p.coll) && c.membres.some(p => !p.coll)) svg += `<rect class="sujet" data-k="s-${esc(c.k)}" x="${c.x + 1}" y="${c.y + 1}" width="${Math.max(0, c.w - 2)}" height="${Math.max(0, c.h - 2)}"/>`;
       svg += '</g>';
     }
     el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><defs><pattern id="hach" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7"/></pattern></defs>${svg}</svg>`;
@@ -764,7 +776,8 @@
     dessiner();
   }));
   dessiner();
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(dessiner, 150); });
+  let rt; AnneeVive.ecouter(window, 'resize', () => { clearTimeout(rt); rt = setTimeout(dessiner, 150); });
+  AnneeVive.redessiner = () => { dessiner(); ecrireKpis(); };
 
   // --- Image à télécharger : titre, chiffres clés et rectangles de l'année, dans le thème affiché ---
   // Dessinée sur un canevas à largeur fixe (1200 px, en double définition), quel que soit l'écran du visiteur.
@@ -1010,7 +1023,7 @@
     [`Collectivités : petite enfance (crèches, garderies), ${annee}`, somme('petite_enfance')], [`Collectivités : protection maternelle et infantile, ${annee}`, somme('pmi')]];
   const mxE = Math.max(...lignesE.map(l => l[1]));
   $('enfance').innerHTML = lignesE.map(([l, v]) => `<div class="hbar"><span>${esc(l)}</span><span class="track"><i style="width:calc((100% - 6rem) * ${v / mxE})"></i><span><b>${eur(v)}</b></span></span></div>`).join('');
-})();
+});
 </script>
 </body>
 </html>

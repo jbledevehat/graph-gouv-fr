@@ -111,6 +111,7 @@
   .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
   .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
   .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi span.evo { font: 12px var(--mono); }
   .kpi[data-c] { border-left: 4px solid var(--m-c); }
 
   .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
@@ -432,8 +433,10 @@
 <div id="tip" role="tooltip" hidden></div>
 <footer class="wrap"><p>L'argent public en <span data-annee>2024</span> · données sous Licence Ouverte 2.0 · proposition indépendante construite à partir de documents publics.</p></footer>
 
+<script src="annee-vive.js"></script>
 <script>
-(async () => {
+// Changement d'année sans recharger la page, animé, avec les évolutions : annee-vive.js.
+AnneeVive.page(async () => {
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nf = (v, d = 1) => Number(v).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -444,7 +447,7 @@
 
   const themeButtons = document.querySelectorAll('[data-theme-choice]');
   const showTheme = () => { const c = document.documentElement.dataset.theme || 'auto'; themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === c))); };
-  themeButtons.forEach(b => b.addEventListener('click', () => {
+  if (AnneeVive.premiere) themeButtons.forEach(b => b.addEventListener('click', () => {
     const c = b.dataset.themeChoice;
     if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
     try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
@@ -456,8 +459,9 @@
   // (donnees/annees.json) : ensemble des administrations (Insee), budget de l'État, aides.
   let AN;
   try { AN = await fetch('donnees/annees.json', { cache: 'no-cache' }).then(r => r.json()); } catch (e) { AN = { insee: ['2024'], etat: ['2024'], aides: ['2024'], insee_ecart: [], reference: '2024', echelle: { insee_md: 1671.794, etat_m: 454565.413 } }; }
-  const voulue = new URLSearchParams(location.search).get('annee');
+  const voulue = AnneeVive.voulue();
   const annee = AN.insee.includes(voulue) || AN.etat.includes(voulue) ? voulue : AN.reference;
+  AnneeVive.annees = [...new Set([...AN.insee, ...AN.etat])].sort(); AnneeVive.affichee = annee;
   const inseeDispo = AN.insee.includes(annee), etatDispo = AN.etat.includes(annee), complet = AN.aides.includes(annee);
   if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
   document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
@@ -514,6 +518,8 @@
     const gl = squarify(groups.map(g => ({ ...g, v: sum(g.children, c => c.v) })), 0, 0, W, H);
     let svg = `<svg viewBox="0 0 ${W} ${H0}" aria-hidden="true" focusable="false">${H0 - H > 34 && cadre ? `<rect class="cadre-vide" x="1" y="${H + 1}" width="${W - 2}" height="${H0 - H - 2}"/><text class="cadre-txt" x="${W / 2}" y="${H + (H0 - H) / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : ''}<defs><pattern id="hatch-${el.id}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern>${couleurs.map(c => `<pattern id="hatch-${el.id}-${c}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:color-mix(in srgb, var(--m-${c}) 30%, var(--panel))"/><rect width="2.6" height="8" style="fill:var(--m-${c})"/></pattern>`).join('')}</defs>`;
     const cellsOut = [];
+    // Évolution d'un montant, écrite à sa suite si elle tient dans la case (6,6 px par caractère environ).
+    const evoCase = (d, w) => { const e = d.valueLabel ? '' : AnneeVive.evo(el.id, d.id, d.v); return e && (mds(d.v).length + e.length + 3) * 6.6 < w - 14 ? ' · ' + e : ''; };
     for (const g of gl) {
       const x0 = g.x + G1 / 2, y0 = g.y + G1 / 2, w0 = Math.max(0, g.w - G1), h0 = Math.max(0, g.h - G1);
       const cs = squarify(g.children, x0, y0, w0, h0);
@@ -539,11 +545,11 @@
           if (!(w > 64 && h > 34)) return ['', 0];
           const lines = wrap(d.label, Math.floor((w - 14) / (fs * 0.56)), h > 90 ? 3 : h > 60 ? 2 : 1);
           return [lines.map((l, i) => `<text class="t${txt}" x="${x + 7}" y="${y + 6 + fs + i * (fs * 1.18)}" style="font-size:${fs}px;${col}">${esc(l)}</text>`).join('')
-            + `<text class="v${txt}" x="${x + 7}" y="${y + 6 + fs + lines.length * (fs * 1.18) + 3}" style="${col}">${esc(d.valueLabel ?? mds(d.v))}</text>`, 8 + fs + lines.length * fs * 1.18 + 10];
+            + `<text class="v${txt}" x="${x + 7}" y="${y + 6 + fs + lines.length * (fs * 1.18) + 3}" style="${col}">${esc(d.valueLabel ?? mds(d.v))}${evoCase(d, w)}</text>`, 8 + fs + lines.length * fs * 1.18 + 10];
         };
         let label = '';
         for (const d of c.zones) { const [t, lh] = ecrire(d, d.x, d.y, d.w, d.h); label += t; d.lh = lh; }
-        const traits = c.detail.map(d => `<rect class="fin" x="${d.x}" y="${d.y}" width="${d.w}" height="${d.h}"/>`).join('');
+        const traits = c.detail.map(d => `<rect class="fin" data-k="${esc(d.id)}" x="${d.x}" y="${d.y}" width="${d.w}" height="${d.h}"/>`).join('');
         if (c.detail.length) {
           const a = c.ancre, partage = a === ancreG && groupLabels && groups.length > 1;
           if (a.w > c.label.length * 7 + 16 && a.h - a.lh > (partage ? 52 : 30)) {
@@ -553,7 +559,7 @@
         }
         const i = cellsOut.length;
         cellsOut.push(c);
-        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${traits}${label}</g>`;
+        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" data-k="${esc(c.id)}" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${traits}${label}</g>`;
       }
       const largeur = g.label.length * 7.6 + 20;
       if (groupLabels && groups.length > 1 && ancreG && ancreG.w > largeur && ancreG.h - ancreG.lh - (ancreG.pris || 0) > 34) {
@@ -613,7 +619,8 @@
     // Étiquettes : horizontales si le bloc est assez large, sinon verticales, le long du ruban. En haut,
     // un bloc étroit garde une étiquette horizontale, remontée d'un cran pour ne pas toucher ses voisins.
     const etiquette = n => {
-      const e = etages[n.row], dessus = e.dessus !== false, w = n.x1 - n.x0, c = cx(n), mt = mds(n.v), etroit = w < 92;
+      const e = etages[n.row], dessus = e.dessus !== false, w = n.x1 - n.x0, c = cx(n), etroit = w < 92;
+      const ev = AnneeVive.evo(el.id, n.id, n.v), mt = mds(n.v) + (ev && !etroit && w > 110 ? ' · ' + ev : '');
       if (!etroit || n.row === 0) {
         const lignes = wrap(n.label, Math.max(8, Math.floor((etroit ? 96 : w + gap) / 6.6)), dessus ? 3 : 4);
         const y = dessus ? n.y0 - 8 - lignes.length * 14 - (etroit ? 34 : 0) : n.y1 + 16;
@@ -635,9 +642,10 @@
       H = Math.min(H, Math.ceil(bas.y + bas.ep + Math.max(0, ...besoin)));
     }
     el._liens = liens; el._noeuds = [...visibles, ...troncs];
+    N.forEach(n => { if (!n.invisible) AnneeVive.noter(el.id, n.id, n.v); });
     el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><defs><pattern id="${hach}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern></defs>
-      ${liens.map((l, i) => `<path class="lien" data-l="${i}" d="${ruban(l)}" style="fill:${fill(l.color)}"/>`).join('')}
-      ${el._noeuds.map((n, i) => `<g class="noeud" data-n="${i}" tabindex="0" role="button" aria-label="${esc(n.titre || n.label)} : ${esc(mds(n.v))}"><rect x="${n.x0}" y="${n.y0}" width="${Math.max(1.5, n.x1 - n.x0)}" height="${n.y1 - n.y0}" rx="${n.tronc ? 4 : 2}" style="fill:${fill(n.color)}"/></g>`).join('')}
+      ${liens.map((l, i) => `<path class="lien" data-l="${i}" data-k="${esc(l.s.id + '>' + l.t.id)}" d="${ruban(l)}" style="fill:${fill(l.color)}"/>`).join('')}
+      ${el._noeuds.map((n, i) => `<g class="noeud" data-n="${i}" tabindex="0" role="button" aria-label="${esc(n.titre || n.label)} : ${esc(mds(n.v))}"><rect data-k="${esc(n.id)}" x="${n.x0}" y="${n.y0}" width="${Math.max(1.5, n.x1 - n.x0)}" height="${n.y1 - n.y0}" rx="${n.tronc ? 4 : 2}" style="fill:${fill(n.color)}"/></g>`).join('')}
       ${troncs.map(n => `<text class="tronc" x="${cx(n)}" y="${n.y0 + etages[n.row].ep / 2 + 5}" text-anchor="middle">${esc(n.tronc)}</text>`).join('')}
       ${etages.filter(e => e.titre).map(e => `<text class="etage halo" x="${pad}" y="${e.titreY}">${esc(e.titre)}</text>`).join('')}
       ${visibles.map(etiquette).join('')}</svg>`;
@@ -670,15 +678,23 @@
   const D = G?.total_depenses, R = G?.total_recettes, S = G?.solde;
   $('h1').innerHTML = G ? `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en ${annee}`
     : `<b>${nf(BE.equilibre.depenses_nettes_hors_fdc / 1000, 0)} milliards</b> d'euros de dépenses nettes du budget de l'État en ${annee}`;
-  $('facts').innerHTML = [
+  // Chiffres clés : [clé, montant en Md€, texte, couleur] ; la clé sert à suivre leur évolution d'une année à l'autre.
+  const FAITS = [
     ...(G ? [
-      [nf(D, 1) + ' Md€', `de dépenses publiques, ${nf(G.part_pib['dépenses'], 1)} % du PIB`],
-      [nf(R, 1) + ' Md€', `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
-      [nf(-S, 1) + ' Md€', "de déficit public, financé par l'emprunt"],
-      [nf(G.secteurs.find(s => s.code === 'S1314').total, 1) + ' Md€', 'dépensés par la sécurité sociale, premier poste', 'secu']] : []),
-    ...(etatDispo ? [[nf(BE.equilibre.depenses_nettes_hors_fdc / 1000, 1) + ' Md€', "de dépenses nettes du budget de l'État"]] : []),
-    ...(complet ? [[nf(sum(B.aides, a => a.montant) / 1000, 1) + ' Md€', "d'aides aux entreprises (périmètre élargi)"]] : []),
-  ].map(([b, s, c]) => `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${b}</b><span>${s}</span></div>`).join('');
+      ['dep', D, `de dépenses publiques, ${nf(G.part_pib['dépenses'], 1)} % du PIB`],
+      ['rec', R, `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
+      ['def', -S, "de déficit public, financé par l'emprunt"],
+      ['secu', G.secteurs.find(s => s.code === 'S1314').total, 'dépensés par la sécurité sociale, premier poste', 'secu']] : []),
+    ...(etatDispo ? [['etat', BE.equilibre.depenses_nettes_hors_fdc / 1000, "de dépenses nettes du budget de l'État"]] : []),
+    ...(complet ? [['aides', sum(B.aides, a => a.montant) / 1000, "d'aides aux entreprises (périmètre élargi)"]] : []),
+  ];
+  FAITS.forEach(([k, v]) => AnneeVive.noter('facts', k, v));
+  const ecrireFaits = () => { $('facts').innerHTML = FAITS.map(([k, v, s, c]) => { const e = AnneeVive.evo('facts', k, v);
+    return `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${nf(v, 1)} Md€</b><span>${s}</span>${e ? `<span class="evo">${e} ${AnneeVive.depuis()}</span>` : ''}</div>`; }).join(''); };
+  ecrireFaits();
+  AnneeVive.redessiner = () => { ecrireFaits(); charts.forEach(f => f()); };
+  // Cadre invisible qui mesure une autre année : on note aussi les autres regroupements des blocs.
+  AnneeVive.mesurer = () => { document.querySelector('[data-dep="fonction"]')?.click(); document.querySelector('[data-rec="type"]')?.click(); };
 
   // ================= Explorateur : zoom dans les compositions et barre des totaux =================
   // Chaque composition est un arbre { id, label, v, color, hatch, tip, children }. On affiche les
@@ -705,7 +721,8 @@
     tool.className = 'explore';
     tool.innerHTML = `<nav class="crumbs" aria-label="Niveau affiché"></nav><div class="totals" role="list"></div>`;
     el.before(tool);
-    let root = relier(construire()), courant = root, sel = null;
+    const noter = r => { const p = n => { AnneeVive.noter(el.id, n.id, n.v); (n.children || []).forEach(p); }; p(r); return r; };
+    let root = noter(relier(construire())), courant = root, sel = null;
     const chemin = n => { const l = []; for (let x = n; x; x = x.parent) l.unshift(x); return l; };
     const zoom = n => { courant = n; sel = null; onNode && onNode(n); render(); };
     const choisir = n => {
@@ -716,7 +733,7 @@
       // Fil d'étapes.
       const ch = chemin(courant);
       tool.querySelector('.crumbs').innerHTML = ch.map((n, i) => i === ch.length - 1
-        ? `<span aria-current="true">${esc(n.label)} <span class="num-small">${mds(n.v)}</span></span>`
+        ? `<span aria-current="true">${esc(n.label)} <span class="num-small">${mds(n.v)}${AnneeVive.evo(el.id, n.id, n.v) ? ` · ${AnneeVive.evo(el.id, n.id, n.v)} ${AnneeVive.depuis()}` : ''}</span></span>`
         : `<button type="button" data-up="${i}">${esc(n.label)}</button>`).join('<span class="sep" aria-hidden="true">›</span>')
         + (ch.length > 1 ? `<button type="button" class="back" data-up="${ch.length - 2}">↑ Remonter</button>` : '');
       tool.querySelectorAll('[data-up]').forEach(b => b.onclick = () => zoom(ch[+b.dataset.up]));
@@ -726,7 +743,7 @@
       const max = 12;
       const visibles = enfants.slice(0, max), reste = enfants.slice(max);
       tool.querySelector('.totals').innerHTML = `<div class="tbar" aria-hidden="true">${enfants.map(c => `<i style="flex:${c.v};background:${fondSegment(c)}" title="${esc(c.label)} · ${esc(mds(c.v))}"></i>`).join('')}</div>
-        <div class="tlist">${visibles.map(c => `<button type="button" role="listitem" class="titem" data-id="${esc(c.id)}"${c.children?.length ? '' : ' data-leaf'}><span class="sw" style="background:${fondSegment(c)}"></span><span class="tl">${esc(c.label)}</span><b>${mds(c.v)}</b><span class="tp">${pct(c.v, tot)}</span></button>`).join('')}
+        <div class="tlist">${visibles.map(c => `<button type="button" role="listitem" class="titem" data-id="${esc(c.id)}"${c.children?.length ? '' : ' data-leaf'}><span class="sw" style="background:${fondSegment(c)}"></span><span class="tl">${esc(c.label)}</span><b>${mds(c.v)}</b><span class="tp">${pct(c.v, tot)}${AnneeVive.evo(el.id, c.id, c.v) ? ` · ${AnneeVive.evo(el.id, c.id, c.v)}` : ''}</span></button>`).join('')}
         ${reste.length ? `<span class="titem more">et ${reste.length} autre${reste.length > 1 ? 's' : ''} · ${mds(sum(reste, c => c.v))}</span>` : ''}</div>`;
       tool.querySelectorAll('.titem[data-id]').forEach(b => b.onclick = () => choisir(enfants.find(c => c.id === b.dataset.id)));
       // Composition.
@@ -738,7 +755,7 @@
     charts.push(render);
     render();
     const api = {
-      reconstruire: () => { root = relier(construire()); courant = root; sel = null; onNode && onNode(root); render(); }, zoom, root: () => root, render,
+      reconstruire: () => { root = noter(relier(construire())); courant = root; sel = null; onNode && onNode(root); render(); }, zoom, root: () => root, render,
       // Affiche un nœud trouvé par la recherche : on zoome sur lui s'il a du détail, sinon sur son parent en le sélectionnant.
       reveler: n => { if (n.children?.length) { courant = n; sel = null; } else { courant = n.parent || root; sel = n.id; } onNode && onNode(n); render(); tool.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); },
     };
@@ -1181,7 +1198,7 @@
     `<strong>Aides aux entreprises.</strong> ${RG.depense_fiscale} aides fiscales rattachées par le programme de leur dépense fiscale, ${RG.programme} par le premier programme cité par le rapport, ${RG.operateur} par le ministère de tutelle de l'opérateur qui les verse (table justifiée ligne à ligne), ${RG.cotisations} exonérations de cotisations à la sécurité sociale. Aides fiscales et exonérations sont des recettes en moins, pas des dépenses.`,
     `<strong>Anomalie signalée.</strong> Dans le fichier des recettes de l'État, la ligne « 17 (total) (total) » est en réalité la section 18 « Autres remboursements et dégrèvements d'impôts d'État », d'après la notice PDF officielle.`,
   ].map(t => `<li>${t}</li>`).join('');
-})();
+});
 </script>
 </body>
 </html>

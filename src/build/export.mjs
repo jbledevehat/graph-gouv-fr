@@ -130,6 +130,7 @@ export async function writeWeb(webData, rows) {
   });
   // Arbres des dépenses et des recettes, communs aux deux pages (et aux PDF).
   await writeOut('out/web/budget/arbres.js', await readFile(path('budget/arbres.js')));
+  await writeOut('out/web/budget/annee-vive.js', await readFile(path('budget/annee-vive.js')));
   for (const f of await readdir(path('budget/donnees'))) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
   }
