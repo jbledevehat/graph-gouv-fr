@@ -19,6 +19,10 @@ export const SECTIONS = {
     nom: 'Acteurs publics', chemin: 'acteurs/',
     pages: [['organigramme', 'Organigramme', 'acteurs/']],
   },
+  jeunes: {
+    nom: 'Moral des jeunes', chemin: 'jeunes/',
+    pages: [['moral', 'Pensées suicidaires et moral', 'jeunes/']],
+  },
 };
 
 const STYLE = `<style>
