@@ -107,6 +107,30 @@
   .card, .panel, details.data, .mondrian { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
 
   /* Chiffres clés */
+  /* Bandeau en tête, comme le poster « Où va l'argent public ? » du 1 hebdo : recettes et déficit,
+     au-dessus de la dépense publique qu'ils financent ensemble. Couleurs neutres : ni l'une ni
+     l'autre n'est une administration. */
+  .bande { padding: 14px; display: grid; gap: 6px; margin-bottom: 12px; }
+  .bande .ligne { display: flex; gap: 6px; }
+  .bande .seg { border-radius: 6px; padding: 10px 14px; display: grid; gap: 2px; align-content: center; min-width: 0; }
+  .bande .seg span { font: 600 11.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .bande .seg b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
+  .bande .seg i { font: normal 12px var(--mono); opacity: .8; }
+  .bande .rec { background: color-mix(in srgb, var(--ink) 22%, var(--panel)); color: var(--ink); }
+  .bande .def b { font-size: 22px; white-space: nowrap; }
+  .bande .def { min-width: 150px; background: repeating-linear-gradient(135deg, var(--hatch) 0 3px, var(--panel) 3px 8px); color: var(--ink); }
+  .bande .def > * { background: var(--panel); justify-self: start; padding: 0 4px; border-radius: 3px; }
+  .bande .dep { background: var(--ink); color: var(--panel); }
+  .bande .dep b { font-size: 30px; }
+  .bande .egal { margin: 0; font-size: 12.5px; color: var(--muted); }
+  /* Financement d'une administration (panneau des dépenses) et versements de l'État (partie 3). */
+  .finance { display: grid; gap: 6px; }
+  .finance .barre { display: flex; height: 14px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .finance .barre i { display: block; }
+  .finance ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 13px; }
+  .finance li { display: flex; gap: 8px; align-items: center; }
+  .finance li .sw { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .finance li b { font-family: var(--mono); font-size: 12.5px; margin-left: auto; }
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
   .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
   .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; }
@@ -317,13 +341,14 @@
   <div class="intro">
     <span class="eyebrow">Tableau de bord</span>
     <h1 id="h1">L'argent public en <span data-annee>2024</span></h1>
-    <p>État, sécurité sociale, collectivités locales et opérateurs : toutes les administrations publiques réunies. Où va l'argent, d'où il vient, ce que pèse le budget de l'État et la place des aides aux entreprises. Chaque rectangle est à l'échelle de son montant.</p>
+    <p>État, sécurité sociale, collectivités locales et opérateurs : toutes les administrations publiques réunies. D'où vient l'argent, où il va, ce que pèse le budget de l'État et la place des aides aux entreprises. Chaque rectangle est à l'échelle de son montant.</p>
     <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">comptes de la Nation de l'Insee</a> pour l'ensemble des administrations publiques, <a href="https://data.economie.gouv.fr/explore/dataset/plrg-2024/" target="_blank" rel="noopener">loi d'approbation des comptes 2024</a> (DGFiP) pour le budget de l'État, <a href="https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f" target="_blank" rel="noopener">rapport annexé au PLF 2027</a> pour les aides aux entreprises, <a href="https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/" target="_blank" rel="noopener">rapports annuels de performance</a> et projets de loi de finances (Direction du budget) pour les indicateurs et le détail par action. Détail et empreintes des fichiers <a href="#s-sources">en bas de page</a>.</p>
     <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
   </div>
 
   <section aria-labelledby="t-synthese">
     <h2 id="t-synthese" class="sr-only">Synthèse</h2>
+    <div class="card bande" id="bande" hidden></div>
     <div class="kpis" id="facts"></div>
   </section>
 
@@ -341,29 +366,9 @@
     <p><b>D'où vient l'argent public, qui le dépense, et pour quoi faire :</b> le circuit complet, des impôts, cotisations et emprunt jusqu'aux fonctions, se lit dans l'<a href="index.html?vue=flux">exploration, en vue « Flux »</a>.</p>
   </section>
 
-  <section id="s-depenses" aria-labelledby="t-depenses">
-    <div class="sec-head">
-      <span class="num">1 · Les dépenses</span>
-      <h2 id="t-depenses">Qui dépense, et pour quoi faire</h2>
-      <p id="dep-lead"></p>
-    </div>
-    <div class="controls">
-      <div class="seg-ctl" role="group" aria-label="Regrouper par">
-        <button type="button" data-dep="admin" aria-pressed="true">Par administration</button>
-        <button type="button" data-dep="fonction" aria-pressed="false">Par fonction</button>
-      </div>
-      <ul class="legend" id="leg-admin"></ul>
-    </div>
-    <div class="duo">
-      <div class="mondrian h-a" id="m-dep" role="img"></div>
-      <div class="panel" id="p-dep" aria-live="polite"></div>
-    </div>
-    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-dep"></table></div></details>
-  </section>
-
   <section id="s-recettes" aria-labelledby="t-recettes">
     <div class="sec-head">
-      <span class="num">2 · Les recettes</span>
+      <span class="num">1 · Les recettes</span>
       <h2 id="t-recettes">D'où vient l'argent</h2>
       <p id="rec-lead"></p>
     </div>
@@ -385,6 +390,26 @@
       <div class="mondrian h-c" id="m-imp" role="img"></div>
     </div>
     <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-rec"></table></div></details>
+  </section>
+
+  <section id="s-depenses" aria-labelledby="t-depenses">
+    <div class="sec-head">
+      <span class="num">2 · Les dépenses</span>
+      <h2 id="t-depenses">Qui dépense, et pour quoi faire</h2>
+      <p id="dep-lead"></p>
+    </div>
+    <div class="controls">
+      <div class="seg-ctl" role="group" aria-label="Regrouper par">
+        <button type="button" data-dep="admin" aria-pressed="true">Par administration</button>
+        <button type="button" data-dep="fonction" aria-pressed="false">Par fonction</button>
+      </div>
+      <ul class="legend" id="leg-admin"></ul>
+    </div>
+    <div class="duo">
+      <div class="mondrian h-a" id="m-dep" role="img"></div>
+      <div class="panel" id="p-dep" aria-live="polite"></div>
+    </div>
+    <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-dep"></table></div></details>
   </section>
 
   <section id="s-etat" aria-labelledby="t-etat">
@@ -624,11 +649,21 @@ AnneeVive.page(async () => {
   $('h1').innerHTML = G ? `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en ${annee}`
     : `<b>${nf(BE.equilibre.depenses_nettes_hors_fdc / 1000, 0)} milliards</b> d'euros de dépenses nettes du budget de l'État en ${annee}`;
   // Chiffres clés : [clé, montant en Md€, texte, couleur] ; la clé sert à suivre leur évolution d'une année à l'autre.
+  // Recettes, déficit et dépenses : dans le bandeau ; les autres chiffres clés en cartes.
+  const BANDE = G ? [['rec', R], ['def', -S], ['dep', D]] : [];
+  BANDE.forEach(([k, v]) => AnneeVive.noter('facts', k, v));
+  const ecrireBande = () => {
+    if (!G) return;
+    const ev = (k, v) => { const e = AnneeVive.evo('facts', k, v); return e ? `<i>${e} ${AnneeVive.depuis()}</i>` : ''; };
+    $('bande').hidden = false;
+    $('bande').innerHTML = `<div class="ligne">
+        <div class="seg rec" style="flex:${R}"><span>Recettes</span><b>${nf(R, 0)} Md€</b>${ev('rec', R)}</div>
+        <div class="seg def" style="flex:${-S}"><span>Déficit</span><b>${nf(-S, 0)} Md€</b>${ev('def', -S)}</div></div>
+      <div class="seg dep"><span>Dépenses publiques</span><b>${nf(D, 0)} Md€ · ${nf(G.part_pib['dépenses'], 1)} % du PIB</b>${ev('dep', D)}</div>
+      <p class="egal">Les recettes (${nf(G.part_pib.recettes, 1)} % du PIB) et le déficit, financé par l'emprunt, font ensemble la dépense publique de l'État, de la sécurité sociale, des collectivités et des opérateurs.</p>`;
+  };
   const FAITS = [
     ...(G ? [
-      ['dep', D, `de dépenses publiques, ${nf(G.part_pib['dépenses'], 1)} % du PIB`],
-      ['rec', R, `de recettes publiques, ${nf(G.part_pib.recettes, 1)} % du PIB`],
-      ['def', -S, "de déficit public, financé par l'emprunt"],
       ['secu', G.secteurs.find(s => s.code === 'S1314').total, 'dépensés par la sécurité sociale, premier poste', 'secu']] : []),
     ...(etatDispo ? [['etat', BE.equilibre.depenses_nettes_hors_fdc / 1000, "de dépenses nettes du budget de l'État"]] : []),
     ...(complet ? [['aides', sum(B.aides, a => a.montant) / 1000, "d'aides aux entreprises (périmètre élargi)"]] : []),
@@ -636,8 +671,8 @@ AnneeVive.page(async () => {
   FAITS.forEach(([k, v]) => AnneeVive.noter('facts', k, v));
   const ecrireFaits = () => { $('facts').innerHTML = FAITS.map(([k, v, s, c]) => { const e = AnneeVive.evo('facts', k, v);
     return `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${nf(v, 1)} Md€</b><span>${s}</span>${e ? `<span class="evo">${e} ${AnneeVive.depuis()}</span>` : ''}</div>`; }).join(''); };
-  ecrireFaits();
-  AnneeVive.redessiner = () => { ecrireFaits(); charts.forEach(f => f()); };
+  ecrireFaits(); ecrireBande();
+  AnneeVive.redessiner = () => { ecrireFaits(); ecrireBande(); charts.forEach(f => f()); };
   // Cadre invisible qui mesure une autre année : on note aussi les autres regroupements des blocs.
   AnneeVive.mesurer = () => { document.querySelector('[data-dep="fonction"]')?.click(); document.querySelector('[data-rec="type"]')?.click(); };
 
@@ -731,6 +766,47 @@ AnneeVive.page(async () => {
   };
 
 
+  // Comment chaque administration finance ses dépenses, comme dans le flux de l'exploration : ses
+  // ressources propres (impôts, cotisations et emprunt, moins son excédent), ce que l'État lui verse
+  // (d'après son budget : collectivités, sécurité sociale et autres organismes, opérateurs), et le reste,
+  // autres recettes et transferts que les comptes publiés ne détaillent pas.
+  const financement = etat => {
+    const direct = {};
+    if (etat) {
+      const PB = etat.BE.programmes.filter(p => p.programme !== '200');
+      const cat = ks => sum(PB, p => sum(ks, c => etat.DE.programmes[p.programme]?.categories?.[c])) / 1000;
+      direct.S1313 = cat(['63']) - etat.BE.recettes.sections.find(x => x.section.startsWith('31')).net / 1000;
+      direct.S1314 = cat(['64']);
+      direct.S13112 = cat(['32', '53']);
+    }
+    const propres = s => s.recettes.impots + s.recettes.cotisations + Math.max(0, -s.recettes.solde) - Math.max(0, s.recettes.solde);
+    const res = {}; let verse = 0;
+    for (const s of G.secteurs) if (s.code !== 'S13111') {
+      const propre = Math.max(0, Math.min(propres(s), s.total)), parEtat = Math.max(0, Math.min(direct[s.code] || 0, s.total - propre));
+      res[s.code] = { propre, etat: parEtat, autres: s.total - propre - parEtat };
+      verse += parEtat;
+    }
+    const e = G.secteurs.find(s => s.code === 'S13111'), propre = Math.max(0, Math.min(propres(e) - verse, e.total));
+    res.S13111 = { propre, etat: 0, autres: e.total - propre, verse };
+    return res;
+  };
+  const FIN = !G ? null : DE.then(dd => financement(etatDispo && BE && dd ? { BE, DE: dd } : null)).catch(() => financement(null));
+  const COUL_F = { etat: 'var(--m-etat)', autres: 'color-mix(in srgb, var(--ink) 40%, var(--panel))' };
+  async function financer(el, n, dm) {
+    if (!(dm === 'admin' && n.secteur && n.parent && !n.parent.parent)) return;
+    const F = (await FIN)[n.secteur];
+    if (!F || $(el).dataset.bloc !== n.id) return;
+    const parts = [['propre', F.propre, `Ressources propres : ses impôts, ses cotisations${n.secteur === 'S1314' ? '' : ' et son emprunt'}`, `var(--m-${n.color})`],
+      ['etat', F.etat, `Versé par l'État (budget de l'État ${annee})`, COUL_F.etat], ['autres', F.autres, 'Autres recettes et transferts', COUL_F.autres]].filter(p => p[1] > 0.05);
+    const box = document.createElement('div');
+    box.className = 'finance';
+    box.innerHTML = `<p class="sub"><b>Comment ${esc(n.label)} finance ses dépenses</b>${F.verse ? ` · l'État verse en outre ${mds(F.verse)} aux autres administrations` : ''}</p>
+      <div class="barre" role="img" aria-label="${esc(parts.map(p => `${p[2]} : ${mds(p[1])}`).join(' ; '))}">${parts.map(p => `<i style="flex:${p[1]};background:${p[3]}"></i>`).join('')}</div>
+      <ul>${parts.map(p => `<li><span class="sw" style="background:${p[3]}"></span>${esc(p[2])}<b>${mds(p[1])} · ${pct(p[1], n.v)}</b></li>`).join('')}</ul>`;
+    $(el).querySelector('.finance')?.remove();
+    $(el).querySelector('.combien')?.after(box);
+  }
+
   // ================= Évolution d'un bloc, année après année =================
   // Comptes de chaque année de l'Insee (chargés une fois, au premier bloc ouvert) : le même bloc,
   // avec les mêmes regroupements, recalculé pour chaque année ; montant et évolution d'une année sur l'autre.
@@ -805,10 +881,10 @@ AnneeVive.page(async () => {
   const ECH_INSEE = { v: AN.echelle.insee_md, libelle: 'plus grand total des années disponibles' };
   if (!G) {
     ['s-circuit', 's-depenses', 's-recettes'].forEach(id => { $(id).hidden = true; });
-    $('s-depenses').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Les comptes de l'ensemble des administrations publiques ne sont pas encore publiés pour ${annee}</b> par l'Insee : cette page montre seulement le budget de l'État. <a href="?annee=${AN.insee[AN.insee.length - 1]}">Voir ${AN.insee[AN.insee.length - 1]}</a>.</p></section>`);
+    $('s-recettes').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Les comptes de l'ensemble des administrations publiques ne sont pas encore publiés pour ${annee}</b> par l'Insee : cette page montre seulement le budget de l'État. <a href="?annee=${AN.insee[AN.insee.length - 1]}">Voir ${AN.insee[AN.insee.length - 1]}</a>.</p></section>`);
   }
   if (G) {
-  if (AN.insee_ecart.includes(annee)) $('s-depenses').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Avertissement"><p><b>Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas</b> : ${mds(D)} dans le tableau par fonction (partie 1) et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit (partie 2). L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.</p></section>`);
+  if (AN.insee_ecart.includes(annee)) $('s-recettes').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Avertissement"><p><b>Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas</b> : ${mds(D)} dans le tableau par fonction (partie 2) et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit (partie 1). L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.</p></section>`);
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
   legend('leg-admin', G.secteurs.map(s => [COUL[s.code], s.nom]));
   $('dep-lead').textContent = `${nf(D, 1)} milliards d'euros dépensés par l'ensemble des administrations publiques. Chaque euro n'est compté qu'une fois, là où il est finalement dépensé : une dotation de l'État à une commune est comptée dans les dépenses de la commune. Cliquez sur un rectangle pour zoomer : administration, puis fonction, puis sous-fonction.`;
@@ -856,7 +932,7 @@ AnneeVive.page(async () => {
       placer(racine, 0, 0, ZONE.w * f, ZONE.h * f, 0);
     } });
   // Description du bloc, puis son évolution année après année.
-  const decrireDep = n => { panneau('p-dep', n, D); $('p-dep').dataset.bloc = n.id; evolution('p-dep', 0, n, depMode, recMode); };
+  const decrireDep = n => { panneau('p-dep', n, D); $('p-dep').dataset.bloc = n.id; financer('p-dep', n, depMode); evolution('p-dep', 0, n, depMode, recMode); };
   const xDep = explorer('dep', arbreDep, { onNode: decrireDep, echelle: ECH_INSEE, geo: geoExploration(0) });
   document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
@@ -921,13 +997,22 @@ AnneeVive.page(async () => {
   const E = BE.equilibre;
   const P = BE.programmes.filter(p => p.programme !== '200');
   const etatCN = G?.secteurs.find(s => s.code === 'S13111').total;
-  $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 1. Cliquez pour zoomer : ministère, puis mission, puis programme. Sous la composition, le détail de ce qui est affiché : du vote à la dépense, ce qui est payé, la répartition par action d'un programme et ses indicateurs de performance.";
+  $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 2. Cliquez pour zoomer : ministère, puis mission, puis programme. Sous la composition, le détail de ce qui est affiché : du vote à la dépense, ce qui est payé, la répartition par action d'un programme et ses indicateurs de performance.";
   $('bridge').innerHTML = [
-    ...(G ? [[nf(D, 0) + ' Md€', 'dépenses de toutes les administrations publiques (partie 1)'],
+    ...(G ? [[nf(D, 0) + ' Md€', 'dépenses de toutes les administrations publiques (partie 2)'],
       [nf(etatCN, 0) + ' Md€', "dont dépenses finales de l'État en comptabilité nationale"]] : []),
     [nf((E.depenses_nettes_hors_fdc + E.fonds_de_concours) / 1000, 0) + ' Md€', "budget général de l'État exécuté, ci-dessous, dont une partie est reversée aux autres administrations"],
     [nf(E.programme_200 / 1000, 0) + ' Md€', "de remboursements et dégrèvements d'impôts, exclus car ce sont des recettes restituées"],
   ].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+  // Ce que l'État verse aux autres administrations : le lien entre son budget (le PLF) et l'argent public.
+  if (G) FIN.then(F => {
+    if (!F.S13111.verse) return;
+    const parts = [['S1313', 'aux collectivités locales'], ['S1314', 'à la sécurité sociale et aux autres organismes'], ['S13112', "aux opérateurs de l'État"]]
+      .map(([c, l]) => [F[c].etat, l, `var(--m-${{ S1313: 'coll', S1314: 'secu', S13112: 'op' }[c]})`]).filter(p => p[0] > 0.05);
+    $('bridge').insertAdjacentHTML('afterend', `<div class="card finance" style="padding:14px 16px;margin-top:12px"><p class="sub"><b>L'État verse ${mds(F.S13111.verse)} aux autres administrations</b> (budget de l'État ${annee}, dépenses classées par destinataire) : c'est ce qui relie le budget de l'État, voté dans le projet de loi de finances, au reste de l'argent public.</p>
+      <div class="barre">${parts.map(p => `<i style="flex:${p[0]};background:${p[2]}"></i>`).join('')}</div>
+      <ul>${parts.map(p => `<li><span class="sw" style="background:${p[2]}"></span>${esc(p[1])}<b>${mds(p[0])}</b></li>`).join('')}</ul></div>`);
+  });
   legend('leg-etat', [['etat', "État : un rectangle par mission, regroupées par ministère"]]);
   const ministres = new Map();
   for (const p of P) {
@@ -1083,7 +1168,7 @@ AnneeVive.page(async () => {
   const INSTR = [[1, 'Aides budgétaires', 'a1'], [2, 'Aides fiscales', 'a2'], [3, 'Aides financières', 'a3'], [4, 'Exonérations de cotisations', 'a4']];
   const totA = sum(A, a => a.montant) / 1000;
   legend('leg-aides', INSTR.map(([n, l, c]) => [c, l]).concat([['op', 'hachuré : ajouté par le périmètre élargi', true]]));
-  $('aides-lead').innerHTML = `Les ${A.length} dispositifs du rapport annexé au PLF 2027, avec le code de couleur du tableau de bord des aides : le socle en aplat, ce qu'ajoute le périmètre élargi en hachuré. Les aides fiscales sont des impôts non perçus et les exonérations de cotisations des recettes en moins pour la sécurité sociale : ces ${esc(mds(totA))} ne sont donc pas une part des dépenses de la partie 1. Cliquez pour zoomer : instrument, puis ministère, puis dispositif. <a href="aides.html">Tableau de bord complet des aides</a>.`;
+  $('aides-lead').innerHTML = `Les ${A.length} dispositifs du rapport annexé au PLF 2027, avec le code de couleur du tableau de bord des aides : le socle en aplat, ce qu'ajoute le périmètre élargi en hachuré. Les aides fiscales sont des impôts non perçus et les exonérations de cotisations des recettes en moins pour la sécurité sociale : ces ${esc(mds(totA))} ne sont donc pas une part des dépenses de la partie 2. Cliquez pour zoomer : instrument, puis ministère, puis dispositif. <a href="aides.html">Tableau de bord complet des aides</a>.`;
   explorer('aides', () => ({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => {
     const by = new Map();
     for (const a of A.filter(a => a.annexe === n)) { const k = a.ministere + '|' + a.perimetre; if (!by.has(k)) by.set(k, []); by.get(k).push(a); }
