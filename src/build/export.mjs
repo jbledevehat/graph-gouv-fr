@@ -135,15 +135,17 @@ export async function writeWeb(webData, rows) {
     await writeOut(`out/web/budget/donnees/${f}`, await readFile(path(`budget/donnees/${f}`)));
   }
   // Exploration en PDF vectoriel : pour chaque année des comptes de l'Insee, les quatre
-  // regroupements de la page (dépenses par administration ou fonction, recettes par administration ou type).
+  // regroupements de la page (dépenses par administration ou fonction, recettes par administration ou type),
+  // en blocs et en flux.
   const estimations = JSON.parse(await readFile(path('budget/donnees/estimations.json'), 'utf8'));
   for (const a of A.insee) {
     const G = JSON.parse(await readFile(path(`budget/donnees/argent-public-${a}.json`), 'utf8'));
     for (const dep of REGROUPEMENTS.depenses) for (const rec of REGROUPEMENTS.recettes) {
       await writeBudgetPdf(G, estimations, A, a, `out/web/budget/pdf/argent-public-${a}-${dep}-${rec}.pdf`, dep, rec);
+      await writeBudgetPdf(G, estimations, A, a, `out/web/budget/pdf/argent-public-${a}-${dep}-${rec}-flux.pdf`, dep, rec, 'flux');
     }
   }
-  console.log(`  -> out/web/budget/pdf/argent-public-{${A.insee[0]}…${A.insee[A.insee.length - 1]}}-{administration,fonction}-{administration,type}.pdf`);
+  console.log(`  -> out/web/budget/pdf/argent-public-{${A.insee[0]}…${A.insee[A.insee.length - 1]}}-{administration,fonction}-{administration,type}{,-flux}.pdf`);
   await writeOut('out/web/budget/sources/aides-entreprises/aides-entreprises-2024.json', await readFile(path('budget/sources/aides-entreprises/aides-entreprises-2024.json')));
 
   // --- Section « Acteurs publics » (page et données de acteurs/, construites à part) ---

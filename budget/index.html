@@ -235,7 +235,7 @@
       <summary>À propos de cette page</summary>
       <p>Cette exploration montre l'argent public en France : toutes les <strong>dépenses publiques</strong> de l'État, de la sécurité sociale, des collectivités locales et des opérateurs de l'État, et ce qui les finance, <strong>impôts, cotisations sociales, autres recettes et emprunt</strong>. Chaque bloc a une surface proportionnelle à son montant, à la même échelle pour toutes les années, de 2019 à 2024.</p>
       <p>Les dépenses se lisent par administration ou par fonction : retraites, santé, enseignement, défense, sécurité, transports… Les recettes, par administration ou impôt par impôt : TVA, CSG, impôt sur le revenu, impôt sur les sociétés, taxe foncière… Sur les côtés, des cercles montrent des <strong>estimations</strong> de ce qui échappe : fraude aux cotisations et aux prestations, TVA non déclarée, évitement fiscal des multinationales, et aides non demandées comme le RSA.</p>
-      <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>, et cette exploration en PDF vectoriel pour chaque année (bouton de téléchargement à côté du zoom).</p>
+      <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>, et cette exploration en PDF vectoriel pour chaque année, en blocs comme en flux (bouton de téléchargement à côté du zoom).</p>
     </details>
   </div>
   <div class="search">
@@ -273,7 +273,7 @@
   <button type="button" data-mode="fonction" aria-pressed="false">Fonction</button>
 </div>
 <div class="zoom panel" role="group" aria-label="Zoom">
-  <a id="z-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download aria-label="Télécharger cette exploration en PDF (vectoriel, tous les noms, zoom sans perte)" title="Télécharger en PDF haute résolution"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a id="z-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download aria-label="Télécharger la représentation affichée en PDF (vectoriel, tous les noms, zoom sans perte)" title="Télécharger en PDF haute résolution"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <button type="button" id="z-in" aria-label="Zoomer">+</button>
   <button type="button" id="z-out" aria-label="Dézoomer">−</button>
   <button type="button" id="z-fit" aria-label="Revenir à la vue d'ensemble" title="Vue d'ensemble">Tout</button>
@@ -313,9 +313,10 @@
   let vueFlux = new URLSearchParams(location.search).get('vue') === 'flux';
   // PDF de l'année et des regroupements affichés (mis à jour quand on change de regroupement).
   const majPdf = () => {
-    const fichier = `pdf/argent-public-${anneeValidee}-${mode === 'admin' ? 'administration' : 'fonction'}-${modeRec === 'admin' ? 'administration' : 'type'}.pdf`;
+    // PDF de la représentation affichée (blocs ou flux), de l'année et des regroupements choisis.
+    const fichier = `pdf/argent-public-${anneeValidee}-${mode === 'admin' ? 'administration' : 'fonction'}-${modeRec === 'admin' ? 'administration' : 'type'}${vueFlux ? '-flux' : ''}.pdf`;
     $('z-pdf').href = $('lien-pdf').href = fichier;
-    $('z-pdf').hidden = vueFlux;
+    $('lien-pdf').textContent = `${vueFlux ? 'Flux' : 'Exploration'} ${anneeValidee} en PDF`;
   };
   let G, X, E, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
@@ -350,7 +351,6 @@
   function majPanneau() {
     document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
     document.title = annee !== '2024' ? `Explorer l'argent public en ${annee}` : TITRE;
-    $('lien-pdf').textContent = `Exploration ${annee} en PDF`;
     $('alerte').hidden = !AN.insee_ecart.includes(annee);
     if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné ${disposition === 'pile' ? 'en bas' : 'à droite'}, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, ${disposition === 'pile' ? 'en haut' : 'à gauche'}. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
     $('figures').innerHTML = [[mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
