@@ -22,6 +22,7 @@
     --ground: #EDF0F5; --panel: #FFFFFF; --panel-2: #F5F7FA; --ink: #162033; --muted: #5A6579; --line: #D6DCE6;
     --control: #7C8699; --accent: #1F3FB5; --accent-soft: #E3E8FA;
     --m-etat: #2A78D6; --m-secu: #4A3AA7; --m-coll: #D99A00; --m-op: #1BAF7A; --m-na: #DDE2EA; --hatch: #7C8699;
+    --m-total: #AEB7C4; --m-dep: #2B3547; --on-total: #162033; --on-dep: #FFFFFF;
     --on-etat: #FFFFFF; --on-secu: #FFFFFF; --on-coll: #162033; --on-op: #162033; --on-na: #162033;
     --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
     --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -33,6 +34,7 @@
       --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
       --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
       --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
+      --m-total: #4A5568; --m-dep: #D5DCE6; --on-total: #E4E9F1; --on-dep: #0C1119;
       --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
     }
@@ -42,6 +44,7 @@
     --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
     --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
     --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
+    --m-total: #4A5568; --m-dep: #D5DCE6; --on-total: #E4E9F1; --on-dep: #0C1119;
     --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
   }
@@ -99,6 +102,11 @@
   #scene.fx-survol path.fxl { fill-opacity: .12; }
   #scene.fx-survol path.fxl.on { fill-opacity: .8; }
   #scene text.fx-col { font-family: var(--mono); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
+  /* Bloc central : recettes et déficit, puis dépenses publiques (comme le poster du 1 hebdo). */
+  #scene rect.ctr { stroke: var(--ground); stroke-width: 1px; vector-effect: non-scaling-stroke; cursor: pointer; }
+  #scene text.ctr-t { font-family: var(--mono); font-weight: 600; letter-spacing: .04em; }
+  #scene text.ctr-total { font-weight: 700; fill: var(--ink); }
+  #scene text.ctr-total .v { font-family: var(--mono); font-weight: 500; fill: var(--muted); }
   #status { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; pointer-events: none; }
 
   /* --- Panneaux (comme la carte) --- */
@@ -214,8 +222,8 @@
   <div class="head">
     <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
-    <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
-    <p class="sub" id="sub-flux" hidden>Le même argent suivi de gauche à droite : les ressources, l'administration qui les perçoit, ce qui passe de l'une à l'autre, l'administration qui dépense, puis la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
+    <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface ; au milieu, les recettes et le déficit font ensemble la dépense publique. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
+    <p class="sub" id="sub-flux" hidden>Le même argent suivi de gauche à droite : les ressources ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; l'administration qui dépense ; puis la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
     <div class="figures" id="figures"></div>
     <div class="vue-ctl"><span id="l-vue">Représentation</span><div class="seg-ctl" role="group" aria-labelledby="l-vue">
       <button type="button" data-vue="blocs" aria-pressed="true">Blocs</button>
@@ -320,17 +328,7 @@
       .catch(e => { CACHE.delete(an); throw e; }));
     return CACHE.get(an);
   };
-  // Budget de l'État de l'année (ses versements aux autres administrations), pour la vue en flux seulement.
-  const ETATS = new Map(), ETATV = new Map();
-  const chargerEtat = an => {
-    if (!an) return null;
-    if (!(AN.etat || []).includes(an)) { ETATV.set(an, null); return null; }
-    if (!ETATS.has(an)) ETATS.set(an, Promise.all(['budget', 'detail'].map(t => fetch(`donnees/${t}-etat-${an}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)))
-      .then(([BE, DE]) => { const e = BE && DE ? { BE, DE } : null; ETATV.set(an, e); return e; })
-      .catch(() => { ETATV.set(an, null); return null; }));
-    return ETATS.get(an);
-  };
-  const circuit = (an, g) => circuitArgentPublic(g, ETATV.get(an) ?? null, X, an);
+  const circuit = g => circuitArgentPublic(g, X);
   try { [G, GREF, X, E] = await Promise.all([charger(annee), charger(AN.reference), ...['donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))]); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
@@ -338,13 +336,11 @@
   // Évolution de chaque bloc : par rapport à l'année précédente ou, pendant un aperçu, à l'année choisie.
   const precedente = an => AN.insee[AN.insee.indexOf(an) - 1] || null;
   let anneeComp = null, GCOMP = null, EVO = new Map();
-  const majEvo = (an = annee) => {
+  const majEvo = () => {
     EVO = new Map(); if (!GCOMP) return;
     const tour = n => { EVO.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GCOMP, X, mode, modeRec).forEach(tour);
-    // Flux : le réservoir commun et les versements de l'État ne se comparent qu'entre deux années
-    // où le budget de l'État détaille (ou non) ces versements.
-    if (vueFlux) { const meme = !!ETATV.get(an) === !!ETATV.get(anneeComp);
-      circuit(anneeComp, GCOMP).colonnes.forEach(c => c.noeuds.forEach(n => { if (!n.invisible && (meme || !/^x-(reservoir|v)/.test(n.id))) EVO.set(n.id, n.v); })); }
+    circuit(GCOMP).colonnes.forEach(c => c.noeuds.forEach(n => EVO.set(n.id, n.v)));
+    centreDe(GCOMP).forEach(p => EVO.set(p.id, p.v));
   };
   const variation = (v, b) => { if (!(b > 0) || !(v > 0)) return ''; const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
   const evo = n => variation(n.v, EVO.get(n.id));
@@ -380,16 +376,18 @@
   // ================= Mise en page (coordonnées « monde ») =================
   // Deux dispositions : financement et dépenses côte à côte (écran large) ou l'un au-dessus de
   // l'autre (écran étroit ou haut). On garde celle qui donne le plus grand dessin à l'écran.
-  const TETE = 70, ECART = 36;
+  const TETE = 70;
+  // Bloc central, entre les deux moitiés : deux barres d'épaisseur BARRE, séparées de JOINT, à MARGE_C des moitiés.
+  const BARRE = 90, JOINT = 10, MARGE_C = 40, CENTRE = 2 * BARRE + JOINT + 2 * MARGE_C;
   const DISPOSITIONS = {
     // Les colonnes d'estimations (recettes perdues, aides non demandées) encadrent les comptes :
     // à gauche et à droite côte à côte, à droite de chaque moitié une fois empilées.
-    cote: { W: 2640, H: 1260, zones: [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1338, y: TETE, w: 982, h: 1190 }],
-      estim: [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2360, y: TETE, w: 280, h: 1190 }] },
-    pile: { W: 1640, H: 2 * 210 + 2 * 760 + 70, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70, w: 1200, h: 760 }],
-      estim: [{ x: 1240, y: 210, w: 400, h: 760 }, { x: 1240, y: 2 * 210 + 760 + 70, w: 400, h: 760 }] },
+    cote: { W: 2604 + CENTRE, H: 1260, zones: [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1302 + CENTRE, y: TETE, w: 982, h: 1190 }],
+      estim: [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2324 + CENTRE, y: TETE, w: 280, h: 1190 }] },
+    pile: { W: 1640, H: 2 * 210 + 2 * 760 + 70 + CENTRE, zones: [{ x: 0, y: 210, w: 1200, h: 760 }, { x: 0, y: 2 * 210 + 760 + 70 + CENTRE, w: 1200, h: 760 }],
+      estim: [{ x: 1240, y: 210, w: 400, h: 760 }, { x: 1240, y: 2 * 210 + 760 + 70 + CENTRE, w: 400, h: 760 }] },
   };
-  let disposition = 'cote', W = 2640, H = 1260, zones = DISPOSITIONS.cote.zones, colonnesEst = DISPOSITIONS.cote.estim;
+  let disposition = 'cote', W = DISPOSITIONS.cote.W, H = 1260, zones = DISPOSITIONS.cote.zones, colonnesEst = DISPOSITIONS.cote.estim;
   const choisirDisposition = () => {
     const { r, gauche, haut, bas } = marges(), aw = r.width - gauche - 24, ah = r.height - haut - bas - 12;
     const surface = d => { const D = DISPOSITIONS[d], k = Math.min(aw / D.W, ah / D.H); return k * k * D.zones[0].w * D.zones[0].h; };
@@ -444,6 +442,11 @@
       r.zone = { x, y: z.y, w, h };
       placer(r, x, z.y, w, h);
     });
+    // Bloc central : entre les deux moitiés, en barres verticales (côte à côte) ou horizontales (empilé).
+    const [rr, rd] = racines;
+    const ctr = disposition === 'cote'
+      ? centreSVG(rr.zone.x + rr.zone.w + MARGE_C, TETE, 0, Math.max(rr.zone.h, rd.zone.h), true)
+      : centreSVG(0, rr.zone.y + rr.zone.h + MARGE_C, Math.max(rr.zone.w, rd.zone.w), 0, false);
     noeuds = []; parId = new Map();
     // Les blocs de montant nul ne sont pas placés : on les écarte.
     const parcourir = n => { if (n.x === undefined) return; noeuds.push(n); parId.set(n.id, n); (n.children || []).forEach(parcourir); };
@@ -463,30 +466,70 @@
       // Nom du grand bloc (administration ou fonction) : toujours en texte détouré, lisible sur toutes les couleurs.
       if (n.depth <= 2 && n.children?.length) h += `<text data-f="${n.id}" class="fil halo" text-anchor="end" display="none">${esc(n.label)}</text>`;
     }
-    h += dessinerEstimations();
+    h += dessinerEstimations() + ctr;
     svg.innerHTML = h + '</g>';
     appliquerFiltres();
     majVue();
   }
 
+  // ================= Bloc central : recettes et déficit, puis dépenses publiques =================
+  // Comme la bande du poster « Où va l'argent public ? » (le 1 hebdo), tournée d'un quart de tour :
+  // une barre partagée entre recettes et déficit, collée à une barre des dépenses de même longueur.
+  const centreDe = g => [
+    { id: 'c-rec', label: 'Recettes', titre: 'Recettes publiques', v: g.total_recettes, color: 'total' },
+    { id: 'c-def', label: 'Déficit', titre: "Déficit public, couvert par l'emprunt", v: -g.solde, color: 'hatch', secteur: 'deficit' },
+    { id: 'c-dep', label: 'Dépenses publiques', titre: 'Dépenses publiques : recettes et déficit', v: g.total_recettes - g.solde, color: 'dep' }];
+  let CENTRE_P = [];
+  // x, y : coin haut gauche ; long : longueur des barres ; vertical : barres debout (côte à côte, flux).
+  function centreSVG(x, y, largeur, hauteur, vertical) {
+    const [rec, def, dep] = CENTRE_P = centreDe(G), L = vertical ? hauteur : largeur, a = L * rec.v / dep.v;
+    const pose = (p, o, l, b) => Object.assign(p, { ctr: true, vertical }, vertical ? { x: x + b * (BARRE + JOINT), y: y + o, w: BARRE, h: l } : { x: x + o, y: y + b * (BARRE + JOINT), w: l, h: BARRE });
+    pose(rec, 0, a, 0); pose(def, a, L - a, 0); pose(dep, 0, L, 1);
+    return CENTRE_P.map(p => `<rect class="ctr" data-id="${p.id}" x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" style="fill:${fillDe(p)}"/>`).join('')
+      // Le total, en grand au-dessus des barres debout.
+      + (vertical ? `<text class="ctr-total halo" data-ct="total" text-anchor="middle" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>` : '')
+      + CENTRE_P.map(p => `<text class="ctr-t${p.color === 'hatch' ? ' halo' : ''}" data-ct="${p.id}" text-anchor="middle" dominant-baseline="central" display="none"${p.color === 'hatch' ? '' : ` style="fill:var(--on-${p.color})"`}></text>`).join('');
+  }
+  // Textes écrits le long des barres, du plus complet au plus court selon la place.
+  function rendreCentre(kk) {
+    const tt = svg.querySelector('[data-ct="total"]'), dep = CENTRE_P[2];
+    if (tt && dep) {
+      const largeur = (2 * BARRE + JOINT + 2 * MARGE_C) * kk + (vueFlux ? 120 : 0), fs = Math.min(22, largeur / (mds(dep.v).length * 0.62));
+      tt.setAttribute('display', fs < 11 ? 'none' : 'inline');
+      tt.setAttribute('x', CENTRE_P[0].x + BARRE + JOINT / 2); tt.setAttribute('y', dep.y - 14 / kk);
+      tt.setAttribute('font-size', fs / kk); tt.setAttribute('stroke-width', 4 / kk);
+      tt.children[0].textContent = mds(dep.v); tt.children[1].textContent = '';
+    }
+    for (const p of CENTRE_P) {
+      const t = svg.querySelector(`[data-ct="${p.id}"]`); if (!t) continue;
+      const long = (p.vertical ? p.h : p.w) * kk - 14, epais = (p.vertical ? p.w : p.h) * kk, fs = Math.min(14, epais - 10);
+      const e = evo(p), nom = p.label.toUpperCase();
+      const txt = [`${nom} · ${mds(p.v)}${e ? ' · ' + e : ''}`, `${nom} · ${mds(p.v)}`, mds(p.v)].find(x => x.length * fs * 0.64 <= long);
+      if (fs < 8 || !txt) { t.setAttribute('display', 'none'); continue; }
+      const cx = p.x + p.w / 2, cy = p.y + p.h / 2;
+      t.setAttribute('display', 'inline'); t.textContent = txt; t.setAttribute('font-size', fs / kk); t.setAttribute('stroke-width', 3 / kk);
+      t.setAttribute('transform', `translate(${cx},${cy})${p.vertical ? ' rotate(-90)' : ''}`);
+    }
+  }
+
   // ================= Vue en flux : le circuit de l'argent public (Sankey horizontal) =================
   // Cinq colonnes lues de gauche à droite, comme les blocs (flux.js). La hauteur de chaque bloc suit
   // son montant, à la même échelle pour toutes les années : d'une année à l'autre, on le voit grandir.
-  const FLUX = { W: 2640, H: 1260, TOP: 80, GAP: 12, NW: 22, XS: [450, 880, 1310, 1740, 2170] };
+  const FLUX = { W: 2640, H: 1260, TOP: 80, GAP: 12, NW: 22, XS: [450, 1000, 1640, 2170] };
   let fxCols = [], fxNoeuds = [], fxLiens = [], fxPar = new Map(), fxTotal = 1;
   const r2 = v => Math.round(v * 100) / 100;
   function dessinerFlux() {
     ({ W, H } = FLUX);
-    const { TOP, GAP, NW, XS } = FLUX, m = circuit(annee, G);
+    const { TOP, GAP, NW, XS } = FLUX, m = circuit(G), LC = 2 * BARRE + JOINT;
     const k = (H - TOP - 20 - GAP * 12) / (AN.echelle.insee_md * 1.06);
     fxNoeuds = []; fxPar = new Map();
     fxCols = m.colonnes.map((c, i) => {
       let y = TOP;
       for (const n of c.noeuds) {
-        Object.assign(n, { fx: true, col: c.titre, ci: i, x: n.invisible ? XS[i] + NW / 2 : XS[i], w: n.invisible ? 0 : NW, y, h: n.v * k, entrees: [], sorties: [] });
+        Object.assign(n, { fx: true, col: c.titre, ci: i, x: XS[i], w: n.centre ? LC : NW, y, h: n.v * k, entrees: [], sorties: [] });
         y += n.h + GAP; fxNoeuds.push(n); fxPar.set(n.id, n);
       }
-      return { titre: c.titre, i, zone: { x: XS[i], y: TOP, w: NW, h: y - GAP - TOP } };
+      return { titre: c.titre, i, zone: { x: XS[i], y: TOP, w: c.noeuds[0]?.w || NW, h: y - GAP - TOP } };
     });
     fxTotal = sum(m.colonnes[0].noeuds, n => n.v);
     fxLiens = m.liens.map((l, i) => ({ ...l, i, lien: true, s: fxPar.get(l.s), t: fxPar.get(l.t) })).filter(l => l.s && l.t);
@@ -501,9 +544,11 @@
       return `M${xa},${ya} C${mx},${ya} ${mx},${yb} ${xb},${yb} L${xb},${yb2} C${mx},${yb2} ${mx},${ya2} ${xa},${ya2} Z`; };
     let h = `<defs><pattern id="hachure" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" style="fill:var(--panel)"/><rect width="4" height="12" style="fill:var(--hatch)"/></pattern></defs><g id="monde">`;
     h += fxLiens.map(l => `<path class="fxl" data-xl="${l.s.id}|${l.t.id}" data-i="${l.i}" d="${ruban(l)}" style="fill:${fillDe(l)}"/>`).join('');
-    for (const n of fxNoeuds) if (!n.invisible) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1.5, n.h)}" style="fill:${fillDe(n)}"/>`;
+    for (const n of fxNoeuds) if (!n.centre) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1.5, n.h)}" style="fill:${fillDe(n)}"/>`;
+    const c = fxPar.get('x-total');
+    h += centreSVG(c.x, c.y, 0, c.h, true);
     h += fxCols.map(c => `<text class="fx-col" data-c="${c.i}" display="none">${esc(c.titre)}</text>`).join('');
-    for (const n of fxNoeuds) if (!n.invisible) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
+    for (const n of fxNoeuds) if (!n.centre) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
     svg.innerHTML = h + '</g>';
     appliquerFiltres();
     majVue();
@@ -514,12 +559,13 @@
       const t = svg.querySelector(`[data-c="${c.i}"]`), dernier = c.i === fxCols.length - 1, XS = FLUX.XS;
       // Place du titre : la marge (première et dernière colonne) ou l'écart entre deux colonnes ; plus petit s'il le faut.
       const place = (c.i === 0 ? XS[0] + FLUX.NW : dernier ? W - XS[c.i] : XS[1] - XS[0]) * kk - 10, fst = Math.min(11.5, place / (c.titre.length * 0.68));
-      t.setAttribute('display', fst < 7 ? 'none' : 'inline'); t.setAttribute('font-size', fst / kk); t.setAttribute('y', c.zone.y - 16 / kk);
+      t.setAttribute('display', fst < 7 ? 'none' : 'inline'); t.setAttribute('font-size', fst / kk); t.setAttribute('y', c.zone.y - (c.i === 1 ? 44 : 16) / kk);
       t.setAttribute('x', c.i === 0 ? c.zone.x + c.zone.w : dernier ? c.zone.x : c.zone.x + c.zone.w / 2);
       t.setAttribute('text-anchor', c.i === 0 ? 'end' : dernier ? 'start' : 'middle');
     }
+    rendreCentre(kk);
     for (const n of fxNoeuds) {
-      if (n.invisible) continue;
+      if (n.centre) continue;
       const t = svg.querySelector(`[data-lx="${n.id}"]`), hp = n.h * kk;
       if (!visible(n) || hp < 11) { t.setAttribute('display', 'none'); continue; }
       const fs = hp >= 60 ? 14 : 12.5, gauche = n.ci === 0, x = gauche ? n.x - 8 / kk : n.x + n.w + 8 / kk, milieu = n.y + n.h / 2;
@@ -540,23 +586,16 @@
       else { tn.setAttribute('y', milieu + fs * 0.35 / kk); tv.textContent = (nom.length + mds(n.v).length + 1) * fs * 0.56 <= placePx ? ' ' + mds(n.v) : ''; tv.removeAttribute('x'); tv.removeAttribute('y'); }
     }
   }
-  // Rubans liés à un bloc ou à un ruban, en traversant les passages invisibles.
-  const relies = f => {
-    const l = f.lien ? [f] : [...f.entrees, ...f.sorties];
-    return [...l, ...l.flatMap(x => [...(x.t.invisible && x.t !== f ? x.t.sorties : []), ...(x.s.invisible && x.s !== f ? x.s.entrees : [])])];
-  };
+  // Rubans liés à un bloc, ou le ruban lui-même.
+  const relies = f => f.lien ? [f] : [...f.entrees, ...f.sorties];
   const allumer = f => {
     scene.classList.toggle('fx-survol', !!f);
     const on = new Set(f ? relies(f) : []);
     svg.querySelectorAll('path.fxl').forEach(p => p.classList.toggle('on', on.has(fxLiens[+p.dataset.i])));
   };
-  // Extrémités visibles d'un ruban qui passe par un bloc invisible.
-  const amontDe = n => n.invisible ? n.entrees[0]?.s || n : n;
-  const avalDe = n => n.invisible ? n.sorties[0]?.t || n : n;
   // Pendant de chaque bloc du flux dans la vue en blocs : [regroupement des dépenses, des recettes, identifiant].
   const enBlocs = n => n.fonction ? ['fonction', modeRec, 'd-' + n.fonction]
     : /^x-d/.test(n.id) ? ['admin', modeRec, 'd-' + n.secteur]
-    : /^x-p/.test(n.id) ? [mode, 'admin', 'r-' + n.secteur]
     : { 'x-r-emp': [mode, modeRec, 'r-deficit'], 'x-r-aut': [mode, 'admin', 'r-autres'] }[n.id] || null;
   function ouvrirFlux(n, { zoom = false } = {}) {
     choisi = n;
@@ -564,8 +603,7 @@
     svg.querySelector(`rect.fx[data-id="${n.id}"]`)?.classList.add('sel');
     const ex = n.explication, blocs = enBlocs(n);
     // D'où vient l'argent de ce bloc, et où il va.
-    const amont = n.entrees.flatMap(l => l.s.invisible ? l.s.entrees.map(m => ({ n: m.s, v: l.v })) : [{ n: l.s, v: l.v }]);
-    const aval = n.sorties.flatMap(l => l.t.invisible ? l.t.sorties.map(m => ({ n: m.t, v: m.v })) : [{ n: l.t, v: l.v }]);
+    const amont = n.entrees.map(l => ({ n: l.s, v: l.v })), aval = n.sorties.map(l => ({ n: l.t, v: l.v }));
     const barres = l => { l.sort((a, b) => b.v - a.v); return `<div class="bars">${l.map(c => `<div class="bar" style="--c:${c.n.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.n.color})`}"><button type="button" data-go="${c.n.id}">${esc(c.n.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / l[0].v * 100)}%"></i></div>`).join('')}</div>`; };
     $('d-chip').innerHTML = `<span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span>Flux · ${esc(n.col)}`;
     $('d-title').textContent = n.titre || n.label;
@@ -733,6 +771,7 @@
     const tient = n => n.w * kk > 74 && n.h * kk > 30;
     placerControles();
     if (vueFlux) return rendreFlux(kk, visible);
+    rendreCentre(kk);
     // Noms des zones, au-dessus de chaque moitié.
     rendreEstimations(kk);
     // Titres des deux moitiés : même taille pour les deux, assez petite pour laisser la place au
@@ -740,7 +779,7 @@
     // au-dessus (côte à côte, où le haut de l'écran est libre).
     const ctl = z => $(z.id === 'dep' ? 'ctl-dep' : 'ctl-rec');
     const tailles = racines.map(z => {
-      const lg = (z.label.length + mds(z.v).length + (evo(z) ? evo(z).length + 3 : 0) + 3) * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
+      const lg = z.label.length * 0.6, place = z.w * kk - ctl(z).offsetWidth - 16;
       const serre = place / lg < 12;
       z.empile = disposition === 'pile' && serre;
       z.dessus = disposition === 'cote' && serre;
@@ -751,7 +790,8 @@
     const fsT = Math.max(9, Math.min(...tailles)) / kk;
     racines.forEach(z => {
       const t = svg.querySelector(`[data-z="${z.id}"]`);
-      t.querySelector('.v').textContent = ` · ${mds(z.v)}${evo(z) ? ' · ' + evo(z) : ''}`;
+      // Le montant est écrit une seule fois, sur le bloc central.
+      t.querySelector('.v').textContent = '';
       t.setAttribute('x', z.x); t.setAttribute('y', z.y - (z.empile ? ctl(z).offsetHeight + 16 : 16) / kk); t.setAttribute('font-size', fsT);
     });
     for (const n of noeuds) {
@@ -791,6 +831,8 @@
       [['dep', 'ctl-dep'], ['rec', 'ctl-rec']].forEach(([z, c]) => {
         const t = svg.querySelector(`[data-z="${z}"]`), el = $(c);
         if (!t) return;
+        // Mesuré visible : masqué (vue en flux, hors écran), il n'aurait pas de taille.
+        el.hidden = false;
         const r = t.getBoundingClientRect(), b = el.getBoundingClientRect();
         const zz = racines.find(q => q.id === z);
         let x = r.right + 12, y = r.top + r.height / 2 - b.height / 2;
@@ -801,6 +843,11 @@
         el.hidden = y < sc.top + 2 || y > sc.bottom - 40 || x < 0 || sous;
         el.style.left = x + 'px'; el.style.top = y + 'px';
       });
+      const tt = svg.querySelector('[data-ct="total"]');
+      if (tt && tt.getAttribute('display') !== 'none') {
+        const a = tt.getBoundingClientRect();
+        if (['ctl-rec', 'ctl-dep'].some(c => { const b = $(c).getBoundingClientRect(); return !$(c).hidden && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top; })) tt.setAttribute('display', 'none');
+      }
     });
   }
   const zoomerAutour = (facteur, px, py) => {
@@ -894,16 +941,19 @@
   // La capture du pointeur (glisser) fait de la scène la cible : on cherche le bloc par position.
   const estParId = id => estim.find(x => x.id === id) || colonnes.find(x => x.id === id);
   const sousPointeur = e => {
-    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, rect.fx, path.fxl, [data-e]');
+    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, rect.fx, rect.ctr, path.fxl, [data-e]');
     if (!el) return null;
+    if (el.classList.contains('ctr')) return CENTRE_P.find(p => p.id === el.dataset.id);
     if (el.classList.contains('fxl')) return fxLiens[+el.dataset.i];
     if (el.classList.contains('fx')) return fxPar.get(el.dataset.id);
     return el.dataset.e ? estParId(el.dataset.e) : parId.get(el.dataset.id);
   };
   function survol(e) {
     const f = sousPointeur(e); if (!f) return cacherTip();
-    if (f.lien || f.fx) allumer(f);
-    if (f.lien) { const a = amontDe(f.s), b = avalDe(f.t);
+    if (vueFlux) allumer(f.ctr ? fxPar.get('x-total') : f);
+    const [rec, def, dep] = CENTRE_P;
+    if (f.ctr) tip.innerHTML = `<b>${esc(f.titre)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${f === dep ? `${nf(G.part_pib['dépenses'], 1)} % du PIB<br><span class="tq">${mds(rec.v)} de recettes et ${mds(def.v)} de déficit, couvert par l'emprunt.</span>` : pct(f.v, dep.v) + ' des dépenses publiques'}`;
+    else if (f.lien) { const a = f.s, b = f.t;
       tip.innerHTML = `<b>${esc(a.titre || a.label)} → ${esc(b.titre || b.label)}</b><span class="val">${mds(f.v)}</span> · ${pct(f.v, a.v)} de « ${esc(a.label)} », ${pct(f.v, b.v)} de « ${esc(b.label)} »`; }
     else if (f.fx) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${pct(f.v, fxTotal)} du total${f.explication ? `<br><span class="tq">${esc(f.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
     else if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
@@ -916,7 +966,12 @@
   }
   const racineDe = n => { let x = n; while (x.parent) x = x.parent; return x; };
   let choisi = null;
-  function cliquer(e) { const f = sousPointeur(e); if (f) ouvrir(f.lien ? avalDe(f.t) : f.est || f.fx ? f : designe(f)); }
+  function cliquer(e) {
+    const f = sousPointeur(e); if (!f) return;
+    // Bloc central : en flux, sa fiche ; en blocs, la moitié correspondante.
+    if (f.ctr) { if (vueFlux) return ouvrir(fxPar.get('x-total')); const n = parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]); if (n?.parent) ouvrir(n, { zoom: true }); else if (n) cadrer(n); return; }
+    ouvrir(f.lien ? f.t : f.est || f.fx ? f : designe(f));
+  }
   function ouvrir(n, { zoom = false } = {}) {
     if (n.fx) return ouvrirFlux(n, { zoom });
     if (n.est) return ouvrirEstimation(n, { zoom });
@@ -991,7 +1046,7 @@
     if (vueFlux) {
       // Administrations masquées ; fonctions mises en avant : les autres fonctions s'effacent.
       const eteint = x => !!(x.secteur && caches.has(x.secteur)) || !!(avant.size && x.fonction && !avant.has(x.fonction));
-      for (const n of fxNoeuds) if (!n.invisible) svg.querySelectorAll(`[data-id="${n.id}"], [data-lx="${n.id}"]`).forEach(el => el.classList.toggle('off', eteint(n)));
+      for (const n of fxNoeuds) if (!n.centre) svg.querySelectorAll(`[data-id="${n.id}"], [data-lx="${n.id}"]`).forEach(el => el.classList.toggle('off', eteint(n)));
       for (const l of fxLiens) svg.querySelector(`path[data-i="${l.i}"]`)?.classList.toggle('off', eteint(l));
       return;
     }
@@ -1003,6 +1058,7 @@
       svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
     }
     svg.querySelectorAll('[data-e], [data-el], [data-et], .est-sep').forEach(el => el.classList.toggle('off', caches.has('estim')));
+    svg.querySelectorAll('[data-id="c-def"], [data-ct="c-def"]').forEach(el => el.classList.toggle('off', caches.has('deficit')));
     $('hl-off').hidden = !avant.size;
   }
   $('c-admin').addEventListener('change', e => { const k = e.target.dataset.sect; e.target.checked ? caches.delete(k) : caches.add(k); appliquerFiltres(); });
@@ -1041,7 +1097,7 @@
       const i = textes.findIndex(t => variantes.some(v => v.every(m => debut(t, m))));
       return i < 0 ? null : i;
     };
-    trouves = (vueFlux ? fxNoeuds.filter(n => !n.invisible).map(n => [n, rang(n)]) : [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])]).filter(([, r]) => r !== null)
+    trouves = (vueFlux ? fxNoeuds.map(n => [n, rang(n)]) : [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])]).filter(([, r]) => r !== null)
       .sort(([a, ra], [b, rb]) => (ra - rb) || ((a.depth ?? 2) - (b.depth ?? 2)) || ((b.v ?? b.haut) - (a.v ?? a.haut))).map(([n]) => n).slice(0, 15);
     $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc(n.fx ? 'Flux › ' + n.col : [racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
       : `<li class="vide">Aucun résultat. Essayez un mot plus court.</li>`;
@@ -1056,7 +1112,6 @@
   async function changerVue(flux) {
     if (flux === vueFlux) return;
     vueFlux = flux; majBoutonsVue();
-    if (flux) await Promise.all([chargerEtat(annee), chargerEtat(anneeComp)]);
     $('detail').hidden = true; choisi = null; cacherTip(); scene.classList.remove('fx-survol');
     majEvo(); dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); zonesValidees = zonesActuelles(); majVue();
     const u = new URL(location.href);
@@ -1089,7 +1144,7 @@
   };
   const releve = () => new Map([...svg.querySelectorAll('#monde rect[data-id], #monde [data-e], #monde path[data-xl]')].map(el => { if (el.tagName === 'path') el._d = el.getAttribute('d'); return [cleDe(el), { el, v: lire(el) }]; }));
   const centre = (tag, v) => tag === 'rect' ? [v[0] + v[2] / 2, v[1] + v[3] / 2, 0, 0] : tag === 'circle' ? [v[0], v[1], 0] : v;
-  const zonesActuelles = () => vueFlux ? fxCols.map(c => c.zone) : racines.map(r => r.zone);
+  const zonesActuelles = () => [...(vueFlux ? fxCols.map(c => c.zone) : racines.map(r => r.zone)), ...CENTRE_P.map(p => ({ x: p.x, y: p.y, w: p.w, h: p.h }))];
   // Contours de l'année choisie, en pointillés, pendant un aperçu : on voit l'enveloppe grandir ou rétrécir.
   let zonesValidees = [];
   let jeton = 0, animAn = 0, enCours = false;
@@ -1097,10 +1152,10 @@
   async function basculer(an, { apercu = false } = {}) {
     const moi = ++jeton;
     const comp = apercu ? anneeValidee : precedente(an);
-    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null, vueFlux && chargerEtat(an), vueFlux && chargerEtat(comp)]);
+    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null]);
     if (moi !== jeton) return false;
     const changeComp = comp !== anneeComp;
-    anneeComp = comp; GCOMP = gc; majEvo(an);
+    anneeComp = comp; GCOMP = gc; majEvo();
     const badge = $('apercu');
     badge.hidden = !apercu;
     if (apercu) {
@@ -1189,7 +1244,6 @@
 
   majRef();
   anneeComp = precedente(annee); GCOMP = anneeComp ? await charger(anneeComp).catch(() => null) : null;
-  if (vueFlux) await Promise.all([chargerEtat(annee), chargerEtat(anneeComp)]);
   majEvo();
   majBoutonsVue();
   majPanneau();
