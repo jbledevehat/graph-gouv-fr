@@ -156,6 +156,12 @@
   /* Évolution d'un bloc année après année, sous sa description. */
   .evol { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
   .evol h4 { margin: 0; font-size: 13px; }
+  .evol .tete { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  /* Choix discret : montants, pourcentages ou les deux. */
+  .evol .choix { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .evol .choix button { min-height: 22px; padding: 0 8px; border: 0; background: transparent; color: var(--muted); font: 500 11.5px var(--sans); cursor: pointer; }
+  .evol .choix button + button { border-left: 1px solid var(--line); }
+  .evol .choix button[aria-pressed="true"] { background: var(--panel-2); color: var(--ink); font-weight: 600; }
   .evol .resume { margin: 0; font-size: 12.5px; color: var(--muted); }
   .evol svg { display: block; width: 100%; height: auto; overflow: visible; }
   .evol .b { opacity: .55; }
@@ -735,6 +741,9 @@ AnneeVive.page(async () => {
     if (!MONTANTS.has(cle)) { const m = new Map(), tour = n => { m.set(n.id, n.v); (n.children || []).forEach(tour); }; tour(arbresArgentPublic(g, X, dm, rm)[cote]); MONTANTS.set(cle, m); }
     return MONTANTS.get(cle);
   };
+  // Ce que montre le graphique : 'montants', 'pct' ou 'deux' ; retenu d'un bloc et d'une visite à l'autre.
+  let affichageEvol = 'deux';
+  try { affichageEvol = localStorage.getItem('evolution-affichage') || 'deux'; } catch (e) {}
   const variationPct = (v, b) => { const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
   async function evolution(el, cote, n, dm, rm) {
     if (AnneeVive.mesure) return;
@@ -744,30 +753,49 @@ AnneeVive.page(async () => {
     const serie = AN.insee.map((a, i) => ({ a, v: liste[i] ? montantsDe(liste[i], a, cote, dm, rm).get(n.id) ?? null : null }));
     const pts = serie.filter(p => p.v > 0);
     if (pts.length < 2) return;
-    const W = 360, H = 170, haut = 22, bas = 36, pas = W / serie.length, larg = Math.min(34, pas * 0.56), max = Math.max(...pts.map(p => p.v));
     const couleur = n.color === 'hatch' ? 'var(--hatch)' : n.color === 'na' || !n.color ? 'var(--control)' : `var(--m-${n.color})`;
     const premier = pts[0], dernier = pts[pts.length - 1];
-    const barres = serie.map((p, i) => {
-      const cx = pas * i + pas / 2, cur = p.a === annee, prec = serie[i - 1];
-      if (!(p.v > 0)) return `<text class="an" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text><text class="pc" x="${cx}" y="${H - bas / 2}" text-anchor="middle">–</text>`;
-      const h = (H - haut - bas) * p.v / max, y = H - bas - h, e = prec?.v > 0 ? variationPct(p.v, prec.v) : '';
-      const aide = `<b>${esc(n.titre || n.label)} en ${p.a}</b><span class="val">${mds(p.v)}</span>${e ? ` · ${e} par rapport à ${prec.a}` : ''}`;
-      return `<g class="zone" data-aide="${esc(aide)}"><rect x="${pas * i}" y="0" width="${pas}" height="${H}" fill="transparent"/>
-        <rect class="b${cur ? ' cur' : ''}" x="${cx - larg / 2}" y="${y}" width="${larg}" height="${Math.max(1, h)}" rx="3" style="fill:${couleur}"/>
-        <text class="mt" x="${cx}" y="${y - 6}" text-anchor="middle">${esc(mds(p.v).replace(' Md€', ''))}</text>
-        <text class="an${cur ? ' cur' : ''}" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text>
-        <text class="pc" x="${cx}" y="${H - bas + 31}" text-anchor="middle">${e}</text></g>`;
-    }).join('');
+    // Barres toujours à l'échelle des montants ; au-dessus, le montant ou l'évolution selon le choix,
+    // et sous l'année l'évolution quand on montre les deux.
+    const dessin = () => {
+      const deux = affichageEvol === 'deux', W = 360, haut = 22, bas = deux ? 36 : 22, H = 150 + bas - 22, pas = W / serie.length, larg = Math.min(34, pas * 0.56), max = Math.max(...pts.map(p => p.v));
+      const barres = serie.map((p, i) => {
+        const cx = pas * i + pas / 2, cur = p.a === annee, prec = serie[i - 1];
+        if (!(p.v > 0)) return `<text class="an" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text><text class="pc" x="${cx}" y="${H - bas - 6}" text-anchor="middle">–</text>`;
+        const h = (H - haut - bas) * p.v / max, y = H - bas - h, e = prec?.v > 0 ? variationPct(p.v, prec.v) : '';
+        const aide = `<b>${esc(n.titre || n.label)} en ${p.a}</b><span class="val">${mds(p.v)}</span>${e ? ` · ${e} par rapport à ${prec.a}` : ''}`;
+        const dessus = affichageEvol === 'pct' ? `<text class="pc" x="${cx}" y="${y - 6}" text-anchor="middle">${e || '–'}</text>` : `<text class="mt" x="${cx}" y="${y - 6}" text-anchor="middle">${esc(mds(p.v).replace(' Md€', ''))}</text>`;
+        return `<g class="zone" data-aide="${esc(aide)}"><rect x="${pas * i}" y="0" width="${pas}" height="${H}" fill="transparent"/>
+          <rect class="b${cur ? ' cur' : ''}" x="${cx - larg / 2}" y="${y}" width="${larg}" height="${Math.max(1, h)}" rx="3" style="fill:${couleur}"/>${dessus}
+          <text class="an${cur ? ' cur' : ''}" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text>
+          ${deux ? `<text class="pc" x="${cx}" y="${H - bas + 31}" text-anchor="middle">${e}</text>` : ''}</g>`;
+      }).join('');
+      return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${n.titre || n.label}, année par année : ${serie.filter(p => p.v > 0).map((p, i, l) => `${p.a}, ${mds(p.v)}${i ? ` (${variationPct(p.v, l[i - 1].v)})` : ''}`).join(' ; ')}.`)}"><line class="base" x1="0" x2="${W}" y1="${H - bas}" y2="${H - bas}"/>${barres}</svg>`;
+    };
+    const legende = () => affichageEvol === 'deux' ? "Montants en milliards d'euros ; sous chaque année, l'évolution par rapport à l'année précédente."
+      : affichageEvol === 'pct' ? "Au-dessus de chaque année, l'évolution par rapport à l'année précédente." : "Montants en milliards d'euros.";
     const total = dernier.v - premier.v;
     const box = document.createElement('div');
     box.className = 'evol';
-    box.innerHTML = `<h4>Évolution de ${premier.a} à ${dernier.a}</h4>
-      <p class="resume">${mds(premier.v)} en ${premier.a}, ${mds(dernier.v)} en ${dernier.a} : <b>${variationPct(dernier.v, premier.v)}</b> (${total >= 0 ? '+' : '−'}${mds(Math.abs(total))}). Montants en milliards d'euros ; sous chaque année, l'évolution par rapport à l'année précédente.</p>
-      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${n.titre || n.label}, année par année : ${serie.filter(p => p.v > 0).map(p => `${p.a}, ${mds(p.v)}`).join(' ; ')}.`)}"><line class="base" x1="0" x2="${W}" y1="${H - bas}" y2="${H - bas}"/>${barres}</svg>`;
-    box.querySelectorAll('.zone').forEach(g => {
+    box.innerHTML = `<div class="tete"><h4>Évolution de ${premier.a} à ${dernier.a}</h4>
+      <div class="choix" role="group" aria-label="Afficher">${[['montants', 'Montants'], ['pct', '%'], ['deux', 'Les deux']].map(([k, l]) => `<button type="button" data-aff="${k}" aria-pressed="${k === affichageEvol}"${k === 'pct' ? ' aria-label="Pourcentages"' : ''}>${l}</button>`).join('')}</div></div>
+      <p class="resume">${mds(premier.v)} en ${premier.a}, ${mds(dernier.v)} en ${dernier.a} : <b>${variationPct(dernier.v, premier.v)}</b> (${total >= 0 ? '+' : '−'}${mds(Math.abs(total))}). <span class="leg">${legende()}</span></p>
+      <div class="graphe">${dessin()}</div>`;
+    const brancher = () => box.querySelectorAll('.zone').forEach(g => {
       g.addEventListener('pointermove', e => showTip(g.dataset.aide, e.clientX, e.clientY));
       g.addEventListener('pointerleave', hideTip);
     });
+    brancher();
+    box.querySelectorAll('[data-aff]').forEach(b => b.onclick = () => {
+      affichageEvol = b.dataset.aff;
+      try { localStorage.setItem('evolution-affichage', affichageEvol); } catch (e) {}
+      // Les deux panneaux (dépenses, recettes) suivent le même choix.
+      document.querySelectorAll('.evol').forEach(x => x._majAffichage?.());
+    });
+    box._majAffichage = () => {
+      box.querySelectorAll('[data-aff]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.aff === affichageEvol)));
+      box.querySelector('.graphe').innerHTML = dessin(); box.querySelector('.leg').textContent = legende(); brancher();
+    };
     $(el).querySelector('.evol')?.remove();
     const avant = $(el).querySelector('.bars')?.previousElementSibling?.classList.contains('sub') ? $(el).querySelector('.bars').previousElementSibling : null;
     if (avant) avant.before(box); else $(el).append(box);
