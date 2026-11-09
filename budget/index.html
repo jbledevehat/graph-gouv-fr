@@ -121,7 +121,14 @@
   .figures b { font-size: 17px; }
   .figures span { font-size: 11.5px; color: var(--muted); }
   .figures span.evo { font-family: var(--mono); font-size: 11px; }
-  .vue-ctl { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; color: var(--muted); }
+  /* Choix de la représentation, dans le bandeau à côté des années, avec le même aspect qu'elles. */
+  .b-vue { display: none; }
+  .bandeau .b-vue { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
+  .b-vue > span { font-weight: 500; }
+  .b-vue .seg-ctl button { min-height: 28px; padding: 0 12px; font-size: 13px; }
+  .bandeau .b-vue + .b-annee { margin-left: 0; }
+  @media (max-width: 760px) { .bandeau .b-vue { margin-left: 0; } }
+  @media (max-width: 480px) { .b-vue > span { display: none; } .b-vue .seg-ctl button { padding: 0 8px; font-size: 12px; } }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
   .apropos { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
   .apropos summary { cursor: pointer; color: var(--accent); font-weight: 500; }
@@ -215,6 +222,11 @@
 <body>
 <a class="skip" href="#q">Aller à la recherche</a>
 <!--bandeau-->
+<!-- Choix de la représentation : placé dans le bandeau, juste avant les années (voir le script). -->
+<div class="b-vue" id="b-vue"><span id="l-vue">Vue</span><div class="seg-ctl" role="group" aria-labelledby="l-vue">
+  <button type="button" data-vue="blocs" aria-pressed="true">Blocs</button>
+  <button type="button" data-vue="flux" aria-pressed="false">Flux</button>
+</div></div>
 <div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public : ce qui finance la dépense publique, puis les dépenses, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
 <p id="status">Chargement…</p>
 
@@ -225,10 +237,6 @@
     <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface ; au milieu, les recettes et le déficit font ensemble la dépense publique. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <p class="sub" id="sub-flux" hidden>Les mêmes blocs suivis de gauche à droite : le détail des recettes et de l'emprunt ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; puis le détail des dépenses. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
     <div class="figures" id="figures"></div>
-    <div class="vue-ctl"><span id="l-vue">Représentation</span><div class="seg-ctl" role="group" aria-labelledby="l-vue">
-      <button type="button" data-vue="blocs" aria-pressed="true">Blocs</button>
-      <button type="button" data-vue="flux" aria-pressed="false">Flux</button>
-    </div></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a> · <a id="lien-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download>Exploration en PDF</a></p>
     <p class="alerte" id="alerte" hidden></p>
     <details class="apropos">
@@ -284,6 +292,8 @@
 <script>
 (async () => {
   const $ = id => document.getElementById(id);
+  // La représentation se choisit dans le bandeau, juste avant les années.
+  { const an = document.querySelector('.bandeau .b-annee'); if (an) an.before($('b-vue')); }
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nf = (v, d = 1) => Number(v).toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d });
   const mds = v => v >= 1 ? nf(v, v >= 100 ? 0 : 1) + ' Md€' : Math.round(v * 1000).toLocaleString('fr-FR') + ' M€';
