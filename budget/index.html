@@ -512,11 +512,12 @@
   // Les recettes se lisent de leur détail (à gauche) jusqu'au bloc central, les dépenses du bloc central
   // jusqu'à leur détail (à droite) : mêmes blocs, couleurs, regroupements, fiches et recherche que la
   // vue en blocs. La hauteur suit le montant, à la même échelle pour toutes les années.
-  const FLUX = { W: 2900, H: 1960, TOP: 150, NW: 18, NIV: 3, RESERVE: 300,
-    // Abscisse des colonnes, du bloc central vers l'extérieur : recettes à gauche, dépenses à droite.
-    rec: [1100, 760, 420], dep: [1720, 2060, 2400], centre: 1330,
+  const FLUX = { W: 3200, H: 2150, TOP: 150, NW: 18, NIV: 3, RESERVE: 420,
+    // Abscisse des colonnes, du bloc central vers l'extérieur : recettes à gauche, dépenses à droite,
+    // avec plus de place aux extrémités pour les noms des blocs les plus fins.
+    rec: [1230, 860, 520], dep: [1860, 2240, 2620], centre: 1460,
     // Écart entre deux blocs d'une colonne : de même parent, ou de parents différents.
-    freres: [0, 14, 4, 1], cousins: [0, 14, 12, 5] };
+    freres: [0, 16, 6, 2.2], cousins: [0, 16, 16, 9] };
   let fxCols = [];
   const r2 = v => Math.round(v * 100) / 100;
   // Ordre des blocs : celui de leurs parents, puis le montant de l'année de référence ; côté recettes,
