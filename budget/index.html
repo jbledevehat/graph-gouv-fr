@@ -14,7 +14,7 @@
 <style>
   /* Exploration plein écran, sur le modèle de la carte des sites : la scène occupe tout l'espace
      sous le bandeau ; à gauche les recettes et l'emprunt, à droite les dépenses, de même surface
-     (sens de lecture : d'où vient l'argent, puis où il va) ; ou bien le même circuit en flux (Sankey) ;
+     (sens de lecture : d'où vient l'argent, puis où il va) ; ou bien les mêmes blocs en flux (Sankey) ;
      panneau de recherche et d'options à gauche, fiche à droite, zoom en bas à droite.
      Couleurs : une par administration (palette des aides, vérifiée pour les daltonismes). */
   :root {
@@ -101,7 +101,6 @@
   #scene path.fxl { fill-opacity: .42; transition: fill-opacity .15s; }
   #scene.fx-survol path.fxl { fill-opacity: .12; }
   #scene.fx-survol path.fxl.on { fill-opacity: .8; }
-  #scene text.fx-col { font-family: var(--mono); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
   /* Bloc central : recettes et déficit, puis dépenses publiques (comme le poster du 1 hebdo). */
   #scene rect.ctr { stroke: var(--ground); stroke-width: 1px; vector-effect: non-scaling-stroke; cursor: pointer; }
   #scene text.ctr-t { font-family: var(--mono); font-weight: 600; letter-spacing: .04em; }
@@ -223,7 +222,7 @@
     <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
     <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface ; au milieu, les recettes et le déficit font ensemble la dépense publique. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
-    <p class="sub" id="sub-flux" hidden>Le même argent suivi de gauche à droite : les ressources ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; l'administration qui dépense ; puis la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
+    <p class="sub" id="sub-flux" hidden>Les mêmes blocs suivis de gauche à droite : le détail des recettes et de l'emprunt ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; puis le détail des dépenses. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
     <div class="figures" id="figures"></div>
     <div class="vue-ctl"><span id="l-vue">Représentation</span><div class="seg-ctl" role="group" aria-labelledby="l-vue">
       <button type="button" data-vue="blocs" aria-pressed="true">Blocs</button>
@@ -319,7 +318,6 @@
   };
   let G, X, E, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
-  const { circuitArgentPublic } = await import('./flux.js');
   // Comptes de chaque année, chargés une seule fois (dès le survol d'une année dans le bandeau).
   const CACHE = new Map();
   const charger = an => {
@@ -328,7 +326,6 @@
       .catch(e => { CACHE.delete(an); throw e; }));
     return CACHE.get(an);
   };
-  const circuit = g => circuitArgentPublic(g, X);
   try { [G, GREF, X, E] = await Promise.all([charger(annee), charger(AN.reference), ...['donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))]); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
@@ -339,7 +336,6 @@
   const majEvo = () => {
     EVO = new Map(); if (!GCOMP) return;
     const tour = n => { EVO.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GCOMP, X, mode, modeRec).forEach(tour);
-    circuit(GCOMP).colonnes.forEach(c => c.noeuds.forEach(n => EVO.set(n.id, n.v)));
     centreDe(GCOMP).forEach(p => EVO.set(p.id, p.v));
   };
   const variation = (v, b) => { if (!(b > 0) || !(v > 0)) return ''; const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
@@ -512,70 +508,82 @@
     }
   }
 
-  // ================= Vue en flux : le circuit de l'argent public (Sankey horizontal) =================
-  // Cinq colonnes lues de gauche à droite, comme les blocs (flux.js). La hauteur de chaque bloc suit
-  // son montant, à la même échelle pour toutes les années : d'une année à l'autre, on le voit grandir.
-  const FLUX = { W: 2640, H: 1260, TOP: 80, GAP: 12, NW: 22, XS: [450, 1000, 1640, 2170] };
-  let fxCols = [], fxNoeuds = [], fxLiens = [], fxPar = new Map(), fxTotal = 1;
+  // ================= Vue en flux : les mêmes arbres que les blocs, en Sankey horizontal =================
+  // Les recettes se lisent de leur détail (à gauche) jusqu'au bloc central, les dépenses du bloc central
+  // jusqu'à leur détail (à droite) : mêmes blocs, couleurs, regroupements, fiches et recherche que la
+  // vue en blocs. La hauteur suit le montant, à la même échelle pour toutes les années.
+  const FLUX = { W: 2900, H: 1960, TOP: 150, NW: 18, NIV: 3, RESERVE: 300,
+    // Abscisse des colonnes, du bloc central vers l'extérieur : recettes à gauche, dépenses à droite.
+    rec: [1100, 760, 420], dep: [1720, 2060, 2400], centre: 1330,
+    // Écart entre deux blocs d'une colonne : de même parent, ou de parents différents.
+    freres: [0, 14, 4, 1], cousins: [0, 14, 12, 5] };
+  let fxCols = [];
   const r2 = v => Math.round(v * 100) / 100;
+  // Ordre des blocs : celui de leurs parents, puis le montant de l'année de référence ; côté recettes,
+  // les autres recettes puis le déficit en dernier, qui arrive ainsi sur la part « déficit » du bloc central.
+  const finDeListe = n => /^r-deficit/.test(n.id) ? 2 : /^r-autres/.test(n.id) ? 1 : 0;
+  const enfantsFlux = n => (n.children || []).filter(c => c.v > 0).sort((a, b) => finDeListe(a) - finDeListe(b) || rang(b) - rang(a));
   function dessinerFlux() {
     ({ W, H } = FLUX);
-    const { TOP, GAP, NW, XS } = FLUX, m = circuit(G), LC = 2 * BARRE + JOINT;
-    const k = (H - TOP - 20 - GAP * 12) / (AN.echelle.insee_md * 1.06);
-    fxNoeuds = []; fxPar = new Map();
-    fxCols = m.colonnes.map((c, i) => {
-      let y = TOP;
-      for (const n of c.noeuds) {
-        Object.assign(n, { fx: true, col: c.titre, ci: i, x: XS[i], w: n.centre ? LC : NW, y, h: n.v * k, entrees: [], sorties: [] });
-        y += n.h + GAP; fxNoeuds.push(n); fxPar.set(n.id, n);
+    const { TOP, NW } = FLUX, LC = 2 * BARRE + JOINT, k = (H - TOP - 20 - FLUX.RESERVE) / AN.echelle.insee_md;
+    racines = arbres(); estim = []; colonnes = [];
+    noeuds = []; parId = new Map(); fxCols = [];
+    const liens = [];
+    for (const r of racines) {
+      const cote = r.id === 'rec' ? FLUX.rec : FLUX.dep;
+      Object.assign(r, { x: FLUX.centre, y: TOP, w: LC, h: r.v * k });
+      noeuds.push(r); parId.set(r.id, r);
+      let niveau = [r];
+      for (let d = 1; d <= FLUX.NIV && niveau.length; d++) {
+        let y = TOP, prec = null; const suivant = [];
+        for (const p of niveau) {
+          let o = p.y;
+          for (const c of enfantsFlux(p)) {
+            if (prec) y += prec.parent === c.parent ? FLUX.freres[d] : FLUX.cousins[d];
+            Object.assign(c, { x: cote[d - 1], y, w: NW, h: c.v * k });
+            liens.push({ c, p, yp: o }); o += c.h; y += c.h; prec = c;
+            noeuds.push(c); parId.set(c.id, c); suivant.push(c);
+          }
+        }
+        if (suivant.length) fxCols.push({ zone: { x: cote[d - 1], y: TOP, w: NW, h: y - TOP } });
+        niveau = suivant;
       }
-      return { titre: c.titre, i, zone: { x: XS[i], y: TOP, w: c.noeuds[0]?.w || NW, h: y - GAP - TOP } };
-    });
-    fxTotal = sum(m.colonnes[0].noeuds, n => n.v);
-    fxLiens = m.liens.map((l, i) => ({ ...l, i, lien: true, s: fxPar.get(l.s), t: fxPar.get(l.t) })).filter(l => l.s && l.t);
-    fxLiens.forEach(l => { l.s.sorties.push(l); l.t.entrees.push(l); });
-    // Rubans rangés au départ et à l'arrivée de chaque bloc selon la hauteur de l'autre extrémité.
-    const cy = n => n.y + n.h / 2;
-    for (const n of fxNoeuds) {
-      let y = n.y; [...n.sorties].sort((a, b) => cy(a.t) - cy(b.t)).forEach(l => { l.sy = y; y += l.v * k; });
-      y = n.y; [...n.entrees].sort((a, b) => cy(a.s) - cy(b.s)).forEach(l => { l.ty = y; y += l.v * k; });
     }
-    const ruban = l => { const w = l.v * k, xa = r2(l.s.x + l.s.w), xb = r2(l.t.x), mx = r2((xa + xb) / 2), ya = r2(l.sy), yb = r2(l.ty), ya2 = r2(l.sy + w), yb2 = r2(l.ty + w);
-      return `M${xa},${ya} C${mx},${ya} ${mx},${yb} ${xb},${yb} L${xb},${yb2} C${mx},${yb2} ${mx},${ya2} ${xa},${ya2} Z`; };
+    // Ruban entre un bloc et son parent : à gauche le plus fin côté recettes, le parent côté dépenses.
+    const ruban = ({ c, p, yp }) => {
+      const rec = racineDe(c).id === 'rec', w = c.h;
+      const [xa, ya, xb, yb] = (rec ? [c.x + c.w, c.y, p.x, yp] : [p.x + p.w, yp, c.x, c.y]).map(r2), mx = r2((xa + xb) / 2), ya2 = r2(ya + w), yb2 = r2(yb + w);
+      return `M${xa},${ya} C${mx},${ya} ${mx},${yb} ${xb},${yb} L${xb},${yb2} C${mx},${yb2} ${mx},${ya2} ${xa},${ya2} Z`;
+    };
     let h = `<defs><pattern id="hachure" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" style="fill:var(--panel)"/><rect width="4" height="12" style="fill:var(--hatch)"/></pattern></defs><g id="monde">`;
-    h += fxLiens.map(l => `<path class="fxl" data-xl="${l.s.id}|${l.t.id}" data-i="${l.i}" d="${ruban(l)}" style="fill:${fillDe(l)}"/>`).join('');
-    for (const n of fxNoeuds) if (!n.centre) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1.5, n.h)}" style="fill:${fillDe(n)}"/>`;
-    const c = fxPar.get('x-total');
-    h += centreSVG(c.x, c.y, 0, c.h, true);
-    h += fxCols.map(c => `<text class="fx-col" data-c="${c.i}" display="none">${esc(c.titre)}</text>`).join('');
-    for (const n of fxNoeuds) if (!n.centre) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
+    h += liens.map(l => `<path class="fxl" data-xl="${l.c.id}" d="${ruban(l)}" style="fill:${fillDe(l.c)}"/>`).join('');
+    for (const n of noeuds) if (n.parent) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${fillDe(n)}"/>`;
+    h += centreSVG(FLUX.centre, TOP, 0, Math.max(...racines.map(r => r.h)), true);
+    racines.forEach(r => { h += `<text class="zone" data-z="${r.id}"><tspan class="n">${esc(r.label)}</tspan><tspan class="v"></tspan></text>`; });
+    for (const n of noeuds) if (n.parent) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
     svg.innerHTML = h + '</g>';
     appliquerFiltres();
     majVue();
   }
-  // Titres des colonnes et noms des blocs, à taille fixe à l'écran : un bloc trop fin n'a que son infobulle.
+  // Titres des deux côtés et noms des blocs, à taille fixe à l'écran : un bloc trop fin n'a que son infobulle.
   function rendreFlux(kk, visible) {
-    for (const c of fxCols) {
-      const t = svg.querySelector(`[data-c="${c.i}"]`), dernier = c.i === fxCols.length - 1, XS = FLUX.XS;
-      // Place du titre : la marge (première et dernière colonne) ou l'écart entre deux colonnes ; plus petit s'il le faut.
-      const place = (c.i === 0 ? XS[0] + FLUX.NW : dernier ? W - XS[c.i] : XS[1] - XS[0]) * kk - 10, fst = Math.min(11.5, place / (c.titre.length * 0.68));
-      t.setAttribute('display', fst < 7 ? 'none' : 'inline'); t.setAttribute('font-size', fst / kk); t.setAttribute('y', c.zone.y - (c.i === 1 ? 44 : 16) / kk);
-      t.setAttribute('x', c.i === 0 ? c.zone.x + c.zone.w : dernier ? c.zone.x : c.zone.x + c.zone.w / 2);
-      t.setAttribute('text-anchor', c.i === 0 ? 'end' : dernier ? 'start' : 'middle');
-    }
     rendreCentre(kk);
-    for (const n of fxNoeuds) {
-      if (n.centre) continue;
+    for (const r of racines) {
+      const t = svg.querySelector(`[data-z="${r.id}"]`);
+      t.setAttribute('x', r.id === 'rec' ? 20 : FLUX.dep[0]); t.setAttribute('y', FLUX.TOP - 26 / kk); t.setAttribute('font-size', 15 / kk);
+    }
+    for (const n of noeuds) {
+      if (!n.parent) continue;
       const t = svg.querySelector(`[data-lx="${n.id}"]`), hp = n.h * kk;
+      if (!t) continue;
       if (!visible(n) || hp < 11) { t.setAttribute('display', 'none'); continue; }
-      const fs = hp >= 60 ? 14 : 12.5, gauche = n.ci === 0, x = gauche ? n.x - 8 / kk : n.x + n.w + 8 / kk, milieu = n.y + n.h / 2;
-      // Place pour le nom : jusqu'à la colonne voisine, ou jusqu'au bord du dessin.
-      const placePx = (gauche ? n.x : (n.ci < FLUX.XS.length - 1 ? FLUX.XS[n.ci + 1] : W) - n.x - n.w) * kk - 24;
+      // Côté recettes, le nom à gauche du bloc ; côté dépenses, à droite ; jusqu'à la colonne voisine.
+      const gauche = racineDe(n).id === 'rec', d = n.depth, fs = hp >= 60 ? 14 : 12.5, milieu = n.y + n.h / 2;
+      const x = gauche ? n.x - 7 / kk : n.x + n.w + 7 / kk;
+      const placePx = (gauche ? n.x - (FLUX.rec[d] !== undefined ? FLUX.rec[d] + FLUX.NW : 0) : (FLUX.dep[d] ?? W) - n.x - n.w) * kk - 16;
       const max = Math.floor(placePx / (fs * 0.56));
-      // Trop peu de place pour un nom lisible : on laisse l'infobulle et le zoom.
       if (max < 7) { t.setAttribute('display', 'none'); continue; }
       const e = evo(n), deux = hp >= 30;
-      // Montant, avec l'évolution si elle tient dans la place.
       const mt = [mds(n.v) + (e ? ' · ' + e : ''), mds(n.v)].find(x => x.length * (fs - 1.5) * 0.6 <= placePx) || '';
       const nom = n.label.length > max ? n.label.slice(0, max - 1) + '…' : n.label;
       t.setAttribute('display', 'inline'); t.setAttribute('text-anchor', gauche ? 'end' : 'start'); t.setAttribute('font-size', fs / kk); t.setAttribute('stroke-width', 3 / kk);
@@ -586,40 +594,16 @@
       else { tn.setAttribute('y', milieu + fs * 0.35 / kk); tv.textContent = (nom.length + mds(n.v).length + 1) * fs * 0.56 <= placePx ? ' ' + mds(n.v) : ''; tv.removeAttribute('x'); tv.removeAttribute('y'); }
     }
   }
-  // Rubans liés à un bloc, ou le ruban lui-même.
-  const relies = f => f.lien ? [f] : [...f.entrees, ...f.sorties];
-  const allumer = f => {
-    scene.classList.toggle('fx-survol', !!f);
-    const on = new Set(f ? relies(f) : []);
-    svg.querySelectorAll('path.fxl').forEach(p => p.classList.toggle('on', on.has(fxLiens[+p.dataset.i])));
+  // Au survol d'un bloc, ses rubans ressortent : ceux qui le relient au centre et ceux de son détail.
+  const allumer = n => {
+    scene.classList.toggle('fx-survol', !!n);
+    const on = new Set();
+    if (n) {
+      for (let x = n; x && x.parent; x = x.parent) on.add(x.id);
+      const desc = m => (m.children || []).forEach(c => { on.add(c.id); desc(c); }); desc(n);
+    }
+    svg.querySelectorAll('path.fxl').forEach(p => p.classList.toggle('on', on.has(p.dataset.xl)));
   };
-  // Pendant de chaque bloc du flux dans la vue en blocs : [regroupement des dépenses, des recettes, identifiant].
-  const enBlocs = n => n.fonction ? ['fonction', modeRec, 'd-' + n.fonction]
-    : /^x-d/.test(n.id) ? ['admin', modeRec, 'd-' + n.secteur]
-    : { 'x-r-emp': [mode, modeRec, 'r-deficit'], 'x-r-aut': [mode, 'admin', 'r-autres'] }[n.id] || null;
-  function ouvrirFlux(n, { zoom = false } = {}) {
-    choisi = n;
-    svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
-    svg.querySelector(`rect.fx[data-id="${n.id}"]`)?.classList.add('sel');
-    const ex = n.explication, blocs = enBlocs(n);
-    // D'où vient l'argent de ce bloc, et où il va.
-    const amont = n.entrees.map(l => ({ n: l.s, v: l.v })), aval = n.sorties.map(l => ({ n: l.t, v: l.v }));
-    const barres = l => { l.sort((a, b) => b.v - a.v); return `<div class="bars">${l.map(c => `<div class="bar" style="--c:${c.n.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.n.color})`}"><button type="button" data-go="${c.n.id}">${esc(c.n.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / l[0].v * 100)}%"></i></div>`).join('')}</div>`; };
-    $('d-chip').innerHTML = `<span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span>Flux · ${esc(n.col)}`;
-    $('d-title').textContent = n.titre || n.label;
-    $('d-body').innerHTML = `<p class="big">${mds(n.v)}</p>
-      ${evo(n) ? `<p class="ex"><b>${evo(n)}</b> ${depuis()} (${mds(EVO.get(n.id))} en ${anneeComp}).</p>` : ''}
-      ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>` : ''}
-      <p>Sur 100 € qui financent la dépense publique (recettes et emprunt), <b>${nf(n.v / fxTotal * 100, 2)} €</b> passent par ici.</p>
-      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button>${blocs ? '<button type="button" class="btn" id="d-blocs">Voir dans les blocs</button>' : ''}</div>
-      ${amont.length ? `<p class="ex">D'où vient cet argent :</p>${barres(amont)}` : ''}
-      ${aval.length ? `<p class="ex">Où il va :</p>${barres(aval)}` : ''}`;
-    $('detail').hidden = false;
-    $('d-zoom').onclick = () => cadrer(n);
-    if ($('d-blocs')) $('d-blocs').onclick = () => versBlocs(...blocs);
-    $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = fxPar.get(b.dataset.go); ouvrirFlux(c); cadrer(c); });
-    if (zoom) cadrer(n); else majVue();
-  }
 
   // ================= Estimations : fraude, évitement fiscal, non-recours =================
   // Des cercles et non des rectangles, car ce ne sont pas des comptes : la surface suit la même
@@ -825,8 +809,6 @@
   // sous le panneau.
   function placerControles() {
     requestAnimationFrame(() => {
-      // En flux, les colonnes sont fixes : pas de regroupement à choisir.
-      if (vueFlux) { $('ctl-dep').hidden = $('ctl-rec').hidden = true; return; }
       const panneau = $('side').getBoundingClientRect(), sc = scene.getBoundingClientRect();
       [['dep', 'ctl-dep'], ['rec', 'ctl-rec']].forEach(([z, c]) => {
         const t = svg.querySelector(`[data-z="${z}"]`), el = $(c);
@@ -944,20 +926,16 @@
     const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, rect.fx, rect.ctr, path.fxl, [data-e]');
     if (!el) return null;
     if (el.classList.contains('ctr')) return CENTRE_P.find(p => p.id === el.dataset.id);
-    if (el.classList.contains('fxl')) return fxLiens[+el.dataset.i];
-    if (el.classList.contains('fx')) return fxPar.get(el.dataset.id);
+    if (el.classList.contains('fxl')) return parId.get(el.dataset.xl);
     return el.dataset.e ? estParId(el.dataset.e) : parId.get(el.dataset.id);
   };
   function survol(e) {
     const f = sousPointeur(e); if (!f) return cacherTip();
-    if (vueFlux) allumer(f.ctr ? fxPar.get('x-total') : f);
+    if (vueFlux) allumer(f.ctr ? parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]) : f);
     const [rec, def, dep] = CENTRE_P;
     if (f.ctr) tip.innerHTML = `<b>${esc(f.titre)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${f === dep ? `${nf(G.part_pib['dépenses'], 1)} % du PIB<br><span class="tq">${mds(rec.v)} de recettes et ${mds(def.v)} de déficit, couvert par l'emprunt.</span>` : pct(f.v, dep.v) + ' des dépenses publiques'}`;
-    else if (f.lien) { const a = f.s, b = f.t;
-      tip.innerHTML = `<b>${esc(a.titre || a.label)} → ${esc(b.titre || b.label)}</b><span class="val">${mds(f.v)}</span> · ${pct(f.v, a.v)} de « ${esc(a.label)} », ${pct(f.v, b.v)} de « ${esc(b.label)} »`; }
-    else if (f.fx) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${pct(f.v, fxTotal)} du total${f.explication ? `<br><span class="tq">${esc(f.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
     else if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
-    else { const n = designe(f), z = racineDe(n);
+    else { const n = vueFlux ? f : designe(f), z = racineDe(n);
     tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span>${evo(n) ? ` (${evo(n)} ${depuis()})` : ''} · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
     tip.hidden = false;
     const t = tip.getBoundingClientRect();
@@ -969,11 +947,10 @@
   function cliquer(e) {
     const f = sousPointeur(e); if (!f) return;
     // Bloc central : en flux, sa fiche ; en blocs, la moitié correspondante.
-    if (f.ctr) { if (vueFlux) return ouvrir(fxPar.get('x-total')); const n = parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]); if (n?.parent) ouvrir(n, { zoom: true }); else if (n) cadrer(n); return; }
-    ouvrir(f.lien ? f.t : f.est || f.fx ? f : designe(f));
+    if (f.ctr) { const n = parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]); if (n?.parent) ouvrir(n, { zoom: true }); else if (n) cadrer(n); return; }
+    ouvrir(f.est || vueFlux ? f : designe(f));
   }
   function ouvrir(n, { zoom = false } = {}) {
-    if (n.fx) return ouvrirFlux(n, { zoom });
     if (n.est) return ouvrirEstimation(n, { zoom });
     choisi = n;
     svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
@@ -988,10 +965,12 @@
       ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b class="acc">Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}` : ''}
       ${n.note ? `<p class="ex">${esc(n.note)}</p>` : ''}
       <p>Sur 100 € ${z.id === 'dep' ? "d'argent public dépensés" : 'qui financent la dépense publique'}, <b>${nf(n.v / z.v * 100, 2)} €</b> vont ici.${parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}</p>
-      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button>${n.parent && n.parent.parent ? `<button type="button" class="btn" id="d-up">Remonter à « ${esc(n.parent.label)} »</button>` : ''}</div>
+      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-vue">${vueFlux ? 'Voir dans les blocs' : 'Voir dans le flux'}</button>${n.parent && n.parent.parent ? `<button type="button" class="btn" id="d-up">Remonter à « ${esc(n.parent.label)} »</button>` : ''}</div>
       ${enfants.length ? `<p class="ex">Détail :</p><div class="bars">${enfants.slice(0, 14).map(c => `<div class="bar" style="--c:${c.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.color})`}"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / enfants[0].v * 100)}%"></i></div>`).join('')}</div>` : ''}`;
     $('detail').hidden = false;
     $('d-zoom').onclick = () => cadrer(n);
+    // Le même bloc dans l'autre représentation.
+    $('d-vue').onclick = () => { const id = n.id; changerVue(!vueFlux); const m = parId.get(id); if (m) ouvrir(m, { zoom: true }); };
     if ($('d-up')) $('d-up').onclick = () => { ouvrir(n.parent); cadrer(n.parent); };
     $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = parId.get(b.dataset.go); ouvrir(c); cadrer(c); });
     if (zoom) cadrer(n); else majVue();
@@ -1043,19 +1022,12 @@
   }
   function appliquerFiltres() {
     $('hl-off').hidden = !avant.size;
-    if (vueFlux) {
-      // Administrations masquées ; fonctions mises en avant : les autres fonctions s'effacent.
-      const eteint = x => !!(x.secteur && caches.has(x.secteur)) || !!(avant.size && x.fonction && !avant.has(x.fonction));
-      for (const n of fxNoeuds) if (!n.centre) svg.querySelectorAll(`[data-id="${n.id}"], [data-lx="${n.id}"]`).forEach(el => el.classList.toggle('off', eteint(n)));
-      for (const l of fxLiens) svg.querySelector(`path[data-i="${l.i}"]`)?.classList.toggle('off', eteint(l));
-      return;
-    }
     for (const n of noeuds) {
       if (!n.parent) continue;
       const sect = n.secteur || null;
       let off = sect && caches.has(sect);
       if (!off && avant.size && racineDe(n).id === 'dep') off = n.fonction ? !avant.has(n.fonction) : ![...(n.children || [])].some(c => avant.has(c.fonction));
-      svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
+      svg.querySelectorAll(`[data-id="${n.id}"], [data-l="${n.id}"], [data-f="${n.id}"], [data-xl="${n.id}"], [data-lx="${n.id}"]`).forEach(el => el.classList.toggle('off', !!off));
     }
     svg.querySelectorAll('[data-e], [data-el], [data-et], .est-sep').forEach(el => el.classList.toggle('off', caches.has('estim')));
     svg.querySelectorAll('[data-id="c-def"], [data-ct="c-def"]').forEach(el => el.classList.toggle('off', caches.has('deficit')));
@@ -1097,9 +1069,9 @@
       const i = textes.findIndex(t => variantes.some(v => v.every(m => debut(t, m))));
       return i < 0 ? null : i;
     };
-    trouves = (vueFlux ? fxNoeuds.map(n => [n, rang(n)]) : [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])]).filter(([, r]) => r !== null)
+    trouves = [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])].filter(([, r]) => r !== null)
       .sort(([a, ra], [b, rb]) => (ra - rb) || ((a.depth ?? 2) - (b.depth ?? 2)) || ((b.v ?? b.haut) - (a.v ?? a.haut))).map(([n]) => n).slice(0, 15);
-    $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc(n.fx ? 'Flux › ' + n.col : [racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
+    $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc([racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
       : `<li class="vide">Aucun résultat. Essayez un mot plus court.</li>`;
   });
   $('results').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) ouvrir(trouves[+b.dataset.r], { zoom: true }); });
@@ -1119,14 +1091,6 @@
     history.replaceState(history.state, '', u);
   }
   document.querySelectorAll('[data-vue]').forEach(b => b.onclick = () => changerVue(b.dataset.vue === 'flux'));
-  // Depuis la fiche d'un bloc du flux : le même bloc dans la vue en blocs, avec les bons regroupements.
-  async function versBlocs(m, mr, id) {
-    mode = m; modeRec = mr;
-    document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.mode === m)));
-    document.querySelectorAll('[data-mode-rec]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.modeRec === mr)));
-    majRef(); await changerVue(false);
-    const n = parId.get(id); if (n) ouvrir(n, { zoom: true });
-  }
 
   // Sur mobile, le panneau est replié : le bouton « Options » déplie filtres et regroupements.
   $('opts').onclick = () => { const o = $('side').classList.toggle('ouvert'); $('opts').setAttribute('aria-expanded', String(o)); majVue(); };
@@ -1221,7 +1185,7 @@
     liensAnnee.forEach(a => { if (a.dataset.anneeChoix === an) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (historique) { const u = new URL(location.href); u.searchParams.set('annee', an); history.pushState({ annee: an }, '', u); }
     // La fiche ouverte suit l'année, si le bloc existe encore.
-    if (choisi) { const n = choisi.est ? estParId(choisi.id) : choisi.fx ? fxPar.get(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
+    if (choisi) { const n = choisi.est ? estParId(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
   }
   // Survol d'une année : aperçu animé ; en quittant les années sans cliquer, retour à l'année choisie.
   let tempo = 0;
