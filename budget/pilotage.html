@@ -191,6 +191,10 @@
   main > nav.ariane { margin-bottom: -16px; }
   /* Explorateur : fil d'étapes et barre des totaux au-dessus de chaque composition */
   .explore { display: grid; gap: 10px; scroll-margin-top: 96px; }
+  /* Dépenses et recettes : le dessin, aux proportions de la page d'exploration, et sa description à côté. */
+  .duo { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr); gap: 16px; align-items: start; }
+  .duo > .panel { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+  @media (max-width: 860px) { .duo { grid-template-columns: minmax(0, 1fr); } .duo > .panel { position: static; max-height: none; } }
   @media (max-width: 640px) { .explore { scroll-margin-top: 12px; } }
   .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 13px; }
   .crumbs button { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
@@ -328,8 +332,10 @@
       </div>
       <ul class="legend" id="leg-admin"></ul>
     </div>
-    <div class="mondrian h-a" id="m-dep" role="img"></div>
-    <div class="panel" id="p-dep" aria-live="polite"></div>
+    <div class="duo">
+      <div class="mondrian h-a" id="m-dep" role="img"></div>
+      <div class="panel" id="p-dep" aria-live="polite"></div>
+    </div>
     <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-dep"></table></div></details>
   </section>
 
@@ -346,8 +352,10 @@
       </div>
       <ul class="legend" id="leg-rec"></ul>
     </div>
-    <div class="mondrian h-a" id="m-rec" role="img"></div>
-    <div class="panel" id="p-rec" aria-live="polite"></div>
+    <div class="duo">
+      <div class="mondrian h-a" id="m-rec" role="img"></div>
+      <div class="panel" id="p-rec" aria-live="polite"></div>
+    </div>
     <p class="note" id="rec-note"></p>
     <div class="panel">
       <h3>Les impôts un par un</h3>
@@ -442,7 +450,7 @@ AnneeVive.page(async () => {
   document.querySelectorAll('a[href="donnees/detail-etat-2024.json"]').forEach(a => { if (AN.etat.includes(annee)) a.href = `donnees/detail-etat-${annee}.json`; else a.remove(); });
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
   // B : budget de l'État 2024 (aides, sources, méthode) ; BE : celui de l'année affichée, s'il existe.
-  let G, B, X, BE;
+  let G, B, X, BE, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
   // DE : détail de chaque programme (prévu et réalisé, nature fine, actions, indicateurs de
   // performance), chargé en parallèle ; la page reste utilisable s'il manque.
@@ -450,6 +458,8 @@ AnneeVive.page(async () => {
   try {
     [G, B, X] = await Promise.all([inseeDispo ? `donnees/argent-public-${annee}.json` : null, 'donnees/budget-etat-2024.json', 'donnees/explications.json'].map(u => u && fetch(u, { cache: 'no-cache' }).then(r => r.json())));
     BE = complet ? B : etatDispo ? await fetch(`donnees/budget-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.json()) : null;
+    // Comptes de l'année de référence : ils fixent l'ordre des blocs, le même pour toutes les années.
+    GREF = !G || annee === AN.reference ? G : await fetch(`donnees/argent-public-${AN.reference}.json`, { cache: 'no-cache' }).then(r => r.json()).catch(() => null);
   } catch (e) { $('facts').textContent = 'Impossible de charger les données : ' + e.message; return; }
 
   // --- Infobulle ---
@@ -483,27 +493,40 @@ AnneeVive.page(async () => {
   // groups : [{ id, label, children: [{ id, label, v, color, tip }] }]
   // fraction (0 à 1) : part du cadre occupée, pour garder la même échelle d'une année à l'autre ;
   // le reste du cadre est laissé vide, avec une phrase qui dit ce que vaut le cadre entier.
-  function mondrian(el, groups, { onPick, groupLabels = true, selected, fraction = 1, cadre = '' } = {}) {
-    const W = el.clientWidth, H0 = el.clientHeight;
+  // geo : blocs déjà placés (coordonnées « monde » de la page d'exploration) ; on montre la vue geo.vue
+  // en gardant ses proportions, le cadre prenant la hauteur voulue ; geo.cadre : le cadre de l'échelle commune.
+  function mondrian(el, groups, { onPick, groupLabels = true, selected, fraction = 1, cadre = '', geo = null } = {}) {
+    const W = el.clientWidth;
+    let T = d => d;
+    if (geo && W) {
+      const v = geo.vue, k = Math.min(W / v.w, geo.maxH / v.h);
+      el.style.height = Math.round(v.h * k) + 'px';
+      T = d => ({ ...d, x: (d.x - v.x) * k, y: (d.y - v.y) * k, w: d.w * k, h: d.h * k });
+    }
+    const H0 = el.clientHeight;
     if (!W || !H0) return;
     const H = Math.max(24, H0 * Math.min(1, fraction));
     const G1 = 6, G2 = 0;
     const couleurs = [...new Set(groups.flatMap(g => g.children.filter(c => c.hatch).map(c => c.color)))];
-    const gl = squarify(groups.map(g => ({ ...g, v: sum(g.children, c => c.v) })), 0, 0, W, H);
-    let svg = `<svg viewBox="0 0 ${W} ${H0}" aria-hidden="true" focusable="false">${H0 - H > 34 && cadre ? `<rect class="cadre-vide" x="1" y="${H + 1}" width="${W - 2}" height="${H0 - H - 2}"/><text class="cadre-txt" x="${W / 2}" y="${H + (H0 - H) / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : ''}<defs><pattern id="hatch-${el.id}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern>${couleurs.map(c => `<pattern id="hatch-${el.id}-${c}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:color-mix(in srgb, var(--m-${c}) 30%, var(--panel))"/><rect width="2.6" height="8" style="fill:var(--m-${c})"/></pattern>`).join('')}</defs>`;
+    const gl = geo ? groups.map(g => { const p = T(g.node); return { ...g, x: p.x, y: p.y, w: p.w, h: p.h }; }) : squarify(groups.map(g => ({ ...g, v: sum(g.children, c => c.v) })), 0, 0, W, H);
+    // Cadre de l'échelle commune : en pointillés, avec sa valeur dans la place laissée libre en dessous.
+    const vide = geo?.cadre ? (() => { const c = T(geo.cadre), r = T(geo.racine), bas = c.h - r.h;
+      return `<rect class="cadre-vide" x="${c.x + 1}" y="${c.y + 1}" width="${c.w - 2}" height="${c.h - 2}"/>${bas > 34 && cadre ? `<text class="cadre-txt" x="${c.w / 2}" y="${r.h + bas / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : ''}`; })()
+      : H0 - H > 34 && cadre ? `<rect class="cadre-vide" x="1" y="${H + 1}" width="${W - 2}" height="${H0 - H - 2}"/><text class="cadre-txt" x="${W / 2}" y="${H + (H0 - H) / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : '';
+    let svg = `<svg viewBox="0 0 ${W} ${H0}" aria-hidden="true" focusable="false">${vide}<defs><pattern id="hatch-${el.id}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern>${couleurs.map(c => `<pattern id="hatch-${el.id}-${c}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:color-mix(in srgb, var(--m-${c}) 30%, var(--panel))"/><rect width="2.6" height="8" style="fill:var(--m-${c})"/></pattern>`).join('')}</defs>`;
     const cellsOut = [];
     // Évolution d'un montant, écrite à sa suite si elle tient dans la case (6,6 px par caractère environ).
     const evoCase = (d, w) => { const e = d.valueLabel ? '' : AnneeVive.evo(el.id, d.id, d.v); return e && (mds(d.v).length + e.length + 3) * 6.6 < w - 14 ? ' · ' + e : ''; };
     for (const g of gl) {
       const x0 = g.x + G1 / 2, y0 = g.y + G1 / 2, w0 = Math.max(0, g.w - G1), h0 = Math.max(0, g.h - G1);
-      const cs = squarify(g.children, x0, y0, w0, h0);
+      const cs = geo ? g.children.map(T) : squarify(g.children, x0, y0, w0, h0);
       // Comme sur la page d'exploration : le niveau suivant de chaque case est dessiné en traits fins
       // et nommé bloc par bloc. Le nom du groupe va en bas à droite du plus grand bloc du groupe ;
       // celui d'une case, en bas à droite de son plus grand bloc, un cran plus haut s'il partage ce coin.
       const aire = (a, b) => b.w * b.h - a.w * a.h;
       for (const c of cs) {
         const fins = (c.children || []).filter(d => d.v > 0);
-        c.detail = fins.length > 1 && c.w > 24 && c.h > 24 ? squarify(fins, c.x, c.y, c.w, c.h) : [];
+        c.detail = fins.length > 1 && c.w > 24 && c.h > 24 ? (geo ? fins.map(T) : squarify(fins, c.x, c.y, c.w, c.h)) : [];
         c.zones = c.detail.length ? c.detail : [c];
         c.ancre = c.zones.slice().sort(aire)[0];
       }
@@ -613,13 +636,14 @@ AnneeVive.page(async () => {
   };
   // echelle : plus grand total, toutes années confondues ; la vue d'ensemble en occupe la part
   // correspondante du cadre (le zoom, lui, remplit le cadre).
-  function explorer(key, construire, { onNode, rootLabel, echelle } = {}) {
+  function explorer(key, construire, { onNode, rootLabel, echelle, geo } = {}) {
     const el = $('m-' + key);
     const tool = document.createElement('div');
     tool.className = 'explore';
     tool.innerHTML = `<nav class="crumbs" aria-label="Niveau affiché"></nav><div class="totals" role="list"></div>`;
-    el.before(tool);
-    const noter = r => { const p = n => { AnneeVive.noter(el.id, n.id, n.v); (n.children || []).forEach(p); }; p(r); return r; };
+    (el.closest('.duo') || el).before(tool);
+    // Avec geo, l'arbre est placé une fois pour toutes, comme sur la page d'exploration.
+    const noter = r => { const p = n => { AnneeVive.noter(el.id, n.id, n.v); (n.children || []).forEach(p); }; p(r); if (geo) geo.placer(r); return r; };
     let root = noter(relier(construire())), courant = root, sel = null;
     const chemin = n => { const l = []; for (let x = n; x; x = x.parent) l.unshift(x); return l; };
     const zoom = n => { courant = n; sel = null; onNode && onNode(n); render(); };
@@ -647,7 +671,8 @@ AnneeVive.page(async () => {
       // Composition.
       const groupes = enfants.map(g => g.children?.length ? { id: g.id, label: g.label, node: g, children: g.children.filter(c => c.v > 0) } : { id: g.id, label: g.label, node: g, children: [g] });
       const echelleVue = echelle && courant === root ? { fraction: root.v / echelle.v, cadre: `Échelle commune à toutes les années : le cadre entier vaut ${mds(echelle.v)} (${echelle.libelle}).` } : {};
-      mondrian(el, groupes, { onPick: c => choisir(c), selected: c => c.id === sel, groupLabels: groupes.some(g => g.children.length > 1 || g.children[0] !== g.node), ...echelleVue });
+      const vueGeo = geo ? { geo: { vue: courant === root ? geo.zone : courant, cadre: courant === root ? geo.zone : null, racine: root, maxH: geo.maxH() } } : {};
+      mondrian(el, groupes, { onPick: c => choisir(c), selected: c => c.id === sel, groupLabels: groupes.some(g => g.children.length > 1 || g.children[0] !== g.node), ...echelleVue, ...vueGeo });
       el.setAttribute('aria-label', `${ch.map(n => n.label).join(', puis ')} : ${enfants.length} éléments ; la liste des totaux et le tableau des chiffres donnent les mêmes montants.`);
     };
     charts.push(render);
@@ -699,7 +724,42 @@ AnneeVive.page(async () => {
   const avecInfobulles = (racine, total, quoi) => { const p = n => { if (n !== racine) n.tip = tipDe(n.titre || n.label, n.v, ` · ${pct(n.v, total)} ${quoi}`, n.explication); (n.children || []).forEach(p); }; p(racine); return racine; };
   const arbreDep = () => { const r = arbresArgentPublic(G, X, depMode, recMode)[0]; r.label = depMode === 'admin' ? 'Toutes les administrations' : 'Toutes les fonctions'; return avecInfobulles(r, D, 'des dépenses publiques'); };
   const arbreRec = () => avecInfobulles(arbresArgentPublic(G, X, depMode, recMode)[1], R - S, "des recettes et de l'emprunt");
-  const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D), echelle: ECH_INSEE });
+  // Disposition des blocs de la page d'exploration : même zone, même échelle (la surface de la racine
+  // suit son montant, rapporté au plus grand total des années), même ordre (montants de l'année de
+  // référence) et mêmes espaces entre niveaux : les blocs ont la même forme sur les deux pages.
+  const ZONE = { x: 0, y: 0, w: 982, h: 1190 }, ESPACES = [0, 7, 2.2, 0.6];
+  function carreler(items, x, y, w, h, rang) {
+    if (!(w > 0 && h > 0)) return items.filter(d => d.v > 0).map(d => [d, x, y, 0, 0]);
+    const tot = sum(items, d => d.v);
+    const q = items.filter(d => d.v > 0).map(d => ({ d, a: d.v / tot * w * h })).sort((a, b) => rang(b.d) - rang(a.d));
+    const out = [];
+    const worst = (row, s) => { const t = sum(row, r => r.a), mx = Math.max(...row.map(r => r.a)), mn = Math.min(...row.map(r => r.a)); return Math.max(s * s * mx / (t * t), t * t / (s * s * mn)); };
+    const place = row => {
+      const t = sum(row, r => r.a);
+      if (w >= h) { const cw = t / h; let yy = y; for (const r of row) { const hh = r.a / cw; out.push([r.d, x, yy, cw, hh]); yy += hh; } x += cw; w -= cw; }
+      else { const rh = t / w; let xx = x; for (const r of row) { const ww = r.a / rh; out.push([r.d, xx, y, ww, rh]); xx += ww; } y += rh; h -= rh; }
+    };
+    let row = [];
+    while (q.length) { const s = Math.min(w, h); if (!row.length || worst([...row, q[0]], s) <= worst(row, s)) row.push(q.shift()); else { place(row); row = []; } }
+    if (row.length) place(row);
+    return out;
+  }
+  const geoExploration = cote => ({
+    zone: ZONE, maxH: () => Math.min(innerHeight * 0.82, 860),
+    placer: racine => {
+      const REF = new Map(), tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); };
+      if (GREF) tour(arbresArgentPublic(GREF, X, depMode, recMode)[cote]);
+      const rang = d => REF.get(d.id) ?? d.v;
+      const placer = (n, x, y, w, h, p) => {
+        Object.assign(n, { x, y, w, h });
+        if (!n.children?.length) return;
+        const g = ESPACES[p + 1] || 0.4;
+        for (const [c, cx, cy, cw, ch] of carreler(n.children, x, y, w, h, rang)) placer(c, cx + g / 2, cy + g / 2, Math.max(0, cw - g), Math.max(0, ch - g), p + 1);
+      };
+      const f = Math.sqrt(racine.v / AN.echelle.insee_md);
+      placer(racine, 0, 0, ZONE.w * f, ZONE.h * f, 0);
+    } });
+  const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D), echelle: ECH_INSEE, geo: geoExploration(0) });
   document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
   }));
@@ -714,11 +774,26 @@ AnneeVive.page(async () => {
   $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Par administration, chaque couleur indique celle qui perçoit l'impôt ou la cotisation ; par type de recette, les impôts sont détaillés un par un, toutes administrations confondues. Cliquez sur un rectangle pour zoomer. Ce sont les mêmes blocs que sur la page d'exploration.`;
   // Total du financement : recettes et déficit (tableau 3.201), qui peut différer des dépenses par fonction.
   // Mêmes blocs que la page d'exploration (arbres.js) ; on choisit le regroupement des recettes.
-  const xRec = explorer('rec', arbreRec, { onNode: n => panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }), echelle: ECH_INSEE });
+  const xRec = explorer('rec', arbreRec, { onNode: n => panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }), echelle: ECH_INSEE, geo: geoExploration(1) });
   document.querySelectorAll('[data-rec]').forEach(b => b.addEventListener('click', () => {
     recMode = b.dataset.rec; document.querySelectorAll('[data-rec]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xRec.reconstruire();
   }));
   panneau('p-rec', xRec.root(), R - S, { base: "qui financent la dépense publique (recettes et emprunt)" });
+  // Lien « En savoir plus » de l'exploration (?bloc=…&dep=…&rec=…) : les mêmes regroupements, puis le
+  // bloc ouvert avec sa description. Une seule fois : l'adresse est ensuite nettoyée.
+  {
+    const p = new URLSearchParams(location.search), id = p.get('bloc');
+    if (id && AnneeVive.premiere && !AnneeVive.mesure) {
+      const cote = id.startsWith('r-') || id === 'rec' ? 'rec' : 'dep';
+      if (p.get('dep')) document.querySelector(`[data-dep="${p.get('dep')}"]`)?.click();
+      if (p.get('rec')) document.querySelector(`[data-rec="${p.get('rec')}"]`)?.click();
+      const trouver = n => n.id === id ? n : (n.children || []).reduce((t, c) => t || trouver(c), null);
+      const n = trouver(explorateurs[cote].root());
+      if (n) requestAnimationFrame(() => explorateurs[cote].reveler(n));
+      const u = new URL(location.href); ['bloc', 'dep', 'rec'].forEach(k => u.searchParams.delete(k));
+      history.replaceState(history.state, '', u);
+    }
+  }
   $('rec-note').textContent = `Impôts comptés chez l'administration qui les perçoit en dernier : une part de la TVA, par exemple, est affectée à la sécurité sociale et aux collectivités. Le gris neutre regroupe les ${nf(G.autres_recettes_consolidees, 1)} Md€ d'autres recettes, qu'on ne peut pas attribuer à une seule administration. Les impôts et cotisations non recouvrables sont déduits des impôts.`;
   const impCourt = l => l.replace(/^Taxe sur la valeur ajoutée.*/, 'TVA').replace(/\s*\(\*\*\)/g, '').replace(/,? avant crédits d'impôt/, '').replace(/\s*\((D\d+)\)\s*$/, '')
     .replace(/Contribution sociale généralisée \(CSG\)/, 'CSG').replace(/Impôt sur le revenu des personnes physiques \(IRPP\)/, 'Impôt sur le revenu').replace(/Impôt sur les sociétés \(IS\)/, 'Impôt sur les sociétés')

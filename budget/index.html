@@ -22,7 +22,7 @@
     --ground: #EDF0F5; --panel: #FFFFFF; --panel-2: #F5F7FA; --ink: #162033; --muted: #5A6579; --line: #D6DCE6;
     --control: #7C8699; --accent: #1F3FB5; --accent-soft: #E3E8FA;
     --m-etat: #2A78D6; --m-secu: #4A3AA7; --m-coll: #D99A00; --m-op: #1BAF7A; --m-na: #DDE2EA; --hatch: #7C8699;
-    --m-total: #AEB7C4; --m-dep: #2B3547; --on-total: #162033; --on-dep: #FFFFFF;
+    --m-total: #AEB7C4; --m-dep: #2B3547; --fx-na: #6B7587; --on-total: #162033; --on-dep: #FFFFFF;
     --on-etat: #FFFFFF; --on-secu: #FFFFFF; --on-coll: #162033; --on-op: #162033; --on-na: #162033;
     --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
     --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -34,7 +34,7 @@
       --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
       --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
       --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
-      --m-total: #4A5568; --m-dep: #D5DCE6; --on-total: #E4E9F1; --on-dep: #0C1119;
+      --m-total: #4A5568; --m-dep: #D5DCE6; --fx-na: #8893A6; --on-total: #E4E9F1; --on-dep: #0C1119;
       --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
     }
@@ -44,7 +44,7 @@
     --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
     --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
     --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70; --m-na: #2C3646; --hatch: #97A2B5;
-    --m-total: #4A5568; --m-dep: #D5DCE6; --on-total: #E4E9F1; --on-dep: #0C1119;
+    --m-total: #4A5568; --m-dep: #D5DCE6; --fx-na: #8893A6; --on-total: #E4E9F1; --on-dep: #0C1119;
     --on-etat: #0C1119; --on-secu: #0C1119; --on-coll: #0C1119; --on-op: #0C1119; --on-na: #E4E9F1;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
   }
@@ -98,9 +98,10 @@
   /* Vue en flux (Sankey) : rubans translucides, ceux du bloc survolé ressortent. */
   #scene rect.fx { stroke: var(--ground); stroke-width: 1px; vector-effect: non-scaling-stroke; }
   #scene rect.fx.sel { stroke: var(--ink); stroke-width: 2.5px; }
-  #scene path.fxl { fill-opacity: .42; transition: fill-opacity .15s; }
-  #scene.fx-survol path.fxl { fill-opacity: .12; }
-  #scene.fx-survol path.fxl.on { fill-opacity: .8; }
+  /* Rubans assez opaques pour se lire sur le fond clair comme sur le sombre. */
+  #scene path.fxl { fill-opacity: .55; transition: fill-opacity .15s; }
+  #scene.fx-survol path.fxl { fill-opacity: .15; }
+  #scene.fx-survol path.fxl.on { fill-opacity: .9; }
   /* Bloc central : recettes et déficit, puis dépenses publiques (comme le poster du 1 hebdo). */
   #scene rect.ctr { stroke: var(--ground); stroke-width: 1px; vector-effect: non-scaling-stroke; cursor: pointer; }
   #scene text.ctr-t { font-family: var(--mono); font-weight: 600; letter-spacing: .04em; }
@@ -557,8 +558,11 @@
       return `M${xa},${ya} C${mx},${ya} ${mx},${yb} ${xb},${yb} L${xb},${yb2} C${mx},${yb2} ${mx},${ya2} ${xa},${ya2} Z`;
     };
     let h = `<defs><pattern id="hachure" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" style="fill:var(--panel)"/><rect width="4" height="12" style="fill:var(--hatch)"/></pattern></defs><g id="monde">`;
-    h += liens.map(l => `<path class="fxl" data-xl="${l.c.id}" d="${ruban(l)}" style="fill:${fillDe(l.c)}"/>`).join('');
-    for (const n of noeuds) if (n.parent) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${fillDe(n)}"/>`;
+    // Gris des blocs sans administration (types de recette, fonctions) plus soutenu que dans les blocs :
+    // un ruban fin et translucide disparaîtrait sur le fond.
+    const teinte = n => n.color === 'na' ? 'var(--fx-na)' : fillDe(n);
+    h += liens.map(l => `<path class="fxl" data-xl="${l.c.id}" d="${ruban(l)}" style="fill:${teinte(l.c)}"/>`).join('');
+    for (const n of noeuds) if (n.parent) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/>`;
     h += centreSVG(FLUX.centre, TOP, 0, Math.max(...racines.map(r => r.h)), true);
     racines.forEach(r => { h += `<text class="zone" data-z="${r.id}"><tspan class="n">${esc(r.label)}</tspan><tspan class="v"></tspan></text>`; });
     for (const n of noeuds) if (n.parent) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
@@ -951,6 +955,11 @@
     if (f.ctr) { const n = parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]); if (n?.parent) ouvrir(n, { zoom: true }); else if (n) cadrer(n); return; }
     ouvrir(f.est || vueFlux ? f : designe(f));
   }
+  // Le même bloc sur la page de pilotage, avec les mêmes regroupements : sa section et sa description.
+  const enSavoirPlus = n => {
+    const dep = racineDe(n).id === 'dep';
+    return `pilotage.html?annee=${anneeValidee}&bloc=${encodeURIComponent(n.id)}&dep=${mode}&rec=${modeRec}#${dep ? 's-depenses' : 's-recettes'}`;
+  };
   function ouvrir(n, { zoom = false } = {}) {
     if (n.est) return ouvrirEstimation(n, { zoom });
     choisi = n;
@@ -966,10 +975,9 @@
       ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b class="acc">Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}` : ''}
       ${n.note ? `<p class="ex">${esc(n.note)}</p>` : ''}
       <p>Sur 100 € ${z.id === 'dep' ? "d'argent public dépensés" : 'qui financent la dépense publique'}, <b>${nf(n.v / z.v * 100, 2)} €</b> vont ici.${parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}</p>
-      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-vue">${vueFlux ? 'Voir dans les blocs' : 'Voir dans le flux'}</button>${n.parent && n.parent.parent ? `<button type="button" class="btn" id="d-up">Remonter à « ${esc(n.parent.label)} »</button>` : ''}</div>
+      <div class="d-actions"><a class="btn" id="d-plus" href="${esc(enSavoirPlus(n))}">En savoir plus</a><button type="button" class="btn" id="d-vue">${vueFlux ? 'Voir dans les blocs' : 'Voir dans le flux'}</button>${n.parent && n.parent.parent ? `<button type="button" class="btn" id="d-up">Remonter à « ${esc(n.parent.label)} »</button>` : ''}</div>
       ${enfants.length ? `<p class="ex">Détail :</p><div class="bars">${enfants.slice(0, 14).map(c => `<div class="bar" style="--c:${c.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.color})`}"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / enfants[0].v * 100)}%"></i></div>`).join('')}</div>` : ''}`;
     $('detail').hidden = false;
-    $('d-zoom').onclick = () => cadrer(n);
     // Le même bloc dans l'autre représentation.
     $('d-vue').onclick = () => { const id = n.id; changerVue(!vueFlux); const m = parId.get(id); if (m) ouvrir(m, { zoom: true }); };
     if ($('d-up')) $('d-up').onclick = () => { ouvrir(n.parent); cadrer(n.parent); };
@@ -992,8 +1000,7 @@
       <p class="ex">Total des montants chiffrés ci-dessous, soit environ ${part} ${base[0]} de ${annee}. Les années et les périmètres diffèrent : c'est un ordre de grandeur, pas un compte.</p>
       <div class="bars">${n.enfants.map(c => `<div class="bar" style="--c:var(--hatch)"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${fourchette(c.bas, c.haut)}</span><i style="width:${Math.max(2, c.haut / n.enfants[0].haut * 100)}%"></i></div>`).join('')}</div>
       ${n.env ? `<p class="ex"><b class="acc">À part, sans s'ajouter :</b> <button type="button" class="lien" data-go="${n.env.id}">${esc(n.env.court)}</button>, ${fourchette(n.env.bas, n.env.haut)}, d'après des estimations anciennes et fragiles selon la Cour des comptes.</p>` : ''}
-      <p class="ex"><b class="acc">Pas de chiffre fiable pour :</b></p><ul class="ex">${n.non_chiffre.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
-      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button></div>`
+      <p class="ex"><b class="acc">Pas de chiffre fiable pour :</b></p><ul class="ex">${n.non_chiffre.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`
       : `<p class="big">${fourchette(n.bas, n.haut)} <span class="ex" style="font-size:13px;font-weight:400">· année ${esc(n.annee)}</span></p>
       <p><b class="acc">C'est quoi ?</b> ${esc(n.quoi)}</p>
       <p><b class="acc">Comment c'est estimé :</b> ${esc(n.calcul)}</p>
@@ -1001,9 +1008,8 @@
       ${n.decale ? `<p class="alerte">Pas d'estimation pour ${annee} : celle-ci porte sur ${esc(n.annee)}, l'année la plus proche disponible. Elle est montrée atténuée.</p>` : ''}
       <p class="ex">Ordre de grandeur : ${part} ${base[0]} de ${annee}${n.annee !== annee ? ` (l'estimation porte sur ${esc(n.annee)})` : ''}.${n.enveloppe ? ' Ce cercle ne s\'ajoute pas au total de la colonne.' : ''}${n.autres.length ? ` Autre${n.autres.length > 1 ? 's' : ''} année${n.autres.length > 1 ? 's' : ''} estimée${n.autres.length > 1 ? 's' : ''} : ${n.autres.map(esc).join(', ')} (choisissez l'année dans le bandeau).` : ''}</p>
       <p class="ex"><b class="acc">Source :</b> ${lien(n.url, n.source)}${n.url2 ? ` · ${lien(n.url2, 'CEPII')}` : ''}</p>
-      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button><button type="button" class="btn" id="d-up">Voir « ${esc(col.label)} »</button></div>`;
+      <div class="d-actions"><button type="button" class="btn" id="d-up">Voir « ${esc(col.label)} »</button></div>`;
     $('detail').hidden = false;
-    $('d-zoom').onclick = () => cadrer(n);
     if ($('d-up')) $('d-up').onclick = () => { ouvrirEstimation(col); cadrer(col); };
     $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = estParId(b.dataset.go); ouvrirEstimation(c); cadrer(c); });
     if (zoom) cadrer(n); else majVue();
