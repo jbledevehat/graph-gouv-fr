@@ -115,6 +115,11 @@
   .arbre div:first-child i:nth-child(1) { border-left: 4px solid var(--m-etat); } .arbre div:first-child i:nth-child(2) { border-left: 4px solid var(--m-secu); } .arbre div:first-child i:nth-child(3) { border-left: 4px solid var(--m-coll); } .arbre div:first-child i:nth-child(4) { border-left: 4px solid var(--m-op); } .arbre div:first-child i:nth-child(5) { border-left: 4px solid var(--control); }
   .arbre div:not(:last-child) i.on::after { content: ""; position: absolute; left: 100%; width: 26px; border-top: 1.5px solid var(--control); margin-top: 8px; }
   .arbre i { position: relative; }
+  /* Aperçu du moral des jeunes : deux courbes, filles et garçons. */
+  .courbes { position: absolute; inset: 20px 24px; width: calc(100% - 48px); height: calc(100% - 40px); }
+  .courbes line { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .courbes polyline { fill: none; stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .courbes .f { stroke: #EB6834; } .courbes .g { stroke: var(--m-etat); }
   :root[data-theme="dark"] .mini b { color: #0C1119; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mini b { color: #0C1119; } }
 
@@ -147,7 +152,7 @@
   </div>
 
   <section aria-labelledby="t-sections">
-    <h2 id="t-sections">Trois tableaux de bord</h2>
+    <h2 id="t-sections">Quatre tableaux de bord</h2>
     <div class="doors">
       <div class="card door">
         <div class="visual"><img src="apercu.jpg" alt="Carte des sites web de l'État : chaque ministère est un grand cercle, chaque site une bulle" width="1200" height="630" loading="lazy"></div>
@@ -201,6 +206,27 @@
             <div><b>{{acteurs_implantations}}</b><span>implantations locales</span></div>
           </div>
           <div class="go"><a href="acteurs/">L'organigramme</a></div>
+        </div>
+      </div>
+      <div class="card door">
+        <div class="visual" aria-hidden="true">
+          <!-- Pensées suicidaires dans l'année à 17 ans (ESCAPAD 2011-2022) : filles en haut, garçons en bas. -->
+          <svg class="courbes" viewBox="0 0 300 150" preserveAspectRatio="none">
+            <line x1="20" x2="280" y1="130" y2="130"/>
+            <polyline class="f" points="20,70 91,71 162,65 280,24"/>
+            <polyline class="g" points="20,96 91,97 162,94 280,76"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="eyebrow">Santé mentale</span>
+          <h3><a href="jeunes/">Le moral des jeunes</a></h3>
+          <p>Pensées suicidaires, tentatives de suicide, dépression et bien-être des jeunes, année par année, filles et garçons, d'après les enquêtes de Santé publique France et de l'OFDT.</p>
+          <div class="figs">
+            <div><b>19,8 %</b><span>des lycéens ont pensé au suicide dans l'année (2024)</span></div>
+            <div><b>24,9 %</b><span>des lycéennes</span></div>
+            <div><b>15,1 %</b><span>disent avoir déjà fait une tentative</span></div>
+          </div>
+          <div class="go"><a href="jeunes/">Les chiffres et l'essentiel</a></div>
         </div>
       </div>
     </div>

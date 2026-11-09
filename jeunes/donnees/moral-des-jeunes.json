@@ -1,0 +1,1048 @@
+{
+  "titre": "Le moral des jeunes, leur santé mentale et les pensées suicidaires, d'après les enquêtes officielles",
+  "mise_a_jour": "2026-11-04",
+  "unite": "pourcentage de la population interrogée, sauf la satisfaction de l'Insee (note sur 10)",
+  "note": "Chaque enquête a son public, son âge et sa méthode : les séries ne se comparent qu'à l'intérieur d'une même enquête. null : chiffre non publié.",
+  "enquetes": [
+    {
+      "id": "insee",
+      "groupe": "moral",
+      "nom": "Insee, enquête SRCV",
+      "public": "Jeunes de 16 à 24 ans",
+      "champ": "France métropolitaine",
+      "producteur": "Insee",
+      "methode": "Enquête annuelle sur les ressources et les conditions de vie (dispositif européen SRCV-Silc), auprès des personnes de 16 ans ou plus vivant en logement ordinaire. Question : « Sur une échelle de 0 (pas du tout satisfait) à 10 (entièrement satisfait), quelle est votre satisfaction concernant la vie que vous menez actuellement ? »",
+      "annees": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "indicateurs": [
+        {
+          "id": "satisfaction",
+          "libelle": "Satisfaction dans la vie",
+          "unite": "note",
+          "definition": "Note moyenne de satisfaction concernant la vie menée actuellement, de 0 à 10",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            7.8,
+            7.9,
+            8.0,
+            7.6,
+            7.6,
+            7.9,
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.7,
+            7.0,
+            7.6,
+            7.6,
+            7.5,
+            7.6
+          ],
+          "garcons": [
+            7.6,
+            7.8,
+            7.9,
+            7.8,
+            7.8,
+            7.9,
+            7.9,
+            7.5,
+            8.0,
+            7.7,
+            7.9,
+            7.4,
+            7.9,
+            8.0,
+            7.6,
+            7.7
+          ],
+          "ensemble": [
+            7.7,
+            7.9,
+            7.9,
+            7.7,
+            7.7,
+            7.9,
+            7.8,
+            7.7,
+            7.9,
+            7.8,
+            7.8,
+            7.2,
+            7.7,
+            7.8,
+            7.6,
+            7.6
+          ]
+        },
+        {
+          "id": "peu_satisfaits",
+          "libelle": "Jeunes peu satisfaits de leur vie",
+          "definition": "Note de satisfaction de 0 à 5 sur 10",
+          "periode": "au moment de l'enquête",
+          "filles": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "ensemble": [
+            10.1,
+            8.6,
+            7.8,
+            11.7,
+            9.0,
+            5.2,
+            7.8,
+            9.8,
+            5.8,
+            10.3,
+            7.4,
+            17.3,
+            8.5,
+            8.2,
+            13.0,
+            10.8
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "Satisfaction dans la vie de 2010 à 2025, enquête SRCV (tableaux « sexe et âge » et « âge »)",
+          "producteur": "Insee, Insee Résultats",
+          "date": "2026-09-29",
+          "url": "https://www.insee.fr/fr/statistiques/9051795?sommaire=9051904"
+        }
+      ]
+    },
+    {
+      "id": "injep",
+      "groupe": "moral",
+      "nom": "Baromètre DJEPVA sur la jeunesse",
+      "public": "Jeunes de 15 à 30 ans",
+      "champ": "France, y compris La Réunion, Martinique, Guadeloupe et Guyane",
+      "producteur": "Injep et Crédoc, pour la direction de la jeunesse (DJEPVA)",
+      "methode": "Questionnaire en ligne, chaque printemps, auprès d'environ 4 500 jeunes choisis selon la méthode des quotas (et non par tirage aléatoire). Avant 2023, l'enquête portait sur les 18-30 ans.",
+      "annees": [
+        2023,
+        2024,
+        2025
+      ],
+      "indicateurs": [
+        {
+          "id": "satisfaction",
+          "libelle": "Vie conforme à ses attentes",
+          "definition": "« De manière générale, votre vie actuelle correspond-elle à vos attentes ? » : « tout à fait » ou « plutôt »",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            null,
+            70,
+            65
+          ],
+          "garcons": [
+            null,
+            72,
+            69
+          ],
+          "ensemble": [
+            67,
+            71,
+            67
+          ]
+        },
+        {
+          "id": "esprit_positif",
+          "libelle": "État d'esprit positif",
+          "definition": "« Quel mot (ou phrase courte) décrit le mieux votre état d'esprit actuel ? » : réponses classées comme positives",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            null,
+            51,
+            50
+          ],
+          "garcons": [
+            null,
+            64,
+            60
+          ],
+          "ensemble": [
+            53,
+            58,
+            55
+          ]
+        },
+        {
+          "id": "esprit_negatif",
+          "libelle": "État d'esprit négatif",
+          "definition": "Même question : réponses classées comme négatives (inquiétude, tristesse, fatigue…)",
+          "periode": "au moment de l'enquête",
+          "filles": [
+            null,
+            34,
+            34
+          ],
+          "garcons": [
+            null,
+            18,
+            21
+          ],
+          "ensemble": [
+            30,
+            26,
+            28
+          ]
+        },
+        {
+          "id": "confiance",
+          "libelle": "Confiance dans l'avenir",
+          "definition": "« Comment voyez-vous votre avenir dans les trois ans qui viennent ? » : « très » ou « plutôt » confiant",
+          "periode": "3 prochaines années",
+          "sens": "favorable",
+          "filles": [
+            null,
+            67,
+            65
+          ],
+          "garcons": [
+            null,
+            75,
+            72
+          ],
+          "ensemble": [
+            null,
+            71,
+            69
+          ]
+        },
+        {
+          "id": "avis_compte",
+          "libelle": "Sentiment que son avis compte",
+          "definition": "« Pensez-vous que votre avis compte au sein des espaces dans lesquels vous évoluez (entreprise, école, université, association, club…) ? » : « oui, plutôt »",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            null,
+            55,
+            48
+          ],
+          "garcons": [
+            null,
+            59,
+            55
+          ],
+          "ensemble": [
+            49,
+            57,
+            51
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "État d'esprit et engagement des jeunes en 2025. Résultats du baromètre DJEPVA sur la jeunesse",
+          "producteur": "Injep, Notes & rapports 2025/15",
+          "date": "2025-09",
+          "url": "https://injep.fr/wp-content/uploads/2025/09/Rapport-2025-15-Baro-jeunesse-2025_Cahier1.pdf"
+        }
+      ],
+      "entiers": true
+    },
+    {
+      "id": "injep1830",
+      "groupe": "moral",
+      "nom": "Baromètre DJEPVA sur la jeunesse, série longue",
+      "public": "Jeunes de 18 à 30 ans",
+      "champ": "France",
+      "producteur": "Injep et Crédoc",
+      "methode": "Mêmes questions, comparées par l'Injep sur les seuls 18-30 ans pour remonter avant 2023. Seules les années citées dans la publication 2025 sont reprises.",
+      "annees": [
+        2018,
+        2020,
+        2021,
+        2025
+      ],
+      "indicateurs": [
+        {
+          "id": "esprit_positif",
+          "libelle": "État d'esprit positif",
+          "definition": "Réponses classées comme positives à la question sur l'état d'esprit",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "ensemble": [
+            null,
+            53,
+            46,
+            55
+          ]
+        },
+        {
+          "id": "confiance",
+          "libelle": "Confiance dans l'avenir",
+          "definition": "Très ou plutôt confiant pour les trois prochaines années",
+          "periode": "3 prochaines années",
+          "sens": "favorable",
+          "filles": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "ensemble": [
+            67,
+            67,
+            60,
+            69
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "État d'esprit et engagement des jeunes en 2025. Résultats du baromètre DJEPVA sur la jeunesse",
+          "producteur": "Injep, Notes & rapports 2025/15",
+          "date": "2025-09",
+          "url": "https://injep.fr/wp-content/uploads/2025/09/Rapport-2025-15-Baro-jeunesse-2025_Cahier1.pdf"
+        }
+      ],
+      "entiers": true
+    },
+    {
+      "id": "enclass_college",
+      "groupe": "moral",
+      "nom": "EnCLASS (et HBSC avant 2018)",
+      "public": "Collégiens, de la sixième à la troisième (âge moyen : 13,4 ans en 2024)",
+      "champ": "France hexagonale, établissements publics et privés sous contrat",
+      "producteur": "Santé publique France, OFDT, EHESP",
+      "methode": "Questionnaire anonyme rempli en ligne, en classe. En 2024, les plaintes psychologiques ne sont plus demandées qu'aux élèves de 6e, 5e et 4e : la série porte sur ces trois classes.",
+      "annees": [
+        2010,
+        2014,
+        2018,
+        2022,
+        2024
+      ],
+      "indicateurs": [
+        {
+          "id": "plaintes",
+          "libelle": "Au moins une plainte psychologique fréquente",
+          "definition": "Déprime, irritabilité ou nervosité ressentie plus d'une fois par semaine depuis six mois (élèves de 6e, 5e et 4e)",
+          "periode": "6 derniers mois",
+          "filles": [
+            39.6,
+            43.2,
+            45.9,
+            60.4,
+            59.9
+          ],
+          "garcons": [
+            28.5,
+            31.3,
+            35.0,
+            37.4,
+            30.5
+          ],
+          "ensemble": [
+            33.9,
+            null,
+            null,
+            48.7,
+            45.1
+          ]
+        },
+        {
+          "id": "deprime",
+          "libelle": "Déprime fréquente",
+          "definition": "S'être senti déprimé plus d'une fois par semaine depuis six mois (élèves de 6e, 5e et 4e)",
+          "periode": "6 derniers mois",
+          "filles": [
+            18.4,
+            20.5,
+            19.0,
+            27.8,
+            30.1
+          ],
+          "garcons": [
+            9.9,
+            12.4,
+            10.9,
+            13.5,
+            12.6
+          ],
+          "ensemble": [
+            null,
+            null,
+            14.9,
+            20.6,
+            21.2
+          ]
+        },
+        {
+          "id": "vie_positive",
+          "libelle": "Perception positive de sa vie",
+          "definition": "Note supérieure à 5 sur l'échelle de 0 (« la pire vie possible ») à 10 (« la meilleure »)",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            82.5,
+            77.8,
+            85.5,
+            75.5,
+            73.3
+          ],
+          "garcons": [
+            86.8,
+            85.7,
+            89.9,
+            87.6,
+            86.7
+          ],
+          "ensemble": [
+            null,
+            null,
+            87.8,
+            81.7,
+            80.1
+          ]
+        },
+        {
+          "id": "bien_etre",
+          "libelle": "Bon niveau de bien-être mental",
+          "definition": "Score supérieur à 50 sur 100 à l'indice de bien-être de l'OMS (WHO-5)",
+          "periode": "2 dernières semaines",
+          "sens": "favorable",
+          "filles": [
+            null,
+            null,
+            null,
+            49.0,
+            60.6
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            68.4,
+            79.3
+          ],
+          "ensemble": [
+            null,
+            null,
+            null,
+            58.7,
+            70.1
+          ]
+        },
+        {
+          "id": "solitude",
+          "libelle": "Sentiment de solitude",
+          "definition": "S'être senti seul « la plupart du temps » ou « toujours »",
+          "periode": "12 derniers mois",
+          "filles": [
+            null,
+            null,
+            null,
+            28.8,
+            22.3
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            12.9,
+            8.6
+          ],
+          "ensemble": [
+            null,
+            null,
+            null,
+            20.6,
+            15.4
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "La santé mentale et le bien-être des collégiens et lycéens en France hexagonale. Résultats d'EnCLASS 2024",
+          "producteur": "Santé publique France, Le point sur",
+          "date": "2026-06-02",
+          "url": "https://www.santepubliquefrance.fr/sites/default/files/2026-06/2024_06_Le_Point_Sur_EnCLASS2024_BATcor.pdf"
+        },
+        {
+          "titre": "La santé mentale et le bien-être des collégiens et lycéens en France hexagonale. Résultats d'EnCLASS 2022",
+          "producteur": "Santé publique France, Le point sur",
+          "date": "2024-04-09",
+          "url": "https://www.santepubliquefrance.fr/sites/default/files/rdd/document/LePointSur_Enclass_20240409.pdf"
+        }
+      ]
+    },
+    {
+      "id": "enclass",
+      "nom": "EnCLASS",
+      "public": "Lycéens, de la seconde à la terminale (âge moyen : 16,5 ans en 2022, 16,9 ans en 2024)",
+      "champ": "France hexagonale, établissements publics et privés sous contrat",
+      "producteur": "Santé publique France, OFDT, EHESP, université de Rennes",
+      "methode": "Questionnaire anonyme rempli en ligne, en classe, pendant une heure de cours. 9 337 élèves en 2022, 11 398 en 2024.",
+      "annees": [
+        2018,
+        2022,
+        2024
+      ],
+      "indicateurs": [
+        {
+          "id": "pensees",
+          "libelle": "Pensées suicidaires",
+          "definition": "« Au cours des 12 derniers mois, as-tu pensé à te suicider ? »",
+          "periode": "12 derniers mois",
+          "filles": [
+            24.2,
+            30.9,
+            24.9
+          ],
+          "garcons": [
+            13.3,
+            17.4,
+            14.5
+          ],
+          "ensemble": [
+            18.8,
+            24.2,
+            19.8
+          ]
+        },
+        {
+          "id": "tentatives",
+          "libelle": "Tentative de suicide",
+          "definition": "« Au cours de ta vie, as-tu fait une tentative de suicide ? »",
+          "periode": "au cours de la vie",
+          "filles": [
+            18.0,
+            17.4,
+            19.4
+          ],
+          "garcons": [
+            9.7,
+            8.4,
+            10.6
+          ],
+          "ensemble": [
+            null,
+            12.9,
+            15.1
+          ]
+        },
+        {
+          "id": "tentatives_hopital",
+          "libelle": "Tentative de suicide ayant conduit à l'hôpital",
+          "definition": "« Au cours de ta vie, as-tu fait une tentative de suicide qui t'a amené·e à l'hôpital ? »",
+          "periode": "au cours de la vie",
+          "filles": [
+            3.8,
+            3.6,
+            4.1
+          ],
+          "garcons": [
+            1.2,
+            2.1,
+            2.2
+          ],
+          "ensemble": [
+            null,
+            2.8,
+            3.1
+          ]
+        },
+        {
+          "id": "depression",
+          "libelle": "Risque important de dépression",
+          "definition": "Au moins 7 symptômes sur les 10 de l'échelle ADRS (manque d'énergie, tristesse, découragement, envie de mourir…), au moment de l'enquête",
+          "periode": "au moment de l'enquête",
+          "filles": [
+            18.0,
+            22.7,
+            25.7
+          ],
+          "garcons": [
+            8.6,
+            8.0,
+            11.7
+          ],
+          "ensemble": [
+            null,
+            15.4,
+            18.9
+          ]
+        },
+        {
+          "id": "bien_etre",
+          "libelle": "Bon niveau de bien-être mental",
+          "definition": "Score supérieur à 50 sur 100 à l'indice de bien-être de l'OMS (WHO-5), sur les deux dernières semaines",
+          "periode": "2 dernières semaines",
+          "sens": "favorable",
+          "filles": [
+            null,
+            40.0,
+            54.1
+          ],
+          "garcons": [
+            null,
+            62.0,
+            72.9
+          ],
+          "ensemble": [
+            null,
+            51.0,
+            63.2
+          ]
+        },
+        {
+          "id": "vie_positive",
+          "libelle": "Perception positive de sa vie",
+          "definition": "Note supérieure à 5 sur l'échelle de 0 (« la pire vie possible ») à 10 (« la meilleure »)",
+          "periode": "au moment de l'enquête",
+          "sens": "favorable",
+          "filles": [
+            80.3,
+            69.2,
+            66.7
+          ],
+          "garcons": [
+            85.7,
+            84.2,
+            76.5
+          ],
+          "ensemble": [
+            null,
+            76.7,
+            71.5
+          ]
+        },
+        {
+          "id": "solitude",
+          "libelle": "Sentiment de solitude",
+          "definition": "S'être senti seul « la plupart du temps » ou « toujours »",
+          "periode": "12 derniers mois",
+          "filles": [
+            null,
+            36.9,
+            25.1
+          ],
+          "garcons": [
+            null,
+            16.9,
+            13.6
+          ],
+          "ensemble": [
+            null,
+            26.9,
+            19.5
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "La santé mentale et le bien-être des collégiens et lycéens en France hexagonale. Résultats d'EnCLASS 2024",
+          "producteur": "Santé publique France, Le point sur",
+          "date": "2026-06-02",
+          "url": "https://www.santepubliquefrance.fr/sites/default/files/2026-06/2024_06_Le_Point_Sur_EnCLASS2024_BATcor.pdf"
+        },
+        {
+          "titre": "La santé mentale et le bien-être des collégiens et lycéens en France hexagonale. Résultats d'EnCLASS 2022",
+          "producteur": "Santé publique France, Le point sur",
+          "date": "2024-04-09",
+          "url": "https://www.santepubliquefrance.fr/sites/default/files/rdd/document/LePointSur_Enclass_20240409.pdf"
+        }
+      ],
+      "groupe": "suicide"
+    },
+    {
+      "id": "escapad",
+      "nom": "ESCAPAD",
+      "public": "Jeunes de 17 ans, interrogés lors de la Journée défense et citoyenneté",
+      "champ": "France métropolitaine",
+      "producteur": "Office français des drogues et des tendances addictives (OFDT), repris par l'Observatoire national du suicide (DREES)",
+      "methode": "Questionnaire papier anonyme rempli seul, pendant une vingtaine de minutes, par un échantillon aléatoire des jeunes présents à la journée.",
+      "annees": [
+        2011,
+        2014,
+        2017,
+        2022
+      ],
+      "indicateurs": [
+        {
+          "id": "pensees",
+          "libelle": "Pensées suicidaires",
+          "definition": "« Au cours des douze derniers mois, avez-vous pensé à vous suicider ? »",
+          "periode": "12 derniers mois",
+          "filles": [
+            13.7,
+            13.3,
+            14.8,
+            24.0
+          ],
+          "garcons": [
+            7.8,
+            7.5,
+            8.2,
+            12.3
+          ],
+          "ensemble": [
+            10.7,
+            10.4,
+            11.4,
+            18.0
+          ]
+        },
+        {
+          "id": "tentatives_hopital",
+          "libelle": "Tentative de suicide ayant conduit à l'hôpital",
+          "definition": "« Au cours de votre vie, avez-vous fait une tentative de suicide qui vous a amené(e) à l'hôpital ? »",
+          "periode": "au cours de la vie",
+          "filles": [
+            3.3,
+            3.8,
+            4.3,
+            4.8
+          ],
+          "garcons": [
+            1.3,
+            1.7,
+            1.5,
+            2.0
+          ],
+          "ensemble": [
+            2.3,
+            2.7,
+            2.9,
+            3.3
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "Pensées suicidaires et tentatives de suicide parmi les adolescents français de 17 ans (fiche 2)",
+          "producteur": "OFDT, dans le 6e rapport de l'Observatoire national du suicide (DREES)",
+          "date": "2025-02",
+          "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2025-02/Fiche%202%20-%20Pens%C3%A9es%20suicidaires%20et%20tentatives%20de%20suicide%20parmi%20les%20adolescents%20fran%C3%A7ais%20de%2017%20ans.pdf"
+        }
+      ],
+      "groupe": "suicide"
+    },
+    {
+      "id": "barometre",
+      "nom": "Baromètre santé (2014 à 2021)",
+      "public": "Jeunes adultes de 18 à 24 ans",
+      "champ": "France métropolitaine",
+      "producteur": "Santé publique France",
+      "methode": "Entretien par téléphone, échantillon aléatoire de 15 000 à 25 000 adultes selon les années (jusqu'à 85 ans).",
+      "annees": [
+        2014,
+        2017,
+        2020,
+        2021
+      ],
+      "indicateurs": [
+        {
+          "id": "pensees",
+          "libelle": "Pensées suicidaires",
+          "definition": "« Au cours des 12 derniers mois, avez-vous pensé à vous suicider ? »",
+          "periode": "12 derniers mois",
+          "filles": [
+            3.3,
+            null,
+            null,
+            9.4
+          ],
+          "garcons": [
+            null,
+            3.6,
+            7.1,
+            5.0
+          ],
+          "ensemble": [
+            3.3,
+            4.6,
+            7.4,
+            7.2
+          ]
+        },
+        {
+          "id": "tentatives",
+          "libelle": "Tentative de suicide",
+          "definition": "« Au cours de votre vie, avez-vous fait une tentative de suicide ? »",
+          "periode": "au cours de la vie",
+          "filles": [
+            null,
+            null,
+            null,
+            12.8
+          ],
+          "garcons": [
+            null,
+            2.8,
+            null,
+            5.8
+          ],
+          "ensemble": [
+            null,
+            6.1,
+            null,
+            9.2
+          ]
+        },
+        {
+          "id": "tentatives_annee",
+          "libelle": "Tentative de suicide dans l'année",
+          "definition": "Tentative de suicide déclarée, survenue au cours des 12 derniers mois",
+          "periode": "12 derniers mois",
+          "filles": [
+            null,
+            null,
+            null,
+            2.0
+          ],
+          "garcons": [
+            null,
+            null,
+            null,
+            0.3
+          ],
+          "ensemble": [
+            null,
+            0.7,
+            null,
+            1.1
+          ]
+        },
+        {
+          "id": "depression",
+          "libelle": "Épisode dépressif caractérisé",
+          "definition": "Critères d'un épisode dépressif (questionnaire CIDI-SF) réunis au cours des 12 derniers mois",
+          "periode": "12 derniers mois",
+          "filles": [
+            null,
+            15.1,
+            null,
+            26.5
+          ],
+          "garcons": [
+            null,
+            8.3,
+            null,
+            15.2
+          ],
+          "ensemble": [
+            null,
+            11.7,
+            null,
+            20.8
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "Prévalence des pensées suicidaires et tentatives de suicide chez les 18-85 ans en France : résultats du Baromètre santé 2021",
+          "producteur": "Santé publique France, Bulletin épidémiologique hebdomadaire n° 3",
+          "date": "2024",
+          "url": "https://beh.santepubliquefrance.fr/beh/2024/3/2024_3_1.html"
+        },
+        {
+          "titre": "Prévalence des épisodes dépressifs en France chez les 18-85 ans : résultats du Baromètre santé 2021",
+          "producteur": "Santé publique France, Bulletin épidémiologique hebdomadaire n° 2",
+          "date": "2023",
+          "url": "https://beh.santepubliquefrance.fr/beh/2023/2/2023_2_1.html"
+        }
+      ],
+      "groupe": "suicide"
+    },
+    {
+      "id": "barometre2024",
+      "nom": "Baromètre de Santé publique France 2024",
+      "public": "Jeunes adultes de 18 à 29 ans",
+      "champ": "France hexagonale, Guadeloupe, Martinique, Guyane et La Réunion",
+      "producteur": "Santé publique France",
+      "methode": "Nouvelle méthode : questionnaire surtout par internet, tranches d'âge différentes. Santé publique France indique qu'aucune évolution ne peut être établie par comparaison directe avec 2021.",
+      "annees": [
+        2024
+      ],
+      "indicateurs": [
+        {
+          "id": "pensees",
+          "libelle": "Pensées suicidaires",
+          "definition": "« Au cours des 12 derniers mois, avez-vous pensé à vous suicider ? »",
+          "periode": "12 derniers mois",
+          "filles": [
+            10.8
+          ],
+          "garcons": [
+            6.5
+          ],
+          "ensemble": [
+            8.6
+          ]
+        },
+        {
+          "id": "tentatives",
+          "libelle": "Tentative de suicide",
+          "definition": "« Au cours de votre vie, avez-vous fait une tentative de suicide ? »",
+          "periode": "au cours de la vie",
+          "filles": [
+            9.3
+          ],
+          "garcons": [
+            4.0
+          ],
+          "ensemble": [
+            6.7
+          ]
+        },
+        {
+          "id": "tentatives_annee",
+          "libelle": "Tentative de suicide dans l'année",
+          "definition": "Dernière tentative survenue au cours des 12 derniers mois",
+          "periode": "12 derniers mois",
+          "filles": [
+            1.5
+          ],
+          "garcons": [
+            null
+          ],
+          "ensemble": [
+            1.0
+          ]
+        },
+        {
+          "id": "depression",
+          "libelle": "Épisode dépressif caractérisé",
+          "definition": "Critères d'un épisode dépressif réunis au cours des 12 derniers mois",
+          "periode": "12 derniers mois",
+          "filles": [
+            null
+          ],
+          "garcons": [
+            null
+          ],
+          "ensemble": [
+            21.5
+          ]
+        },
+        {
+          "id": "anxiete",
+          "libelle": "Trouble anxieux généralisé",
+          "definition": "Critères du trouble anxieux généralisé réunis au cours des 12 derniers mois (mesuré pour la première fois)",
+          "periode": "12 derniers mois",
+          "filles": [
+            null
+          ],
+          "garcons": [
+            null
+          ],
+          "ensemble": [
+            8.1
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "titre": "Conduites suicidaires : prévalences des pensées suicidaires et des tentatives de suicide. Baromètre de Santé publique France, édition 2024",
+          "producteur": "Santé publique France",
+          "date": "2025-12",
+          "url": "https://www.santepubliquefrance.fr/sites/default/files/cadic_files/documents/spf00006356.pdf"
+        },
+        {
+          "titre": "Dépression et anxiété : les données",
+          "producteur": "Santé publique France",
+          "date": "2025",
+          "url": "https://www.santepubliquefrance.fr/depression-et-anxiete/donnees"
+        }
+      ],
+      "groupe": "suicide"
+    }
+  ],
+  "contexte": [
+    {
+      "texte": "Un peu plus de 84 000 personnes de 10 ans ou plus ont été hospitalisées au moins une fois en 2025 pour un geste auto-infligé (soins somatiques), dont 64 % de femmes. Chez les filles de 10 à 19 ans, le taux atteint 482 pour 100 000 en 2025, le plus élevé de tous les âges et des deux sexes ; il augmente encore de 4 % entre 2024 et 2025, après +16 % entre 2023 et 2024.",
+      "producteur": "DREES",
+      "date": "2026-05-11",
+      "url": "https://drees.solidarites-sante.gouv.fr/communique-de-presse-jeux-de-donnees/jeux-de-donnees/250511_hospitalisations-pour-tentatives-de-suicide"
+    },
+    {
+      "texte": "Près de 82 000 personnes de 10 ans ou plus ont été hospitalisées au moins une fois en 2024 pour un geste auto-infligé (tentative de suicide ou automutilation), dont 64 % de femmes. Entre 2023 et 2024, ces hospitalisations ont augmenté de 22 % chez les filles de 10 à 14 ans et de 14 % chez celles de 15 à 19 ans.",
+      "producteur": "DREES",
+      "date": "2025-06-18",
+      "url": "https://drees.solidarites-sante.gouv.fr/communique-de-presse-jeux-de-donnees/DATA_250618_Gestes-auto-inflig%C3%A9s"
+    },
+    {
+      "texte": "Le suicide reste la deuxième cause de décès des 15-24 ans, après les accidents de la route.",
+      "producteur": "Inserm-CépiDc, cité par l'Observatoire national du suicide",
+      "date": "2025-02",
+      "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2025-02/Fiche%202%20-%20Pens%C3%A9es%20suicidaires%20et%20tentatives%20de%20suicide%20parmi%20les%20adolescents%20fran%C3%A7ais%20de%2017%20ans.pdf"
+    }
+  ]
+}

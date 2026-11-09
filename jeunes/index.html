@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Le moral des jeunes et les pensées suicidaires d'après Santé publique France, l'OFDT et la DREES : les chiffres par année, filles et garçons, vérifiés à la source.">
+<title>Le moral des jeunes et les pensées suicidaires</title>
+<script>
+  // Thème choisi par le visiteur, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Mêmes jetons que les pages du budget. Filles et garçons prennent les deux premières couleurs
+     de la palette du site (vérifiée pour les daltonismes), l'ensemble reste en gris pointillé. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5;
+    --panel: #FFFFFF;
+    --panel-2: #F5F7FA;
+    --ink: #162033;
+    --muted: #5A6579;
+    --line: #D6DCE6;
+    --control: #7C8699;
+    --accent: #1F3FB5;
+    --accent-soft: #E3E8FA;
+    --ok: #17703D;
+    --bad: #B42F29;
+    --ok-soft: #E3F1E8;
+    --warn-soft: #F6ECDD;
+    --filles: #EB6834;
+    --garcons: #2A78D6;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+      --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+      --ok: #4CC47E; --bad: #F0706A; --ok-soft: #14301F; --warn-soft: #33260F;
+      --filles: #D95926; --garcons: #3987E5;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+    --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+    --ok: #4CC47E; --bad: #F0706A; --ok-soft: #14301F; --warn-soft: #33260F;
+    --filles: #D95926; --garcons: #3987E5;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .skip { position: fixed; z-index: 10; top: 8px; left: 8px; padding: 8px 12px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 2px solid var(--accent); transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.55 var(--sans); }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+  main { padding-block: 24px 48px; display: grid; gap: 30px; }
+  .intro h1 { margin: 4px 0 8px; font-size: 26px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  .intro p { margin: 0 0 6px; max-width: 76ch; color: var(--muted); }
+  .intro p.source { margin: 10px 0 0; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 8px 8px 0; color: var(--ink); max-width: 84ch; }
+  .notice { display: inline-block; margin-top: 6px; padding: 4px 10px; border: 1px dashed var(--control); border-radius: 6px; font-size: 12.5px; color: var(--muted); }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 80px; }
+  section > h2 { margin: 0; font-size: 18px; text-wrap: balance; }
+  section > .lead { margin: -4px 0 0; color: var(--muted); max-width: 82ch; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
+  .pad { padding: 16px; }
+  .muted { color: var(--muted); }
+
+  /* Aide : sobre, visible dès le haut de la page */
+  .aide { display: grid; gap: 4px; padding: 14px 16px; border-left: 4px solid var(--ok); background: var(--ok-soft); border-radius: 0 10px 10px 0; max-width: 84ch; }
+  .aide p { margin: 0; }
+  .aide b.num { font: 600 17px var(--mono); }
+
+  /* L'essentiel */
+  ol.essentiel { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: point; }
+  ol.essentiel li { counter-increment: point; display: grid; grid-template-columns: 30px 1fr; gap: 4px 12px; padding: 14px 16px; }
+  ol.essentiel li::before { content: counter(point); grid-row: span 2; font: 600 13px var(--mono); color: var(--accent); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); }
+  ol.essentiel b { font-size: 15px; }
+  ol.essentiel span { color: var(--muted); max-width: 90ch; }
+
+  /* Chiffres clés */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .kpi b { font-size: 26px; line-height: 1.1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+  .kpi small { font: 12px var(--mono); color: var(--muted); }
+
+  /* Graphiques */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 18px; height: 0; border-top: 2px solid var(--c); }
+  .legend i.pt { border-top-style: dashed; }
+  .panneaux { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+  .panneau { display: grid; gap: 6px; align-content: start; }
+  .panneau h3 { margin: 0; font-size: 15px; }
+  .panneau .sub { margin: -4px 0 0; color: var(--muted); font-size: 12.5px; }
+  svg text { font-family: var(--sans); }
+  .chart { width: 100%; display: block; overflow: visible; }
+  .grid line { stroke: var(--line); stroke-width: 1; }
+  .axis text { fill: var(--muted); font: 11px var(--mono); }
+  .serie path { fill: none; stroke: var(--c); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .serie.ens path { stroke: var(--control); stroke-dasharray: 4 4; stroke-width: 1.5; }
+  .serie circle { fill: var(--c); stroke: var(--panel); stroke-width: 2; }
+  .serie.ens circle { fill: var(--control); }
+  .serie circle.hit { fill: transparent; stroke: none; cursor: default; }
+  .serie text { fill: var(--ink); font: 500 11.5px var(--mono); }
+  .halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
+  [data-s="filles"] { --c: var(--filles); }
+  [data-s="garcons"] { --c: var(--garcons); }
+  [data-s="ensemble"] { --c: var(--control); }
+  #tip { position: fixed; z-index: 20; pointer-events: none; max-width: 300px; padding: 8px 10px; border-radius: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: 12.5px; line-height: 1.4; }
+  #tip b { display: block; font-size: 13px; }
+
+  /* Tableaux */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); white-space: nowrap; }
+  tr.grp th { padding-top: 12px; background: var(--panel); border-bottom: 0; }
+  tr.grp th small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; max-width: 90ch; }
+  tr.grp th .per { font: 500 11px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .04em; margin-left: 6px; }
+  tbody th { font-weight: 400; padding-left: 24px; white-space: nowrap; }
+  tbody th .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; background: var(--c); margin-right: 6px; vertical-align: -1px; }
+  tr.ens th, tr.ens td { color: var(--muted); }
+  .na { color: var(--control); }
+  .enquete { display: grid; gap: 10px; }
+  .enquete header h3 { margin: 0; font-size: 16px; }
+  .enquete header p { margin: 2px 0 0; color: var(--muted); font-size: 13px; max-width: 92ch; }
+  .enquete .src { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .enquete.rupture { border-style: dashed; }
+
+  /* Vérification des chiffres lus */
+  #tb-verif td:first-child { font-weight: 600; white-space: nowrap; }
+  h3.groupe { margin: 10px 0 0; font-size: 16px; }
+
+  ul.methode { margin: 0; padding-left: 18px; display: grid; gap: 8px; max-width: 92ch; }
+  ul.methode li { font-size: 13.5px; }
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 92ch; }
+</style>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<!--bandeau-->
+
+<main id="contenu" class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Santé mentale</span>
+    <h1>Le moral des jeunes et les pensées suicidaires</h1>
+    <p>Que disent les enquêtes officielles sur le moral des jeunes, sur leurs pensées suicidaires et leurs tentatives de suicide ? La page rassemble, année par année, les chiffres publiés par l'Insee, l'Injep, Santé publique France et l'Observatoire français des drogues et des tendances addictives (OFDT), pour les filles et pour les garçons. Chaque enquête interroge un public différent (collégiens, lycéens, jeunes de 17 ans, jeunes adultes) avec sa propre méthode : leurs chiffres sont présentés côte à côte, jamais additionnés ni reliés entre eux.</p>
+    <p class="source">Sources : <a href="https://www.insee.fr/fr/statistiques/9051795?sommaire=9051904" target="_blank" rel="noopener"><strong>satisfaction dans la vie</strong></a> des 16-24 ans (Insee, 2010 à 2025) ; <a href="https://injep.fr/wp-content/uploads/2025/09/Rapport-2025-15-Baro-jeunesse-2025_Cahier1.pdf" target="_blank" rel="noopener"><strong>baromètre DJEPVA sur la jeunesse</strong></a> (Injep, 2018 à 2025) ; <a href="https://www.santepubliquefrance.fr/sites/default/files/2026-06/2024_06_Le_Point_Sur_EnCLASS2024_BATcor.pdf" target="_blank" rel="noopener"><strong>enquête EnCLASS</strong></a> auprès des collégiens et des lycéens (Santé publique France, 2010 à 2024) ; <a href="https://drees.solidarites-sante.gouv.fr/sites/default/files/2025-02/Fiche%202%20-%20Pens%C3%A9es%20suicidaires%20et%20tentatives%20de%20suicide%20parmi%20les%20adolescents%20fran%C3%A7ais%20de%2017%20ans.pdf" target="_blank" rel="noopener"><strong>enquête ESCAPAD</strong></a> auprès des jeunes de 17 ans (OFDT, Observatoire national du suicide, 2011 à 2022) ; <a href="https://beh.santepubliquefrance.fr/beh/2024/3/2024_3_1.html" target="_blank" rel="noopener"><strong>Baromètre santé</strong></a> auprès des 18-24 ans (2014 à 2021) et <a href="https://www.santepubliquefrance.fr/sites/default/files/cadic_files/documents/spf00006356.pdf" target="_blank" rel="noopener"><strong>son édition 2024</strong></a> auprès des 18-29 ans ; <a href="https://drees.solidarites-sante.gouv.fr/communique-de-presse-jeux-de-donnees/jeux-de-donnees/250511_hospitalisations-pour-tentatives-de-suicide" target="_blank" rel="noopener"><strong>hospitalisations pour geste auto-infligé</strong></a> (DREES, jusqu'en 2025).</p>
+    <span class="notice">Proposition indépendante construite à partir de documents publics ; ce n'est pas un outil officiel.</span>
+  </div>
+
+  <aside class="aide" aria-label="Besoin d'aide">
+    <p><b>Si vous pensez au suicide, ou si vous vous inquiétez pour un proche : appelez le <b class="num">3114</b>.</b></p>
+    <p>C'est le numéro national de prévention du suicide : des soignants répondent 24 heures sur 24, 7 jours sur 7. L'appel est gratuit et confidentiel. <a href="https://3114.fr/" target="_blank" rel="noopener">3114.fr</a>. Pour les 12-25 ans, <a href="https://www.filsantejeunes.com/" target="_blank" rel="noopener">Fil Santé Jeunes</a> répond aussi, par téléphone (0 800 235 236) ou par écrit. En cas de danger immédiat, appelez le 15 ou le 112.</p>
+  </aside>
+
+  <section aria-labelledby="t-cles">
+    <h2 id="t-cles">Les lycéens en 2024</h2>
+    <p class="lead">Dernière enquête publiée auprès des lycéens (EnCLASS 2024, publiée en juin 2026). Dans une classe de 30 élèves, cela fait environ 6 élèves qui ont pensé au suicide dans l'année, 4 ou 5 qui disent avoir déjà fait une tentative, et 1 qui a été hospitalisé pour cela.</p>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section aria-labelledby="t-essentiel">
+    <h2 id="t-essentiel">L'essentiel</h2>
+    <ol class="essentiel">
+      <li class="card"><b>La plupart des jeunes se disent satisfaits de leur vie ; une minorité importante va mal.</b><span>Les 16-24 ans donnent en moyenne 7,6 sur 10 à leur satisfaction dans la vie en 2025, la note la plus haute de tous les âges ; elle est restée entre 7,6 et 7,9 depuis 2010, sauf en 2021 (7,2). Début 2025, deux tiers des 15-30 ans jugent que leur vie correspond à leurs attentes (67 %) et 69 % sont confiants pour les trois ans à venir. Mais 28 % décrivent leur état d'esprit en termes négatifs (Injep), et 11 % des 16-24 ans se donnent 5 sur 10 ou moins en 2025, contre 5 à 12 % les années avant 2020 et 17 % en 2021 (Insee).</span></li>
+      <li class="card"><b>Un mal-être qui monte depuis une dizaine d'années, et qui a fait un bond autour de 2020.</b><span>À 17 ans, la part des jeunes qui ont pensé au suicide dans l'année était stable autour de 11 % de 2011 à 2017, puis a atteint 18 % en 2022 (ESCAPAD). Chez les 18-24 ans, elle est passée de 3,3 % en 2014 à 4,6 % en 2017, puis 7,4 % en 2020 (Baromètre santé). L'épisode dépressif a presque doublé chez les 18-24 ans entre 2017 et 2021 (de 11,7 % à 20,8 %). Chez les collégiennes de 6e à 4e, la part qui se dit souvent déprimée, irritable ou nerveuse est passée de 40 % en 2010 à 60 % en 2022 et 2024. La hausse a commencé avant la crise sanitaire chez les filles ; autour de 2020, elle s'accélère et touche aussi les garçons.</span></li>
+      <li class="card"><b>Les filles sont environ deux fois plus touchées, à tous les âges et dans toutes les enquêtes.</b><span>En 2024, un quart des lycéennes ont pensé au suicide dans l'année (24,9 %, contre 14,5 % des garçons), près d'une sur cinq dit avoir déjà fait une tentative (19,4 %, contre 10,6 %), et une sur quatre présente un risque important de dépression (25,7 %, contre 11,7 %). Les hospitalisations pour tentative de suicide ou automutilation continuent d'augmenter chez les filles : +22 % entre 2023 et 2024 chez les 10-14 ans, +14 % chez les 15-19 ans (DREES).</span></li>
+      <li class="card"><b>2025 : les hospitalisations des adolescentes montent encore, moins vite.</b><span>C'est le chiffre le plus récent : un peu plus de 84 000 personnes de 10 ans ou plus ont été hospitalisées en 2025 pour une tentative de suicide ou une automutilation, dont 64 % de femmes. Chez les filles de 10 à 19 ans, le taux atteint 482 pour 100 000, le plus élevé de tous les âges et des deux sexes : +4 % en un an, après +16 % entre 2023 et 2024 (DREES, mai 2026). Les enquêtes auprès des jeunes, elles, s'arrêtent à 2024 : EnCLASS a lieu tous les deux ans et sa dernière édition publiée est celle de 2024, ESCAPAD s'arrête à 2022, et le Baromètre santé le plus récent est celui de 2024.</span></li>
+      <li class="card"><b>2024 : un léger mieux sur le moral, pas sur les indicateurs les plus graves.</b><span>Entre 2022 et 2024, les pensées suicidaires des lycéens reculent (de 24,2 % à 19,8 %), le bien-être progresse (de 51 % à 63 %) et la solitude recule (de 27 % à 20 %) : Santé publique France y voit l'effet possible de la reprise de la vie sociale après la crise sanitaire. Mais les tentatives déclarées augmentent (de 12,9 % à 15,1 %) et le risque important de dépression continue de monter (de 15,4 % à 18,9 %), cette fois chez les garçons aussi. Chez les jeunes adultes, les 18-29 ans restent en 2024 l'âge le plus touché : 8,6 % de pensées suicidaires dans l'année et 21,5 % d'épisodes dépressifs.</span></li>
+      <li class="card"><b>Une souffrance qui passe souvent inaperçue.</b><span>Parmi les 18-24 ans qui ont fait une tentative de suicide, un tiers seulement s'est rendu à l'hôpital (Baromètre santé 2021). Les chiffres des hôpitaux ne voient donc qu'une partie des gestes : les enquêtes, où les jeunes répondent anonymement, montrent mieux l'ampleur du problème. Le suicide reste la deuxième cause de décès des 15-24 ans, après les accidents de la route.</span></li>
+      <li class="card"><b>Une part de la hausse peut venir d'une parole plus libre, mais pas toute.</b><span>Santé publique France n'exclut pas que les jeunes parlent plus facilement de leur souffrance qu'avant, ce qui gonflerait les réponses aux enquêtes. Mais les hospitalisations, qui ne dépendent pas de ce que les jeunes déclarent, augmentent elles aussi depuis 2021 chez les adolescentes et les jeunes femmes : la dégradation est réelle.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="t-verif">
+    <h2 id="t-verif">Les chiffres les plus cités, et ce qu'ils mesurent</h2>
+    <p class="lead">Les pourcentages repris le plus souvent viennent de l'enquête EnCLASS auprès des lycéens. Le public, l'année et la période couverte par chaque question changent leur portée.</p>
+    <div class="card table-scroll">
+      <table id="tb-verif">
+        <thead><tr><th>Chiffre</th><th>Ce qu'il mesure</th><th>Source</th><th class="n">2022</th><th class="n">2024</th></tr></thead>
+        <tbody>
+          <tr><td>24 %</td><td>Lycéens (âge moyen : 16,5 ans) qui ont pensé au suicide <b>au cours des 12 derniers mois</b>. Les autres enquêtes, sur d'autres âges, donnent d'autres niveaux : 18,0 % à 17 ans en 2022 (ESCAPAD), 8,6 % chez les 18-29 ans en 2024 (Baromètre santé).</td><td>EnCLASS</td><td class="n">24,2 %</td><td class="n">19,8 %</td></tr>
+          <tr><td>31 %</td><td>Lycéennes qui ont pensé au suicide au cours des 12 derniers mois. Chez les lycéens garçons : 17,4 % en 2022, 14,5 % en 2024.</td><td>EnCLASS</td><td class="n">30,9 %</td><td class="n">24,9 %</td></tr>
+          <tr><td>13 %</td><td>Lycéens qui déclarent avoir fait une tentative de suicide <b>au cours de leur vie</b>, et non dans l'année. Filles : 17,4 % en 2022, 19,4 % en 2024 ; garçons : 8,4 %, puis 10,6 %.</td><td>EnCLASS</td><td class="n">12,9 %</td><td class="n">15,1 %</td></tr>
+          <tr><td>3 %</td><td>Lycéens qui déclarent une tentative de suicide ayant conduit à l'hôpital, au cours de leur vie.</td><td>EnCLASS</td><td class="n">2,8 %</td><td class="n">3,1 %</td></tr>
+          <tr><td>1 sur 8, puis 1 sur 7</td><td>Les tentatives au cours de la vie rapportées au nombre de lycéens : 12,9 % font environ 1 lycéen sur 8 en 2022 ; 15,1 %, un peu plus d'1 sur 7 en 2024. Chez les lycéennes, près d'1 sur 5 en 2024.</td><td>EnCLASS</td><td class="n">1 sur 8</td><td class="n">1 sur 7</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-moral">
+    <h2 id="t-moral">Le moral, sur la durée</h2>
+    <p class="lead">Satisfaction dans la vie des 16-24 ans, mesurée chaque année par l'Insee depuis 2010 (note sur 10, échelle resserrée de 6,5 à 8,5) ; plaintes psychologiques des collégiens de 6e à 4e depuis 2010 ; risque important de dépression des lycéens depuis 2018.</p>
+    <ul class="legend">
+      <li data-s="filles"><i></i>Filles</li>
+      <li data-s="garcons"><i></i>Garçons</li>
+      <li data-s="ensemble"><i class="pt"></i>Ensemble</li>
+    </ul>
+    <div class="panneaux" id="panneaux-moral"></div>
+  </section>
+
+  <section aria-labelledby="t-courbes">
+    <h2 id="t-courbes">Les pensées suicidaires dans l'année, enquête par enquête</h2>
+    <p class="lead">Une courbe par enquête, sur la même échelle verticale. Les niveaux ne se comparent pas d'un panneau à l'autre : le public, l'âge et la façon d'interroger diffèrent. Le Baromètre ne publie pas chaque année le chiffre par sexe : les points isolés ne sont pas reliés.</p>
+    <ul class="legend">
+      <li data-s="filles"><i></i>Filles</li>
+      <li data-s="garcons"><i></i>Garçons</li>
+      <li data-s="ensemble"><i class="pt"></i>Ensemble</li>
+    </ul>
+    <div class="panneaux" id="panneaux"></div>
+  </section>
+
+  <section aria-labelledby="t-tableaux">
+    <h2 id="t-tableaux">Tous les chiffres, année par année</h2>
+    <p class="lead">En pourcentage des jeunes interrogés, sauf la satisfaction de l'Insee (note sur 10). Un tiret signale un chiffre que l'enquête n'a pas publié.</p>
+    <div id="enquetes" class="enquetes" style="display:grid;gap:14px"></div>
+  </section>
+
+  <section aria-labelledby="t-moyens">
+    <h2 id="t-moyens">Moral, argent, emploi et études</h2>
+    <p class="lead">Les enquêtes relèvent des écarts nets selon la situation matérielle des jeunes. Ce sont des associations : elles ne disent pas ce qui est la cause de quoi.</p>
+    <div class="card pad" style="display:grid;gap:8px;max-width:92ch">
+      <ul class="methode">
+        <li><b>Revenus.</b> Début 2025, 58 % des 15-30 ans vivant dans un foyer de moins de 1 200 € par mois jugent que leur vie correspond à leurs attentes, contre 76 % au-delà de 2 200 € (Injep).</li>
+        <li><b>Emploi.</b> 48 % des jeunes au chômage jugent que leur vie correspond à leurs attentes et 56 % sont confiants pour l'avenir, contre 70 % et 73 % des jeunes en emploi (Injep, 2025).</li>
+        <li><b>Difficultés financières.</b> En 2024, 10,7 % des adultes qui disent « c'est difficile » ou être endettés ont pensé au suicide dans l'année, contre 3,4 % de ceux qui se disent à l'aise (Baromètre santé, 18-79 ans, tous âges confondus).</li>
+        <li><b>Études et contrats courts.</b> En 2024, 10,2 % des étudiants et 8,8 % des salariés en contrat court (CDD, intérim, apprentissage) ont pensé au suicide dans l'année, contre 4,4 % des salariés en CDI (Baromètre santé, 18-79 ans).</li>
+        <li><b>Scolarité.</b> À 17 ans, à dépression égale, les apprentis et les jeunes sortis de l'école déclarent plus souvent une tentative de suicide ayant conduit à l'hôpital que les lycéens et les étudiants (ESCAPAD 2022).</li>
+        <li><b>Autres facteurs cités par Santé publique France.</b> La pression scolaire et l'inquiétude pour l'avenir, le temps passé sur les écrans et les réseaux sociaux, le cyberharcèlement, les violences sexistes et sexuelles, et une suite de crises (sanitaire, économique, climatique, guerres).</li>
+      </ul>
+      <p style="margin:0" class="muted">Ce que l'argent public consacre aux jeunes est détaillé sur la page <a href="../budget/jeunesse.html">L'argent public pour la jeunesse</a>.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-methode">
+    <h2 id="t-methode">Méthode et limites</h2>
+    <div class="card pad">
+      <ul class="methode">
+        <li><b>Des enquêtes, pas des diagnostics.</b> Les jeunes répondent eux-mêmes, de façon anonyme. « Risque important de dépression » ou « épisode dépressif » sont des repérages par questionnaire, pas des diagnostics posés par un médecin.</li>
+        <li><b>Le moral.</b> L'Insee pose chaque année la même question à un échantillon tiré au hasard : c'est la série la plus longue et la plus régulière. Le baromètre de l'Injep interroge en ligne un échantillon construit par quotas ; il est passé des 18-30 ans aux 15-30 ans en 2023, ce qui coupe sa série : les années d'avant ne sont reprises que pour les 18-30 ans, quand l'Injep les cite.</li>
+        <li><b>Une série par enquête.</b> EnCLASS interroge les lycéens en classe, sur ordinateur ; ESCAPAD, les jeunes de 17 ans sur papier, lors de la Journée défense et citoyenneté ; le Baromètre santé, les adultes par téléphone jusqu'en 2021, puis surtout par internet en 2024, avec d'autres tranches d'âge (18-29 ans au lieu de 18-24 ans). Santé publique France précise que 2024 ne se compare pas directement à 2021 : le Baromètre 2024 est donc présenté à part.</li>
+        <li><b>« Dans l'année » ou « au cours de la vie ».</b> Les pensées suicidaires portent sur les 12 derniers mois ; les tentatives, le plus souvent, sur toute la vie. ESCAPAD ne compte que les tentatives qui ont conduit à l'hôpital, ce qui donne des chiffres plus bas.</li>
+        <li><b>Les chiffres repris.</b> Tous sont recopiés des publications citées, sans calcul ; ils ont été relus dans les documents d'origine. Quand une publication ne donne que les filles et les garçons, l'ensemble n'est pas recalculé. Les évolutions citées dans « L'essentiel » sont celles que les producteurs jugent significatives.</li>
+        <li><b>Ce qui n'est pas ici.</b> Les pensées suicidaires des collégiens (EnCLASS ne les interroge pas sur ce sujet), les passages aux urgences (suivis chaque mois par Santé publique France) et les décès par suicide par âge (Inserm-CépiDc).</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<footer class="wrap">
+  <p>Données : <a href="donnees/moral-des-jeunes.json" download>JSON</a>, recopiées à la main des publications de l'Insee (enquête SRCV 2010 à 2025), de l'Injep (baromètre DJEPVA 2025), de Santé publique France (EnCLASS 2022 et 2024, Baromètre santé 2021 et 2024), de l'OFDT et de la DREES (Observatoire national du suicide, 6e rapport ; hospitalisations pour geste auto-infligé de 2024 et de 2025). Chaque enquête y porte ses sources et sa méthode. Consulté le 4 novembre 2026.</p>
+  <p>Besoin d'aide : <a href="https://3114.fr/" target="_blank" rel="noopener">3114</a>, numéro national de prévention du suicide, gratuit, 24 h/24 et 7 j/7.</p>
+</footer>
+
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const pct = v => v == null ? '–' : v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+
+  // Thème.
+  const themeButtons = document.querySelectorAll('[data-theme-choice]');
+  const showTheme = () => {
+    const current = document.documentElement.dataset.theme || 'auto';
+    themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+  };
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    const c = b.dataset.themeChoice;
+    if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+    try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
+
+  const D = await (await fetch('donnees/moral-des-jeunes.json')).json();
+  const E = Object.fromEntries(D.enquetes.map(e => [e.id, e]));
+  const ind = (e, id) => E[e].indicateurs.find(i => i.id === id);
+  const dernier = (e, id, s) => ind(e, id)[s][E[e].annees.length - 1];
+
+  // Chiffres clés : les lycéens en 2024, filles et garçons.
+  const K = [
+    ['pensees', 'ont pensé au suicide dans les 12 derniers mois'],
+    ['tentatives', 'disent avoir déjà fait une tentative de suicide'],
+    ['tentatives_hopital', 'une tentative qui les a conduits à l\'hôpital'],
+    ['depression', 'présentent un risque important de dépression'],
+  ];
+  $('kpis').innerHTML = K.map(([id, txt]) => `<div class="card kpi"><b>${pct(dernier('enclass', id, 'ensemble'))}</b><span>des lycéens ${txt}</span><small>filles ${pct(dernier('enclass', id, 'filles'))} · garçons ${pct(dernier('enclass', id, 'garcons'))}</small></div>`).join('');
+
+  // Courbes : un panneau par enquête et par indicateur, filles, garçons et ensemble.
+  const SERIES = [['filles', 'Filles'], ['garcons', 'Garçons'], ['ensemble', 'Ensemble']];
+  // Valeur affichée : pourcentage, ou note sur 10 pour la satisfaction de l'Insee.
+  const note = v => v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  // Les baromètres publiés en pourcentages entiers restent sans décimale.
+  const val = (i, v, e) => v == null ? '–' : i.unite === 'note' ? note(v) + ' / 10' : e && e.entiers ? v + ' %' : pct(v);
+  const ECHELLE_PCT = { min: 0, max: 35, ticks: [0, 10, 20, 30], txt: v => v + ' %' };
+  const tip = $('tip');
+  const montrer = (ev, html) => {
+    tip.innerHTML = html; tip.hidden = false;
+    const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14;
+    if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+    if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  };
+  function courbe(e, id, ech) {
+    const I = ind(e.id, id), A = e.annees;
+    const W = 360, H = 210, m = { l: 40, r: 56, t: 12, b: 24 };
+    const a0 = A[0], a1 = A[A.length - 1];
+    const x = a => m.l + (a1 === a0 ? (W - m.l - m.r) / 2 : (a - a0) / (a1 - a0) * (W - m.l - m.r));
+    const y = v => m.t + (1 - (v - ech.min) / (ech.max - ech.min)) * (H - m.t - m.b);
+    // Années affichées sous l'axe : toutes, sauf pour une longue série annuelle (une sur cinq).
+    const annees = A.length > 8 ? A.filter(a => (a - a0) % 5 === 0 || a === a1) : A;
+    let g = '<g class="grid">' + ech.ticks.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/>`).join('') + '</g>';
+    g += '<g class="axis">' + ech.ticks.map(v => `<text x="${m.l - 6}" y="${y(v) + 4}" text-anchor="end">${ech.txt(v)}</text>`).join('')
+      + annees.map(a => `<text x="${x(a)}" y="${H - 6}" text-anchor="middle">${a}</text>`).join('') + '</g>';
+    // Étiquettes directes à droite, écartées si elles se chevauchent.
+    const fins = [];
+    for (const [s, nom] of SERIES) {
+      const v = I[s]; let d = '', pts = '';
+      const r = s === 'ensemble' ? 3 : A.length > 8 ? 3 : 4;
+      v.forEach((w, k) => {
+        if (w == null) return;
+        const relie = k > 0 && v[k - 1] != null;
+        d += `${relie ? 'L' : 'M'}${x(A[k])},${y(w)}`;
+        // Le point visible, et une zone de survol plus grande que lui.
+        pts += `<circle cx="${x(A[k])}" cy="${y(w)}" r="${r}"/><circle class="hit" cx="${x(A[k])}" cy="${y(w)}" r="${A.length > 8 ? 7 : 11}" data-tip="${esc(`<b>${nom}, ${A[k]}</b>${val(I, w, e)}`)}"/>`;
+      });
+      const k = v.length - 1;
+      if (v[k] != null) fins.push({ s, y: y(v[k]), t: I.unite === 'note' ? note(v[k]) : pct(v[k]) });
+      g += `<g class="serie${s === 'ensemble' ? ' ens' : ''}" data-s="${s}"><path d="${d}"/>${pts}</g>`;
+    }
+    fins.sort((p, q) => p.y - q.y);
+    for (let k = 1; k < fins.length; k++) if (fins[k].y - fins[k - 1].y < 13) fins[k].y = fins[k - 1].y + 13;
+    g += fins.map(f => `<g class="serie" data-s="${f.s}"><text class="halo" x="${W - m.r + 8}" y="${f.y + 4}">${f.t}</text></g>`).join('');
+    return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${I.libelle}, ${e.public}, ${A[0]} à ${a1}`)}">${g}</svg>`;
+  }
+  const panneau = (id, ind_, ech, titre) => {
+    const e = E[id];
+    return `<div class="card pad panneau"><h3>${esc(titre || e.nom)}</h3><p class="sub">${esc(e.public)} · ${esc(ind(id, ind_).libelle.toLowerCase())}</p>${courbe(e, ind_, ech)}</div>`;
+  };
+  $('panneaux').innerHTML = ['enclass', 'escapad', 'barometre', 'barometre2024'].map(id => panneau(id, 'pensees', ECHELLE_PCT)).join('');
+  $('panneaux-moral').innerHTML = [
+    panneau('insee', 'satisfaction', { min: 6.5, max: 8.5, ticks: [7, 7.5, 8], txt: v => note(v) }, 'Insee'),
+    panneau('enclass_college', 'plaintes', { min: 0, max: 70, ticks: [0, 20, 40, 60], txt: v => v + ' %' }, 'EnCLASS, collégiens'),
+    panneau('enclass', 'depression', ECHELLE_PCT, 'EnCLASS, lycéens'),
+  ].join('');
+  for (const bloc of [$('panneaux'), $('panneaux-moral')]) {
+    bloc.addEventListener('mousemove', ev => {
+      const c = ev.target.closest('circle[data-tip]');
+      if (c) montrer(ev, c.dataset.tip); else tip.hidden = true;
+    });
+    bloc.addEventListener('mouseleave', () => { tip.hidden = true; });
+  }
+
+  // Tableaux : une enquête par carte, un groupe de lignes par indicateur, rangées en deux groupes.
+  const carte = e => {
+    const tete = `<tr><th scope="col">Indicateur</th>${e.annees.map(a => `<th scope="col" class="n">${a}</th>`).join('')}</tr>`;
+    const corps = e.indicateurs.map(i => {
+      const lignes = SERIES.map(([s, nom]) => {
+        if (i[s].every(v => v == null)) return '';
+        return `<tr class="${s === 'ensemble' ? 'ens' : ''}"><th scope="row" data-s="${s}"><span class="sw" aria-hidden="true"></span>${nom}</th>${i[s].map(v => v == null ? '<td class="n na" title="Non publié">–</td>' : `<td class="n">${i.unite === 'note' ? note(v) : val(i, v, e)}</td>`).join('')}</tr>`;
+      }).join('');
+      return `<tr class="grp"><th colspan="${e.annees.length + 1}">${esc(i.libelle)}<span class="per">${esc(i.periode)}</span><small>${esc(i.definition)}</small></th></tr>${lignes}`;
+    }).join('');
+    const src = e.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.titre)}</a> (${esc(s.producteur)})`).join(' ; ');
+    return `<article class="card pad enquete${e.id === 'barometre2024' ? ' rupture' : ''}">
+      <header><h3>${esc(e.nom)} : ${esc(e.public.charAt(0).toLowerCase() + e.public.slice(1))}</h3><p>${esc(e.champ)}. ${esc(e.methode)}</p></header>
+      <div class="table-scroll"><table><thead>${tete}</thead><tbody>${corps}</tbody></table></div>
+      <p class="src">Source : ${src}.</p>
+    </article>`;
+  };
+  const GROUPES = [['moral', 'Le moral et le bien-être'], ['suicide', 'La santé mentale et les conduites suicidaires']];
+  $('enquetes').innerHTML = GROUPES.map(([g, titre]) => `<h3 class="groupe">${titre}</h3>${D.enquetes.filter(e => e.groupe === g).map(carte).join('')}`).join('');
+})();
+</script>
+</body>
+</html>

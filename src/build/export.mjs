@@ -59,6 +59,7 @@ export async function writeSiteLists(rows, dir) {
 //   /sites/                carte des sites web de l'État, et /sites/pilotage.html
 //   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides.html
 //   /acteurs/              organigramme des acteurs publics (pages et données de acteurs/)
+//   /jeunes/               moral des jeunes et pensées suicidaires (page et données de jeunes/)
 // Toutes les pages portent le même bandeau (src/build/bandeau.mjs).
 // Les anciennes adresses (sites.csv, sites.json, carte.pdf, pilotage.html) restent valides.
 export async function writeWeb(webData, rows) {
@@ -160,6 +161,15 @@ export async function writeWeb(webData, rows) {
   await writeOut('out/web/acteurs/donnees/acteurs.json', await readFile(path('acteurs/donnees/acteurs.json')));
   await writeOut('out/web/acteurs/donnees/services.json', await readFile(path('acteurs/donnees/services.json')));
 
+  // --- Section « Moral des jeunes » (page et données de jeunes/, saisies depuis les publications) ---
+  await writeBudgetPage('jeunes/index.html', 'out/web/jeunes/index.html', {
+    base, url: `${base}jeunes/`,
+    title: 'Le moral des jeunes et les pensées suicidaires',
+    description: "Pensées suicidaires, tentatives de suicide, dépression et bien-être des jeunes, année par année, filles et garçons, d'après Santé publique France (EnCLASS, Baromètre santé) et l'OFDT (ESCAPAD).",
+    bandeau: { racine: '../', section: 'jeunes', page: 'moral' },
+  });
+  await writeOut('out/web/jeunes/donnees/moral-des-jeunes.json', await readFile(path('jeunes/donnees/moral-des-jeunes.json')));
+
   // --- Accueil ---
   const secu = argent.secteurs.find(x => x.code === 'S1314').total;
   const part = code => argent.secteurs.find(x => x.code === code).total;
@@ -191,7 +201,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html', 'acteurs/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
