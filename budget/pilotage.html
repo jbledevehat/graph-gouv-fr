@@ -501,7 +501,9 @@ AnneeVive.page(async () => {
     if (geo && W) {
       const v = geo.vue, k = Math.min(W / v.w, geo.maxH / v.h);
       el.style.height = Math.round(v.h * k) + 'px';
-      T = d => ({ ...d, x: (d.x - v.x) * k, y: (d.y - v.y) * k, w: d.w * k, h: d.h * k });
+      // Centré dans le cadre quand il est moins large que lui.
+      const ox = (W - v.w * k) / 2;
+      T = d => ({ ...d, x: ox + (d.x - v.x) * k, y: (d.y - v.y) * k, w: d.w * k, h: d.h * k });
     }
     const H0 = el.clientHeight;
     if (!W || !H0) return;
@@ -511,7 +513,7 @@ AnneeVive.page(async () => {
     const gl = geo ? groups.map(g => { const p = T(g.node); return { ...g, x: p.x, y: p.y, w: p.w, h: p.h }; }) : squarify(groups.map(g => ({ ...g, v: sum(g.children, c => c.v) })), 0, 0, W, H);
     // Cadre de l'échelle commune : en pointillés, avec sa valeur dans la place laissée libre en dessous.
     const vide = geo?.cadre ? (() => { const c = T(geo.cadre), r = T(geo.racine), bas = c.h - r.h;
-      return `<rect class="cadre-vide" x="${c.x + 1}" y="${c.y + 1}" width="${c.w - 2}" height="${c.h - 2}"/>${bas > 34 && cadre ? `<text class="cadre-txt" x="${c.w / 2}" y="${r.h + bas / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : ''}`; })()
+      return `<rect class="cadre-vide" x="${c.x + 1}" y="${c.y + 1}" width="${c.w - 2}" height="${c.h - 2}"/>${bas > 34 && cadre ? `<text class="cadre-txt" x="${c.x + c.w / 2}" y="${r.h + bas / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : ''}`; })()
       : H0 - H > 34 && cadre ? `<rect class="cadre-vide" x="1" y="${H + 1}" width="${W - 2}" height="${H0 - H - 2}"/><text class="cadre-txt" x="${W / 2}" y="${H + (H0 - H) / 2 + 4}" text-anchor="middle">${esc(cadre)}</text>` : '';
     let svg = `<svg viewBox="0 0 ${W} ${H0}" aria-hidden="true" focusable="false">${vide}<defs><pattern id="hatch-${el.id}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern>${couleurs.map(c => `<pattern id="hatch-${el.id}-${c}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:color-mix(in srgb, var(--m-${c}) 30%, var(--panel))"/><rect width="2.6" height="8" style="fill:var(--m-${c})"/></pattern>`).join('')}</defs>`;
     const cellsOut = [];
@@ -642,8 +644,7 @@ AnneeVive.page(async () => {
     tool.className = 'explore';
     tool.innerHTML = `<nav class="crumbs" aria-label="Niveau affiché"></nav><div class="totals" role="list"></div>`;
     (el.closest('.duo') || el).before(tool);
-    // Avec geo, l'arbre est placé une fois pour toutes, comme sur la page d'exploration.
-    const noter = r => { const p = n => { AnneeVive.noter(el.id, n.id, n.v); (n.children || []).forEach(p); }; p(r); if (geo) geo.placer(r); return r; };
+    const noter = r => { const p = n => { AnneeVive.noter(el.id, n.id, n.v); (n.children || []).forEach(p); }; p(r); return r; };
     let root = noter(relier(construire())), courant = root, sel = null;
     const chemin = n => { const l = []; for (let x = n; x; x = x.parent) l.unshift(x); return l; };
     const zoom = n => { courant = n; sel = null; onNode && onNode(n); render(); };
@@ -671,7 +672,10 @@ AnneeVive.page(async () => {
       // Composition.
       const groupes = enfants.map(g => g.children?.length ? { id: g.id, label: g.label, node: g, children: g.children.filter(c => c.v > 0) } : { id: g.id, label: g.label, node: g, children: [g] });
       const echelleVue = echelle && courant === root ? { fraction: root.v / echelle.v, cadre: `Échelle commune à toutes les années : le cadre entier vaut ${mds(echelle.v)} (${echelle.libelle}).` } : {};
-      const vueGeo = geo ? { geo: { vue: courant === root ? geo.zone : courant, cadre: courant === root ? geo.zone : null, racine: root, maxH: geo.maxH() } } : {};
+      // Avec geo : vue d'ensemble disposée comme sur la page d'exploration (à l'échelle commune) ; un bloc
+      // ouvert est redisposé selon les mêmes règles dans tout le cadre, à la même taille.
+      if (geo) geo.placer(courant, courant !== root);
+      const vueGeo = geo ? { geo: { vue: geo.zone, cadre: courant === root ? geo.zone : null, racine: root, maxH: geo.maxH() } } : {};
       mondrian(el, groupes, { onPick: c => choisir(c), selected: c => c.id === sel, groupLabels: groupes.some(g => g.children.length > 1 || g.children[0] !== g.node), ...echelleVue, ...vueGeo });
       el.setAttribute('aria-label', `${ch.map(n => n.label).join(', puis ')} : ${enfants.length} éléments ; la liste des totaux et le tableau des chiffres donnent les mêmes montants.`);
     };
@@ -746,7 +750,8 @@ AnneeVive.page(async () => {
   }
   const geoExploration = cote => ({
     zone: ZONE, maxH: () => Math.min(innerHeight * 0.82, 860),
-    placer: racine => {
+    // plein : le nœud remplit tout le cadre (bloc ouvert) ; sinon sa surface suit son montant.
+    placer: (racine, plein = false) => {
       const REF = new Map(), tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); };
       if (GREF) tour(arbresArgentPublic(GREF, X, depMode, recMode)[cote]);
       const rang = d => REF.get(d.id) ?? d.v;
@@ -756,7 +761,7 @@ AnneeVive.page(async () => {
         const g = ESPACES[p + 1] || 0.4;
         for (const [c, cx, cy, cw, ch] of carreler(n.children, x, y, w, h, rang)) placer(c, cx + g / 2, cy + g / 2, Math.max(0, cw - g), Math.max(0, ch - g), p + 1);
       };
-      const f = Math.sqrt(racine.v / AN.echelle.insee_md);
+      const f = plein ? 1 : Math.sqrt(racine.v / AN.echelle.insee_md);
       placer(racine, 0, 0, ZONE.w * f, ZONE.h * f, 0);
     } });
   const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D), echelle: ECH_INSEE, geo: geoExploration(0) });
