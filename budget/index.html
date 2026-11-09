@@ -204,6 +204,27 @@
   #tip b { display: block; font-size: 13px; }
   #tip .val { font: 600 13px var(--mono); }
   #tip .tq { color: var(--muted); }
+  /* Évolution du bloc dans la fiche, année après année (comme sur la page de pilotage). */
+  .evol { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .evol h4 { margin: 0; font-size: 13px; }
+  .evol .resume { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .evol svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .evol .b { opacity: .5; }
+  .evol .b.cur { opacity: 1; }
+  .evol text { font-family: var(--sans); fill: var(--muted); }
+  .evol text.axe { font: 10.5px var(--mono); }
+  .evol text.unite { font: 600 10.5px var(--mono); }
+  .evol text.an { font: 500 11px var(--mono); }
+  .evol text.an.cur { fill: var(--ink); font-weight: 700; }
+  .evol line.grille { stroke: var(--line); stroke-width: 1; }
+  .evol line.zero { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; opacity: .55; }
+  .evol .courbe { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+  .evol .pt { fill: var(--ink); stroke: var(--panel); stroke-width: 2; }
+  .evol .zone:hover { fill: var(--ink); fill-opacity: .05; }
+  .evol-leg { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0; list-style: none; font-size: 12px; color: var(--muted); }
+  .evol-leg li { display: inline-flex; align-items: center; gap: 6px; }
+  .evol-leg .sw { width: 10px; height: 12px; border-radius: 2px; background: var(--c); }
+  .evol-leg .sw-pt { width: 16px; height: 8px; background: radial-gradient(circle, var(--ink) 3px, transparent 3.5px), linear-gradient(var(--ink), var(--ink)) center / 100% 2px no-repeat; }
 
   @media (max-width: 760px) {
     #side { left: 12px; right: 12px; width: auto; max-height: 46%; }
@@ -992,7 +1013,75 @@
     $('d-vue').onclick = () => { const id = n.id; changerVue(!vueFlux); const m = parId.get(id); if (m) ouvrir(m, { zoom: true }); };
     if ($('d-up')) $('d-up').onclick = () => { ouvrir(n.parent); cadrer(n.parent); };
     $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = parId.get(b.dataset.go); ouvrir(c); cadrer(c); });
+    evolutionFiche(n);
     if (zoom) cadrer(n); else majVue();
+  }
+  // ================= Évolution du bloc, année après année =================
+  // Le même bloc, avec les mêmes regroupements, dans les comptes de chaque année : montants en barres
+  // (axe de gauche, Md€) et évolution d'une année sur l'autre en points reliés (axe de droite, %).
+  const MONTANTS = new Map();
+  const montantsDe = async (an, cote) => {
+    const cle = `${an}|${cote}|${mode}|${modeRec}`;
+    if (!MONTANTS.has(cle)) {
+      const g = await charger(an).catch(() => null), m = new Map();
+      if (g) { const tour = x => { m.set(x.id, x.v); (x.children || []).forEach(tour); }; tour(arbresArgentPublic(g, X, mode, modeRec)[cote]); }
+      MONTANTS.set(cle, m);
+    }
+    return MONTANTS.get(cle);
+  };
+  const enPct = (v, b) => { const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
+  async function evolutionFiche(n) {
+    if (!n.parent && !n.children) return;
+    const cote = racineDe(n).id === 'dep' ? 0 : 1;
+    const serie = await Promise.all(AN.insee.map(async a => ({ a, v: (await montantsDe(a, cote)).get(n.id) ?? null })));
+    // La fiche a pu changer de bloc pendant le chargement.
+    if (choisi !== n) return;
+    const pts = serie.filter(p => p.v > 0);
+    if (pts.length < 2) return;
+    const couleur = n.color === 'hatch' ? 'var(--hatch)' : n.color === 'na' || !n.color ? 'var(--control)' : `var(--m-${n.color})`;
+    const premier = pts[0], dernier = pts[pts.length - 1];
+    const sp = serie.map((p, i) => ({ ...p, e: p.v > 0 && serie[i - 1]?.v > 0 ? (p.v / serie[i - 1].v - 1) * 100 : null }));
+    const pas = (etendue, k) => { const b = etendue / k, q = 10 ** Math.floor(Math.log10(b)), m = b / q; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * q; };
+    const W = 340, H = 222, Gm = 44, Dm = 44, T = 26, B = 26, iw = W - Gm - Dm, ih = H - T - B, col = iw / sp.length, larg = Math.min(28, col * 0.5);
+    const maxV = Math.max(...pts.map(p => p.v)), pm = pas(maxV, 4), hautM = Math.ceil(maxV / pm) * pm, yM = v => T + ih * (1 - v / hautM);
+    const es = sp.filter(p => p.e !== null).map(p => p.e), pp = pas(Math.max(1, Math.max(0, ...es) - Math.min(0, ...es)), 4);
+    const basP = Math.floor(Math.min(0, ...es) / pp) * pp, hautP = Math.ceil(Math.max(0, ...es) / pp) * pp || pp, yP = v => T + ih * (hautP - v) / (hautP - basP);
+    const fM = v => v === 0 ? '0' : v >= 1 ? nf(v, v >= 10 || pm >= 1 ? 0 : 1) : Math.round(v * 1000) + ' M';
+    const fP = v => (v > 0 ? '+' : v < 0 ? '−' : '') + nf(Math.abs(v), pp < 1 ? 1 : 0) + ' %';
+    const tM = []; for (let v = 0; v <= hautM + pm / 1e6; v += pm) tM.push(v);
+    const tP = []; for (let v = basP; v <= hautP + pp / 1e6; v += pp) tP.push(v);
+    const cx = i => Gm + col * i + col / 2, ligne = sp.map((p, i) => [p, i]).filter(([p]) => p.e !== null);
+    const total = dernier.v - premier.v;
+    const box = document.createElement('div');
+    box.className = 'evol';
+    box.innerHTML = `<h4>Évolution de ${premier.a} à ${dernier.a}</h4>
+      <p class="resume">${mds(premier.v)} en ${premier.a}, ${mds(dernier.v)} en ${dernier.a} : <b>${enPct(dernier.v, premier.v)}</b> (${total >= 0 ? '+' : '−'}${mds(Math.abs(total))}).</p>
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${n.titre || n.label}, année par année : ${sp.filter(p => p.v > 0).map((p, i) => `${p.a}, ${mds(p.v)}${p.e !== null ? ` (${enPct(p.v, p.v / (1 + p.e / 100))})` : ''}`).join(' ; ')}.`)}">
+        ${tM.map(v => `<line class="grille" x1="${Gm}" x2="${W - Dm}" y1="${yM(v)}" y2="${yM(v)}"/><text class="axe" x="${Gm - 6}" y="${yM(v) + 3.5}" text-anchor="end">${fM(v)}</text>`).join('')}
+        ${tP.map(v => `<text class="axe" x="${W - Dm + 6}" y="${yP(v) + 3.5}">${fP(v)}</text>`).join('')}
+        <text class="unite" x="${Gm - 6}" y="9" text-anchor="end">Md€</text><text class="unite" x="${W - Dm + 6}" y="9">%</text>
+        ${sp.map((p, i) => p.v > 0 ? `<rect class="b${p.a === anneeValidee ? ' cur' : ''}" x="${cx(i) - larg / 2}" y="${yM(p.v)}" width="${larg}" height="${Math.max(1, T + ih - yM(p.v))}" rx="2" style="fill:${couleur}"/>` : '').join('')}
+        <line class="zero" x1="${Gm}" x2="${W - Dm}" y1="${yP(0)}" y2="${yP(0)}"/>
+        <polyline class="courbe" points="${ligne.map(([p, i]) => `${cx(i)},${yP(p.e)}`).join(' ')}"/>
+        ${ligne.map(([p, i]) => `<circle class="pt" cx="${cx(i)}" cy="${yP(p.e)}" r="4"/>`).join('')}
+        ${sp.map((p, i) => `<text class="an${p.a === anneeValidee ? ' cur' : ''}" x="${cx(i)}" y="${H - 8}" text-anchor="middle">${p.a}</text>`).join('')}
+        ${sp.map((p, i) => p.v > 0 ? `<rect class="zone" data-i="${i}" x="${Gm + col * i}" y="${T}" width="${col}" height="${ih}" fill="transparent"/>` : '').join('')}
+      </svg>
+      <ul class="evol-leg"><li><span class="sw" style="--c:${couleur}"></span>Montant de l'année (axe de gauche, Md€)</li><li><span class="sw-pt"></span>Évolution par rapport à l'année précédente (axe de droite, %)</li></ul>`;
+    box.querySelectorAll('.zone').forEach(zn => {
+      const p = sp[+zn.dataset.i];
+      const aide = `<b>${esc(n.titre || n.label)} en ${p.a}</b><span class="val">${mds(p.v)}</span>${p.e !== null ? ` · ${enPct(p.v, p.v / (1 + p.e / 100))} par rapport à ${sp[+zn.dataset.i - 1].a}` : ''}`;
+      zn.addEventListener('pointermove', e => {
+        tip.innerHTML = aide; tip.hidden = false;
+        const t = tip.getBoundingClientRect();
+        tip.style.left = Math.max(8, Math.min(innerWidth - t.width - 8, e.clientX + 14)) + 'px';
+        tip.style.top = (e.clientY + 16 + t.height > innerHeight ? e.clientY - t.height - 10 : e.clientY + 16) + 'px';
+      });
+      zn.addEventListener('pointerleave', cacherTip);
+    });
+    // Sous la description, avant les boutons.
+    $('d-body').querySelector('.evol')?.remove();
+    $('d-body').querySelector('.d-actions')?.before(box);
   }
   // Fiche d'une estimation : la fourchette, ce que c'est, comment c'est calculé, sa fiabilité, sa source.
   function ouvrirEstimation(n, { zoom = false } = {}) {
