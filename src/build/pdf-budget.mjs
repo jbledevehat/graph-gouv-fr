@@ -23,11 +23,11 @@ const CHAR = 0.55; // largeur moyenne d'un caractère d'IBM Plex Sans, en em
 const POLICE = path('src/build/polices/ibm-plex-sans-latin-400.woff'), POLICE_GRAS = path('src/build/polices/ibm-plex-sans-latin-700.woff');
 // Même géométrie que la page (disposition côte à côte), en points PDF ; bloc central de deux barres
 // d'épaisseur BARRE, séparées de JOINT, à MARGE_C des moitiés.
-const TETE = 70, HAUT_PAGE = 230;
+const TETE = 70, HAUT_PAGE = 300, BAS_PAGE = 160;
 const BARRE = 90, JOINT = 10, MARGE_C = 40, CENTRE = 2 * BARRE + JOINT + 2 * MARGE_C;
 const ZONES = [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1302 + CENTRE, y: TETE, w: 982, h: 1190 }];
 const COLONNES = [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2324 + CENTRE, y: TETE, w: 280, h: 1190 }];
-const LARGEUR = 2604 + CENTRE + 2 * 60, HAUTEUR = 1260 + HAUT_PAGE + 120;
+const LARGEUR = 2604 + CENTRE + 2 * 60, HAUTEUR = 1260 + HAUT_PAGE + 40 + BAS_PAGE;
 // Vue en flux : mêmes colonnes que la page (abscisses du bloc central vers l'extérieur).
 const FLUX = { W: 3200, TOP: 150, NW: 18, NIV: 3, RESERVE: 420, H: 2150,
   rec: [1230, 860, 520], dep: [1860, 2240, 2620], centre: 1460, freres: [0, 16, 6, 2.2], cousins: [0, 16, 16, 9] };
@@ -104,24 +104,25 @@ function hachurer(doc, x, y, w, h) {
 
 // Bloc central : une barre partagée entre recettes (en haut) et déficit (en bas), collée à la barre
 // des dépenses publiques, de même longueur ; textes écrits le long des barres ; le total au-dessus.
-function dessinerCentre(doc, G, x, y, long) {
+// haut : distance entre le haut des barres et celui du total (plus grande quand une ligne de titres les sépare).
+function dessinerCentre(doc, G, x, y, long, haut = 82) {
   const R = G.total_recettes, def = -G.solde, T = R + def, a = long * R / T;
   const parts = [['RECETTES', R, 'total', x, y, a], ['DÉFICIT', def, 'hatch', x, y + a, long - a], ['DÉPENSES PUBLIQUES', T, 'dep', x + BARRE + JOINT, y, long]];
   for (const [nom, v, c, bx, by, bh] of parts) {
     if (c === 'hatch') hachurer(doc, bx, by, BARRE, bh); else doc.rect(bx, by, BARRE, bh).fill(COULEURS[c]);
     doc.rect(bx, by, BARRE, bh).lineWidth(1).strokeColor(PAPER).stroke();
-    doc.font('Plex-Gras').fontSize(24);
+    doc.font('Plex-Gras').fontSize(30);
     const txt = [`${nom} · ${mds(v)}`, mds(v)].find(t => doc.widthOfString(t) <= bh - 16);
     if (!txt) continue;
     const w = doc.widthOfString(txt);
     doc.save().translate(bx + BARRE / 2, by + bh / 2).rotate(-90);
-    if (c === 'hatch') doc.rect(-w / 2 - 6, -16, w + 12, 32).fill(PAPER);
-    doc.fillColor(ENCRE[c]).text(txt, -w / 2, -14, { lineBreak: false });
+    if (c === 'hatch') doc.rect(-w / 2 - 6, -20, w + 12, 40).fill(PAPER);
+    doc.fillColor(ENCRE[c]).text(txt, -w / 2, -18, { lineBreak: false });
     doc.restore();
   }
-  doc.font('Plex-Gras').fontSize(40).fillColor(INK);
+  doc.font('Plex-Gras').fontSize(60).fillColor(INK);
   const tt = mds(T), w = doc.widthOfString(tt);
-  doc.text(tt, x + BARRE + JOINT / 2 - w / 2, y - 56, { lineBreak: false });
+  doc.text(tt, x + BARRE + JOINT / 2 - w / 2, y - haut, { lineBreak: false });
 }
 
 function dessinerArbre(doc, racine) {
@@ -159,7 +160,8 @@ function etiqueterBloc(doc, n) {
   const contexte = []; for (let p = n.parent; p && p.parent; p = p.parent) contexte.push(p.label);
   const textes = [[n.label, 'Plex-Gras', 1], [mds(n.v), 'Plex', 0.85], ...(contexte.length ? [[contexte.join(' · '), 'Plex', 0.7]] : [])];
   // Plus grande taille (au plus 15 pt) qui fait tout tenir.
-  let taille = Math.min(15, H / 2.2), mise = null;
+  // Les grands blocs en grand (jusqu'à 30 pt), les petits aussi petit qu'il le faut.
+  let taille = Math.min(30, H / 2.2), mise = null;
   for (; taille > 0.15; taille *= 0.92) {
     const blocs = textes.map(([t, police, f]) => ({ police, taille: taille * f, lignes: couper(doc, t, police, taille * f, L - 2 * pad) }));
     if (blocs.some(b => !b.lignes)) continue;
@@ -184,8 +186,8 @@ function dessinerEstimations(doc, E, annee, aire) {
   [[E.non_percu_recettes, COLONNES[0]], [E.non_percu_aides, COLONNES[1]]].forEach(([c, col]) => {
     const postes = c.postes.map(p => pourAnnee(p, annee)).sort((p, q) => q.haut - p.haut);
     const env = c.enveloppe && pourAnnee(c.enveloppe, annee);
-    ligne(doc, c.titre, col.x + 6, col.y, col.w - 12, 16, { gras: true });
-    ligne(doc, `${c.sous_titre} · ${fourchette(sum(postes, p => p.bas), sum(postes, p => p.haut))}`, col.x + 6, col.y + 20, col.w - 12, 10, { couleur: MUTED });
+    ligne(doc, c.titre, col.x + 6, col.y, col.w - 12, 22, { gras: true });
+    ligne(doc, `${c.sous_titre} · ${fourchette(sum(postes, p => p.bas), sum(postes, p => p.haut))}`, col.x + 6, col.y + 28, col.w - 12, 13, { couleur: MUTED });
     let y = col.y + 50;
     const cercle = (p, cx, R, r, enveloppe) => {
       const cy = y + R;
@@ -210,15 +212,42 @@ function dessinerEstimations(doc, E, annee, aire) {
   });
 }
 
+// Comment chaque administration finance ses dépenses, comme sur la page : ressources propres (impôts,
+// cotisations, emprunt, moins l'excédent), ce que l'État lui verse (d'après son budget, quand il est
+// disponible) et le reste, autres recettes et transferts ; l'État garde ce qu'il ne reverse pas.
+function financement(G, etat) {
+  const direct = {};
+  if (etat) {
+    const PB = etat.BE.programmes.filter(p => p.programme !== '200');
+    const cat = ks => sum(PB, p => sum(ks, c => etat.DE.programmes[p.programme]?.categories?.[c])) / 1000;
+    direct.S1313 = cat(['63']) - etat.BE.recettes.sections.find(x => x.section.startsWith('31')).net / 1000;
+    direct.S1314 = cat(['64']);
+    direct.S13112 = cat(['32', '53']);
+  }
+  const propres = s => s.recettes.impots + s.recettes.cotisations + Math.max(0, -s.recettes.solde) - Math.max(0, s.recettes.solde);
+  const res = {}; let verse = 0;
+  for (const s of G.secteurs) if (s.code !== 'S13111') {
+    const propre = Math.max(0, Math.min(propres(s), s.total)), parEtat = Math.max(0, Math.min(direct[s.code] || 0, s.total - propre));
+    res[s.code] = { propre, etat: parEtat, autres: s.total - propre - parEtat };
+    verse += parEtat;
+  }
+  const e = G.secteurs.find(s => s.code === 'S13111'), propre = Math.max(0, Math.min(propres(e) - verse, e.total));
+  res.S13111 = { propre, etat: 0, autres: e.total - propre };
+  return res;
+}
+// Décalage des colonnes des dépenses quand l'étape du financement est dessinée.
+const FIN = 400;
+
 // Vue en flux, comme sur la page : les mêmes arbres, recettes de leur détail (à gauche) jusqu'au bloc
 // central, dépenses du bloc central jusqu'à leur détail (à droite).
-function dessinerFlux(doc, G, AN, modeDep, modeRec) {
+function dessinerFlux(doc, G, AN, modeDep, modeRec, etat, annee) {
+  const avecFin = modeDep === 'administration', DEP = avecFin ? FLUX.dep.map(x => x + FIN) : FLUX.dep, W = FLUX.W + (avecFin ? FIN : 0);
   const { TOP, NW } = FLUX, LC = 2 * BARRE + JOINT, k = (FLUX.H - TOP - 20 - FLUX.RESERVE) / AN.echelle.insee_md;
   const fin = n => /^r-deficit/.test(n.id) ? 2 : /^r-autres/.test(n.id) ? 1 : 0;
   const enfants = n => (n.children || []).filter(c => c.v > 0).sort((a, b) => fin(a) - fin(b) || rang(b) - rang(a));
   const racines = arbres(G, modeDep, modeRec).reverse(), noeuds = [], liens = [];
   for (const r of racines) {
-    const cote = r.id === 'rec' ? FLUX.rec : FLUX.dep;
+    const cote = r.id === 'rec' ? FLUX.rec : DEP;
     Object.assign(r, { x: FLUX.centre, y: TOP, w: LC, h: r.v * k, depth: 0, cote: r.id });
     let niveau = [r];
     for (let d = 1; d <= FLUX.NIV && niveau.length; d++) {
@@ -236,28 +265,51 @@ function dessinerFlux(doc, G, AN, modeDep, modeRec) {
     }
   }
   const teinte = n => n.color === 'na' ? FX_NA : COULEURS[n.color];
-  // Rubans translucides, de la couleur du bloc le plus fin.
-  for (const { c, p, yp } of liens) {
-    const w = c.h, [xa, ya, xb, yb] = c.cote === 'rec' ? [c.x + c.w, c.y, p.x, yp] : [p.x + p.w, yp, c.x, c.y], mx = (xa + xb) / 2;
+  const ruban = (xa, ya, xb, yb, w, couleur) => { const mx = (xa + xb) / 2;
     doc.save().moveTo(xa, ya).bezierCurveTo(mx, ya, mx, yb, xb, yb).lineTo(xb, yb + w).bezierCurveTo(mx, yb + w, mx, ya + w, xa, ya + w).closePath()
-      .fillOpacity(0.55).fill(teinte(c)).restore();
+      .fillOpacity(0.55).fill(couleur).restore(); };
+  // Financement de chaque administration, entre le bloc central et ce qu'elle dépense.
+  const rd = racines.find(r => r.id === 'dep'), fins = [];
+  if (avecFin) {
+    const F = financement(G, etat), NOMS = { propre: 'Ressources propres', etat: "Versé par l'État", autres: 'Autres recettes et transferts' };
+    let y = TOP, oC = rd.y, prec = null;
+    for (const a of enfants(rd)) {
+      const parts = F[a.secteur]; if (!parts) continue;
+      let oA = a.y;
+      for (const cle of ['propre', 'etat', 'autres']) {
+        const v = parts[cle]; if (!(v > 0.0005)) continue;
+        if (prec) y += prec.cible === a ? 4 : 14;
+        const n = { label: NOMS[cle], v, cible: a, cote: 'dep', depth: 0.5, color: cle === 'propre' ? a.color : cle === 'etat' ? 'etat' : 'na', x: FLUX.dep[0], y, w: NW, h: v * k };
+        ruban(rd.x + rd.w, oC, n.x, n.y, n.h, teinte(n)); ruban(n.x + n.w, n.y, a.x, oA, n.h, teinte(n));
+        oC += n.h; oA += n.h; y += n.h; prec = n; fins.push(n);
+      }
+    }
   }
-  for (const n of noeuds) {
+  // Rubans translucides, de la couleur du bloc le plus fin ; avec le financement, le bloc central ne va
+  // plus directement à chaque administration.
+  for (const { c, p, yp } of liens) {
+    if (avecFin && p === rd) continue;
+    const [xa, ya, xb, yb] = c.cote === 'rec' ? [c.x + c.w, c.y, p.x, yp] : [p.x + p.w, yp, c.x, c.y];
+    ruban(xa, ya, xb, yb, c.h, teinte(c));
+  }
+  for (const n of [...noeuds, ...fins]) {
     if (n.color === 'hatch') hachurer(doc, n.x, n.y, n.w, Math.max(0.5, n.h)); else doc.rect(n.x, n.y, n.w, Math.max(0.5, n.h)).fill(teinte(n));
     // Nom et montant sur une ligne, à gauche des recettes, à droite des dépenses, réduits pour tenir
     // jusqu'à la colonne voisine (le PDF est vectoriel : on zoome).
-    const gauche = n.cote === 'rec', cols = gauche ? FLUX.rec : FLUX.dep;
-    const place = gauche ? n.x - (cols[n.depth] !== undefined ? cols[n.depth] + NW : 0) - 12 : (cols[n.depth] ?? FLUX.W) - n.x - n.w - 12;
+    const gauche = n.cote === 'rec', cols = gauche ? FLUX.rec : DEP;
+    const place = gauche ? n.x - (cols[n.depth] !== undefined ? cols[n.depth] + NW : 0) - 12 : (n.depth === 0.5 ? DEP[0] : cols[n.depth] ?? W) - n.x - n.w - 12;
     const txt = `${n.label} · ${mds(n.v)}`;
-    const t = Math.min(14, n.h * 0.8 + 1.2, place / (Math.max(txt.length, 1) * CHAR));
+    // Les grands ensembles en grand, le détail plus petit (on zoome dans le PDF).
+    const max = n.depth === 1 ? 30 : n.depth === 0.5 || n.depth === 2 ? 22 : 15;
+    const t = Math.min(max, n.h * 0.8 + 1.2, place / (Math.max(txt.length, 1) * CHAR));
     if (t < 0.8) continue;
     doc.font('Plex-Gras').fontSize(t);
     const w = doc.widthOfString(txt), x = gauche ? n.x - 6 - w : n.x + n.w + 6;
     doc.fillColor(INK).text(txt, x, n.y + n.h / 2 - t * 0.6, { lineBreak: false });
   }
   dessinerCentre(doc, G, FLUX.centre, TOP, Math.max(...racines.map(r => r.h)));
-  ligne(doc, 'Recettes et emprunt', 20, TOP - 70, 600, 26, { gras: true });
-  ligne(doc, 'Dépenses', FLUX.dep[0], TOP - 70, 600, 26, { gras: true });
+  ligne(doc, 'Recettes et emprunt', 20, TOP - 110, 700, 38, { gras: true });
+  ligne(doc, 'Dépenses', FLUX.dep[0], TOP - 110, 700, 38, { gras: true });
 }
 
 export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administration', modeRec = 'administration', vue = 'blocs') {
@@ -266,7 +318,11 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   REF = new Map();
   const tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); };
   arbres(GREF, modeDep, modeRec).forEach(tour);
-  const flux = vue === 'flux', largeur = flux ? FLUX.W + 120 : LARGEUR, hauteur = flux ? HAUT_PAGE + FLUX.H + 220 : HAUTEUR;
+  const flux = vue === 'flux', fin = flux && modeDep === 'administration';
+  const largeur = flux ? FLUX.W + (fin ? FIN : 0) + 120 : LARGEUR, hauteur = flux ? HAUT_PAGE + FLUX.H + 100 + BAS_PAGE : HAUTEUR;
+  // Budget de l'État de l'année (ses versements aux autres administrations), pour le financement du flux.
+  const lire = n => { try { return JSON.parse(readFileSync(path(`budget/donnees/${n}-etat-${annee}.json`), 'utf8')); } catch (e) { return null; } };
+  const etat = fin && (AN.etat || []).includes(annee) ? { BE: lire('budget'), DE: lire('detail') } : null;
   const doc = new PDFDocument({
     size: [largeur, hauteur], margin: 0, compress: true, lang: 'fr-FR', displayTitle: true,
     info: {
@@ -285,22 +341,22 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   doc.rect(0, 0, largeur, hauteur).fill(PAPER);
   // En-tête.
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
-  doc.font('Plex-Gras').fontSize(46).fillColor(INK).text(`L'argent public en ${annee}`, 60, 50, { lineBreak: false });
-  doc.font('Plex').fontSize(20).fillColor(MUTED).text(
+  doc.font('Plex-Gras').fontSize(68).fillColor(INK).text(`L'argent public en ${annee}`, 60, 46, { lineBreak: false });
+  doc.font('Plex').fontSize(30).fillColor(MUTED).text(
     `${mds(R)} de recettes et ${mds(-S)} de déficit, couvert par l'emprunt, qui financent ${mds(D)} de dépenses publiques (État, sécurité sociale, collectivités locales, opérateurs de l'État).`,
-    60, 112, { width: largeur - 120 });
-  doc.font('Plex-Gras').fontSize(14).fillColor(INK).text(`Recettes regroupées par ${modeRec === 'type' ? 'type de recette (impôt par impôt)' : 'administration'} · dépenses regroupées par ${modeDep}`, 60, 150, { lineBreak: false });
+    60, 128, { width: largeur - 120 });
+  doc.font('Plex-Gras').fontSize(22).fillColor(INK).text(`Recettes regroupées par ${modeRec === 'type' ? 'type de recette (impôt par impôt)' : 'administration'} · dépenses regroupées par ${modeDep}`, 60, 186, { lineBreak: false });
   const plus = AN.echelle.insee_md.toLocaleString('fr-FR', { maximumFractionDigits: 0 }).replace(/ /g, ' ');
-  doc.font('Plex').fontSize(14).fillColor(MUTED).text(flux
-    ? `Chaque ruban est à l'échelle de son montant, la même pour toutes les années (la plus grande, ${plus} Md€, remplit la hauteur). Au centre, les recettes et le déficit font ensemble la dépense publique.`
-    : `Surfaces proportionnelles aux montants, à la même échelle pour toutes les années (la plus grande, ${plus} Md€, remplit la zone). Au centre, les recettes et le déficit font ensemble la dépense publique. Sur les côtés, en cercles : des estimations, pas des comptes (cercle atténué : estimation d'une autre année).`, 60, 174, { width: largeur - 120 });
+  doc.font('Plex').fontSize(19).fillColor(MUTED).text(flux
+    ? `Chaque ruban est à l'échelle de son montant, la même pour toutes les années (la plus grande, ${plus} Md€, remplit la hauteur). Au centre, les recettes et le déficit font ensemble la dépense publique.${fin ? ` Avant les dépenses, pour chaque administration : ses ressources propres, ce que l'État lui verse${etat ? ` (budget de l'État ${annee})` : ''} et les autres recettes et transferts.` : ''}`
+    : `Surfaces proportionnelles aux montants, à la même échelle pour toutes les années (la plus grande, ${plus} Md€, remplit la zone). Au centre, les recettes et le déficit font ensemble la dépense publique. Sur les côtés, en cercles : des estimations, pas des comptes (cercle atténué : estimation d'une autre année).`, 60, 222, { width: largeur - 120 });
 
   if (flux) {
-    doc.save().translate(60, HAUT_PAGE - FLUX.TOP + 90);
-    dessinerFlux(doc, G, AN, modeDep, modeRec);
+    doc.save().translate(60, HAUT_PAGE - FLUX.TOP + 150);
+    dessinerFlux(doc, G, AN, modeDep, modeRec, etat, annee);
     doc.restore();
   } else {
-  doc.save().translate(60, HAUT_PAGE - TETE + 20);
+  doc.save().translate(60, HAUT_PAGE - TETE + 90);
   // Recettes à gauche, dépenses à droite, comme sur la page.
   const racines = arbres(G, modeDep, modeRec).reverse();
   racines.forEach((r, i) => {
@@ -308,10 +364,10 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
     const x = i === 0 ? z.x + z.w - w : z.x;
     placer(r, x, z.y, w, h);
     // Le montant n'est écrit qu'une fois, sur le bloc central.
-    ligne(doc, r.label, x, z.y - 30, Math.max(w, 400), 22, { gras: true });
+    ligne(doc, r.label, x, z.y - 46, Math.max(w, 400), 36, { gras: true });
     dessinerArbre(doc, r);
   });
-  dessinerCentre(doc, G, racines[0].x + racines[0].w + MARGE_C, TETE, Math.max(...racines.map(r => r.h)));
+  dessinerCentre(doc, G, racines[0].x + racines[0].w + MARGE_C, TETE, Math.max(...racines.map(r => r.h)), 128);
   // Échelle des estimations : surface réelle des blocs de dépenses, par milliard.
   const feuilles = [];
   const f = n => (n.children?.length ? n.children.forEach(f) : n.x !== undefined && feuilles.push(n));
@@ -322,15 +378,19 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
 
   // Légende et sources.
   let lx = 60;
-  const ly = hauteur - 80;
+  const ly = hauteur - 110;
   for (const [c, l] of [['etat', 'État'], ['secu', 'Sécurité sociale'], ['coll', 'Collectivités locales'], ['op', "Opérateurs de l'État"], ['na', modeRec === 'type' ? 'Recettes par type, toutes administrations' : 'Autres recettes'], ['hatch', 'Déficit (emprunt)']]) {
-    doc.rect(lx, ly, 16, 16).fill(flux && c === 'na' ? FX_NA : COULEURS[c]);
-    doc.font('Plex').fontSize(14).fillColor(INK).text(l, lx + 22, ly + 1, { lineBreak: false });
-    lx += 40 + doc.widthOfString(l);
+    doc.rect(lx, ly, 24, 24).fill(flux && c === 'na' ? FX_NA : COULEURS[c]);
+    doc.font('Plex').fontSize(22).fillColor(INK).text(l, lx + 32, ly + 1, { lineBreak: false });
+    lx += 60 + doc.widthOfString(l);
   }
-  doc.font('Plex').fontSize(12).fillColor(MUTED).text(
+  // Auteur, à droite de la légende.
+  doc.font('Plex-Gras').fontSize(22).fillColor(INK);
+  const auteur = 'Conçu par Jean-Baptiste Le Dévéhat';
+  doc.text(auteur, largeur - 60 - doc.widthOfString(auteur), ly + 1, { lineBreak: false });
+  doc.font('Plex').fontSize(17).fillColor(MUTED).text(
     "Sources : Insee, comptes de la Nation (base 2020) ; estimations : HCFiPS, DGFiP, Conseil d'analyse économique, CEPII, DREES, Cour des comptes. Détail, explications et données ouvertes : gouvfr.jbledevehat.fr/budget/ · Proposition indépendante, ce n'est pas un document officiel.",
-    60, ly + 32, { width: largeur - 120 });
+    60, ly + 44, { width: largeur - 120 });
   doc.lineWidth(1).strokeColor(LINE);
   doc.end();
   await fini;

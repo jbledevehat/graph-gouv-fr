@@ -146,6 +146,10 @@ export function writePdf({ nodes, edges, poles, categories, meta }, file = 'out/
   doc.font('Helvetica-Bold').fontSize(34).fillColor(INK).text('Sites web publics de l\'État', MARGIN, MARGIN * 0.6, { lineBreak: false });
   doc.font('Helvetica').fontSize(12).fillColor(MUTED)
     .text(`Carte mise à jour le ${dateFr(meta.date)} (sites vérifiés le ${dateFr(meta.verifie)}) · ${meta.elements} éléments · gouvfr.jbledevehat.fr · Licence Ouverte 2.0`, MARGIN, MARGIN * 0.6 + 44, { lineBreak: false });
+  // Auteur, en haut à droite.
+  doc.font('Helvetica-Bold').fontSize(16).fillColor(INK);
+  const auteur = 'Conçu par Jean-Baptiste Le Dévéhat';
+  doc.text(auteur, width - MARGIN - doc.widthOfString(auteur), MARGIN * 0.6 + 12, { lineBreak: false });
   let lx = MARGIN;
   const ly = MARGIN * 0.6 + 70;
   for (const c of categories) {
