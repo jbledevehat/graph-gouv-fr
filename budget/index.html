@@ -256,7 +256,7 @@
     <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
     <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface ; au milieu, les recettes et le déficit font ensemble la dépense publique. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
-    <p class="sub" id="sub-flux" hidden>Les mêmes blocs suivis de gauche à droite : le détail des recettes et de l'emprunt ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; puis le détail des dépenses. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
+    <p class="sub" id="sub-flux" hidden>Les mêmes blocs suivis de gauche à droite : le détail des recettes et de l'emprunt ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; puis, par administration, comment chacune finance ses dépenses (ses ressources propres, ce que l'État lui verse, les autres recettes et transferts) et le détail de ce qu'elle dépense. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
     <div class="figures" id="figures"></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a> · <a id="lien-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download>Exploration en PDF</a></p>
     <p class="alerte" id="alerte" hidden></p>
@@ -358,6 +358,40 @@
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .catch(e => { CACHE.delete(an); throw e; }));
     return CACHE.get(an);
+  };
+  // Budget de l'État de l'année (ses versements aux autres administrations), chargé seulement pour le flux.
+  const ETATS = new Map(), ETATV = new Map();
+  const chargerEtat = an => {
+    if (!an || !(AN.etat || []).includes(an)) { if (an) ETATV.set(an, null); return null; }
+    if (!ETATS.has(an)) ETATS.set(an, Promise.all(['budget', 'detail'].map(t => fetch(`donnees/${t}-etat-${an}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)))
+      .then(([BE, DE]) => { const e = BE && DE ? { BE, DE } : null; ETATV.set(an, e); return e; })
+      .catch(() => { ETATV.set(an, null); return null; }));
+    return ETATS.get(an);
+  };
+  // Comment chaque administration finance ses dépenses : ses ressources propres (impôts, cotisations et
+  // emprunt, moins son excédent), ce que l'État lui verse (d'après son budget, catégories de dépenses :
+  // collectivités, sécurité sociale et autres organismes, opérateurs ; années où il est disponible),
+  // et le reste, autres recettes et transferts que les comptes publiés ne détaillent pas. L'État,
+  // lui, garde ce qu'il ne reverse pas. Pour chaque administration, la somme fait exactement sa dépense.
+  const financement = (g, etat) => {
+    const direct = {};
+    if (etat) {
+      const PB = etat.BE.programmes.filter(p => p.programme !== '200');
+      const cat = ks => sum(PB, p => sum(ks, c => etat.DE.programmes[p.programme]?.categories?.[c])) / 1000;
+      direct.S1313 = cat(['63']) - etat.BE.recettes.sections.find(x => x.section.startsWith('31')).net / 1000;
+      direct.S1314 = cat(['64']);
+      direct.S13112 = cat(['32', '53']);
+    }
+    const propres = s => s.recettes.impots + s.recettes.cotisations + Math.max(0, -s.recettes.solde) - Math.max(0, s.recettes.solde);
+    const res = {}; let verse = 0;
+    for (const s of g.secteurs) if (s.code !== 'S13111') {
+      const propre = Math.max(0, Math.min(propres(s), s.total)), parEtat = Math.max(0, Math.min(direct[s.code] || 0, s.total - propre));
+      res[s.code] = { propre, etat: parEtat, autres: s.total - propre - parEtat };
+      verse += parEtat;
+    }
+    const e = g.secteurs.find(s => s.code === 'S13111'), propre = Math.max(0, Math.min(propres(e) - verse, e.total));
+    res.S13111 = { propre, etat: 0, autres: e.total - propre, verse };
+    return res;
   };
   try { [G, GREF, X, E] = await Promise.all([charger(annee), charger(AN.reference), ...['donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))]); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
@@ -550,20 +584,26 @@
     rec: [1230, 860, 520], dep: [1860, 2240, 2620], centre: 1460,
     // Écart entre deux blocs d'une colonne : de même parent, ou de parents différents.
     freres: [0, 16, 6, 2.2], cousins: [0, 16, 16, 9] };
-  let fxCols = [];
+  let fxCols = [], colsDep = FLUX.dep, fins = [];
+  // Étape du financement (dépenses regroupées par administration) : une colonne de plus, à FIN du bloc central.
+  const FIN = 400;
   const r2 = v => Math.round(v * 100) / 100;
   // Ordre des blocs : celui de leurs parents, puis le montant de l'année de référence ; côté recettes,
   // les autres recettes puis le déficit en dernier, qui arrive ainsi sur la part « déficit » du bloc central.
   const finDeListe = n => /^r-deficit/.test(n.id) ? 2 : /^r-autres/.test(n.id) ? 1 : 0;
   const enfantsFlux = n => (n.children || []).filter(c => c.v > 0).sort((a, b) => finDeListe(a) - finDeListe(b) || rang(b) - rang(a));
   function dessinerFlux() {
-    ({ W, H } = FLUX);
+    const avecFin = mode === 'admin';
+    // Budget de l'État pas encore chargé : on dessine sans lui, puis on redessine quand il arrive.
+    if (avecFin && (AN.etat || []).includes(annee) && !ETATV.has(annee)) chargerEtat(annee)?.then(() => { if (vueFlux && mode === 'admin') dessiner(); });
+    colsDep = avecFin ? FLUX.dep.map(x => x + FIN) : FLUX.dep;
+    W = FLUX.W + (avecFin ? FIN : 0); H = FLUX.H;
     const { TOP, NW } = FLUX, LC = 2 * BARRE + JOINT, k = (H - TOP - 20 - FLUX.RESERVE) / AN.echelle.insee_md;
     racines = arbres(); estim = []; colonnes = [];
-    noeuds = []; parId = new Map(); fxCols = [];
+    noeuds = []; parId = new Map(); fxCols = []; fins = [];
     const liens = [];
     for (const r of racines) {
-      const cote = r.id === 'rec' ? FLUX.rec : FLUX.dep;
+      const cote = r.id === 'rec' ? FLUX.rec : colsDep;
       Object.assign(r, { x: FLUX.centre, y: TOP, w: LC, h: r.v * k });
       noeuds.push(r); parId.set(r.id, r);
       let niveau = [r];
@@ -582,6 +622,31 @@
         niveau = suivant;
       }
     }
+    // Financement de chaque administration, entre le bloc central et ce qu'elle dépense.
+    const rd = racines.find(r => r.id === 'dep'), liensFin = [];
+    if (avecFin) {
+      const F = financement(G, ETATV.get(annee) ?? null), xF = FLUX.dep[0], etat = !!ETATV.get(annee);
+      // [nom du bloc, sa description dans l'infobulle]
+      const NOMS = { propre: ['Ressources propres', 'ses impôts, ses cotisations et son emprunt'], etat: ["Versé par l'État", `ce que l'État lui verse, d'après son budget ${annee}`],
+        autres: ['Autres recettes et transferts', etat ? 'ventes, revenus, transferts entre administrations que les comptes publiés ne détaillent pas' : "ventes, revenus, et ce que verse l'État, non détaillé pour cette année"] };
+      let y = TOP, oC = rd.y, prec = null;
+      for (const a of enfantsFlux(rd)) {
+        const parts = F[a.secteur]; if (!parts) continue;
+        let oA = a.y;
+        for (const cle of ['propre', 'etat', 'autres']) {
+          const v = parts[cle]; if (!(v > 0.0005)) continue;
+          if (prec) y += prec.cible === a ? 4 : 14;
+          const n = { id: `f-${cle}-${a.secteur}`, fin: true, cle, cible: a, parent: rd, depth: 1, secteur: a.secteur, v, label: NOMS[cle][0],
+            titre: `${a.label} : ${NOMS[cle][1]}`, color: cle === 'propre' ? a.color : cle === 'etat' ? 'etat' : 'na', x: xF, y, w: NW, h: v * k };
+          liensFin.push({ n, xa: rd.x + rd.w, ya: oC, xb: n.x, yb: n.y, cle: n.id }, { n, xa: n.x + n.w, ya: n.y, xb: a.x, yb: oA, cle: n.id + '>' });
+          oC += n.h; oA += n.h; y += n.h; prec = n;
+          fins.push(n); parId.set(n.id, n);
+        }
+      }
+      fxCols.push({ zone: { x: xF, y: TOP, w: NW, h: y - TOP } });
+    }
+    // Avec l'étape du financement, le bloc central ne va plus directement à chaque administration.
+    if (avecFin) for (let i = liens.length - 1; i >= 0; i--) if (liens[i].p === rd) liens.splice(i, 1);
     // Ruban entre un bloc et son parent : à gauche le plus fin côté recettes, le parent côté dépenses.
     const ruban = ({ c, p, yp }) => {
       const rec = racineDe(c).id === 'rec', w = c.h;
@@ -593,6 +658,10 @@
     // un ruban fin et translucide disparaîtrait sur le fond.
     const teinte = n => n.color === 'na' ? 'var(--fx-na)' : fillDe(n);
     h += liens.map(l => `<path class="fxl" data-xl="${l.c.id}" d="${ruban(l)}" style="fill:${teinte(l.c)}"/>`).join('');
+    const rubanFin = ({ n, xa, ya, xb, yb }) => { const w = n.h, [a, b, c, d] = [xa, ya, xb, yb].map(r2), mx = r2((a + c) / 2);
+      return `M${a},${b} C${mx},${b} ${mx},${d} ${c},${d} L${c},${r2(d + w)} C${mx},${r2(d + w)} ${mx},${r2(b + w)} ${a},${r2(b + w)} Z`; };
+    h += liensFin.map(l => `<path class="fxl" data-xl="${l.cle}" data-adm="${l.n.secteur}" d="${rubanFin(l)}" style="fill:${teinte(l.n)}"/>`).join('');
+    for (const n of fins) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/><text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
     for (const n of noeuds) if (n.parent) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/>`;
     h += centreSVG(FLUX.centre, TOP, 0, Math.max(...racines.map(r => r.h)), true);
     racines.forEach(r => { h += `<text class="zone" data-z="${r.id}"><tspan class="n">${esc(r.label)}</tspan><tspan class="v"></tspan></text>`; });
@@ -606,9 +675,9 @@
     rendreCentre(kk);
     for (const r of racines) {
       const t = svg.querySelector(`[data-z="${r.id}"]`);
-      t.setAttribute('x', r.id === 'rec' ? 20 : FLUX.dep[0]); t.setAttribute('y', FLUX.TOP - 26 / kk); t.setAttribute('font-size', 15 / kk);
+      t.setAttribute('x', r.id === 'rec' ? 20 : fins.length ? FLUX.dep[0] : colsDep[0]); t.setAttribute('y', FLUX.TOP - 26 / kk); t.setAttribute('font-size', 15 / kk);
     }
-    for (const n of noeuds) {
+    for (const n of [...noeuds, ...fins]) {
       if (!n.parent) continue;
       const t = svg.querySelector(`[data-lx="${n.id}"]`), hp = n.h * kk;
       if (!t) continue;
@@ -616,10 +685,10 @@
       // Côté recettes, le nom à gauche du bloc ; côté dépenses, à droite ; jusqu'à la colonne voisine.
       const gauche = racineDe(n).id === 'rec', d = n.depth, fs = hp >= 60 ? 14 : 12.5, milieu = n.y + n.h / 2;
       const x = gauche ? n.x - 7 / kk : n.x + n.w + 7 / kk;
-      const placePx = (gauche ? n.x - (FLUX.rec[d] !== undefined ? FLUX.rec[d] + FLUX.NW : 0) : (FLUX.dep[d] ?? W) - n.x - n.w) * kk - 16;
+      const placePx = (gauche ? n.x - (FLUX.rec[d] !== undefined ? FLUX.rec[d] + FLUX.NW : 0) : (n.fin ? colsDep[0] : colsDep[d] ?? W) - n.x - n.w) * kk - 16;
       const max = Math.floor(placePx / (fs * 0.56));
       if (max < 7) { t.setAttribute('display', 'none'); continue; }
-      const e = evo(n), deux = hp >= 30;
+      const e = n.fin ? '' : evo(n), deux = hp >= 30;
       const mt = [mds(n.v) + (e ? ' · ' + e : ''), mds(n.v)].find(x => x.length * (fs - 1.5) * 0.6 <= placePx) || '';
       const nom = n.label.length > max ? n.label.slice(0, max - 1) + '…' : n.label;
       t.setAttribute('display', 'inline'); t.setAttribute('text-anchor', gauche ? 'end' : 'start'); t.setAttribute('font-size', fs / kk); t.setAttribute('stroke-width', 3 / kk);
@@ -637,6 +706,8 @@
     if (n) {
       for (let x = n; x && x.parent; x = x.parent) on.add(x.id);
       const desc = m => (m.children || []).forEach(c => { on.add(c.id); desc(c); }); desc(n);
+      // Financement : les rubans d'une administration avec elle, avec son détail et avec la racine.
+      for (const f of fins) if (f === n || on.has(f.cible.id)) { on.add(f.id); on.add(f.id + '>'); }
     }
     svg.querySelectorAll('path.fxl').forEach(p => p.classList.toggle('on', on.has(p.dataset.xl)));
   };
@@ -962,7 +1033,7 @@
     const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, rect.fx, rect.ctr, path.fxl, [data-e]');
     if (!el) return null;
     if (el.classList.contains('ctr')) return CENTRE_P.find(p => p.id === el.dataset.id);
-    if (el.classList.contains('fxl')) return parId.get(el.dataset.xl);
+    if (el.classList.contains('fxl')) return parId.get(el.dataset.xl.replace(/>$/, ''));
     return el.dataset.e ? estParId(el.dataset.e) : parId.get(el.dataset.id);
   };
   function survol(e) {
@@ -971,6 +1042,7 @@
     const [rec, def, dep] = CENTRE_P;
     if (f.ctr) tip.innerHTML = `<b>${esc(f.titre)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${f === dep ? `${nf(G.part_pib['dépenses'], 1)} % du PIB<br><span class="tq">${mds(rec.v)} de recettes et ${mds(def.v)} de déficit, couvert par l'emprunt.</span>` : pct(f.v, dep.v) + ' des dépenses publiques'}`;
     else if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
+    else if (f.fin) tip.innerHTML = `<b>${esc(f.titre)}</b><span class="val">${mds(f.v)}</span> · ${pct(f.v, f.cible.v)} des dépenses de « ${esc(f.cible.label)} »`;
     else { const n = vueFlux ? f : designe(f), z = racineDe(n);
     tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span>${evo(n) ? ` (${evo(n)} ${depuis()})` : ''} · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
     tip.hidden = false;
@@ -984,12 +1056,19 @@
     const f = sousPointeur(e); if (!f) return;
     // Bloc central : en flux, sa fiche ; en blocs, la moitié correspondante.
     if (f.ctr) { const n = parId.get({ 'c-rec': 'rec', 'c-def': 'r-deficit', 'c-dep': 'dep' }[f.id]); if (n?.parent) ouvrir(n, { zoom: true }); else if (n) cadrer(n); return; }
-    ouvrir(f.est || vueFlux ? f : designe(f));
+    ouvrir(f.fin ? f.cible : f.est || vueFlux ? f : designe(f));
   }
   // Le même bloc sur la page de pilotage, avec les mêmes regroupements : sa section et sa description.
   const enSavoirPlus = n => {
     const dep = racineDe(n).id === 'dep';
     return `pilotage.html?annee=${anneeValidee}&bloc=${encodeURIComponent(n.id)}&dep=${mode}&rec=${modeRec}#${dep ? 's-depenses' : 's-recettes'}`;
+  };
+  // Pour une administration, côté dépenses : comment elle les finance (le même partage que dans le flux).
+  const financeLigne = n => {
+    if (!(n.parent?.id === 'dep' && n.secteur && mode === 'admin')) return '';
+    const F = financement(G, ETATV.get(annee) ?? null)[n.secteur]; if (!F) return '';
+    const parts = [[F.propre, 'ses ressources propres (impôts, cotisations et emprunt)'], [F.etat, `versés par l'État (budget ${annee})`], [F.autres, 'autres recettes et transferts']].filter(([v]) => v > 0.05);
+    return `<p class="ex"><b class="acc">Financé par :</b> ${parts.map(([v, l]) => `<b>${mds(v)}</b> ${l}`).join(' ; ')}.${F.verse ? ` L'État verse en outre <b>${mds(F.verse)}</b> aux autres administrations.` : ''}</p>`;
   };
   function ouvrir(n, { zoom = false } = {}) {
     if (n.est) return ouvrirEstimation(n, { zoom });
@@ -1005,6 +1084,7 @@
       ${evo(n) ? `<p class="ex"><b>${evo(n)}</b> ${depuis()} (${mds(EVO.get(n.id))} en ${anneeComp}).</p>` : ''}
       ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>${ex.exemples?.length ? `<p class="ex"><b class="acc">Par exemple :</b> ${ex.exemples.map(esc).join(', ')}.</p>` : ''}` : ''}
       ${n.note ? `<p class="ex">${esc(n.note)}</p>` : ''}
+      ${financeLigne(n)}
       <p>Sur 100 € ${z.id === 'dep' ? "d'argent public dépensés" : 'qui financent la dépense publique'}, <b>${nf(n.v / z.v * 100, 2)} €</b> vont ici.${parent ? ` C'est ${pct(n.v, parent.v)} de « ${esc(parent.titre || parent.label)} ».` : ''}</p>
       <div class="d-actions"><a class="btn" id="d-plus" href="${esc(enSavoirPlus(n))}">En savoir plus</a><button type="button" class="btn" id="d-vue">${vueFlux ? 'Voir dans les blocs' : 'Voir dans le flux'}</button>${n.parent && n.parent.parent ? `<button type="button" class="btn" id="d-up">Remonter à « ${esc(n.parent.label)} »</button>` : ''}</div>
       ${enfants.length ? `<p class="ex">Détail :</p><div class="bars">${enfants.slice(0, 14).map(c => `<div class="bar" style="--c:${c.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.color})`}"><button type="button" data-go="${c.id}">${esc(c.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / enfants[0].v * 100)}%"></i></div>`).join('')}</div>` : ''}`;
@@ -1137,6 +1217,7 @@
     }
     svg.querySelectorAll('[data-e], [data-el], [data-et], .est-sep').forEach(el => el.classList.toggle('off', caches.has('estim')));
     svg.querySelectorAll('[data-id="c-def"], [data-ct="c-def"]').forEach(el => el.classList.toggle('off', caches.has('deficit')));
+    for (const f of fins) svg.querySelectorAll(`[data-id="${f.id}"], [data-lx="${f.id}"], [data-xl="${f.id}"], [data-xl="${f.id}>"]`).forEach(el => el.classList.toggle('off', caches.has(f.secteur)));
     $('hl-off').hidden = !avant.size;
   }
   $('c-admin').addEventListener('change', e => { const k = e.target.dataset.sect; e.target.checked ? caches.delete(k) : caches.add(k); appliquerFiltres(); });
@@ -1222,7 +1303,7 @@
   async function basculer(an, { apercu = false } = {}) {
     const moi = ++jeton;
     const comp = apercu ? anneeValidee : precedente(an);
-    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null]);
+    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null, vueFlux && chargerEtat(an)]);
     if (moi !== jeton) return false;
     const changeComp = comp !== anneeComp;
     anneeComp = comp; GCOMP = gc; majEvo();
