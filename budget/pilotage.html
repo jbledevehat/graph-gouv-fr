@@ -153,6 +153,21 @@
   .panel h3 { margin: 0; font-size: 15px; }
   .panel .sub { margin: -4px 0 0; color: var(--muted); font-size: 13px; }
   .bars { display: grid; gap: 7px; }
+  /* Évolution d'un bloc année après année, sous sa description. */
+  .evol { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .evol h4 { margin: 0; font-size: 13px; }
+  .evol .resume { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .evol svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .evol .b { opacity: .55; }
+  .evol .b.cur { opacity: 1; }
+  .evol .zone:hover .b { opacity: .85; }
+  .evol .zone:hover .b.cur { opacity: 1; }
+  .evol text { font-family: var(--sans); fill: var(--ink); }
+  .evol text.mt { font: 600 11px var(--mono); }
+  .evol text.an { font: 500 11.5px var(--mono); fill: var(--muted); }
+  .evol text.an.cur { fill: var(--ink); font-weight: 700; }
+  .evol text.pc { font: 500 10.5px var(--mono); fill: var(--muted); }
+  .evol line.base { stroke: var(--line); }
   .bar { display: grid; grid-template-columns: minmax(0, 16rem) 1fr; gap: 10px; align-items: center; font-size: 13px; }
   .bar .tr { display: flex; align-items: center; gap: 8px; min-width: 0; }
   .bar .tr i { display: block; height: 10px; border-radius: 4px; background: var(--c, var(--accent)); flex: none; }
@@ -709,6 +724,55 @@ AnneeVive.page(async () => {
   };
 
 
+  // ================= Évolution d'un bloc, année après année =================
+  // Comptes de chaque année de l'Insee (chargés une fois, au premier bloc ouvert) : le même bloc,
+  // avec les mêmes regroupements, recalculé pour chaque année ; montant et évolution d'une année sur l'autre.
+  let COMPTES = null;
+  const comptes = () => COMPTES ??= Promise.all(AN.insee.map(a => fetch(`donnees/argent-public-${a}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null)));
+  const MONTANTS = new Map();
+  const montantsDe = (g, a, cote, dm, rm) => {
+    const cle = `${a}|${cote}|${dm}|${rm}`;
+    if (!MONTANTS.has(cle)) { const m = new Map(), tour = n => { m.set(n.id, n.v); (n.children || []).forEach(tour); }; tour(arbresArgentPublic(g, X, dm, rm)[cote]); MONTANTS.set(cle, m); }
+    return MONTANTS.get(cle);
+  };
+  const variationPct = (v, b) => { const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
+  async function evolution(el, cote, n, dm, rm) {
+    if (AnneeVive.mesure) return;
+    const liste = await comptes();
+    // Le panneau a pu changer de bloc pendant le chargement.
+    if ($(el).dataset.bloc !== n.id) return;
+    const serie = AN.insee.map((a, i) => ({ a, v: liste[i] ? montantsDe(liste[i], a, cote, dm, rm).get(n.id) ?? null : null }));
+    const pts = serie.filter(p => p.v > 0);
+    if (pts.length < 2) return;
+    const W = 360, H = 170, haut = 22, bas = 36, pas = W / serie.length, larg = Math.min(34, pas * 0.56), max = Math.max(...pts.map(p => p.v));
+    const couleur = n.color === 'hatch' ? 'var(--hatch)' : n.color === 'na' || !n.color ? 'var(--control)' : `var(--m-${n.color})`;
+    const premier = pts[0], dernier = pts[pts.length - 1];
+    const barres = serie.map((p, i) => {
+      const cx = pas * i + pas / 2, cur = p.a === annee, prec = serie[i - 1];
+      if (!(p.v > 0)) return `<text class="an" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text><text class="pc" x="${cx}" y="${H - bas / 2}" text-anchor="middle">–</text>`;
+      const h = (H - haut - bas) * p.v / max, y = H - bas - h, e = prec?.v > 0 ? variationPct(p.v, prec.v) : '';
+      const aide = `<b>${esc(n.titre || n.label)} en ${p.a}</b><span class="val">${mds(p.v)}</span>${e ? ` · ${e} par rapport à ${prec.a}` : ''}`;
+      return `<g class="zone" data-aide="${esc(aide)}"><rect x="${pas * i}" y="0" width="${pas}" height="${H}" fill="transparent"/>
+        <rect class="b${cur ? ' cur' : ''}" x="${cx - larg / 2}" y="${y}" width="${larg}" height="${Math.max(1, h)}" rx="3" style="fill:${couleur}"/>
+        <text class="mt" x="${cx}" y="${y - 6}" text-anchor="middle">${esc(mds(p.v).replace(' Md€', ''))}</text>
+        <text class="an${cur ? ' cur' : ''}" x="${cx}" y="${H - bas + 16}" text-anchor="middle">${p.a}</text>
+        <text class="pc" x="${cx}" y="${H - bas + 31}" text-anchor="middle">${e}</text></g>`;
+    }).join('');
+    const total = dernier.v - premier.v;
+    const box = document.createElement('div');
+    box.className = 'evol';
+    box.innerHTML = `<h4>Évolution de ${premier.a} à ${dernier.a}</h4>
+      <p class="resume">${mds(premier.v)} en ${premier.a}, ${mds(dernier.v)} en ${dernier.a} : <b>${variationPct(dernier.v, premier.v)}</b> (${total >= 0 ? '+' : '−'}${mds(Math.abs(total))}). Montants en milliards d'euros ; sous chaque année, l'évolution par rapport à l'année précédente.</p>
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${n.titre || n.label}, année par année : ${serie.filter(p => p.v > 0).map(p => `${p.a}, ${mds(p.v)}`).join(' ; ')}.`)}"><line class="base" x1="0" x2="${W}" y1="${H - bas}" y2="${H - bas}"/>${barres}</svg>`;
+    box.querySelectorAll('.zone').forEach(g => {
+      g.addEventListener('pointermove', e => showTip(g.dataset.aide, e.clientX, e.clientY));
+      g.addEventListener('pointerleave', hideTip);
+    });
+    $(el).querySelector('.evol')?.remove();
+    const avant = $(el).querySelector('.bars')?.previousElementSibling?.classList.contains('sub') ? $(el).querySelector('.bars').previousElementSibling : null;
+    if (avant) avant.before(box); else $(el).append(box);
+  }
+
   // ================= 1. Dépenses =================
   // Parties 1 et 2 : comptes de l'Insee, disponibles jusqu'à 2024 (pas encore pour 2025).
   const ECH_INSEE = { v: AN.echelle.insee_md, libelle: 'plus grand total des années disponibles' };
@@ -764,11 +828,13 @@ AnneeVive.page(async () => {
       const f = plein ? 1 : Math.sqrt(racine.v / AN.echelle.insee_md);
       placer(racine, 0, 0, ZONE.w * f, ZONE.h * f, 0);
     } });
-  const xDep = explorer('dep', arbreDep, { onNode: n => panneau('p-dep', n, D), echelle: ECH_INSEE, geo: geoExploration(0) });
+  // Description du bloc, puis son évolution année après année.
+  const decrireDep = n => { panneau('p-dep', n, D); $('p-dep').dataset.bloc = n.id; evolution('p-dep', 0, n, depMode, recMode); };
+  const xDep = explorer('dep', arbreDep, { onNode: decrireDep, echelle: ECH_INSEE, geo: geoExploration(0) });
   document.querySelectorAll('[data-dep]').forEach(b => b.addEventListener('click', () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
   }));
-  panneau('p-dep', xDep.root(), D);
+  decrireDep(xDep.root());
   table('tb-dep', ['Fonction', ...G.secteurs.map(s => s.nom), 'Total'], G.secteurs[0].fonctions.map((f, k) => [esc(f.libelle), ...G.secteurs.map(s => mds(s.fonctions[k].montant)), mds(sum(G.secteurs, s => s.fonctions[k].montant))])
     .concat([['<b>Total</b>', ...G.secteurs.map(s => `<b>${mds(s.total)}</b>`), `<b>${mds(D)}</b>`]]));
 
@@ -779,11 +845,12 @@ AnneeVive.page(async () => {
   $('rec-lead').textContent = `${nf(R, 1)} milliards d'euros de recettes, et ${nf(-S, 1)} milliards empruntés pour couvrir le reste. Cette composition a la même taille que celle des dépenses : ce qui est perçu plus ce qui est emprunté égale ce qui est dépensé. Par administration, chaque couleur indique celle qui perçoit l'impôt ou la cotisation ; par type de recette, les impôts sont détaillés un par un, toutes administrations confondues. Cliquez sur un rectangle pour zoomer. Ce sont les mêmes blocs que sur la page d'exploration.`;
   // Total du financement : recettes et déficit (tableau 3.201), qui peut différer des dépenses par fonction.
   // Mêmes blocs que la page d'exploration (arbres.js) ; on choisit le regroupement des recettes.
-  const xRec = explorer('rec', arbreRec, { onNode: n => panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }), echelle: ECH_INSEE, geo: geoExploration(1) });
+  const decrireRec = n => { panneau('p-rec', n, R - S, { base: "qui financent la dépense publique (recettes et emprunt)" }); $('p-rec').dataset.bloc = n.id; evolution('p-rec', 1, n, depMode, recMode); };
+  const xRec = explorer('rec', arbreRec, { onNode: decrireRec, echelle: ECH_INSEE, geo: geoExploration(1) });
   document.querySelectorAll('[data-rec]').forEach(b => b.addEventListener('click', () => {
     recMode = b.dataset.rec; document.querySelectorAll('[data-rec]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xRec.reconstruire();
   }));
-  panneau('p-rec', xRec.root(), R - S, { base: "qui financent la dépense publique (recettes et emprunt)" });
+  decrireRec(xRec.root());
   // Lien « En savoir plus » de l'exploration (?bloc=…&dep=…&rec=…) : les mêmes regroupements, puis le
   // bloc ouvert avec sa description. Une seule fois : l'adresse est ensuite nettoyée.
   {
