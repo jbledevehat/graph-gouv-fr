@@ -1,7 +1,7 @@
 // Exploration du budget en PDF vectoriel, un fichier par année et par regroupement, comme sur la
 // page : dépenses par administration ou par fonction, recettes par administration ou par type
-// (out/web/budget/pdf/argent-public-AAAA-<dépenses>-<recettes>.pdf) : même composition que la page web (dépenses à
-// gauche, ce qui les finance à droite, estimations sur les côtés), même échelle pour toutes les
+// (out/web/budget/pdf/argent-public-AAAA-<dépenses>-<recettes>.pdf) : même composition que la page web (ce qui
+// finance la dépense à gauche, les dépenses à droite, estimations sur les côtés), même échelle pour toutes les
 // années, tous les noms et montants écrits (lisibles en zoomant), texte cherchable. Couleurs du
 // thème clair, adaptées à l'impression.
 import { createWriteStream, mkdirSync, readFileSync } from 'node:fs';
@@ -147,7 +147,7 @@ function etiqueterBloc(doc, n) {
 }
 
 function dessinerEstimations(doc, E, annee, aire) {
-  [[E.non_percu_aides, COLONNES[0]], [E.non_percu_recettes, COLONNES[1]]].forEach(([c, col]) => {
+  [[E.non_percu_recettes, COLONNES[0]], [E.non_percu_aides, COLONNES[1]]].forEach(([c, col]) => {
     const postes = c.postes.map(p => pourAnnee(p, annee)).sort((p, q) => q.haut - p.haut);
     const env = c.enveloppe && pourAnnee(c.enveloppe, annee);
     ligne(doc, c.titre, col.x + 6, col.y, col.w - 12, 16, { gras: true });
@@ -202,13 +202,14 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
   doc.font('Plex-Gras').fontSize(46).fillColor(INK).text(`L'argent public en ${annee}`, 60, 50, { lineBreak: false });
   doc.font('Plex').fontSize(20).fillColor(MUTED).text(
-    `${mds(D)} de dépenses publiques (État, sécurité sociale, collectivités locales, opérateurs de l'État) et ce qui les finance : ${mds(R)} de recettes et ${mds(-S)} de déficit, couvert par l'emprunt.`,
+    `${mds(R)} de recettes et ${mds(-S)} de déficit, couvert par l'emprunt, qui financent ${mds(D)} de dépenses publiques (État, sécurité sociale, collectivités locales, opérateurs de l'État).`,
     60, 112, { width: LARGEUR - 120 });
-  doc.font('Plex-Gras').fontSize(14).fillColor(INK).text(`Dépenses regroupées par ${modeDep} · recettes regroupées par ${modeRec === 'type' ? 'type de recette (impôt par impôt)' : 'administration'}`, 60, 150, { lineBreak: false });
+  doc.font('Plex-Gras').fontSize(14).fillColor(INK).text(`Recettes regroupées par ${modeRec === 'type' ? 'type de recette (impôt par impôt)' : 'administration'} · dépenses regroupées par ${modeDep}`, 60, 150, { lineBreak: false });
   doc.font('Plex').fontSize(14).fillColor(MUTED).text(`Surfaces proportionnelles aux montants, à la même échelle pour toutes les années (la plus grande, ${AN.echelle.insee_md.toLocaleString('fr-FR', { maximumFractionDigits: 0 }).replace(/ /g, ' ')} Md€, remplit la zone). Sur les côtés, en cercles : des estimations, pas des comptes (cercle atténué : estimation d'une autre année).`, 60, 174, { width: LARGEUR - 120 });
 
   doc.save().translate(60, HAUT_PAGE - TETE + 20);
-  const racines = arbres(G, modeDep, modeRec);
+  // Recettes à gauche, dépenses à droite, comme sur la page.
+  const racines = arbres(G, modeDep, modeRec).reverse();
   racines.forEach((r, i) => {
     const z = ZONES[i], f = Math.sqrt(r.v / AN.echelle.insee_md), w = z.w * f, h = z.h * f;
     const x = i === 0 ? z.x + z.w - w : z.x;
@@ -219,7 +220,7 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   // Échelle des estimations : surface réelle des blocs de dépenses, par milliard.
   const feuilles = [];
   const f = n => (n.children?.length ? n.children.forEach(f) : n.x !== undefined && feuilles.push(n));
-  f(racines[0]);
+  f(racines.find(r => r.id === 'dep'));
   dessinerEstimations(doc, E, annee, sum(feuilles, n => n.w * n.h) / D);
   doc.restore();
 

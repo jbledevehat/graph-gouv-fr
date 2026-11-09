@@ -280,23 +280,6 @@
   table.ind .ap .ic { margin-right: 5px; vertical-align: -3px; }
   table.ind .mes { color: var(--muted); }
   @media (forced-colors: active) { .stbar, .ic, .casc i { forced-color-adjust: none; } }
-  /* Circuit de l'argent public (diagramme de Sankey vertical, à la manière d'une affiche). */
-  .flux-wrap { overflow-x: auto; margin-inline: -4px; }
-  .sankey { min-width: 880px; }
-  .sankey svg { display: block; width: 100%; height: auto; }
-  .sankey .lien { fill-opacity: .42; cursor: pointer; transition: fill-opacity .15s; }
-  .sankey .lien:hover, .sankey .lien.on { fill-opacity: .8; }
-  .sankey.survol .lien:not(.on) { fill-opacity: .14; }
-  .sankey .noeud { cursor: pointer; }
-  .sankey .noeud rect { stroke: var(--panel); stroke-width: 1px; }
-  .sankey .noeud:focus-visible { outline: none; }
-  .sankey .noeud:focus-visible rect { stroke: var(--accent); stroke-width: 3px; }
-  .sankey text { font-family: var(--sans); fill: var(--ink); pointer-events: none; }
-  .sankey text.nom { font-size: 12px; font-weight: 600; }
-  .sankey text.mt { font: 500 11px var(--mono); fill: var(--muted); }
-  .sankey text.halo { paint-order: stroke; stroke: var(--panel); stroke-width: 4px; stroke-linejoin: round; }
-  .sankey text.etage { font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
-  .sankey text.tronc { font-size: 14px; font-weight: 700; fill: #fff; }
 </style>
 </head>
 <body>
@@ -328,17 +311,8 @@
     </div>
   </section>
 
-  <section id="s-circuit" aria-labelledby="t-circuit">
-    <div class="sec-head">
-      <span class="num">Vue d'ensemble · Le circuit de l'argent public</span>
-      <h2 id="t-circuit">D'où vient l'argent public, qui le dépense, et pour quoi faire</h2>
-      <p id="circuit-lead"></p>
-    </div>
-    <div class="panel">
-      <div class="flux-wrap"><div class="sankey" id="circuit" role="img"></div></div>
-      <p class="note" id="circuit-note"></p>
-      <details class="data"><summary>Voir les flux en tableau</summary><div class="scroll"><table id="tb-circuit"></table></div></details>
-    </div>
+  <section id="s-circuit" class="card annee-note" aria-label="Circuit de l'argent public">
+    <p><b>D'où vient l'argent public, qui le dépense, et pour quoi faire :</b> le circuit complet, des impôts, cotisations et emprunt jusqu'aux fonctions, se lit dans l'<a href="index.html?vue=flux">exploration, en vue « Flux »</a>.</p>
   </section>
 
   <section id="s-depenses" aria-labelledby="t-depenses">
@@ -591,82 +565,6 @@ AnneeVive.page(async () => {
     if (out.join(' ').length < text.length) { const last = out.length - 1; out[last] = out[last].slice(0, Math.max(1, max - 1)).replace(/\s+\S*$/, '') + '…'; }
     return out.map(l => l.length > max ? l.slice(0, max - 1) + '…' : l);
   }
-  // --- Diagramme de Sankey vertical, commun au circuit de l'argent public et à celui de l'État ---
-  // etages : [{ y, ep, titre, titreY, dessus, noeuds: [{ id, label, titre, v, color, invisible, tronc }] }] ;
-  // liens : [{ s, t, v, color }], s et t étant des identifiants de nœuds. Un nœud invisible laisse
-  // passer ses rubans sans s'arrêter ; un tronc est une barre épaisse qui porte son texte.
-  // La largeur d'un bloc est proportionnelle à son montant, sur une échelle commune à tous les étages.
-  function sankey(el, { etages, liens: L, H }) {
-    const W = Math.max(880, el.clientWidth), pad = 18, gap = 7;
-    const bas = etages[etages.length - 1];
-    const max = Math.max(...etages.map(e => e.noeuds.length));
-    const total = Math.max(...etages.map(e => sum(e.noeuds, n => n.v)));
-    const k = (W - 2 * pad - gap * (max - 1)) / total;
-    const par = {};
-    const N = etages.flatMap((e, row) => {
-      const larg = sum(e.noeuds, n => n.v) * k + gap * (e.noeuds.length - 1); let x = (W - larg) / 2;
-      return e.noeuds.map(n => { const o = { ...n, row, x0: x, x1: x + n.v * k, y0: e.y, y1: e.y + (n.invisible ? 0 : e.ep), out: x, in: x }; x = o.x1 + gap; par[n.id] = o; return o; });
-    });
-    const liens = L.filter(l => l.v > 0.0005).map(l => ({ ...l, s: par[l.s], t: par[l.t] }));
-    // Ordre des rubans au départ et à l'arrivée de chaque bloc : de gauche à droite selon l'autre extrémité.
-    const cx = n => (n.x0 + n.x1) / 2;
-    [...liens].sort((a, b) => cx(a.t) - cx(b.t)).forEach(l => { l.sx = l.s.out; l.s.out += l.v * k; });
-    [...liens].sort((a, b) => cx(a.s) - cx(b.s)).forEach(l => { l.tx = l.t.in; l.t.in += l.v * k; });
-    const hach = el.id + '-hachure';
-    const fill = c => c === 'hatch' ? `url(#${hach})` : `var(--m-${c})`;
-    const ruban = l => { const w = l.v * k, ya = l.s.y1, yb = l.t.y0, m = (ya + yb) / 2;
-      return `M${l.sx},${ya} C${l.sx},${m} ${l.tx},${m} ${l.tx},${yb} L${l.tx + w},${yb} C${l.tx + w},${m} ${l.sx + w},${m} ${l.sx + w},${ya} Z`; };
-    // Étiquettes : horizontales si le bloc est assez large, sinon verticales, le long du ruban. En haut,
-    // un bloc étroit garde une étiquette horizontale, remontée d'un cran pour ne pas toucher ses voisins.
-    const etiquette = n => {
-      const e = etages[n.row], dessus = e.dessus !== false, w = n.x1 - n.x0, c = cx(n), etroit = w < 92;
-      const ev = AnneeVive.evo(el.id, n.id, n.v), mt = mds(n.v) + (ev && !etroit && w > 110 ? ' · ' + ev : '');
-      if (!etroit || n.row === 0) {
-        const lignes = wrap(n.label, Math.max(8, Math.floor((etroit ? 96 : w + gap) / 6.6)), dessus ? 3 : 4);
-        const y = dessus ? n.y0 - 8 - lignes.length * 14 - (etroit ? 34 : 0) : n.y1 + 16;
-        return lignes.map((t, i) => `<text class="nom halo" x="${c}" y="${y + i * 14}" text-anchor="middle">${esc(t)}</text>`).join('') + `<text class="mt halo" x="${c}" y="${y + lignes.length * 14}" text-anchor="middle">${esc(mt)}</text>`;
-      }
-      // Place disponible : jusqu'à l'étage du dessus, ou jusqu'au bas du dessin ; le montant compris.
-      const prec = etages[n.row - 1], long = dessus ? n.y0 - prec.y - prec.ep - 14 : H - n.y1 - 12;
-      const txt = wrap(n.court || n.label, Math.max(6, Math.floor((long - mt.length * 6.6 - 6) / (dessus ? 6.8 : 6.3))), 1)[0];
-      return dessus
-        ? `<text class="nom halo" transform="translate(${c + 4},${n.y0 - 8}) rotate(-90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`
-        : `<text class="nom halo" transform="translate(${c - 4},${n.y1 + 8}) rotate(90)">${esc(txt)} <tspan class="mt">${esc(mt)}</tspan></text>`;
-    };
-    const visibles = N.filter(n => !n.invisible && !n.tronc), troncs = N.filter(n => n.tronc);
-    // Sous le dernier étage, on ne garde que la place des étiquettes : rien de vide en bas du dessin.
-    if (bas.dessus === false) {
-      const besoin = N.filter(n => n.row === etages.length - 1 && !n.invisible).map(n => n.x1 - n.x0 < 92
-        ? 8 + ((n.court || n.label).length + mds(n.v).length + 1) * 6.6 + 12
-        : 16 + wrap(n.label, Math.max(8, Math.floor((n.x1 - n.x0 + gap) / 6.6)), 4).length * 14 + 10);
-      H = Math.min(H, Math.ceil(bas.y + bas.ep + Math.max(0, ...besoin)));
-    }
-    el._liens = liens; el._noeuds = [...visibles, ...troncs];
-    N.forEach(n => { if (!n.invisible) AnneeVive.noter(el.id, n.id, n.v); });
-    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false"><defs><pattern id="${hach}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--panel)"/><rect width="3" height="8" style="fill:var(--hatch)"/></pattern></defs>
-      ${liens.map((l, i) => `<path class="lien" data-l="${i}" data-k="${esc(l.s.id + '>' + l.t.id)}" d="${ruban(l)}" style="fill:${fill(l.color)}"/>`).join('')}
-      ${el._noeuds.map((n, i) => `<g class="noeud" data-n="${i}" tabindex="0" role="button" aria-label="${esc(n.titre || n.label)} : ${esc(mds(n.v))}"><rect data-k="${esc(n.id)}" x="${n.x0}" y="${n.y0}" width="${Math.max(1.5, n.x1 - n.x0)}" height="${n.y1 - n.y0}" rx="${n.tronc ? 4 : 2}" style="fill:${fill(n.color)}"/></g>`).join('')}
-      ${troncs.map(n => `<text class="tronc" x="${cx(n)}" y="${n.y0 + etages[n.row].ep / 2 + 5}" text-anchor="middle">${esc(n.tronc)}</text>`).join('')}
-      ${etages.filter(e => e.titre).map(e => `<text class="etage halo" x="${pad}" y="${e.titreY}">${esc(e.titre)}</text>`).join('')}
-      ${visibles.map(etiquette).join('')}</svg>`;
-  }
-  // Survol (infobulle, rubans du bloc surlignés), clic et clavier ; branché une seule fois par dessin.
-  function sankeyInteractif(el, { tipNoeud, onPick }) {
-    const tipLien = l => `<b>${esc(l.s.titre || l.s.label)} → ${esc(l.t.titre || l.t.label)}</b><span class="val">${mds(l.v)}</span> · ${pct(l.v, l.s.v)} de « ${esc(l.s.label)} », ${pct(l.v, l.t.v)} de « ${esc(l.t.label)} »`;
-    const allumer = ls => { el.classList.toggle('survol', !!ls); el.querySelectorAll('.lien').forEach(p => p.classList.toggle('on', !!ls && ls.includes(el._liens[+p.dataset.l]))); };
-    // Les rubans d'un nœud invisible sont ceux du flux qui le traverse : on remonte et on descend.
-    const relies = n => el._liens.filter(l => l.s.id === n.id || l.t.id === n.id);
-    el.addEventListener('pointermove', e => {
-      const p = e.target.closest('.lien'), g = e.target.closest('.noeud');
-      if (p) { const l = el._liens[+p.dataset.l]; allumer([l]); showTip(tipLien(l), e.clientX, e.clientY); }
-      else if (g) { const n = el._noeuds[+g.dataset.n]; allumer(relies(n)); showTip(tipNoeud(n), e.clientX, e.clientY); }
-      else { allumer(null); hideTip(); }
-    });
-    el.addEventListener('pointerleave', () => { allumer(null); hideTip(); });
-    const choisir = e => { const g = e.target.closest('.noeud'); if (g) onPick(el._noeuds[+g.dataset.n]); };
-    el.addEventListener('click', choisir);
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choisir(e); } });
-  }
   const charts = [];
   let raf = 0;
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => charts.forEach(f => f())); }).observe(document.querySelector('main'));
@@ -831,102 +729,6 @@ AnneeVive.page(async () => {
   explorer('imp', () => ({ id: 'imp', label: 'Les 20 premiers prélèvements', v: sum(topImp, i => i.montant), children: topImp.map(i => ({ id: i.libelle, label: impCourt(i.libelle), titre: i.libelle.replace(/\s*\(\*\*\)/g, ''), v: i.montant, color: 'na', tip: `<b>${esc(i.libelle)}</b><span class="val">${mds(i.montant)}</span>` })) }));
   table('tb-rec', ['Administration', 'Impôts', 'Cotisations', 'Solde (capacité ou besoin de financement)'], G.secteurs.map(s => [esc(s.nom), mds(s.recettes.impots), mds(s.recettes.cotisations), nf(s.recettes.solde, 1) + ' Md€'])
     .concat([['Autres recettes, toutes administrations', mds(G.autres_recettes_consolidees), '', ''], ['<b>Total des recettes</b>', '', '', `<b>${nf(R, 1)} Md€</b>`], ['Déficit public', '', '', nf(S, 1) + ' Md€']]));
-
-  // ================= Vue d'ensemble : le circuit de l'argent public (Sankey) =================
-  // Cinq étages de même total : ressources → administration qui les perçoit → passage d'une
-  // administration à l'autre → administration qui dépense → fonction. Comptes de l'Insee, sauf les
-  // versements de l'État aux autres administrations, tirés de son budget (loi d'approbation des
-  // comptes, catégories de dépenses) quand l'année est disponible : l'Insee ne publie pas qui verse à
-  // qui. Le reste (autres recettes, transferts non détaillés) passe par un réservoir commun. Chaque
-  // administration est calculée exactement : dépense = perçu + reçu − versé − excédent.
-  {
-    const DDc = etatDispo ? await DE : null;
-    // Versements de l'État, d'après son budget : collectivités (transferts et prélèvements sur
-    // recettes), sécurité sociale et autres organismes publics, opérateurs (subventions).
-    const direct = {};
-    if (DDc) {
-      const PB = BE.programmes.filter(p => p.programme !== '200');
-      const cat = ks => sum(PB, p => sum(ks, k => DDc.programmes[p.programme]?.categories?.[k])) / 1000;
-      direct.S1313 = cat(['63']) - BE.recettes.sections.find(x => x.section.startsWith('31')).net / 1000;
-      direct.S1314 = cat(['64']);
-      direct.S13112 = cat(['32', '53']);
-    }
-    const SECT = G.secteurs.map(s => {
-      const emprunt = Math.max(0, -s.recettes.solde), excedent = Math.max(0, s.recettes.solde);
-      const percu = s.recettes.impots + s.recettes.cotisations + emprunt;
-      return { s, c: COUL[s.code], emprunt, excedent, percu, recuEtat: 0, versEtat: 0 };
-    });
-    const ETAT = SECT.find(x => x.s.code === 'S13111');
-    for (const x of SECT) {
-      // Ce que l'administration reçoit d'ailleurs que de ses impôts, cotisations et emprunt.
-      const besoin = x.s.total + x.excedent - x.percu;
-      if (x !== ETAT && direct[x.s.code] > 0) x.recuEtat = Math.max(0, Math.min(direct[x.s.code], besoin));
-      x.besoin = besoin;
-    }
-    ETAT.versEtat = sum(SECT, x => x.recuEtat);
-    for (const x of SECT) {
-      // Solde avec le réservoir, une fois comptés les versements directs de l'État.
-      const net = x === ETAT ? x.besoin + x.versEtat : x.besoin - x.recuEtat;
-      x.recoit = Math.max(0, net); x.verse = Math.max(0, -net);
-      x.garde = x.percu - x.verse - (x === ETAT ? x.versEtat : 0);
-    }
-    const AUTRES = G.autres_recettes_consolidees;
-    const reservoir = AUTRES + sum(SECT, x => x.verse);
-    const FONCTIONS = G.secteurs[0].fonctions.map((f, i) => ({ id: 'f' + f.code, code: f.code, label: f.libelle, v: sum(G.secteurs, s => s.fonctions[i].montant) }));
-    // Fonctions rangées selon l'administration qui les finance surtout, pour limiter les croisements.
-    const rangS = Object.fromEntries(SECT.map((x, i) => [x.s.code, i]));
-    const baryF = i => sum(G.secteurs, s => rangS[s.code] * s.fonctions[i].montant) / (sum(G.secteurs, s => s.fonctions[i].montant) || 1);
-    const ordreF = FONCTIONS.map((f, i) => ({ ...f, b: baryF(i), i })).sort((a, b) => a.b - b.b);
-    // L'emprunt d'abord : il va surtout à l'État, placé à gauche ; son ruban hachuré ne traverse pas le dessin.
-    const ressources = [
-      { id: 'r-emp', label: 'Emprunt (déficit)', titre: 'Emprunt des administrations en déficit', v: sum(SECT, x => x.emprunt), color: 'hatch' },
-      { id: 'r-imp', label: 'Impôts', titre: 'Impôts, nets des impôts non recouvrables', v: sum(SECT, x => x.s.recettes.impots), color: 'na' },
-      { id: 'r-cot', label: 'Cotisations sociales', v: sum(SECT, x => x.s.recettes.cotisations), color: 'na' },
-      { id: 'r-aut', label: 'Autres recettes', titre: 'Autres recettes : ventes, revenus de la propriété, transferts reçus de l\'extérieur', v: AUTRES, color: 'na' }];
-    const autresSect = SECT.filter(x => x !== ETAT);
-    const versements = autresSect.filter(x => x.recuEtat > 0.0005);
-    const COURT = { S1314: 'à la sécurité sociale et autres organismes', S1313: 'aux collectivités locales', S13112: 'aux opérateurs' };
-    // Noms courts des fonctions aux blocs étroits, écrits à la verticale ; l'infobulle garde le nom entier.
-    const COURT_F = { 'Ordre et sécurité': 'Sécurité', 'Logement et équipements collectifs': 'Logement', 'Culture, loisirs et culte': 'Culture' };
-    const FLECHE = { S1314: '→ Sécu. sociale', S1313: '→ Collectivités', S13112: '→ Opérateurs' };
-    const dessinerCircuit = () => sankey($('circuit'), { H: 1230, etages: [
-      { y: 100, ep: 12, titre: 'Ressources', titreY: 16, noeuds: ressources },
-      { y: 280, ep: 12, titre: 'Perçues par', titreY: 168, noeuds: [{ id: 'p' + ETAT.s.code, code: ETAT.s.code, label: ETAT.s.nom, titre: `Perçu par : ${ETAT.s.nom} (impôts, cotisations et emprunt, selon l'Insee)`, v: ETAT.percu, color: ETAT.c }, { id: 'pass-aut', v: AUTRES, invisible: true },
-        ...autresSect.map(x => ({ id: 'p' + x.s.code, code: x.s.code, label: x.s.nom, titre: `Perçu par : ${x.s.nom}`, v: x.percu, color: x.c }))] },
-      { y: 520, ep: 14, titre: 'Passent d\'une administration à l\'autre', titreY: 318, noeuds: [{ id: 'g' + ETAT.s.code, v: ETAT.garde, invisible: true },
-        ...versements.map(x => ({ id: 'v' + x.s.code, label: `État ${FLECHE[x.s.code]}`, titre: `Versé par l'État ${COURT[x.s.code]} (budget de l'État ${annee})`, v: x.recuEtat, color: 'etat' })),
-        { id: 'reservoir', label: 'Réservoir commun', titre: DDc ? "Réservoir commun : autres recettes (ventes, revenus, dividendes…) et transferts entre administrations que les comptes publiés ne détaillent pas" : "Réservoir commun : ce qu'une administration perçoit en plus de ce qu'elle dépense, et les autres recettes ; il finance les autres administrations", v: reservoir, color: 'na' },
-        ...autresSect.map(x => ({ id: 'g' + x.s.code, v: x.garde, invisible: true }))] },
-      { y: 720, ep: 12, titre: 'Dépensées par', titreY: 558, noeuds: [...SECT.map(x => ({ id: 'd' + x.s.code, code: x.s.code, label: x.s.nom, titre: `Dépensé par : ${x.s.nom}`, v: x.s.total, color: x.c })),
-        ...SECT.filter(x => x.excedent > 0.0005).map(x => ({ id: 'e' + x.s.code, label: `Excédent : ${x.s.nom}`, titre: `Excédent de ${x.s.nom} (non dépensé)`, v: x.excedent, color: x.c }))] },
-      { y: 900, ep: 12, titre: 'Pour quoi faire', titreY: 888, dessus: false, noeuds: ordreF.map(f => ({ id: f.id, code: f.code, label: f.label, court: COURT_F[f.label], v: f.v, color: 'na' })) }],
-      liens: [
-        ...SECT.flatMap(x => [{ s: 'r-imp', t: 'p' + x.s.code, v: x.s.recettes.impots, color: x.c }, { s: 'r-cot', t: 'p' + x.s.code, v: x.s.recettes.cotisations, color: x.c }, { s: 'r-emp', t: 'p' + x.s.code, v: x.emprunt, color: 'hatch' }]),
-        { s: 'r-aut', t: 'pass-aut', v: AUTRES, color: 'na' }, { s: 'pass-aut', t: 'reservoir', v: AUTRES, color: 'na' },
-        ...versements.flatMap(x => [{ s: 'p' + ETAT.s.code, t: 'v' + x.s.code, v: x.recuEtat, color: 'etat' }, { s: 'v' + x.s.code, t: 'd' + x.s.code, v: x.recuEtat, color: 'etat' }]),
-        ...SECT.flatMap(x => [{ s: 'p' + x.s.code, t: 'g' + x.s.code, v: x.garde, color: x.c }, { s: 'p' + x.s.code, t: 'reservoir', v: x.verse, color: x.c },
-          { s: 'g' + x.s.code, t: 'd' + x.s.code, v: x.garde - x.excedent, color: x.c }, { s: 'g' + x.s.code, t: 'e' + x.s.code, v: x.excedent, color: x.c },
-          { s: 'reservoir', t: 'd' + x.s.code, v: x.recoit, color: x.c }]),
-        ...SECT.flatMap(x => x.s.fonctions.map(f => ({ s: 'd' + x.s.code, t: 'f' + f.code, v: f.montant, color: x.c })))] });
-    charts.push(dessinerCircuit);
-    dessinerCircuit();
-    const totalC = sum(ressources, r => r.v);
-    sankeyInteractif($('circuit'), {
-      tipNoeud: n => `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span> · ${pct(n.v, totalC)} du total${n.code ? '<br><span class="tq">Cliquer pour ouvrir le détail ci-dessous.</span>' : ''}`,
-      onPick: n => {
-        if (!n.code) return;
-        if (n.code === 'S13111' && etatDispo) return $('s-etat').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (n.id.startsWith('d') || n.id.startsWith('p')) { document.querySelector('[data-dep="admin"]').click(); const s = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (s) explorateurs.dep.reveler(s); }
-        else { document.querySelector('[data-dep="fonction"]').click(); const f = explorateurs.dep.root().children.find(c => c.id === 'd-' + n.code); if (f) explorateurs.dep.reveler(f); }
-      } });
-    $('circuit-lead').textContent = `Les ${nf(D, 0)} milliards d'euros dépensés en ${annee} par l'ensemble des administrations publiques, suivis de leur source à leur usage. En haut, les ressources ; puis l'administration qui les perçoit ; au milieu, ce qui passe de l'une à l'autre${DDc ? ", dont ce que l'État verse directement aux autres administrations" : ''} ; puis l'administration qui dépense ; en bas, la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur une administration ou une fonction pour ouvrir son détail plus bas${etatDispo ? ", sur l'État pour ouvrir son budget ministère par ministère" : ''}.`;
-    $('circuit-note').textContent = (DDc
-      ? `Ce que l'État verse aux autres administrations vient de son budget ${annee} (dépenses classées par destinataire) : ${versements.map(x => `${mds(x.recuEtat)} ${COURT[x.s.code]}`).join(', ')}. Le reste de ce qu'elles reçoivent, et les autres recettes de chacune (ventes, loyers, dividendes…), passent par un réservoir commun : les comptes publiés ne disent pas qui verse à qui entre les autres administrations. « Sécurité sociale et autres organismes » regroupe les transferts du budget aux « autres collectivités », dont la sécurité sociale. `
-      : `Pour ${annee}, le budget de l'État n'est pas détaillé par destinataire sur ce site : ce que l'État perçoit sans le dépenser lui-même, et les autres recettes, passent par un réservoir commun qui finance les autres administrations, l'Insee ne publiant pas qui verse à qui. `)
-      + `Les autres montants sont ceux des comptes de l'Insee (État en comptabilité nationale, ${mds(ETAT.percu)} perçus) ; le budget de l'État voté par le Parlement, en partie 3, se compte autrement. Les impôts ne sont pas détaillés par administration, l'Insee ne publiant pas ce partage impôt par impôt.`;
-    table('tb-circuit', ['Administration', 'Impôts', 'Cotisations', 'Emprunt', ...(DDc ? ["Versé par l'État (budget)"] : []), 'Réservoir : reçu', 'Réservoir : versé', 'Excédent', 'Dépensé'],
-      SECT.map(x => [esc(x.s.nom), mds(x.s.recettes.impots), mds(x.s.recettes.cotisations), x.emprunt ? mds(x.emprunt) : '–', ...(DDc ? [x === ETAT ? `− ${mds(x.versEtat)}` : x.recuEtat ? mds(x.recuEtat) : '–'] : []), x.recoit ? mds(x.recoit) : '–', x.verse ? mds(x.verse) : '–', x.excedent ? mds(x.excedent) : '–', mds(x.s.total)]));
-  }
 
   }
   // ================= 3. Budget de l'État =================

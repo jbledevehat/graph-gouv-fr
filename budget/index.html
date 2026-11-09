@@ -13,7 +13,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   /* Exploration plein écran, sur le modèle de la carte des sites : la scène occupe tout l'espace
-     sous le bandeau ; à gauche les dépenses, à droite les recettes et l'emprunt, de même surface ;
+     sous le bandeau ; à gauche les recettes et l'emprunt, à droite les dépenses, de même surface
+     (sens de lecture : d'où vient l'argent, puis où il va) ; ou bien le même circuit en flux (Sankey) ;
      panneau de recherche et d'options à gauche, fiche à droite, zoom en bas à droite.
      Couleurs : une par administration (palette des aides, vérifiée pour les daltonismes). */
   :root {
@@ -91,6 +92,13 @@
   #scene text.est-t .n, #scene text.est-l .n { font-weight: 700; }
   #scene text.est-t .v, #scene text.est-l .v { font-family: var(--mono); fill: var(--muted); }
   .sw.est { background: transparent; border: 1.5px dashed var(--ink); border-radius: 50%; }
+  /* Vue en flux (Sankey) : rubans translucides, ceux du bloc survolé ressortent. */
+  #scene rect.fx { stroke: var(--ground); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  #scene rect.fx.sel { stroke: var(--ink); stroke-width: 2.5px; }
+  #scene path.fxl { fill-opacity: .42; transition: fill-opacity .15s; }
+  #scene.fx-survol path.fxl { fill-opacity: .12; }
+  #scene.fx-survol path.fxl.on { fill-opacity: .8; }
+  #scene text.fx-col { font-family: var(--mono); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
   #status { position: fixed; inset: var(--bandeau-h, 0px) 0 0 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; pointer-events: none; }
 
   /* --- Panneaux (comme la carte) --- */
@@ -105,6 +113,7 @@
   .figures b { font-size: 17px; }
   .figures span { font-size: 11.5px; color: var(--muted); }
   .figures span.evo { font-family: var(--mono); font-size: 11px; }
+  .vue-ctl { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 12px; color: var(--muted); }
   .updated { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
   .apropos { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
   .apropos summary { cursor: pointer; color: var(--accent); font-weight: 500; }
@@ -198,15 +207,20 @@
 <body>
 <a class="skip" href="#q">Aller à la recherche</a>
 <!--bandeau-->
-<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public : les dépenses et ce qui les finance, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
+<div id="scene" tabindex="0" role="img" aria-label="Composition de l'argent public : ce qui finance la dépense publique, puis les dépenses, côte à côte ou l'un au-dessus de l'autre selon la taille de l'écran. Utilisez la recherche, les cases à cocher et la fiche pour la parcourir au clavier ; les touches + et - zooment, les flèches déplacent, 0 revient à la vue d'ensemble."></div>
 <p id="status">Chargement…</p>
 
 <aside id="side" class="panel" aria-label="Recherche et options" data-repliable>
   <div class="head">
     <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
-    <p class="sub"><span id="ou-dep">À gauche</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs ; <span id="ou-rec">à droite</span>, ce qui le finance. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
+    <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
+    <p class="sub" id="sub-flux" hidden>Le même argent suivi de gauche à droite : les ressources, l'administration qui les perçoit, ce qui passe de l'une à l'autre, l'administration qui dépense, puis la fonction. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
     <div class="figures" id="figures"></div>
+    <div class="vue-ctl"><span id="l-vue">Représentation</span><div class="seg-ctl" role="group" aria-labelledby="l-vue">
+      <button type="button" data-vue="blocs" aria-pressed="true">Blocs</button>
+      <button type="button" data-vue="flux" aria-pressed="false">Flux</button>
+    </div></div>
     <p class="updated">Source : comptes de la Nation, Insee · <a href="pilotage.html">Pilotage du budget</a> · <a id="lien-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download>Exploration en PDF</a></p>
     <p class="alerte" id="alerte" hidden></p>
     <details class="apropos">
@@ -242,13 +256,13 @@
 </aside>
 
 <!-- Regroupements, placés à la suite du titre de chaque moitié (voir placerControles). -->
-<div class="seg-ctl zone-ctl" id="ctl-dep" role="group" aria-label="Regrouper les dépenses par">
-  <button type="button" data-mode="admin" aria-pressed="true">Administration</button>
-  <button type="button" data-mode="fonction" aria-pressed="false">Fonction</button>
-</div>
 <div class="seg-ctl zone-ctl" id="ctl-rec" role="group" aria-label="Regrouper les recettes par">
   <button type="button" data-mode-rec="admin" aria-pressed="true">Administration</button>
   <button type="button" data-mode-rec="type" aria-pressed="false">Type de recette</button>
+</div>
+<div class="seg-ctl zone-ctl" id="ctl-dep" role="group" aria-label="Regrouper les dépenses par">
+  <button type="button" data-mode="admin" aria-pressed="true">Administration</button>
+  <button type="button" data-mode="fonction" aria-pressed="false">Fonction</button>
 </div>
 <div class="zoom panel" role="group" aria-label="Zoom">
   <a id="z-pdf" href="pdf/argent-public-2024-administration-administration.pdf" download aria-label="Télécharger cette exploration en PDF (vectoriel, tous les noms, zoom sans perte)" title="Télécharger en PDF haute résolution"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -287,13 +301,17 @@
   const voulue = new URLSearchParams(location.search).get('annee');
   // annee : l'année dessinée (celle d'un aperçu, au survol du bandeau) ; anneeValidee : celle choisie.
   let annee = AN.insee.includes(voulue) ? voulue : AN.reference, anneeValidee = annee;
+  // Représentation : blocs (surfaces) ou flux (Sankey), adresse ?vue=flux.
+  let vueFlux = new URLSearchParams(location.search).get('vue') === 'flux';
   // PDF de l'année et des regroupements affichés (mis à jour quand on change de regroupement).
   const majPdf = () => {
     const fichier = `pdf/argent-public-${anneeValidee}-${mode === 'admin' ? 'administration' : 'fonction'}-${modeRec === 'admin' ? 'administration' : 'type'}.pdf`;
     $('z-pdf').href = $('lien-pdf').href = fichier;
+    $('z-pdf').hidden = vueFlux;
   };
   let G, X, E, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
+  const { circuitArgentPublic } = await import('./flux.js');
   // Comptes de chaque année, chargés une seule fois (dès le survol d'une année dans le bandeau).
   const CACHE = new Map();
   const charger = an => {
@@ -302,6 +320,17 @@
       .catch(e => { CACHE.delete(an); throw e; }));
     return CACHE.get(an);
   };
+  // Budget de l'État de l'année (ses versements aux autres administrations), pour la vue en flux seulement.
+  const ETATS = new Map(), ETATV = new Map();
+  const chargerEtat = an => {
+    if (!an) return null;
+    if (!(AN.etat || []).includes(an)) { ETATV.set(an, null); return null; }
+    if (!ETATS.has(an)) ETATS.set(an, Promise.all(['budget', 'detail'].map(t => fetch(`donnees/${t}-etat-${an}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)))
+      .then(([BE, DE]) => { const e = BE && DE ? { BE, DE } : null; ETATV.set(an, e); return e; })
+      .catch(() => { ETATV.set(an, null); return null; }));
+    return ETATS.get(an);
+  };
+  const circuit = (an, g) => circuitArgentPublic(g, ETATV.get(an) ?? null, X, an);
   try { [G, GREF, X, E] = await Promise.all([charger(annee), charger(AN.reference), ...['donnees/explications.json', 'donnees/estimations.json'].map(u => fetch(u, { cache: 'no-cache' }).then(r => r.json()))]); }
   catch (e) { $('status').textContent = 'Impossible de charger les données : ' + e.message; return; }
   $('status').hidden = true;
@@ -309,7 +338,14 @@
   // Évolution de chaque bloc : par rapport à l'année précédente ou, pendant un aperçu, à l'année choisie.
   const precedente = an => AN.insee[AN.insee.indexOf(an) - 1] || null;
   let anneeComp = null, GCOMP = null, EVO = new Map();
-  const majEvo = () => { EVO = new Map(); if (!GCOMP) return; const tour = n => { EVO.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GCOMP, X, mode, modeRec).forEach(tour); };
+  const majEvo = (an = annee) => {
+    EVO = new Map(); if (!GCOMP) return;
+    const tour = n => { EVO.set(n.id, n.v); (n.children || []).forEach(tour); }; arbresArgentPublic(GCOMP, X, mode, modeRec).forEach(tour);
+    // Flux : le réservoir commun et les versements de l'État ne se comparent qu'entre deux années
+    // où le budget de l'État détaille (ou non) ces versements.
+    if (vueFlux) { const meme = !!ETATV.get(an) === !!ETATV.get(anneeComp);
+      circuit(anneeComp, GCOMP).colonnes.forEach(c => c.noeuds.forEach(n => { if (!n.invisible && (meme || !/^x-(reservoir|v)/.test(n.id))) EVO.set(n.id, n.v); })); }
+  };
   const variation = (v, b) => { if (!(b > 0) || !(v > 0)) return ''; const p = (v / b - 1) * 100; return (p >= 0.05 ? '+' : p <= -0.05 ? '−' : '') + nf(Math.abs(p), 1) + ' %'; };
   const evo = n => variation(n.v, EVO.get(n.id));
   const depuis = () => +anneeComp < +annee ? `depuis ${anneeComp}` : `par rapport à ${anneeComp}`;
@@ -323,8 +359,8 @@
     document.title = annee !== '2024' ? `Explorer l'argent public en ${annee}` : TITRE;
     $('lien-pdf').textContent = `Exploration ${annee} en PDF`;
     $('alerte').hidden = !AN.insee_ecart.includes(annee);
-    if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné à gauche, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, à droite. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
-    $('figures').innerHTML = [[mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
+    if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné ${disposition === 'pile' ? 'en bas' : 'à droite'}, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, ${disposition === 'pile' ? 'en haut' : 'à gauche'}. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
+    $('figures').innerHTML = [[mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
       .map(([b, s, e]) => `<div><b>${b}</b><span>${s}</span>${e ? `<span class="evo" title="Évolution ${depuis()}">${e} ${depuis()}</span>` : ''}</div>`).join('');
     remplirCases();
   }
@@ -333,7 +369,8 @@
   let mode = 'admin', modeRec = 'admin';
   const relier = (n, parent = null, depth = 0) => { n.parent = parent; n.depth = depth; (n.children || []).forEach(c => relier(c, n, depth + 1)); return n; };
   // Arbres communs à la page de pilotage et aux PDF (arbres.js) : les mêmes blocs partout.
-  const arbres = () => arbresArgentPublic(G, X, mode, modeRec).map(r => relier(r));
+  // Recettes d'abord (à gauche ou en haut), dépenses ensuite : on lit d'où vient l'argent, puis où il va.
+  const arbres = () => arbresArgentPublic(G, X, mode, modeRec).reverse().map(r => relier(r));
   // Les blocs sont rangés selon leur montant de l'année de référence, et non de l'année affichée :
   // d'une année à l'autre, chacun reste à sa place et ne fait que grandir ou rétrécir.
   let REF = new Map();
@@ -341,11 +378,11 @@
   const rang = d => REF.get(d.id) ?? d.v;
 
   // ================= Mise en page (coordonnées « monde ») =================
-  // Deux dispositions : dépenses et financement côte à côte (écran large) ou l'un au-dessus de
+  // Deux dispositions : financement et dépenses côte à côte (écran large) ou l'un au-dessus de
   // l'autre (écran étroit ou haut). On garde celle qui donne le plus grand dessin à l'écran.
   const TETE = 70, ECART = 36;
   const DISPOSITIONS = {
-    // Les colonnes d'estimations (aides non demandées, recettes perdues) encadrent les comptes :
+    // Les colonnes d'estimations (recettes perdues, aides non demandées) encadrent les comptes :
     // à gauche et à droite côte à côte, à droite de chaque moitié une fois empilées.
     cote: { W: 2640, H: 1260, zones: [{ x: 320, y: TETE, w: 982, h: 1190 }, { x: 1338, y: TETE, w: 982, h: 1190 }],
       estim: [{ x: 0, y: TETE, w: 280, h: 1190 }, { x: 2360, y: TETE, w: 280, h: 1190 }] },
@@ -392,10 +429,11 @@
   const encreDe = n => n.color === 'hatch' || n.color === 'na' ? null : `var(--on-${n.color})`;
   function dessiner() {
     majPdf();
+    if (vueFlux) return dessinerFlux();
     disposition = choisirDisposition();
     ({ W, H, zones, estim: colonnesEst } = DISPOSITIONS[disposition]);
-    $('ou-dep').textContent = disposition === 'pile' ? 'En haut' : 'À gauche';
-    $('ou-rec').textContent = disposition === 'pile' ? 'en bas' : 'à droite';
+    $('ou-rec').textContent = disposition === 'pile' ? 'En haut' : 'À gauche';
+    $('ou-dep').textContent = disposition === 'pile' ? 'en bas' : 'à droite';
     [racines] = [arbres()];
     // Même échelle pour toutes les années : la surface de chaque moitié est proportionnelle à son
     // total, rapporté au plus grand total de toutes les années (qui remplit sa zone). La moitié
@@ -431,6 +469,120 @@
     majVue();
   }
 
+  // ================= Vue en flux : le circuit de l'argent public (Sankey horizontal) =================
+  // Cinq colonnes lues de gauche à droite, comme les blocs (flux.js). La hauteur de chaque bloc suit
+  // son montant, à la même échelle pour toutes les années : d'une année à l'autre, on le voit grandir.
+  const FLUX = { W: 2640, H: 1260, TOP: 80, GAP: 12, NW: 22, XS: [450, 880, 1310, 1740, 2170] };
+  let fxCols = [], fxNoeuds = [], fxLiens = [], fxPar = new Map(), fxTotal = 1;
+  const r2 = v => Math.round(v * 100) / 100;
+  function dessinerFlux() {
+    ({ W, H } = FLUX);
+    const { TOP, GAP, NW, XS } = FLUX, m = circuit(annee, G);
+    const k = (H - TOP - 20 - GAP * 12) / (AN.echelle.insee_md * 1.06);
+    fxNoeuds = []; fxPar = new Map();
+    fxCols = m.colonnes.map((c, i) => {
+      let y = TOP;
+      for (const n of c.noeuds) {
+        Object.assign(n, { fx: true, col: c.titre, ci: i, x: n.invisible ? XS[i] + NW / 2 : XS[i], w: n.invisible ? 0 : NW, y, h: n.v * k, entrees: [], sorties: [] });
+        y += n.h + GAP; fxNoeuds.push(n); fxPar.set(n.id, n);
+      }
+      return { titre: c.titre, i, zone: { x: XS[i], y: TOP, w: NW, h: y - GAP - TOP } };
+    });
+    fxTotal = sum(m.colonnes[0].noeuds, n => n.v);
+    fxLiens = m.liens.map((l, i) => ({ ...l, i, lien: true, s: fxPar.get(l.s), t: fxPar.get(l.t) })).filter(l => l.s && l.t);
+    fxLiens.forEach(l => { l.s.sorties.push(l); l.t.entrees.push(l); });
+    // Rubans rangés au départ et à l'arrivée de chaque bloc selon la hauteur de l'autre extrémité.
+    const cy = n => n.y + n.h / 2;
+    for (const n of fxNoeuds) {
+      let y = n.y; [...n.sorties].sort((a, b) => cy(a.t) - cy(b.t)).forEach(l => { l.sy = y; y += l.v * k; });
+      y = n.y; [...n.entrees].sort((a, b) => cy(a.s) - cy(b.s)).forEach(l => { l.ty = y; y += l.v * k; });
+    }
+    const ruban = l => { const w = l.v * k, xa = r2(l.s.x + l.s.w), xb = r2(l.t.x), mx = r2((xa + xb) / 2), ya = r2(l.sy), yb = r2(l.ty), ya2 = r2(l.sy + w), yb2 = r2(l.ty + w);
+      return `M${xa},${ya} C${mx},${ya} ${mx},${yb} ${xb},${yb} L${xb},${yb2} C${mx},${yb2} ${mx},${ya2} ${xa},${ya2} Z`; };
+    let h = `<defs><pattern id="hachure" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" style="fill:var(--panel)"/><rect width="4" height="12" style="fill:var(--hatch)"/></pattern></defs><g id="monde">`;
+    h += fxLiens.map(l => `<path class="fxl" data-xl="${l.s.id}|${l.t.id}" data-i="${l.i}" d="${ruban(l)}" style="fill:${fillDe(l)}"/>`).join('');
+    for (const n of fxNoeuds) if (!n.invisible) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1.5, n.h)}" style="fill:${fillDe(n)}"/>`;
+    h += fxCols.map(c => `<text class="fx-col" data-c="${c.i}" display="none">${esc(c.titre)}</text>`).join('');
+    for (const n of fxNoeuds) if (!n.invisible) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
+    svg.innerHTML = h + '</g>';
+    appliquerFiltres();
+    majVue();
+  }
+  // Titres des colonnes et noms des blocs, à taille fixe à l'écran : un bloc trop fin n'a que son infobulle.
+  function rendreFlux(kk, visible) {
+    for (const c of fxCols) {
+      const t = svg.querySelector(`[data-c="${c.i}"]`), dernier = c.i === fxCols.length - 1, XS = FLUX.XS;
+      // Place du titre : la marge (première et dernière colonne) ou l'écart entre deux colonnes ; plus petit s'il le faut.
+      const place = (c.i === 0 ? XS[0] + FLUX.NW : dernier ? W - XS[c.i] : XS[1] - XS[0]) * kk - 10, fst = Math.min(11.5, place / (c.titre.length * 0.68));
+      t.setAttribute('display', fst < 7 ? 'none' : 'inline'); t.setAttribute('font-size', fst / kk); t.setAttribute('y', c.zone.y - 16 / kk);
+      t.setAttribute('x', c.i === 0 ? c.zone.x + c.zone.w : dernier ? c.zone.x : c.zone.x + c.zone.w / 2);
+      t.setAttribute('text-anchor', c.i === 0 ? 'end' : dernier ? 'start' : 'middle');
+    }
+    for (const n of fxNoeuds) {
+      if (n.invisible) continue;
+      const t = svg.querySelector(`[data-lx="${n.id}"]`), hp = n.h * kk;
+      if (!visible(n) || hp < 11) { t.setAttribute('display', 'none'); continue; }
+      const fs = hp >= 60 ? 14 : 12.5, gauche = n.ci === 0, x = gauche ? n.x - 8 / kk : n.x + n.w + 8 / kk, milieu = n.y + n.h / 2;
+      // Place pour le nom : jusqu'à la colonne voisine, ou jusqu'au bord du dessin.
+      const placePx = (gauche ? n.x : (n.ci < FLUX.XS.length - 1 ? FLUX.XS[n.ci + 1] : W) - n.x - n.w) * kk - 24;
+      const max = Math.floor(placePx / (fs * 0.56));
+      // Trop peu de place pour un nom lisible : on laisse l'infobulle et le zoom.
+      if (max < 7) { t.setAttribute('display', 'none'); continue; }
+      const e = evo(n), deux = hp >= 30;
+      // Montant, avec l'évolution si elle tient dans la place.
+      const mt = [mds(n.v) + (e ? ' · ' + e : ''), mds(n.v)].find(x => x.length * (fs - 1.5) * 0.6 <= placePx) || '';
+      const nom = n.label.length > max ? n.label.slice(0, max - 1) + '…' : n.label;
+      t.setAttribute('display', 'inline'); t.setAttribute('text-anchor', gauche ? 'end' : 'start'); t.setAttribute('font-size', fs / kk); t.setAttribute('stroke-width', 3 / kk);
+      const [tn, tv] = t.children;
+      tn.textContent = nom; tn.setAttribute('x', x);
+      tv.setAttribute('font-size', (fs - 1.5) / kk);
+      if (deux) { tn.setAttribute('y', milieu - 1 / kk); tv.textContent = mt; tv.setAttribute('x', x); tv.setAttribute('y', milieu + (fs + 1) / kk); }
+      else { tn.setAttribute('y', milieu + fs * 0.35 / kk); tv.textContent = (nom.length + mds(n.v).length + 1) * fs * 0.56 <= placePx ? ' ' + mds(n.v) : ''; tv.removeAttribute('x'); tv.removeAttribute('y'); }
+    }
+  }
+  // Rubans liés à un bloc ou à un ruban, en traversant les passages invisibles.
+  const relies = f => {
+    const l = f.lien ? [f] : [...f.entrees, ...f.sorties];
+    return [...l, ...l.flatMap(x => [...(x.t.invisible && x.t !== f ? x.t.sorties : []), ...(x.s.invisible && x.s !== f ? x.s.entrees : [])])];
+  };
+  const allumer = f => {
+    scene.classList.toggle('fx-survol', !!f);
+    const on = new Set(f ? relies(f) : []);
+    svg.querySelectorAll('path.fxl').forEach(p => p.classList.toggle('on', on.has(fxLiens[+p.dataset.i])));
+  };
+  // Extrémités visibles d'un ruban qui passe par un bloc invisible.
+  const amontDe = n => n.invisible ? n.entrees[0]?.s || n : n;
+  const avalDe = n => n.invisible ? n.sorties[0]?.t || n : n;
+  // Pendant de chaque bloc du flux dans la vue en blocs : [regroupement des dépenses, des recettes, identifiant].
+  const enBlocs = n => n.fonction ? ['fonction', modeRec, 'd-' + n.fonction]
+    : /^x-d/.test(n.id) ? ['admin', modeRec, 'd-' + n.secteur]
+    : /^x-p/.test(n.id) ? [mode, 'admin', 'r-' + n.secteur]
+    : { 'x-r-emp': [mode, modeRec, 'r-deficit'], 'x-r-aut': [mode, 'admin', 'r-autres'] }[n.id] || null;
+  function ouvrirFlux(n, { zoom = false } = {}) {
+    choisi = n;
+    svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
+    svg.querySelector(`rect.fx[data-id="${n.id}"]`)?.classList.add('sel');
+    const ex = n.explication, blocs = enBlocs(n);
+    // D'où vient l'argent de ce bloc, et où il va.
+    const amont = n.entrees.flatMap(l => l.s.invisible ? l.s.entrees.map(m => ({ n: m.s, v: l.v })) : [{ n: l.s, v: l.v }]);
+    const aval = n.sorties.flatMap(l => l.t.invisible ? l.t.sorties.map(m => ({ n: m.t, v: m.v })) : [{ n: l.t, v: l.v }]);
+    const barres = l => { l.sort((a, b) => b.v - a.v); return `<div class="bars">${l.map(c => `<div class="bar" style="--c:${c.n.color === 'hatch' ? 'var(--hatch)' : `var(--m-${c.n.color})`}"><button type="button" data-go="${c.n.id}">${esc(c.n.label)}</button><span class="v">${mds(c.v)}</span><i style="width:${Math.max(1, c.v / l[0].v * 100)}%"></i></div>`).join('')}</div>`; };
+    $('d-chip').innerHTML = `<span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span>Flux · ${esc(n.col)}`;
+    $('d-title').textContent = n.titre || n.label;
+    $('d-body').innerHTML = `<p class="big">${mds(n.v)}</p>
+      ${evo(n) ? `<p class="ex"><b>${evo(n)}</b> ${depuis()} (${mds(EVO.get(n.id))} en ${anneeComp}).</p>` : ''}
+      ${ex ? `<p><b class="acc">C'est quoi ?</b> ${esc(ex.quoi)}</p>` : ''}
+      <p>Sur 100 € qui financent la dépense publique (recettes et emprunt), <b>${nf(n.v / fxTotal * 100, 2)} €</b> passent par ici.</p>
+      <div class="d-actions"><button type="button" class="btn" id="d-zoom">Zoomer sur ce bloc</button>${blocs ? '<button type="button" class="btn" id="d-blocs">Voir dans les blocs</button>' : ''}</div>
+      ${amont.length ? `<p class="ex">D'où vient cet argent :</p>${barres(amont)}` : ''}
+      ${aval.length ? `<p class="ex">Où il va :</p>${barres(aval)}` : ''}`;
+    $('detail').hidden = false;
+    $('d-zoom').onclick = () => cadrer(n);
+    if ($('d-blocs')) $('d-blocs').onclick = () => versBlocs(...blocs);
+    $('d-body').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { const c = fxPar.get(b.dataset.go); ouvrirFlux(c); cadrer(c); });
+    if (zoom) cadrer(n); else majVue();
+  }
+
   // ================= Estimations : fraude, évitement fiscal, non-recours =================
   // Des cercles et non des rectangles, car ce ne sont pas des comptes : la surface suit la même
   // échelle que les comptes ; le disque plein est la borne basse, le cercle pointillé la haute.
@@ -457,7 +609,7 @@
     const a = sum(noeuds.filter(n => n.parent && !n.children?.length && racineDe(n).id === 'dep'), n => n.w * n.h) / D, ENTETE = 200, MARGE = 12;
     estim = []; colonnes = [];
     let h = '';
-    [['aides', E.non_percu_aides], ['recettes', E.non_percu_recettes]].forEach(([cle, c], i) => {
+    [['recettes', E.non_percu_recettes], ['aides', E.non_percu_aides]].forEach(([cle, c], i) => {
       const col = colonnesEst[i], postes = c.postes.map(pourAnnee).sort((p, q) => q.haut - p.haut);
       const bas = sum(postes, p => p.bas), haut = sum(postes, p => p.haut);
       const ce = { id: 'ec-' + cle, cle, est: 'col', label: c.titre, titre: `${c.titre} (estimations)`, sous: c.sous_titre, bas, haut, quoi: c.quoi, non_chiffre: c.non_chiffre,
@@ -579,8 +731,9 @@
     const { r } = marges();
     const visible = n => { const x0 = tx + n.x * kk, y0 = ty + n.y * kk; return x0 < r.width && y0 < r.height && x0 + n.w * kk > 0 && y0 + n.h * kk > 0; };
     const tient = n => n.w * kk > 74 && n.h * kk > 30;
-    // Noms des zones, au-dessus de chaque moitié.
     placerControles();
+    if (vueFlux) return rendreFlux(kk, visible);
+    // Noms des zones, au-dessus de chaque moitié.
     rendreEstimations(kk);
     // Titres des deux moitiés : même taille pour les deux, assez petite pour laisser la place au
     // sélecteur sur la même ligne ; s'il ne tient pas, le sélecteur passe dessous (empilé) ou
@@ -632,6 +785,8 @@
   // sous le panneau.
   function placerControles() {
     requestAnimationFrame(() => {
+      // En flux, les colonnes sont fixes : pas de regroupement à choisir.
+      if (vueFlux) { $('ctl-dep').hidden = $('ctl-rec').hidden = true; return; }
       const panneau = $('side').getBoundingClientRect(), sc = scene.getBoundingClientRect();
       [['dep', 'ctl-dep'], ['rec', 'ctl-rec']].forEach(([z, c]) => {
         const t = svg.querySelector(`[data-z="${z}"]`), el = $(c);
@@ -721,14 +876,14 @@
   $('z-fit').onclick = toutVoir;
   // Au redimensionnement, on change de disposition si l'autre devient meilleure.
   addEventListener('resize', () => {
-    if (choisirDisposition() === disposition) return majVue();
+    if (vueFlux || choisirDisposition() === disposition) return majVue();
     const id = choisi?.id; dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 });
     if (id && parId.has(id)) ouvrir(parId.get(id)); majVue();
   });
 
   // ================= Survol, clic, fiche =================
   const tip = $('tip');
-  function cacherTip() { tip.hidden = true; }
+  function cacherTip() { tip.hidden = true; if (vueFlux) allumer(null); }
   // Le bloc désigné est le plus fin dont le nom est lisible à ce niveau de zoom.
   const designe = feuille => {
     const kk = s0 * vue.k;
@@ -739,13 +894,19 @@
   // La capture du pointeur (glisser) fait de la scène la cible : on cherche le bloc par position.
   const estParId = id => estim.find(x => x.id === id) || colonnes.find(x => x.id === id);
   const sousPointeur = e => {
-    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, [data-e]');
+    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('rect.leaf, rect.fx, path.fxl, [data-e]');
     if (!el) return null;
+    if (el.classList.contains('fxl')) return fxLiens[+el.dataset.i];
+    if (el.classList.contains('fx')) return fxPar.get(el.dataset.id);
     return el.dataset.e ? estParId(el.dataset.e) : parId.get(el.dataset.id);
   };
   function survol(e) {
     const f = sousPointeur(e); if (!f) return cacherTip();
-    if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
+    if (f.lien || f.fx) allumer(f);
+    if (f.lien) { const a = amontDe(f.s), b = avalDe(f.t);
+      tip.innerHTML = `<b>${esc(a.titre || a.label)} → ${esc(b.titre || b.label)}</b><span class="val">${mds(f.v)}</span> · ${pct(f.v, a.v)} de « ${esc(a.label)} », ${pct(f.v, b.v)} de « ${esc(b.label)} »`; }
+    else if (f.fx) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${mds(f.v)}</span>${evo(f) ? ` (${evo(f)} ${depuis()})` : ''} · ${pct(f.v, fxTotal)} du total${f.explication ? `<br><span class="tq">${esc(f.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`;
+    else if (f.est) tip.innerHTML = `<b>${esc(f.titre || f.label)}</b><span class="val">${fourchette(f.bas, f.haut)}</span> · estimation${f.annee ? ', ' + esc(f.annee) : ''}<br><span class="tq">${esc(f.quoi.split(/(?<=\.)\s/)[0])}</span>`;
     else { const n = designe(f), z = racineDe(n);
     tip.innerHTML = `<b>${esc(n.titre || n.label)}</b><span class="val">${mds(n.v)}</span>${evo(n) ? ` (${evo(n)} ${depuis()})` : ''} · ${pct(n.v, z.v)} ${z.id === 'dep' ? 'des dépenses' : 'du financement'}${n.explication ? `<br><span class="tq">${esc(n.explication.quoi.split(/(?<=\.)\s/)[0])}</span>` : ''}`; }
     tip.hidden = false;
@@ -755,8 +916,9 @@
   }
   const racineDe = n => { let x = n; while (x.parent) x = x.parent; return x; };
   let choisi = null;
-  function cliquer(e) { const f = sousPointeur(e); if (f) ouvrir(f.est ? f : designe(f)); }
+  function cliquer(e) { const f = sousPointeur(e); if (f) ouvrir(f.lien ? avalDe(f.t) : f.est || f.fx ? f : designe(f)); }
   function ouvrir(n, { zoom = false } = {}) {
+    if (n.fx) return ouvrirFlux(n, { zoom });
     if (n.est) return ouvrirEstimation(n, { zoom });
     choisi = n;
     svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
@@ -825,6 +987,14 @@
       .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"${avant.has(f.code) ? ' checked' : ''}><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
   }
   function appliquerFiltres() {
+    $('hl-off').hidden = !avant.size;
+    if (vueFlux) {
+      // Administrations masquées ; fonctions mises en avant : les autres fonctions s'effacent.
+      const eteint = x => !!(x.secteur && caches.has(x.secteur)) || !!(avant.size && x.fonction && !avant.has(x.fonction));
+      for (const n of fxNoeuds) if (!n.invisible) svg.querySelectorAll(`[data-id="${n.id}"], [data-lx="${n.id}"]`).forEach(el => el.classList.toggle('off', eteint(n)));
+      for (const l of fxLiens) svg.querySelector(`path[data-i="${l.i}"]`)?.classList.toggle('off', eteint(l));
+      return;
+    }
     for (const n of noeuds) {
       if (!n.parent) continue;
       const sect = n.secteur || null;
@@ -871,12 +1041,37 @@
       const i = textes.findIndex(t => variantes.some(v => v.every(m => debut(t, m))));
       return i < 0 ? null : i;
     };
-    trouves = [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])].filter(([, r]) => r !== null)
+    trouves = (vueFlux ? fxNoeuds.filter(n => !n.invisible).map(n => [n, rang(n)]) : [...noeuds.filter(n => n.parent).map(n => [n, rang(n)]), ...[...colonnes, ...estim].map(n => [n, rangEst(n)])]).filter(([, r]) => r !== null)
       .sort(([a, ra], [b, rb]) => (ra - rb) || ((a.depth ?? 2) - (b.depth ?? 2)) || ((b.v ?? b.haut) - (a.v ?? a.haut))).map(([n]) => n).slice(0, 15);
-    $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc([racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
+    $('results').innerHTML = trouves.length ? trouves.map((n, i) => n.est ? `<li><button type="button" data-r="${i}"><span class="sw est"></span><span class="rl">${esc(n.label)}</span><span class="rv">${fourchette(n.bas, n.haut)}</span><span class="rp">Estimation › ${esc(n.est === 'col' ? n.sous : n.col.label)}</span></button></li>` : `<li><button type="button" data-r="${i}"><span class="sw${n.color === 'na' ? ' na' : n.color === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${n.color})"></span><span class="rl">${esc(n.titre || n.label)}</span><span class="rv">${mds(n.v)}</span><span class="rp">${esc(n.fx ? 'Flux › ' + n.col : [racineDe(n).label, ...chemin(n)].join(' › '))}</span></button></li>`).join('')
       : `<li class="vide">Aucun résultat. Essayez un mot plus court.</li>`;
   });
   $('results').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) ouvrir(trouves[+b.dataset.r], { zoom: true }); });
+
+  // ================= Blocs ou flux =================
+  const majBoutonsVue = () => {
+    document.querySelectorAll('[data-vue]').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.vue === 'flux') === vueFlux)));
+    $('sub-blocs').hidden = vueFlux; $('sub-flux').hidden = !vueFlux;
+  };
+  async function changerVue(flux) {
+    if (flux === vueFlux) return;
+    vueFlux = flux; majBoutonsVue();
+    if (flux) await Promise.all([chargerEtat(annee), chargerEtat(anneeComp)]);
+    $('detail').hidden = true; choisi = null; cacherTip(); scene.classList.remove('fx-survol');
+    majEvo(); dessiner(); Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 }); zonesValidees = zonesActuelles(); majVue();
+    const u = new URL(location.href);
+    if (flux) u.searchParams.set('vue', 'flux'); else u.searchParams.delete('vue');
+    history.replaceState(history.state, '', u);
+  }
+  document.querySelectorAll('[data-vue]').forEach(b => b.onclick = () => changerVue(b.dataset.vue === 'flux'));
+  // Depuis la fiche d'un bloc du flux : le même bloc dans la vue en blocs, avec les bons regroupements.
+  async function versBlocs(m, mr, id) {
+    mode = m; modeRec = mr;
+    document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.mode === m)));
+    document.querySelectorAll('[data-mode-rec]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.modeRec === mr)));
+    majRef(); await changerVue(false);
+    const n = parId.get(id); if (n) ouvrir(n, { zoom: true });
+  }
 
   // Sur mobile, le panneau est replié : le bouton « Options » déplie filtres et regroupements.
   $('opts').onclick = () => { const o = $('side').classList.toggle('ouvert'); $('opts').setAttribute('aria-expanded', String(o)); majVue(); };
@@ -884,10 +1079,17 @@
   // Chaque bloc garde son identifiant d'une année à l'autre : on relève sa géométrie avant de
   // redessiner, puis on l'anime vers la nouvelle. Les blocs qui apparaissent partent de leur
   // centre ; ceux qui disparaissent s'y réduisent.
-  const GEO = { rect: ['x', 'y', 'width', 'height'], circle: ['cx', 'cy', 'r'] };
-  const cleDe = el => `${el.tagName}|${el.dataset.id || el.dataset.e}|${[...el.classList].filter(c => !['sel', 'off', 'decale'].includes(c)).join('.')}`;
-  const releve = () => new Map([...svg.querySelectorAll('#monde rect[data-id], #monde [data-e]')].map(el => [cleDe(el), { el, v: GEO[el.tagName].map(a => +el.getAttribute(a)) }]));
-  const centre = (tag, v) => tag === 'rect' ? [v[0] + v[2] / 2, v[1] + v[3] / 2, 0, 0] : [v[0], v[1], 0];
+  // Les rubans du flux suivent le même chemin : on fait varier les nombres de leur tracé.
+  const GEO = { rect: ['x', 'y', 'width', 'height'], circle: ['cx', 'cy', 'r'] }, NUM = /-?\d+(?:\.\d+)?(?:e-?\d+)?/g;
+  const cleDe = el => `${el.tagName}|${el.dataset.id || el.dataset.e || el.dataset.xl}|${[...el.classList].filter(c => !['sel', 'off', 'decale', 'on'].includes(c)).join('.')}`;
+  const lire = el => el.tagName === 'path' ? el.getAttribute('d').match(NUM).map(Number) : GEO[el.tagName].map(a => +el.getAttribute(a));
+  const poser = (el, v) => {
+    if (el.tagName === 'path') { let i = 0; el.setAttribute('d', el._d.replace(NUM, () => r2(v[i++]))); }
+    else GEO[el.tagName].forEach((a, i) => el.setAttribute(a, i >= 2 ? Math.max(0, v[i]) : v[i]));
+  };
+  const releve = () => new Map([...svg.querySelectorAll('#monde rect[data-id], #monde [data-e], #monde path[data-xl]')].map(el => { if (el.tagName === 'path') el._d = el.getAttribute('d'); return [cleDe(el), { el, v: lire(el) }]; }));
+  const centre = (tag, v) => tag === 'rect' ? [v[0] + v[2] / 2, v[1] + v[3] / 2, 0, 0] : tag === 'circle' ? [v[0], v[1], 0] : v;
+  const zonesActuelles = () => vueFlux ? fxCols.map(c => c.zone) : racines.map(r => r.zone);
   // Contours de l'année choisie, en pointillés, pendant un aperçu : on voit l'enveloppe grandir ou rétrécir.
   let zonesValidees = [];
   let jeton = 0, animAn = 0, enCours = false;
@@ -895,10 +1097,10 @@
   async function basculer(an, { apercu = false } = {}) {
     const moi = ++jeton;
     const comp = apercu ? anneeValidee : precedente(an);
-    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null]);
+    const [g, gc] = await Promise.all([charger(an), comp ? charger(comp).catch(() => null) : null, vueFlux && chargerEtat(an), vueFlux && chargerEtat(comp)]);
     if (moi !== jeton) return false;
     const changeComp = comp !== anneeComp;
-    anneeComp = comp; GCOMP = gc; majEvo();
+    anneeComp = comp; GCOMP = gc; majEvo(an);
     const badge = $('apercu');
     badge.hidden = !apercu;
     if (apercu) {
@@ -920,20 +1122,20 @@
     if (reduit) return true;
     const apres = releve(), pistes = [];
     for (const [k, { el, v }] of apres) {
-      const de = avantGeo.get(k)?.v || centre(el.tagName, v);
-      GEO[el.tagName].forEach((a, i) => el.setAttribute(a, de[i]));
-      pistes.push([el, GEO[el.tagName], de, v]);
+      const a = avantGeo.get(k)?.v, de = a && a.length === v.length ? a : centre(el.tagName, v);
+      poser(el, de);
+      pistes.push([el, de, v]);
     }
     const monde = svg.querySelector('#monde'), texte = monde.querySelector('text');
-    for (const [k, { el, v }] of avantGeo) if (!apres.has(k)) {
+    for (const [k, { el, v }] of avantGeo) if (!apres.has(k) && el.tagName !== 'path') {
       const c = el.cloneNode(); c.classList.add('partant'); c.classList.remove('sel'); monde.insertBefore(c, texte);
-      pistes.push([c, GEO[c.tagName], v, centre(c.tagName, v)]);
+      pistes.push([c, v, centre(c.tagName, v)]);
     }
     scene.classList.add('anime'); enCours = true;
     const t0 = performance.now(), duree = 700;
     const pas = t => {
       const p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 3);
-      for (const [el, at, a, b] of pistes) at.forEach((n, i) => { const v = a[i] + (b[i] - a[i]) * e; el.setAttribute(n, i >= 2 ? Math.max(0, v) : v); });
+      for (const [el, a, b] of pistes) poser(el, a.map((x, i) => x + (b[i] - x) * e));
       if (p < 1) { animAn = requestAnimationFrame(pas); return; }
       svg.querySelectorAll('.partant').forEach(x => x.remove());
       scene.classList.remove('anime'); enCours = false; majVue();
@@ -958,13 +1160,13 @@
     let ok;
     try { ok = await basculer(an); } catch (e) { location.href = '?annee=' + an; return; }
     if (!ok) return;
-    anneeValidee = an; Gvalide = G; zonesValidees = racines.map(r => r.zone);
+    anneeValidee = an; Gvalide = G; zonesValidees = zonesActuelles();
     svg.querySelectorAll('.repere').forEach(x => x.remove()); $('apercu').hidden = true;
     majPanneau(); majPdf(); majLiens(an);
     liensAnnee.forEach(a => { if (a.dataset.anneeChoix === an) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (historique) { const u = new URL(location.href); u.searchParams.set('annee', an); history.pushState({ annee: an }, '', u); }
     // La fiche ouverte suit l'année, si le bloc existe encore.
-    if (choisi) { const n = choisi.est ? estParId(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
+    if (choisi) { const n = choisi.est ? estParId(choisi.id) : choisi.fx ? fxPar.get(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
   }
   // Survol d'une année : aperçu animé ; en quittant les années sans cliquer, retour à l'année choisie.
   let tempo = 0;
@@ -986,10 +1188,13 @@
   addEventListener('popstate', () => { const a = new URLSearchParams(location.search).get('annee'); valider(AN.insee.includes(a) ? a : AN.reference, { historique: false }); });
 
   majRef();
-  anneeComp = precedente(annee); GCOMP = anneeComp ? await charger(anneeComp).catch(() => null) : null; majEvo();
+  anneeComp = precedente(annee); GCOMP = anneeComp ? await charger(anneeComp).catch(() => null) : null;
+  if (vueFlux) await Promise.all([chargerEtat(annee), chargerEtat(anneeComp)]);
+  majEvo();
+  majBoutonsVue();
   majPanneau();
   dessiner();
-  zonesValidees = racines.map(r => r.zone);
+  zonesValidees = zonesActuelles();
   Object.assign(vue, { k: 1, cx: W / 2, cy: H / 2 });
   new ResizeObserver(majVue).observe($('side'));
   new ResizeObserver(majVue).observe(document.querySelector('.bandeau') || document.body);
