@@ -65,6 +65,10 @@
   #scene:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
   #scene svg { display: block; width: 100%; height: 100%; }
   #scene rect.leaf { stroke: var(--ground); vector-effect: non-scaling-stroke; stroke-width: 1px; }
+  /* Dépenses d'une année provisoire, pas encore réparties : un bloc en pointillés. */
+  #scene rect.attente { fill: var(--panel-2) !important; stroke: var(--muted); stroke-width: 1.5px; stroke-dasharray: 8 6; }
+  /* Années provisoires dans le bandeau. */
+  .bandeau a.provisoire { font-style: italic; text-decoration: underline dotted; text-underline-offset: 3px; }
   #scene rect.leaf.sel, #scene rect.cadre.sel { stroke: var(--ink); stroke-width: 2.5px; }
   #scene rect.cadre { fill: none; stroke: none; vector-effect: non-scaling-stroke; pointer-events: none; }
   #scene .off { opacity: .12; }
@@ -253,7 +257,7 @@
 
 <aside id="side" class="panel" aria-label="Recherche et options" data-repliable>
   <div class="head">
-    <div class="eyebrow">Exploration · <span data-annee>2024</span></div>
+    <div class="eyebrow">Exploration · <span data-annee>2024</span><span data-statut></span></div>
     <div class="h-row"><h1>L'argent public en <span data-annee>2024</span></h1><button type="button" id="opts" aria-expanded="false" aria-controls="side-body">Options</button></div>
     <p class="sub" id="sub-blocs"><span id="ou-rec">À gauche</span>, ce qui finance l'argent public : impôts, cotisations, autres recettes et emprunt ; <span id="ou-dep">à droite</span>, ce que dépensent l'État, la sécurité sociale, les collectivités et les opérateurs. Les deux ont la même surface ; au milieu, les recettes et le déficit font ensemble la dépense publique. Les cercles, sur les côtés, sont des estimations de ce qui échappe : fraude et aides non demandées. Zoomez pour entrer dans le détail, cliquez pour la fiche.</p>
     <p class="sub" id="sub-flux" hidden>Les mêmes blocs suivis de gauche à droite : le détail des recettes et de l'emprunt ; au centre, les recettes et le déficit, qui font ensemble la dépense publique ; puis, par administration, comment chacune finance ses dépenses (ses ressources propres, ce que l'État lui verse, les autres recettes et transferts) et le détail de ce qu'elle dépense. Chaque ruban est à l'échelle de son montant ; survolez-le pour le lire, cliquez sur un bloc pour sa fiche.</p>
@@ -374,6 +378,7 @@
   // et le reste, autres recettes et transferts que les comptes publiés ne détaillent pas. L'État,
   // lui, garde ce qu'il ne reverse pas. Pour chaque administration, la somme fait exactement sa dépense.
   const financement = (g, etat) => {
+    if (g.depenses_detaillees === false) return null;
     const direct = {};
     if (etat) {
       const PB = etat.BE.programmes.filter(p => p.programme !== '200');
@@ -416,8 +421,11 @@
   function majPanneau() {
     document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
     document.title = annee !== '2024' ? `Explorer l'argent public en ${annee}` : TITRE;
-    $('alerte').hidden = !AN.insee_ecart.includes(annee);
-    if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné ${disposition === 'pile' ? 'en bas' : 'à droite'}, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, ${disposition === 'pile' ? 'en haut' : 'à gauche'}. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
+    const provisoire = (AN.insee_provisoire || []).includes(annee);
+    $('alerte').hidden = !AN.insee_ecart.includes(annee) && !provisoire;
+    document.querySelectorAll('[data-statut]').forEach(el => { el.textContent = provisoire ? ' · provisoire' : ''; });
+    if (provisoire) $('alerte').textContent = `Comptes ${annee} provisoires de l'Insee : recettes, déficit et total des dépenses. La répartition des dépenses entre administrations et par fonction sera publiée par l'Insee en décembre 2026 ; en attendant, les dépenses forment un seul bloc. Les évolutions depuis 2024 rapprochent deux publications de l'Insee ; ses révisions de 2024 sont inférieures à 1 %.`;
+    else if (!$('alerte').hidden) $('alerte').textContent = `Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas : ${mds(D)} dans le tableau par fonction, dessiné ${disposition === 'pile' ? 'en bas' : 'à droite'}, et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit, ${disposition === 'pile' ? 'en haut' : 'à gauche'}. L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.`;
     $('figures').innerHTML = [[mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
       .map(([b, s, e]) => `<div><b>${b}</b><span>${s}</span>${e ? `<span class="evo" title="Évolution ${depuis()}">${e} ${depuis()}</span>` : ''}</div>`).join('');
     remplirCases();
@@ -516,7 +524,7 @@
     let h = `<defs><pattern id="hachure" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" style="fill:var(--panel)"/><rect width="4" height="12" style="fill:var(--hatch)"/></pattern></defs><g id="monde">`;
     for (const n of noeuds) {
       if (!n.parent) continue;
-      if (!n.children?.length) h += `<rect class="leaf" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" style="fill:${fillDe(n)}"/>`;
+      if (!n.children?.length) h += `<rect class="leaf${n.provisoire ? ' attente' : ''}" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" style="fill:${fillDe(n)}"/>`;
       else h += `<rect class="cadre" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}"/>`;
     }
     // Noms des zones, et étiquettes (positionnées et dimensionnées à chaque zoom).
@@ -593,7 +601,8 @@
   const finDeListe = n => /^r-deficit/.test(n.id) ? 2 : /^r-autres/.test(n.id) ? 1 : 0;
   const enfantsFlux = n => (n.children || []).filter(c => c.v > 0).sort((a, b) => finDeListe(a) - finDeListe(b) || rang(b) - rang(a));
   function dessinerFlux() {
-    const avecFin = mode === 'admin';
+    // Pas d'étape du financement pour une année provisoire : les dépenses par administration manquent.
+    const avecFin = mode === 'admin' && G.depenses_detaillees !== false;
     // Budget de l'État pas encore chargé : on dessine sans lui, puis on redessine quand il arrive.
     if (avecFin && (AN.etat || []).includes(annee) && !ETATV.has(annee)) chargerEtat(annee)?.then(() => { if (vueFlux && mode === 'admin') dessiner(); });
     colsDep = avecFin ? FLUX.dep.map(x => x + FIN) : FLUX.dep;
@@ -662,7 +671,7 @@
       return `M${a},${b} C${mx},${b} ${mx},${d} ${c},${d} L${c},${r2(d + w)} C${mx},${r2(d + w)} ${mx},${r2(b + w)} ${a},${r2(b + w)} Z`; };
     h += liensFin.map(l => `<path class="fxl" data-xl="${l.cle}" data-adm="${l.n.secteur}" d="${rubanFin(l)}" style="fill:${teinte(l.n)}"/>`).join('');
     for (const n of fins) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/><text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
-    for (const n of noeuds) if (n.parent) h += `<rect class="fx" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/>`;
+    for (const n of noeuds) if (n.parent) h += `<rect class="fx${n.provisoire ? ' attente' : ''}" data-id="${n.id}" x="${n.x}" y="${n.y}" width="${n.w}" height="${Math.max(1, n.h)}" style="fill:${teinte(n)}"/>`;
     h += centreSVG(FLUX.centre, TOP, 0, Math.max(...racines.map(r => r.h)), true);
     racines.forEach(r => { h += `<text class="zone" data-z="${r.id}"><tspan class="n">${esc(r.label)}</tspan><tspan class="v"></tspan></text>`; });
     for (const n of noeuds) if (n.parent) h += `<text class="halo" data-lx="${n.id}" display="none"><tspan class="n"></tspan><tspan class="v"></tspan></text>`;
@@ -1066,7 +1075,7 @@
   // Pour une administration, côté dépenses : comment elle les finance (le même partage que dans le flux).
   const financeLigne = n => {
     if (!(n.parent?.id === 'dep' && n.secteur && mode === 'admin')) return '';
-    const F = financement(G, ETATV.get(annee) ?? null)[n.secteur]; if (!F) return '';
+    const F = financement(G, ETATV.get(annee) ?? null)?.[n.secteur]; if (!F) return '';
     const parts = [[F.propre, 'ses ressources propres (impôts, cotisations et emprunt)'], [F.etat, `versés par l'État (budget ${annee})`], [F.autres, 'autres recettes et transferts']].filter(([v]) => v > 0.05);
     return `<p class="ex"><b class="acc">Financé par :</b> ${parts.map(([v, l]) => `<b>${mds(v)}</b> ${l}`).join(' ; ')}.${F.verse ? ` L'État verse en outre <b>${mds(F.verse)}</b> aux autres administrations.` : ''}</p>`;
   };
@@ -1200,9 +1209,11 @@
   // Montants de l'année affichés à côté de chaque case ; les cases gardent leur état d'une année à l'autre.
   function remplirCases() {
     const lignesAdmin = [...G.secteurs.map(s => [s.code, s.nom, COUL[s.code], s.total]), ['autres', 'Autres recettes', 'na', G.autres_recettes_consolidees], ['deficit', 'Déficit (emprunt)', 'hatch', -S]];
-    $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}"${caches.has(k) ? '' : ' checked'}><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${mds(v)}</span></label>`).join('');
+    $('c-admin').innerHTML = lignesAdmin.map(([k, l, c, v]) => `<label><input type="checkbox" data-sect="${k}"${caches.has(k) ? '' : ' checked'}><span class="sw${c === 'na' ? ' na' : c === 'hatch' ? ' hatch' : ''}" style="--c:var(--m-${c})"></span><span>${esc(l)}</span><span class="num">${v == null ? '' : mds(v)}</span></label>`).join('');
     $('c-admin').insertAdjacentHTML('beforeend', `<label><input type="checkbox" data-sect="estim"${caches.has('estim') ? '' : ' checked'}><span class="sw est"></span><span>Estimations : fraude, non-recours</span><span class="num"></span></label>`);
     // Fonctions de la plus grosse à la plus petite, sans pastille : elles n'ont pas de couleur propre.
+    // Année provisoire : pas encore de fonctions.
+    if (G.depenses_detaillees === false) { $('c-fonction').innerHTML = `<p class="sub" style="margin:0">Les dépenses par fonction de ${annee} seront publiées par l'Insee en décembre 2026.</p>`; return; }
     $('c-fonction').innerHTML = G.secteurs[0].fonctions.map((f, k) => [f, sum(G.secteurs, s => s.fonctions[k].montant)]).sort((a, b) => b[1] - a[1])
       .map(([f, v]) => `<label><input type="checkbox" data-fn="${f.code}"${avant.has(f.code) ? ' checked' : ''}><span>${esc(f.libelle)}</span><span class="num">${mds(v)}</span></label>`).join('');
   }
@@ -1361,6 +1372,8 @@
     });
   };
   const liensAnnee = [...document.querySelectorAll('.bandeau [data-annee-choix]')];
+  // Années provisoires : marquées dans le bandeau.
+  liensAnnee.forEach(a => { if ((AN.insee_provisoire || []).includes(a.dataset.anneeChoix)) { a.classList.add('provisoire'); a.title = `${a.dataset.anneeChoix} : comptes provisoires de l'Insee, dépenses pas encore détaillées`; } });
   async function valider(an, { historique = true } = {}) {
     if (!AN.insee.includes(an)) return;
     let ok;

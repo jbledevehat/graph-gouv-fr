@@ -1,6 +1,7 @@
 // Arbres des dépenses et des recettes publiques, communs à la page d'exploration, à la page de
 // pilotage et aux PDF de l'exploration : les mêmes blocs partout, pour une même année.
 //   dépenses : administration › fonction › sous-fonction, ou fonction › administration › sous-fonction ;
+//              pour une année provisoire de l'Insee, un seul bloc en attendant la répartition ;
 //   recettes : administration › impôts (par grande famille) et cotisations (versées ou imputées),
 //              ou type de recette › impôt un par un ; puis les autres recettes et le déficit.
 // G : donnees/argent-public-AAAA.json ; X : donnees/explications.json (facultatif).
@@ -15,7 +16,10 @@ export function arbresArgentPublic(G, X = {}, modeDep = 'admin', modeRec = 'admi
   const D = G.total_depenses, S = G.solde;
   const sous = (s, f) => f.sous.map(x => ({ id: `d-${s.code}-${x.code}`, label: x.libelle, titre: `${x.libelle} (${s.nom})`, v: x.montant, color: COUL[s.code], secteur: s.code, fonction: f.code, explication: ex('sous_fonctions', x.code) }));
   const fonc = (s, f, label) => ({ id: `d-${s.code}-${f.code}`, label, titre: `${f.libelle} (${s.nom})`, v: f.montant, color: COUL[s.code], secteur: s.code, fonction: f.code, explication: ex('fonctions', f.code), children: sous(s, f) });
-  const dep = modeDep === 'admin'
+  // Année provisoire (dépenses pas encore réparties par l'Insee) : un seul bloc, quel que soit le regroupement.
+  const dep = G.depenses_detaillees === false
+    ? { id: 'dep', label: 'Dépenses', v: D, children: [{ id: 'd-attente', label: 'Dépenses publiques, détail à paraître', titre: `Dépenses publiques ${G.meta?.annee ?? ''} : répartition par administration et par fonction publiée par l'Insee en décembre 2026`, v: D, color: 'na', provisoire: true }] }
+    : modeDep === 'admin'
     ? { id: 'dep', label: 'Dépenses', v: D, children: G.secteurs.map(s => ({ id: 'd-' + s.code, label: s.nom, v: s.total, color: COUL[s.code], secteur: s.code, explication: ex('secteurs', s.code), children: s.fonctions.map(f => fonc(s, f, f.libelle)) })) }
     : { id: 'dep', label: 'Dépenses', v: D, children: G.secteurs[0].fonctions.map((f0, k) => ({ id: 'd-' + f0.code, label: f0.libelle, v: sum(G.secteurs, s => s.fonctions[k].montant), color: 'na', fonction: f0.code, explication: ex('fonctions', f0.code), children: G.secteurs.map(s => fonc(s, s.fonctions[k], s.nom)) })) };
   const autres = G.recettes.filter(r => r.groupe === 'autres' && r.montant > 0);

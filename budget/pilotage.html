@@ -110,6 +110,26 @@
   /* Bandeau en tête, comme le poster « Où va l'argent public ? » du 1 hebdo : recettes et déficit,
      au-dessus de la dépense publique qu'ils financent ensemble. Couleurs neutres : ni l'une ni
      l'autre n'est une administration. */
+  /* Années provisoires dans le bandeau ; bloc de dépenses pas encore réparties. */
+  .bandeau a.provisoire { font-style: italic; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .mondrian .cell.attente rect.f { fill: var(--panel-2) !important; stroke: var(--muted); stroke-dasharray: 8 6; }
+  /* Trajectoire du déficit : constaté en trait plein, prévisions en pointillés sur fond distinct. */
+  .trajectoire { padding: 14px 16px; display: grid; gap: 6px; margin-bottom: 12px; }
+  .trajectoire h3 { margin: 0; font-size: 15px; }
+  .trajectoire p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .trajectoire svg { display: block; width: 100%; height: auto; }
+  .trajectoire text { font-family: var(--sans); fill: var(--muted); }
+  .trajectoire text.v { font: 600 12px var(--mono); fill: var(--ink); }
+  .trajectoire text.v.prev { font-style: italic; fill: var(--muted); }
+  .trajectoire text.an { font: 500 11.5px var(--mono); }
+  .trajectoire text.an.cur { fill: var(--ink); font-weight: 700; }
+  .trajectoire text.zone { font: 600 11px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+  .trajectoire .grille { stroke: var(--line); }
+  .trajectoire .fond-prev { fill: var(--panel-2); }
+  .trajectoire .constate { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+  .trajectoire .prevu { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 6 5; }
+  .trajectoire circle { fill: var(--ink); stroke: var(--panel); stroke-width: 2; }
+  .trajectoire circle.prev { fill: var(--panel); stroke: var(--ink); stroke-width: 2; }
   .bande { padding: 14px; display: grid; gap: 6px; margin-bottom: 12px; }
   .bande .ligne { display: flex; gap: 6px; }
   .bande .seg { border-radius: 6px; padding: 10px 14px; display: grid; gap: 2px; align-content: center; min-width: 0; }
@@ -349,6 +369,7 @@
   <section aria-labelledby="t-synthese">
     <h2 id="t-synthese" class="sr-only">Synthèse</h2>
     <div class="card bande" id="bande" hidden></div>
+    <div class="card trajectoire" id="trajectoire" hidden></div>
     <div class="kpis" id="facts"></div>
   </section>
 
@@ -491,6 +512,8 @@ AnneeVive.page(async () => {
   const voulue = AnneeVive.voulue();
   const annee = AN.insee.includes(voulue) || AN.etat.includes(voulue) ? voulue : AN.reference;
   AnneeVive.annees = [...new Set([...AN.insee, ...AN.etat])].sort(); AnneeVive.affichee = annee;
+  // Années provisoires : marquées dans le bandeau.
+  document.querySelectorAll('.bandeau [data-annee-choix]').forEach(a => { if ((AN.insee_provisoire || []).includes(a.dataset.anneeChoix)) { a.classList.add('provisoire'); a.title = `${a.dataset.anneeChoix} : comptes provisoires de l'Insee, dépenses pas encore détaillées`; } });
   const inseeDispo = AN.insee.includes(annee), etatDispo = AN.etat.includes(annee), complet = AN.aides.includes(annee);
   if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
   document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
@@ -605,7 +628,7 @@ AnneeVive.page(async () => {
         }
         const i = cellsOut.length;
         cellsOut.push(c);
-        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" data-k="${esc(c.id)}" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${traits}${label}</g>`;
+        svg += `<g class="cell${selected && selected(c) ? ' sel' : ''}${c.provisoire ? ' attente' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(c.label)} : ${esc(c.valueLabel ?? mds(c.v))}"><rect class="f" data-k="${esc(c.id)}" x="${x}" y="${y}" width="${w}" height="${h}" style="fill:${fill}"/>${traits}${label}</g>`;
       }
       const largeur = g.label.length * 7.6 + 20;
       if (groupLabels && groups.length > 1 && ancreG && ancreG.w > largeur && ancreG.h - ancreG.lh - (ancreG.pris || 0) > 34) {
@@ -663,7 +686,7 @@ AnneeVive.page(async () => {
       <p class="egal">Les recettes (${nf(G.part_pib.recettes, 1)} % du PIB) et le déficit, financé par l'emprunt, font ensemble la dépense publique de l'État, de la sécurité sociale, des collectivités et des opérateurs.</p>`;
   };
   const FAITS = [
-    ...(G ? [
+    ...(G && G.depenses_detaillees !== false ? [
       ['secu', G.secteurs.find(s => s.code === 'S1314').total, 'dépensés par la sécurité sociale, premier poste', 'secu']] : []),
     ...(etatDispo ? [['etat', BE.equilibre.depenses_nettes_hors_fdc / 1000, "de dépenses nettes du budget de l'État"]] : []),
     ...(complet ? [['aides', sum(B.aides, a => a.montant) / 1000, "d'aides aux entreprises (périmètre élargi)"]] : []),
@@ -771,6 +794,7 @@ AnneeVive.page(async () => {
   // (d'après son budget : collectivités, sécurité sociale et autres organismes, opérateurs), et le reste,
   // autres recettes et transferts que les comptes publiés ne détaillent pas.
   const financement = etat => {
+    if (G.depenses_detaillees === false) return null;
     const direct = {};
     if (etat) {
       const PB = etat.BE.programmes.filter(p => p.programme !== '200');
@@ -794,7 +818,7 @@ AnneeVive.page(async () => {
   const COUL_F = { etat: 'var(--m-etat)', autres: 'color-mix(in srgb, var(--ink) 40%, var(--panel))' };
   async function financer(el, n, dm) {
     if (!(dm === 'admin' && n.secteur && n.parent && !n.parent.parent)) return;
-    const F = (await FIN)[n.secteur];
+    const F = (await FIN)?.[n.secteur];
     if (!F || $(el).dataset.bloc !== n.id) return;
     const parts = [['propre', F.propre, `Ressources propres : ses impôts, ses cotisations${n.secteur === 'S1314' ? '' : ' et son emprunt'}`, `var(--m-${n.color})`],
       ['etat', F.etat, `Versé par l'État (budget de l'État ${annee})`, COUL_F.etat], ['autres', F.autres, 'Autres recettes et transferts', COUL_F.autres]].filter(p => p[1] > 0.05);
@@ -811,7 +835,39 @@ AnneeVive.page(async () => {
   // Comptes de chaque année de l'Insee (chargés une fois, au premier bloc ouvert) : le même bloc,
   // avec les mêmes regroupements, recalculé pour chaque année ; montant et évolution d'une année sur l'autre.
   let COMPTES = null;
+  // ================= Trajectoire du déficit public, en % du PIB =================
+  // Constaté (comptes de l'Insee, 2025 provisoire) puis prévu par le Gouvernement dans le PLF 2027 :
+  // avis du Haut Conseil des finances publiques n° 2026-5, tableau 12 (solde public en % du PIB).
+  // Les pourcentages du PIB se comparent d'une source à l'autre, contrairement aux montants.
+  const PREVISIONS = { source: 'PLF 2027 (avis du Haut Conseil des finances publiques n° 2026-5)', deficit: { 2026: 5.4, 2027: 5.0 } };
+  async function trajectoire() {
+    const liste = await comptes();
+    const pts = AN.insee.map((a, i) => { const g = liste[i]; if (!g?.part_pib) return null;
+      const pib = g.total_depenses_par_nature / (g.part_pib['dépenses'] / 100); return { a, v: -g.solde / pib * 100, prov: g.depenses_detaillees === false }; }).filter(Boolean);
+    const prev = Object.entries(PREVISIONS.deficit).filter(([a]) => !pts.some(p => p.a === a)).map(([a, v]) => ({ a, v, prevision: true }));
+    const tous = [...pts, ...prev];
+    if (tous.length < 3) return;
+    const W = 760, H = 220, G0 = 44, D0 = 16, T = 34, B = 28, iw = W - G0 - D0, ih = H - T - B, col = iw / tous.length;
+    const haut = Math.ceil(Math.max(...tous.map(p => p.v)) / 2) * 2, y = v => T + ih * (1 - v / haut), x = i => G0 + col * i + col / 2;
+    const i0 = tous.findIndex(p => p.prevision), dernierConstate = i0 - 1;
+    const f1 = v => v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' %';
+    let svg = '';
+    if (i0 > 0) svg += `<rect class="fond-prev" x="${G0 + col * i0}" y="${T - 22}" width="${col * (tous.length - i0)}" height="${ih + 22}"/><text class="zone" x="${G0 + col * i0 + 8}" y="${T - 8}">Prévision</text>`;
+    for (let v = 0; v <= haut; v += 2) svg += `<line class="grille" x1="${G0}" x2="${W - D0}" y1="${y(v)}" y2="${y(v)}"/><text x="${G0 - 8}" y="${y(v) + 4}" text-anchor="end">${v} %</text>`;
+    svg += `<polyline class="constate" points="${tous.slice(0, i0 > 0 ? i0 : tous.length).map((p, i) => `${x(i)},${y(p.v)}`).join(' ')}"/>`;
+    if (i0 > 0) svg += `<polyline class="prevu" points="${tous.slice(dernierConstate).map((p, k) => `${x(dernierConstate + k)},${y(p.v)}`).join(' ')}"/>`;
+    tous.forEach((p, i) => {
+      svg += `<circle class="${p.prevision ? 'prev' : ''}" cx="${x(i)}" cy="${y(p.v)}" r="${p.a === annee ? 6 : 4.5}"/>`;
+      svg += `<text class="v${p.prevision ? ' prev' : ''}" x="${x(i)}" y="${y(p.v) - 11}" text-anchor="middle">${f1(p.v)}</text>`;
+      svg += `<text class="an${p.a === annee ? ' cur' : ''}" x="${x(i)}" y="${H - 8}" text-anchor="middle">${p.a}${p.prov ? '*' : ''}</text>`;
+    });
+    $('trajectoire').innerHTML = `<h3>Le déficit public, en % du PIB</h3>
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`Déficit public en % du PIB : ${tous.map(p => `${p.a} ${f1(p.v)}${p.prevision ? ' (prévision)' : p.prov ? ' (provisoire)' : ''}`).join(', ')}.`)}">${svg}</svg>
+      <p>Trait plein : déficit constaté par l'Insee${pts.some(p => p.prov) ? ` (* comptes ${pts.filter(p => p.prov).map(p => p.a).join(', ')} provisoires)` : ''}. Pointillés : prévision du Gouvernement, ${esc(PREVISIONS.source)}, non constatée. Les montants en milliards de ces années ne sont pas encore connus au même périmètre : seuls les pourcentages du PIB se comparent.</p>`;
+    $('trajectoire').hidden = false;
+  }
   const comptes = () => COMPTES ??= Promise.all(AN.insee.map(a => fetch(`donnees/argent-public-${a}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null)));
+  trajectoire();
   const MONTANTS = new Map();
   const montantsDe = (g, a, cote, dm, rm) => {
     const cle = `${a}|${cote}|${dm}|${rm}`;
@@ -884,6 +940,7 @@ AnneeVive.page(async () => {
     $('s-recettes').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Données disponibles selon l'année"><p><b>Les comptes de l'ensemble des administrations publiques ne sont pas encore publiés pour ${annee}</b> par l'Insee : cette page montre seulement le budget de l'État. <a href="?annee=${AN.insee[AN.insee.length - 1]}">Voir ${AN.insee[AN.insee.length - 1]}</a>.</p></section>`);
   }
   if (G) {
+  if ((AN.insee_provisoire || []).includes(annee)) $('s-recettes').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Comptes provisoires"><p><b>Comptes ${annee} provisoires de l'Insee</b> : les recettes, le déficit et le total des dépenses sont connus. La répartition des dépenses entre administrations et par fonction sera publiée par l'Insee en décembre 2026 ; en attendant, la partie 2 montre un seul bloc de dépenses. Les évolutions depuis 2024 rapprochent deux publications de l'Insee, dont les révisions de 2024 sont inférieures à 1 %.</p></section>`);
   if (AN.insee_ecart.includes(annee)) $('s-recettes').insertAdjacentHTML('beforebegin', `<section class="card annee-note" aria-label="Avertissement"><p><b>Pour ${annee}, l'Insee publie deux totaux de dépenses qui ne concordent pas</b> : ${mds(D)} dans le tableau par fonction (partie 2) et ${mds(G.total_depenses_par_nature)} dans le tableau général, qui équilibre les recettes et le déficit (partie 1). L'écart (${mds(D - G.total_depenses_par_nature)}) n'est pas expliqué par l'Insee ; il disparaît à partir de 2019.</p></section>`);
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
   legend('leg-admin', G.secteurs.map(s => [COUL[s.code], s.nom]));
@@ -938,7 +995,8 @@ AnneeVive.page(async () => {
     depMode = b.dataset.dep; document.querySelectorAll('[data-dep]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); xDep.reconstruire();
   }));
   decrireDep(xDep.root());
-  table('tb-dep', ['Fonction', ...G.secteurs.map(s => s.nom), 'Total'], G.secteurs[0].fonctions.map((f, k) => [esc(f.libelle), ...G.secteurs.map(s => mds(s.fonctions[k].montant)), mds(sum(G.secteurs, s => s.fonctions[k].montant))])
+  if (G.depenses_detaillees === false) $('tb-dep').innerHTML = `<tbody><tr><td>Dépenses par administration et par fonction de ${annee} : publication de l'Insee en décembre 2026. Total des dépenses : ${mds(D)}.</td></tr></tbody>`;
+  else table('tb-dep', ['Fonction', ...G.secteurs.map(s => s.nom), 'Total'], G.secteurs[0].fonctions.map((f, k) => [esc(f.libelle), ...G.secteurs.map(s => mds(s.fonctions[k].montant)), mds(sum(G.secteurs, s => s.fonctions[k].montant))])
     .concat([['<b>Total</b>', ...G.secteurs.map(s => `<b>${mds(s.total)}</b>`), `<b>${mds(D)}</b>`]]));
 
   // ================= 2. Recettes =================
@@ -1000,13 +1058,13 @@ AnneeVive.page(async () => {
   $('etat-lead').textContent = "Dans ce budget, voté chaque année par le Parlement, chaque ministère reçoit des crédits qu'il dépense lui-même ou qu'il reverse à d'autres : collectivités, sécurité sociale, opérateurs, ménages, entreprises. Ses montants ne se comparent donc pas directement à ceux de la partie 2. Cliquez pour zoomer : ministère, puis mission, puis programme. Sous la composition, le détail de ce qui est affiché : du vote à la dépense, ce qui est payé, la répartition par action d'un programme et ses indicateurs de performance.";
   $('bridge').innerHTML = [
     ...(G ? [[nf(D, 0) + ' Md€', 'dépenses de toutes les administrations publiques (partie 2)'],
-      [nf(etatCN, 0) + ' Md€', "dont dépenses finales de l'État en comptabilité nationale"]] : []),
+      ...(etatCN != null ? [[nf(etatCN, 0) + ' Md€', "dont dépenses finales de l'État en comptabilité nationale"]] : [])] : []),
     [nf((E.depenses_nettes_hors_fdc + E.fonds_de_concours) / 1000, 0) + ' Md€', "budget général de l'État exécuté, ci-dessous, dont une partie est reversée aux autres administrations"],
     [nf(E.programme_200 / 1000, 0) + ' Md€', "de remboursements et dégrèvements d'impôts, exclus car ce sont des recettes restituées"],
   ].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
   // Ce que l'État verse aux autres administrations : le lien entre son budget (le PLF) et l'argent public.
   if (G) FIN.then(F => {
-    if (!F.S13111.verse) return;
+    if (!F?.S13111.verse) return;
     const parts = [['S1313', 'aux collectivités locales'], ['S1314', 'à la sécurité sociale et aux autres organismes'], ['S13112', "aux opérateurs de l'État"]]
       .map(([c, l]) => [F[c].etat, l, `var(--m-${{ S1313: 'coll', S1314: 'secu', S13112: 'op' }[c]})`]).filter(p => p[0] > 0.05);
     $('bridge').insertAdjacentHTML('afterend', `<div class="card finance" style="padding:14px 16px;margin-top:12px"><p class="sub"><b>L'État verse ${mds(F.S13111.verse)} aux autres administrations</b> (budget de l'État ${annee}, dépenses classées par destinataire) : c'est ce qui relie le budget de l'État, voté dans le projet de loi de finances, au reste de l'argent public.</p>

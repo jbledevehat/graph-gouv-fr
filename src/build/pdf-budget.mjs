@@ -216,6 +216,7 @@ function dessinerEstimations(doc, E, annee, aire) {
 // cotisations, emprunt, moins l'excédent), ce que l'État lui verse (d'après son budget, quand il est
 // disponible) et le reste, autres recettes et transferts ; l'État garde ce qu'il ne reverse pas.
 function financement(G, etat) {
+  if (G.depenses_detaillees === false) return null;
   const direct = {};
   if (etat) {
     const PB = etat.BE.programmes.filter(p => p.programme !== '200');
@@ -241,7 +242,8 @@ const FIN = 400;
 // Vue en flux, comme sur la page : les mêmes arbres, recettes de leur détail (à gauche) jusqu'au bloc
 // central, dépenses du bloc central jusqu'à leur détail (à droite).
 function dessinerFlux(doc, G, AN, modeDep, modeRec, etat, annee) {
-  const avecFin = modeDep === 'administration', DEP = avecFin ? FLUX.dep.map(x => x + FIN) : FLUX.dep, W = FLUX.W + (avecFin ? FIN : 0);
+  // Pas d'étape du financement pour une année provisoire (dépenses pas encore réparties).
+  const avecFin = modeDep === 'administration' && G.depenses_detaillees !== false, DEP = avecFin ? FLUX.dep.map(x => x + FIN) : FLUX.dep, W = FLUX.W + (avecFin ? FIN : 0);
   const { TOP, NW } = FLUX, LC = 2 * BARRE + JOINT, k = (FLUX.H - TOP - 20 - FLUX.RESERVE) / AN.echelle.insee_md;
   const fin = n => /^r-deficit/.test(n.id) ? 2 : /^r-autres/.test(n.id) ? 1 : 0;
   const enfants = n => (n.children || []).filter(c => c.v > 0).sort((a, b) => fin(a) - fin(b) || rang(b) - rang(a));
@@ -318,7 +320,7 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   REF = new Map();
   const tour = n => { REF.set(n.id, n.v); (n.children || []).forEach(tour); };
   arbres(GREF, modeDep, modeRec).forEach(tour);
-  const flux = vue === 'flux', fin = flux && modeDep === 'administration';
+  const flux = vue === 'flux', fin = flux && modeDep === 'administration' && G.depenses_detaillees !== false;
   const largeur = flux ? FLUX.W + (fin ? FIN : 0) + 120 : LARGEUR, hauteur = flux ? HAUT_PAGE + FLUX.H + 100 + BAS_PAGE : HAUTEUR;
   // Budget de l'État de l'année (ses versements aux autres administrations), pour le financement du flux.
   const lire = n => { try { return JSON.parse(readFileSync(path(`budget/donnees/${n}-etat-${annee}.json`), 'utf8')); } catch (e) { return null; } };
@@ -341,7 +343,8 @@ export async function writeBudgetPdf(G, E, AN, annee, file, modeDep = 'administr
   doc.rect(0, 0, largeur, hauteur).fill(PAPER);
   // En-tête.
   const D = G.total_depenses, R = G.total_recettes, S = G.solde;
-  doc.font('Plex-Gras').fontSize(68).fillColor(INK).text(`L'argent public en ${annee}`, 60, 46, { lineBreak: false });
+  const provisoire = G.depenses_detaillees === false;
+  doc.font('Plex-Gras').fontSize(68).fillColor(INK).text(`L'argent public en ${annee}${provisoire ? ' (comptes provisoires)' : ''}`, 60, 46, { lineBreak: false });
   doc.font('Plex').fontSize(30).fillColor(MUTED).text(
     `${mds(R)} de recettes et ${mds(-S)} de déficit, couvert par l'emprunt, qui financent ${mds(D)} de dépenses publiques (État, sécurité sociale, collectivités locales, opérateurs de l'État).`,
     60, 128, { width: largeur - 120 });

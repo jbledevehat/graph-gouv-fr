@@ -2,7 +2,10 @@
 # dépenses de toutes les administrations publiques (État, opérateurs, collectivités, sécurité
 # sociale) par fonction, recettes par nature, principaux impôts.
 # Les tableaux de l'Insee couvrent plusieurs années : on construit un fichier par année.
-# Usage : python3 scripts/insee.py [année]   (depuis la racine du projet ; 2024 par défaut)
+# Usage : python3 scripts/insee.py [année] [dossier des tableaux]   (depuis la racine du projet ;
+# 2024 et sources/insee par défaut). Une année absente du tableau des dépenses par fonction (3.307)
+# est « provisoire » : recettes complètes, déficit et total des dépenses, sans leur répartition
+# entre administrations ni par fonction (l'Insee la publie quelques mois plus tard).
 import json
 import sys
 
@@ -10,6 +13,8 @@ sys.path.insert(0, 'scripts')
 import xlsx_simple  # noqa: E402
 
 ANNEE = sys.argv[1] if len(sys.argv) > 1 else '2024'
+DOSSIER = sys.argv[2] if len(sys.argv) > 2 else 'sources/insee'
+import os  # noqa: E402
 SECTEURS = [
     ('S13111', 'État', "L'État au sens de la comptabilité nationale : ministères, et comptes spéciaux comme les pensions des fonctionnaires."),
     ('S1314', 'Sécurité sociale', 'Retraites de base et complémentaires, assurance maladie, famille, chômage, hôpitaux publics.'),
@@ -28,20 +33,21 @@ def texte(x):
 
 
 # --- Dépenses consolidées par sous-secteur et par fonction (tableau 3.307) ---
-t3307 = xlsx_simple.lignes('sources/insee/T_3307.xlsx', 'T_3307')
-annees = [texte(c) for c in t3307[2]]
-col = annees.index(ANNEE)
+t3307 = xlsx_simple.lignes(f'{DOSSIER}/T_3307.xlsx', 'T_3307') if os.path.exists(f'{DOSSIER}/T_3307.xlsx') else []
+annees = [texte(c) for c in t3307[2]] if t3307 else []
+PROVISOIRE = ANNEE not in annees
+col = annees.index(ANNEE) if not PROVISOIRE else None
 valeurs = {}
 libelles = {}
-for l in t3307:
+for l in (t3307 if not PROVISOIRE else []):
     if not l or not texte(l[0]).startswith('S1'):
         continue
     valeurs[(texte(l[0]), texte(l[2]))] = l[col] if len(l) > col and isinstance(l[col], float) else 0.0
     libelles[texte(l[2])] = texte(l[3])
 
-total_apu = valeurs[('S13', '_Z')]
+total_apu = valeurs[('S13', '_Z')] if not PROVISOIRE else None
 secteurs = []
-for code, nom, description in SECTEURS:
+for code, nom, description in (SECTEURS if not PROVISOIRE else []):
     fonctions = []
     for f in sorted(FONCTIONS_COURTES):
         sous = [{'code': k[1], 'libelle': libelles[k[1]].lstrip(' 0123456789.-').strip(), 'montant': round(v, 3)}
@@ -51,15 +57,21 @@ for code, nom, description in SECTEURS:
     secteurs.append({'code': code, 'nom': nom, 'description': description, 'total': round(valeurs[(code, '_Z')], 3),
                      'fonctions': fonctions})
 
-somme = sum(s['total'] for s in secteurs)
-if abs(somme - total_apu) > 0.01:
+# Année provisoire : les administrations sans leurs dépenses (total inconnu tant que l'Insee n'a pas
+# publié les dépenses consolidées par administration).
+if PROVISOIRE:
+    secteurs = [{'code': code, 'nom': nom, 'description': description, 'total': None, 'fonctions': []} for code, nom, description in SECTEURS]
+somme = sum(s['total'] for s in secteurs) if not PROVISOIRE else None
+if not PROVISOIRE and abs(somme - total_apu) > 0.01:
     raise SystemExit(f'Les sous-secteurs ({somme}) ne retombent pas sur le total des administrations publiques ({total_apu})')
 
 # --- Recettes et dépenses par nature (tableau 3.201) ---
-t3201 = xlsx_simple.lignes('sources/insee/t_3201.xlsx')
+t3201 = xlsx_simple.lignes(f'{DOSSIER}/t_3201.xlsx')
 entete = next(l for l in t3201 if l and len(l) > 2 and any(texte(c) == ANNEE or texte(c) == ANNEE + '.0' for c in l))
 c01 = next(i for i, c in enumerate(entete) if texte(c) in (ANNEE, ANNEE + '.0'))
 ligne = {texte(l[1]): l[c01] for l in t3201 if l and len(l) > c01 and texte(l[1]) and isinstance(l[c01], float)}
+if PROVISOIRE:
+    total_apu = ligne['Total des dépenses']
 RECETTES = [
     ('Cotisations sociales nettes (D61)', 'Cotisations sociales', 'cotisations'),
     ('Impôts sur la production et les importations (D2)', 'Impôts sur la consommation et la production (TVA, taxes sur l’énergie, taxe foncière…)', 'production'),
@@ -81,7 +93,7 @@ detail_natures = [{'libelle': k, 'montant': round(ligne[k], 3)} for k in (
     'Transferts sociaux en nature de produits marchands (D632)', 'Subventions (D3)', 'Formation brute de capital fixe (P51g)')]
 
 # --- Principaux impôts (tableau 3.217) ---
-t3217 = xlsx_simple.lignes('sources/insee/t_3217.xlsx')
+t3217 = xlsx_simple.lignes(f'{DOSSIER}/t_3217.xlsx')
 c17 = next(i for i, c in enumerate(t3217[1]) if texte(c) in (ANNEE, ANNEE + '.0'))
 impots = []
 categorie = None
@@ -99,7 +111,7 @@ for l in t3217[2:]:
         impots.append({'libelle': texte(lib), 'niveau': 2, 'categorie': categorie, 'montant': v})
 
 # --- Part dans le PIB (tableau 3.215, version provisoire) ---
-t3215 = xlsx_simple.lignes('sources/insee/t_3215_prov.xlsx')
+t3215 = xlsx_simple.lignes(f'{DOSSIER}/t_3215_prov.xlsx' if os.path.exists(f'{DOSSIER}/t_3215_prov.xlsx') else f'{DOSSIER}/t_3215.xlsx')
 c15 = next(i for i, c in enumerate(t3215[1]) if texte(c) in (ANNEE, ANNEE + '.0'))
 en_pct = False
 part_pib = {}
@@ -122,7 +134,7 @@ FICHIERS_SECTEURS = {'S13111': 't_3203', 'S13112': 't_3204', 'S1313': 't_3205', 
 
 
 def recettes_du_secteur(fichier):
-    t = xlsx_simple.lignes(f'sources/insee/{fichier}.xlsx')
+    t = xlsx_simple.lignes(f'{DOSSIER}/{fichier}.xlsx')
     ent = next(l for l in t if l and any(texte(c) in (ANNEE, ANNEE + '.0') for c in l))
     c = next(i for i, x in enumerate(ent) if texte(x) in (ANNEE, ANNEE + '.0'))
     v, partie = {}, None
@@ -161,6 +173,9 @@ for s in secteurs:
     s['recettes'] = recettes_par_secteur[s['code']]
 
 donnees = {
+    # provisoire : dépenses non encore réparties entre administrations ni par fonction.
+    'statut': 'provisoire' if PROVISOIRE else 'definitif',
+    'depenses_detaillees': not PROVISOIRE,
     'meta': {'annee': int(ANNEE), 'unite': "milliards d'euros",
              'note': "Comptabilité nationale (base 2020) ; les comptes des années récentes peuvent encore être révisés par l'Insee. Dépenses consolidées : un transfert d'une administration publique à une autre n'est compté qu'une fois, chez celle qui dépense en dernier."},
     'total_depenses': round(total_apu, 3),

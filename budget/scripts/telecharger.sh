@@ -30,6 +30,12 @@ for f in 8574705/t_3201.xlsx 8574707/T_3307.xlsx 8574705/t_3217.xlsx 8574705/t_3
   recuperer "https://www.insee.fr/fr/statistiques/fichier/$f" "sources/insee/$(basename "$f")"
 done
 
+echo "Insee, comptes de la Nation en 2025 (année 2025 provisoire ; les dépenses par fonction, tableau 3.307, paraissent en décembre 2026) :"
+mkdir -p sources/insee-2025
+for t in 3201 3203 3204 3205 3212 3215 3217; do
+  recuperer "https://www.insee.fr/fr/statistiques/fichier/8988845/t_${t}_fr.xlsx" "sources/insee-2025/t_${t}.xlsx"
+done
+
 # Les PDF de présentation (notices) sont dans une archive : on n'en garde que trois.
 TMP=$(mktemp -d)
 recuperer "$PLRG/notices_par_fichiers_csv_plrg_2024_zip" "$TMP/notices.zip"
