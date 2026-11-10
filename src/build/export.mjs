@@ -57,7 +57,7 @@ export async function writeSiteLists(rows, dir) {
 // Le site gouvfr.jbledevehat.fr : une page d'accueil, puis trois sections.
 //   /                      accueil : partager les données pour piloter les politiques publiques
 //   /sites/                carte des sites web de l'État, et /sites/pilotage.html
-//   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides.html
+//   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides-entreprises.html
 //   /acteurs/              organigramme des acteurs publics (pages et données de acteurs/)
 //   /jeunes/               moral des jeunes et pensées suicidaires (page et données de jeunes/)
 // Toutes les pages portent le même bandeau (src/build/bandeau.mjs).
@@ -115,12 +115,14 @@ export async function writeWeb(webData, rows) {
     description: `Tableau de bord des finances publiques : dépenses par administration et par fonction (2019-2024), budget de l'État par ministère (2023-2025), Insee et DGFiP.`,
     bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) }, jsonld: [JEUX.argent],
   });
-  await writeBudgetPage('budget/aides.html', 'out/web/budget/aides.html', {
-    base, url: `${base}budget/aides.html`,
+  await writeBudgetPage('budget/aides-entreprises.html', 'out/web/budget/aides-entreprises.html', {
+    base, url: `${base}budget/aides-entreprises.html`,
     title: `Aides publiques aux entreprises : ${aides} en 2024`,
     description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024, du rapport annexé au PLF 2027 : par instrument, par ministère, dispositif par dispositif, vérifiées ligne à ligne.`,
     bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) }, jsonld: [JEUX.aides],
   });
+  // Ancienne adresse de la page des aides (avant qu'elle précise « aux entreprises »).
+  await writeOut('out/web/budget/aides.html', redirection('aides-entreprises.html', `${base}budget/aides-entreprises.html`));
   const jeunesse = JSON.parse(await readFile(path('budget/donnees/jeunesse.json'), 'utf8'));
   const jeunesseMd = md(jeunesse.etat['DPT-jeunesse-PLF2027.pdf'].total.execution_2025 / 1000);
   await writeBudgetPage('budget/jeunesse.html', 'out/web/budget/jeunesse.html', {
@@ -201,7 +203,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides-entreprises.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
@@ -267,7 +269,7 @@ function jeuxBudget(base, A) {
       '@type': 'Dataset', ...commun,
       name: 'Aides publiques aux entreprises en 2024',
       description: "Les 469 aides aux entreprises recensées par le rapport annexé au projet de loi de finances pour 2027, avec leur montant, leur instrument, leur page dans le rapport et leur ministère de rattachement.",
-      url: `${base}budget/aides.html`,
+      url: `${base}budget/aides-entreprises.html`,
       keywords: ['aides aux entreprises', 'aides publiques', 'dépenses fiscales', 'crédit d\'impôt recherche', 'exonérations de cotisations', 'open data'],
       temporalCoverage: '2024',
       isBasedOn: 'https://www.tresor.economie.gouv.fr/Articles/54f1c35b-e6b0-4b6a-9929-1707e5c981ac/files/e0a8b1fa-faed-4809-9dc7-b06f0d1e2e0f',
