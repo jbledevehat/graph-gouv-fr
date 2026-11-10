@@ -906,6 +906,8 @@ AnneeVive.page(async () => {
     const ticksM = []; for (let v = 0; v <= hautM + pm / 1e6; v += pm) ticksM.push(v);
     const ticksP = []; for (let v = basP; v <= hautP + pp / 1e6; v += pp) ticksP.push(v);
     const cx = i => G + col * i + col / 2;
+    // Beaucoup d'années : la première et la dernière en entier, les autres sur deux chiffres (« 18 »).
+    const an = (a, i) => serie.length <= 7 || i === 0 || i === serie.length - 1 ? a : a.slice(2);
     const ligne = serieP.map((p, i) => [p, i]).filter(([p]) => p.e !== null);
     const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${n.titre || n.label}, année par année : ${serieP.filter(p => p.v > 0).map(p => `${p.a}, ${mds(p.v)}${p.e !== null ? ` (${variationPct(p.v, p.v / (1 + p.e / 100))})` : ''}`).join(' ; ')}.`)}">
       ${ticksM.map(v => `<line class="grille" x1="${G}" x2="${W - D}" y1="${yM(v)}" y2="${yM(v)}"/><text class="axe" x="${G - 6}" y="${yM(v) + 3.5}" text-anchor="end">${fM(v)}</text>`).join('')}
@@ -915,7 +917,7 @@ AnneeVive.page(async () => {
       <line class="zero" x1="${G}" x2="${W - D}" y1="${yP(0)}" y2="${yP(0)}"/>
       <polyline class="courbe" points="${ligne.map(([p, i]) => `${cx(i)},${yP(p.e)}`).join(' ')}"/>
       ${ligne.map(([p, i]) => `<circle class="pt" cx="${cx(i)}" cy="${yP(p.e)}" r="4"/>`).join('')}
-      ${serieP.map((p, i) => `<text class="an${p.a === annee ? ' cur' : ''}" x="${cx(i)}" y="${H - 8}" text-anchor="middle">${p.a}</text>`).join('')}
+      ${serieP.map((p, i) => `<text class="an${p.a === annee ? ' cur' : ''}" x="${cx(i)}" y="${H - 8}" text-anchor="middle">${an(p.a, i)}</text>`).join('')}
       ${serieP.map((p, i) => p.v > 0 ? `<rect class="zone" data-i="${i}" x="${G + col * i}" y="${T}" width="${col}" height="${ih}" fill="transparent"/>` : '').join('')}
     </svg>`;
     const total = dernier.v - premier.v;

@@ -1140,6 +1140,8 @@
     const tM = []; for (let v = 0; v <= hautM + pm / 1e6; v += pm) tM.push(v);
     const tP = []; for (let v = basP; v <= hautP + pp / 1e6; v += pp) tP.push(v);
     const cx = i => Gm + col * i + col / 2, ligne = sp.map((p, i) => [p, i]).filter(([p]) => p.e !== null);
+    // Beaucoup d'années : la première et la dernière en entier, les autres sur deux chiffres (« 18 »).
+    const an = (a, i) => sp.length <= 7 || i === 0 || i === sp.length - 1 ? a : a.slice(2);
     const total = dernier.v - premier.v;
     const box = document.createElement('div');
     box.className = 'evol';
@@ -1153,7 +1155,7 @@
         <line class="zero" x1="${Gm}" x2="${W - Dm}" y1="${yP(0)}" y2="${yP(0)}"/>
         <polyline class="courbe" points="${ligne.map(([p, i]) => `${cx(i)},${yP(p.e)}`).join(' ')}"/>
         ${ligne.map(([p, i]) => `<circle class="pt" cx="${cx(i)}" cy="${yP(p.e)}" r="4"/>`).join('')}
-        ${sp.map((p, i) => `<text class="an${p.a === anneeValidee ? ' cur' : ''}" x="${cx(i)}" y="${H - 8}" text-anchor="middle">${p.a}</text>`).join('')}
+        ${sp.map((p, i) => `<text class="an${p.a === anneeValidee ? ' cur' : ''}" x="${cx(i)}" y="${H - 8}" text-anchor="middle">${an(p.a, i)}</text>`).join('')}
         ${sp.map((p, i) => p.v > 0 ? `<rect class="zone" data-i="${i}" x="${Gm + col * i}" y="${T}" width="${col}" height="${ih}" fill="transparent"/>` : '').join('')}
       </svg>
       <ul class="evol-leg"><li><span class="sw" style="--c:${couleur}"></span>Montant de l'année (axe de gauche, Md€)</li><li><span class="sw-pt"></span>Évolution par rapport à l'année précédente (axe de droite, %)</li></ul>`;
