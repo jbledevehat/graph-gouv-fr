@@ -1,6 +1,10 @@
 {
  "_note": "Années disponibles par source. insee : ensemble des administrations publiques (argent-public-AAAA.json) ; etat : budget de l'État ministère par ministère (budget-etat-AAAA.json) ; aides : aides aux entreprises. insee_ecart : années où le total des dépenses par fonction (tableau 3.307 de l'Insee) s'écarte de plus de 50 M€ du total des dépenses (tableau 3.201), signalées sur les pages. insee_provisoire : années dont les dépenses ne sont pas encore réparties entre administrations ni par fonction. echelle : plus grands totaux, en milliards (insee) et en millions (etat), qui fixent l'échelle commune des surfaces.",
  "insee": [
+  "2015",
+  "2016",
+  "2017",
+  "2018",
   "2019",
   "2020",
   "2021",
@@ -9,7 +13,12 @@
   "2024",
   "2025"
  ],
- "insee_ecart": [],
+ "insee_ecart": [
+  "2015",
+  "2016",
+  "2017",
+  "2018"
+ ],
  "insee_provisoire": [
   "2025"
  ],

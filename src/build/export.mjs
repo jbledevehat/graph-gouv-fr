@@ -106,13 +106,13 @@ export async function writeWeb(webData, rows) {
   await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
     base, url: `${base}budget/`,
     title: "Dépenses et recettes publiques de la France, à explorer",
-    description: `Où va l'argent public ? Les ${depenses} de dépenses publiques de 2024 et ce qui les finance, de 2019 à 2024, sur une carte à zoomer, fraude et non-recours compris.`,
+    description: `Où va l'argent public ? Les ${depenses} de dépenses publiques de 2024 et ce qui les finance, de 2015 à 2025, sur une carte à zoomer, fraude et non-recours compris.`,
     bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
     base, url: `${base}budget/pilotage.html`,
     title: "Budget de l'État par ministère et dépenses publiques",
-    description: `Tableau de bord des finances publiques : dépenses par administration et par fonction (2019-2024), budget de l'État par ministère (2023-2025), Insee et DGFiP.`,
+    description: `Tableau de bord des finances publiques : dépenses par administration et par fonction (2015-2024), budget de l'État par ministère (2023-2025), Insee et DGFiP.`,
     bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/aides-entreprises.html', 'out/web/budget/aides-entreprises.html', {

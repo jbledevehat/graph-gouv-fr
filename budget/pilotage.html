@@ -670,11 +670,14 @@ AnneeVive.page(async () => {
 
   // ================= Chiffres clés =================
   const D = G?.total_depenses, R = G?.total_recettes, S = G?.solde;
-  $('h1').innerHTML = G ? `<b>${nf(D, 0)} milliards</b> d'euros d'argent public dépensés en ${annee}`
+  // Le titre et le bandeau prennent le total du tableau général, égal aux recettes plus le déficit
+  // (avant 2019, il diffère du total du tableau par fonction : voir l'avertissement de l'année).
+  const DN = G?.total_depenses_par_nature;
+  $('h1').innerHTML = G ? `<b>${nf(DN, 0)} milliards</b> d'euros d'argent public dépensés en ${annee}`
     : `<b>${nf(BE.equilibre.depenses_nettes_hors_fdc / 1000, 0)} milliards</b> d'euros de dépenses nettes du budget de l'État en ${annee}`;
   // Chiffres clés : [clé, montant en Md€, texte, couleur] ; la clé sert à suivre leur évolution d'une année à l'autre.
   // Recettes, déficit et dépenses : dans le bandeau ; les autres chiffres clés en cartes.
-  const BANDE = G ? [['rec', R], ['def', -S], ['dep', D]] : [];
+  const BANDE = G ? [['rec', R], ['def', -S], ['dep', DN]] : [];
   BANDE.forEach(([k, v]) => AnneeVive.noter('facts', k, v));
   const ecrireBande = () => {
     if (!G) return;
@@ -683,7 +686,7 @@ AnneeVive.page(async () => {
     $('bande').innerHTML = `<div class="ligne">
         <div class="seg rec" style="flex:${R}"><span>Recettes</span><b>${nf(R, 0)} Md€</b>${ev('rec', R)}</div>
         <div class="seg def" style="flex:${-S}"><span>Déficit</span><b>${nf(-S, 0)} Md€</b>${ev('def', -S)}</div></div>
-      <div class="seg dep"><span>Dépenses publiques</span><b>${nf(D, 0)} Md€ · ${nf(G.part_pib['dépenses'], 1)} % du PIB</b>${ev('dep', D)}</div>
+      <div class="seg dep"><span>Dépenses publiques</span><b>${nf(DN, 0)} Md€ · ${nf(G.part_pib['dépenses'], 1)} % du PIB</b>${ev('dep', DN)}</div>
       <p class="egal">Les recettes (${nf(G.part_pib.recettes, 1)} % du PIB) et le déficit, financé par l'emprunt, font ensemble la dépense publique de l'État, de la sécurité sociale, des collectivités et des opérateurs.</p>`;
   };
   const FAITS = [
