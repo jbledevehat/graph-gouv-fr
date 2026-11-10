@@ -114,7 +114,7 @@
   .bandeau a.provisoire { font-style: italic; text-decoration: underline dotted; text-underline-offset: 3px; }
   .mondrian .cell.attente rect.f { fill: var(--panel-2) !important; stroke: var(--muted); stroke-dasharray: 8 6; }
   /* Trajectoire du déficit : constaté en trait plein, prévisions en pointillés sur fond distinct. */
-  .trajectoire { padding: 14px 16px; display: grid; gap: 6px; margin-bottom: 12px; }
+  .trajectoire { padding: 14px 16px; display: grid; gap: 6px; margin-top: 16px; }
   .trajectoire h3 { margin: 0; font-size: 15px; }
   .trajectoire p { margin: 0; font-size: 12.5px; color: var(--muted); }
   .trajectoire svg { display: block; width: 100%; height: auto; }
@@ -369,7 +369,6 @@
   <section aria-labelledby="t-synthese">
     <h2 id="t-synthese" class="sr-only">Synthèse</h2>
     <div class="card bande" id="bande" hidden></div>
-    <div class="card trajectoire" id="trajectoire" hidden></div>
     <div class="kpis" id="facts"></div>
   </section>
 
@@ -411,6 +410,8 @@
       <div class="mondrian h-c" id="m-imp" role="img"></div>
     </div>
     <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-rec"></table></div></details>
+    <!-- Fin du chapitre 1 : recettes moins dépenses, le déficit dans le temps. -->
+    <div class="card trajectoire" id="trajectoire" hidden></div>
   </section>
 
   <section id="s-depenses" aria-labelledby="t-depenses">
