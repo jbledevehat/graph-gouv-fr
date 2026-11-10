@@ -235,6 +235,11 @@
   details.data summary { cursor: pointer; padding: 12px 16px; font-weight: 500; }
   details.data .scroll { overflow-x: auto; border-top: 1px solid var(--line); }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .resume-texte { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+  .resume-texte h3 { margin: 16px 0 6px; font-size: 15px; }
+  .resume-texte p { margin: 8px 0; max-width: 75ch; }
+  .resume-texte table { margin: 10px 0 4px; max-width: 640px; }
+  .resume-texte caption { text-align: left; font-weight: 600; padding: 4px 0; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th { background: var(--panel-2); font-weight: 600; white-space: nowrap; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -469,6 +474,9 @@
     <div class="panel" id="p-aides" aria-live="polite"></div>
     <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-aides"></table></div></details>
   </section>
+
+  <!-- Résumé en texte des chiffres de l'année de référence, écrit à la construction du site. -->
+  <!--resume-->
 
   <section id="s-sources" aria-labelledby="t-sources">
     <div class="sec-head">

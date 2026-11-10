@@ -6,6 +6,7 @@ import { hostOf, siteKey } from '../lib/url.mjs';
 import { formerAddresses } from './duplicates.mjs';
 import { avecBandeau, SECTIONS } from './bandeau.mjs';
 import { REGROUPEMENTS, writeBudgetPdf } from './pdf-budget.mjs';
+import { resumeArgentPublic } from './resume-budget.mjs';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -105,20 +106,32 @@ export async function writeWeb(webData, rows) {
   const budgetEtat = md(budget.equilibre.depenses_nettes_hors_fdc / 1000);
   await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
     base, url: `${base}budget/`,
-    title: "Dépenses et recettes publiques de la France, à explorer",
-    description: `Où va l'argent public ? Les ${depenses} de dépenses publiques de 2024 et ce qui les finance, de 2015 à 2025, sur une carte à zoomer, fraude et non-recours compris.`,
+    title: "Où va l'argent public ? Dépenses publiques de la France",
+    description: `Les ${depenses} de dépenses publiques de 2024 : qui dépense, pour quoi faire, d'où vient l'argent. État, sécurité sociale, collectivités, de 2015 à 2025.`,
+    resume: `<details class="apropos resume"><summary>Les chiffres de ${A.reference} en texte</summary>\n${resumeArgentPublic(argent, { annees: A.insee })}\n</details>`,
     bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
     base, url: `${base}budget/pilotage.html`,
-    title: "Budget de l'État par ministère et dépenses publiques",
-    description: `Tableau de bord des finances publiques : dépenses par administration et par fonction (2015-2024), budget de l'État par ministère (2023-2025), Insee et DGFiP.`,
+    title: "Dépenses publiques de la France : tableau de bord",
+    description: `Les finances publiques en chiffres : ${depenses} dépensés en 2024, recettes, déficit, budget de l'État par ministère et aides aux entreprises (Insee, DGFiP).`,
+    h1: `<b>${depenses.replace(' Md€', ' milliards')}</b> d'euros d'argent public dépensés en ${A.reference}`,
+    resume: `<section id="s-resume" aria-labelledby="t-resume">
+    <div class="sec-head">
+      <span class="num">En bref</span>
+      <h2 id="t-resume">L'argent public en ${A.reference}, en chiffres</h2>
+      <p>Les chiffres clés de ${A.reference} en texte et en tableaux : qui dépense, pour quoi faire, d'où vient l'argent, les principaux impôts.</p>
+    </div>
+    <details class="data"><summary>Lire les chiffres de ${A.reference}</summary><div class="resume-texte">
+${resumeArgentPublic(argent, { h: 3, titre: false, annees: A.insee })}
+    </div></details>
+  </section>`,
     bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) }, jsonld: [JEUX.argent],
   });
   await writeBudgetPage('budget/aides-entreprises.html', 'out/web/budget/aides-entreprises.html', {
     base, url: `${base}budget/aides-entreprises.html`,
     title: `Aides publiques aux entreprises : ${aides} en 2024`,
-    description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024, du rapport annexé au PLF 2027 : par instrument, par ministère, dispositif par dispositif, vérifiées ligne à ligne.`,
+    description: `Les ${n(budget.aides.length)} aides publiques aux entreprises de 2024 (rapport annexé au PLF 2027), par instrument, par ministère et dispositif par dispositif.`,
     bandeau: { racine: '../', section: 'budget', page: 'aides', annees: annees(A.aides) }, jsonld: [JEUX.aides],
   });
   // Ancienne adresse de la page des aides (avant qu'elle précise « aux entreprises »).
@@ -340,7 +353,10 @@ async function writeBudgetPage(source, target, meta) {
     .replace(/<title>[^<]*<\/title>\n?/, '')
     .replace(/<meta name="description"[^>]*>\n?/, '');
   if (!page.includes('</head>')) throw new Error(`${source} : balise </head> introuvable`);
-  await writeOut(target, avecBandeau(page, source, meta.bandeau).replace('</head>', headTags(meta) + '\n</head>'));
+  // Contenu écrit à la construction : résumé en texte, titre de la page déjà rempli.
+  let html = page.replace('<!--resume-->', meta.resume || '');
+  if (meta.h1) html = html.replace(/<h1 id="h1">.*?<\/h1>/, `<h1 id="h1">${meta.h1}</h1>`);
+  await writeOut(target, avecBandeau(html, source, meta.bandeau).replace('</head>', headTags(meta) + '\n</head>'));
 }
 
 // Fragment HTML de web/ placé dans une page complète, avec les balises de référencement et
