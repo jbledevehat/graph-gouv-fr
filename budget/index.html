@@ -137,12 +137,15 @@
   .apropos { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
   .apropos summary { cursor: pointer; color: var(--accent); font-weight: 500; }
   .apropos p { margin: 6px 0 0; }
-  .resume h2 { margin: 10px 0 0; font-size: 13px; color: var(--ink); }
-  .resume h3 { margin: 10px 0 0; font-size: 12.5px; color: var(--ink); }
-  .resume table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 12px; }
-  .resume caption { text-align: left; font-weight: 500; padding-bottom: 2px; }
-  .resume th, .resume td { padding: 2px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
-  .resume .num { text-align: right; font-family: var(--mono); white-space: nowrap; padding-left: 8px; }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { cursor: pointer; padding: 7px 0; list-style-position: outside; }
+  .faq summary h3 { display: inline; margin: 0; font-size: 12.5px; font-weight: 500; color: var(--ink); text-transform: none; letter-spacing: 0; }
+  .faq-r { font-size: 12.5px; color: var(--muted); padding-bottom: 8px; }
+  .faq-r p { margin: 0 0 6px; }
+  .faq-r table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 12px; }
+  .faq-r caption { text-align: left; font-weight: 500; padding-bottom: 2px; color: var(--ink); }
+  .faq-r th, .faq-r td { padding: 2px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
+  .faq-r .num { text-align: right; font-family: var(--mono); white-space: nowrap; padding-left: 8px; }
   .alerte { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid var(--m-coll); background: var(--panel-2); font-size: 12px; line-height: 1.4; }
   .search { padding: 10px 16px; border-bottom: 1px solid var(--line); position: relative; }
   .search input { width: 100%; box-sizing: border-box; min-height: 36px; padding: 6px 10px; border: 1px solid var(--control); border-radius: 8px; background: var(--panel); color: var(--ink); font: 14px var(--sans); }
@@ -276,8 +279,6 @@
       <p>Les dépenses se lisent par administration ou par fonction : retraites, santé, enseignement, défense, sécurité, transports… Les recettes, par administration ou impôt par impôt : TVA, CSG, impôt sur le revenu, impôt sur les sociétés, taxe foncière… Sur les côtés, des cercles montrent des <strong>estimations</strong> de ce qui échappe : fraude aux cotisations et aux prestations, TVA non déclarée, évitement fiscal des multinationales, et aides non demandées comme le RSA.</p>
       <p>Sources : comptes de la Nation de l'Insee, publications du Haut Conseil du financement de la protection sociale, de la DGFiP, de la DREES et de la Cour des comptes. Le <a href="pilotage.html">tableau de bord du budget</a> détaille le budget de l'État ministère par ministère ; les <a href="aides-entreprises.html">aides aux entreprises</a> ont leur propre page. Données ouvertes : <a href="donnees/argent-public-2024.json">administrations publiques 2024 (JSON)</a>, <a href="donnees/estimations.json">estimations (JSON)</a>, et cette exploration en PDF vectoriel pour chaque année, en blocs comme en flux (bouton de téléchargement à côté du zoom).</p>
     </details>
-    <!-- Résumé en texte des chiffres de l'année de référence, écrit à la construction du site. -->
-    <!--resume-->
   </div>
   <div class="search">
     <label for="q" class="sr-only">Rechercher une dépense, une recette, une fonction</label>
@@ -292,6 +293,11 @@
     <div class="sec">
       <h2>Mettre en avant <button type="button" id="hl-off" hidden>Effacer</button></h2>
       <div class="checks" id="c-fonction"></div>
+    </div>
+    <!-- Questions fréquentes (faq.js) : celles de l'année de référence sont écrites à la construction du site. -->
+    <div class="sec faq">
+      <h2><span>Questions fréquentes sur <span data-annee>2024</span></span></h2>
+      <div id="faq-liste"><!--faq--></div>
     </div>
   </div>
 </aside>
@@ -363,6 +369,7 @@
   };
   let G, X, E, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
+  const faq = await import('./faq.js').catch(() => null);
   // Comptes de chaque année, chargés une seule fois (dès le survol d'une année dans le bandeau).
   const CACHE = new Map();
   const charger = an => {
@@ -437,6 +444,8 @@
     $('figures').innerHTML = [[mds(R), 'de recettes', variation(R, GCOMP?.total_recettes)], [mds(D), 'dépensés', variation(D, GCOMP?.total_depenses)], [mds(-S), 'de déficit', variation(-S, GCOMP && -GCOMP.solde)]]
       .map(([b, s, e]) => `<div><b>${b}</b><span>${s}</span>${e ? `<span class="evo" title="Évolution ${depuis()}">${e} ${depuis()}</span>` : ''}</div>`).join('');
     remplirCases();
+    // Questions fréquentes de l'année affichée (le HTML contient celles de l'année de référence).
+    if (faq) $('faq-liste').innerHTML = faq.faqHtml(faq.questionsArgentPublic(G, AN));
   }
 
   // ================= Les deux arbres =================

@@ -235,11 +235,15 @@
   details.data summary { cursor: pointer; padding: 12px 16px; font-weight: 500; }
   details.data .scroll { overflow-x: auto; border-top: 1px solid var(--line); }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .resume-texte { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
-  .resume-texte h3 { margin: 16px 0 6px; font-size: 15px; }
-  .resume-texte p { margin: 8px 0; max-width: 75ch; }
-  .resume-texte table { margin: 10px 0 4px; max-width: 640px; }
-  .resume-texte caption { text-align: left; font-weight: 600; padding: 4px 0; }
+  .faq { padding: 4px 16px; }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary { cursor: pointer; padding: 12px 0; }
+  .faq summary h3 { display: inline; margin: 0; font-size: 15px; font-weight: 600; }
+  .faq-r { padding: 0 0 12px; }
+  .faq-r p { margin: 0 0 8px; max-width: 75ch; }
+  .faq-r table { margin: 8px 0; max-width: 640px; }
+  .faq-r caption { text-align: left; font-weight: 600; padding: 4px 0; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th { background: var(--panel-2); font-weight: 600; white-space: nowrap; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -475,8 +479,14 @@
     <details class="data"><summary>Voir les chiffres en tableau</summary><div class="scroll"><table id="tb-aides"></table></div></details>
   </section>
 
-  <!-- Résumé en texte des chiffres de l'année de référence, écrit à la construction du site. -->
-  <!--resume-->
+  <!-- Questions fréquentes (faq.js) : celles de l'année de référence sont écrites à la construction du site. -->
+  <section id="s-faq" aria-labelledby="t-faq">
+    <div class="sec-head">
+      <span class="num">Questions fréquentes</span>
+      <h2 id="t-faq">L'argent public en <span id="faq-annee">2024</span> : vos questions</h2>
+    </div>
+    <div class="panel faq" id="faq-liste"><!--faq--></div>
+  </section>
 
   <section id="s-sources" aria-labelledby="t-sources">
     <div class="sec-head">
@@ -531,6 +541,7 @@ AnneeVive.page(async () => {
   // B : budget de l'État 2024 (aides, sources, méthode) ; BE : celui de l'année affichée, s'il existe.
   let G, B, X, BE, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
+  const faq = await import('./faq.js');
   // DE : détail de chaque programme (prévu et réalisé, nature fine, actions, indicateurs de
   // performance), chargé en parallèle ; la page reste utilisable s'il manque.
   const DE = etatDispo ? fetch(`donnees/detail-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);
@@ -707,6 +718,9 @@ AnneeVive.page(async () => {
   const ecrireFaits = () => { $('facts').innerHTML = FAITS.map(([k, v, s, c]) => { const e = AnneeVive.evo('facts', k, v);
     return `<div class="card kpi"${c ? ` data-c style="--m-c:var(--m-${c})"` : ''}><b>${nf(v, 1)} Md€</b><span>${s}</span>${e ? `<span class="evo">${e} ${AnneeVive.depuis()}</span>` : ''}</div>`; }).join(''); };
   ecrireFaits(); ecrireBande();
+  // Questions fréquentes de l'année affichée (le HTML contient celles de l'année de référence).
+  if (G) { $('faq-liste').innerHTML = faq.faqHtml(faq.questionsArgentPublic(G, AN)); $('faq-annee').textContent = annee; }
+  else $('s-faq').hidden = true;
   AnneeVive.redessiner = () => { ecrireFaits(); ecrireBande(); charts.forEach(f => f()); };
   // Cadre invisible qui mesure une autre année : on note aussi les autres regroupements des blocs.
   AnneeVive.mesurer = () => { document.querySelector('[data-dep="fonction"]')?.click(); document.querySelector('[data-rec="type"]')?.click(); };

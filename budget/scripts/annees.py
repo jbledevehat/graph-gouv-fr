@@ -25,6 +25,8 @@ donnees = {
     # Années provisoires : comptes de l'Insee publiés sans la répartition des dépenses
     # entre administrations ni par fonction.
     'insee_provisoire': [a for a in insee if G[a].get('depenses_detaillees') is False],
+    # Déficit public en % du PIB, année par année (questions fréquentes des pages).
+    'deficit_pib': {a: round(-G[a]['solde'] / (G[a]['total_depenses_par_nature'] / (G[a]['part_pib']['dépenses'] / 100)) * 100, 1) for a in insee},
     'etat': etat,
     'aides': [a for a in etat if B[a]['aides']],
     'reference': '2024',
