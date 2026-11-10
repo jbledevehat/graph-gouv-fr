@@ -10,7 +10,7 @@ vérifiés pour partager les données publiques et piloter les politiques publiq
 | [`/sites/pilotage.html`](https://gouvfr.jbledevehat.fr/sites/pilotage.html) | Pilotage des sites web | `web/pilotage.html` |
 | [`/budget/`](https://gouvfr.jbledevehat.fr/budget/) | Exploration de l'argent public en 2024 (dépenses et recettes, à zoomer) | `budget/index.html` |
 | [`/budget/pilotage.html`](https://gouvfr.jbledevehat.fr/budget/pilotage.html) | Pilotage du budget : argent public et budget de l'État | `budget/pilotage.html` |
-| [`/budget/aides.html`](https://gouvfr.jbledevehat.fr/budget/aides.html) | Les aides aux entreprises | `budget/aides.html` |
+| [`/budget/aides-entreprises.html`](https://gouvfr.jbledevehat.fr/budget/aides-entreprises.html) | Les aides aux entreprises | `budget/aides-entreprises.html` |
 | [`/acteurs/`](https://gouvfr.jbledevehat.fr/acteurs/) | Les acteurs publics : organigramme par thème, avec la mission de chaque organisme | `acteurs/index.html` |
 
 Toutes les pages portent le même bandeau (`src/build/bandeau.mjs`, inséré à la construction à la

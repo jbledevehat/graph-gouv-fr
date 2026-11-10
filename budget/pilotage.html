@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  /* Même style que le tableau de bord des aides (aides.html) : fond clair, cartes blanches,
+  /* Même style que le tableau de bord des aides (aides-entreprises.html) : fond clair, cartes blanches,
      IBM Plex, filets fins. Une couleur par administration sur toute la page, prise dans la palette
      des aides et vérifiée pour les daltonismes : État en bleu (comme les aides budgétaires),
      sécurité sociale en violet (comme les exonérations de cotisations), opérateurs en vert (comme
@@ -75,7 +75,7 @@
   a { color: var(--accent); }
   .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
 
-  /* --- En-tête (identique à aides.html) --- */
+  /* --- En-tête (identique à aides-entreprises.html) --- */
   header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
   @media (max-width: 640px) { header.top { position: static; } }
   .top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
@@ -171,7 +171,7 @@
   .sw.hatch { background: repeating-linear-gradient(135deg, var(--hatch) 0 2px, var(--panel) 2px 5px); outline: 1px solid var(--control); outline-offset: -1px; }
   .sw.hatch-c { background: repeating-linear-gradient(135deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 28%, var(--panel)) 3px 7px); }
 
-  /* Tuiles proportionnelles (comme sur aides.html) */
+  /* Tuiles proportionnelles (comme sur aides-entreprises.html) */
   .mondrian { position: relative; width: 100%; overflow: hidden; }
   .mondrian svg { display: block; width: 100%; height: 100%; }
   .mondrian .cell { cursor: pointer; }
@@ -1222,12 +1222,12 @@ AnneeVive.page(async () => {
   }
   if (complet) {
   // ================= 4. Aides aux entreprises =================
-  // Code de couleur des aides (comme sur aides.html) : instrument en couleur, périmètre élargi hachuré.
+  // Code de couleur des aides (comme sur aides-entreprises.html) : instrument en couleur, périmètre élargi hachuré.
   const A = B.aides;
   const INSTR = [[1, 'Aides budgétaires', 'a1'], [2, 'Aides fiscales', 'a2'], [3, 'Aides financières', 'a3'], [4, 'Exonérations de cotisations', 'a4']];
   const totA = sum(A, a => a.montant) / 1000;
   legend('leg-aides', INSTR.map(([n, l, c]) => [c, l]).concat([['op', 'hachuré : ajouté par le périmètre élargi', true]]));
-  $('aides-lead').innerHTML = `Les ${A.length} dispositifs du rapport annexé au PLF 2027, avec le code de couleur du tableau de bord des aides : le socle en aplat, ce qu'ajoute le périmètre élargi en hachuré. Les aides fiscales sont des impôts non perçus et les exonérations de cotisations des recettes en moins pour la sécurité sociale : ces ${esc(mds(totA))} ne sont donc pas une part des dépenses de la partie 2. Cliquez pour zoomer : instrument, puis ministère, puis dispositif. <a href="aides.html">Tableau de bord complet des aides</a>.`;
+  $('aides-lead').innerHTML = `Les ${A.length} dispositifs du rapport annexé au PLF 2027, avec le code de couleur du tableau de bord des aides : le socle en aplat, ce qu'ajoute le périmètre élargi en hachuré. Les aides fiscales sont des impôts non perçus et les exonérations de cotisations des recettes en moins pour la sécurité sociale : ces ${esc(mds(totA))} ne sont donc pas une part des dépenses de la partie 2. Cliquez pour zoomer : instrument, puis ministère, puis dispositif. <a href="aides-entreprises.html">Tableau de bord complet des aides</a>.`;
   explorer('aides', () => ({ id: 'aides', label: 'Toutes les aides', v: totA, children: INSTR.map(([n, l, c]) => {
     const by = new Map();
     for (const a of A.filter(a => a.annexe === n)) { const k = a.ministere + '|' + a.perimetre; if (!by.has(k)) by.set(k, []); by.get(k).push(a); }

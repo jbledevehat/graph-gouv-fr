@@ -2,7 +2,7 @@
 
 Section « Budget de l'État » de [gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr/budget/) :
 `index.html` (exploration) est publié à l'adresse `/budget/`, `pilotage.html` à
-`/budget/pilotage.html` et `aides.html` à `/budget/aides.html`. La construction du site
+`/budget/pilotage.html` et `aides-entreprises.html` à `/budget/aides-entreprises.html`. La construction du site
 (`src/build/export.mjs`) copie ces pages en y insérant le bandeau commun, `donnees/` et le JSON des
 aides ; les données elles-mêmes se reconstruisent avec les scripts ci-dessous, lancés depuis ce
 dossier `budget/`. Les scripts d'extraction du PDF des aides sont dans `scripts/aides/`.
@@ -283,7 +283,7 @@ Page de pilotage (`pilotage.html`) :
 - `index.html` : exploration plein écran des dépenses et des recettes ;
 - `pilotage.html` : tableau de bord (dépenses publiques par administration et par fonction, recettes
   et impôts, budget de l'État par ministère, aides aux entreprises, sources) ;
-- `aides.html` : tableau de bord détaillé des aides aux entreprises ;
+- `aides-entreprises.html` : tableau de bord détaillé des aides aux entreprises ;
 - `donnees/` : données construites (JSON lu par la page, CSV réutilisables) ;
 - `sources/` : fichiers officiels, sans modification, et leur registre ;
 - `config/` : tables de rattachement documentées et chiffres officiels de référence ;
