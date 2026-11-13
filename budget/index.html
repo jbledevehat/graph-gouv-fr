@@ -355,7 +355,8 @@
   // Années disponibles et échelle commune des surfaces (donnees/annees.json).
   let AN;
   try { AN = await fetch('donnees/annees.json', { cache: 'no-cache' }).then(r => r.json()); } catch (e) { AN = { insee: ['2024'], insee_ecart: [], reference: '2024', echelle: { insee_md: 1671.794 } }; }
-  const voulue = new URLSearchParams(location.search).get('annee');
+  // Année de l'adresse : ?annee=2023, sinon le nom de la page (depenses-publiques-2023.html).
+  const voulue = new URLSearchParams(location.search).get('annee') || location.pathname.match(/-(\d{4})\.html$/)?.[1];
   // annee : l'année dessinée (celle d'un aperçu, au survol du bandeau) ; anneeValidee : celle choisie.
   let annee = AN.insee.includes(voulue) ? voulue : AN.reference, anneeValidee = annee;
   // Représentation : blocs (surfaces) ou flux (Sankey), adresse ?vue=flux.
@@ -431,11 +432,10 @@
   const installer = (an, g) => { annee = an; G = g; D = g.total_depenses; R = g.total_recettes; S = g.solde; };
   installer(annee, G);
   const COUL = { S13111: 'etat', S1314: 'secu', S1313: 'coll', S13112: 'op' };
-  const TITRE = document.title;
   // Textes du panneau qui dépendent de l'année choisie.
   function majPanneau() {
     document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
-    document.title = annee !== '2024' ? `Explorer l'argent public en ${annee}` : TITRE;
+    if (faq) document.title = faq.titrePage('exploration', annee, AN.reference);
     const provisoire = (AN.insee_provisoire || []).includes(annee);
     $('alerte').hidden = !AN.insee_ecart.includes(annee) && !provisoire;
     document.querySelectorAll('[data-statut]').forEach(el => { el.textContent = provisoire ? ' · provisoire' : ''; });
@@ -1402,7 +1402,8 @@
     svg.querySelectorAll('.repere').forEach(x => x.remove()); $('apercu').hidden = true;
     majPanneau(); majPdf(); majLiens(an);
     liensAnnee.forEach(a => { if (a.dataset.anneeChoix === an) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    if (historique) { const u = new URL(location.href); u.searchParams.set('annee', an); history.pushState({ annee: an }, '', u); }
+    // Une page par année (depenses-publiques-2023.html) : l'adresse devient la sienne.
+    if (historique) { let u; if (faq) u = faq.adresseAnnee('exploration', an, AN.reference); else { u = new URL(location.href); u.searchParams.set('annee', an); } history.pushState({ annee: an }, '', u); }
     // La fiche ouverte suit l'année, si le bloc existe encore.
     if (choisi) { const n = choisi.est ? estParId(choisi.id) : parId.get(choisi.id); if (n) ouvrir(n); else $('d-close').click(); }
   }
@@ -1423,7 +1424,9 @@
     });
   });
   document.querySelector('.bandeau .b-annee .b-pages')?.addEventListener('pointerleave', () => { clearTimeout(tempo); tempo = setTimeout(revenir, 150); });
-  addEventListener('popstate', () => { const a = new URLSearchParams(location.search).get('annee'); valider(AN.insee.includes(a) ? a : AN.reference, { historique: false }); });
+  addEventListener('popstate', () => { const a = new URLSearchParams(location.search).get('annee') || location.pathname.match(/-(\d{4})\.html$/)?.[1]; valider(AN.insee.includes(a) ? a : AN.reference, { historique: false }); });
+  // Arrivée par ?annee= : l'adresse devient celle de la page de l'année.
+  if (faq && new URLSearchParams(location.search).has('annee') && AN.insee.includes(annee)) history.replaceState(history.state, '', faq.adresseAnnee('exploration', annee, AN.reference));
 
   majRef();
   anneeComp = precedente(annee); GCOMP = anneeComp ? await charger(anneeComp).catch(() => null) : null;

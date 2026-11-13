@@ -13,6 +13,8 @@
 (() => {
   const params = new URLSearchParams(location.search);
   const MESURE = params.has('mesure');
+  // Année de l'adresse : ?annee=2023, sinon le nom de la page (pilotage-2023.html).
+  const anneeAdresse = () => new URLSearchParams(location.search).get('annee') || location.pathname.match(/-(\d{4})\.html$/)?.[1] || null;
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const nf1 = v => v.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const VALS = new Map();          // année -> Map(« graphique|id » -> montant)
@@ -26,7 +28,8 @@
     affichee: null,                // année effectivement dessinée (fixée par la page)
     redessiner: null,              // redessine les graphiques (après l'arrivée des montants de comparaison)
     mesurer: null,                 // en mesure : affiche les autres regroupements, pour noter leurs montants
-    voulue: () => force || params.get('annee'),
+    adresse: null,                 // adresse de la page d'une année (fixée par la page), sinon ?annee=
+    voulue: () => force || params.get('annee') || anneeAdresse(),
     noter(g, id, v) { if (v > 0) courante.set(g + '|' + id, v); },
     evo(g, id, v) {
       const b = VALS.get(anneeComp)?.get(g + '|' + id);
@@ -64,6 +67,8 @@
       return;
     }
     brancher();
+    // Arrivée par ?annee= : l'adresse devient celle de la page de l'année.
+    if (AV.adresse && params.has('annee') && AV.annees.includes(annee)) history.replaceState(history.state, '', AV.adresse(annee));
     comparer(precedente(annee));
   }
 
@@ -197,7 +202,11 @@
       if (badge) badge.hidden = true;
       if (an !== anneeValidee || historique) {
         anneeValidee = an;
-        if (historique) { const u = new URL(location.href); u.searchParams.set('annee', an); history.pushState({ annee: an }, '', u); }
+        if (historique) {
+          let u = AV.adresse?.(an);
+          if (!u) { u = new URL(location.href); u.searchParams.set('annee', an); }
+          history.pushState({ annee: an }, '', u);
+        }
         liens.forEach(a => { if (a.dataset.anneeChoix === an) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
       }
       majLiens(anneeValidee);
@@ -237,7 +246,7 @@
     });
     document.querySelector('.bandeau .b-annee .b-pages')?.addEventListener('pointerleave', () => { clearTimeout(tempo); tempo = setTimeout(revenir, 150); });
     addEventListener('popstate', () => {
-      const a = new URLSearchParams(location.search).get('annee');
+      const a = anneeAdresse();
       basculer(AV.annees.includes(a) ? a : AV.annees.includes(document.querySelector('.bandeau .b-annee')?.dataset.reference) ? document.querySelector('.bandeau .b-annee').dataset.reference : AV.annees[AV.annees.length - 1]);
     });
     majLiens(anneeValidee);

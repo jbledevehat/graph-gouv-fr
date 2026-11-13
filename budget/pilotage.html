@@ -534,7 +534,6 @@ AnneeVive.page(async () => {
   // Années provisoires : marquées dans le bandeau.
   document.querySelectorAll('.bandeau [data-annee-choix]').forEach(a => { if ((AN.insee_provisoire || []).includes(a.dataset.anneeChoix)) { a.classList.add('provisoire'); a.title = `${a.dataset.anneeChoix} : comptes provisoires de l'Insee, dépenses pas encore détaillées`; } });
   const inseeDispo = AN.insee.includes(annee), etatDispo = AN.etat.includes(annee), complet = AN.aides.includes(annee);
-  if (!complet) document.title = `Pilotage de l'argent public en ${annee}`;
   document.querySelectorAll('a[href="donnees/argent-public-2024.json"]').forEach(a => { a.href = `donnees/argent-public-${annee}.json`; });
   document.querySelectorAll('a[href="donnees/detail-etat-2024.json"]').forEach(a => { if (AN.etat.includes(annee)) a.href = `donnees/detail-etat-${annee}.json`; else a.remove(); });
   document.querySelectorAll('[data-annee]').forEach(el => { el.textContent = annee; });
@@ -542,6 +541,9 @@ AnneeVive.page(async () => {
   let G, B, X, BE, GREF;
   const { arbresArgentPublic } = await import('./arbres.js');
   const faq = await import('./faq.js');
+  // Une page par année (pilotage-2023.html) : titre de l'onglet et adresse quand on change d'année.
+  document.title = faq.titrePage('pilotage', annee, AN.reference);
+  AnneeVive.adresse = an => faq.adresseAnnee('pilotage', an, AN.reference);
   // DE : détail de chaque programme (prévu et réalisé, nature fine, actions, indicateurs de
   // performance), chargé en parallèle ; la page reste utilisable s'il manque.
   const DE = etatDispo ? fetch(`donnees/detail-etat-${annee}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);

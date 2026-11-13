@@ -6,7 +6,7 @@ import { hostOf, siteKey } from '../lib/url.mjs';
 import { formerAddresses } from './duplicates.mjs';
 import { avecBandeau, SECTIONS } from './bandeau.mjs';
 import { REGROUPEMENTS, writeBudgetPdf } from './pdf-budget.mjs';
-import { faqHtml, faqJsonLd, questionsArgentPublic } from '../../budget/faq.js';
+import { faqHtml, faqJsonLd, pageAnnee, questionsArgentPublic, titrePage } from '../../budget/faq.js';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -97,7 +97,12 @@ export async function writeWeb(webData, rows) {
   // Années disponibles (budget/donnees/annees.json) : choix de l'année dans le bandeau.
   const A = JSON.parse(await readFile(path('budget/donnees/annees.json'), 'utf8'));
   const toutes = [...new Set([...A.insee, ...A.etat, ...A.aides])].sort();
-  const annees = page => ({ toutes, page, reference: A.reference });
+  const annees = (page, lien) => ({ toutes, page, reference: A.reference, lien });
+  // Exploration et Pilotage : une page par année (budget/depenses-publiques-2023.html,
+  // budget/pilotage-2023.html), l'année de référence restant à l'adresse de base.
+  const anneesPilotage = [...new Set([...A.insee, ...A.etat])].sort();
+  const lienExploration = a => pageAnnee('exploration', a, A.reference), lienPilotage = a => pageAnnee('pilotage', a, A.reference);
+  const pagesAnnees = [];
   const JEUX = jeuxBudget(base, A);
   const budget = JSON.parse(await readFile(path('budget/donnees/budget-etat-2024.json'), 'utf8'));
   const md = v => `${Math.round(v).toLocaleString('fr-FR').replace(/ /g, ' ')} Md€`;
@@ -108,19 +113,46 @@ export async function writeWeb(webData, rows) {
   const FAQ = questionsArgentPublic(argent, A);
   await writeBudgetPage('budget/index.html', 'out/web/budget/index.html', {
     base, url: `${base}budget/`,
-    title: "Où va l'argent public ? Dépenses publiques de la France",
+    title: titrePage('exploration', A.reference, A.reference),
     description: `Les ${depenses} de dépenses publiques de 2024 : qui dépense, pour quoi faire, d'où vient l'argent. État, sécurité sociale, collectivités, de 2015 à 2025.`,
     faq: faqHtml(FAQ),
-    bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee) }, jsonld: [JEUX.argent, faqJsonLd(FAQ)],
+    bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee, lienExploration) }, jsonld: [JEUX.argent, faqJsonLd(FAQ)],
   });
   await writeBudgetPage('budget/pilotage.html', 'out/web/budget/pilotage.html', {
     base, url: `${base}budget/pilotage.html`,
-    title: "Dépenses publiques de la France : tableau de bord",
+    title: titrePage('pilotage', A.reference, A.reference),
     description: `Les finances publiques en chiffres : ${depenses} dépensés en 2024, recettes, déficit, budget de l'État par ministère et aides aux entreprises (Insee, DGFiP).`,
     h1: `<b>${depenses.replace(' Md€', ' milliards')}</b> d'euros d'argent public dépensés en ${A.reference}`,
     faq: faqHtml(FAQ),
-    bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees([...new Set([...A.insee, ...A.etat])].sort()) }, jsonld: [JEUX.argent, faqJsonLd(FAQ)],
+    bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees(anneesPilotage, lienPilotage) }, jsonld: [JEUX.argent, faqJsonLd(FAQ)],
   });
+  // Pages des autres années : titre, description, titre principal et questions fréquentes de
+  // l'année écrits dans le HTML ; la page se dessine pour l'année de son adresse.
+  for (const a of anneesPilotage.filter(a => a !== A.reference)) {
+    const G = A.insee.includes(a) ? JSON.parse(await readFile(path(`budget/donnees/argent-public-${a}.json`), 'utf8')) : null;
+    if (!G) continue;
+    const Q = questionsArgentPublic(G, A);
+    const provisoire = (A.insee_provisoire || []).includes(a);
+    const deficit = A.deficit_pib?.[a];
+    const commun = { base, annee: a, faq: faqHtml(Q), jsonld: [faqJsonLd(Q)] };
+    pagesAnnees.push(lienExploration(a), lienPilotage(a));
+    await writeBudgetPage('budget/index.html', `out/web/budget/${lienExploration(a)}`, {
+      ...commun, url: `${base}budget/${lienExploration(a)}`,
+      title: titrePage('exploration', a, A.reference),
+      description: G.depenses_detaillees === false
+        ? `Les ${md(G.total_depenses)} de dépenses publiques de ${a}, d'après les comptes provisoires de l'Insee : d'où vient l'argent, impôts, déficit. État, sécurité sociale, collectivités.`
+        : `Les ${md(G.total_depenses)} de dépenses publiques de ${a} : qui dépense, pour quoi faire, d'où vient l'argent. État, sécurité sociale, collectivités.`,
+      bandeau: { racine: '../', section: 'budget', page: 'exploration', annees: annees(A.insee, lienExploration) },
+    });
+    const DN = G.total_depenses_par_nature || G.total_depenses;
+    await writeBudgetPage('budget/pilotage.html', `out/web/budget/${lienPilotage(a)}`, {
+      ...commun, url: `${base}budget/${lienPilotage(a)}`,
+      title: titrePage('pilotage', a, A.reference),
+      description: `Les finances publiques en ${a}${provisoire ? ' (comptes provisoires)' : ''} : ${md(DN)} dépensés, recettes${deficit ? `, déficit de ${deficit.toLocaleString('fr-FR')} % du PIB` : ', déficit'}${A.etat.includes(a) ? ", budget de l'État par ministère" : ''} (Insee${A.etat.includes(a) ? ', DGFiP' : ''}).`,
+      h1: `<b>${md(DN).replace(' Md€', ' milliards')}</b> d'euros d'argent public dépensés en ${a}`,
+      bandeau: { racine: '../', section: 'budget', page: 'pilotage', annees: annees(anneesPilotage, lienPilotage) },
+    });
+  }
   await writeBudgetPage('budget/aides-entreprises.html', 'out/web/budget/aides-entreprises.html', {
     base, url: `${base}budget/aides-entreprises.html`,
     title: `Aides publiques aux entreprises : ${aides} en 2024`,
@@ -210,7 +242,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', 'budget/aides-entreprises.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', ...pagesAnnees.map(p => `budget/${p}`), 'budget/aides-entreprises.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
@@ -349,6 +381,8 @@ async function writeBudgetPage(source, target, meta) {
   if (!page.includes('</head>')) throw new Error(`${source} : balise </head> introuvable`);
   // Contenu écrit à la construction : questions fréquentes, titre de la page déjà rempli.
   let html = page.replace('<!--faq-->', meta.faq || '');
+  // Page d'une année : l'année écrite dans les titres (remplacée ensuite par la page elle-même).
+  if (meta.annee) html = html.replace(/(<span (?:data-annee|id="faq-annee")>)\d{4}</g, `$1${meta.annee}<`);
   if (meta.h1) html = html.replace(/<h1 id="h1">.*?<\/h1>/, `<h1 id="h1">${meta.h1}</h1>`);
   await writeOut(target, avecBandeau(html, source, meta.bandeau).replace('</head>', headTags(meta) + '\n</head>'));
 }

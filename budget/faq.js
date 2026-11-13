@@ -102,3 +102,23 @@ export const faqHtml = (Q, h = 3) => Q.map(({ q, r }) => `<details class="faq-q"
 
 // Données structurées FAQPage (schema.org).
 export const faqJsonLd = Q => ({ '@type': 'FAQPage', mainEntity: Q.map(({ q, texte }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: texte } })) });
+
+// Une page par année pour Exploration et Pilotage (référencement) : l'année de référence garde
+// l'adresse de base (budget/, budget/pilotage.html), les autres ont la leur, à côté
+// (budget/depenses-publiques-2023.html, budget/pilotage-2023.html). Titres et adresses servent à la
+// construction des pages et au changement d'année sans rechargement.
+export const pageAnnee = (page, an, reference) => an === reference
+  ? (page === 'pilotage' ? 'pilotage.html' : './')
+  : `${page === 'pilotage' ? 'pilotage' : 'depenses-publiques'}-${an}.html`;
+export const titrePage = (page, an, reference) => page === 'pilotage'
+  ? (an === reference ? 'Dépenses publiques de la France : tableau de bord' : `Dépenses publiques ${an} : tableau de bord des finances publiques`)
+  : (an === reference ? "Où va l'argent public ? Dépenses publiques de la France" : `Dépenses publiques ${an} : où va l'argent public ?`);
+// Année lue dans l'adresse : ?annee=2023, sinon le nom de la page (…-2023.html).
+export const anneeAdresse = () => new URLSearchParams(location.search).get('annee') || location.pathname.match(/-(\d{4})\.html$/)?.[1] || null;
+// Adresse complète de la page d'une année, en gardant les autres réglages de l'adresse (?vue=flux…).
+export function adresseAnnee(page, an, reference) {
+  const u = new URL(pageAnnee(page, an, reference), location.href);
+  new URLSearchParams(location.search).forEach((v, k) => { if (k !== 'annee') u.searchParams.set(k, v); });
+  u.hash = location.hash;
+  return u;
+}

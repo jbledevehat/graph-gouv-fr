@@ -98,13 +98,14 @@ const SCRIPT = `<script>
     if (blocAnnee) {
       const liens = [...blocAnnee.querySelectorAll('[data-annee-choix]')];
       const toutes = [...blocAnnee.querySelectorAll('.b-pages > *')].map(e => e.textContent);
-      const voulue = new URLSearchParams(location.search).get('annee');
+      // Année de l'adresse : ?annee=2023, sinon le nom de la page (pilotage-2023.html).
+      const voulue = new URLSearchParams(location.search).get('annee') || (location.pathname.match(/-(\\d{4})\\.html$/) || [])[1];
       const active = liens.find(a => a.dataset.anneeChoix === voulue) || liens.find(a => a.dataset.anneeChoix === blocAnnee.dataset.reference);
       if (active) active.setAttribute('aria-current', 'page');
       const annee = toutes.includes(voulue) ? voulue : null;
       if (annee) document.addEventListener('DOMContentLoaded', () => {
         const base = new URL(b.querySelector('.b-ariane li.b-sec a').href);
-        document.querySelectorAll('a[href]').forEach(a => {
+        document.querySelectorAll('a[href]:not([data-annee-choix])').forEach(a => {
           const u = new URL(a.href, location.href);
           if (u.origin !== location.origin || !u.pathname.startsWith(base.pathname) || u.searchParams.has('annee') || u.hash && u.pathname === location.pathname) return;
           if (/\.(json|csv|pdf|xlsx?)$/.test(u.pathname)) return;
@@ -144,8 +145,9 @@ const SCRIPT = `<script>
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
-// annees (section budget) : { toutes, page, reference } — toutes les années de la section, celles
-// que la page sait afficher, et celle affichée par défaut.
+// annees (section budget) : { toutes, page, reference, lien } — toutes les années de la section, celles
+// que la page sait afficher, celle affichée par défaut, et l'adresse de chaque année (lien(a),
+// sinon ?annee=a).
 export function bandeau({ racine = '', section = null, page = null, annees = null } = {}) {
   const S = section && SECTIONS[section];
   const sections = Object.entries(SECTIONS).map(([k, s]) =>
@@ -157,7 +159,7 @@ export function bandeau({ racine = '', section = null, page = null, annees = nul
     // Choix de l'année (section budget) : boutons accolés, comme les pages de la section ; les
     // années que la page n'a pas sont grisées.
     const choixAnnee = S.annees && annees ? `<div class="b-annee" data-reference="${annees.reference}"><span>Année</span><span class="b-pages" role="group" aria-label="Année des données">${annees.toutes.map(a => annees.page.includes(a)
-      ? `<a href="?annee=${a}" data-annee-choix="${a}">${a}</a>`
+      ? `<a href="${annees.lien ? annees.lien(a) : '?annee=' + a}" data-annee-choix="${a}">${a}</a>`
       : `<span aria-disabled="true" title="Pas de données pour ${a} sur cette page">${a}</span>`).join('')}</span></div>` : '';
     return `<div class="b-sub"><div class="b-wrap"><nav class="b-ariane" aria-label="Fil d'Ariane"><ol>${ariane}</ol></nav>${choixAnnee}</div></div>`;
   })() : '';
