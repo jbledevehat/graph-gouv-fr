@@ -7,6 +7,7 @@ import { formerAddresses } from './duplicates.mjs';
 import { avecBandeau, SECTIONS } from './bandeau.mjs';
 import { REGROUPEMENTS, writeBudgetPdf } from './pdf-budget.mjs';
 import { faqHtml, faqJsonLd, pageAnnee, questionsArgentPublic, titrePage } from '../../budget/faq.js';
+import { blocEnjeu, ENJEUX, esc as escHtml, SOMBRE, textesPage } from '../../enjeux/commun.js';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -61,6 +62,7 @@ export async function writeSiteLists(rows, dir) {
 //   /budget/               exploration de l'argent public, /budget/pilotage.html et /budget/aides-entreprises.html
 //   /acteurs/              organigramme des acteurs publics (pages et données de acteurs/)
 //   /jeunes/               moral des jeunes et pensées suicidaires (page et données de jeunes/)
+//   /enjeux/               cinq enjeux pour 2027 : une vue d'ensemble et un tableau de bord par enjeu
 // Toutes les pages portent le même bandeau (src/build/bandeau.mjs).
 // Les anciennes adresses (sites.csv, sites.json, carte.pdf, pilotage.html) restent valides.
 export async function writeWeb(webData, rows) {
@@ -211,6 +213,37 @@ export async function writeWeb(webData, rows) {
   });
   await writeOut('out/web/jeunes/donnees/moral-des-jeunes.json', await readFile(path('jeunes/donnees/moral-des-jeunes.json')));
 
+  // --- Section « Enjeux 2027 » (pages et données de enjeux/, saisies depuis les sources officielles) ---
+  // Une page par enjeu, produite à partir du gabarit commun enjeux/tableau.html et du fichier de
+  // données de l'enjeu ; les textes y sont écrits à la construction, les graphiques dans la page.
+  const enjeux = await Promise.all(ENJEUX.map(async id => JSON.parse(await readFile(path(`enjeux/donnees/${id}.json`), 'utf8'))));
+  const gabarit = await readFile(path('enjeux/tableau.html'), 'utf8');
+  const dateFr = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  for (const D of enjeux) {
+    const t = textesPage(D);
+    const description = `${D.besoin} Tableau de bord ${D.titre.toLowerCase()} pour 2027 : ${D.indicateurs.slice(0, 4).map(i => i.libelle.toLowerCase()).join(', ')}, d'après les sources officielles.`;
+    const V = {
+      id: escHtml(D.id), couleur: D.couleur, couleur_sombre: SOMBRE[D.couleur], eyebrow: escHtml(D.eyebrow), titre: escHtml(D.titre),
+      besoin: escHtml(D.besoin), resume: escHtml(D.resume), mise_a_jour: dateFr(D.mise_a_jour), description: escHtml(description),
+      moyens_texte: escHtml(D.moyens.texte), essentiel: t.essentiel, idees: t.idees, questions: t.questions,
+    };
+    const html = gabarit.replace(/\{\{(\w+)\}\}/g, (m, k) => { if (!(k in V)) throw new Error(`enjeux/tableau.html : valeur manquante pour {{${k}}}`); return V[k]; });
+    await writeBudgetPage('enjeux/tableau.html', `out/web/enjeux/${D.id}.html`, {
+      base, url: `${base}enjeux/${D.id}.html`, contenu: html,
+      title: `${D.titre} : le tableau de bord pour 2027`, description,
+      bandeau: { racine: '../', section: 'enjeux', page: D.id },
+    });
+    await writeOut(`out/web/enjeux/donnees/${D.id}.json`, await readFile(path(`enjeux/donnees/${D.id}.json`)));
+  }
+  const blocs = enjeux.map(D => blocEnjeu(D, { racine: '../' })).join('\n');
+  await writeBudgetPage('enjeux/index.html', 'out/web/enjeux/index.html', {
+    base, url: `${base}enjeux/`, contenu: (await readFile(path('enjeux/index.html'), 'utf8')).replace('{{blocs}}', blocs),
+    title: 'Cinq enjeux pour 2027 : les mêmes chiffres pour tous',
+    description: "Pouvoir d'achat, accès aux soins, sécurité, école, climat : cinq tableaux de bord sur les besoins des Français pour la présidentielle de 2027, à partir des seules données officielles, à partager avec leur source.",
+    bandeau: { racine: '../', section: 'enjeux', page: 'ensemble' },
+  });
+  await writeOut('out/web/enjeux/commun.js', await readFile(path('enjeux/commun.js')));
+
   // --- Accueil ---
   const secu = argent.secteurs.find(x => x.code === 'S1314').total;
   const part = code => argent.secteurs.find(x => x.code === code).total;
@@ -219,6 +252,7 @@ export async function writeWeb(webData, rows) {
     title: "Mieux piloter nos politiques publiques par la donnée",
     description: `Tableaux de bord ouverts et vérifiés : les ${n(sites)} sites web de l'État et l'argent public, ${depenses} de dépenses publiques en 2024, budget de l'État et aides.`,
     jsonld: [siteWeb(base)],
+    blocs: { enjeux: enjeux.map(D => blocEnjeu(D, { resume: false })).join('\n') },
     vars: {
       sites: n(sites), admins: n(admins), demarches: n(demarches), depenses, budget: budgetEtat, aides,
       part_secu: secu.toFixed(1), part_reste: (argent.total_depenses - secu).toFixed(1),
@@ -242,7 +276,7 @@ export async function writeWeb(webData, rows) {
   }
   if (base) {
     await writeOut('out/web/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
-    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', ...pagesAnnees.map(p => `budget/${p}`), 'budget/aides-entreprises.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/'].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
+    const urls = ['', 'sites/', 'sites/pilotage.html', 'budget/', 'budget/pilotage.html', ...pagesAnnees.map(p => `budget/${p}`), 'budget/aides-entreprises.html', 'budget/jeunesse.html', 'acteurs/', 'jeunes/', 'enjeux/', ...ENJEUX.map(id => `enjeux/${id}.html`)].map(p => `  <url><loc>${base}${p}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`);
     await writeOut('out/web/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   }
 }
@@ -375,7 +409,7 @@ function headTags(meta) {
 // Page complète du budget (budget/*.html) : on remplace son titre et sa description par les
 // balises de référencement du site.
 async function writeBudgetPage(source, target, meta) {
-  const page = (await readFile(path(source), 'utf8'))
+  const page = (meta.contenu ?? await readFile(path(source), 'utf8'))
     .replace(/<title>[^<]*<\/title>\n?/, '')
     .replace(/<meta name="description"[^>]*>\n?/, '');
   if (!page.includes('</head>')) throw new Error(`${source} : balise </head> introuvable`);
@@ -391,7 +425,12 @@ async function writeBudgetPage(source, target, meta) {
 // d'aperçu (réseaux sociaux). Le titre du fragment est remplacé par celui de la page, et les
 // {{variables}} par leur valeur.
 async function writePage(source, target, meta) {
-  const page = avecBandeau(await readFile(path(source), 'utf8'), source, meta.bandeau).replace(/<title>[^<]*<\/title>\n?/, '')
+  // Blocs HTML écrits à la construction, à la place de leur marqueur <!--nom-->.
+  const brut = Object.entries(meta.blocs || {}).reduce((h, [k, v]) => {
+    if (!h.includes(`<!--${k}-->`)) throw new Error(`${source} : marqueur <!--${k}--> introuvable`);
+    return h.replace(`<!--${k}-->`, v);
+  }, await readFile(path(source), 'utf8'));
+  const page = avecBandeau(brut, source, meta.bandeau).replace(/<title>[^<]*<\/title>\n?/, '')
     .replace(/\{\{(\w+)\}\}/g, (m, k) => { if (!(k in (meta.vars || {}))) throw new Error(`${source} : valeur manquante pour {{${k}}}`); return esc(meta.vars[k]); });
   const head = headTags(meta);
 

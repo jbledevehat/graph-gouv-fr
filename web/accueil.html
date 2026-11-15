@@ -123,6 +123,37 @@
   :root[data-theme="dark"] .mini b { color: #0C1119; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mini b { color: #0C1119; } }
 
+  /* Cinq enjeux pour 2027 : un bloc par enjeu, écrit à la construction (enjeux/commun.js). */
+  .enjeux { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; }
+  .enjeu { position: relative; display: grid; gap: 10px; align-content: start; padding: 16px 16px 18px; border-top: 5px solid var(--enjeu); transition: transform .15s; }
+  .enjeu:hover { transform: translateY(-2px); }
+  .enjeu:focus-within { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .enjeu-tete { display: grid; gap: 4px; }
+  .enjeu h3 { margin: 0; font-size: 17px; line-height: 1.25; }
+  .enjeu h3 a { color: inherit; text-decoration: none; }
+  .enjeu h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+  .enjeu h3 a:focus-visible { outline: none; }
+  .enjeu .besoin { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+  .enjeu-cles { display: grid; gap: 8px; }
+  .enjeu-cle { display: grid; gap: 4px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .enjeu-cle .spark { display: none; }
+  .enjeu-cle:not(:first-child) { display: none; }
+  .cle { display: grid; gap: 0; }
+  .cle-lib { font-size: 12px; color: var(--muted); line-height: 1.35; }
+  .cle b { font-size: 20px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .cle-an { font: 12px var(--mono); color: var(--muted); }
+  .cle b .u { font-size: 13px; font-weight: 500; }
+  .cle-serie { font-size: 12px; color: var(--muted); font-style: italic; }
+  .cle b .u.long { display: block; font-size: 12px; line-height: 1.3; font-weight: 500; }
+  .evo { font: 500 12px var(--mono); color: var(--muted); }
+  .evo.mieux { color: #17703D; } .evo.moins-bien { color: #B42F29; }
+  :root[data-theme="dark"] .evo.mieux { color: #4CC47E; } :root[data-theme="dark"] .evo.moins-bien { color: #F0706A; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .evo.mieux { color: #4CC47E; } :root:not([data-theme="light"]) .evo.moins-bien { color: #F0706A; } }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .enjeu .go { font-size: 13px; font-weight: 500; }
+  .enjeu .go a { position: relative; z-index: 1; text-decoration: none; }
+  .enjeu .go a::after { content: " →"; }
+
   /* De la donnée à la décision */
   .chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: etape; }
   .chain li { counter-increment: etape; padding: 16px; display: grid; gap: 6px; align-content: start; position: relative; }
@@ -151,8 +182,16 @@
     <span class="notice">Proposition indépendante construite à partir de données publiques ; ce n'est pas un outil officiel.</span>
   </div>
 
+  <section aria-labelledby="t-enjeux">
+    <h2 id="t-enjeux">Cinq enjeux pour 2027</h2>
+    <p class="lead">Pouvoir d'achat, santé, sécurité, école, climat : les besoins des Français mesurés avec les seules données officielles, pour que candidats, journalistes et citoyens partent des mêmes chiffres. <a href="enjeux/">Voir les cinq tableaux de bord</a>.</p>
+    <div class="enjeux">
+      <!--enjeux-->
+    </div>
+  </section>
+
   <section aria-labelledby="t-sections">
-    <h2 id="t-sections">Quatre tableaux de bord</h2>
+    <h2 id="t-sections">Quatre tableaux de bord sur l'action publique</h2>
     <div class="doors">
       <div class="card door">
         <div class="visual"><img src="apercu.jpg" alt="Carte des sites web de l'État : chaque ministère est un grand cercle, chaque site une bulle" width="1200" height="630" loading="lazy"></div>

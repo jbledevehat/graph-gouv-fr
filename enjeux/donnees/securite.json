@@ -1,0 +1,859 @@
+{
+  "id": "securite",
+  "ordre": 3,
+  "titre": "Sécurité et justice",
+  "eyebrow": "Sécurité",
+  "besoin": "Suis-je protégé, et la justice passe-t-elle à temps ?",
+  "resume": "Les atteintes aux biens enregistrées par la police et la gendarmerie reculent depuis 2016 (cambriolages, vols violents), tandis que les violences contre les personnes et les escroqueries enregistrées augmentent fortement, en partie parce que les victimes portent davantage plainte. Les homicides restent proches de 1 000 victimes par an. Les prisons n'ont jamais été aussi pleines (142 % de densité au 1er septembre 2026) et les délais de la justice civile s'allongent.",
+  "mise_a_jour": "2026-11-15",
+  "couleur": "#4A3AA7",
+  "essentiel": [
+    {
+      "titre": "Moins de cambriolages et de vols violents enregistrés qu'en 2016",
+      "texte": "En 2025, la police et la gendarmerie ont enregistré 211 596 cambriolages de logement, contre 248 887 en 2016 (-15 %), et 49 193 vols violents sans arme, contre 94 758 (-48 %). Source : SSMSI, bases statistiques de la délinquance enregistrée.",
+      "indicateur": "atteintes-biens"
+    },
+    {
+      "titre": "Les violences enregistrées augmentent nettement, surtout dans la famille",
+      "texte": "256 681 victimes de violences physiques intrafamiliales ont été enregistrées en 2025, 2,3 fois plus qu'en 2016, et 215 728 victimes de violences physiques hors cadre familial (+32 %). Une partie de la hausse vient de ce que les victimes, notamment de violences conjugales, portent davantage plainte : le chiffre mesure aussi la parole des victimes.",
+      "indicateur": "violences-physiques"
+    },
+    {
+      "titre": "Violences sexuelles enregistrées : 2,5 fois plus qu'en 2016",
+      "texte": "132 143 victimes de violences sexuelles ont été enregistrées en 2025, contre 51 913 en 2016. Selon l'enquête de victimation du SSMSI, seules 4 % des victimes de violences sexuelles portent plainte : l'essentiel de ces violences reste invisible dans les chiffres de la police.",
+      "indicateur": "violences-sexuelles"
+    },
+    {
+      "titre": "Environ 1 000 homicides par an, et deux fois plus de tentatives",
+      "texte": "975 victimes d'homicide ont été enregistrées en 2025, contre 911 en 2016 ; le nombre est stable depuis 2023. Les tentatives d'homicide enregistrées ont doublé : 4 477 victimes en 2025 contre 2 259 en 2016.",
+      "indicateur": "homicides"
+    },
+    {
+      "titre": "Des prisons pleines comme jamais",
+      "texte": "Au 1er janvier 2026, 86 140 personnes étaient détenues pour 63 411 places opérationnelles, soit une densité carcérale de 135,8 %. Au 1er septembre 2026, elles étaient 90 020 (densité de 142,1 %) et 8 347 dormaient sur un matelas au sol.",
+      "indicateur": "densite-carcerale"
+    },
+    {
+      "titre": "La justice civile met de plus en plus de temps",
+      "texte": "Au rythme de 2025, les tribunaux judiciaires mettraient 12,2 mois à écouler leurs affaires civiles en cours, contre 10,8 mois en 2022, loin de l'objectif de 9,2 mois fixé pour 2025.",
+      "indicateur": "delai-justice-civile"
+    }
+  ],
+  "cles": [
+    "violences-physiques",
+    "atteintes-biens",
+    "densite-carcerale"
+  ],
+  "indicateurs": [
+    {
+      "id": "atteintes-biens",
+      "libelle": "Cambriolages et vols violents enregistrés",
+      "question": "Y a-t-il plus de cambriolages et de vols avec violence qu'avant ?",
+      "unite": "infractions",
+      "decimales": 0,
+      "sens": "baisse",
+      "definition": "Nombre d'infractions enregistrées dans l'année par la police et la gendarmerie nationales (procédures transmises à la justice), selon le lieu de commission des faits. « Cambriolages de logement » : vols avec effraction ou par ruse dans une résidence principale ou secondaire. « Vols violents sans arme » : vols commis avec violence, sans arme à feu, arme blanche ou arme par destination. France (métropole et départements d'outre-mer).",
+      "piege": "Ce sont des infractions enregistrées, pas des infractions commises : un vol non déclaré n'est pas compté. Pour les cambriolages, le taux de plainte est élevé (67 % des victimes de vol avec effraction de leur résidence principale portent plainte selon l'enquête VRS), donc la série reflète assez bien la réalité ; c'est moins vrai pour les vols violents (34 %). La baisse de 2020 et 2021 tient aux confinements.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "cambriolages",
+          "nom": "Cambriolages de logement",
+          "valeurs": [
+            248887,
+            252956,
+            236817,
+            236661,
+            189289,
+            189892,
+            211458,
+            217078,
+            218156,
+            211596
+          ]
+        },
+        {
+          "id": "vols-violents",
+          "nom": "Vols violents sans arme",
+          "valeurs": [
+            94758,
+            89542,
+            82972,
+            80890,
+            65624,
+            62071,
+            59450,
+            54270,
+            48292,
+            49193
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Total France : somme des valeurs des 18 régions de la base régionale du SSMSI (identique à la somme des 101 départements de la base départementale).",
+      "source": {
+        "titre": "Base statistique régionale de la délinquance enregistrée par la police et la gendarmerie nationales, données 2016 à 2025 (édition juillet 2026)",
+        "producteur": "SSMSI (ministère de l'Intérieur)",
+        "url": "https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20260709-120055/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv"
+      }
+    },
+    {
+      "id": "violences-physiques",
+      "libelle": "Victimes de violences physiques enregistrées",
+      "question": "Les violences contre les personnes augmentent-elles ?",
+      "unite": "victimes",
+      "decimales": 0,
+      "sens": "baisse",
+      "definition": "Nombre de victimes de violences physiques (coups et blessures volontaires, y compris sur mineurs, hors homicides) enregistrées dans l'année par la police et la gendarmerie nationales, selon le lieu des faits. Les violences intrafamiliales sont celles commises au sein du couple ou de la famille. Ces deux indicateurs remplacent depuis juillet 2025 l'ancien indicateur « coups et blessures volontaires sur personnes de 15 ans ou plus » ; le SSMSI a recalculé toute la série depuis 2016 selon la nouvelle définition. France (métropole et départements d'outre-mer).",
+      "piege": "La hausse mesure à la fois les violences et la propension à porter plainte. Selon l'enquête VRS, seules 21 % des victimes de violences physiques portent plainte. Le doublement des violences intrafamiliales enregistrées suit la libération de la parole sur les violences conjugales et l'amélioration de l'accueil des plaintes : il ne prouve pas à lui seul que ces violences ont doublé. Les chiffres ne se comparent pas avec l'ancien indicateur « coups et blessures volontaires ».",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "hors-famille",
+          "nom": "Hors cadre familial",
+          "valeurs": [
+            163447,
+            171894,
+            183019,
+            185649,
+            168658,
+            183418,
+            200410,
+            205896,
+            205459,
+            215728
+          ]
+        },
+        {
+          "id": "intrafamiliales",
+          "nom": "Intrafamiliales",
+          "valeurs": [
+            113821,
+            117685,
+            129216,
+            148546,
+            163702,
+            187743,
+            216822,
+            238211,
+            244360,
+            256681
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Total France : somme des valeurs des 18 régions de la base régionale du SSMSI.",
+      "source": {
+        "titre": "Base statistique régionale de la délinquance enregistrée par la police et la gendarmerie nationales, données 2016 à 2025 (édition juillet 2026)",
+        "producteur": "SSMSI (ministère de l'Intérieur)",
+        "url": "https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20260709-120055/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv"
+      }
+    },
+    {
+      "id": "violences-sexuelles",
+      "libelle": "Victimes de violences sexuelles enregistrées",
+      "question": "Les violences sexuelles sont-elles mieux signalées ou plus fréquentes ?",
+      "unite": "victimes",
+      "decimales": 0,
+      "sens": "neutre",
+      "definition": "Nombre de victimes de violences sexuelles (viols, tentatives de viol, agressions sexuelles, harcèlement sexuel, exploitation sexuelle…) enregistrées dans l'année par la police et la gendarmerie nationales, quelle que soit la date des faits, selon le lieu des faits. France (métropole et départements d'outre-mer).",
+      "piege": "Une part importante des plaintes porte sur des faits anciens, parfois de plusieurs années ou commis dans l'enfance : la courbe date le dépôt de plainte, pas les faits. Seules 4 % des victimes de violences sexuelles portent plainte selon l'enquête VRS : une hausse des chiffres peut donc traduire une meilleure prise en compte autant qu'une hausse des violences. C'est pourquoi le sens souhaitable n'est pas indiqué.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Victimes enregistrées",
+          "valeurs": [
+            51913,
+            57003,
+            67472,
+            75329,
+            77089,
+            96385,
+            106114,
+            114079,
+            122444,
+            132143
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Total France : somme des valeurs des 18 régions de la base régionale du SSMSI.",
+      "source": {
+        "titre": "Base statistique régionale de la délinquance enregistrée par la police et la gendarmerie nationales, données 2016 à 2025 (édition juillet 2026)",
+        "producteur": "SSMSI (ministère de l'Intérieur)",
+        "url": "https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20260709-120055/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv"
+      }
+    },
+    {
+      "id": "homicides",
+      "libelle": "Victimes d'homicide et de tentative d'homicide",
+      "question": "Combien de personnes sont tuées chaque année, et est-ce en hausse ?",
+      "unite": "victimes",
+      "decimales": 0,
+      "sens": "baisse",
+      "definition": "Nombre de victimes d'homicide (y compris coups et blessures volontaires suivis de mort) et de tentative d'homicide enregistrées dans l'année par la police et la gendarmerie nationales, selon le lieu des faits. France (métropole et départements d'outre-mer).",
+      "piege": "Les homicides sont presque toujours connus des services : la série est fiable, mais porte sur de petits nombres, qui varient d'une année à l'autre. La qualification « tentative d'homicide » est retenue au moment de l'enquête et peut être requalifiée ensuite par la justice ; son doublement peut tenir en partie aux pratiques d'enregistrement. 975 victimes en 2025 font environ 1,4 homicide pour 100 000 habitants.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "homicides",
+          "nom": "Homicides",
+          "valeurs": [
+            911,
+            835,
+            845,
+            878,
+            788,
+            840,
+            958,
+            996,
+            976,
+            975
+          ]
+        },
+        {
+          "id": "tentatives",
+          "nom": "Tentatives d'homicide",
+          "valeurs": [
+            2259,
+            2284,
+            2482,
+            2718,
+            3115,
+            3136,
+            3584,
+            4015,
+            4290,
+            4477
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Total France : somme des valeurs des 18 régions de la base régionale du SSMSI.",
+      "source": {
+        "titre": "Base statistique régionale de la délinquance enregistrée par la police et la gendarmerie nationales, données 2016 à 2025 (édition juillet 2026)",
+        "producteur": "SSMSI (ministère de l'Intérieur)",
+        "url": "https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20260709-120055/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv"
+      }
+    },
+    {
+      "id": "escroqueries",
+      "libelle": "Victimes d'escroqueries et de fraudes aux moyens de paiement",
+      "question": "Les arnaques, notamment en ligne, se multiplient-elles ?",
+      "unite": "victimes",
+      "decimales": 0,
+      "sens": "baisse",
+      "definition": "Nombre de victimes d'escroqueries et de fraudes aux moyens de paiement enregistrées dans l'année par la police et la gendarmerie nationales, selon le lieu de résidence de la victime (et non le lieu des faits, souvent sur internet). France (métropole et départements d'outre-mer) ; les victimes résidant à l'étranger, comptées dans le total national du SSMSI, sont exclues ici.",
+      "piege": "Beaucoup de victimes de fraude à la carte bancaire se font rembourser par leur banque sans porter plainte : l'enquête VRS estime à 2,9 millions les débits frauduleux subis en 2024, bien plus que les plaintes enregistrées. La série dépend aussi de la facilité à signaler en ligne.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Victimes enregistrées",
+          "valeurs": [
+            249477,
+            255068,
+            258443,
+            292644,
+            306809,
+            358142,
+            387251,
+            408986,
+            414653,
+            445463
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Total France : somme des valeurs des 18 régions de la base régionale du SSMSI (hors victimes résidant à l'étranger).",
+      "source": {
+        "titre": "Base statistique régionale de la délinquance enregistrée par la police et la gendarmerie nationales, données 2016 à 2025 (édition juillet 2026)",
+        "producteur": "SSMSI (ministère de l'Intérieur)",
+        "url": "https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20260709-120055/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/donnee-reg-data.gouv-2025-geographie2026-produit-le2026-06-25.csv"
+      }
+    },
+    {
+      "id": "sentiment-insecurite",
+      "libelle": "Personnes se sentant en insécurité dans leur quartier (enquête CVS, jusqu'en 2019)",
+      "question": "Les Français se sentent-ils en insécurité près de chez eux ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des personnes de 14 ans ou plus vivant en ménage ordinaire qui déclarent se sentir « souvent » ou « de temps en temps » en insécurité dans leur quartier ou leur village. Enquête Cadre de vie et sécurité (Insee, ONDRP, SSMSI), France métropolitaine, millésimes 2007 à 2019.",
+      "piege": "Le sentiment d'insécurité n'est pas une mesure de la délinquance : il dépend aussi de l'actualité, de l'âge, du lieu de vie. L'enquête CVS s'est arrêtée en 2021 ; elle est remplacée depuis 2022 par l'enquête Vécu et ressenti en matière de sécurité (VRS), qui interroge des personnes de 18 ans ou plus selon une autre méthode : ses niveaux ne se comparent pas à cette série. Selon le SSMSI, ce sentiment a augmenté de 14 % entre 2022 et 2023, de 8 % entre 2023 et 2024 et de 5 % entre 2024 et 2025 dans l'enquête VRS.",
+      "annees": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "series": [
+        {
+          "id": "quartier",
+          "nom": "En insécurité dans son quartier ou son village",
+          "valeurs": [
+            10.911,
+            9.679,
+            10.444,
+            10.876,
+            10.859,
+            11.355,
+            11.747,
+            11.24,
+            10.938,
+            10.571,
+            11.019,
+            11.898,
+            11.313
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [
+        {
+          "annee": 2022,
+          "texte": "Fin de l'enquête Cadre de vie et sécurité ; l'enquête VRS qui lui succède depuis 2022 n'est pas comparable."
+        }
+      ],
+      "source": {
+        "titre": "Indicateurs annuels de la victimation et du sentiment d'insécurité issus des enquêtes Cadre de vie et sécurité, résultats détaillés (colonne PROP_ENSEMBLE, module « Sentiment d'insécurité dans le quartier ou le village »)",
+        "producteur": "SSMSI (ministère de l'Intérieur), Insee, ONDRP",
+        "url": "https://static.data.gouv.fr/resources/indicateurs-annuels-de-la-victimation-et-du-sentiment-dinsecurite-issus-des-enquetes-cadre-de-vie-et-securite/20250626-224824/cube-cvs-diffusion.csv",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/cube-cvs-diffusion.csv"
+      }
+    },
+    {
+      "id": "detenus",
+      "libelle": "Personnes détenues au 1er janvier",
+      "question": "Combien de personnes sont en prison ?",
+      "unite": "personnes",
+      "decimales": 0,
+      "sens": "neutre",
+      "definition": "Nombre de personnes écrouées détenues (prévenus en attente de jugement et condamnés, y compris semi-liberté et placement extérieur hébergé) au 1er janvier, France entière. Ne comprend pas les personnes écrouées non détenues (bracelet électronique à domicile, placement extérieur sans hébergement).",
+      "piege": "Le nombre de détenus dépend des décisions de justice (durée des peines, détention provisoire, aménagements), pas seulement de la délinquance. Environ un détenu sur quatre est un prévenu, présumé innocent, en attente de jugement (22 372 au 1er janvier 2026). La baisse de 2021 suit les libérations anticipées décidées pendant la crise sanitaire de 2020.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "series": [
+        {
+          "id": "detenus",
+          "nom": "Personnes détenues",
+          "valeurs": [
+            66678,
+            68432,
+            68974,
+            70059,
+            70651,
+            62673,
+            69448,
+            72173,
+            75897,
+            80669,
+            86140
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Statistique mensuelle de la population écrouée et détenue en France, situations au 1er janvier 2016 à 2026 (tableau 6 « Effectifs des personnes écrouées détenues et densité carcérale »)",
+        "producteur": "Ministère de la Justice, administration pénitentiaire (DAP-SSER)",
+        "url": "https://www.data.gouv.fr/datasets/statistique-mensuelle-de-la-population-ecrouee-et-detenue-en-france",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/statistique-etablissements-01012026.xlsx"
+      }
+    },
+    {
+      "id": "densite-carcerale",
+      "libelle": "Densité carcérale au 1er janvier",
+      "question": "Les prisons sont-elles surpeuplées ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Nombre de personnes détenues rapporté au nombre de places opérationnelles (places effectivement disponibles), au 1er janvier, ensemble des établissements pénitentiaires, France entière. Au-delà de 100 %, il y a plus de détenus que de places.",
+      "piege": "C'est une moyenne : les centres de détention (longues peines) sont proches de 100 %, alors que les maisons d'arrêt, qui accueillent prévenus et courtes peines, atteignaient 165,3 % au 1er janvier 2026. Une hausse du nombre de places ne suffit pas si le nombre de détenus augmente plus vite : +1 026 places mais +5 471 détenus entre janvier 2025 et janvier 2026.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "series": [
+        {
+          "id": "densite",
+          "nom": "Densité carcérale",
+          "valeurs": [
+            113.86,
+            116.62,
+            115.41,
+            116.47,
+            115.7,
+            103.4,
+            114.3,
+            119.0,
+            122.9,
+            129.3,
+            135.8
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Statistique mensuelle de la population écrouée et détenue en France, situations au 1er janvier 2016 à 2026 (tableau 6 « Effectifs des personnes écrouées détenues et densité carcérale »)",
+        "producteur": "Ministère de la Justice, administration pénitentiaire (DAP-SSER)",
+        "url": "https://www.data.gouv.fr/datasets/statistique-mensuelle-de-la-population-ecrouee-et-detenue-en-france",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/securite/statistique-etablissements-01012026.xlsx"
+      }
+    },
+    {
+      "id": "delai-justice-civile",
+      "libelle": "Délai d'écoulement des affaires civiles des tribunaux judiciaires",
+      "question": "Combien de temps faut-il attendre pour être jugé au civil ?",
+      "unite": "mois",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Délai théorique d'écoulement du stock : nombre d'affaires civiles en cours au 31 décembre divisé par le nombre d'affaires terminées dans l'année, exprimé en mois. Il indique combien de temps il faudrait aux tribunaux judiciaires, au rythme de l'année, pour traiter toutes les affaires en attente. Indicateur du programme « Justice judiciaire » (rapports annuels de performance).",
+      "piege": "Ce n'est pas la durée réelle d'une affaire : les référés se règlent en quelques semaines, d'autres litiges (famille, construction) prennent des années. Il mesure l'engorgement des tribunaux. Les données de performance ne sont disponibles ici que depuis 2022.",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "tj-civil",
+          "nom": "Tribunaux judiciaires, affaires civiles",
+          "valeurs": [
+            10.8,
+            11.4,
+            11.7,
+            12.2
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "objectif": {
+        "annee": 2026,
+        "valeur": 9,
+        "libelle": "Cible 2026 du programme Justice judiciaire (rapport annuel de performance 2025)",
+        "source": "RAP 2025, indicateur P166-1-3, budget/sources/performance/RAP2025-Performance.csv"
+      },
+      "source": {
+        "titre": "Rapports annuels de performance 2022 à 2025, mission Justice, programme 166 « Justice judiciaire », indicateur « Délai théorique d'écoulement du stock des procédures », sous-indicateur « Tribunaux judiciaires - civil »",
+        "producteur": "Direction du budget, ministère de la Justice",
+        "url": "https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/",
+        "consulte_le": "2026-11-15",
+        "fichier": "../budget/sources/performance/RAP2025-Performance.csv"
+      }
+    }
+  ],
+  "comparaisons": [
+    {
+      "id": "homicides-europe",
+      "libelle": "Homicides volontaires enregistrés par la police",
+      "unite": "pour 100 000 habitants",
+      "decimales": 2,
+      "annee": 2024,
+      "sens": "baisse",
+      "definition": "Homicides intentionnels (catégorie ICCS 0101 de la classification internationale des infractions) enregistrés par la police, pour 100 000 habitants, 2024. Chiffres transmis à Eurostat par chaque pays. Pour la France, Eurostat compte 882 homicides en 2024 alors que le SSMSI dénombre 976 victimes : le champ et l'unité de compte diffèrent ; seule la comparaison entre pays avec la même source a un sens. Pas de moyenne de l'Union européenne publiée.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 1.28
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 0.83
+        },
+        {
+          "nom": "Italie",
+          "valeur": 0.57
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 0.72
+        }
+      ],
+      "source": {
+        "titre": "Infractions enregistrées par la police par type d'infraction (crim_off_cat), homicide intentionnel, pour 100 000 habitants",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/crim_off_cat?format=JSON&lang=fr&iccs=ICCS0101&unit=P_HTHAB&geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020&sinceTimePeriod=2015",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "detenus-europe",
+      "libelle": "Personnes détenues",
+      "unite": "pour 100 000 habitants",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "neutre",
+      "definition": "Nombre réel de personnes détenues dans les établissements pénitentiaires pour 100 000 habitants, fin 2024 (pour la France : 80 669 détenus, soit la situation au 1er janvier 2025). Pas de moyenne de l'Union européenne publiée.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 117.47
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 70.45
+        },
+        {
+          "nom": "Italie",
+          "valeur": 107.72
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 121.81
+        }
+      ],
+      "source": {
+        "titre": "Capacité des prisons et nombre de personnes détenues (crim_pris_cap), nombre réel de personnes retenues en prison, par centaine de milliers d'habitants",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/crim_pris_cap?format=JSON&lang=fr&geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020&sinceTimePeriod=2018",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "juges-europe",
+      "libelle": "Juges professionnels",
+      "unite": "pour 100 000 habitants",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "hausse",
+      "definition": "Juges ou magistrats professionnels pour 100 000 habitants, 2024, selon les déclarations des pays à Eurostat. Les systèmes judiciaires diffèrent (en France, les magistrats du parquet et les juges non professionnels ne sont pas tous comptés de la même façon qu'ailleurs) ; la série italienne présente une rupture en 2021. Pas de moyenne de l'Union européenne publiée.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 11.15
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 26.3
+        },
+        {
+          "nom": "Italie",
+          "valeur": 7.86
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 6.18
+        }
+      ],
+      "source": {
+        "titre": "Personnel dans le système de justice pénale par sexe (crim_just_job), juges ou magistrats professionnels, total, par centaine de milliers d'habitants",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/crim_just_job?format=JSON&lang=fr&isco08=OC2612A&isco08=OC5412&sex=T&unit=P_HTHAB&geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020&sinceTimePeriod=2018",
+        "consulte_le": "2026-11-15"
+      }
+    }
+  ],
+  "performance": [
+    {
+      "mission": "Justice",
+      "programme": "Justice judiciaire (166)",
+      "indicateur": "Délai théorique d'écoulement du stock des procédures (P166-1-3 ; P166-1-4 en 2022)",
+      "sous_indicateur": "Tribunaux judiciaires - civil",
+      "unite": "mois",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        10.8,
+        11.4,
+        11.7,
+        12.2
+      ],
+      "cible": [
+        10.5,
+        10.0,
+        9.5,
+        9.2
+      ],
+      "sens": "baisse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022, cibles 2023 et 2024) ; RAP2025-Performance.csv (réalisés 2023 à 2025, cible 2025)"
+    },
+    {
+      "mission": "Justice",
+      "programme": "Justice judiciaire (166)",
+      "indicateur": "Proportion d'affaires pénales terminées en moins de douze mois sur les douze derniers mois en première instance (P166-1-2)",
+      "sous_indicateur": "Ensemble",
+      "unite": "%",
+      "annees": [
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        80.4,
+        78.8,
+        79
+      ],
+      "cible": [
+        null,
+        81,
+        82
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv (réalisés et cible 2025) ; Performance-execution-cible-2022-2024.csv (cible 2024)"
+    },
+    {
+      "mission": "Justice",
+      "programme": "Justice judiciaire (166)",
+      "indicateur": "Taux de mise à exécution des peines d'emprisonnement ferme ou en partie ferme (P166-4-3 ; P166-2-3 en 2022)",
+      "sous_indicateur": "Taux de mise à exécution à 12 mois des peines d'emprisonnement ferme ou en partie ferme prononcées par un jugement contradictoire",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        86.3,
+        88.1,
+        88.2,
+        88
+      ],
+      "cible": [
+        83,
+        85,
+        86.5,
+        88
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022, cibles 2023 et 2024) ; RAP2025-Performance.csv (réalisés 2023 à 2025, cible 2025)"
+    },
+    {
+      "mission": "Justice",
+      "programme": "Administration pénitentiaire (107)",
+      "indicateur": "Taux de personnes détenues bénéficiant d'une cellule individuelle (P107-2-2)",
+      "sous_indicateur": "Taux de personnes détenues bénéficiant d'une cellule individuelle",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        41.5,
+        39,
+        37,
+        33.87
+      ],
+      "cible": [
+        40,
+        43,
+        42.7,
+        38
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022, cibles 2023 et 2024) ; RAP2025-Performance.csv (réalisés 2023 à 2025, cible 2025)"
+    },
+    {
+      "mission": "Sécurités",
+      "programme": "Gendarmerie nationale (152)",
+      "indicateur": "Taux d'élucidation ciblés (P152-2-1)",
+      "sous_indicateur": "Taux d'élucidation des cambriolages de résidences principales et secondaires (cible 2025 : plus de 12,5 %)",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        9.8,
+        9.4,
+        9.3,
+        9.4
+      ],
+      "cible": [
+        null,
+        null,
+        null,
+        12.5
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022) ; RAP2025-Performance.csv (2023 à 2025)"
+    },
+    {
+      "mission": "Sécurités",
+      "programme": "Police nationale (176)",
+      "indicateur": "Taux d'élucidation ciblés (P176-2-1)",
+      "sous_indicateur": "Taux d'élucidation des homicides (cible : « en hausse », sans valeur chiffrée)",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        69.8,
+        60.6,
+        65.2,
+        61.3
+      ],
+      "cible": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022) ; RAP2025-Performance.csv (2023 à 2025)"
+    }
+  ],
+  "moyens": {
+    "codes": [
+      "GF03"
+    ],
+    "texte": "Fonction « Ordre et sécurité publics » de la nomenclature COFOG, toutes administrations publiques (État, collectivités locales, sécurité sociale) : police et gendarmerie nationales, polices municipales (via les dépenses des communes), services d'incendie et de secours, tribunaux et services de la justice, prisons. Ce périmètre ne comprend pas la défense nationale ni les dépenses privées de sécurité (gardiennage, alarmes, vidéosurveillance des entreprises)."
+  },
+  "idees_recues": [
+    {
+      "affirmation": "« La délinquance explose partout en France. »",
+      "reponse": "Les chiffres ne vont pas tous dans le même sens. Les atteintes aux biens enregistrées ont baissé depuis 2016 : -15 % pour les cambriolages de logement, -48 % pour les vols violents sans arme. En revanche, les violences physiques, les violences sexuelles et les escroqueries enregistrées ont fortement augmenté, en partie parce que les victimes portent davantage plainte.",
+      "indicateur": "atteintes-biens"
+    },
+    {
+      "affirmation": "« Les homicides n'ont jamais été aussi nombreux. »",
+      "reponse": "975 victimes d'homicide ont été enregistrées en 2025, contre 911 en 2016 et 996 en 2023 : le niveau est un peu plus élevé qu'avant 2022, mais stable depuis trois ans. Ce sont les tentatives d'homicide enregistrées qui ont doublé (4 477 victimes en 2025). La France reste au-dessus de ses voisins : 1,28 homicide pour 100 000 habitants en 2024 selon Eurostat, contre 0,83 en Allemagne et 0,57 en Italie.",
+      "indicateur": "homicides"
+    },
+    {
+      "affirmation": "« Les chiffres de la police montrent toute la délinquance. »",
+      "reponse": "Non : ils ne comptent que les faits signalés et enregistrés. Selon l'enquête de victimation du SSMSI, 67 % des victimes de cambriolage avec effraction portent plainte, mais seulement 21 % des victimes de violences physiques et 4 % des victimes de violences sexuelles. Une hausse des plaintes peut refléter une meilleure écoute des victimes autant qu'une hausse des faits.",
+      "indicateur": "violences-sexuelles"
+    },
+    {
+      "affirmation": "« La justice est laxiste : la plupart des délinquants ne sont pas poursuivis. »",
+      "reponse": "En 2025, les parquets ont apporté une réponse pénale (poursuite, alternative ou composition pénale) à 87,8 % des auteurs dans les affaires « poursuivables ». Mais ce taux ne porte que sur les affaires dont l'auteur est identifié et l'infraction caractérisée : sur 4,24 millions d'affaires traitées en 2025, 2,53 millions n'avaient aucun mis en cause. Le principal point faible est donc en amont, dans l'élucidation : en 2025, la gendarmerie élucidait 9,4 % des cambriolages.",
+      "indicateur": "atteintes-biens"
+    },
+    {
+      "affirmation": "« On ne met plus personne en prison. »",
+      "reponse": "Le nombre de détenus n'a jamais été aussi élevé : 86 140 au 1er janvier 2026, contre 66 678 en 2016 (+29 %), et 90 020 au 1er septembre 2026. Avec 117 détenus pour 100 000 habitants fin 2024, la France incarcère davantage que l'Allemagne (70) et l'Italie (108), un peu moins que l'Espagne (122).",
+      "indicateur": "detenus"
+    },
+    {
+      "affirmation": "« Il suffit de construire des prisons pour régler la surpopulation. »",
+      "reponse": "Le nombre de places progresse moins vite que celui des détenus : entre janvier 2025 et janvier 2026, 1 026 places opérationnelles en plus pour 5 471 détenus en plus. La densité carcérale est passée de 113,9 % en 2016 à 135,8 % au 1er janvier 2026, et la part des détenus seuls en cellule est tombée à 33,9 % en 2025, loin de la cible de 38 %.",
+      "indicateur": "densite-carcerale"
+    }
+  ],
+  "questions_candidats": [
+    "Quel niveau de cambriolages, de violences physiques et de violences sexuelles enregistrés visez-vous en 2032, et comment distinguerez-vous la hausse des plaintes de celle des faits ?",
+    "Quel taux d'élucidation des cambriolages (9,4 % en gendarmerie en 2025) vous fixez-vous, et avec combien d'enquêteurs supplémentaires ?",
+    "Avec 90 020 détenus pour 63 348 places au 1er septembre 2026, combien de places construirez-vous, et quelle part des courtes peines sera exécutée hors de prison ?",
+    "Quel délai d'écoulement des affaires civiles (12,2 mois en 2025) visez-vous pour les tribunaux judiciaires, et avec combien de magistrats et de greffiers ?",
+    "Alors que seules 4 % des victimes de violences sexuelles portent plainte, quelles mesures prendrez-vous pour que davantage de victimes soient entendues, et quel taux de plainte visez-vous ?"
+  ]
+}

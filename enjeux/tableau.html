@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="{{description}}">
+<title>{{titre}}</title>
+<script>
+  // Thème choisi par le visiteur, sinon celui du système.
+  try { const t = localStorage.getItem('carte-v2-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Gabarit commun des cinq tableaux de bord (enjeux/README.md). Mêmes jetons que les autres pages ;
+     la couleur de l'enjeu (--enjeu) et celles des administrations viennent de la palette du site,
+     vérifiée pour les daltonismes en clair et en sombre. */
+  :root {
+    color-scheme: light;
+    --ground: #EDF0F5; --panel: #FFFFFF; --panel-2: #F5F7FA; --ink: #162033; --muted: #5A6579; --line: #D6DCE6;
+    --control: #7C8699; --accent: #1F3FB5; --accent-soft: #E3E8FA;
+    --ok: #17703D; --bad: #B42F29; --ok-soft: #E3F1E8; --bad-soft: #F8E5E3; --warn-soft: #F6ECDD;
+    --enjeu: {{couleur}};
+    --m-etat: #2A78D6; --m-secu: #4A3AA7; --m-coll: #D99A00; --m-op: #1BAF7A;
+    --shadow: 0 1px 2px rgba(22, 32, 51, .06), 0 8px 24px rgba(22, 32, 51, .08);
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+      --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+      --ok: #4CC47E; --bad: #F0706A; --ok-soft: #14301F; --bad-soft: #3A1A18; --warn-soft: #33260F;
+      --enjeu: {{couleur_sombre}};
+      --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0C1119; --panel: #141B26; --panel-2: #1A2331; --ink: #E4E9F1; --muted: #97A2B5; --line: #273142;
+    --control: #65718A; --accent: #8EA6FF; --accent-soft: #1E2A4A;
+    --ok: #4CC47E; --bad: #F0706A; --ok-soft: #14301F; --bad-soft: #3A1A18; --warn-soft: #33260F;
+    --enjeu: {{couleur_sombre}};
+    --m-etat: #2F8FF0; --m-secu: #C060C8; --m-coll: #C98500; --m-op: #199E70;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .skip { position: fixed; z-index: 30; top: 8px; left: 8px; padding: 8px 12px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 2px solid var(--accent); transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.55 var(--sans); }
+  a { color: var(--accent); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+  .eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  main { padding-block: 24px 48px; display: grid; gap: 34px; }
+  section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 150px; }
+  section > h2 { margin: 0; font-size: 19px; text-wrap: balance; display: flex; align-items: baseline; gap: 10px; }
+  section > h2 .num { font: 600 12px var(--mono); color: var(--muted); }
+  section > .lead { margin: -4px 0 0; color: var(--muted); max-width: 84ch; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); min-width: 0; }
+  .pad { padding: 16px; }
+  .muted { color: var(--muted); }
+
+  /* En-tête : la question des Français, en grand */
+  .intro { display: grid; gap: 10px; padding: 22px 22px 20px; border-top: 5px solid var(--enjeu); }
+  .intro h1 { margin: 0; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
+  .intro .besoin { margin: 0; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.35; font-weight: 500; max-width: 46ch; text-wrap: balance; }
+  .intro .besoin::before { content: "« "; color: var(--enjeu); } .intro .besoin::after { content: " »"; color: var(--enjeu); }
+  .intro .resume { margin: 0; color: var(--muted); max-width: 84ch; font-size: 15px; }
+  .intro .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 12.5px; color: var(--muted); }
+  .notice { display: inline-block; padding: 4px 10px; border: 1px dashed var(--control); border-radius: 6px; }
+
+  /* Sommaire */
+  nav.sommaire { min-width: 0; position: sticky; top: var(--bandeau-h, 0px); z-index: 5; margin: -10px -16px 0; padding: 8px 16px; background: color-mix(in srgb, var(--ground) 92%, transparent); backdrop-filter: blur(6px); }
+  nav.sommaire ol { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: thin; }
+  nav.sommaire a { display: inline-flex; align-items: center; min-height: 30px; padding: 0 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink); text-decoration: none; font-size: 13px; white-space: nowrap; }
+  nav.sommaire a:hover { border-color: var(--enjeu); }
+
+  /* Chiffres clés */
+  .cles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+  .cle { display: grid; gap: 2px; align-content: start; }
+  .cles .cle { padding: 14px 16px; border-left: 4px solid var(--enjeu); }
+  .cle-lib { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+  .cle-lib a { color: inherit; text-decoration: none; } .cle-lib a:hover { color: var(--accent); text-decoration: underline; }
+  .cle b { font-size: 25px; line-height: 1.15; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .cle b .u, .dernier b .u { font-size: 15px; font-weight: 500; letter-spacing: 0; }
+  .cle-serie { font-size: 12px; color: var(--muted); font-style: italic; }
+  .cle b .u.long { display: block; font-size: 13px; line-height: 1.3; font-weight: 500; }
+  .cle-an { font: 12px var(--mono); color: var(--muted); }
+  .evo { font: 500 12px var(--mono); color: var(--muted); }
+  .evo.mieux { color: var(--ok); } .evo.moins-bien { color: var(--bad); }
+
+  /* L'essentiel */
+  ol.essentiel { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: point; }
+  ol.essentiel li { counter-increment: point; display: grid; grid-template-columns: 30px 1fr; gap: 4px 12px; padding: 14px 16px; }
+  ol.essentiel li::before { content: counter(point); grid-row: span 2; font: 600 13px var(--mono); color: var(--panel); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--enjeu); }
+  ol.essentiel b { font-size: 15px; }
+  ol.essentiel span { color: var(--muted); max-width: 92ch; }
+
+  /* Indicateurs */
+  .indicateurs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 14px; }
+  .ind { display: grid; gap: 8px; align-content: start; padding: 16px; scroll-margin-top: 150px; }
+  .ind:target { outline: 3px solid var(--enjeu); outline-offset: 2px; }
+  .ind h3 { margin: 0; font-size: 16px; line-height: 1.3; text-wrap: balance; }
+  .ind .sub { margin: -4px 0 0; color: var(--muted); font-size: 12.5px; }
+  .ind .dernier { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+  .ind .dernier b { font-size: 22px; font-variant-numeric: tabular-nums; }
+  .ind .dernier .cle-an { font-size: 12px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--muted); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--c); }
+  .legend i.sq { width: 10px; height: 10px; border: 0; border-radius: 3px; background: var(--c); }
+  .legend i.obj { border-top-style: dashed; }
+  .chart { width: 100%; display: block; overflow: visible; touch-action: pan-y; }
+  .note-echelle { margin: 0; font-size: 12px; color: var(--muted); }
+  details.prec { border-top: 1px solid var(--line); padding-top: 8px; }
+  details.prec summary { cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink); }
+  details.prec p { margin: 6px 0 0; font-size: 13px; color: var(--muted); max-width: 80ch; }
+  details.prec p b { color: var(--ink); font-weight: 600; }
+  .piege { margin: 0; padding: 8px 10px; border-left: 3px solid var(--enjeu); background: var(--panel-2); border-radius: 0 6px 6px 0; font-size: 13px; }
+  .piege b { font-weight: 600; }
+  .src { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+  .actions button, .actions a { display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 0 10px; border: 1px solid var(--control); border-radius: 7px; background: var(--panel); color: var(--ink); font: 500 12.5px var(--sans); text-decoration: none; cursor: pointer; }
+  .actions button:hover, .actions a:hover { background: var(--panel-2); }
+  .actions button[aria-busy="true"] { opacity: .6; cursor: progress; }
+  #tip { position: fixed; z-index: 40; pointer-events: none; max-width: 300px; padding: 8px 10px; border-radius: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: 12.5px; line-height: 1.45; }
+  #tip b { display: block; font-size: 13px; }
+  #tip .l { display: flex; align-items: center; gap: 6px; }
+  #tip .l i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
+  #tip .l span { margin-left: auto; padding-left: 12px; font-family: var(--mono); }
+
+  /* Comparaisons, argent public */
+  .duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+  .bloc { display: grid; gap: 8px; align-content: start; padding: 16px; }
+  .bloc h3 { margin: 0; font-size: 16px; }
+  .bloc .sub { margin: -4px 0 0; color: var(--muted); font-size: 12.5px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; }
+  .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+  .kpi b { font-size: 24px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .kpi span { color: var(--muted); font-size: 12.5px; }
+
+  /* Tableaux */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { background: var(--panel-2); font-weight: 600; white-space: nowrap; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); white-space: nowrap; }
+  td small { display: block; color: var(--muted); font-size: 12px; }
+  .na { color: var(--control); }
+  .statut { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; font: 500 12px var(--sans); white-space: nowrap; }
+  .statut.ok { background: var(--ok-soft); color: var(--ok); } .statut.ko { background: var(--bad-soft); color: var(--bad); } .statut.nd { background: var(--panel-2); color: var(--muted); }
+
+  /* Idées reçues, questions */
+  .idees { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 12px; }
+  .idee { padding: 16px; display: grid; gap: 8px; align-content: start; }
+  .idee .affirmation { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .idee .reponse { margin: 0; color: var(--muted); font-size: 13.5px; }
+  .idee .reponse b { color: var(--ink); }
+  .idee-lien { font-size: 13px; font-weight: 500; }
+  ol.questions { margin: 0; padding: 16px 16px 16px 40px; display: grid; gap: 8px; }
+  ol.questions li { font-size: 14.5px; max-width: 90ch; }
+  ol.questions li::marker { font: 600 13px var(--mono); color: var(--enjeu); }
+  ul.methode { margin: 0; padding-left: 18px; display: grid; gap: 8px; max-width: 92ch; }
+  ul.methode li { font-size: 13.5px; }
+  ul.sources { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13px; }
+  /* Identifiants de jeux de données sans espace (DS_DERA_PRIVE_SERIES_LONGUES) : coupés au besoin. */
+  ul.sources li, .src, .prec { overflow-wrap: anywhere; }
+  .erreur { padding: 16px; border-left: 4px solid var(--bad); background: var(--bad-soft); border-radius: 0 10px 10px 0; }
+  footer { padding-block: 0 32px; color: var(--muted); font-size: 12.5px; }
+  footer p { margin: 0 0 6px; max-width: 92ch; }
+  @media (max-width: 520px) { .intro { padding: 18px 16px; } .ind, .bloc { padding: 14px 12px; } }
+  @media (max-width: 640px) { nav.sommaire { position: static; } }
+</style>
+</head>
+<body data-enjeu="{{id}}">
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<!--bandeau-->
+
+<main id="contenu" class="wrap">
+  <header class="card intro">
+    <span class="eyebrow">Cinq enjeux pour 2027 · {{eyebrow}}</span>
+    <h1 id="h1">{{titre}}</h1>
+    <p class="besoin">{{besoin}}</p>
+    <p class="resume">{{resume}}</p>
+    <div class="meta"><span class="notice">Proposition indépendante construite à partir de données publiques ; ce n'est pas un outil officiel.</span><span>Données à jour au {{mise_a_jour}}</span><a href="donnees/{{id}}.json" download>Toutes les données (JSON)</a></div>
+  </header>
+
+  <nav class="sommaire" aria-label="Sommaire de la page">
+    <ol>
+      <li><a href="#t-cles">Chiffres clés</a></li>
+      <li><a href="#t-essentiel">L'essentiel</a></li>
+      <li><a href="#t-indicateurs">Indicateurs</a></li>
+      <li><a href="#t-europe">En Europe</a></li>
+      <li><a href="#t-argent">Argent public</a></li>
+      <li><a href="#t-performance">Objectifs de l'État</a></li>
+      <li><a href="#t-idees">Idées reçues</a></li>
+      <li><a href="#t-questions">Questions aux candidats</a></li>
+      <li><a href="#t-methode">Méthode</a></li>
+    </ol>
+  </nav>
+
+  <section aria-labelledby="t-cles">
+    <h2 id="t-cles">Les chiffres clés</h2>
+    <p class="lead">La dernière valeur publiée de chaque indicateur, et son évolution depuis le début de la série. Vert : l'évolution va dans le sens souhaitable ; rouge : dans le sens contraire. Cliquer sur un chiffre mène à sa courbe, sa définition et sa source.</p>
+    <div class="cles" id="cles"></div>
+  </section>
+
+  <section aria-labelledby="t-essentiel">
+    <h2 id="t-essentiel">L'essentiel</h2>
+    <ol class="essentiel">
+      {{essentiel}}
+    </ol>
+  </section>
+
+  <section aria-labelledby="t-indicateurs">
+    <h2 id="t-indicateurs">Les indicateurs, année par année</h2>
+    <p class="lead">Chaque indicateur répond à une question concrète. Sous chaque courbe : ce qui est mesuré exactement, la mauvaise lecture la plus fréquente, et la source officielle. Chaque graphique peut être partagé : son lien, son image (avec la source écrite dessus) et ses données.</p>
+    <div class="indicateurs" id="indicateurs"></div>
+  </section>
+
+  <section aria-labelledby="t-europe">
+    <h2 id="t-europe">La France parmi ses voisins</h2>
+    <p class="lead">Même définition pour tous les pays, même année : la comparaison est faite par Eurostat ou l'OCDE, pas ici.</p>
+    <div class="duo" id="europe"></div>
+  </section>
+
+  <section aria-labelledby="t-argent">
+    <h2 id="t-argent">L'argent public consacré au sujet</h2>
+    <p class="lead">{{moyens_texte}} Montants recalculés à partir des comptes de la Nation de l'Insee, comme sur la page <a href="../budget/pilotage.html">Pilotage du budget</a> : toutes les administrations publiques, chaque euro compté une seule fois, chez celle qui le dépense.</p>
+    <div class="kpis" id="argent-kpis"></div>
+    <div class="duo" id="argent-evolution-grille">
+      <div class="card bloc">
+        <h3>Année par année, par administration</h3>
+        <p class="sub">Milliards d'euros courants, de 2015 à 2024 (l'inflation n'est pas déduite : voir la part du PIB ci-dessus)</p>
+        <ul class="legend" id="argent-legende"></ul>
+        <div id="argent-evolution"></div>
+      </div>
+      <div class="card bloc">
+        <h3 id="argent-detail-titre">À quoi sert cet argent</h3>
+        <p class="sub" id="argent-detail-sub"></p>
+        <div id="argent-detail"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-performance">
+    <h2 id="t-performance">Les objectifs que l'État s'est fixés</h2>
+    <p class="lead">Chaque année, le Parlement vote des objectifs chiffrés pour les politiques de l'État, et le Gouvernement publie le résultat dans les rapports annuels de performance. Voici ceux qui concernent le plus directement les Français sur ce sujet. La dernière colonne compare le dernier résultat à sa cible.</p>
+    <div class="card table-scroll" id="performance"></div>
+  </section>
+
+  <section aria-labelledby="t-idees">
+    <h2 id="t-idees">Idées reçues : ce que disent les chiffres</h2>
+    <p class="lead">Des affirmations que l'on entend souvent dans le débat public, confrontées aux données officielles de cette page.</p>
+    <div class="idees">
+      {{idees}}
+    </div>
+  </section>
+
+  <section aria-labelledby="t-questions">
+    <h2 id="t-questions">Les questions à poser aux candidats</h2>
+    <p class="lead">Des questions précises, qui appellent une réponse chiffrée et vérifiable avec les indicateurs de cette page.</p>
+    <div class="card">
+      <ol class="questions">
+        {{questions}}
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-methode">
+    <h2 id="t-methode">Méthode et sources</h2>
+    <div class="card pad" style="display:grid;gap:12px">
+      <ul class="methode">
+        <li><b>Des sources officielles seulement.</b> Chaque chiffre est recopié de la publication ou du fichier de l'organisme qui le produit (Insee, services statistiques des ministères, Eurostat, OCDE, Direction du budget), sans recalcul, sauf mention contraire sous l'indicateur.</li>
+        <li><b>Les ruptures de série sont montrées.</b> Quand la méthode change, la courbe est interrompue et l'évolution n'est calculée qu'après la rupture. Les chiffres provisoires sont signalés par un point creux.</li>
+        <li><b>Des axes honnêtes.</b> Les axes partent de zéro, sauf pour les grandeurs qui ne s'en approchent jamais (espérance de vie, scores) : la page le signale alors sous le graphique.</li>
+        <li><b>Le sens souhaitable est affiché, pas le jugement.</b> La couleur des évolutions dit seulement si l'indicateur va dans le sens que chacun souhaite (moins de chômage, plus d'espérance de vie). Les causes, elles, se discutent : la page ne les attribue à personne.</li>
+        <li><b>Tout se partage avec sa source.</b> Le lien d'un graphique mène directement à lui ; son image porte la source et l'adresse de la page ; ses données se téléchargent en CSV.</li>
+      </ul>
+      <div>
+        <h3 style="margin:0 0 6px;font-size:15px">Les sources de cette page</h3>
+        <ul class="sources" id="sources"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<footer class="wrap">
+  <p>Données : <a href="donnees/{{id}}.json" download>JSON</a> (Licence Ouverte 2.0). Méthode, sources téléchargées et empreintes : <a href="https://github.com/jbledevehat/graph-gouv-fr/tree/master/enjeux" target="_blank" rel="noopener">enjeux/ sur GitHub</a>. Les autres enjeux : <a href="./">vue d'ensemble</a>.</p>
+</footer>
+
+<script type="module">
+import { valeur, valeurHtml, nombre, bilan, chiffreCle, esc, SOMBRE, axeResserre } from './commun.js';
+
+const $ = id => document.getElementById(id);
+const ID = document.body.dataset.enjeu;
+
+// Thème.
+const themeButtons = document.querySelectorAll('[data-theme-choice]');
+const showTheme = () => {
+  const current = document.documentElement.dataset.theme || 'auto';
+  themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === current)));
+};
+themeButtons.forEach(b => b.addEventListener('click', () => {
+  const c = b.dataset.themeChoice;
+  if (c === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = c;
+  try { if (c === 'auto') localStorage.removeItem('carte-v2-theme'); else localStorage.setItem('carte-v2-theme', c); } catch (e) {}
+  showTheme(); dessiner();
+}));
+showTheme();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => dessiner());
+
+let D, ARGENT;
+try {
+  D = await (await fetch(`donnees/${ID}.json`)).json();
+} catch (e) {
+  $('indicateurs').innerHTML = `<p class="erreur">Les données de la page n'ont pas pu être chargées.</p>`;
+  throw e;
+}
+
+// --- Couleurs lues dans la feuille de style (thème affiché), ou fixes pour l'image partagée ---
+function couleurs(clair = false) {
+  if (clair) return { panel: '#FFFFFF', ink: '#162033', muted: '#5A6579', line: '#D6DCE6', control: '#7C8699', enjeu: D.couleur, etat: '#2A78D6', secu: '#4A3AA7', coll: '#D99A00', op: '#1BAF7A' };
+  const css = getComputedStyle(document.documentElement), V = n => css.getPropertyValue(n).trim();
+  return { panel: V('--panel'), ink: V('--ink'), muted: V('--muted'), line: V('--line'), control: V('--control'), enjeu: V('--enjeu'), etat: V('--m-etat'), secu: V('--m-secu'), coll: V('--m-coll'), op: V('--m-op') };
+}
+// Séries d'un même graphique : la couleur de l'enjeu d'abord, puis les autres couleurs de la palette
+// du site, toujours dans le même ordre (une série garde sa couleur).
+const ORDRE = ['#EB6834', '#2A78D6', '#4A3AA7', '#1BAF7A', '#D99A00'];
+// Femmes et hommes gardent les couleurs des filles et des garçons du reste du site.
+const PAR_NOM = [[/^(femmes|filles)/i, '#EB6834'], [/^(hommes|garçons)/i, '#2A78D6']];
+function couleurSerie(k, K, clair, series) {
+  const nom = series?.[k]?.nom || '';
+  const fixe = PAR_NOM.find(([re]) => re.test(nom))?.[1];
+  const sexes = series?.some(s => PAR_NOM.some(([re]) => re.test(s.nom)));
+  const sombre = !clair && estSombre();
+  if (fixe) return sombre ? SOMBRE[fixe] : fixe;
+  // Sinon : la couleur de l'enjeu, puis les autres, sans reprendre celles des femmes et des hommes.
+  const libres = [D.couleur, ...ORDRE.filter(c => c !== D.couleur)].filter(c => !sexes || !PAR_NOM.some(([, x]) => x === c));
+  const autres = series ? series.slice(0, k).filter(s => !PAR_NOM.some(([re]) => re.test(s.nom))).length : k;
+  const c = libres[autres % libres.length];
+  return sombre ? SOMBRE[c] : c;
+}
+const estSombre = () => { const t = document.documentElement.dataset.theme; return t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches); };
+
+// --- Échelle « ronde » ---
+function graduations(lo, hi, n = 4) {
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const brut = (hi - lo) / n, p = 10 ** Math.floor(Math.log10(brut));
+  const pas = [1, 2, 2.5, 5, 10].map(m => m * p).find(s => s >= brut);
+  const a = Math.floor(lo / pas) * pas, b = Math.ceil(hi / pas) * pas, t = [];
+  for (let v = a; v <= b + pas / 2; v += pas) t.push(+v.toFixed(10));
+  return { lo: a, hi: b, ticks: t, dec: Math.max(0, -Math.floor(Math.log10(pas) + 1e-9)) };
+}
+
+// --- Courbe d'un indicateur ---
+// Les années très espacées (1990 puis 2015) sont rapprochées et séparées par une coupure ; les
+// ruptures de série interrompent la courbe ; le provisoire est un point creux ; l'objectif, un
+// losange relié à la dernière valeur par un tiret.
+function courbe(ind, { K, clair = false, W = 560, H = 250 } = {}) {
+  // Un objectif postérieur aux données ajoute son année à l'axe ; un objectif déjà échu se place
+  // sur l'année des données.
+  const A = [...ind.annees], obj = ind.objectif && ind.objectif.annee >= A[0] ? ind.objectif : null;
+  const apres = obj && obj.annee > A[A.length - 1];
+  const tous = apres ? [...A, obj.annee] : A;
+  const u = [0], coupures = [];
+  for (let k = 1; k < tous.length; k++) {
+    const g = tous[k] - tous[k - 1];
+    if (g > 8) { u.push(u[k - 1] + 2.5); coupures.push(k); } else u.push(u[k - 1] + g);
+  }
+  // Image partagée (plus large) : textes et marges agrandis d'autant.
+  const f = W > 800 ? 1.7 : 1;
+  const vals = ind.series.flatMap(s => s.valeurs).filter(v => v != null).concat(obj ? [obj.valeur] : []);
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  // L'axe part de zéro, sauf pour une grandeur toujours loin de zéro (signalé sous le graphique).
+  const resserre = axeResserre(ind) && lo > 0;
+  if (!resserre) { lo = Math.min(0, lo); hi = Math.max(0, hi); }
+  const G = graduations(lo, hi);
+  const fmtAxe = v => nombre(v, G.dec) + (ind.unite === '%' ? ' %' : '');
+  // Marge de gauche à la mesure du plus long libellé de l'axe (« 600 000 »).
+  const m = { l: Math.max(46, 12 + 6.8 * Math.max(...G.ticks.map(v => fmtAxe(v).length))) * f, r: 58 * f, t: 14 * f, b: 26 * f };
+  const xs = k => m.l + (u[u.length - 1] ? u[k] / u[u.length - 1] : .5) * (W - m.l - m.r);
+  const y = v => m.t + (1 - (v - G.lo) / (G.hi - G.lo)) * (H - m.t - m.b);
+  let s = `<g>${G.ticks.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="${v === 0 && !resserre ? K.control : K.line}" stroke-width="1"/><text x="${m.l - 6}" y="${y(v) + 4 * f}" text-anchor="end" fill="${K.muted}" font-size="${11 * f}" font-family="IBM Plex Mono, monospace">${fmtAxe(v)}</text>`).join('')}</g>`;
+  // Années sous l'axe : toutes s'il y en a peu, sinon une sur deux ou sur cinq, toujours la dernière.
+  // Années sous l'axe : la première, la dernière, celles d'après une coupure, puis les autres tant
+  // qu'elles ne touchent pas leurs voisines (50 px au moins entre deux étiquettes).
+  const garder = new Set([0, tous.length - 1, ...coupures]);
+  const pasAn = tous.length > 14 ? 5 : tous.length > 8 ? 2 : 1;
+  tous.forEach((a, k) => { if (a % pasAn === 0) garder.add(k); });
+  const montrees = [];
+  const prioritaires = [0, tous.length - 1, ...coupures];
+  for (const k of [...prioritaires, ...[...garder].filter(k => !prioritaires.includes(k)).sort((p, q) => p - q)]) {
+    if (montrees.every(j => Math.abs(xs(j) - xs(k)) >= 50 * f)) montrees.push(k);
+  }
+  s += montrees.map(k => `<text x="${xs(k)}" y="${H - 6 * f}" text-anchor="middle" fill="${apres && k === tous.length - 1 ? K.ink : K.muted}" font-size="${11 * f}" font-family="IBM Plex Mono, monospace">${tous[k]}</text>`).join('');
+  for (const k of coupures) { const xm = (xs(k - 1) + xs(k)) / 2; s += `<text x="${xm}" y="${H - m.b + 4}" text-anchor="middle" fill="${K.muted}" font-size="${13 * f}">≈</text>`; }
+  // Ruptures de série.
+  for (const r of ind.ruptures || []) {
+    const k = A.findIndex(a => a >= r.annee); if (k <= 0) continue;
+    const xr = (xs(k - 1) + xs(k)) / 2;
+    s += `<line x1="${xr}" x2="${xr}" y1="${m.t}" y2="${H - m.b}" stroke="${K.control}" stroke-width="1"/><text x="${xr + 4}" y="${m.t + 9}" fill="${K.muted}" font-size="${10.5 * f}" font-family="IBM Plex Sans, sans-serif">rupture</text>`;
+  }
+  const casse = k => coupures.includes(k) || (ind.ruptures || []).some(r => A[k] >= r.annee && A[k - 1] < r.annee);
+  const prov = new Set(ind.provisoire || []);
+  const fins = [];
+  ind.series.forEach((se, i) => {
+    const c = couleurSerie(i, K, clair, ind.series);
+    // Tracé plein entre deux valeurs définitives, en tirets vers ou depuis une valeur provisoire.
+    let d = '', dp = '', pts = '', prec = null, finD = null;
+    se.valeurs.forEach((v, k) => {
+      if (v == null) { prec = null; return; }
+      const X = xs(k), Y = y(v), relie = prec != null && !casse(k);
+      if (relie && (prov.has(A[k]) || prov.has(A[prec]))) dp += `M${xs(prec)},${y(se.valeurs[prec])}L${X},${Y}`;
+      else if (relie) { d += (finD === prec ? '' : `M${xs(prec)},${y(se.valeurs[prec])}`) + `L${X},${Y}`; finD = k; }
+      pts += prov.has(A[k]) ? `<circle cx="${X}" cy="${Y}" r="${3.5 * f}" fill="${K.panel}" stroke="${c}" stroke-width="2"/>` : `<circle cx="${X}" cy="${Y}" r="${(A.length > 12 ? 2.5 : 3.5) * f}" fill="${c}" stroke="${K.panel}" stroke-width="1.5"/>`;
+      prec = k;
+    });
+    s += `<path d="${d}" fill="none" stroke="${c}" stroke-width="${2 * f}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if (dp) s += `<path d="${dp}" fill="none" stroke="${c}" stroke-width="${2 * f}" stroke-dasharray="4 4" stroke-linecap="round"/>`;
+    s += pts;
+    const k1 = se.valeurs.map((v, k) => v != null ? k : -1).filter(k => k >= 0).pop();
+    if (k1 != null) fins.push({ y: y(se.valeurs[k1]), x: xs(k1), t: nombre(se.valeurs[k1], ind.decimales ?? 0) });
+  });
+  // Objectif.
+  if (obj) {
+    const ko = apres ? tous.length - 1 : Math.max(0, A.findIndex(a => a >= obj.annee)), X = xs(ko), Y = y(obj.valeur), s0 = ind.series[0].valeurs;
+    const k1 = s0.map((v, k) => v != null ? k : -1).filter(k => k >= 0).pop();
+    if (k1 != null && k1 < ko) s += `<path d="M${xs(k1)},${y(s0[k1])}L${X},${Y}" stroke="${K.muted}" stroke-width="1.5" stroke-dasharray="3 4" fill="none"/>`;
+    s += `<path d="M${X},${Y - 6}L${X + 6},${Y}L${X},${Y + 6}L${X - 6},${Y}Z" fill="${K.panel}" stroke="${K.ink}" stroke-width="1.5"/>`;
+    fins.push({ y: Y, x: X, t: nombre(obj.valeur, ind.decimales ?? 0), obj: true });
+  }
+  // Étiquettes directes à droite, écartées si elles se chevauchent ; texte à l'encre, jamais en couleur.
+  fins.sort((p, q) => p.y - q.y);
+  for (let k = 1; k < fins.length; k++) if (fins[k].y - fins[k - 1].y < 13 * f) fins[k].y = fins[k - 1].y + 13 * f;
+  const xl = W - m.r + 8 * f;
+  s += fins.map(e => `<text x="${xl}" y="${e.y + 4 * f}" fill="${K.ink}" font-size="${11.5 * f}" font-weight="${e.obj ? 400 : 500}" font-family="IBM Plex Mono, monospace" paint-order="stroke" stroke="${K.panel}" stroke-width="4">${e.t}</text>`).join('');
+  // Zones de survol : une colonne par année, et un repère vertical.
+  if (!clair) {
+    s += `<line class="reperes" x1="0" x2="0" y1="${m.t}" y2="${H - m.b}" stroke="${K.control}" stroke-width="1" visibility="hidden"/>`;
+    s += A.map((a, k) => {
+      const g = k ? (xs(k) - xs(k - 1)) / 2 : 12, dr = k < A.length - 1 ? (xs(k + 1) - xs(k)) / 2 : 12;
+      return `<rect class="hit" data-k="${k}" data-x="${xs(k)}" x="${xs(k) - g}" y="${m.t}" width="${g + dr}" height="${H - m.t - m.b}" fill="transparent"/>`;
+    }).join('');
+  }
+  const label = `${ind.libelle}, ${A[0]} à ${A[A.length - 1]}. Dernière valeur : ${valeur(bilan(ind)?.valeur, ind)} en ${bilan(ind)?.annee}.`;
+  return { svg: `<svg class="chart" viewBox="0 0 ${W} ${H}"${clair ? ` width="${W}" height="${H}"` : ''} role="img" aria-label="${esc(label)}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`, resserre };
+}
+
+// --- Barres horizontales (comparaisons, détail de l'argent public) ---
+function barres(items, { K, fmt, court = fmt, couleur, mise = () => false, gras = true, W = 520 } = {}) {
+  // Marge de droite à la mesure de la plus longue valeur (7,3 px par caractère en chasse fixe) ;
+  // si les barres n'ont plus la place, la valeur s'écrit sans son unité (rappelée au-dessus).
+  const h = 22, g = 8, lg = Math.min(190, Math.round(W * .38));
+  const marge = f => Math.max(70, 12 + 7.3 * Math.max(...items.map(i => f(i.valeur).length)));
+  if (W - lg - marge(fmt) < 120) fmt = court;
+  const m = { t: 4, r: marge(fmt) };
+  const max = Math.max(...items.map(i => i.valeur), 0), min = Math.min(...items.map(i => i.valeur), 0);
+  const x = v => lg + (v - min) / ((max - min) || 1) * (W - lg - m.r);
+  const H = m.t + items.length * (h + g);
+  let s = '';
+  items.forEach((it, k) => {
+    const Y = m.t + k * (h + g), x0 = x(Math.min(0, it.valeur)), x1 = x(Math.max(0, it.valeur)), fort = mise(it);
+    const c = fort ? couleur : K.control;
+    s += `<text x="${lg - 8}" y="${Y + h / 2 + 4}" text-anchor="end" fill="${K.ink}" font-size="12.5" font-weight="${fort && gras ? 600 : 400}" font-family="IBM Plex Sans, sans-serif">${esc(it.nom.length > Math.floor((lg - 8) / 7.2) ? it.nom.slice(0, Math.floor((lg - 8) / 7.2) - 1) + '…' : it.nom)}<title>${esc(it.nom)}</title></text>`;
+    s += `<rect x="${x0}" y="${Y}" width="${Math.max(1, x1 - x0)}" height="${h}" rx="4" fill="${c}" opacity="${fort ? 1 : .55}"><title>${esc(it.nom)} : ${fmt(it.valeur)}</title></rect>`;
+    s += `<text x="${x1 + 6}" y="${Y + h / 2 + 4}" fill="${K.ink}" font-size="12" font-weight="${fort && gras ? 600 : 500}" font-family="IBM Plex Mono, monospace">${fmt(it.valeur)}</text>`;
+  });
+  if (min < 0) s += `<line x1="${x(0)}" x2="${x(0)}" y1="0" y2="${H}" stroke="${K.control}"/>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+}
+
+// --- Info-bulle ---
+const tip = $('tip');
+function montrer(ev, html) {
+  tip.innerHTML = html; tip.hidden = false;
+  const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, yy = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (yy + r.height > innerHeight - 8) yy = ev.clientY - r.height - 14;
+  tip.style.left = x + 'px'; tip.style.top = yy + 'px';
+}
+function survol(conteneur, ind, K) {
+  const svg = conteneur.querySelector('svg'), rep = svg.querySelector('.reperes');
+  const sortir = () => { tip.hidden = true; rep.setAttribute('visibility', 'hidden'); };
+  svg.addEventListener('pointermove', ev => {
+    const r = ev.target.closest('.hit'); if (!r) return sortir();
+    const k = +r.dataset.k, a = ind.annees[k];
+    rep.setAttribute('x1', r.dataset.x); rep.setAttribute('x2', r.dataset.x); rep.setAttribute('visibility', 'visible');
+    const lignes = ind.series.map((se, i) => `<div class="l" style="--c:${couleurSerie(i, K, false, ind.series)}"><i></i>${esc(se.nom)}<span>${valeur(se.valeurs[k], ind)}</span></div>`).join('');
+    montrer(ev, `<b>${a}${(ind.provisoire || []).includes(a) ? ' (provisoire)' : ''}</b>${lignes}`);
+  });
+  svg.addEventListener('pointerleave', sortir);
+}
+
+// --- Partage : lien, image, données ---
+const adresse = id => `${location.origin}${location.pathname}#i-${id}`;
+function telecharger(blob, nom) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = nom;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+function csv(ind) {
+  const n = v => v == null ? '' : String(v).replace('.', ',');
+  const lignes = [['annee', ...ind.series.map(s => s.nom), 'provisoire'].join(';')];
+  ind.annees.forEach((a, k) => lignes.push([a, ...ind.series.map(s => n(s.valeurs[k])), (ind.provisoire || []).includes(a) ? 'oui' : ''].join(';')));
+  lignes.push('', `# ${ind.libelle} (${ind.unite || ''})`, `# Source : ${ind.source.titre}, ${ind.source.producteur}, ${ind.source.url}, consulté le ${ind.source.consulte_le}`, `# Page : ${adresse(ind.id)}`);
+  telecharger(new Blob(['﻿' + lignes.join('\r\n')], { type: 'text/csv;charset=utf-8' }), `${ID}-${ind.id}.csv`);
+}
+// Image à partager : en-tête, courbe et source écrite dessous, sur fond clair, 1200 px de large.
+async function image(ind) {
+  await document.fonts.ready;
+  const K = couleurs(true), L = 1200, PAD = 48, ECH = 2;
+  const c = document.createElement('canvas').getContext('2d');
+  const lignes = (t, larg) => { const out = []; let l = ''; for (const mot of String(t).split(' ')) { const e = l ? l + ' ' + mot : mot; if (l && c.measureText(e).width > larg) { out.push(l); l = mot; } else l = e; } if (l) out.push(l); return out; };
+  const { svg } = courbe(ind, { K, clair: true, W: 1100, H: 470 });
+  const img = new Image();
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('class="chart" ', ''));
+  await img.decode();
+  // Mesure des textes, puis dessin.
+  const blocs = [];
+  const ajoute = (t, police, couleur, h, avant = 0) => { c.font = police; blocs.push({ ls: lignes(t, L - 2 * PAD), police, couleur, h, avant }); };
+  ajoute(`CINQ ENJEUX POUR 2027 · ${D.titre.toUpperCase()}`, `500 15px "IBM Plex Mono", monospace`, K.enjeu, 20);
+  ajoute(ind.question, `700 34px "IBM Plex Sans", sans-serif`, K.ink, 42, 10);
+  const b = bilan(ind);
+  ajoute(`${ind.libelle} · ${valeur(b.valeur, ind)} en ${b.annee}${b.provisoire ? ' (provisoire)' : ''}${b.ecart != null ? ` · ${b.ecartTexte} depuis ${b.depuis}` : ''}`, `500 18px "IBM Plex Sans", sans-serif`, K.muted, 26, 8);
+  const leg = [...(ind.series.length > 1 ? ind.series.map((s, i) => ({ nom: s.nom, c: couleurSerie(i, K, true, ind.series) })) : []), ...(ind.objectif ? [{ nom: `◇ ${ind.objectif.libelle}, ${ind.objectif.annee}`, c: null }] : [])];
+  const piedA = [];
+  c.font = `15px "IBM Plex Sans", sans-serif`;
+  piedA.push(...lignes(`Source : ${ind.source.titre} (${ind.source.producteur}), consulté le ${ind.source.consulte_le}.`, L - 2 * PAD));
+  piedA.push(...lignes(ind.definition, L - 2 * PAD).slice(0, 3));
+  let H = PAD;
+  for (const bl of blocs) H += bl.avant + bl.ls.length * bl.h;
+  H += 20 + (leg.length ? 30 : 0) + 470 + 24 + piedA.length * 21 + 34 + PAD;
+  const cv = c.canvas; cv.width = L * ECH; cv.height = H * ECH; c.scale(ECH, ECH);
+  c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, L, H);
+  c.fillStyle = K.enjeu; c.fillRect(0, 0, L, 8);
+  c.textBaseline = 'top';
+  let y = PAD;
+  for (const bl of blocs) { y += bl.avant; c.font = bl.police; c.fillStyle = bl.couleur; for (const l of bl.ls) { c.fillText(l, PAD, y); y += bl.h; } }
+  y += 20;
+  if (leg.length) {
+    let x = PAD; c.font = `15px "IBM Plex Sans", sans-serif`;
+    for (const e of leg) { const d = e.c ? 30 : 0; if (e.c) { c.fillStyle = e.c; c.fillRect(x, y + 8, 22, 3); } c.fillStyle = K.muted; c.fillText(e.nom, x + d, y); x += d + 16 + c.measureText(e.nom).width; }
+    y += 30;
+  }
+  c.drawImage(img, PAD, y, 1100, 470); y += 470 + 24;
+  c.font = `15px "IBM Plex Sans", sans-serif`; c.fillStyle = K.muted;
+  for (const l of piedA) { c.fillText(l, PAD, y); y += 21; }
+  y += 10; c.font = `500 15px "IBM Plex Mono", monospace`; c.fillStyle = K.enjeu;
+  c.fillText(`gouvfr.jbledevehat.fr/enjeux/${ID}.html#i-${ind.id}`, PAD, y);
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  telecharger(blob, `${ID}-${ind.id}.png`);
+}
+
+// --- Rendu ---
+// Largeur de dessin : celle du cadre du graphique, pour garder des textes lisibles sur un téléphone.
+function largeur(grille, min) {
+  const L = $(grille).clientWidth, col = L >= 2 * min + 14 ? (L - 14) / 2 : L;
+  return Math.round(Math.max(280, Math.min(560, col - 34)));
+}
+function dessinerCles() {
+  $('cles').innerHTML = D.indicateurs.map(i => chiffreCle(i, { lien: '#i-' + i.id, classe: 'card' })).join('');
+}
+
+function dessinerIndicateurs(K) {
+  const lw = largeur('indicateurs', 460);
+  $('indicateurs').innerHTML = D.indicateurs.map(ind => {
+    const b = bilan(ind), { svg, resserre } = courbe(ind, { K, W: lw, H: lw < 440 ? 230 : 250 });
+    const leg = ind.series.length > 1 || ind.objectif ? `<ul class="legend">${ind.series.length > 1 ? ind.series.map((s, i) => `<li style="--c:${couleurSerie(i, K, false, ind.series)}"><i></i>${esc(s.nom)}</li>`).join('') : ''}${ind.objectif ? `<li><span aria-hidden="true">◇</span>${esc(ind.objectif.libelle)}, ${ind.objectif.annee}</li>` : ''}</ul>` : '';
+    const ruptures = (ind.ruptures || []).map(r => `<p><b>Rupture en ${r.annee}.</b> ${esc(r.texte)}</p>`).join('');
+    const prov = (ind.provisoire || []).length ? `<p><b>Provisoire :</b> ${ind.provisoire.join(', ')} (point creux), susceptible d'être révisé.</p>` : '';
+    const calcul = ind.calcul ? `<p><b>Calcul.</b> ${esc(ind.calcul)}</p>` : '';
+    const objectif = ind.objectif ? `<p><b>Objectif.</b> ${esc(ind.objectif.libelle)} : ${valeur(ind.objectif.valeur, ind)} en ${ind.objectif.annee}. Source : ${esc(ind.objectif.source)}.</p>` : '';
+    const src = ind.source;
+    return `<article class="card ind" id="i-${ind.id}">
+      <h3>${esc(ind.question)}</h3>
+      <p class="sub">${esc(ind.libelle)}${ind.unite && ind.unite !== '%' ? ` · en ${esc(ind.unite)}` : ind.unite === '%' ? ' · en %' : ''}</p>
+      ${b ? `<div class="dernier">${ind.series.length > 1 ? `<span class="cle-serie">${esc(ind.series[0].nom)} :</span>` : ''}<b>${valeurHtml(b.valeur, ind)}</b><span class="cle-an">${b.annee}${b.provisoire ? ', provisoire' : ''}</span>${b.ecart != null ? `<span class="evo ${b.sens}">${b.sens === 'mieux' ? '▲' : b.sens === 'moins-bien' ? '▼' : '■'} ${b.ecartTexte} depuis ${b.depuis}</span>` : ''}</div>` : ''}
+      ${leg}
+      <div class="graph">${svg}</div>
+      ${resserre ? `<p class="note-echelle">Échelle resserrée : l'axe vertical ne part pas de zéro.</p>` : ''}
+      <p class="piege"><b>À ne pas confondre.</b> ${esc(ind.piege)}</p>
+      <details class="prec"><summary>Définition et précautions</summary><p><b>Ce qui est mesuré.</b> ${esc(ind.definition)}</p>${calcul}${objectif}${ruptures}${prov}</details>
+      <p class="src">Source : <a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.titre)}</a> (${esc(src.producteur)}), consulté le ${esc(src.consulte_le)}.</p>
+      <div class="actions"><button type="button" data-lien="${ind.id}">Copier le lien</button><button type="button" data-image="${ind.id}">Image à partager</button><button type="button" data-csv="${ind.id}">Données (CSV)</button></div>
+    </article>`;
+  }).join('');
+  D.indicateurs.forEach(ind => survol($('i-' + ind.id).querySelector('.graph'), ind, K));
+}
+
+function dessinerEurope(K) {
+  const C = D.comparaisons || [];
+  if (!C.length) { $('t-europe').closest('section').hidden = true; return; }
+  $('europe').innerHTML = C.map(cp => {
+    const items = [...cp.pays].sort((a, b) => b.valeur - a.valeur);
+    const fmt = v => valeur(v, cp), court = v => cp.unite === '%' ? fmt(v) : nombre(v, cp.decimales ?? 0);
+    const unite = cp.unite && cp.unite !== '%' ? ` · en ${esc(cp.unite)}` : '';
+    return `<div class="card bloc"><h3>${esc(cp.libelle)}</h3><p class="sub">${cp.annee}${unite} · ${esc(cp.definition)}</p>${barres(items, { K, fmt, court, couleur: K.enjeu, mise: it => it.nom === 'France', W: largeur('europe', 420) })}<p class="src">Source : <a href="${esc(cp.source.url)}" target="_blank" rel="noopener">${esc(cp.source.titre)}</a> (${esc(cp.source.producteur)}), consulté le ${esc(cp.source.consulte_le)}.</p></div>`;
+  }).join('');
+}
+
+// Argent public : somme, pour chaque année et chaque administration, des fonctions et
+// sous-fonctions de l'enjeu dans les comptes de l'Insee (budget/donnees/argent-public-AAAA.json).
+const ADMIN = [['S13111', 'État', 'etat'], ['S1314', 'Sécurité sociale', 'secu'], ['S1313', 'Collectivités locales', 'coll'], ['S13112', "Opérateurs de l'État", 'op']];
+async function chargerArgent() {
+  const A = await (await fetch('../budget/donnees/annees.json')).json();
+  const annees = A.insee.filter(a => !A.insee_provisoire.includes(a));
+  const G = await Promise.all(annees.map(a => fetch(`../budget/donnees/argent-public-${a}.json`).then(r => r.json())));
+  const codes = D.moyens.codes;
+  return annees.map((a, k) => {
+    const g = G[k], parAdmin = {}, parSous = {};
+    for (const s of g.secteurs) {
+      let t = 0;
+      for (const f of s.fonctions || []) for (const c of codes) {
+        if (c.length === 4 && f.code === c) {
+          t += f.montant;
+          for (const ss of f.sous || []) parSous[ss.libelle] = (parSous[ss.libelle] || 0) + ss.montant;
+          const reste = f.montant - (f.sous || []).reduce((x, ss) => x + ss.montant, 0);
+          if (Math.abs(reste) > .05) parSous[`${f.libelle} (non détaillé)`] = (parSous[`${f.libelle} (non détaillé)`] || 0) + reste;
+        } else if (c.length === 6 && f.code === c.slice(0, 4)) {
+          for (const ss of f.sous || []) if (ss.code === c) { t += ss.montant; parSous[ss.libelle] = (parSous[ss.libelle] || 0) + ss.montant; }
+        }
+      }
+      parAdmin[s.code] = t;
+    }
+    const total = Object.values(parAdmin).reduce((x, v) => x + v, 0);
+    const pib = g.total_depenses / g.part_pib['dépenses'] * 100;
+    return { annee: +a, parAdmin, parSous, total, partDepenses: total / g.total_depenses * 100, partPib: total / pib * 100 };
+  });
+}
+const md = v => nombre(v, v >= 100 ? 0 : 1) + ' Md€';
+// Libellés de la nomenclature précisés quand ils prêtent à confusion (« n.c.a. » : non classé ailleurs).
+const PRECISIONS = {
+  'Logement': 'Aides au logement', 'Logements': 'Construction de logements',
+  'Exclusion sociale n.c.a.': 'Exclusion sociale (RSA, hébergement…)', 'Protection sociale n.c.a.': 'Autre protection sociale',
+};
+const libelleSous = nom => PRECISIONS[nom] || nom.replace(/ n\.c\.a\.$/, ' (autres)');
+function dessinerArgent(K) {
+  if (!ARGENT) return;
+  const S = ARGENT, n = S.length, der = S[n - 1], pre = S[0];
+  $('argent-kpis').innerHTML = [
+    [md(der.total), `d'argent public en ${der.annee}, toutes administrations`],
+    [nombre(der.partDepenses, 1) + ' %', `de toute la dépense publique en ${der.annee} (${nombre(pre.partDepenses, 1)} % en ${pre.annee})`],
+    [nombre(der.partPib, 1) + ' % du PIB', `en ${der.annee}, contre ${nombre(pre.partPib, 1)} % en ${pre.annee} : la mesure qui neutralise l'inflation`],
+    [(der.total >= pre.total ? '+' : '') + nombre(der.total / pre.total * 100 - 100, 0) + ' %', `d'évolution en euros courants depuis ${pre.annee} (${md(pre.total)} alors)`],
+  ].map(([b, t]) => `<div class="card kpi"><b>${b}</b><span>${t}</span></div>`).join('');
+  $('argent-legende').innerHTML = ADMIN.map(([, nom, c]) => `<li style="--c:${K[c]}"><i class="sq"></i>${nom}</li>`).join('');
+  // Barres empilées, 2 px d'écart entre les segments.
+  const W = largeur('argent-evolution-grille', 420), H = 250, m = { l: 46, r: 8, t: 18, b: 26 };
+  const G = graduations(0, Math.max(...S.map(s => s.total)));
+  m.l = Math.max(46, 12 + 6.8 * Math.max(...G.ticks.map(v => nombre(v, 0).length)));
+  const bw = (W - m.l - m.r) / n, y = v => m.t + (1 - v / G.hi) * (H - m.t - m.b);
+  let s = G.ticks.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="${v ? K.line : K.control}"/><text x="${m.l - 6}" y="${y(v) + 4}" text-anchor="end" fill="${K.muted}" font-size="11" font-family="IBM Plex Mono, monospace">${nombre(v, 0)}</text>`).join('');
+  S.forEach((a, k) => {
+    const x = m.l + k * bw + bw * .18, w = bw * .64; let base = 0;
+    for (const [code, , c] of ADMIN) {
+      const v = a.parAdmin[code] || 0; if (v <= 0) continue;
+      const y0 = y(base), y1 = y(base + v); base += v;
+      s += `<rect x="${x}" y="${y1 + 1}" width="${w}" height="${Math.max(0, y0 - y1 - 2)}" rx="2" fill="${K[c]}"/>`;
+    }
+    s += `<rect class="hit" data-k="${k}" x="${m.l + k * bw}" y="${m.t}" width="${bw}" height="${H - m.t - m.b}" fill="transparent"/>`;
+    s += `<text x="${x + w / 2}" y="${H - 6}" text-anchor="middle" fill="${K.muted}" font-size="11" font-family="IBM Plex Mono, monospace">${(n > 8 && k % 2 && k !== n - 1) || (W < 420 && k % 3 && k !== n - 1) ? '' : a.annee}</text>`;
+    if (k === 0 || k === n - 1) s += `<text x="${x + w / 2}" y="${y(a.total) - 5}" text-anchor="middle" fill="${K.ink}" font-size="11.5" font-weight="500" font-family="IBM Plex Mono, monospace">${nombre(a.total, 0)}</text>`;
+  });
+  $('argent-evolution').innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Argent public consacré au sujet, de ${pre.annee} à ${der.annee}, par administration">${s}</svg>`;
+  const svg = $('argent-evolution').querySelector('svg');
+  svg.addEventListener('pointermove', ev => {
+    const r = ev.target.closest('.hit'); if (!r) { tip.hidden = true; return; }
+    const a = S[+r.dataset.k];
+    montrer(ev, `<b>${a.annee} : ${md(a.total)}</b>` + ADMIN.filter(([code]) => a.parAdmin[code] > 0).map(([code, nom, c]) => `<div class="l" style="--c:${K[c]}"><i></i>${nom}<span>${md(a.parAdmin[code])}</span></div>`).join(''));
+  });
+  svg.addEventListener('pointerleave', () => { tip.hidden = true; });
+  // Détail de la dernière année, par sous-fonction.
+  const items = Object.entries(der.parSous).filter(([, v]) => v >= .05).map(([nom, valeur]) => ({ nom: libelleSous(nom), valeur })).sort((a, b) => b.valeur - a.valeur);
+  $('argent-detail-titre').textContent = `À quoi sert cet argent, en ${der.annee}`;
+  $('argent-detail-sub').textContent = "Milliards d'euros, par sous-fonction de la nomenclature internationale des dépenses publiques (Cofog)";
+  $('argent-detail').innerHTML = barres(items, { K, fmt: md, couleur: K.enjeu, mise: () => true, gras: false, W: largeur('argent-evolution-grille', 420) });
+}
+
+function dessinerPerformance() {
+  const P = D.performance || [];
+  if (!P.length) { $('t-performance').closest('section').hidden = true; return; }
+  const ans = [...new Set(P.flatMap(p => p.annees))].sort();
+  const lignes = P.map(p => {
+    const u = { unite: p.unite === '%' ? '%' : '', decimales: p.decimales ?? (p.realise.some(v => v != null && !Number.isInteger(v)) ? 1 : 0) };
+    const f = v => v == null ? '<span class="na">–</span>' : valeur(v, u);
+    // Dernière année où l'on a à la fois le résultat et la cible.
+    let st = '<span class="statut nd">pas de cible</span>';
+    for (let k = p.annees.length - 1; k >= 0; k--) {
+      const r = p.realise[k], c = p.cible?.[k];
+      if (r == null || c == null) continue;
+      if (p.sens === 'hausse' || p.sens === 'baisse') {
+        const ok = p.sens === 'hausse' ? r >= c : r <= c;
+        st = `<span class="statut ${ok ? 'ok' : 'ko'}">${ok ? '✓ atteinte' : '✗ manquée'}</span><small>${p.annees[k]} : cible ${f(c)}</small>`;
+      } else st = `<span class="statut nd">cible ${f(c)}</span>`;
+      break;
+    }
+    return `<tr><td>${esc(p.indicateur)}${p.sous_indicateur ? ` — ${esc(p.sous_indicateur)}` : ''}<small>${esc(p.mission)} · ${esc(p.programme)}${p.unite && p.unite !== '%' ? ` · en ${esc(p.unite)}` : ''}</small>${p.note ? `<small>${esc(p.note)}</small>` : ''}</td>${ans.map(a => { const k = p.annees.indexOf(a); return `<td class="n">${k < 0 ? '<span class="na">–</span>' : f(p.realise[k])}</td>`; }).join('')}<td>${st}</td></tr>`;
+  }).join('');
+  $('performance').innerHTML = `<table><thead><tr><th>Indicateur</th>${ans.map(a => `<th class="n">${a}</th>`).join('')}<th>Dernière cible</th></tr></thead><tbody>${lignes}</tbody></table><p class="src" style="padding:8px 10px 10px">Source : rapports annuels de performance, <a href="https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/" target="_blank" rel="noopener">Direction du budget</a> (données ouvertes, 2022 à 2025). Résultats réalisés ; un tiret signale une valeur non publiée.</p>`;
+}
+
+function dessinerSources() {
+  const vues = new Map();
+  for (const s of [...D.indicateurs.map(i => i.source), ...(D.comparaisons || []).map(c => c.source)]) if (!vues.has(s.url)) vues.set(s.url, s);
+  $('sources').innerHTML = [...vues.values()].map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.titre)}</a> — ${esc(s.producteur)}, consulté le ${esc(s.consulte_le)}</li>`).join('')
+    + `<li><a href="https://www.insee.fr/fr/statistiques/8574707?sommaire=8574832" target="_blank" rel="noopener">Comptes de la Nation</a> — Insee (argent public, 2015 à 2024)</li>`
+    + `<li><a href="https://data.economie.gouv.fr/explore/dataset/performance-de-la-depense-rap-2025/" target="_blank" rel="noopener">Performance de la dépense (rapports annuels de performance)</a> — Direction du budget</li>`;
+}
+
+function dessiner() {
+  const K = couleurs();
+  dessinerIndicateurs(K); dessinerEurope(K); dessinerArgent(K);
+}
+
+dessinerCles(); dessinerPerformance(); dessinerSources(); dessiner();
+let largeurPrec = innerWidth, minuterie;
+addEventListener('resize', () => { clearTimeout(minuterie); minuterie = setTimeout(() => { if (innerWidth !== largeurPrec) { largeurPrec = innerWidth; dessiner(); } }, 150); });
+try { ARGENT = await chargerArgent(); dessinerArgent(couleurs()); }
+catch (e) { $('argent-kpis').innerHTML = `<p class="erreur">Les comptes de l'Insee n'ont pas pu être chargés.</p>`; }
+
+// Boutons de partage.
+document.addEventListener('click', async ev => {
+  const b = ev.target.closest('button[data-lien], button[data-image], button[data-csv]'); if (!b) return;
+  const ind = D.indicateurs.find(i => i.id === (b.dataset.lien || b.dataset.image || b.dataset.csv));
+  if (b.dataset.lien) {
+    try { await navigator.clipboard.writeText(adresse(ind.id)); b.textContent = 'Lien copié'; }
+    catch (e) { history.replaceState(null, '', '#i-' + ind.id); b.textContent = 'Lien dans la barre d\'adresse'; }
+    setTimeout(() => { b.textContent = 'Copier le lien'; }, 2000);
+  } else if (b.dataset.csv) csv(ind);
+  else {
+    if (b.getAttribute('aria-busy') === 'true') return;
+    b.setAttribute('aria-busy', 'true');
+    try { await image(ind); } catch (e) { alert("L'image n'a pas pu être créée : " + e.message); } finally { b.removeAttribute('aria-busy'); }
+  }
+});
+// Arrivée par un lien vers un graphique ou une partie : la page s'y place une fois tout dessiné.
+if (location.hash.length > 1) { try { document.querySelector(decodeURIComponent(location.hash))?.scrollIntoView(); } catch (e) {} }
+</script>
+</body>
+</html>

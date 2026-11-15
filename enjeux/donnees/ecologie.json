@@ -1,0 +1,790 @@
+{
+  "id": "ecologie",
+  "ordre": 5,
+  "titre": "Transition écologique et énergie",
+  "eyebrow": "Climat et énergie",
+  "besoin": "Réduit-on nos émissions sans faire exploser ma facture ?",
+  "resume": "Les émissions de gaz à effet de serre émises en France ont baissé d'un tiers depuis 1990, mais la baisse ralentit depuis 2024 et les transports n'ont presque pas bougé. Les prix de l'énergie payés par les ménages ont augmenté de moitié entre 2015 et 2025, plus de deux fois plus vite que l'ensemble des prix, et plus d'un ménage sur dix est en précarité énergétique. Les énergies renouvelables progressent, sans rejoindre pour l'instant la trajectoire de l'objectif fixé pour 2030.",
+  "mise_a_jour": "2026-11-15",
+  "couleur": "#D99A00",
+  "essentiel": [
+    {
+      "titre": "Un tiers d'émissions en moins depuis 1990, mais la baisse ralentit",
+      "texte": "La France a émis 359,4 millions de tonnes équivalent CO2 (Mt CO2e) en 2025 selon l'estimation provisoire du Citepa, contre 546,9 Mt en 1990, soit 34 % de moins. Après une forte baisse en 2023 (-27,6 Mt), le recul n'a été que de 11,2 Mt en 2024 et de 7,6 Mt en 2025.",
+      "indicateur": "emissions-ges"
+    },
+    {
+      "titre": "Les transports, premier poste d'émissions, presque au niveau de 1990",
+      "texte": "Les transports ont émis 122,9 Mt CO2e en 2025, soit 34 % du total national, à peine 2 % de moins qu'en 1990. Sur la même période, les émissions des bâtiments ont baissé de 41 % et celles de l'industrie manufacturière de 58 % (Citepa).",
+      "indicateur": "emissions-secteurs"
+    },
+    {
+      "titre": "L'empreinte carbone baisse aussi, mais plus de la moitié vient de l'étranger",
+      "texte": "En comptant les produits importés et sans les exportations, chaque habitant est responsable de 8,3 tonnes équivalent CO2 en 2025, contre 12,1 en 1990 (Insee-SDES, estimation provisoire). Sur les 571 Mt de l'empreinte de la France, 296 Mt sont émises hors de France pour fabriquer ce que nous importons.",
+      "indicateur": "empreinte-carbone"
+    },
+    {
+      "titre": "Les prix de l'énergie ont augmenté plus de deux fois plus vite que les autres",
+      "texte": "Entre 2015 et 2025, les prix de l'énergie payés par les ménages ont augmenté de 50 %, contre 21 % pour l'ensemble des prix à la consommation (Insee). Le prix de l'électricité, après un pic en 2024, a baissé de 11,9 % en 2025.",
+      "indicateur": "prix-energie"
+    },
+    {
+      "titre": "Plus d'un ménage sur dix en précarité énergétique",
+      "texte": "En 2024, 11,5 % des ménages de France métropolitaine, soit 3,5 millions, consacrent plus de 8 % de leurs revenus à l'énergie du logement tout en faisant partie des 30 % les plus modestes (CGDD). C'est 0,7 point de plus qu'en 2023, avec la fin progressive du bouclier tarifaire ; le chèque énergie ramène ce taux à 10,3 %.",
+      "indicateur": "precarite-energetique"
+    },
+    {
+      "titre": "Les renouvelables progressent, l'objectif de 2030 reste loin",
+      "texte": "Les énergies renouvelables couvrent 23,9 % de la consommation finale brute d'énergie en 2025 (Eurostat, provisoire), contre 14,8 % en 2015. La loi vise au moins 33 % en 2030 ; l'objectif de 23 % fixé pour 2020 n'a été atteint qu'en 2024.",
+      "indicateur": "part-renouvelables"
+    }
+  ],
+  "cles": [
+    "emissions-ges",
+    "prix-energie",
+    "precarite-energetique"
+  ],
+  "indicateurs": [
+    {
+      "id": "emissions-ges",
+      "libelle": "Émissions de gaz à effet de serre de la France",
+      "question": "La France émet-elle vraiment moins de gaz à effet de serre qu'avant ?",
+      "unite": "Mt CO2e",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Émissions des sept gaz à effet de serre (CO2, méthane, protoxyde d'azote et gaz fluorés) produites sur le territoire, en millions de tonnes équivalent CO2, hors puits de carbone des forêts et des sols (UTCATF). Champ : France hexagonale et outre-mer inclus dans l'Union européenne. Les vols et les liaisons maritimes internationales ne sont pas comptés.",
+      "piege": "Ce chiffre ne compte que ce qui est émis en France : les émissions liées aux produits importés n'y sont pas (voir l'empreinte carbone). Il est brut, sans retrancher le carbone absorbé par les forêts ; une fois ce puits déduit, le total 2025 tombe à 308,1 Mt, mais ce puits s'est réduit depuis dix ans. Enfin, l'objectif de -40 % inscrit dans la loi n'a pas été relevé : le projet de troisième stratégie nationale bas-carbone (juin 2026) vise 274 Mt en 2030, soit environ -50 % par rapport à 1990.",
+      "annees": [
+        1990,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "total",
+          "nom": "Total hors puits de carbone",
+          "valeurs": [
+            546.9,
+            460.8,
+            463.7,
+            466.1,
+            446.5,
+            437.7,
+            398.0,
+            422.4,
+            405.8,
+            378.2,
+            367.0,
+            359.4
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "objectif": {
+        "annee": 2030,
+        "valeur": 328.2,
+        "libelle": "Objectif de la loi : -40 % par rapport à 1990",
+        "source": "Code de l'énergie, article L100-4 (version en vigueur depuis le 24 juin 2023), https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000023983208/LEGISCTA000023985174/"
+      },
+      "calcul": "Objectif : 546,9 Mt (émissions de 1990) × (1 - 0,40) = 328,2 Mt, valeur que le Citepa indique aussi dans la feuille « Objectifs-GES ». Les émissions sont recopiées et arrondies au dixième.",
+      "source": {
+        "titre": "Secten, édition 2026 : émissions de gaz à effet de serre en France, 1990-2025 (fichier 01-Citepa_Emissions-par-substance_Secten-GES_2026-d.xlsx, feuilles « Récapitulatif » et « CO2e-UE »)",
+        "producteur": "Citepa",
+        "url": "https://www.citepa.org/wp-content/uploads/2026/06/Citepa2026_gaz_a_effet_de_serre.zip",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "emissions-secteurs",
+      "libelle": "Émissions des transports, de l'agriculture et des bâtiments",
+      "question": "Quels secteurs polluent le plus, et lesquels ont fait des efforts ?",
+      "unite": "Mt CO2e",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Émissions de gaz à effet de serre des trois secteurs les plus proches de la vie quotidienne, en millions de tonnes équivalent CO2, selon le découpage du Citepa. Transports : voitures, camions, cars, trains, avions et bateaux en France. Agriculture : élevage, engrais, engins et chaudières agricoles. Bâtiments : chauffage, eau chaude, cuisson et climatisation des logements et des bureaux. En 2025, les autres secteurs pèsent 58,4 Mt pour l'industrie manufacturière et la construction, 31,4 Mt pour la production d'énergie et 15,3 Mt pour les déchets.",
+      "piege": "Les émissions des bâtiments comptent les combustibles brûlés sur place (gaz, fioul, bois) et les fuites de fluides frigorigènes, mais pas l'électricité : celle qui chauffe un logement est comptée dans la production d'énergie. Les émissions des bâtiments varient aussi avec la douceur de l'hiver ; elles ne sont pas corrigées du climat ici. Les vols internationaux ne sont pas dans les transports.",
+      "annees": [
+        1990,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "transports",
+          "nom": "Transports",
+          "valeurs": [
+            125.4,
+            138.9,
+            139.2,
+            139.2,
+            136.3,
+            135.0,
+            114.1,
+            128.2,
+            132.4,
+            126.9,
+            125.4,
+            122.9
+          ]
+        },
+        {
+          "id": "agriculture",
+          "nom": "Agriculture",
+          "valeurs": [
+            92.9,
+            87.3,
+            85.5,
+            85.0,
+            83.9,
+            82.8,
+            82.1,
+            81.8,
+            78.9,
+            78.1,
+            77.5,
+            76.6
+          ]
+        },
+        {
+          "id": "batiments",
+          "nom": "Bâtiments (logements et bureaux)",
+          "valeurs": [
+            92.9,
+            84.1,
+            85.0,
+            84.1,
+            79.6,
+            76.1,
+            72.2,
+            74.7,
+            62.6,
+            57.0,
+            56.1,
+            54.9
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "source": {
+        "titre": "Secten, édition 2026 : émissions de gaz à effet de serre par grand secteur, 1990-2025 (fichier 01-Citepa_Emissions-par-substance_Secten-GES_2026-d.xlsx, feuille « CO2e-UE »)",
+        "producteur": "Citepa",
+        "url": "https://www.citepa.org/wp-content/uploads/2026/06/Citepa2026_gaz_a_effet_de_serre.zip",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "empreinte-carbone",
+      "libelle": "Empreinte carbone par habitant",
+      "question": "Si l'on compte ce que nous importons, nos émissions baissent-elles vraiment ?",
+      "unite": "t CO2e par habitant",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Empreinte carbone : gaz à effet de serre émis pour satisfaire la consommation des habitants, en France ou à l'étranger (émissions directes des ménages, production intérieure consommée en France et contenu des importations, exportations exclues), en tonnes équivalent CO2 par habitant. Comparée ici aux émissions des acteurs résidant en France (ménages et entreprises, inventaire au format des comptes nationaux). Champ indiqué par l'Insee pour la série longue : France métropolitaine.",
+      "piege": "L'empreinte et les émissions sur le territoire ne mesurent pas la même chose : la France émet moins qu'elle ne consomme, car une grande partie de ce qu'elle achète est fabriquée ailleurs. Les émissions des résidents (5,8 t par habitant en 2025) ne sont pas non plus le total du Citepa, qui suit d'autres règles de champ. L'empreinte est une estimation révisée chaque année : celle de 2024, publiée à 8,2 t en 2025, a été relevée à 8,4 t.",
+      "annees": [
+        1990,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "empreinte",
+          "nom": "Empreinte carbone",
+          "valeurs": [
+            12.1,
+            9.8,
+            9.8,
+            9.9,
+            9.8,
+            9.5,
+            8.6,
+            9.2,
+            9.2,
+            8.6,
+            8.4,
+            8.3
+          ]
+        },
+        {
+          "id": "emissions-residents",
+          "nom": "Émissions des résidents en France",
+          "valeurs": [
+            10.1,
+            7.4,
+            7.4,
+            7.5,
+            7.2,
+            7.0,
+            6.3,
+            6.6,
+            6.4,
+            6.0,
+            5.9,
+            5.8
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "source": {
+        "titre": "Émissions de gaz à effet de serre et empreinte carbone de la France en 2025, Insee Première n° 2130, octobre 2026 (tableau complémentaire 2)",
+        "producteur": "Insee et SDES",
+        "url": "https://www.insee.fr/fr/statistiques/fichier/9074153/ip2130.xlsx",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecologie/insee-ip2130-empreinte-carbone-2025.xlsx"
+      }
+    },
+    {
+      "id": "part-renouvelables",
+      "libelle": "Part des énergies renouvelables dans la consommation d'énergie",
+      "question": "Les énergies renouvelables avancent-elles assez vite ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "hausse",
+      "definition": "Part des énergies renouvelables (hydraulique, éolien, solaire, biomasse, pompes à chaleur, biocarburants, biogaz…) dans la consommation finale brute d'énergie, tous usages confondus (électricité, chaleur, transports), selon la méthode commune de l'Union européenne.",
+      "piege": "Le nucléaire, bas-carbone mais non renouvelable, n'entre pas dans ce calcul : la France produit une électricité très peu émettrice tout en ayant une part de renouvelables plus basse que d'autres pays. Ne pas confondre avec la part des renouvelables dans la seule production d'électricité, beaucoup plus élevée.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "france",
+          "nom": "France",
+          "valeurs": [
+            14.803,
+            15.451,
+            15.847,
+            16.384,
+            17.174,
+            19.109,
+            19.391,
+            20.33,
+            22.462,
+            23.229,
+            23.9
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "objectif": {
+        "annee": 2030,
+        "valeur": 33,
+        "libelle": "Objectif de la loi : au moins 33 % en 2030",
+        "source": "Code de l'énergie, article L100-4 (version en vigueur depuis le 24 juin 2023), https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000023983208/LEGISCTA000023985174/"
+      },
+      "source": {
+        "titre": "Part de l'énergie renouvelable dans la consommation finale brute d'énergie (nrg_ind_ren, indicateur REN)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_ind_ren?format=JSON&lang=fr&nrg_bal=REN&unit=PC&geo=EU27_2020&geo=FR&geo=DE&geo=IT&geo=ES&sinceTimePeriod=2015",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecologie/eurostat-nrg_ind_ren-part-renouvelables.json"
+      }
+    },
+    {
+      "id": "prix-energie",
+      "libelle": "Prix de l'énergie payés par les ménages",
+      "question": "L'énergie coûte-t-elle beaucoup plus cher qu'il y a dix ans ?",
+      "unite": "indice 100 en 2015",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Indices annuels des prix à la consommation de l'Insee (moyenne de l'année, base 100 en 2015), ensemble des ménages, France. Énergie : électricité, gaz, fioul, carburants et autres combustibles. Électricité : poste 04.5.1 de la nomenclature des consommations. Ensemble : tous les biens et services.",
+      "piege": "Un indice de prix n'est pas une facture : la dépense dépend aussi de la consommation, donc du logement, de la voiture et de l'hiver. Les prix sont ceux réellement payés, après le bouclier tarifaire de 2022-2024 qui a limité les hausses ; ils ne tiennent pas compte du chèque énergie. Ces séries en base 2015 sont arrêtées en 2025 : l'Insee publie désormais ses indices dans une nouvelle base.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "energie",
+          "nom": "Énergie",
+          "valeurs": [
+            100.0,
+            97.16,
+            103.19,
+            113.21,
+            115.33,
+            108.34,
+            119.73,
+            147.44,
+            155.67,
+            159.22,
+            150.29
+          ]
+        },
+        {
+          "id": "electricite",
+          "nom": "Électricité",
+          "valeurs": [
+            100.0,
+            103.12,
+            103.55,
+            104.91,
+            109.0,
+            115.47,
+            118.9,
+            127.66,
+            144.13,
+            166.78,
+            146.92
+          ]
+        },
+        {
+          "id": "ensemble",
+          "nom": "Ensemble des prix",
+          "valeurs": [
+            100.0,
+            100.18,
+            101.22,
+            103.09,
+            104.23,
+            104.73,
+            106.45,
+            112.01,
+            117.47,
+            119.82,
+            120.95
+          ]
+        }
+      ],
+      "source": {
+        "titre": "Indice annuel des prix à la consommation, base 2015, ensemble des ménages, France : énergie (identifiant 001765155), électricité (001764660), ensemble (001764363)",
+        "producteur": "Insee",
+        "url": "https://bdm.insee.fr/series/sdmx/data/IPC-2015/A....4007.......?startPeriod=2014",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecologie/insee-ipc-2015-energie-annuel.xml"
+      }
+    },
+    {
+      "id": "precarite-energetique",
+      "libelle": "Ménages en précarité énergétique",
+      "question": "Combien de ménages ont du mal à payer l'énergie de leur logement ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des ménages dont les dépenses d'énergie du logement dépassent 8 % des revenus et qui font partie des 30 % de ménages les plus modestes (indicateur de taux d'effort énergétique de l'Observatoire national de la précarité énergétique), avant prise en compte du chèque énergie. Estimation par le modèle de microsimulation Prometheus du ministère de la Transition écologique. Champ : France métropolitaine, hors ménages étudiants. La série corrigée neutralise l'effet de la douceur ou de la rigueur de l'hiver sur le chauffage. Les valeurs de 2016 à 2023 ne sont publiées que sur le graphique de la publication du SDES : elles ont été relevées sur ses étiquettes, et concordent avec le texte pour 2023 et 2024.",
+      "piege": "C'est une estimation par modèle, pas une enquête : chaque édition révise les années passées (le taux de 2023 était publié à 10,1 % en 2025, il est de 10,8 % dans l'édition 2026). Un hiver doux fait baisser l'indicateur brut sans que la situation des ménages s'améliore, d'où la série corrigée. Il ne compte pas les ménages qui se privent de chauffage pour ne pas payer, ni les dépenses de carburant.",
+      "annees": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "brut",
+          "nom": "Indicateur brut",
+          "valeurs": [
+            11.2,
+            11.1,
+            11.5,
+            10.8,
+            9.8,
+            11.7,
+            10.4,
+            10.8,
+            11.5
+          ]
+        },
+        {
+          "id": "corrige",
+          "nom": "Corrigé de la météo",
+          "valeurs": [
+            11.1,
+            11.3,
+            12.0,
+            11.2,
+            10.8,
+            11.5,
+            11.3,
+            11.6,
+            12.5
+          ]
+        }
+      ],
+      "source": {
+        "titre": "En 2024, la précarité énergétique a augmenté dans un contexte de fin progressive des mesures exceptionnelles de soutien aux ménages, Les Essentiels, septembre 2026 (graphique 1)",
+        "producteur": "SDES (CGDD, modèle Prometheus 2026)",
+        "url": "https://www.ecologie.gouv.fr/sites/default/files/publications/statistiques_sdes_essentiel_08_preecarite_%20energeetique_2024_sept%202026.pdf",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecologie/sdes-essentiel-precarite-energetique-2024.pdf"
+      }
+    },
+    {
+      "id": "facture-energetique",
+      "libelle": "Facture énergétique de la France",
+      "question": "Combien la France dépense-t-elle pour acheter son énergie à l'étranger ?",
+      "unite": "Md€ de 2025",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Solde des achats et des ventes d'énergie de la France avec l'étranger (pétrole brut, produits pétroliers et biocarburants, gaz naturel, charbon, électricité, bois-énergie), en milliards d'euros de 2025 (euros constants, conversion faite par le SDES). Les exportations nettes d'électricité viennent en déduction.",
+      "piege": "Ce n'est pas la facture des ménages, mais ce que le pays paie à l'étranger : elle suit surtout le prix mondial du pétrole et du gaz. Le pic de 2022 (127,6 Md€) vient surtout du gaz (51,5 Md€, contre 17,6 Md€ en 2024) et d'un solde d'électricité devenu importateur (8,0 Md€), alors que la France en exporte d'habitude. Les montants sont en euros constants : ils ne correspondent pas aux montants de l'époque.",
+      "annees": [
+        1990,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "total",
+          "nom": "Facture énergétique",
+          "valeurs": [
+            24.0,
+            47.4,
+            37.7,
+            46.4,
+            53.8,
+            51.4,
+            28.0,
+            50.8,
+            127.6,
+            73.7,
+            58.3,
+            45.8
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "ruptures": [
+        {
+          "annee": 2015,
+          "texte": "Jusqu'en 2010, le champ est la France métropolitaine ; à partir de 2011, il inclut les cinq départements d'outre-mer. 1990 ne se compare donc pas exactement aux années suivantes."
+        }
+      ],
+      "source": {
+        "titre": "Bilan énergétique de la France en 2025 : données provisoires, données des figures (figure 3)",
+        "producteur": "SDES",
+        "url": "https://www.statistiques.developpement-durable.gouv.fr/media/9281/download?inline",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecologie/sdes-bilan-energetique-2025-provisoire-figures.xlsx"
+      }
+    }
+  ],
+  "comparaisons": [
+    {
+      "id": "ges-par-habitant",
+      "libelle": "Émissions de gaz à effet de serre par habitant",
+      "unite": "t CO2e par habitant",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "baisse",
+      "definition": "Émissions nationales de gaz à effet de serre hors puits de carbone (UTCATF), en tonnes équivalent CO2 par habitant, selon les inventaires transmis par chaque pays. Valeurs publiées par Eurostat (sdg_13_10) pour les pays. Union européenne à 27 : calculée ici en divisant les émissions totales publiées par Eurostat (env_air_gge, 3 017,2 Mt) par la population moyenne de 2024 (demo_gind, 450,7 millions) ; la même méthode redonne exactement les valeurs publiées pour les quatre pays.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 5.3
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 7.8
+        },
+        {
+          "nom": "Italie",
+          "valeur": 6.2
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 5.5
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 6.7
+        }
+      ],
+      "source": {
+        "titre": "Émissions nationales nettes de gaz à effet de serre (sdg_13_10) ; Émissions de gaz à effet de serre par secteur source (env_air_gge) ; Population moyenne (demo_gind)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_13_10?format=JSON&lang=fr&unit=T_HAB&src_crf=TOTX4_MEMO&geo=FR&geo=DE&geo=IT&geo=ES&sinceTimePeriod=2015",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "part-renouvelables-europe",
+      "libelle": "Part des énergies renouvelables dans la consommation finale brute d'énergie",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "hausse",
+      "definition": "Part des énergies renouvelables dans la consommation finale brute d'énergie, méthode commune de l'Union européenne (indicateur REN). Le nucléaire n'est pas compté comme renouvelable.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 23.229
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 22.474
+        },
+        {
+          "nom": "Italie",
+          "valeur": 19.385
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 25.417
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 25.241
+        }
+      ],
+      "source": {
+        "titre": "Part de l'énergie renouvelable dans la consommation finale brute d'énergie (nrg_ind_ren)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_ind_ren?format=JSON&lang=fr&nrg_bal=REN&unit=PC&geo=EU27_2020&geo=FR&geo=DE&geo=IT&geo=ES&sinceTimePeriod=2015",
+        "consulte_le": "2026-11-15"
+      }
+    }
+  ],
+  "performance": [
+    {
+      "mission": "Écologie, développement et mobilité durables",
+      "programme": "Énergie, climat et après-mines",
+      "indicateur": "Émissions moyennes de CO2 des véhicules neufs",
+      "sous_indicateur": "Émissions moyennes de CO2 des véhicules neufs",
+      "unite": "gCO2/km",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        102.7,
+        96.6,
+        93.8,
+        88.8
+      ],
+      "cible": [
+        115,
+        115.1,
+        106.5,
+        97.8
+      ],
+      "sens": "baisse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022 à 2024) et RAP2025-Performance.csv (2025)"
+    },
+    {
+      "mission": "Écologie, développement et mobilité durables",
+      "programme": "Énergie, climat et après-mines",
+      "indicateur": "Part des voitures électriques dans les ventes de voitures neuves",
+      "sous_indicateur": "Voitures particulières",
+      "unite": "%",
+      "annees": [
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        17,
+        20
+      ],
+      "cible": [
+        null,
+        null,
+        26
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Écologie, développement et mobilité durables",
+      "programme": "Service public de l'énergie",
+      "indicateur": "Part des énergies renouvelables dans la production d'électricité",
+      "sous_indicateur": "Part des énergies renouvelables dans la production d'électricité",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        23.8,
+        27,
+        27.6,
+        26.4
+      ],
+      "cible": [
+        24.5,
+        27,
+        27.1,
+        27.7
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022, cibles 2023 et 2024) et RAP2025-Performance.csv (réalisé 2023 à 2025, cible 2025)",
+      "note": "Le réalisé 2023 vaut 27 % dans le RAP 2025 et 28,6 % dans le RAP 2023 ; la valeur la plus récente est retenue."
+    },
+    {
+      "mission": "Écologie, développement et mobilité durables",
+      "programme": "Énergie, climat et après-mines",
+      "indicateur": "Taux d'usage du chèque énergie",
+      "sous_indicateur": "Taux d'usage du chèque énergie",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        76.3,
+        83.7,
+        78.45,
+        76.8
+      ],
+      "cible": [
+        87.5,
+        88,
+        88,
+        88
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (2022, cibles 2023 et 2024) et RAP2025-Performance.csv (réalisé 2023 à 2025, cible 2025)",
+      "note": "Le réalisé 2023 vaut 83,7 % dans le RAP 2025 et 77,8 % dans le RAP 2023 ; la valeur la plus récente est retenue."
+    },
+    {
+      "mission": "Écologie, développement et mobilité durables",
+      "programme": "Infrastructures et services de transports",
+      "indicateur": "Part modale des transports non routiers",
+      "sous_indicateur": "Part modale des transports collectifs dans l'ensemble des transports intérieurs terrestres de voyageurs",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        16.5,
+        17.2,
+        17.5
+      ],
+      "cible": [
+        17.8,
+        null,
+        null,
+        19.9
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv (cible 2022) et RAP2025-Performance.csv (2023 à 2025)",
+      "note": "Réalisé 2025 provisoire ; cible 2025 exprimée « ≥ 19,9 »."
+    }
+  ],
+  "moyens": {
+    "codes": [
+      "GF05",
+      "GF0403"
+    ],
+    "texte": "Dépenses de toutes les administrations publiques (État, collectivités, sécurité sociale) pour la protection de l'environnement (déchets, eaux usées, pollution, biodiversité, paysages) et pour les combustibles et l'énergie. Ne sont pas comptés ici les transports (sous-fonction GF0405), dont le rail et les transports collectifs, ni les dépenses fiscales, c'est-à-dire les réductions d'impôt en faveur ou au détriment de l'environnement que suit le « budget vert »."
+  },
+  "idees_recues": [
+    {
+      "affirmation": "« Les émissions de la France ne baissent pas. »",
+      "reponse": "Elles baissent : 359,4 Mt CO2e en 2025 contre 546,9 Mt en 1990 et 460,8 Mt en 2015, soit -34 % et -22 % (Citepa, 2025 provisoire). Mais le rythme a nettement ralenti après 2023 : -7,6 Mt en 2025. Pour atteindre 274 Mt en 2030, cible du projet de stratégie nationale bas-carbone, il faudrait baisser d'environ 17 Mt par an.",
+      "indicateur": "emissions-ges"
+    },
+    {
+      "affirmation": "« Si nos émissions baissent, c'est seulement parce qu'on a délocalisé nos usines. »",
+      "reponse": "C'est en partie vrai : plus de la moitié de l'empreinte carbone de la France (296 Mt sur 571 en 2025) est émise à l'étranger pour fabriquer ce que nous importons. Mais l'empreinte baisse elle aussi : 8,3 tonnes par habitant en 2025 contre 12,1 en 1990 et 9,8 en 2015 (Insee-SDES). Elle baisse toutefois moins vite que les émissions sur le territoire.",
+      "indicateur": "empreinte-carbone"
+    },
+    {
+      "affirmation": "« C'est la transition écologique qui fait exploser les factures d'énergie. »",
+      "reponse": "Les prix de l'énergie ont bien augmenté de 50 % entre 2015 et 2025 (Insee), mais la hausse la plus forte date de 2022 (+23 % en un an), quand la facture de pétrole, de gaz et d'électricité achetés à l'étranger a atteint 127,6 Md€ (SDES). En 2024, la hausse du prix de l'électricité tient principalement à la fin progressive du bouclier tarifaire, selon le SDES. Les chiffres de ce tableau ne permettent pas d'isoler le coût propre des politiques climatiques.",
+      "indicateur": "prix-energie"
+    },
+    {
+      "affirmation": "« La France est le mauvais élève de l'Europe sur le climat. »",
+      "reponse": "Sur les émissions, non : 5,3 tonnes par habitant en 2024, contre 6,7 dans l'Union européenne et 7,8 en Allemagne (Eurostat), la production d'électricité ne pesant que 2,6 % des émissions françaises en 2024 (Citepa). Sur les renouvelables, la France est en retard : 23,2 % de sa consommation d'énergie en 2024, contre 25,2 % dans l'Union, et l'objectif de 23 % fixé pour 2020 n'a été atteint qu'en 2024.",
+      "indicateur": "part-renouvelables"
+    },
+    {
+      "affirmation": "« Les voitures ne polluent plus autant qu'avant. »",
+      "reponse": "Les voitures neuves émettent moins : 88,8 g de CO2 par km en moyenne en 2025, contre 102,7 en 2022 (rapport annuel de performance). Mais le parc se renouvelle lentement et la circulation reste forte : les transports émettent 122,9 Mt en 2025, presque autant qu'en 1990 (125,4 Mt), et restent le premier secteur émetteur (Citepa).",
+      "indicateur": "emissions-secteurs"
+    },
+    {
+      "affirmation": "« Avec le bouclier tarifaire, plus personne n'a de mal à payer son chauffage. »",
+      "reponse": "Le bouclier a limité la hausse sans la supprimer : 11,5 % des ménages de métropole étaient en précarité énergétique en 2024, soit 3,5 millions, et 12,5 % une fois corrigé de l'hiver doux, le plus haut niveau de la série depuis 2016 (CGDD). Sans bouclier, le taux aurait été de 12,1 % ; avec le chèque énergie, il descend à 10,3 %.",
+      "indicateur": "precarite-energetique"
+    }
+  ],
+  "questions_candidats": [
+    "Quel niveau d'émissions de gaz à effet de serre visez-vous pour 2030 et pour 2032, et allez-vous inscrire dans la loi l'objectif de -40 %, de -50 % ou un autre ?",
+    "Les transports émettent presque autant qu'en 1990 : quelles mesures proposez-vous pour les réduire, et combien coûteront-elles aux ménages qui dépendent de leur voiture ?",
+    "Quel niveau de précarité énergétique visez-vous en 2032, et comment financerez-vous la rénovation des logements des ménages les plus modestes ?",
+    "La part des renouvelables est de 23,9 % pour un objectif d'au moins 33 % en 2030 : maintenez-vous cet objectif, et avec quel équilibre entre nucléaire, éolien et solaire ?",
+    "Comment comptez-vous protéger les ménages d'une nouvelle flambée des prix du pétrole et du gaz comme en 2022, et à quel coût pour les finances publiques ?"
+  ]
+}

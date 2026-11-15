@@ -23,6 +23,10 @@ export const SECTIONS = {
     nom: 'Moral des jeunes', chemin: 'jeunes/',
     pages: [['moral', 'Pensées suicidaires et moral', 'jeunes/']],
   },
+  enjeux: {
+    nom: 'Enjeux 2027', chemin: 'enjeux/',
+    pages: [['ensemble', "Vue d'ensemble", 'enjeux/'], ['pouvoir-achat', "Pouvoir d'achat", 'enjeux/pouvoir-achat.html'], ['sante', 'Santé', 'enjeux/sante.html'], ['securite', 'Sécurité', 'enjeux/securite.html'], ['ecole', 'École', 'enjeux/ecole.html'], ['ecologie', 'Écologie', 'enjeux/ecologie.html']],
+  },
 };
 
 const STYLE = `<style>
@@ -59,6 +63,11 @@ const STYLE = `<style>
   .bandeau .b-pages a:hover { background: var(--panel-2); color: var(--ink); text-decoration: none; }
   .bandeau .b-pages a[aria-current] { background: var(--accent); color: var(--panel); }
   .bandeau .b-pages a:focus-visible { outline-offset: -3px; }
+  /* Sur un petit écran, le sélecteur des pages défile plutôt que d'élargir la page. */
+  .bandeau .b-ariane { min-width: 0; max-width: 100%; }
+  .bandeau .b-ariane li.b-sel { min-width: 0; max-width: 100%; }
+  .bandeau .b-ariane li.b-sel .b-pages { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .bandeau .b-ariane li.b-sel .b-pages a { white-space: nowrap; flex: none; }
   .bandeau .b-annee { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
   .bandeau .b-annee > span:first-child { font-weight: 500; }
   .bandeau .b-annee .b-pages > * { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; padding: 0 10px; }

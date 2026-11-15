@@ -1,0 +1,865 @@
+{
+  "id": "ecole",
+  "ordre": 4,
+  "titre": "École et jeunesse",
+  "eyebrow": "Éducation",
+  "besoin": "Mes enfants apprennent-ils bien, et trouvent-ils leur place ensuite ?",
+  "resume": "Les acquis des élèves ont nettement baissé depuis 2018 aux tests PISA, comme dans la plupart des pays de l'OCDE : en 2025, plus d'un élève de 15 ans sur trois est en difficulté en mathématiques. À l'entrée en sixième, environ trois élèves sur dix ont des acquis faibles, une part à peu près stable depuis 2022. La France fait mieux que la moyenne européenne pour les sorties sans diplôme et les diplômés du supérieur, mais le chômage des 15-24 ans remonte depuis 2023.",
+  "mise_a_jour": "2026-11-15",
+  "couleur": "#1BAF7A",
+  "essentiel": [
+    {
+      "titre": "Plus d'un élève de 15 ans sur trois en difficulté en mathématiques",
+      "texte": "Selon l'enquête PISA 2025, 35,7 % des élèves de 15 ans en France sont sous le niveau 2 en mathématiques, contre 21,3 % en 2018 (Eurostat, d'après l'OCDE). Le score moyen de la France (458 points) baisse de 16 points par rapport à 2022 mais reste dans la moyenne de l'OCDE (463), qui recule aussi (Depp, note 26.40).",
+      "indicateur": "pisa-maths-difficulte"
+    },
+    {
+      "titre": "À l'entrée en sixième, environ trois élèves sur dix ont des acquis faibles",
+      "texte": "En septembre 2025, 28,0 % des élèves de sixième sont dans les deux groupes les moins performants en français et 32,5 % en mathématiques (Depp). En français, cette part est plus faible qu'en 2017 (31,7 %) ; en mathématiques, elle est un peu plus élevée (30,8 %). Dans les collèges en REP+, 61 % des élèves sont dans ces groupes en mathématiques.",
+      "indicateur": "evaluations-6e"
+    },
+    {
+      "titre": "Moins de sorties sans diplôme qu'en moyenne en Europe",
+      "texte": "En 2025, 7,2 % des 18-24 ans ont au plus le brevet et ne suivent aucune formation, contre 9,1 % dans l'Union européenne (Eurostat). La France respecte déjà l'objectif européen pour 2030 (moins de 9 %). Les garçons sont plus touchés que les filles (8,7 % contre 5,6 %).",
+      "indicateur": "sortants-precoces"
+    },
+    {
+      "titre": "Plus de la moitié des 25-34 ans diplômés du supérieur",
+      "texte": "En 2025, 55,8 % des 25-34 ans sont diplômés de l'enseignement supérieur, contre 44,8 % en moyenne dans l'Union européenne (Eurostat). La part a progressé de 11 points depuis 2015 (44,8 %), une hausse nette malgré les changements de méthode de l'enquête en 2021 et 2024.",
+      "indicateur": "diplomes-superieur"
+    },
+    {
+      "titre": "Le chômage des jeunes remonte depuis 2023",
+      "texte": "Le taux de chômage des 15-24 ans atteint 19,8 % en 2025, après 17,3 % en 2023 (Eurostat). Il reste inférieur à son niveau de 2015 (26,2 %), mais nettement au-dessus de la moyenne européenne (15,2 %). 12,9 % des 15-29 ans ne sont ni en emploi, ni en études, ni en formation.",
+      "indicateur": "chomage-jeunes"
+    },
+    {
+      "titre": "11 140 euros par élève ou étudiant en 2025",
+      "texte": "La dépense moyenne par élève ou étudiant, tous financeurs confondus, est estimée à 11 140 euros en 2025 (chiffre provisoire), contre 10 150 euros en 2020 en euros constants (Depp, compte de l'éducation). Elle va de 9 440 euros dans le premier degré à 13 350 euros dans le supérieur.",
+      "indicateur": "depense-par-eleve"
+    }
+  ],
+  "cles": [
+    "pisa-maths-difficulte",
+    "sortants-precoces",
+    "neet"
+  ],
+  "indicateurs": [
+    {
+      "id": "pisa-maths-difficulte",
+      "libelle": "Élèves de 15 ans en difficulté en mathématiques (PISA)",
+      "question": "À 15 ans, combien d'élèves ne maîtrisent pas les bases en mathématiques ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des élèves de 15 ans dont le score en culture mathématique à l'enquête PISA de l'OCDE est inférieur au niveau 2, seuil en dessous duquel l'OCDE considère qu'ils ne peuvent pas utiliser les mathématiques dans des situations simples de la vie courante. Enquête tous les trois ou quatre ans (2012, 2015, 2018, 2022, 2025) sur un échantillon d'élèves scolarisés. Moyenne de l'Union européenne calculée par Eurostat.",
+      "piege": "PISA mesure la capacité à utiliser les mathématiques dans des situations concrètes, pas le respect des programmes français : ses résultats ne se comparent pas directement aux évaluations nationales. La baisse touche presque tous les pays de l'OCDE ; en 2025, la France reste dans la moyenne de l'OCDE pour le score moyen (458 points contre 463). La Depp signale aussi que les élèves français déclarent avoir fourni moins d'effort pendant le test en 2025 qu'en 2022, un facteur qui pèse peu sur les scores selon elle.",
+      "annees": [
+        2012,
+        2015,
+        2018,
+        2022,
+        2025
+      ],
+      "series": [
+        {
+          "id": "france",
+          "nom": "France",
+          "valeurs": [
+            22.4,
+            23.5,
+            21.3,
+            28.8,
+            35.7
+          ]
+        },
+        {
+          "id": "ue",
+          "nom": "Union européenne",
+          "valeurs": [
+            22.1,
+            22.2,
+            22.9,
+            29.5,
+            33.9
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [
+        {
+          "annee": 2022,
+          "texte": "Eurostat signale une rupture de série en 2022. L'OCDE et la Depp comparent néanmoins directement 2018 et 2022 : le score de la France en mathématiques a baissé de 21 points entre ces deux années."
+        }
+      ],
+      "objectif": {
+        "annee": 2030,
+        "valeur": 15,
+        "libelle": "Objectif européen : moins de 15 % d'élèves de 15 ans en difficulté",
+        "source": "Conseil de l'Union européenne, cadre stratégique pour l'éducation et la formation (2021), rappelé dans L'état de l'École 2026, fiche 35 (Depp)"
+      },
+      "source": {
+        "titre": "Élèves de 15 ans peu performants en lecture, mathématiques et sciences (sdg_04_40), d'après OCDE PISA",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/sdg_04_40/default/table",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/sdg_04_40.csv"
+      }
+    },
+    {
+      "id": "evaluations-6e",
+      "libelle": "Élèves aux acquis faibles à l'entrée en sixième",
+      "question": "En arrivant au collège, combien d'enfants ont des bases fragiles en français et en maths ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des élèves de sixième classés dans les deux groupes les moins performants (groupes 1 et 2 sur 6) à l'évaluation nationale exhaustive passée à la rentrée, sur ordinateur, par tous les élèves de sixième (817 000 en 2025). Les scores ont été fixés à 250 en moyenne en 2017, première année de l'évaluation. France, établissements publics et privés sous contrat de l'Éducation nationale.",
+      "piege": "Ce n'est pas une note de collège : l'évaluation mesure à la rentrée les acquis de fin d'école primaire (CM2). « Acquis faibles » ne veut pas dire « ne sait pas lire » : ce sont les élèves les moins à l'aise sur une échelle commune. En français, les résultats de 2020 et 2021 sont nettement meilleurs que ceux des autres années : mieux vaut comparer 2017 et 2025, ou les années récentes entre elles. Les moyennes cachent de forts écarts : en REP+, 61 % des élèves sont dans ces groupes en mathématiques.",
+      "annees": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "francais",
+          "nom": "Français",
+          "valeurs": [
+            31.7,
+            29.0,
+            28.4,
+            23.0,
+            22.2,
+            27.0,
+            27.0,
+            26.9,
+            28.0
+          ]
+        },
+        {
+          "id": "maths",
+          "nom": "Mathématiques",
+          "valeurs": [
+            30.8,
+            31.3,
+            34.3,
+            31.3,
+            31.2,
+            32.3,
+            32.1,
+            32.2,
+            32.5
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Somme des parts des groupes 1 et 2 publiées par la Depp (colonnes groupe_1 + groupe_2, ligne « NATIONAL », caractéristique « Ensemble »). La Depp publie elle-même ce regroupement : 28,0 % en français en 2025 contre 31,7 % en 2017 (Repères et références statistiques 2026, fiche 5.14).",
+      "source": {
+        "titre": "Résultats aux évaluations nationales de début de sixième par région (ligne nationale)",
+        "producteur": "Depp, ministère de l'Éducation nationale",
+        "url": "https://data.education.gouv.fr/explore/dataset/fr-en-evaluations_nationales_6eme_region/",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/evaluations-6e-national.csv"
+      }
+    },
+    {
+      "id": "sortants-precoces",
+      "libelle": "Jeunes sortis tôt de l'école sans diplôme",
+      "question": "Combien de jeunes quittent l'école sans diplôme et sans formation ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des 18-24 ans qui ont au plus le diplôme national du brevet (ni CAP, ni BEP, ni baccalauréat) et qui n'ont suivi aucune formation au cours des quatre semaines précédant l'enquête. Enquête européenne sur les forces de travail (enquête Emploi de l'Insee pour la France). France hors Mayotte.",
+      "piege": "Un jeune peu diplômé mais en formation (apprentissage, retour en études) n'est pas compté : l'indicateur ne mesure pas tous les jeunes sans diplôme. Ce n'est pas non plus la part d'une génération qui sort sans diplôme : selon la Depp, 10 % des sortants de formation initiale en 2023 avaient au plus le brevet. Les ruptures de 2021 et 2024 invitent à ne pas lire les petites variations d'une année sur l'autre.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble",
+          "valeurs": [
+            9.2,
+            8.8,
+            8.8,
+            8.7,
+            8.2,
+            8.0,
+            7.8,
+            7.6,
+            7.6,
+            7.9,
+            7.2
+          ]
+        },
+        {
+          "id": "hommes",
+          "nom": "Hommes",
+          "valeurs": [
+            10.0,
+            10.1,
+            10.4,
+            10.6,
+            9.6,
+            9.7,
+            9.6,
+            9.2,
+            9.5,
+            9.5,
+            8.7
+          ]
+        },
+        {
+          "id": "femmes",
+          "nom": "Femmes",
+          "valeurs": [
+            8.4,
+            7.5,
+            7.1,
+            6.8,
+            6.9,
+            6.3,
+            6.1,
+            6.0,
+            5.6,
+            6.3,
+            5.6
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [
+        {
+          "annee": 2021,
+          "texte": "Rupture de série signalée par Eurostat pour la France ; depuis 2021, Eurostat indique aussi que la définition française diffère légèrement de la définition européenne."
+        },
+        {
+          "annee": 2024,
+          "texte": "Nouvelle rupture de série signalée par Eurostat pour la France en 2024."
+        }
+      ],
+      "objectif": {
+        "annee": 2030,
+        "valeur": 9,
+        "libelle": "Objectif européen : moins de 9 % de sortants précoces",
+        "source": "Conseil de l'Union européenne, cadre stratégique pour l'éducation et la formation (2021), rappelé dans L'état de l'École 2026, fiche 35 (Depp)"
+      },
+      "source": {
+        "titre": "Jeunes ayant quitté prématurément l'éducation et la formation, par sexe (edat_lfse_14)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/edat_lfse_14/default/table",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/edat_lfse_14.csv"
+      }
+    },
+    {
+      "id": "neet",
+      "libelle": "Jeunes ni en emploi, ni en études, ni en formation",
+      "question": "Combien de jeunes adultes sont sans emploi et sans formation ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des 15-29 ans qui ne sont pas en emploi et ne suivent aucun enseignement ni aucune formation, formelle ou non (« NEET »). Enquête européenne sur les forces de travail. France hors Mayotte.",
+      "piege": "Les NEET ne sont pas tous des chômeurs : l'indicateur inclut des jeunes inactifs (parents au foyer, malades, découragés, en attente d'une formation). À l'inverse, un jeune en emploi précaire n'y figure pas. Le chiffre dépend beaucoup de la tranche d'âge retenue : l'OCDE, sur les 18-24 ans, trouve 17 % en 2024.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "france",
+          "nom": "France",
+          "valeurs": [
+            14.7,
+            14.3,
+            13.8,
+            13.6,
+            13.0,
+            14.0,
+            12.8,
+            12.0,
+            12.3,
+            12.7,
+            12.9
+          ]
+        },
+        {
+          "id": "ue",
+          "nom": "Union européenne",
+          "valeurs": [
+            15.2,
+            14.5,
+            13.7,
+            13.1,
+            12.5,
+            13.8,
+            13.1,
+            11.7,
+            11.3,
+            11.2,
+            11.0
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [
+        {
+          "annee": 2021,
+          "texte": "Rupture de série signalée par Eurostat pour la France et l'Union européenne."
+        },
+        {
+          "annee": 2024,
+          "texte": "Nouvelle rupture de série signalée par Eurostat pour la France en 2024."
+        }
+      ],
+      "source": {
+        "titre": "Jeunes ni en emploi, ni en études, ni en formation, par âge et sexe (edat_lfse_20)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/edat_lfse_20/default/table",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/edat_lfse_20.csv"
+      }
+    },
+    {
+      "id": "chomage-jeunes",
+      "libelle": "Taux de chômage des 15-24 ans",
+      "question": "Quand on a fini ses études, trouve-t-on du travail ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Nombre de chômeurs au sens du Bureau international du travail âgés de 15 à 24 ans, rapporté au nombre d'actifs du même âge (en emploi ou au chômage). Moyenne annuelle. France hors Mayotte, données Eurostat issues de l'enquête Emploi de l'Insee ; Eurostat indique que la définition française diffère légèrement depuis 2021.",
+      "piege": "Ce taux ne veut pas dire qu'un jeune sur cinq est au chômage : il ne porte que sur les jeunes actifs, alors que la plupart des 15-24 ans sont en études. Selon la Depp, à 21 ans, 10 % de l'ensemble des jeunes sont au chômage en 2025. Les jeunes actifs à cet âge sont surtout les moins diplômés, ce qui gonfle le taux.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "france",
+          "nom": "France",
+          "valeurs": [
+            26.2,
+            26.0,
+            23.6,
+            22.1,
+            20.8,
+            21.6,
+            18.9,
+            17.4,
+            17.3,
+            18.8,
+            19.8
+          ]
+        },
+        {
+          "id": "ue",
+          "nom": "Union européenne",
+          "valeurs": [
+            22.4,
+            20.7,
+            18.6,
+            16.7,
+            15.7,
+            17.6,
+            16.7,
+            14.6,
+            14.6,
+            15.0,
+            15.2
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Taux de chômage par sexe et âge, moyennes annuelles (une_rt_a)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/une_rt_a.csv"
+      }
+    },
+    {
+      "id": "diplomes-superieur",
+      "libelle": "Diplômés du supérieur parmi les 25-34 ans",
+      "question": "Les jeunes adultes sont-ils de plus en plus diplômés ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "hausse",
+      "definition": "Part des 25-34 ans titulaires d'un diplôme de l'enseignement supérieur (niveaux 5 à 8 de la classification internationale : BTS, BUT, licence, master, doctorat…). Enquête européenne sur les forces de travail. France hors Mayotte.",
+      "piege": "Un diplôme du supérieur court (BTS) et un doctorat comptent de la même façon. Une forte part de diplômés ne dit rien de la qualité des formations ni de l'adéquation aux emplois. La comparaison européenne dépend aussi de l'organisation des formations : l'Allemagne forme beaucoup par l'apprentissage hors du supérieur.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "france",
+          "nom": "France",
+          "valeurs": [
+            44.8,
+            44.2,
+            44.5,
+            47.0,
+            48.2,
+            49.4,
+            50.3,
+            50.4,
+            51.9,
+            53.1,
+            55.8
+          ]
+        },
+        {
+          "id": "ue",
+          "nom": "Union européenne",
+          "valeurs": [
+            36.5,
+            36.8,
+            37.6,
+            38.7,
+            39.6,
+            40.7,
+            41.5,
+            42.0,
+            43.1,
+            43.9,
+            44.8
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [
+        {
+          "annee": 2021,
+          "texte": "Rupture de série signalée par Eurostat pour la France et l'Union européenne."
+        },
+        {
+          "annee": 2024,
+          "texte": "Nouvelle rupture de série signalée par Eurostat pour la France en 2024."
+        }
+      ],
+      "objectif": {
+        "annee": 2030,
+        "valeur": 45,
+        "libelle": "Objectif européen : au moins 45 % de diplômés du supérieur chez les 25-34 ans",
+        "source": "Conseil de l'Union européenne, cadre stratégique pour l'éducation et la formation (2021), rappelé dans L'état de l'École 2026, fiche 35 (Depp)"
+      },
+      "source": {
+        "titre": "Niveau d'éducation atteint par la population de 25 à 34 ans (edat_lfse_03)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/edat_lfse_03/default/table",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/ecole/edat_lfse_03.csv"
+      }
+    },
+    {
+      "id": "depense-par-eleve",
+      "libelle": "Dépense moyenne par élève ou étudiant",
+      "question": "Combien la collectivité dépense-t-elle chaque année pour un élève ?",
+      "unite": "€",
+      "decimales": 0,
+      "sens": "neutre",
+      "definition": "Dépense intérieure d'éducation (État, collectivités locales, autres administrations, entreprises et ménages) rapportée au nombre d'élèves, d'apprentis et d'étudiants, tous niveaux confondus. En euros constants aux prix de 2025 (déflateur : prix du PIB). France. Compte de l'éducation de la Depp.",
+      "piege": "Une hausse de la dépense par élève peut venir de la baisse du nombre d'élèves autant que de moyens nouveaux : en 2025, dans le premier degré, les dépenses augmentent de 1,2 % et les effectifs baissent de 1,3 %. Elle inclut des dépenses qui ne touchent pas directement l'enseignement (bâtiments, transport, cantines, pensions des fonctionnaires). La moyenne masque de grands écarts : 9 440 euros pour un écolier, 14 590 euros pour un lycéen professionnel.",
+      "annees": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Tous niveaux",
+          "valeurs": [
+            10150,
+            10560,
+            10750,
+            10850,
+            11050,
+            11140
+          ]
+        }
+      ],
+      "provisoire": [
+        2025
+      ],
+      "ruptures": [],
+      "source": {
+        "titre": "L'état de l'École 2026, fiche 10 « La dépense moyenne par élève ou étudiant », tableau 10.1",
+        "producteur": "Depp, ministère de l'Éducation nationale",
+        "url": "https://www.education.gouv.fr/sites/default/files/document/l-tat-de-l-cole-2026-523020.pdf",
+        "consulte_le": "2026-11-15"
+      }
+    }
+  ],
+  "comparaisons": [
+    {
+      "id": "pisa-maths-europe",
+      "libelle": "Élèves de 15 ans en difficulté en mathématiques (PISA 2025)",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Part des élèves de 15 ans sous le niveau 2 en culture mathématique à l'enquête PISA 2025 de l'OCDE. Objectif européen pour 2030 : moins de 15 %.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 35.7
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 34.4
+        },
+        {
+          "nom": "Italie",
+          "valeur": 31.3
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 33.4
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 33.9
+        }
+      ],
+      "source": {
+        "titre": "Élèves de 15 ans peu performants en lecture, mathématiques et sciences (sdg_04_40)",
+        "producteur": "Eurostat, d'après OCDE PISA",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/sdg_04_40/default/table",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "sortants-precoces-europe",
+      "libelle": "Jeunes sortis tôt de l'école sans diplôme (18-24 ans)",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Part des 18-24 ans qui ont au plus un diplôme du premier cycle du secondaire et ne suivent aucune formation. Objectif européen pour 2030 : moins de 9 %.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 7.2
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 13.1
+        },
+        {
+          "nom": "Italie",
+          "valeur": 8.2
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 12.8
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 9.1
+        }
+      ],
+      "source": {
+        "titre": "Jeunes ayant quitté prématurément l'éducation et la formation (edat_lfse_14)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/edat_lfse_14/default/table",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "neet-europe",
+      "libelle": "Jeunes de 15-29 ans ni en emploi, ni en études, ni en formation",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Part des 15-29 ans qui ne sont pas en emploi et ne suivent aucun enseignement ni formation.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 12.9
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 9.5
+        },
+        {
+          "nom": "Italie",
+          "valeur": 13.3
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 11.5
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 11.0
+        }
+      ],
+      "source": {
+        "titre": "Jeunes ni en emploi, ni en études, ni en formation (edat_lfse_20)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/databrowser/view/edat_lfse_20/default/table",
+        "consulte_le": "2026-11-15"
+      }
+    }
+  ],
+  "performance": [
+    {
+      "mission": "Enseignement scolaire",
+      "programme": "Soutien de la politique de l'éducation nationale",
+      "indicateur": "Remplacement des enseignants absents",
+      "sous_indicateur": "Premier degré public : taux de remplacement",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        77.4,
+        78.3,
+        79.2
+      ],
+      "cible": [
+        null,
+        90,
+        85,
+        88
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    },
+    {
+      "mission": "Enseignement scolaire",
+      "programme": "Enseignement scolaire public du second degré",
+      "indicateur": "Heures d'enseignement non assurées",
+      "sous_indicateur": "Pour non-remplacement d'enseignants absents",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        5.7,
+        7.0,
+        5.7,
+        5.6
+      ],
+      "cible": [
+        3.0,
+        1.5,
+        1.5,
+        4
+      ],
+      "sens": "baisse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    },
+    {
+      "mission": "Enseignement scolaire",
+      "programme": "Soutien de la politique de l'éducation nationale",
+      "indicateur": "Postes d'enseignants non pourvus à la rentrée (public)",
+      "sous_indicateur": "Second degré (cible 2025 : moins de 1 700)",
+      "unite": "postes",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        3107,
+        2929,
+        2661,
+        2008
+      ],
+      "cible": [
+        null,
+        null,
+        null,
+        1700
+      ],
+      "sens": "baisse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    },
+    {
+      "mission": "Enseignement scolaire",
+      "programme": "Indicateur de mission",
+      "indicateur": "Élèves ayant une maîtrise satisfaisante ou très bonne en mathématiques à l'entrée en sixième",
+      "sous_indicateur": "Ensemble des élèves",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        67.5,
+        68,
+        67.7,
+        67.5
+      ],
+      "cible": [
+        79,
+        76,
+        76,
+        72
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    },
+    {
+      "mission": "Recherche et enseignement supérieur",
+      "programme": "Formations supérieures et recherche universitaire",
+      "indicateur": "Réussite étudiante",
+      "sous_indicateur": "Taux d'obtention de la licence en 3 ou 4 ans",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        44.7,
+        39.5,
+        null
+      ],
+      "cible": [
+        null,
+        null,
+        44,
+        44.7
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    },
+    {
+      "mission": "Sport, jeunesse et vie associative",
+      "programme": "Indicateur de mission",
+      "indicateur": "Jeunes éloignés de l'emploi parmi les volontaires du service civique",
+      "sous_indicateur": "Part des 18-24 ans en service civique sortis du système scolaire sans diplôme",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        17.8,
+        16.3,
+        14.2
+      ],
+      "cible": [
+        null,
+        null,
+        15,
+        15
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv ; Performance-execution-cible-2022-2024.csv"
+    }
+  ],
+  "moyens": {
+    "codes": [
+      "GF09"
+    ],
+    "texte": "Enseignement, de la maternelle à l'université, pour toutes les administrations publiques : l'État (enseignants, examens, bourses), les collectivités locales (bâtiments scolaires, transports scolaires, personnels techniques, cantines selon leur classement) et les opérateurs (universités, établissements publics). Ce périmètre ne couvre pas les dépenses des familles et des entreprises (comptées par la Depp dans la dépense par élève), ni la jeunesse hors de l'école (service civique, aides aux jeunes, sport, insertion) : voir la page sur l'argent public pour la jeunesse (budget/jeunesse.html)."
+  },
+  "idees_recues": [
+    {
+      "affirmation": "« Le niveau des élèves français s'effondre, c'est une exception française. »",
+      "reponse": "La baisse est réelle : en mathématiques, le score PISA de la France a reculé de 21 points entre 2018 et 2022 puis de 16 points entre 2022 et 2025, et 35,7 % des élèves de 15 ans sont en difficulté. Mais elle n'est pas propre à la France : la moyenne de 24 pays de l'OCDE comparables passe de 496 à 470 points entre 2018 et 2025, et la France reste dans la moyenne de l'OCDE (458 points contre 463). L'Allemagne et l'Espagne ont des parts d'élèves en difficulté proches.",
+      "indicateur": "pisa-maths-difficulte"
+    },
+    {
+      "affirmation": "« La France dépense beaucoup plus que ses voisins pour son école. »",
+      "reponse": "Tous niveaux confondus (hors maternelle), la France dépense un peu plus que la moyenne de l'OCDE par élève : 16 800 équivalents dollars en 2023 contre 16 070. Mais c'est très inégal : elle dépense moins que la moyenne à l'école élémentaire (12 310 contre 13 640) et nettement plus au lycée (19 530 contre 15 290). L'Allemagne dépense davantage (18 780).",
+      "indicateur": "depense-par-eleve"
+    },
+    {
+      "affirmation": "« Les classes sont de plus en plus chargées. »",
+      "reponse": "Pas à l'école publique : à la rentrée 2025, une classe élémentaire publique compte en moyenne 20,7 élèves et une classe de maternelle 21,3, soit 2,3 et 2,8 élèves de moins qu'en 2017, sous l'effet des dédoublements en éducation prioritaire puis de la baisse du nombre d'enfants. Les classes de CP en éducation prioritaire sont passées de 21,7 élèves en 2015 à 12,8 en 2025. Au collège, la taille moyenne des classes est de 25,7 élèves et a peu changé depuis 2020 ; le privé sous contrat reste plus chargé à l'école (24,2 élèves en élémentaire).",
+      "indicateur": "depense-par-eleve"
+    },
+    {
+      "affirmation": "« Un jeune sur quatre est au chômage. »",
+      "reponse": "Le taux de chômage des 15-24 ans est de 19,8 % en 2025, mais il ne porte que sur les jeunes actifs, alors que la plupart des jeunes de cet âge sont en études. Rapporté à l'ensemble des jeunes, le chômage est bien plus faible : à 21 ans, 10 % des jeunes sont au chômage selon la Depp. Le taux remonte toutefois depuis 2023 (17,3 %) et reste supérieur à la moyenne européenne (15,2 %).",
+      "indicateur": "chomage-jeunes"
+    },
+    {
+      "affirmation": "« Les diplômes ne protègent plus du chômage. »",
+      "reponse": "Les chiffres disent l'inverse : un à quatre ans après leurs études, 83 % des diplômés du supérieur long sont en emploi en 2025, contre 61 % des titulaires d'un CAP ou d'un BEP et 27 % des jeunes sans diplôme ou avec le seul brevet (Depp, d'après l'Insee). Dans la voie professionnelle scolaire, les diplômés ont un taux d'emploi salarié six mois après la sortie supérieur de 11 points à celui des non-diplômés.",
+      "indicateur": "diplomes-superieur"
+    },
+    {
+      "affirmation": "« De plus en plus de jeunes quittent l'école sans rien. »",
+      "reponse": "La part des 18-24 ans sortis sans diplôme et sans formation baisse depuis dix ans : 7,2 % en 2025 contre 9,2 % en 2015, sous la moyenne européenne (9,1 %) et sous l'objectif européen de 9 %. Elle reste plus élevée chez les garçons (8,7 %) que chez les filles (5,6 %), et très inégale selon les territoires : 22 % des 16-25 ans en Guyane sont peu ou pas diplômés et hors formation en 2022, contre 7,5 % en moyenne.",
+      "indicateur": "sortants-precoces"
+    }
+  ],
+  "questions_candidats": [
+    "Quelle part d'élèves de 15 ans en difficulté en mathématiques visez-vous au prochain test PISA (35,7 % en 2025), et par quelles mesures à l'école primaire et au collège ?",
+    "Comment ferez-vous pour que les élèves de sixième en éducation prioritaire, dont 61 % ont des acquis faibles en mathématiques, rattrapent les autres ?",
+    "Comment garantir le remplacement des enseignants absents, alors que, selon le rapport annuel de performance, 5,6 % des heures de cours n'ont pas été assurées au collège et au lycée publics en 2025 faute de remplaçant ?",
+    "Avec 1,7 million d'élèves de moins attendus d'ici 2035, garderez-vous les moyens de l'école (11 140 euros par élève en 2025) ou les réduirez-vous ?",
+    "Quel objectif fixez-vous pour le chômage des 15-24 ans (19,8 % en 2025) et pour l'insertion des jeunes sortis de la voie professionnelle ?"
+  ]
+}

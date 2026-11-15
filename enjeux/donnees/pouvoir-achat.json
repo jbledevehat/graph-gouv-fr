@@ -1,0 +1,899 @@
+{
+  "id": "pouvoir-achat",
+  "ordre": 1,
+  "titre": "Pouvoir d'achat, travail et logement",
+  "eyebrow": "Niveau de vie",
+  "besoin": "Est-ce que je vis mieux de mon travail, et puis-je me loger ?",
+  "resume": "Depuis 2015, le pouvoir d'achat moyen a progressé presque chaque année, le taux d'emploi a atteint son plus haut niveau depuis 1975 et le chômage a nettement reculé jusqu'en 2022 avant de remonter un peu. Dans le même temps, la pauvreté est à son plus haut niveau depuis 1996, les salaires ont perdu du terrain pendant la poussée d'inflation de 2022-2023, et la construction de logements est tombée à son plus bas niveau depuis 2000.",
+  "mise_a_jour": "2026-11-15",
+  "couleur": "#EB6834",
+  "essentiel": [
+    {
+      "titre": "Le pouvoir d'achat progresse, mais par à-coups",
+      "texte": "Par unité de consommation, le pouvoir d'achat du revenu des ménages a augmenté huit années sur onze entre 2015 et 2025. Il a reculé en 2020, en 2022 (-0,3 %) et en 2025 (-0,7 %, après +2,2 % en 2024), selon les comptes nationaux de l'Insee.",
+      "indicateur": "pouvoir-achat-uc"
+    },
+    {
+      "titre": "La pauvreté est à son plus haut niveau depuis 1996",
+      "texte": "En 2024, 15,4 % des habitants de France métropolitaine vivent sous le seuil de pauvreté (1 337 euros par mois pour une personne seule), comme en 2023. C'est le niveau le plus élevé depuis le début de la série en 1996 : 9,8 millions de personnes (Insee, enquête Revenus fiscaux et sociaux).",
+      "indicateur": "taux-pauvrete"
+    },
+    {
+      "titre": "Plus de Français travaillent, le chômage remonte légèrement",
+      "texte": "En 2025, 69,3 % des 15-64 ans ont un emploi, le niveau le plus élevé depuis 1975, début de la série. Le taux de chômage est descendu à 7,3 % en 2022, son plus bas niveau depuis 1982, puis remonte à 7,7 % en 2025. Chez les 15-24 ans actifs, il atteint 19,8 %.",
+      "indicateur": "chomage"
+    },
+    {
+      "titre": "Les salaires se redressent après trois années de recul",
+      "texte": "En 2024, un salarié du privé gagne en moyenne 2 733 euros net par mois en équivalent temps plein. Une fois l'inflation déduite, le salaire moyen a baissé en 2021, 2022 et 2023, puis remonté de 0,8 % en 2024 (Insee).",
+      "indicateur": "salaire-net"
+    },
+    {
+      "titre": "Se loger : prix élevés, construction en panne",
+      "texte": "Les prix des logements anciens ont augmenté d'environ 32 % entre 2015 et 2022, puis baissé jusqu'en 2024 ; ils restent 27 % au-dessus de 2015 en 2025. Seulement 264 700 logements ont été mis en chantier en 2024, le plus bas niveau depuis 2000.",
+      "indicateur": "logements-commences"
+    }
+  ],
+  "cles": [
+    "taux-pauvrete",
+    "chomage",
+    "pouvoir-achat-uc"
+  ],
+  "indicateurs": [
+    {
+      "id": "pouvoir-achat-uc",
+      "libelle": "Pouvoir d'achat par unité de consommation",
+      "question": "Mon revenu me permet-il d'acheter plus ou moins qu'avant ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "hausse",
+      "definition": "Évolution annuelle, en volume (après prise en compte de la hausse des prix de la consommation), du revenu disponible brut de l'ensemble des ménages, divisé par le nombre d'unités de consommation (1 pour le premier adulte, 0,5 pour chaque autre personne de 14 ans ou plus, 0,3 pour chaque enfant de moins de 14 ans). Comptes nationaux annuels, base 2020, France entière.",
+      "piege": "C'est une moyenne pour l'ensemble des ménages : elle mélange des situations très différentes et ne dit pas ce que vit un ménage précis. Elle inclut des revenus que beaucoup ne perçoivent pas (dividendes, loyers fictifs des propriétaires) : en 2025, le recul vient surtout de la baisse des dividendes. Enfin, elle ne mesure pas le « reste à vivre » après les dépenses contraintes, d'où l'écart fréquent avec le ressenti.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble des ménages",
+          "valeurs": [
+            0.4,
+            1.0,
+            1.2,
+            0.3,
+            2.0,
+            -0.3,
+            2.8,
+            -0.3,
+            0.4,
+            2.2,
+            -0.7
+          ]
+        }
+      ],
+      "provisoire": [
+        2024,
+        2025
+      ],
+      "ruptures": [],
+      "source": {
+        "titre": "Les comptes de la Nation en 2025 - Données diverses sur les ménages : variation du revenu disponible brut, du pouvoir d'achat et de la consommation des ménages (ligne « Pouvoir d'achat du rdb par unité de consommation »)",
+        "producteur": "Insee",
+        "url": "https://www.insee.fr/fr/statistiques/8988849?sommaire=8988934",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/insee-cn2025-revenu-pouvoir-achat.html"
+      },
+      "evolution": "aucune"
+    },
+    {
+      "id": "inflation",
+      "libelle": "Hausse des prix à la consommation",
+      "question": "De combien les prix ont-ils augmenté cette année ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "neutre",
+      "definition": "Variation de l'indice des prix à la consommation (IPC) en moyenne annuelle, ensemble des ménages, France, tous produits. Série Insee base 2025, idbank 011814640.",
+      "piege": "L'inflation mesure la hausse moyenne des prix d'un panier représentatif de toute la population. Un ménage qui consacre une grande part de son budget à l'énergie, à l'alimentation ou au loyer peut vivre une hausse plus forte ou plus faible. Une inflation qui ralentit ne veut pas dire que les prix baissent : ils montent moins vite.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble des ménages",
+          "valeurs": [
+            0.0,
+            0.2,
+            1.0,
+            1.9,
+            1.1,
+            0.5,
+            1.6,
+            5.2,
+            4.9,
+            2.0,
+            0.9
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Indice annuel des prix à la consommation - Base 2025 - Variation annuelle - Ensemble des ménages - France - Ensemble (idbank 011814640)",
+        "producteur": "Insee",
+        "url": "https://www.insee.fr/fr/statistiques/serie/011814640",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/insee-bdm-ipc-011814639-011814640.xml"
+      },
+      "evolution": "aucune"
+    },
+    {
+      "id": "niveau-de-vie",
+      "libelle": "Niveau de vie annuel",
+      "question": "Combien vit une personne « au milieu », et les plus modestes ?",
+      "unite": "€",
+      "decimales": 0,
+      "sens": "hausse",
+      "definition": "Niveau de vie annuel (revenu disponible du ménage après impôts et prestations, divisé par le nombre d'unités de consommation), en euros constants de 2024. Médiane : la moitié de la population vit au-dessous. Premier décile : les 10 % les plus modestes vivent au-dessous. France métropolitaine, personnes vivant en logement ordinaire. Données rétropolées, sans rupture de série.",
+      "piege": "C'est un niveau de vie par « unité de consommation », pas un salaire ni un revenu par personne : pour une personne seule, 26 740 euros par an correspondent à 2 228 euros par mois. Le champ exclut les outre-mer, les personnes sans domicile et celles vivant en communauté (maisons de retraite, foyers), parmi lesquelles la pauvreté est plus fréquente.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "mediane",
+          "nom": "Niveau de vie médian",
+          "valeurs": [
+            24640,
+            24870,
+            24970,
+            25020,
+            25680,
+            26160,
+            26070,
+            26030,
+            26280,
+            26740
+          ]
+        },
+        {
+          "id": "d1",
+          "nom": "Plafond des 10 % les plus modestes",
+          "valeurs": [
+            13140,
+            13340,
+            13390,
+            13170,
+            13550,
+            14150,
+            13840,
+            13880,
+            13730,
+            13970
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Indicateurs de pauvreté et de niveau de vie de 1996 à 2024 (données rétropolées), jeu DS_ERFS_RETROPOLE (mesures MED_SL et D1_SL)",
+        "producteur": "Insee (enquête Revenus fiscaux et sociaux, Insee-DGFiP-Cnaf-Cnav-CCMSA)",
+        "url": "https://api.insee.fr/melodi/file/DS_ERFS_RETROPOLE/DS_ERFS_RETROPOLE_CSV_FR",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/DS_ERFS_RETROPOLE_CSV_FR.zip"
+      }
+    },
+    {
+      "id": "taux-pauvrete",
+      "libelle": "Taux de pauvreté",
+      "question": "Combien de Français vivent sous le seuil de pauvreté ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part de la population dont le niveau de vie est inférieur à 60 % du niveau de vie médian (seuil de 1 337 euros par mois pour une personne seule en 2024). France métropolitaine, personnes vivant en logement ordinaire. Données rétropolées, sans rupture de série. En 2024, 9 817 000 personnes sont concernées.",
+      "piege": "C'est une pauvreté relative : le seuil suit le niveau de vie médian. Si tout le monde s'enrichit mais que les plus modestes progressent moins vite que le milieu, le taux monte. Il ne mesure pas directement les privations (se chauffer, se nourrir) et ne couvre ni les outre-mer ni les personnes sans domicile. Le taux d'Eurostat pour la France (16,3 % pour l'enquête 2025) ne se compare pas à celui de l'Insee : la source et le champ diffèrent.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble",
+          "valeurs": [
+            13.9,
+            13.7,
+            13.8,
+            14.5,
+            14.3,
+            13.6,
+            14.5,
+            14.4,
+            15.4,
+            15.4
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Indicateurs de pauvreté et de niveau de vie de 1996 à 2024 (données rétropolées), jeu DS_ERFS_RETROPOLE (mesure PR_MD60) ; Insee Première n° 2117, Niveau de vie et pauvreté en 2024",
+        "producteur": "Insee (enquête Revenus fiscaux et sociaux, Insee-DGFiP-Cnaf-Cnav-CCMSA)",
+        "url": "https://api.insee.fr/melodi/file/DS_ERFS_RETROPOLE/DS_ERFS_RETROPOLE_CSV_FR",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/DS_ERFS_RETROPOLE_CSV_FR.zip"
+      }
+    },
+    {
+      "id": "chomage",
+      "libelle": "Taux de chômage",
+      "question": "Est-il plus facile qu'avant de trouver un emploi ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "definition": "Part des chômeurs au sens du Bureau international du travail (sans emploi, disponibles, ayant cherché activement un emploi) parmi les actifs, en moyenne annuelle. France hors Mayotte, enquête Emploi. Les 15-24 ans : chômeurs de cet âge rapportés aux actifs de cet âge.",
+      "piege": "Le taux de chômage ne compte pas les personnes qui voudraient travailler mais ne cherchent pas ou ne sont pas disponibles (le « halo » du chômage), ni celles qui travaillent moins qu'elles le souhaitent. Il diffère aussi du nombre d'inscrits à France Travail, bien plus élevé. Le taux des 15-24 ans est calculé sur les seuls jeunes actifs, la plupart des jeunes étant étudiants : un jeune sur cinq n'est donc pas au chômage.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble (15 ans ou plus)",
+          "valeurs": [
+            10.4,
+            10.1,
+            9.4,
+            9.1,
+            8.5,
+            8.1,
+            7.9,
+            7.3,
+            7.4,
+            7.4,
+            7.7
+          ]
+        },
+        {
+          "id": "15-24",
+          "nom": "15-24 ans",
+          "valeurs": [
+            26.2,
+            26.0,
+            23.6,
+            22.1,
+            20.8,
+            21.6,
+            18.9,
+            17.4,
+            17.3,
+            18.8,
+            19.8
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Activité, emploi et chômage - séries longues, jeu DD_EEC_SERIES (mesure UNEMPRATE), séries rétropolées pour corriger les ruptures de 2013 et 2021",
+        "producteur": "Insee (enquête Emploi en continu)",
+        "url": "https://api.insee.fr/melodi/file/DD_EEC_SERIES/DD_EEC_SERIES_CSV_FR",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/DD_EEC_SERIES_CSV_FR.zip"
+      }
+    },
+    {
+      "id": "taux-emploi",
+      "libelle": "Taux d'emploi",
+      "question": "Quelle part des adultes en âge de travailler a un emploi ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "hausse",
+      "definition": "Part des personnes ayant un emploi (au sens du Bureau international du travail, au moins une heure de travail dans la semaine de référence) dans la population de la tranche d'âge, en moyenne annuelle. France hors Mayotte, enquête Emploi.",
+      "piege": "Un emploi au sens statistique peut être à temps partiel, court ou précaire : le taux d'emploi dit combien de personnes travaillent, pas combien d'heures ni à quelle condition. La hausse chez les 55-64 ans s'explique en grande partie par le recul de l'âge de départ à la retraite.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "15-64",
+          "nom": "15-64 ans",
+          "valeurs": [
+            64.6,
+            64.9,
+            65.4,
+            66.0,
+            66.2,
+            66.0,
+            67.2,
+            68.1,
+            68.4,
+            68.9,
+            69.3
+          ]
+        },
+        {
+          "id": "55-64",
+          "nom": "55-64 ans",
+          "valeurs": [
+            50.1,
+            51.2,
+            52.6,
+            53.6,
+            54.5,
+            55.2,
+            56.0,
+            56.9,
+            58.4,
+            60.4,
+            61.7
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Activité, emploi et chômage - séries longues, jeu DD_EEC_SERIES (mesure EMPRATE), séries rétropolées",
+        "producteur": "Insee (enquête Emploi en continu)",
+        "url": "https://api.insee.fr/melodi/file/DD_EEC_SERIES/DD_EEC_SERIES_CSV_FR",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/DD_EEC_SERIES_CSV_FR.zip"
+      }
+    },
+    {
+      "id": "salaire-net",
+      "libelle": "Salaire net mensuel dans le privé, en euros de 2024",
+      "question": "Mon salaire suit-il la hausse des prix ?",
+      "unite": "€",
+      "decimales": 0,
+      "sens": "hausse",
+      "definition": "Salaire net de cotisations et contributions sociales, par mois, en équivalent temps plein (EQTP), en euros constants de 2024 (corrigé de l'inflation). Moyenne et médiane (la moitié des salariés gagne moins). Salariés du secteur privé, y compris alternants, stagiaires et contrats aidés, hors agriculture et particuliers employeurs, France.",
+      "piege": "L'« équivalent temps plein » ramène chaque salaire à un temps complet sur l'année : il ne dit pas ce que touchent réellement les salariés à temps partiel ou en contrat court. La hausse de 2020 est un effet de composition : les emplois les moins payés ont davantage disparu pendant la crise sanitaire, ce qui a mécaniquement relevé la moyenne. La moyenne est tirée vers le haut par les plus hauts salaires : la médiane est plus représentative.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "moyen",
+          "nom": "Salaire net moyen",
+          "valeurs": [
+            2670,
+            2681,
+            2705,
+            2714,
+            2743,
+            2827,
+            2774,
+            2738,
+            2712,
+            2733
+          ]
+        },
+        {
+          "id": "median",
+          "nom": "Salaire net médian",
+          "valeurs": [
+            2120,
+            2129,
+            2147,
+            2150,
+            2204,
+            2258,
+            2220,
+            2185,
+            2173,
+            2190
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "source": {
+        "titre": "Séries longues de salaires dans le secteur privé, jeu DS_DERA_PRIVE_SERIES_LONGUES (mesure SALAIRE_NET_EQTP_MENSUEL_MOYEN_EUROS_CONSTANTS) ; Insee Première n° 2079, Les salaires dans le secteur privé en 2024",
+        "producteur": "Insee (déclarations sociales nominatives)",
+        "url": "https://api.insee.fr/melodi/file/DS_DERA_PRIVE_SERIES_LONGUES/DS_DERA_PRIVE_SERIES_LONGUES_CSV_FR",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/DS_DERA_PRIVE_SERIES_LONGUES_CSV_FR.zip"
+      }
+    },
+    {
+      "id": "logement-prix-loyers",
+      "libelle": "Prix des logements anciens, loyers et prix à la consommation",
+      "question": "Le logement coûte-t-il plus cher qu'avant, à l'achat comme à la location ?",
+      "unite": "indice, base 100 en 2015",
+      "decimales": 1,
+      "sens": "neutre",
+      "definition": "Trois indices de prix ramenés à 100 en 2015, en moyenne annuelle, France hors Mayotte pour les logements anciens, France pour les loyers et les prix. Prix des logements anciens : indice Notaires-Insee, ensemble des logements, série brute (idbank 010567118). Loyers : loyers d'habitation effectivement payés, composante de l'indice des prix à la consommation (idbank 011815635). Prix à la consommation : indice d'ensemble (idbank 011814639).",
+      "piege": "L'indice des loyers suit le loyer d'un même logement au fil du temps, surtout pour des locataires déjà en place, dont les hausses sont encadrées. Il ne reflète pas le loyer demandé à un nouveau locataire dans une grande ville, souvent bien plus élevé. Les prix des logements anciens sont une moyenne nationale : les écarts entre Paris, les métropoles et les zones rurales sont considérables.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "logements-anciens",
+          "nom": "Prix des logements anciens",
+          "valeurs": [
+            100.0,
+            100.9,
+            104.0,
+            107.1,
+            110.6,
+            116.8,
+            124.6,
+            132.4,
+            131.5,
+            126.2,
+            127.0
+          ]
+        },
+        {
+          "id": "loyers",
+          "nom": "Loyers payés par les locataires",
+          "valeurs": [
+            100.0,
+            100.3,
+            100.5,
+            100.2,
+            100.7,
+            101.1,
+            101.9,
+            102.6,
+            104.8,
+            107.2,
+            109.7
+          ]
+        },
+        {
+          "id": "prix",
+          "nom": "Ensemble des prix à la consommation",
+          "valeurs": [
+            100.0,
+            100.2,
+            101.2,
+            103.1,
+            104.2,
+            104.7,
+            106.4,
+            112.0,
+            117.5,
+            119.8,
+            120.9
+          ]
+        }
+      ],
+      "provisoire": [],
+      "ruptures": [],
+      "calcul": "Logements anciens : moyenne arithmétique des quatre indices trimestriels bruts de l'année (base 100 en moyenne annuelle 2015 dans la série d'origine), arrondie au dixième le plus proche. Loyers et prix à la consommation : indice annuel de l'année divisé par l'indice annuel 2015, multiplié par 100 (indices d'origine en base 100 en 2025 : loyers 91,14 en 2015, prix 82,68 en 2015).",
+      "source": {
+        "titre": "Indice des prix des logements anciens - France (hors Mayotte) - Ensemble - Série brute (idbank 010567118) ; Indice annuel des prix à la consommation - Base 2025 - Loyers d'habitation effectivement payés (idbank 011815635) et Ensemble (idbank 011814639)",
+        "producteur": "Insee et Notaires de France ; Insee",
+        "url": "https://www.insee.fr/fr/statistiques/serie/010567118",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/insee-bdm-logement-prix-loyers.xml"
+      }
+    },
+    {
+      "id": "logements-commences",
+      "libelle": "Logements mis en chantier",
+      "question": "Construit-on assez de logements ?",
+      "unite": "logements",
+      "decimales": 0,
+      "sens": "hausse",
+      "definition": "Nombre de logements commencés (mis en chantier) dans l'année, tous types (individuels et collectifs, y compris en résidence), estimations en date réelle. Valeur de décembre du cumul sur douze mois, soit le total de l'année civile. France hors Mayotte. Série SDES (base Sit@del2) diffusée par l'Insee, idbank 001718270.",
+      "piege": "Ce sont des mises en chantier, pas des logements livrés : il faut en général deux ans pour qu'un logement commencé soit habitable. Les dernières années sont des estimations révisées au fil des mois. Un nombre national ne dit pas si l'on construit là où les besoins sont les plus forts.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "total",
+          "nom": "Logements commencés",
+          "valeurs": [
+            340900,
+            369400,
+            433900,
+            400500,
+            385400,
+            369600,
+            422300,
+            397100,
+            302400,
+            264700,
+            268400
+          ]
+        }
+      ],
+      "provisoire": [
+        2024,
+        2025
+      ],
+      "ruptures": [],
+      "source": {
+        "titre": "Nombre de logements commencés - Cumul sur douze mois - Total - France hors Mayotte - Estimations en date réelle (idbank 001718270)",
+        "producteur": "SDES, ministère chargé du Logement (Sit@del2), diffusé par l'Insee",
+        "url": "https://www.insee.fr/fr/statistiques/serie/001718270",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/insee-bdm-logements-commences-001718270.xml"
+      }
+    }
+  ],
+  "comparaisons": [
+    {
+      "id": "chomage-europe",
+      "libelle": "Taux de chômage en Europe",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Chômeurs de 15 à 74 ans au sens du Bureau international du travail, en pourcentage de la population active, moyenne annuelle 2025, définition harmonisée par Eurostat (enquêtes sur les forces de travail). Pour la France, le chiffre d'Eurostat (7,7 %) est identique à celui de l'Insee.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 7.7
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 3.8
+        },
+        {
+          "nom": "Italie",
+          "valeur": 6.1
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 10.5
+        },
+        {
+          "nom": "Pays-Bas",
+          "valeur": 3.9
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 6.0
+        }
+      ],
+      "source": {
+        "titre": "Chômage par sexe et âge - données annuelles (une_rt_a), 15-74 ans, pourcentage de la population active",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_a?format=JSON&lang=fr&age=Y15-74&sex=T&unit=PC_ACT&sinceTimePeriod=2022&geo=FR&geo=DE&geo=IT&geo=ES&geo=NL&geo=EU27_2020",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/eurostat-une_rt_a.json"
+      }
+    },
+    {
+      "id": "pauvrete-europe",
+      "libelle": "Taux de risque de pauvreté en Europe",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Part de la population dont le revenu disponible équivalent est inférieur à 60 % du revenu médian national, après transferts sociaux. Enquête européenne SILC 2025 (revenus de 2024). Chaque pays a son propre seuil : un même taux ne veut pas dire un même niveau de vie.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 16.3
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 16.1
+        },
+        {
+          "nom": "Italie",
+          "valeur": 18.6
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 19.5
+        },
+        {
+          "nom": "Pays-Bas",
+          "valeur": 13.4
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 16.3
+        }
+      ],
+      "source": {
+        "titre": "Taux de risque de pauvreté par seuil de pauvreté, âge et sexe - enquêtes EU-SILC et PCM (ilc_li02), seuil 60 % du revenu équivalent médian, ensemble",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ilc_li02?format=JSON&lang=fr&age=TOTAL&sex=T&unit=PC&statinfo=MED_EI&rskpovth=B_60&sinceTimePeriod=2022&geo=FR&geo=DE&geo=IT&geo=ES&geo=NL&geo=EU27_2020",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/pouvoir-achat/eurostat-ilc_li02.json"
+      }
+    }
+  ],
+  "performance": [
+    {
+      "mission": "Travail, emploi et administration des ministères sociaux",
+      "programme": "Accès et retour à l'emploi (102)",
+      "indicateur": "Taux de retour à l'emploi de tous les publics (P102-1-2)",
+      "sous_indicateur": "Tous publics",
+      "unite": "%",
+      "annees": [
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        37.6,
+        37.1,
+        37.1
+      ],
+      "cible": [
+        null,
+        null,
+        37.2
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Cohésion des territoires",
+      "programme": "Aide à l'accès au logement (109)",
+      "indicateur": "Taux d'effort net médian des ménages en locatif ordinaire ou en accession (MVA-1-1 / P109-1-1)",
+      "sous_indicateur": "Taux d'effort net médian, ensemble",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        19.3,
+        19.1,
+        18.9,
+        18.3
+      ],
+      "cible": [
+        18.2,
+        19.9,
+        19.9,
+        19.1
+      ],
+      "sens": "baisse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Cohésion des territoires",
+      "programme": "Hébergement, parcours vers le logement et insertion des personnes vulnérables (177)",
+      "indicateur": "Taux de réponse positive du SIAO (service intégré d'accueil et d'orientation) aux demandeurs d'hébergement (MVA-3-2 / P177-1-2)",
+      "sous_indicateur": "Taux de réponse positive du SIAO aux demandeurs d'hébergement",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        66.0,
+        56.0,
+        54.9,
+        54.3
+      ],
+      "cible": [
+        54.0,
+        54.0,
+        54.0,
+        54.0
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Cohésion des territoires",
+      "programme": "Hébergement, parcours vers le logement et insertion des personnes vulnérables (177)",
+      "indicateur": "Part de logements sociaux attribués à des ménages sans domicile (MVA-3-1 / P177-1-1)",
+      "sous_indicateur": "Part des logements sociaux attribués à des ménages sans domicile",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        6.6,
+        7.2,
+        7.7,
+        8.0
+      ],
+      "cible": [
+        6.0,
+        6.0,
+        6.0,
+        7.0
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Cohésion des territoires",
+      "programme": "Indicateur de mission",
+      "indicateur": "Performance du dispositif DALO (MVA-2-2)",
+      "sous_indicateur": "Nombre de personnes reconnues DALO logées ou n'étant plus à reloger pour 100 décisions favorables prises par les commissions DALO sur la même année civile",
+      "unite": "%",
+      "annees": [
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        70.0,
+        68.9,
+        70.6
+      ],
+      "cible": [
+        null,
+        null,
+        82.0
+      ],
+      "sens": "hausse",
+      "fichier": "RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Solidarité, insertion et égalité des chances",
+      "programme": "Inclusion sociale et protection des personnes (304)",
+      "indicateur": "Part des foyers allocataires du RSA en reprise d'activité qui accèdent à la prime d'activité et se maintiennent dans l'emploi (MSE-1-1)",
+      "sous_indicateur": "Part des foyers allocataires du RSA sans emploi dont au moins l'un des membres reprend une activité et accède à la prime d'activité",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        9.6,
+        9.7,
+        9.6,
+        11.2
+      ],
+      "cible": [
+        9.0,
+        9.5,
+        10.0,
+        10.0
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    }
+  ],
+  "moyens": {
+    "codes": [
+      "GF1006",
+      "GF1005",
+      "GF1007",
+      "GF1004",
+      "GF0601"
+    ],
+    "texte": "Dépenses de toutes les administrations publiques (État, collectivités, sécurité sociale) pour le logement (aides au logement, GF1006), le chômage (allocations et accompagnement, GF1005), l'exclusion sociale (RSA, prime d'activité, hébergement, GF1007), la famille et les enfants (GF1004) et le développement du logement (construction, rénovation, GF0601). Les retraites (vieillesse, GF1002), premier poste de la protection sociale, ne sont pas comptées ici, pas plus que la santé, l'éducation ou les allègements de cotisations sur les salaires."
+  },
+  "idees_recues": [
+    {
+      "affirmation": "« Le pouvoir d'achat des Français ne cesse de baisser. »",
+      "reponse": "En moyenne, le pouvoir d'achat par unité de consommation a augmenté huit années sur onze entre 2015 et 2025, avec de fortes hausses en 2019, 2021 et 2024. Il a reculé en 2020, 2022 et 2025. Cette moyenne masque des situations très différentes, et la hausse des dépenses difficiles à réduire (logement, énergie) explique qu'une partie des ménages ressente une baisse.",
+      "indicateur": "pouvoir-achat-uc"
+    },
+    {
+      "affirmation": "« Avec le travail, on ne gagne pas plus qu'avant. »",
+      "reponse": "Corrigé de l'inflation, le salaire net moyen du privé a baissé en 2021, 2022 et 2023, puis remonté en 2024 (2 733 euros). Il reste un peu au-dessus de son niveau de 2015 (2 670 euros, exprimés en euros de 2024), mais en dessous du point haut de 2020, gonflé par un effet de composition. Le salaire médian suit la même pente : 2 120 euros en 2015, 2 190 euros en 2024.",
+      "indicateur": "salaire-net"
+    },
+    {
+      "affirmation": "« Moins de chômage, c'est forcément moins de pauvreté. »",
+      "reponse": "Le chômage a nettement baissé depuis 2015, mais le taux de pauvreté, lui, a augmenté : 13,9 % en 2015, 15,4 % en 2023 et 2024, son plus haut niveau depuis 1996. Le taux de pauvreté est relatif : il monte quand les revenus des plus modestes progressent moins vite que ceux du milieu. Les chômeurs et les familles monoparentales restent les plus touchés.",
+      "indicateur": "taux-pauvrete"
+    },
+    {
+      "affirmation": "« Les loyers ont explosé. »",
+      "reponse": "Pour les locataires en place, les loyers ont augmenté d'environ 10 % entre 2015 et 2025, moins que l'ensemble des prix (environ 21 %), car leurs hausses sont encadrées. Mais cet indice ne reflète pas les loyers demandés aux nouveaux locataires dans les villes où la demande est forte.",
+      "indicateur": "logement-prix-loyers"
+    },
+    {
+      "affirmation": "« La France a le pire chômage d'Europe. »",
+      "reponse": "En 2025, le taux de chômage de la France (7,7 %) est au-dessus de la moyenne de l'Union européenne (6,0 %) et bien au-dessus de l'Allemagne (3,8 %) et des Pays-Bas (3,9 %), mais en dessous de l'Espagne (10,5 %). L'Italie, au-dessus de la France en 2022 et 2023, est passée en dessous en 2024. En France, le chômage est à un niveau bas par rapport aux quarante dernières années.",
+      "indicateur": "chomage"
+    },
+    {
+      "affirmation": "« On ne construit plus de logements en France. »",
+      "reponse": "On construit moins : 264 700 logements ont été mis en chantier en 2024 et 268 400 en 2025, contre 433 900 en 2017 et 422 300 en 2021. C'est le plus bas niveau depuis 2000, début de la série. Les mises en chantier remontent en 2026 (315 000 sur les douze mois à fin septembre, estimation provisoire).",
+      "indicateur": "logements-commences"
+    }
+  ],
+  "questions_candidats": [
+    "Le taux de pauvreté est de 15,4 % en 2024, au plus haut depuis 1996 : quel niveau visez-vous en 2032, et par quelles mesures ?",
+    "Quel taux d'emploi des 15-64 ans visez-vous en 2032, alors qu'il atteint 69,3 % en 2025 ?",
+    "Combien de logements comptez-vous faire mettre en chantier chaque année, alors qu'il y en a eu 268 400 en 2025, et avec quels moyens ?",
+    "Comment comptez-vous faire progresser le salaire net, qui a perdu du pouvoir d'achat de 2021 à 2023, sans réduire l'emploi ?",
+    "Faut-il augmenter, maintenir ou réduire les aides au logement, et pour quels ménages ?"
+  ]
+}

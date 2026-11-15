@@ -1,0 +1,926 @@
+{
+  "id": "sante",
+  "ordre": 2,
+  "titre": "Accès aux soins",
+  "eyebrow": "Santé",
+  "besoin": "Puis-je me soigner à temps, près de chez moi, sans renoncer faute d'argent ?",
+  "resume": "On vit plus longtemps et la part des dépenses de santé payée directement par les ménages a baissé depuis 2015. Mais le nombre de médecins généralistes par habitant a diminué jusqu'en 2024, l'accès à un généraliste reste très inégal d'un territoire à l'autre, et les Français déclarent plus souvent que leurs voisins européens avoir renoncé à un examen médical.",
+  "mise_a_jour": "2026-11-15",
+  "couleur": "#2A78D6",
+  "essentiel": [
+    {
+      "titre": "Plus de 4 % des malades en affection longue durée sans médecin traitant",
+      "texte": "Fin 2025, 4,3 % des patients en affection longue durée (ALD) n'avaient pas de médecin traitant, contre 5,6 % fin 2022, selon l'Assurance maladie. L'objectif fixé par la convention médicale (2 % dès 2025) n'est pas atteint.",
+      "indicateur": "ald-sans-medecin-traitant"
+    },
+    {
+      "titre": "Moins de généralistes par habitant jusqu'en 2024, une légère reprise depuis",
+      "texte": "La France comptait 153 médecins généralistes en activité pour 100 000 habitants en 2015, 144 en 2024 et 146 au 1er janvier 2026 (Drees, RPPS). Les généralistes exclusivement libéraux sont passés de 93 à 80 pour 100 000 habitants.",
+      "indicateur": "generalistes-pour-100-000"
+    },
+    {
+      "titre": "Un accès au généraliste quatre fois plus faible pour les 10 % les moins bien dotés",
+      "texte": "En 2024, un habitant a accès en moyenne à 3,3 consultations de généraliste par an compte tenu de l'offre autour de chez lui. Pour les 10 % les moins bien dotés, c'est 1,3, contre 5,7 pour les 10 % les mieux dotés (Drees).",
+      "indicateur": "apl-generalistes"
+    },
+    {
+      "titre": "Plus de renoncements déclarés à un examen médical",
+      "texte": "En 2025, 3,7 % des personnes de 16 ans ou plus disent ne pas avoir eu un examen médical dont elles avaient besoin, à cause du coût, de la distance ou de l'attente, contre 1,2 % en 2015 (Eurostat, enquête SRCV de l'Insee) ; l'enquête a changé de méthode en 2020 et en 2022, ce qui invite à la prudence sur l'ampleur de la hausse. C'est plus que dans l'Union européenne (2,4 %). C'est 5,8 % chez les 20 % les plus modestes.",
+      "indicateur": "besoins-non-satisfaits"
+    },
+    {
+      "titre": "Le reste à charge des ménages recule en part",
+      "texte": "Les ménages paient directement 9,7 % de la dépense courante de santé en 2025, contre 11,4 % en 2015 (Drees, comptes de la santé). Pour les seuls soins et biens médicaux, la part passe de 9,5 % à 7,7 %.",
+      "indicateur": "reste-a-charge"
+    },
+    {
+      "titre": "Moins de lits, un peu plus de passages aux urgences",
+      "texte": "Fin 2024, les hôpitaux et cliniques comptaient 367 128 lits d'hospitalisation complète, contre 407 875 fin 2015, tandis que les places sans nuitée progressaient. Les urgences ont reçu 21,3 millions de passages en 2024, contre 20,1 millions en 2015 (Drees, SAE).",
+      "indicateur": "lits-hospitalisation"
+    }
+  ],
+  "cles": [
+    "generalistes-pour-100-000",
+    "besoins-non-satisfaits",
+    "ald-sans-medecin-traitant"
+  ],
+  "indicateurs": [
+    {
+      "id": "ald-sans-medecin-traitant",
+      "libelle": "Patients en affection longue durée sans médecin traitant",
+      "question": "Les malades chroniques ont-ils tous un médecin traitant ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "evolution": "absolue",
+      "definition": "Part des patients en affection longue durée (ALD : diabète, cancer, insuffisance cardiaque…) qui n'ont pas déclaré de médecin traitant, au 31 décembre de l'année. France entière, données du système national des données de santé (SNDS), Observatoire de l'accès aux soins de l'Assurance maladie.",
+      "piege": "Cet indicateur ne porte que sur les patients en ALD, prioritaires pour l'Assurance maladie ; il ne donne pas le nombre total de Français sans médecin traitant, qui est bien plus élevé. Une baisse peut aussi venir de l'attribution d'un médecin traitant sans que l'accès réel à un rendez-vous s'améliore.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Patients en ALD",
+          "valeurs": [
+            null,
+            null,
+            null,
+            4.9,
+            5.0,
+            4.9,
+            5.3,
+            5.6,
+            4.6,
+            4.3,
+            4.3
+          ]
+        }
+      ],
+      "objectif": {
+        "annee": 2025,
+        "valeur": 2,
+        "libelle": "Convention médicale 2024-2029 : stabiliser la part de patients en ALD sans médecin traitant au « seuil frictionnel » de 2 % dès 2025",
+        "source": "Assurance maladie, « Les engagements conventionnels collectifs liés à l'accès aux soins », https://ameli.fr/medecin/textes-reference/convention-medicale-2024-2029/grands-axes-convention-detail/mesures-fortes-acces-soins/engagement-conventionnels-collectifs-acces-soins"
+      },
+      "source": {
+        "titre": "Accès aux soins : part de patients en affection longue durée sans médecin traitant par territoire – par année",
+        "producteur": "Assurance maladie (Cnam)",
+        "url": "https://data.ameli.fr/api/explore/v2.1/catalog/datasets/patients-longueduree-annuelle/exports/csv?delimiter=%3B",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/ameli-patients-longueduree-annuelle.csv"
+      }
+    },
+    {
+      "id": "generalistes-pour-100-000",
+      "libelle": "Médecins généralistes en activité pour 100 000 habitants",
+      "question": "Y a-t-il assez de médecins généralistes ?",
+      "unite": "pour 100 000 habitants",
+      "decimales": 0,
+      "sens": "hausse",
+      "evolution": "relative",
+      "definition": "Médecins généralistes inscrits à l'Ordre et actifs au 1er janvier de l'année (répertoire RPPS), rapportés à la population estimée par l'Insee à la même date. France entière. Série « Ensemble » : tous modes d'exercice (libéral, mixte, salarié) ; série « Libéraux exclusifs » : généralistes exerçant uniquement en libéral. Précision : En 2024, l'extraction du RPPS a été faite au 30 septembre et la Drees a reconstitué l'activité au 1er janvier : léger changement de méthode.",
+      "piege": "Un médecin compté ici peut travailler à temps partiel, en hôpital, en entreprise ou ne pas suivre de patientèle : la densité ne dit pas combien de consultations sont disponibles. La population vieillit et a besoin de plus de soins, si bien qu'une densité stable peut cacher un accès plus difficile. La hausse des médecins à exercice « mixte » explique une partie de la baisse des libéraux exclusifs.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble des généralistes",
+          "valeurs": [
+            153.46,
+            152.85,
+            152.39,
+            152.17,
+            150.73,
+            150.29,
+            148.63,
+            146.84,
+            145.39,
+            144.25,
+            145.27,
+            146.17
+          ]
+        },
+        {
+          "id": "liberaux",
+          "nom": "Libéraux exclusifs",
+          "valeurs": [
+            93.04,
+            91.43,
+            89.82,
+            89.01,
+            87.35,
+            86.73,
+            84.99,
+            83.8,
+            82.94,
+            81.22,
+            81.1,
+            80.02
+          ]
+        }
+      ],
+      "source": {
+        "titre": "La démographie des professionnels de santé depuis 2012 – Médecins RPPS 2012-2026 (publié le 2 juillet 2026)",
+        "producteur": "Drees",
+        "url": "https://data.drees.solidarites-sante.gouv.fr/api/explore/v2.1/catalog/datasets/la-demographie-des-professionnels-de-sante-depuis-2012/attachments/medecins_rpps_2012_2026_xlsx",
+        "consulte_le": "2026-11-15"
+      }
+    },
+    {
+      "id": "apl-generalistes",
+      "libelle": "Accessibilité potentielle localisée aux médecins généralistes",
+      "question": "Ai-je un généraliste accessible près de chez moi ?",
+      "unite": "consultations par habitant et par an",
+      "decimales": 1,
+      "sens": "hausse",
+      "evolution": "relative",
+      "definition": "Nombre moyen de consultations, visites et téléconsultations de médecins généralistes (libéraux de 65 ans ou moins et salariés en centre de santé) accessibles par habitant et par an, compte tenu des médecins de sa commune et des communes voisines et des besoins liés à l'âge de la population. France hors Mayotte. Les dixièmes sont des dixièmes de population classés selon leur accessibilité.",
+      "piege": "C'est une offre potentielle, pas le nombre de consultations réellement obtenues. Les médecins de plus de 65 ans ne sont pas comptés. La méthode actuelle ne commence qu'en 2022 : les anciennes séries de l'APL ne se comparent pas.",
+      "annees": [
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Moyenne nationale",
+          "valeurs": [
+            3.34,
+            3.29,
+            3.26
+          ]
+        },
+        {
+          "id": "moins-dotes",
+          "nom": "10 % les moins bien dotés",
+          "valeurs": [
+            1.47,
+            1.38,
+            1.32
+          ]
+        },
+        {
+          "id": "mieux-dotes",
+          "nom": "10 % les mieux dotés",
+          "valeurs": [
+            5.67,
+            5.63,
+            5.65
+          ]
+        }
+      ],
+      "source": {
+        "titre": "Accessibilité potentielle localisée (APL) aux professionnels de santé – Indicateurs d'APL moyens par dixièmes de population",
+        "producteur": "Drees",
+        "url": "https://data.drees.solidarites-sante.gouv.fr/api/explore/v2.1/catalog/datasets/530_l-accessibilite-potentielle-localisee-apl/attachments/indicateurs_d_apl_moyens_par_dixiemes_de_population_xlsx",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/drees-apl-dixiemes-de-population.xlsx"
+      }
+    },
+    {
+      "id": "besoins-non-satisfaits",
+      "libelle": "Renoncement déclaré à un examen médical",
+      "question": "Combien de Français renoncent à se soigner ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "evolution": "absolue",
+      "definition": "Part des personnes de 16 ans ou plus vivant en logement ordinaire qui déclarent ne pas avoir eu, au cours des 12 derniers mois, un examen ou un traitement médical dont elles avaient besoin, parce que c'était trop cher, trop loin ou à cause d'une liste d'attente. Enquête SRCV de l'Insee (dispositif européen EU-SILC), diffusée par Eurostat (hlth_silc_08). Quintiles : cinquièmes de la population classés selon le revenu.",
+      "piege": "C'est une déclaration : elle dépend de ce que chacun estime « nécessaire ». Les soins dentaires sont mesurés à part et ne sont pas inclus. Les ruptures de série de 2020 et 2022 empêchent de comparer directement 2019 et 2023 ; la hausse depuis 2022, à méthode constante, est en revanche bien réelle (3,2 % puis 3,7 %).",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Ensemble",
+          "valeurs": [
+            1.2,
+            1.3,
+            1.0,
+            1.2,
+            1.2,
+            2.7,
+            2.8,
+            3.2,
+            3.7,
+            4.1,
+            3.7
+          ]
+        },
+        {
+          "id": "modestes",
+          "nom": "20 % les plus modestes",
+          "valeurs": [
+            3.1,
+            3.4,
+            2.2,
+            2.6,
+            2.4,
+            5.3,
+            4.5,
+            5.9,
+            5.3,
+            6.3,
+            5.8
+          ]
+        },
+        {
+          "id": "aises",
+          "nom": "20 % les plus aisés",
+          "valeurs": [
+            0.3,
+            0.5,
+            0.3,
+            0.4,
+            0.4,
+            0.8,
+            1.5,
+            1.4,
+            1.9,
+            2.2,
+            2.1
+          ]
+        }
+      ],
+      "ruptures": [
+        {
+          "annee": 2020,
+          "texte": "Rupture de série signalée par Eurostat pour la France ; 2020 est aussi l'année de la crise sanitaire."
+        },
+        {
+          "annee": 2022,
+          "texte": "Nouvelle rupture de série signalée par Eurostat pour la France."
+        }
+      ],
+      "source": {
+        "titre": "Self-reported unmet needs for medical examination by sex, age, main reason declared and income quintile (hlth_silc_08)",
+        "producteur": "Eurostat, d'après l'enquête SRCV de l'Insee",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hlth_silc_08?geo=FR&sex=T&age=Y_GE16&unit=PC&reason=TXP_TFAR_WLIST",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/eurostat-hlth_silc_08-france-quintiles.json"
+      }
+    },
+    {
+      "id": "reste-a-charge",
+      "libelle": "Part des dépenses de santé payée directement par les ménages",
+      "question": "Combien les Français paient-ils de leur poche pour se soigner ?",
+      "unite": "%",
+      "decimales": 1,
+      "sens": "baisse",
+      "evolution": "absolue",
+      "definition": "Reste à charge des ménages (ce qu'ils paient eux-mêmes après remboursements de la Sécurité sociale, de l'État et des complémentaires) rapporté soit à la consommation de soins et de biens médicaux (CSBM : hôpital, soins de ville, médicaments, transports, optique…), soit à la dépense courante de santé au sens international (DCSi, qui ajoute notamment les soins de longue durée, la prévention et la gestion). Comptes de la santé, France.",
+      "piege": "Une moyenne nationale : une petite part de la population supporte des restes à charge très élevés (dépassements d'honoraires, dentaire, soins non remboursés). Les cotisations aux complémentaires santé, payées par les ménages, ne sont pas comptées dans le reste à charge.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "dcsi",
+          "nom": "En % de la dépense courante de santé (DCSi)",
+          "valeurs": [
+            11.42,
+            11.23,
+            11.24,
+            11.09,
+            11.16,
+            10.27,
+            9.8,
+            9.91,
+            9.79,
+            9.77,
+            9.65
+          ]
+        },
+        {
+          "id": "csbm",
+          "nom": "En % des soins et biens médicaux (CSBM)",
+          "valeurs": [
+            9.46,
+            9.19,
+            9.13,
+            8.84,
+            8.83,
+            8.2,
+            7.98,
+            7.98,
+            7.71,
+            7.73,
+            7.68
+          ]
+        }
+      ],
+      "provisoire": [
+        2024,
+        2025
+      ],
+      "calcul": "Part = montant financé par le financeur « Ménages » (f220) / montant « Tous financeurs » (f000) × 100, pour le poste DCSi (d00000) ou CSBM (p00000), dans le fichier cns_financement. Le résultat de 2025 (9,65 %) correspond aux 9,7 % publiés par la Drees.",
+      "source": {
+        "titre": "Les comptes de la santé – Répartition par financeur (édition 2026)",
+        "producteur": "Drees",
+        "url": "https://data.drees.solidarites-sante.gouv.fr/api/explore/v2.1/catalog/datasets/cns_financement/exports/csv?delimiter=%3B",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/drees-cns_financement.csv"
+      }
+    },
+    {
+      "id": "esperance-de-vie",
+      "libelle": "Espérance de vie à la naissance",
+      "question": "Vit-on plus longtemps ?",
+      "unite": "ans",
+      "decimales": 1,
+      "sens": "hausse",
+      "evolution": "absolue",
+      "definition": "Nombre moyen d'années que vivrait un nouveau-né s'il connaissait toute sa vie les conditions de mortalité de l'année. France (y compris Mayotte depuis 2014).",
+      "piege": "Ce n'est pas l'âge moyen au décès d'aujourd'hui, ni une prévision : c'est un résumé de la mortalité de l'année. Elle dépend de bien d'autres facteurs que le système de soins (modes de vie, revenus, épidémies, canicules).",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "series": [
+        {
+          "id": "femmes",
+          "nom": "Femmes",
+          "valeurs": [
+            85.1,
+            85.3,
+            85.3,
+            85.4,
+            85.6,
+            85.1,
+            85.2,
+            85.1,
+            85.6,
+            85.8,
+            85.9
+          ]
+        },
+        {
+          "id": "hommes",
+          "nom": "Hommes",
+          "valeurs": [
+            79,
+            79.3,
+            79.4,
+            79.5,
+            79.7,
+            79.1,
+            79.2,
+            79.3,
+            80,
+            80.2,
+            80.3
+          ]
+        }
+      ],
+      "provisoire": [
+        2023,
+        2024,
+        2025
+      ],
+      "source": {
+        "titre": "Bilan démographique 2025 – Espérance de vie par sexe et âge (tableau 5)",
+        "producteur": "Insee",
+        "url": "https://www.insee.fr/fr/statistiques/fichier/8721189/5_Esperance_vie.xlsx",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/insee-5_Esperance_vie.xlsx"
+      }
+    },
+    {
+      "id": "vie-en-bonne-sante-65",
+      "libelle": "Années de vie en bonne santé à 65 ans",
+      "question": "Les années gagnées sont-elles vécues en bonne santé ?",
+      "unite": "ans",
+      "decimales": 1,
+      "sens": "hausse",
+      "evolution": "absolue",
+      "definition": "Nombre moyen d'années qu'une personne de 65 ans peut espérer vivre sans limitation dans les activités de la vie quotidienne (espérance de vie sans incapacité). Calcul d'Eurostat à partir de la mortalité et de la question sur les limitations de l'enquête SRCV. France.",
+      "piege": "Il repose sur une question déclarative, sensible à la formulation et aux changements d'enquête : les ruptures de 2020 et 2022 et les valeurs provisoires interdisent de lire une tendance fine d'une année sur l'autre.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "femmes",
+          "nom": "Femmes",
+          "valeurs": [
+            10.7,
+            10.6,
+            10.9,
+            11.3,
+            11.6,
+            11.8,
+            12.6,
+            11.7,
+            12.0,
+            11.5
+          ]
+        },
+        {
+          "id": "hommes",
+          "nom": "Hommes",
+          "valeurs": [
+            9.8,
+            9.5,
+            9.3,
+            10.2,
+            10.4,
+            10.2,
+            11.3,
+            10.2,
+            10.5,
+            10.3
+          ]
+        }
+      ],
+      "provisoire": [
+        2022,
+        2023,
+        2024
+      ],
+      "ruptures": [
+        {
+          "annee": 2020,
+          "texte": "Rupture de série signalée par Eurostat pour la France."
+        },
+        {
+          "annee": 2022,
+          "texte": "Nouvelle rupture de série signalée par Eurostat pour la France."
+        }
+      ],
+      "source": {
+        "titre": "Healthy life years by sex (from 2004 onwards) (hlth_hlye)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hlth_hlye?geo=FR&geo=EU27_2020",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/eurostat-hlth_hlye-france-ue.json"
+      }
+    },
+    {
+      "id": "lits-hospitalisation",
+      "libelle": "Lits et places d'hospitalisation",
+      "question": "L'hôpital a-t-il moins de lits qu'avant ?",
+      "unite": "lits ou places",
+      "decimales": 0,
+      "sens": "neutre",
+      "evolution": "relative",
+      "definition": "Lits d'hospitalisation complète (avec nuitée) et places d'hospitalisation partielle (sans nuitée) en état d'accueillir des patients au 31 décembre, dans tous les établissements de santé publics et privés, toutes disciplines (court séjour, psychiatrie, soins de réadaptation, longue durée pour les lits). France, y compris le service de santé des armées.",
+      "piege": "Une baisse du nombre de lits ne signifie pas à elle seule moins de soins : une partie des prises en charge se fait désormais sans nuitée (chirurgie ambulatoire, hôpital de jour), ce que montrent les places. Elle ne dit rien non plus des lits fermés faute de personnel, qui ne sont pas « en état d'accueillir ».",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "lits",
+          "nom": "Lits d'hospitalisation complète",
+          "valeurs": [
+            407875,
+            403906,
+            399255,
+            395316,
+            390703,
+            386029,
+            380607,
+            373834,
+            369442,
+            367128
+          ]
+        },
+        {
+          "id": "places",
+          "nom": "Places d'hospitalisation partielle",
+          "valeurs": [
+            71712,
+            73603,
+            75048,
+            76812,
+            78753,
+            79911,
+            82550,
+            85245,
+            88421,
+            90986
+          ]
+        }
+      ],
+      "source": {
+        "titre": "Les établissements de santé en 2024 – Édition 2026, fiche 02 « Les capacités d'accueil en hospitalisation complète et partielle » (données des graphiques 1 et 2)",
+        "producteur": "Drees (SAE)",
+        "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2026-07/ES%202026%20-%20Fiche%2002%20-%20Les%20capacit%C3%A9s%20d%E2%80%99accueil%20en%20hospitalisation%20compl%C3%A8te%20et%20partielle.xlsx",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/drees-ES2026-fiche02-capacites.xlsx"
+      }
+    },
+    {
+      "id": "passages-urgences",
+      "libelle": "Passages aux urgences",
+      "question": "Les urgences sont-elles de plus en plus sollicitées ?",
+      "unite": "millions de passages",
+      "decimales": 1,
+      "sens": "neutre",
+      "evolution": "relative",
+      "definition": "Nombre annuel de passages dans les structures des urgences hospitalières (générales et pédiatriques), France y compris le service de santé des armées.",
+      "piege": "Un passage n'est pas un patient : une même personne peut venir plusieurs fois. Le nombre de passages ne mesure ni l'attente ni la saturation ; la chute de 2020 tient à la crise sanitaire, pas à une amélioration de l'accès aux soins de ville.",
+      "annees": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "series": [
+        {
+          "id": "ensemble",
+          "nom": "Passages aux urgences",
+          "valeurs": [
+            20.13,
+            20.88,
+            21.24,
+            21.68,
+            21.88,
+            18.09,
+            20.29,
+            21.55,
+            20.81,
+            21.33
+          ]
+        }
+      ],
+      "source": {
+        "titre": "Les établissements de santé en 2024 – Édition 2026, fiche 21 « La médecine d'urgence » (graphique 1)",
+        "producteur": "Drees (SAE)",
+        "url": "https://drees.solidarites-sante.gouv.fr/sites/default/files/2026-07/ES%202026%20-%20Fiche%2021%20-%20La%20m%C3%A9decine%20d%27urgence.xlsx",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/drees-ES2026-fiche21-urgences.xlsx"
+      }
+    }
+  ],
+  "comparaisons": [
+    {
+      "id": "depense-sante-pib",
+      "libelle": "Dépense courante de santé",
+      "unite": "% du PIB",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "neutre",
+      "definition": "Dépense courante de santé (tous financeurs : public, complémentaires, ménages) rapportée au PIB, selon le système international des comptes de la santé (SHA). La Drees, avec des comptes plus récents, publie 11,7 % pour la France en 2024 et 11,8 % en 2025.",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 11.33
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 12.21
+        },
+        {
+          "nom": "Italie",
+          "valeur": 8.46
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 9.25
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 10.16
+        }
+      ],
+      "source": {
+        "titre": "Current healthcare expenditure (tps00207)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tps00207?geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/eurostat-tps00207.json"
+      }
+    },
+    {
+      "id": "besoins-non-satisfaits-europe",
+      "libelle": "Renoncement déclaré à un examen médical (coût, distance ou attente)",
+      "unite": "%",
+      "decimales": 1,
+      "annee": 2025,
+      "sens": "baisse",
+      "definition": "Part des 16 ans ou plus déclarant un besoin d'examen ou de traitement médical non satisfait au cours des 12 derniers mois, parce que c'était trop cher, trop loin ou à cause d'une liste d'attente (enquête européenne EU-SILC).",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 3.7
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 1.0
+        },
+        {
+          "nom": "Italie",
+          "valeur": 2.5
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 1.6
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 2.4
+        }
+      ],
+      "source": {
+        "titre": "Self-reported unmet needs for medical examination (hlth_silc_08)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hlth_silc_08?geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020&sex=T&age=Y_GE16&unit=PC&quant_inc=TOTAL",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/eurostat-hlth_silc_08-pays.json"
+      }
+    },
+    {
+      "id": "esperance-de-vie-europe",
+      "libelle": "Espérance de vie à la naissance",
+      "unite": "ans",
+      "decimales": 1,
+      "annee": 2024,
+      "sens": "hausse",
+      "definition": "Espérance de vie à la naissance, femmes et hommes ensemble, calculée par Eurostat (valeurs provisoires pour la France et estimées pour l'Union européenne).",
+      "pays": [
+        {
+          "nom": "France",
+          "valeur": 83.0
+        },
+        {
+          "nom": "Allemagne",
+          "valeur": 81.2
+        },
+        {
+          "nom": "Italie",
+          "valeur": 83.7
+        },
+        {
+          "nom": "Espagne",
+          "valeur": 84.0
+        },
+        {
+          "nom": "Union européenne",
+          "valeur": 81.5
+        }
+      ],
+      "source": {
+        "titre": "Life expectancy by age and sex (demo_mlexpec)",
+        "producteur": "Eurostat",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_mlexpec?geo=FR&geo=DE&geo=IT&geo=ES&geo=EU27_2020&sex=T&age=Y_LT1&unit=YR&time=2024",
+        "consulte_le": "2026-11-15",
+        "fichier": "sources/sante/eurostat-demo_mlexpec-2024.json"
+      }
+    }
+  ],
+  "performance": [
+    {
+      "mission": "Santé",
+      "programme": "Prévention, sécurité sanitaire et offre de soins (204)",
+      "indicateur": "Taux de couverture vaccinale contre la grippe chez les personnes de 65 ans et plus",
+      "sous_indicateur": "Ensemble",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        56.8,
+        56.2,
+        54,
+        54
+      ],
+      "cible": [
+        62,
+        60,
+        62,
+        62
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Santé",
+      "programme": "Prévention, sécurité sanitaire et offre de soins (204)",
+      "indicateur": "Taux de participation au dépistage organisé du cancer colorectal pour les personnes de 50 ans à 74 ans",
+      "sous_indicateur": "Ensemble",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        35.3,
+        28.4,
+        33.1
+      ],
+      "cible": [
+        46,
+        50,
+        51,
+        51.4
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Santé",
+      "programme": "Indicateur de mission",
+      "indicateur": "État de santé perçue : part de la population de 16 ans et plus se déclarant en bonne ou très bonne santé générale",
+      "sous_indicateur": "Ensemble",
+      "unite": "%",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        null,
+        64.9,
+        66.2,
+        null
+      ],
+      "cible": [
+        60,
+        68.4,
+        66.5,
+        66
+      ],
+      "sens": "hausse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    },
+    {
+      "mission": "Santé",
+      "programme": "Protection maladie (183)",
+      "indicateur": "Délai moyen d'instruction des demandes d'aide médicale de l'État (AME)",
+      "sous_indicateur": "Délai moyen d'instruction des dossiers",
+      "unite": "jours",
+      "annees": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "realise": [
+        28,
+        24,
+        20,
+        19
+      ],
+      "cible": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "sens": "baisse",
+      "fichier": "Performance-execution-cible-2022-2024.csv ; RAP2025-Performance.csv"
+    }
+  ],
+  "moyens": {
+    "codes": [
+      "GF07"
+    ],
+    "texte": "Fonction « Santé » de la comptabilité nationale (nomenclature COFOG) : hôpitaux, soins de ville, médicaments et appareils, prévention et recherche en santé, pour toutes les administrations publiques (État, Sécurité sociale, collectivités). Les indemnités journalières de maladie sont classées dans la protection sociale et ne sont pas comptées ici, pas plus que ce que paient les complémentaires santé et les ménages."
+  },
+  "idees_recues": [
+    {
+      "affirmation": "« Les Français renoncent de plus en plus à se soigner parce que c'est trop cher. »",
+      "reponse": "La part des personnes déclarant avoir renoncé à un examen médical a augmenté (3,2 % en 2022, 3,7 % en 2025, à méthode constante). Le coût reste la première raison citée, mais sa part est stable depuis 2022 (2,0 % puis 1,9 % en 2025), alors que l'attente progresse (1,0 % puis 1,4 %). Dans le même temps, la part des dépenses payée directement par les ménages a baissé en moyenne.",
+      "indicateur": "besoins-non-satisfaits"
+    },
+    {
+      "affirmation": "« Il y a de moins en moins de médecins en France. »",
+      "reponse": "Le nombre total de médecins en activité a augmenté, de 221 001 en 2015 à 242 185 au 1er janvier 2026. C'est le nombre de généralistes par habitant qui a baissé jusqu'en 2024 (de 153 à 144 pour 100 000 habitants), avant de remonter légèrement (146 en 2026), alors que la population vieillit et a davantage besoin de soins.",
+      "indicateur": "generalistes-pour-100-000"
+    },
+    {
+      "affirmation": "« On ferme des lits à l'hôpital alors que les urgences débordent. »",
+      "reponse": "Les deux constats sont exacts : 40 747 lits d'hospitalisation complète en moins entre fin 2015 et fin 2024, et un nombre de passages aux urgences passé de 20,1 à 21,3 millions par an. Mais une partie des lits a été remplacée par des places sans nuitée (19 274 de plus sur la période). Le nombre de passages ne mesure pas à lui seul l'attente ni la saturation.",
+      "indicateur": "lits-hospitalisation"
+    },
+    {
+      "affirmation": "« En France, la santé est gratuite. »",
+      "reponse": "Les ménages paient directement 9,7 % de la dépense courante de santé en 2025, soit 495 euros par habitant selon la Drees, sans compter les cotisations aux complémentaires santé. Cette part est plus faible qu'en 2015 (11,4 %), mais elle varie fortement selon les soins (dentaire, optique, dépassements d'honoraires).",
+      "indicateur": "reste-a-charge"
+    },
+    {
+      "affirmation": "« La France est le pays d'Europe qui dépense le plus pour sa santé. »",
+      "reponse": "La France dépense beaucoup : 11,3 % du PIB en 2024 selon Eurostat, contre 10,2 % en moyenne dans l'Union européenne. Mais l'Allemagne dépense davantage (12,2 %). Dépenser plus ne garantit pas un meilleur accès : la France compte plus de renoncements déclarés à un examen médical que l'Allemagne, l'Italie ou l'Espagne en 2025.",
+      "indicateur": "besoins-non-satisfaits"
+    },
+    {
+      "affirmation": "« On vit de plus en plus longtemps, donc en meilleure santé. »",
+      "reponse": "L'espérance de vie a progressé entre 2015 et 2025 (85,1 à 85,9 ans pour les femmes, 79,0 à 80,3 ans pour les hommes, chiffres provisoires depuis 2023), après un recul en 2020. Les années de vie en bonne santé à 65 ans varient selon les enquêtes et connaissent des ruptures de série : elles ne permettent pas de conclure à une nette amélioration.",
+      "indicateur": "esperance-de-vie"
+    }
+  ],
+  "questions_candidats": [
+    "Quelle part de patients en affection longue durée sans médecin traitant visez-vous en 2032, alors que l'objectif de 2 % n'est pas atteint (4,3 % fin 2025) ?",
+    "Comment comptez-vous réduire l'écart d'accès au généraliste entre les 10 % d'habitants les moins bien dotés (1,3 consultation par an) et les 10 % les mieux dotés (5,7) ?",
+    "Quel niveau de renoncement aux soins visez-vous pour 2032, alors qu'il atteint 3,7 % en 2025 et 5,8 % chez les plus modestes ?",
+    "Comptez-vous modifier la part des dépenses de santé payée par les ménages, et pour quels soins en priorité ?",
+    "Combien de lits d'hospitalisation, de places sans nuitée et de services d'urgences prévoyez-vous en 2032, et avec quels personnels ?"
+  ]
+}
