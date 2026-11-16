@@ -55,7 +55,7 @@
       "decimales": 1,
       "sens": "baisse",
       "definition": "Part des élèves de 15 ans dont le score en culture mathématique à l'enquête PISA de l'OCDE est inférieur au niveau 2, seuil en dessous duquel l'OCDE considère qu'ils ne peuvent pas utiliser les mathématiques dans des situations simples de la vie courante. Enquête tous les trois ou quatre ans (2012, 2015, 2018, 2022, 2025) sur un échantillon d'élèves scolarisés. Moyenne de l'Union européenne calculée par Eurostat.",
-      "piege": "PISA mesure la capacité à utiliser les mathématiques dans des situations concrètes, pas le respect des programmes français : ses résultats ne se comparent pas directement aux évaluations nationales. La baisse touche presque tous les pays de l'OCDE ; en 2025, la France reste dans la moyenne de l'OCDE pour le score moyen (458 points contre 463). La Depp signale aussi que les élèves français déclarent avoir fourni moins d'effort pendant le test en 2025 qu'en 2022, un facteur qui pèse peu sur les scores selon elle.",
+      "piege": "PISA mesure la capacité à utiliser les mathématiques dans des situations concrètes, pas le respect des programmes français : ses résultats ne se comparent pas directement aux évaluations nationales. La baisse touche presque tous les pays de l'OCDE ; en 2025, la France reste dans la moyenne de l'OCDE pour le score moyen (458 points contre 463). La Depp signale aussi que les élèves français déclarent avoir fourni moins d'effort pendant le test en 2025 qu'en 2022, un facteur qui pèse peu sur les scores selon elle. Eurostat signale une rupture de série en 2022, mais l'OCDE et la Depp comparent directement 2018 et 2022 : le score de la France en mathématiques a baissé de 21 points entre ces deux années.",
       "annees": [
         2012,
         2015,
@@ -88,12 +88,7 @@
         }
       ],
       "provisoire": [],
-      "ruptures": [
-        {
-          "annee": 2022,
-          "texte": "Eurostat signale une rupture de série en 2022. L'OCDE et la Depp comparent néanmoins directement 2018 et 2022 : le score de la France en mathématiques a baissé de 21 points entre ces deux années."
-        }
-      ],
+      "ruptures": [],
       "objectif": {
         "annee": 2030,
         "valeur": 15,

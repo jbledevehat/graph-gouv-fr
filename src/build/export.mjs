@@ -7,7 +7,7 @@ import { formerAddresses } from './duplicates.mjs';
 import { avecBandeau, SECTIONS } from './bandeau.mjs';
 import { REGROUPEMENTS, writeBudgetPdf } from './pdf-budget.mjs';
 import { faqHtml, faqJsonLd, pageAnnee, questionsArgentPublic, titrePage } from '../../budget/faq.js';
-import { ADRESSES, ENJEUX, esc as escHtml, porteAccueil, chiffreAccueil, SOMBRE, textesPage } from '../../enjeux/commun.js';
+import { ADRESSES, ENJEUX, esc as escHtml, apercu, nombre as nombreFr, porteAccueil, chiffreAccueil, SOMBRE, textesPage } from '../../enjeux/commun.js';
 
 const NO_POLE = 'Sans ministère identifié';
 const TYPES = { site: 'site', 'sous-domaine': 'sous-domaine', archive: 'archivé' };
@@ -245,6 +245,14 @@ export async function writeWeb(webData, rows) {
   await writeOut('out/web/tableaux-commun.js', await readFile(path('enjeux/commun.js')));
 
   // --- Accueil ---
+  // Aperçu de la carte « Éducation et jeunesse » : pensées suicidaires à 17 ans, filles et garçons (ESCAPAD).
+  const escapad = JSON.parse(await readFile(path('jeunes/donnees/moral-des-jeunes.json'), 'utf8')).enquetes.find(e => e.id === 'escapad');
+  const pensees = escapad.indicateurs.find(i => i.id === 'pensees');
+  const apercuMoral = apercu({
+    titre: 'Pensées suicidaires dans l\'année à 17 ans, en %', annees: escapad.annees,
+    series: [{ nom: 'Filles', valeurs: pensees.filles, couleur: '#EB6834' }, { nom: 'Garçons', valeurs: pensees.garcons, couleur: '#2A78D6' }],
+    format: v => nombreFr(v, 1) + '\u00a0%',
+  });
   const secu = argent.secteurs.find(x => x.code === 'S1314').total;
   const part = code => argent.secteurs.find(x => x.code === code).total;
   await writePage('web/accueil.html', 'out/web/index.html', {
@@ -256,6 +264,7 @@ export async function writeWeb(webData, rows) {
     // « Éducation et jeunesse » avec le moral des jeunes (deux chiffres de l'école, un du moral).
     blocs: {
       ...Object.fromEntries(enjeux.filter(D => ADRESSES[D.id].section !== 'jeunes').map(D => [`porte-${D.id}`, porteAccueil(D, { chemin: ADRESSES[D.id].chemin })])),
+      'apercu-moral': apercuMoral,
       'chiffres-ecole': (D => ['pisa-maths-difficulte', 'neet'].map(id => chiffreAccueil(D.indicateurs.find(i => i.id === id))).join('\n            '))(enjeux.find(D => D.id === 'ecole')),
     },
     vars: {

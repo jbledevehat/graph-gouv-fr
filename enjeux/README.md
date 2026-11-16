@@ -29,7 +29,8 @@ Proposition indépendante construite à partir de documents publics ; ce n'est p
   repris d'un article de presse ou d'un site non officiel.
 - **Recopié, pas recalculé**, sauf mention explicite dans `calcul` (par exemple un passage en euros
   constants), avec la formule.
-- **Une rupture de série est signalée** (`ruptures`) et la série n'est pas reliée par-dessus.
+- **Un changement de méthode est signalé** (`ruptures`, avec ce qui a changé) : trait pointillé sur le
+  graphique, courbe en pointillés à cet endroit, note sous le graphique, et évolution calculée après.
 - **Le provisoire est marqué** (`provisoire` : liste des années).
 - Les fichiers téléchargés de moins de 5 Mo sont gardés dans `sources/<sujet>/` ; tous sont décrits
   dans `sources/SOURCES-<sujet>.md` (adresse, producteur, licence, date, taille, SHA-256).

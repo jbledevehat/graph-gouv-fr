@@ -94,7 +94,7 @@ export function chiffreCle(ind, { lien = '', classe = '' } = {}) {
 export function porteAccueil(D, { chemin, liens = [['Le tableau de bord', chemin]], chiffres } = {}) {
   const cles = (D.cles || []).map(id => D.indicateurs.find(i => i.id === id)).filter(i => i && bilan(i));
   return `<div class="card door">
-        <div class="visual" aria-hidden="true">${apercu(cles[0], D.couleur)}</div>
+        <div class="visual" aria-hidden="true">${apercuIndicateur(cles[0], D.couleur)}</div>
         <div class="body">
           <span class="eyebrow">${esc(D.eyebrow)}</span>
           <h3><a href="${chemin}">${esc(D.titre)}</a></h3>
@@ -117,17 +117,49 @@ export function chiffreAccueil(ind) {
   return `<div><b>${n}</b><span>${esc(lib)} (${b.annee}${b.provisoire ? ', provisoire' : ''})</span></div>`;
 }
 
-// Aperçu décoratif : la courbe d'un indicateur depuis 2010, dans le cadre des autres aperçus.
-function apercu(ind, couleur) {
+// Aperçu d'un indicateur sur sa carte : sa courbe depuis 2010, avec ce qu'elle mesure.
+function apercuIndicateur(ind, couleur) {
   if (!ind) return '';
-  const s = ind.series[0].valeurs, A = ind.annees;
-  const pts = A.map((a, k) => [a, s[k]]).filter(([a, v]) => v != null && a >= 2010);
-  // Échelle resserrée sur la série, comme l'aperçu du moral des jeunes : c'est un motif, pas un graphique.
-  const vs = pts.map(p => p[1]), lo = Math.min(...vs), hi = Math.max(...vs);
-  const x = a => 20 + (a - pts[0][0]) / ((pts[pts.length - 1][0] - pts[0][0]) || 1) * 260;
-  const y = v => 115 - (v - lo) / ((hi - lo) || 1) * 90;
-  const p = pts.map(([a, v]) => `${x(a).toFixed(0)},${y(v).toFixed(0)}`).join(' ');
-  return `<svg class="courbes" viewBox="0 0 300 150" preserveAspectRatio="none" style="--c:${couleur};--c-sombre:${SOMBRE[couleur] || couleur}"><line x1="20" x2="280" y1="130" y2="130"/><polyline class="t" points="${p}"/></svg>`;
+  const garde = ind.annees.map((a, k) => a >= 2010 && ind.series[0].valeurs[k] != null);
+  const debut = garde.filter(Boolean).length >= 2 ? garde.indexOf(true) : 0;
+  let titre = ind.libelle;
+  if (ind.unite && !titre.toLowerCase().includes(ind.unite.toLowerCase()) && !ind.unite.startsWith('indice')) titre += `, en ${ind.unite}`;
+  return apercu({
+    titre, annees: ind.annees.slice(debut), zero: !axeResserre(ind),
+    series: [{ valeurs: ind.series[0].valeurs.slice(debut), couleur }],
+    format: v => nombre(v, ind.decimales ?? 0) + (ind.unite === '%' ? ' %' : ''),
+  });
+}
+
+// Aperçu d'une carte de l'accueil, lisible seul : ce qui est mesuré, la courbe, la première et la
+// dernière valeur avec leurs années. L'axe part de zéro, comme dans les tableaux, pour ne pas
+// grossir les variations. Avec deux séries, chacune est nommée près de sa valeur.
+export function apercu({ titre, annees, series, format, zero = true }) {
+  const pts = series.map(s => annees.map((a, k) => [a, s.valeurs[k]]).filter(p => p[1] != null));
+  const a0 = Math.min(...pts.map(p => p[0][0])), a1 = Math.max(...pts.map(p => p.at(-1)[0]));
+  const vs = pts.flat().map(p => p[1]), hi = Math.max(...vs), min = Math.min(...vs);
+  const lo = zero ? Math.min(0, min) : min - (hi - min) * 0.2;
+  // Le haut du cadre est laissé libre pour l'étiquette posée au-dessus de la courbe.
+  const x = a => (a - a0) / ((a1 - a0) || 1) * 100;
+  const y = v => 30 + (1 - (v - lo) / ((hi - lo) || 1)) * 70;
+  const pos = ([a, v]) => `left:${x(a).toFixed(1)}%;top:${y(v).toFixed(1)}%`;
+  const traces = [], marques = [];
+  series.forEach((s, i) => {
+    const p = pts[i], c = `--c:${s.couleur};--c-sombre:${SOMBRE[s.couleur] || s.sombre || s.couleur}`;
+    // La première série a ses valeurs au-dessus de la courbe, la seconde au-dessous.
+    const cote = i === 0 ? 'dessus' : 'dessous', nom = s.nom ? `${esc(s.nom)} ` : '';
+    const ligne = p.map(([a, v]) => `${x(a).toFixed(2)},${y(v).toFixed(2)}`).join(' ');
+    // Surface jusqu'à zéro : sa hauteur montre la grandeur, pas seulement la tendance.
+    traces.push(`<polygon style="${c}" points="${x(p[0][0]).toFixed(2)},100 ${ligne} ${x(p.at(-1)[0]).toFixed(2)},100"/><polyline style="${c}" points="${ligne}"/>`);
+    for (const [q, bout] of [[p[0], 'debut'], [p.at(-1), 'fin']]) {
+      marques.push(`<i style="${c};${pos(q)}"></i><span class="ap-val ${bout} ${cote}" style="${pos(q)}">${bout === 'fin' ? nom : ''}<b>${esc(format(q[1]))}</b></span>`);
+    }
+  });
+  return `<div class="ap">
+            <span class="ap-titre">${esc(titre)}</span>
+            <div class="ap-trace"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="0" x2="100" y1="100" y2="100"/>${traces.join('')}</svg>${marques.join('')}</div>
+            <div class="ap-ans"><span>${a0}</span><span>${a1}</span></div>
+          </div>`;
 }
 
 // Textes d'une page de sujet, écrits dans le gabarit à la construction.

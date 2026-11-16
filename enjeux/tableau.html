@@ -281,7 +281,7 @@
     <div class="card pad" style="display:grid;gap:12px">
       <ul class="methode">
         <li><b>Des sources officielles seulement.</b> Chaque chiffre est recopié de la publication ou du fichier de l'organisme qui le produit (Insee, services statistiques des ministères, Eurostat, OCDE, Direction du budget), sans recalcul, sauf mention contraire sous l'indicateur.</li>
-        <li><b>Les ruptures de série sont montrées.</b> Quand la méthode change, la courbe est interrompue et l'évolution n'est calculée qu'après la rupture. Les chiffres provisoires sont signalés par un point creux.</li>
+        <li><b>Les changements de méthode sont montrés.</b> Quand une enquête change de questionnaire ou de champ, un trait pointillé marque l'année, la courbe le traverse en pointillés et l'évolution affichée n'est calculée qu'après le changement. Les chiffres provisoires sont signalés par un point creux.</li>
         <li><b>Des axes honnêtes.</b> Les axes partent de zéro, sauf pour les grandeurs qui ne s'en approchent jamais (espérance de vie, scores) : la page le signale alors sous le graphique.</li>
         <li><b>Le sens souhaitable est affiché, pas le jugement.</b> La couleur des évolutions dit seulement si l'indicateur va dans le sens que chacun souhaite (moins de chômage, plus d'espérance de vie). Les causes, elles, se discutent : la page ne les attribue à personne.</li>
         <li><b>Tout se partage avec sa source.</b> Le lien d'un graphique mène directement à lui ; son image porte la source et l'adresse de la page ; ses données se téléchargent en CSV.</li>
@@ -366,8 +366,13 @@ function graduations(lo, hi, n = 4) {
 
 // --- Courbe d'un indicateur ---
 // Les années très espacées (1990 puis 2015) sont rapprochées et séparées par une coupure ; les
-// ruptures de série interrompent la courbe ; le provisoire est un point creux ; l'objectif, un
+// changements de méthode sont marqués d'un trait pointillé que la courbe traverse en pointillés ; le provisoire est un point creux ; l'objectif, un
 // losange relié à la dernière valeur par un tiret.
+// Indices des années qui suivent un changement de méthode, dans les années de la série.
+function ruptures(ind) {
+  return (ind.ruptures || []).map(r => ind.annees.findIndex(a => a >= r.annee)).filter(k => k > 0);
+}
+
 function courbe(ind, { K, clair = false, W = 560, H = 250 } = {}) {
   // Un objectif postérieur aux données ajoute son année à l'axe ; un objectif déjà échu se place
   // sur l'année des données.
@@ -406,29 +411,33 @@ function courbe(ind, { K, clair = false, W = 560, H = 250 } = {}) {
   }
   s += montrees.map(k => `<text x="${xs(k)}" y="${H - 6 * f}" text-anchor="middle" fill="${apres && k === tous.length - 1 ? K.ink : K.muted}" font-size="${11 * f}" font-family="IBM Plex Mono, monospace">${tous[k]}</text>`).join('');
   for (const k of coupures) { const xm = (xs(k - 1) + xs(k)) / 2; s += `<text x="${xm}" y="${H - m.b + 4}" text-anchor="middle" fill="${K.muted}" font-size="${13 * f}">≈</text>`; }
-  // Ruptures de série.
-  for (const r of ind.ruptures || []) {
-    const k = A.findIndex(a => a >= r.annee); if (k <= 0) continue;
-    const xr = (xs(k - 1) + xs(k)) / 2;
-    s += `<line x1="${xr}" x2="${xr}" y1="${m.t}" y2="${H - m.b}" stroke="${K.control}" stroke-width="1"/><text x="${xr + 4}" y="${m.t + 9}" fill="${K.muted}" font-size="${10.5 * f}" font-family="IBM Plex Sans, sans-serif">rupture</text>`;
-  }
-  const casse = k => coupures.includes(k) || (ind.ruptures || []).some(r => A[k] >= r.annee && A[k - 1] < r.annee);
+  // Changements de méthode (ruptures de série) : un trait vertical pointillé, nommé ; la courbe le
+  // traverse en pointillés. Sur une coupure « ≈ », le trait est inutile : la courbe y est déjà coupée.
+  const traits = ruptures(ind).filter(k => !coupures.includes(k)).map(k => (xs(k - 1) + xs(k)) / 2);
+  traits.forEach((xr, j) => {
+    const place = (j + 1 < traits.length ? traits[j + 1] : W - m.r) - xr;
+    s += `<line x1="${xr}" x2="${xr}" y1="${m.t}" y2="${H - m.b}" stroke="${K.control}" stroke-width="1" stroke-dasharray="3 3"/>`;
+    if (place > 58 * f) s += `<text x="${xr + 4}" y="${m.t + 9}" fill="${K.muted}" font-size="${10.5 * f}" font-family="IBM Plex Sans, sans-serif">${place > 100 * f ? 'nouvelle méthode' : 'méthode'}</text>`;
+  });
+  const methode = k => (ind.ruptures || []).some(r => A[k] >= r.annee && A[k - 1] < r.annee);
   const prov = new Set(ind.provisoire || []);
   const fins = [];
   ind.series.forEach((se, i) => {
     const c = couleurSerie(i, K, clair, ind.series);
     // Tracé plein entre deux valeurs définitives, en tirets vers ou depuis une valeur provisoire.
-    let d = '', dp = '', pts = '', prec = null, finD = null;
+    let d = '', dp = '', dm = '', pts = '', prec = null, finD = null;
     se.valeurs.forEach((v, k) => {
       if (v == null) { prec = null; return; }
-      const X = xs(k), Y = y(v), relie = prec != null && !casse(k);
-      if (relie && (prov.has(A[k]) || prov.has(A[prec]))) dp += `M${xs(prec)},${y(se.valeurs[prec])}L${X},${Y}`;
+      const X = xs(k), Y = y(v), relie = prec != null && !coupures.includes(k);
+      if (relie && methode(k)) dm += `M${xs(prec)},${y(se.valeurs[prec])}L${X},${Y}`;
+      else if (relie && (prov.has(A[k]) || prov.has(A[prec]))) dp += `M${xs(prec)},${y(se.valeurs[prec])}L${X},${Y}`;
       else if (relie) { d += (finD === prec ? '' : `M${xs(prec)},${y(se.valeurs[prec])}`) + `L${X},${Y}`; finD = k; }
       pts += prov.has(A[k]) ? `<circle cx="${X}" cy="${Y}" r="${3.5 * f}" fill="${K.panel}" stroke="${c}" stroke-width="2"/>` : `<circle cx="${X}" cy="${Y}" r="${(A.length > 12 ? 2.5 : 3.5) * f}" fill="${c}" stroke="${K.panel}" stroke-width="1.5"/>`;
       prec = k;
     });
     s += `<path d="${d}" fill="none" stroke="${c}" stroke-width="${2 * f}" stroke-linejoin="round" stroke-linecap="round"/>`;
     if (dp) s += `<path d="${dp}" fill="none" stroke="${c}" stroke-width="${2 * f}" stroke-dasharray="4 4" stroke-linecap="round"/>`;
+    if (dm) s += `<path d="${dm}" fill="none" stroke="${c}" stroke-width="${1.5 * f}" stroke-dasharray="2 4" stroke-linecap="round" opacity=".7"/>`;
     s += pts;
     const k1 = se.valeurs.map((v, k) => v != null ? k : -1).filter(k => k >= 0).pop();
     if (k1 != null) fins.push({ y: y(se.valeurs[k1]), x: xs(k1), t: nombre(se.valeurs[k1], ind.decimales ?? 0) });
@@ -574,12 +583,23 @@ function dessinerCles() {
   $('cles').innerHTML = D.indicateurs.map(i => chiffreCle(i, { lien: '#i-' + i.id, classe: 'card' })).join('');
 }
 
+// Sous le graphique : ce que signifient les traits pointillés, et d'où part l'évolution affichée.
+function noteMethode(ind, b) {
+  const R = (ind.ruptures || []).filter(r => ind.annees.findIndex(a => a >= r.annee) > 0);
+  if (!R.length) return '';
+  const ans = R.map(r => r.annee), liste = ans.length > 1 ? ans.slice(0, -1).join(', ') + ' et ' + ans[ans.length - 1] : ans[0];
+  // Le trait n'est pas dessiné quand le changement tombe dans une coupure « ≈ » de l'axe.
+  const trait = R.some(r => { const k = ind.annees.findIndex(a => a >= r.annee); return ind.annees[k] - ind.annees[k - 1] <= 8; });
+  const depuis = b && b.ecart != null ? ` L'évolution affichée est donc calculée depuis ${b.depuis}.` : '';
+  return `<p class="note-echelle">${trait ? 'Trait pointillé : l' : 'L'}a méthode de mesure a changé en ${liste}. Les valeurs de part et d'autre ne se comparent pas exactement.${depuis} Le détail est dans « Définition et précautions ».</p>`;
+}
+
 function dessinerIndicateurs(K) {
   const lw = largeur('indicateurs', 460);
   $('indicateurs').innerHTML = D.indicateurs.map(ind => {
     const b = bilan(ind), { svg, resserre } = courbe(ind, { K, W: lw, H: lw < 440 ? 230 : 250 });
     const leg = ind.series.length > 1 || ind.objectif ? `<ul class="legend">${ind.series.length > 1 ? ind.series.map((s, i) => `<li style="--c:${couleurSerie(i, K, false, ind.series)}"><i></i>${esc(s.nom)}</li>`).join('') : ''}${ind.objectif ? `<li><span aria-hidden="true">◇</span>${esc(ind.objectif.libelle)}, ${ind.objectif.annee}</li>` : ''}</ul>` : '';
-    const ruptures = (ind.ruptures || []).map(r => `<p><b>Rupture en ${r.annee}.</b> ${esc(r.texte)}</p>`).join('');
+    const methodes = (ind.ruptures || []).map(r => `<p><b>Changement de méthode en ${r.annee}.</b> ${esc(r.texte)}</p>`).join('');
     const prov = (ind.provisoire || []).length ? `<p><b>Provisoire :</b> ${ind.provisoire.join(', ')} (point creux), susceptible d'être révisé.</p>` : '';
     const calcul = ind.calcul ? `<p><b>Calcul.</b> ${esc(ind.calcul)}</p>` : '';
     const objectif = ind.objectif ? `<p><b>Objectif.</b> ${esc(ind.objectif.libelle)} : ${valeur(ind.objectif.valeur, ind)} en ${ind.objectif.annee}. Source : ${esc(ind.objectif.source)}.</p>` : '';
@@ -591,8 +611,9 @@ function dessinerIndicateurs(K) {
       ${leg}
       <div class="graph">${svg}</div>
       ${resserre ? `<p class="note-echelle">Échelle resserrée : l'axe vertical ne part pas de zéro.</p>` : ''}
+      ${noteMethode(ind, b)}
       <p class="piege"><b>À ne pas confondre.</b> ${esc(ind.piege)}</p>
-      <details class="prec"><summary>Définition et précautions</summary><p><b>Ce qui est mesuré.</b> ${esc(ind.definition)}</p>${calcul}${objectif}${ruptures}${prov}</details>
+      <details class="prec"><summary>Définition et précautions</summary><p><b>Ce qui est mesuré.</b> ${esc(ind.definition)}</p>${calcul}${objectif}${methodes}${prov}</details>
       <p class="src">Source : <a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.titre)}</a> (${esc(src.producteur)}), consulté le ${esc(src.consulte_le)}.</p>
       <div class="actions"><button type="button" data-lien="${ind.id}">Copier le lien</button><button type="button" data-image="${ind.id}">Image à partager</button><button type="button" data-csv="${ind.id}">Données (CSV)</button></div>
     </article>`;
