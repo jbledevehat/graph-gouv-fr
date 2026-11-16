@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  /* Gabarit commun des cinq tableaux de bord (enjeux/README.md). Mêmes jetons que les autres pages ;
+  /* Gabarit commun des tableaux de bord thématiques (enjeux/README.md). Mêmes jetons que les autres pages ;
      la couleur de l'enjeu (--enjeu) et celles des administrations viennent de la palette du site,
      vérifiée pour les daltonismes en clair et en sombre. */
   :root {
@@ -187,7 +187,7 @@
 
 <main id="contenu" class="wrap">
   <header class="card intro">
-    <span class="eyebrow">Cinq enjeux pour 2027 · {{eyebrow}}</span>
+    <span class="eyebrow">{{eyebrow}}</span>
     <h1 id="h1">{{titre}}</h1>
     <p class="besoin">{{besoin}}</p>
     <p class="resume">{{resume}}</p>
@@ -297,11 +297,11 @@
 <div id="tip" role="tooltip" hidden></div>
 
 <footer class="wrap">
-  <p>Données : <a href="donnees/{{id}}.json" download>JSON</a> (Licence Ouverte 2.0). Méthode, sources téléchargées et empreintes : <a href="https://github.com/jbledevehat/graph-gouv-fr/tree/master/enjeux" target="_blank" rel="noopener">enjeux/ sur GitHub</a>. Les autres enjeux : <a href="./">vue d'ensemble</a>.</p>
+  <p>Données : <a href="donnees/{{id}}.json" download>JSON</a> (Licence Ouverte 2.0). Méthode, sources téléchargées et empreintes : <a href="https://github.com/jbledevehat/graph-gouv-fr/tree/master/enjeux" target="_blank" rel="noopener">enjeux/ sur GitHub</a>.</p>
 </footer>
 
 <script type="module">
-import { valeur, valeurHtml, nombre, bilan, chiffreCle, esc, SOMBRE, axeResserre } from './commun.js';
+import { valeur, valeurHtml, nombre, bilan, chiffreCle, esc, SOMBRE, axeResserre } from '../tableaux-commun.js';
 
 const $ = id => document.getElementById(id);
 const ID = document.body.dataset.enjeu;
@@ -531,7 +531,7 @@ async function image(ind) {
   // Mesure des textes, puis dessin.
   const blocs = [];
   const ajoute = (t, police, couleur, h, avant = 0) => { c.font = police; blocs.push({ ls: lignes(t, L - 2 * PAD), police, couleur, h, avant }); };
-  ajoute(`CINQ ENJEUX POUR 2027 · ${D.titre.toUpperCase()}`, `500 15px "IBM Plex Mono", monospace`, K.enjeu, 20);
+  ajoute(`${D.eyebrow.toUpperCase()} · ${D.titre.toUpperCase()}`, `500 15px "IBM Plex Mono", monospace`, K.enjeu, 20);
   ajoute(ind.question, `700 34px "IBM Plex Sans", sans-serif`, K.ink, 42, 10);
   const b = bilan(ind);
   ajoute(`${ind.libelle} · ${valeur(b.valeur, ind)} en ${b.annee}${b.provisoire ? ' (provisoire)' : ''}${b.ecart != null ? ` · ${b.ecartTexte} depuis ${b.depuis}` : ''}`, `500 18px "IBM Plex Sans", sans-serif`, K.muted, 26, 8);
@@ -559,7 +559,7 @@ async function image(ind) {
   c.font = `15px "IBM Plex Sans", sans-serif`; c.fillStyle = K.muted;
   for (const l of piedA) { c.fillText(l, PAD, y); y += 21; }
   y += 10; c.font = `500 15px "IBM Plex Mono", monospace`; c.fillStyle = K.enjeu;
-  c.fillText(`gouvfr.jbledevehat.fr/enjeux/${ID}.html#i-${ind.id}`, PAD, y);
+  c.fillText(`gouvfr.jbledevehat.fr/{{chemin}}#i-${ind.id}`, PAD, y);
   const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
   telecharger(blob, `${ID}-${ind.id}.png`);
 }

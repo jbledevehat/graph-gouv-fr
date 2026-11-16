@@ -1,10 +1,11 @@
 {
   "id": "ecole",
   "ordre": 4,
-  "titre": "École et jeunesse",
-  "eyebrow": "Éducation",
+  "titre": "L'école et l'insertion des jeunes",
+  "eyebrow": "Éducation et jeunesse",
   "besoin": "Mes enfants apprennent-ils bien, et trouvent-ils leur place ensuite ?",
   "resume": "Les acquis des élèves ont nettement baissé depuis 2018 aux tests PISA, comme dans la plupart des pays de l'OCDE : en 2025, plus d'un élève de 15 ans sur trois est en difficulté en mathématiques. À l'entrée en sixième, environ trois élèves sur dix ont des acquis faibles, une part à peu près stable depuis 2022. La France fait mieux que la moyenne européenne pour les sorties sans diplôme et les diplômés du supérieur, mais le chômage des 15-24 ans remonte depuis 2023.",
+  "presentation": "Acquis des élèves, sorties sans diplôme, jeunes sans emploi ni formation, chômage des jeunes, diplômés du supérieur et dépense par élève, d'après la Depp et Eurostat.",
   "mise_a_jour": "2026-11-15",
   "couleur": "#1BAF7A",
   "essentiel": [
@@ -48,6 +49,7 @@
     {
       "id": "pisa-maths-difficulte",
       "libelle": "Élèves de 15 ans en difficulté en mathématiques (PISA)",
+      "libelle_court": "des élèves de 15 ans en difficulté en maths (PISA)",
       "question": "À 15 ans, combien d'élèves ne maîtrisent pas les bases en mathématiques ?",
       "unite": "%",
       "decimales": 1,
@@ -272,6 +274,7 @@
     {
       "id": "neet",
       "libelle": "Jeunes ni en emploi, ni en études, ni en formation",
+      "libelle_court": "des 15-29 ans ni en emploi, ni en études, ni en formation",
       "question": "Combien de jeunes adultes sont sans emploi et sans formation ?",
       "unite": "%",
       "decimales": 1,

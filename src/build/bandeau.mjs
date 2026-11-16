@@ -19,13 +19,25 @@ export const SECTIONS = {
     nom: 'Acteurs publics', chemin: 'acteurs/',
     pages: [['organigramme', 'Organigramme', 'acteurs/']],
   },
-  jeunes: {
-    nom: 'Moral des jeunes', chemin: 'jeunes/',
-    pages: [['moral', 'Pensées suicidaires et moral', 'jeunes/']],
+  'pouvoir-achat': {
+    nom: "Pouvoir d'achat", chemin: 'pouvoir-achat/',
+    pages: [['tableau', 'Tableau de bord', 'pouvoir-achat/']],
   },
-  enjeux: {
-    nom: 'Enjeux 2027', chemin: 'enjeux/',
-    pages: [['ensemble', "Vue d'ensemble", 'enjeux/'], ['pouvoir-achat', "Pouvoir d'achat", 'enjeux/pouvoir-achat.html'], ['sante', 'Santé', 'enjeux/sante.html'], ['securite', 'Sécurité', 'enjeux/securite.html'], ['ecole', 'École', 'enjeux/ecole.html'], ['ecologie', 'Écologie', 'enjeux/ecologie.html']],
+  sante: {
+    nom: 'Santé', chemin: 'sante/',
+    pages: [['tableau', 'Tableau de bord', 'sante/']],
+  },
+  securite: {
+    nom: 'Sécurité', chemin: 'securite/',
+    pages: [['tableau', 'Tableau de bord', 'securite/']],
+  },
+  jeunes: {
+    nom: 'Éducation et jeunesse', chemin: 'jeunes/ecole.html',
+    pages: [['ecole', 'École et insertion', 'jeunes/ecole.html'], ['moral', 'Moral et santé mentale', 'jeunes/']],
+  },
+  ecologie: {
+    nom: 'Écologie', chemin: 'ecologie/',
+    pages: [['tableau', 'Tableau de bord', 'ecologie/']],
   },
 };
 
@@ -77,6 +89,15 @@ const STYLE = `<style>
     .bandeau .b-annee > span:first-child { display: none; }
     .bandeau .b-annee .b-pages > * { padding: 0 6px; font-size: 12px; }
   }
+  /* Sur un petit écran, les sections tiennent sur une ligne qui défile, pour que le bandeau collant
+     ne prenne pas le tiers de l'écran. */
+  @media (max-width: 640px) {
+    .bandeau .b-sections { flex-wrap: nowrap; order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .bandeau .b-sections a { flex: none; white-space: nowrap; }
+    .bandeau .b-annee { min-width: 0; max-width: 100%; }
+    .bandeau .b-annee .b-pages { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .bandeau .b-annee .b-pages > * { flex: none; }
+  }
   .bandeau a:focus-visible, .bandeau button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   /* Panneau de gauche repliable (pages plein écran). */
   .p-replier { position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--muted); font: 600 15px/1 "IBM Plex Sans", system-ui, sans-serif; cursor: pointer; }
@@ -99,6 +120,14 @@ const SCRIPT = `<script>
     const b = document.querySelector('.bandeau');
     const publier = () => document.documentElement.style.setProperty('--bandeau-h', b.getBoundingClientRect().height + 'px');
     publier();
+    // Lignes qui défilent sur petit écran (sections, pages, années) : l'élément courant est amené
+    // à l'écran, une fois l'année choisie marquée (plus bas).
+    setTimeout(() => b.querySelectorAll('.b-sections, .b-pages').forEach(l => {
+      const c = l.querySelector('[aria-current]');
+      if (!c || l.scrollWidth <= l.clientWidth) return;
+      const rl = l.getBoundingClientRect(), rc = c.getBoundingClientRect();
+      l.scrollLeft += rc.left - rl.left - (rl.width - rc.width) / 2;
+    }));
     if ('ResizeObserver' in window) new ResizeObserver(publier).observe(b);
     // Année choisie (?annee=…) : affichée dans la liste, et reportée dans les liens vers les autres
     // pages de la section, même si cette page ne l'a pas (la page des aides : 2024 seulement), pour

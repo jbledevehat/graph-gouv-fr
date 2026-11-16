@@ -5,6 +5,7 @@
   "eyebrow": "Santé",
   "besoin": "Puis-je me soigner à temps, près de chez moi, sans renoncer faute d'argent ?",
   "resume": "On vit plus longtemps et la part des dépenses de santé payée directement par les ménages a baissé depuis 2015. Mais le nombre de médecins généralistes par habitant a diminué jusqu'en 2024, l'accès à un généraliste reste très inégal d'un territoire à l'autre, et les Français déclarent plus souvent que leurs voisins européens avoir renoncé à un examen médical.",
+  "presentation": "Médecins par habitant, accès à un généraliste, renoncement aux soins, reste à charge, espérance de vie, hôpital et urgences, d'après la Drees, l'Assurance maladie, l'Insee et Eurostat.",
   "mise_a_jour": "2026-11-15",
   "couleur": "#2A78D6",
   "essentiel": [
@@ -48,6 +49,7 @@
     {
       "id": "ald-sans-medecin-traitant",
       "libelle": "Patients en affection longue durée sans médecin traitant",
+      "libelle_court": "des patients en affection longue durée sans médecin traitant",
       "question": "Les malades chroniques ont-ils tous un médecin traitant ?",
       "unite": "%",
       "decimales": 1,
@@ -104,6 +106,7 @@
     {
       "id": "generalistes-pour-100-000",
       "libelle": "Médecins généralistes en activité pour 100 000 habitants",
+      "libelle_court": "médecins généralistes pour 100 000 habitants",
       "question": "Y a-t-il assez de médecins généralistes ?",
       "unite": "pour 100 000 habitants",
       "decimales": 0,
@@ -225,6 +228,7 @@
     {
       "id": "besoins-non-satisfaits",
       "libelle": "Renoncement déclaré à un examen médical",
+      "libelle_court": "des 16 ans ou plus disent avoir renoncé à un examen médical",
       "question": "Combien de Français renoncent à se soigner ?",
       "unite": "%",
       "decimales": 1,

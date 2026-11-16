@@ -5,6 +5,7 @@
   "eyebrow": "Niveau de vie",
   "besoin": "Est-ce que je vis mieux de mon travail, et puis-je me loger ?",
   "resume": "Depuis 2015, le pouvoir d'achat moyen a progressé presque chaque année, le taux d'emploi a atteint son plus haut niveau depuis 1975 et le chômage a nettement reculé jusqu'en 2022 avant de remonter un peu. Dans le même temps, la pauvreté est à son plus haut niveau depuis 1996, les salaires ont perdu du terrain pendant la poussée d'inflation de 2022-2023, et la construction de logements est tombée à son plus bas niveau depuis 2000.",
+  "presentation": "Pouvoir d'achat, prix, pauvreté, chômage, emploi, salaires et logement, année par année, d'après l'Insee, avec ce que chaque chiffre mesure et ce qu'il ne mesure pas.",
   "mise_a_jour": "2026-11-15",
   "couleur": "#EB6834",
   "essentiel": [
@@ -43,6 +44,7 @@
     {
       "id": "pouvoir-achat-uc",
       "libelle": "Pouvoir d'achat par unité de consommation",
+      "libelle_court": "évolution du pouvoir d'achat par unité de consommation",
       "question": "Mon revenu me permet-il d'acheter plus ou moins qu'avant ?",
       "unite": "%",
       "decimales": 1,

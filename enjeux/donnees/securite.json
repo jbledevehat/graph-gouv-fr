@@ -5,6 +5,7 @@
   "eyebrow": "Sécurité",
   "besoin": "Suis-je protégé, et la justice passe-t-elle à temps ?",
   "resume": "Les atteintes aux biens enregistrées par la police et la gendarmerie reculent depuis 2016 (cambriolages, vols violents), tandis que les violences contre les personnes et les escroqueries enregistrées augmentent fortement, en partie parce que les victimes portent davantage plainte. Les homicides restent proches de 1 000 victimes par an. Les prisons n'ont jamais été aussi pleines (142 % de densité au 1er septembre 2026) et les délais de la justice civile s'allongent.",
+  "presentation": "Violences, cambriolages, homicides et escroqueries enregistrés, prisons et délais de la justice, d'après le ministère de l'Intérieur (SSMSI) et le ministère de la Justice.",
   "mise_a_jour": "2026-11-15",
   "couleur": "#4A3AA7",
   "essentiel": [
@@ -48,6 +49,7 @@
     {
       "id": "atteintes-biens",
       "libelle": "Cambriolages et vols violents enregistrés",
+      "libelle_court": "cambriolages de logement enregistrés",
       "question": "Y a-t-il plus de cambriolages et de vols avec violence qu'avant ?",
       "unite": "infractions",
       "decimales": 0,
@@ -114,6 +116,7 @@
     {
       "id": "violences-physiques",
       "libelle": "Victimes de violences physiques enregistrées",
+      "libelle_court": "victimes de violences physiques hors cadre familial enregistrées",
       "question": "Les violences contre les personnes augmentent-elles ?",
       "unite": "victimes",
       "decimales": 0,

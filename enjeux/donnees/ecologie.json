@@ -5,6 +5,7 @@
   "eyebrow": "Climat et énergie",
   "besoin": "Réduit-on nos émissions sans faire exploser ma facture ?",
   "resume": "Les émissions de gaz à effet de serre émises en France ont baissé d'un tiers depuis 1990, mais la baisse ralentit depuis 2024 et les transports n'ont presque pas bougé. Les prix de l'énergie payés par les ménages ont augmenté de moitié entre 2015 et 2025, plus de deux fois plus vite que l'ensemble des prix, et plus d'un ménage sur dix est en précarité énergétique. Les énergies renouvelables progressent, sans rejoindre pour l'instant la trajectoire de l'objectif fixé pour 2030.",
+  "presentation": "Émissions de gaz à effet de serre, empreinte carbone, énergies renouvelables, prix de l'énergie et précarité énergétique, d'après le Citepa, le SDES, l'Insee et Eurostat.",
   "mise_a_jour": "2026-11-15",
   "couleur": "#D99A00",
   "essentiel": [
@@ -48,6 +49,7 @@
     {
       "id": "emissions-ges",
       "libelle": "Émissions de gaz à effet de serre de la France",
+      "libelle_court": "millions de tonnes équivalent CO2 émises en France",
       "question": "La France émet-elle vraiment moins de gaz à effet de serre qu'avant ?",
       "unite": "Mt CO2e",
       "decimales": 1,
@@ -327,6 +329,7 @@
     {
       "id": "prix-energie",
       "libelle": "Prix de l'énergie payés par les ménages",
+      "libelle_court": "prix de l'énergie pour les ménages, indice 100 en 2015",
       "question": "L'énergie coûte-t-elle beaucoup plus cher qu'il y a dix ans ?",
       "unite": "indice 100 en 2015",
       "decimales": 1,
@@ -410,6 +413,7 @@
     {
       "id": "precarite-energetique",
       "libelle": "Ménages en précarité énergétique",
+      "libelle_court": "des ménages en précarité énergétique",
       "question": "Combien de ménages ont du mal à payer l'énergie de leur logement ?",
       "unite": "%",
       "decimales": 1,

@@ -1,20 +1,21 @@
-# Cinq enjeux pour 2027
+# Tableaux de bord thématiques
 
-Section « Grands enjeux » de [gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr/enjeux/) : cinq
-tableaux de bord sur les besoins des Français, construits sur le même modèle, pour que candidats,
-élus, journalistes et citoyens partent des mêmes chiffres pendant la campagne présidentielle de 2027.
+Cinq tableaux de bord de [gouvfr.jbledevehat.fr](https://gouvfr.jbledevehat.fr/) sur les besoins des
+Français, construits sur le même modèle, pour que élus, candidats, journalistes et citoyens partent
+des mêmes chiffres. Chacun est une section du site, comme les autres tableaux de bord ; l'école est
+une page de la section « Éducation et jeunesse », à côté du moral des jeunes (`jeunes/`).
 
 | Adresse | Sujet | Données |
 |---|---|---|
-| `/enjeux/` | Vue d'ensemble des cinq enjeux | les cinq fichiers ci-dessous |
-| `/enjeux/pouvoir-achat.html` | Pouvoir d'achat, travail et logement | `donnees/pouvoir-achat.json` |
-| `/enjeux/sante.html` | Accès aux soins | `donnees/sante.json` |
-| `/enjeux/securite.html` | Sécurité et justice | `donnees/securite.json` |
-| `/enjeux/ecole.html` | École et jeunesse | `donnees/ecole.json` |
-| `/enjeux/ecologie.html` | Transition écologique et énergie | `donnees/ecologie.json` |
+| `/pouvoir-achat/` | Pouvoir d'achat, travail et logement | `donnees/pouvoir-achat.json` |
+| `/sante/` | Accès aux soins | `donnees/sante.json` |
+| `/securite/` | Sécurité et justice | `donnees/securite.json` |
+| `/jeunes/ecole.html` | L'école et l'insertion des jeunes | `donnees/ecole.json` |
+| `/ecologie/` | Transition écologique et énergie | `donnees/ecologie.json` |
 
 Les cinq pages sont produites à partir d'un seul gabarit, `tableau.html`, qui lit le fichier de
-données de son sujet. L'argent public consacré à chaque sujet n'est pas recopié : il est recalculé
+données de son sujet ; leurs adresses sont fixées dans `ADRESSES` (`commun.js`). La carte de chaque
+tableau sur l'accueil est écrite à la construction (`porteAccueil`), au format des autres cartes. L'argent public consacré à chaque sujet n'est pas recopié : il est recalculé
 dans la page à partir des comptes de l'Insee de la section budget (`budget/donnees/argent-public-AAAA.json`),
 selon les codes de fonction indiqués dans le fichier du sujet.
 
@@ -43,10 +44,11 @@ Proposition indépendante construite à partir de documents publics ; ce n'est p
   "eyebrow": "Santé",
   "besoin": "Puis-je voir un médecin à temps, près de chez moi ?",   // la question des Français
   "resume": "Deux ou trois phrases : ce que montre le tableau de bord, sans parti pris.",
+  "presentation": "Une phrase : ce que contient le tableau de bord (carte de l'accueil).",
   "mise_a_jour": "2026-11-15",
   "couleur": "#2A78D6",                      // fixée par le gabarit, ne pas changer
 
-  // Les trois indicateurs mis en avant dans la vue d'ensemble et sur l'accueil.
+  // Les trois indicateurs mis en avant sur la carte de l'accueil.
   "cles": ["sans-medecin-traitant", "…", "…"],
 
   // L'essentiel : 4 à 6 constats, chacun appuyé sur un indicateur de la page.
@@ -57,6 +59,7 @@ Proposition indépendante construite à partir de documents publics ; ce n'est p
     {
       "id": "sans-medecin-traitant",
       "libelle": "Patients sans médecin traitant",
+      "libelle_court": "facultatif : texte sous le chiffre de la carte de l'accueil",
       "question": "Combien de Français n'ont pas de médecin traitant ?",
       "unite": "%",                       // %, €, ans, jours, ‰, « pour 100 000 habitants », « Mt CO2e »…
       "decimales": 1,

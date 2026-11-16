@@ -12,9 +12,15 @@ vérifiés pour partager les données publiques et piloter les politiques publiq
 | [`/budget/pilotage.html`](https://gouvfr.jbledevehat.fr/budget/pilotage.html) | Pilotage du budget : argent public et budget de l'État | `budget/pilotage.html` |
 | [`/budget/aides-entreprises.html`](https://gouvfr.jbledevehat.fr/budget/aides-entreprises.html) | Les aides aux entreprises | `budget/aides-entreprises.html` |
 | [`/acteurs/`](https://gouvfr.jbledevehat.fr/acteurs/) | Les acteurs publics : organigramme par thème, avec la mission de chaque organisme | `acteurs/index.html` |
+| [`/pouvoir-achat/`](https://gouvfr.jbledevehat.fr/pouvoir-achat/) | Pouvoir d'achat, travail et logement | `enjeux/tableau.html`, `enjeux/donnees/pouvoir-achat.json` |
+| [`/sante/`](https://gouvfr.jbledevehat.fr/sante/) | Accès aux soins | `enjeux/tableau.html`, `enjeux/donnees/sante.json` |
+| [`/securite/`](https://gouvfr.jbledevehat.fr/securite/) | Sécurité et justice | `enjeux/tableau.html`, `enjeux/donnees/securite.json` |
+| [`/jeunes/ecole.html`](https://gouvfr.jbledevehat.fr/jeunes/ecole.html) | Éducation et jeunesse : l'école et l'insertion des jeunes | `enjeux/tableau.html`, `enjeux/donnees/ecole.json` |
+| [`/jeunes/`](https://gouvfr.jbledevehat.fr/jeunes/) | Éducation et jeunesse : le moral des jeunes et les pensées suicidaires | `jeunes/index.html` |
+| [`/ecologie/`](https://gouvfr.jbledevehat.fr/ecologie/) | Transition écologique et énergie | `enjeux/tableau.html`, `enjeux/donnees/ecologie.json` |
 
 Toutes les pages portent le même bandeau (`src/build/bandeau.mjs`, inséré à la construction à la
-place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux trois sections, thème, puis fil
+place du marqueur `<!--bandeau-->`) : accès à l'accueil et aux huit sections, thème, puis fil
 d'Ariane terminé par un sélecteur des pages de la section (Carte | Pilotage…). Sur les pages plein écran (carte, exploration du budget), le panneau de gauche peut être masqué ; le choix est gardé d'une visite à l'autre. Les anciennes adresses restent
 valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la racine, et
 `pilotage.html` renvoie vers `sites/pilotage.html`.
@@ -22,7 +28,8 @@ valides : `sites.csv`, `sites.json` et `carte.pdf` sont aussi publiés à la rac
 Le budget et les aides ont leurs propres données, scripts et sources, décrits dans
 [`budget/README.md`](budget/README.md) ; la construction du site se contente de copier leurs
 pages et leurs données dans `out/web/budget/`. De même pour les acteurs publics ([`acteurs/README.md`](acteurs/README.md)), copiés dans
-`out/web/acteurs/`. La suite de ce document porte sur la carte des
+`out/web/acteurs/`. Les tableaux thématiques (pouvoir d'achat, santé, sécurité, école, écologie)
+partagent un gabarit et des règles de saisie décrits dans [`enjeux/README.md`](enjeux/README.md). La suite de ce document porte sur la carte des
 sites web.
 
 # Carte des sites web publics de l'État

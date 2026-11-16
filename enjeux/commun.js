@@ -1,8 +1,19 @@
-// Fonctions communes à la section « Cinq enjeux pour 2027 », utilisées à la fois à la construction
-// (textes et blocs écrits dans les pages, lisibles sans JavaScript et par les moteurs de recherche)
-// et dans les pages elles-mêmes (graphiques de enjeux/tableau.html).
+// Fonctions communes aux tableaux de bord thématiques (pouvoir d'achat, santé, sécurité, école,
+// écologie), utilisées à la fois à la construction (textes et cartes écrits dans les pages, lisibles
+// sans JavaScript et par les moteurs de recherche) et dans les pages elles-mêmes (graphiques de
+// enjeux/tableau.html).
 
 export const ENJEUX = ['pouvoir-achat', 'sante', 'securite', 'ecole', 'ecologie'];
+
+// Adresse de chaque tableau sur le site : un tableau par section, comme les autres ; l'école est
+// une page de la section « Éducation et jeunesse », à côté du moral des jeunes.
+export const ADRESSES = {
+  'pouvoir-achat': { section: 'pouvoir-achat', page: 'tableau', chemin: 'pouvoir-achat/' },
+  sante: { section: 'sante', page: 'tableau', chemin: 'sante/' },
+  securite: { section: 'securite', page: 'tableau', chemin: 'securite/' },
+  ecole: { section: 'jeunes', page: 'ecole', chemin: 'jeunes/ecole.html' },
+  ecologie: { section: 'ecologie', page: 'tableau', chemin: 'ecologie/' },
+};
 
 // Couleur de chaque enjeu (palette du site, vérifiée pour les daltonismes), et sa variante pour le
 // thème sombre, vérifiée contre le fond sombre.
@@ -64,19 +75,6 @@ export function bilan(ind) {
   };
 }
 
-// Petite courbe de la première série, pour les blocs de la vue d'ensemble.
-export function sparkline(ind, couleur, l = 120, h = 34) {
-  const s = ind.series[0].valeurs, A = ind.annees;
-  const pts = A.map((a, k) => [a, s[k]]).filter(([a, v]) => v != null && a >= 2010);
-  if (pts.length < 2) return '';
-  const vs = pts.map(p => p[1]), min = Math.min(...vs), max = Math.max(...vs);
-  const x = a => 2 + (a - pts[0][0]) / (pts[pts.length - 1][0] - pts[0][0]) * (l - 6);
-  const y = v => max === min ? h / 2 : 3 + (1 - (v - min) / (max - min)) * (h - 6);
-  const d = pts.map(([a, v], k) => `${k ? 'L' : 'M'}${x(a).toFixed(1)},${y(v).toFixed(1)}`).join('');
-  const [a1, v1] = pts[pts.length - 1];
-  return `<svg class="spark" viewBox="0 0 ${l} ${h}" width="${l}" height="${h}" aria-hidden="true"><path d="${d}" fill="none" stroke="${couleur}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${x(a1).toFixed(1)}" cy="${y(v1).toFixed(1)}" r="3" fill="${couleur}"/></svg>`;
-}
-
 const FLECHE = { mieux: '▲', 'moins-bien': '▼', neutre: '■' };
 const MOT = { mieux: 'évolution favorable', 'moins-bien': 'évolution défavorable', neutre: 'stable ou sans sens défini' };
 
@@ -91,17 +89,45 @@ export function chiffreCle(ind, { lien = '', classe = '' } = {}) {
   return `<div class="cle${classe ? ' ' + classe : ''}"><span class="cle-lib">${titre}</span>${serie}<b>${valeurHtml(b.valeur, ind)}</b><span class="cle-an">${b.annee}${b.provisoire ? ', provisoire' : ''}</span>${evo}</div>`;
 }
 
-// Bloc d'un enjeu (vue d'ensemble et accueil) : sa question, son résumé et trois chiffres clés.
-export function blocEnjeu(D, { racine = '', resume = true } = {}) {
-  const page = `${racine}enjeux/${D.id}.html`;
-  // Les trois chiffres choisis pour la vue d'ensemble (« cles »), sinon les trois premiers.
-  const cles = (D.cles ? D.cles.map(id => D.indicateurs.find(i => i.id === id)) : D.indicateurs).filter(i => i && bilan(i)).slice(0, 3);
-  return `<article class="card enjeu" style="--enjeu:${D.couleur}">
-  <div class="enjeu-tete"><span class="eyebrow">${esc(D.eyebrow)}</span><h3><a href="${page}">${esc(D.titre)}</a></h3><p class="besoin">${esc(D.besoin)}</p></div>
-  ${resume ? `<p class="enjeu-resume">${esc(D.resume)}</p>` : ''}
-  <div class="enjeu-cles">${cles.map(i => `<div class="enjeu-cle">${sparkline(i, D.couleur)}${chiffreCle(i)}</div>`).join('')}</div>
-  <div class="go"><a href="${page}">Le tableau de bord</a></div>
-</article>`;
+// Carte d'un tableau de bord sur l'accueil, au même format que les autres (aperçu, sur-titre,
+// titre, phrase, trois chiffres, liens) : l'aperçu est la courbe du premier chiffre clé.
+export function porteAccueil(D, { chemin, liens = [['Le tableau de bord', chemin]], chiffres } = {}) {
+  const cles = (D.cles || []).map(id => D.indicateurs.find(i => i.id === id)).filter(i => i && bilan(i));
+  return `<div class="card door">
+        <div class="visual" aria-hidden="true">${apercu(cles[0], D.couleur)}</div>
+        <div class="body">
+          <span class="eyebrow">${esc(D.eyebrow)}</span>
+          <h3><a href="${chemin}">${esc(D.titre)}</a></h3>
+          <p>${esc(D.presentation || D.besoin)}</p>
+          <div class="figs">
+            ${chiffres ?? cles.slice(0, 3).map(chiffreAccueil).join('\n            ')}
+          </div>
+          <div class="go">${liens.map(([t, h]) => `<a href="${h}">${esc(t)}</a>`).join('')}</div>
+        </div>
+      </div>`;
+}
+
+// Un chiffre de la carte : la valeur en grand, puis ce qu'elle mesure et son année.
+export function chiffreAccueil(ind) {
+  const b = bilan(ind);
+  const n = nombre(b.valeur, ind.decimales ?? 0) + (ind.unite === '%' ? '\u00a0%' : '');
+  let lib = ind.libelle_court || ind.libelle;
+  if (!ind.libelle_court && ind.unite && ind.unite !== '%' && !lib.toLowerCase().includes(ind.unite.toLowerCase())) lib += `, en ${ind.unite}`;
+  if (lib[1] && lib[1] === lib[1].toLowerCase()) lib = lib[0].toLowerCase() + lib.slice(1);
+  return `<div><b>${n}</b><span>${esc(lib)} (${b.annee}${b.provisoire ? ', provisoire' : ''})</span></div>`;
+}
+
+// Aperçu décoratif : la courbe d'un indicateur depuis 2010, dans le cadre des autres aperçus.
+function apercu(ind, couleur) {
+  if (!ind) return '';
+  const s = ind.series[0].valeurs, A = ind.annees;
+  const pts = A.map((a, k) => [a, s[k]]).filter(([a, v]) => v != null && a >= 2010);
+  // Échelle resserrée sur la série, comme l'aperçu du moral des jeunes : c'est un motif, pas un graphique.
+  const vs = pts.map(p => p[1]), lo = Math.min(...vs), hi = Math.max(...vs);
+  const x = a => 20 + (a - pts[0][0]) / ((pts[pts.length - 1][0] - pts[0][0]) || 1) * 260;
+  const y = v => 115 - (v - lo) / ((hi - lo) || 1) * 90;
+  const p = pts.map(([a, v]) => `${x(a).toFixed(0)},${y(v).toFixed(0)}`).join(' ');
+  return `<svg class="courbes" viewBox="0 0 300 150" preserveAspectRatio="none" style="--c:${couleur};--c-sombre:${SOMBRE[couleur] || couleur}"><line x1="20" x2="280" y1="130" y2="130"/><polyline class="t" points="${p}"/></svg>`;
 }
 
 // Textes d'une page de sujet, écrits dans le gabarit à la construction.
